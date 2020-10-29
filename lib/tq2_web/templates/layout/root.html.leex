@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="<%= locale() %>">
+  <head>
+    <%= csrf_meta_tag() %>
+    <%= live_title_tag assigns[:page_title] || "Teiqui", suffix: " · Teiqui" %>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/svg+xml" href="<%= Routes.static_path(@conn, "/images/favicon.svg") %>" sizes="any">
+    <link rel="icon" type="image/png" href="<%= Routes.static_path(@conn, "/images/favicon.png") %>" sizes="64x64">
+    <link rel="apple-touch-icon" href="<%= Routes.static_path(@conn, "/images/apple-touch-icon.png") %>" sizes="152x152">
+
+    <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" data-turbolinks-track="reload">
+
+    <script defer phx-track-static src="<%= Routes.static_path(@conn, "/js/app.js") %>" data-turbolinks-track="reload"></script>
+  </head>
+
+  <body class="my-3 bg-light">
+    <%= @inner_content %>
+  </body>
+</html>

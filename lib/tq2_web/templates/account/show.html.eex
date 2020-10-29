@@ -1,0 +1,24 @@
+<div class="card my-3">
+  <div class="card-header">
+    <h2 class="h5"><%= @account.name %></h2>
+  </div>
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= dgettext("accounts", "Status") %></strong>:
+      <%= status @account %>
+    </p>
+    <p class="mb-1">
+      <strong><%= dgettext("accounts", "Country") %></strong>:
+      <%= country @account %>
+    </p>
+    <p class="mb-1">
+      <strong><%= dgettext("accounts", "Time zone") %></strong>:
+      <%= @account.time_zone %>
+    </p>
+  </div>
+</div>
+
+<div>
+  <%= link_to_edit @conn, @account %> |
+  <%= link dgettext("accounts", "Back"), to: Routes.account_path(@conn, :index) %>
+</div>

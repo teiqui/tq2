@@ -1,0 +1,161 @@
+{
+  "lib/tq2_web/channels/*_channel.ex": {
+    "type": "channel",
+    "dispatch": "mix test test/tq2_web/channels/{}_channel_test.exs",
+    "alternate": "test/tq2_web/channels/{}_channel_test.exs"
+  },
+
+  "lib/tq2_web/controllers/*_controller.ex": {
+    "type": "controller",
+    "dispatch": "mix test test/tq2_web/controllers/{}_controller_test.exs",
+    "alternate": "test/tq2_web/controllers/{}_controller_test.exs"
+  },
+
+  "lib/tq2_web/live/*_live.ex": {
+    "type": "live",
+    "dispatch": "mix test test/tq2_web/live/{}_live_test.exs",
+    "alternate": "test/tq2_web/live/{}_live_test.exs"
+  },
+
+  "lib/tq2_web/views/*_view.ex": {
+    "type": "view",
+    "dispatch": "mix test test/tq2_web/views/{}_view_test.exs",
+    "alternate": "test/tq2_web/views/{}_view_test.exs"
+  },
+
+  "lib/tq2_web/views/*_helpers.ex": {
+    "type": "helper",
+    "dispatch": "mix test test/tq2_web/views/{}_helpers_test.exs",
+    "alternate": "test/tq2_web/views/{}_helpers_test.exs"
+  },
+
+  "lib/tq2_web/plugs/*_plug.ex": {
+    "type": "plug",
+    "dispatch": "mix test test/tq2_web/plugs/{}_plug_test.exs",
+    "alternate": "test/tq2_web/plugs/{}_plug_test.exs"
+  },
+
+  "lib/tq2_web/uploaders/*_uploader.ex": {
+    "type": "uploader",
+    "dispatch": "mix test test/tq2_web/uploaders/{}_uploader_test.exs",
+    "alternate": "test/tq2_web/uploaders/{}_uploader_test.exs"
+  },
+
+  "priv/gettext/*.po": {
+    "type": "locale"
+  },
+
+  "test/tq2_web/channels/*_channel_test.exs": {
+    "type": "tchannel",
+    "dispatch": "mix test {file}",
+    "alternate": "lib/tq2_web/channels/{}_channel.ex"
+  },
+
+  "test/tq2_web/controllers/*_controller_test.exs": {
+    "type": "tcontroller",
+    "dispatch": "mix test {file}",
+    "alternate": "lib/tq2_web/controllers/{}_controller.ex"
+  },
+
+  "test/tq2_web/live/*_live_test.exs": {
+    "type": "tlive",
+    "dispatch": "mix test {file}",
+    "alternate": "lib/tq2_web/live/{}_live.ex"
+  },
+
+  "test/tq2_web/views/*_view_test.exs": {
+    "type": "tview",
+    "dispatch": "mix test {file}",
+    "alternate": "lib/tq2_web/views/{}_view.ex"
+  },
+
+  "test/tq2_web/views/*_helpers_test.exs": {
+    "type": "thelper",
+    "dispatch": "mix test {file}",
+    "alternate": "lib/tq2_web/views/{}_helpers.ex"
+  },
+
+  "test/tq2_web/plugs/*_plug_test.exs": {
+    "type": "tplug",
+    "dispatch": "mix test {file}",
+    "alternate": "lib/tq2_web/plugs/{}_plug.ex"
+  },
+
+  "test/tq2/*_test.exs": {
+    "type": "tapp",
+    "dispatch": "mix test {file}",
+    "alternate": "lib/tq2/{}.ex"
+  },
+
+  "test/support/*.ex": {
+    "type": "tsupport"
+  },
+
+  "test/support/helpers/fixture_helper.ex": {
+    "type": "fixtures"
+  },
+
+  "test/support/fixtures/*_fixture.ex": {
+    "type": "fixtures"
+  },
+
+  "lib/tq2_web/templates/*.eex": {
+    "type": "template"
+  },
+
+  "lib/tq2_web/router.ex": {
+    "type": "router"
+  },
+
+  "assets/css/app.scss": {
+    "type": "stylesheet"
+  },
+
+  "assets/css/*": {
+    "type": "stylesheet"
+  },
+
+  "assets/js/app.js": {
+    "type": "javascript",
+    "dispatch": "yarn -s --cwd assets run lint {file}"
+  },
+
+  "assets/js/*": {
+    "type": "javascript",
+    "dispatch": "yarn -s --cwd assets run lint {file}"
+  },
+
+  "config/*.exs": {
+    "type": "environment"
+  },
+
+  "lib/tq2.ex": {
+    "type": "app"
+  },
+
+  "lib/tq2/*.ex": {
+    "type": "app",
+    "dispatch": "mix test test/tq2/{}_test.exs",
+    "alternate": "test/tq2/{}_test.exs"
+  },
+
+  "lib/tq2_web.ex": {
+    "type": "web"
+  },
+
+  "lib/tq2_web/*": {
+    "type": "web"
+  },
+
+  "priv/repo/seeds.exs": {
+    "type": "seed"
+  },
+
+  "priv/repo/migrations/*.exs": {
+    "type": "migration"
+  },
+
+  "mix.exs": {
+    "type": "mix"
+  }
+}
