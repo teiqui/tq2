@@ -15,15 +15,15 @@ msgstr ""
 msgid "Accounts"
 msgstr "Cuentas"
 
-#: lib/tq2_web/views/account_view.ex:16
+#: lib/tq2_web/views/account_view.ex:17
 msgid "Active"
 msgstr "Activa"
 
-#: lib/tq2_web/views/account_view.ex:44
+#: lib/tq2_web/views/account_view.ex:45
 msgid "Are you sure?"
 msgstr "¿Está seguro de eliminar la cuenta?"
 
-#: lib/tq2_web/views/account_view.ex:6
+#: lib/tq2_web/views/account_view.ex:7
 msgid "Argentina"
 msgstr "Argentina"
 
@@ -32,11 +32,11 @@ msgstr "Argentina"
 msgid "Back"
 msgstr "Listado de cuentas"
 
-#: lib/tq2_web/views/account_view.ex:7
+#: lib/tq2_web/views/account_view.ex:8
 msgid "Chile"
 msgstr "Chile"
 
-#: lib/tq2_web/views/account_view.ex:8
+#: lib/tq2_web/views/account_view.ex:9
 msgid "Colombia"
 msgstr "Colombia"
 
@@ -45,15 +45,15 @@ msgstr "Colombia"
 msgid "Country"
 msgstr "País"
 
-#: lib/tq2_web/views/account_view.ex:85
+#: lib/tq2_web/views/account_view.ex:86
 msgid "Create"
 msgstr "Crear cuenta"
 
-#: lib/tq2_web/views/account_view.ex:41
+#: lib/tq2_web/views/account_view.ex:42
 msgid "Delete"
 msgstr "Eliminar cuenta"
 
-#: lib/tq2_web/views/account_view.ex:32
+#: lib/tq2_web/views/account_view.ex:33
 msgid "Edit"
 msgstr "Editar cuenta"
 
@@ -61,11 +61,11 @@ msgstr "Editar cuenta"
 msgid "Edit account"
 msgstr "Editar cuenta"
 
-#: lib/tq2_web/views/account_view.ex:15
+#: lib/tq2_web/views/account_view.ex:16
 msgid "Green"
 msgstr "Nueva"
 
-#: lib/tq2_web/views/account_view.ex:9
+#: lib/tq2_web/views/account_view.ex:10
 msgid "Guatemala"
 msgstr "Guatemala"
 
@@ -77,7 +77,7 @@ msgstr "Vamos, crea una..."
 msgid "Looks like you have no accounts."
 msgstr "Parece que no hay ninguna cuenta."
 
-#: lib/tq2_web/views/account_view.ex:10
+#: lib/tq2_web/views/account_view.ex:11
 msgid "Mexico"
 msgstr "México"
 
@@ -87,15 +87,15 @@ msgid "Name"
 msgstr "Nombre"
 
 #: lib/tq2_web/templates/account/empty.html.eex:11
-#: lib/tq2_web/templates/account/index.html.eex:36 lib/tq2_web/templates/account/new.html.eex:4
+#: lib/tq2_web/templates/account/index.html.eex:40 lib/tq2_web/templates/account/new.html.eex:4
 msgid "New account"
 msgstr "Nueva cuenta"
 
-#: lib/tq2_web/views/account_view.ex:11
+#: lib/tq2_web/views/account_view.ex:12
 msgid "Peru"
 msgstr "Perú"
 
-#: lib/tq2_web/views/account_view.ex:23
+#: lib/tq2_web/views/account_view.ex:24
 msgid "Show"
 msgstr "Ver cuenta"
 
@@ -104,7 +104,7 @@ msgstr "Ver cuenta"
 msgid "Status"
 msgstr "Estado"
 
-#: lib/tq2_web/views/account_view.ex:17
+#: lib/tq2_web/views/account_view.ex:18
 msgid "Suspended"
 msgstr "Suspendida"
 
@@ -113,7 +113,7 @@ msgstr "Suspendida"
 msgid "Time zone"
 msgstr "Zona horaria"
 
-#: lib/tq2_web/views/account_view.ex:86
+#: lib/tq2_web/views/account_view.ex:87
 msgid "Update"
 msgstr "Actualizar cuenta"
 

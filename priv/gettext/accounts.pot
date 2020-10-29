@@ -14,15 +14,15 @@ msgstr ""
 msgid "Accounts"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:16
+#: lib/tq2_web/views/account_view.ex:17
 msgid "Active"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:44
+#: lib/tq2_web/views/account_view.ex:45
 msgid "Are you sure?"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:6
+#: lib/tq2_web/views/account_view.ex:7
 msgid "Argentina"
 msgstr ""
 
@@ -31,11 +31,11 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:7
+#: lib/tq2_web/views/account_view.ex:8
 msgid "Chile"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:8
+#: lib/tq2_web/views/account_view.ex:9
 msgid "Colombia"
 msgstr ""
 
@@ -44,15 +44,15 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:85
+#: lib/tq2_web/views/account_view.ex:86
 msgid "Create"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:41
+#: lib/tq2_web/views/account_view.ex:42
 msgid "Delete"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:32
+#: lib/tq2_web/views/account_view.ex:33
 msgid "Edit"
 msgstr ""
 
@@ -60,11 +60,11 @@ msgstr ""
 msgid "Edit account"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:15
+#: lib/tq2_web/views/account_view.ex:16
 msgid "Green"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:9
+#: lib/tq2_web/views/account_view.ex:10
 msgid "Guatemala"
 msgstr ""
 
@@ -76,7 +76,7 @@ msgstr ""
 msgid "Looks like you have no accounts."
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:10
+#: lib/tq2_web/views/account_view.ex:11
 msgid "Mexico"
 msgstr ""
 
@@ -86,15 +86,15 @@ msgid "Name"
 msgstr ""
 
 #: lib/tq2_web/templates/account/empty.html.eex:11
-#: lib/tq2_web/templates/account/index.html.eex:36 lib/tq2_web/templates/account/new.html.eex:4
+#: lib/tq2_web/templates/account/index.html.eex:40 lib/tq2_web/templates/account/new.html.eex:4
 msgid "New account"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:11
+#: lib/tq2_web/views/account_view.ex:12
 msgid "Peru"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:23
+#: lib/tq2_web/views/account_view.ex:24
 msgid "Show"
 msgstr ""
 
@@ -103,7 +103,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:17
+#: lib/tq2_web/views/account_view.ex:18
 msgid "Suspended"
 msgstr ""
 
@@ -112,7 +112,7 @@ msgstr ""
 msgid "Time zone"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:86
+#: lib/tq2_web/views/account_view.ex:87
 msgid "Update"
 msgstr ""
 
