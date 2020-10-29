@@ -6,12 +6,33 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
+        ports: ['5432:5432']
+        env:
+          POSTGRES_PASSWORD: password
+          options: >-
+            --health-cmd pg_isready
+            --health-interval 10s
+            --health-timeout 5s
+            --health-retries 5
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-elixir@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup and test
+        uses: actions/setup-elixir@v1
         with:
           otp-version: '23.1'
           elixir-version: '1.11.1'
-      - run: mix deps.get
-      - run: mix test
-      - run: mix format --check-formatted
+        env:
+          DATABASE_NAME: postgres
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: password
+        run: |
+          mix deps.get
+          mix test
+          mix format --check-formatted

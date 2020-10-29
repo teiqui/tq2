@@ -6,9 +6,9 @@ use Mix.Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :tq2, Tq2.Repo,
-  username: "tq2",
-  password: "tq2",
-  database: "tq2_test#{System.get_env("MIX_TEST_PARTITION")}",
+  username: System.get_env("DATABASE_USERNAME", "tq2"),
+  password: System.get_env("DATABASE_PASSWORD", "tq2"),
+  database: System.get_env("DATABASE_NAME", "tq2_test#{System.get_env("MIX_TEST_PARTITION")}"),
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
