@@ -23,11 +23,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup and test
+      - name: Setup
         uses: actions/setup-elixir@v1
         with:
           otp-version: '23.1'
           elixir-version: '1.11.1'
+
+      - name: Test
         env:
           DATABASE_NAME: postgres
           DATABASE_USERNAME: postgres
