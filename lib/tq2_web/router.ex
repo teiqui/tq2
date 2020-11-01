@@ -19,6 +19,7 @@ defmodule Tq2Web.Router do
 
     get "/", RootController, :index
     resources "/accounts", AccountController
+    resources "/users", UserController
   end
 
   # Other scopes may use custom stacks.

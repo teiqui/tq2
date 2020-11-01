@@ -1,0 +1,13 @@
+<div class="jumbotron">
+  <h1>
+    <%= dgettext("users", "Looks like you have no users.") %>
+  </h1>
+
+  <p class="lead">
+    <%= dgettext("users", "Let's create one...") %>
+  </p>
+
+  <p>
+    <%= link dgettext("users", "New user"), to: Routes.user_path(@conn, :new), class: "btn btn-lg btn-primary" %>
+  </p>
+</div>

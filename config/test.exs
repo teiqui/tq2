@@ -23,3 +23,8 @@ config :tq2, Tq2Web.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+# Argon config
+config :argon2_elixir,
+  t_cost: 1,
+  m_cost: 5

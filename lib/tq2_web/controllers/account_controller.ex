@@ -12,6 +12,7 @@ defmodule Tq2Web.AccountController do
 
   def new(conn, _params) do
     changeset = Accounts.change_account(%Account{})
+
     render(conn, "new.html", changeset: changeset)
   end
 
@@ -29,12 +30,14 @@ defmodule Tq2Web.AccountController do
 
   def show(conn, %{"id" => id}) do
     account = Accounts.get_account!(id)
+
     render(conn, "show.html", account: account)
   end
 
   def edit(conn, %{"id" => id}) do
     account = Accounts.get_account!(id)
     changeset = Accounts.change_account(account)
+
     render(conn, "edit.html", account: account, changeset: changeset)
   end
 
