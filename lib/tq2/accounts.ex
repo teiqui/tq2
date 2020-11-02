@@ -4,7 +4,7 @@ defmodule Tq2.Accounts do
   """
 
   import Ecto.Query, warn: false
-  alias Tq2.Repo
+  alias Tq2.{Repo, Trail}
 
   alias Tq2.Accounts.Account
 
@@ -52,7 +52,7 @@ defmodule Tq2.Accounts do
   def create_account(attrs \\ %{}) do
     %Account{}
     |> Account.changeset(attrs)
-    |> Repo.insert()
+    |> Trail.insert()
   end
 
   @doc """
@@ -70,7 +70,7 @@ defmodule Tq2.Accounts do
   def update_account(%Account{} = account, attrs) do
     account
     |> Account.changeset(attrs)
-    |> Repo.update()
+    |> Trail.update()
   end
 
   @doc """
@@ -86,7 +86,7 @@ defmodule Tq2.Accounts do
 
   """
   def delete_account(%Account{} = account) do
-    Repo.delete(account)
+    Trail.delete(account)
   end
 
   @doc """
@@ -148,7 +148,7 @@ defmodule Tq2.Accounts do
   def create_user(attrs \\ %{}) do
     %User{}
     |> User.create_changeset(attrs)
-    |> Repo.insert()
+    |> Trail.insert()
   end
 
   @doc """
@@ -166,7 +166,7 @@ defmodule Tq2.Accounts do
   def update_user(%User{} = user, attrs) do
     user
     |> User.changeset(attrs)
-    |> Repo.update()
+    |> Trail.update()
   end
 
   @doc """
@@ -182,7 +182,7 @@ defmodule Tq2.Accounts do
 
   """
   def delete_user(%User{} = user) do
-    Repo.delete(user)
+    Trail.delete(user)
   end
 
   @doc """

@@ -48,6 +48,7 @@ defmodule Tq2.MixProject do
       {:jason, ">= 1.0.0"},
       {:plug_cowboy, ">= 2.4.0"},
       {:argon2_elixir, ">= 2.3.0"},
+      {:paper_trail, ">= 0.9.0"},
       {:tzdata, ">= 1.0.0"},
       {:scrivener_ecto, ">= 2.6.0"},
       {:scrivener_html, ">= 1.8.0"}

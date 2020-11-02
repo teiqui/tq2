@@ -26,6 +26,9 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# PaperTrail config
+config :paper_trail, repo: Tq2.Repo
+
 # Gettext config
 config :tq2, Tq2Web.Gettext, default_locale: "es"
 
