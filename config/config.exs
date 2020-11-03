@@ -19,7 +19,8 @@ config :tq2, Tq2Web.Endpoint,
   live_view: [signing_salt: "t/+MFL7P"]
 
 # Configures Elixir's Logger
-config :logger, :console,
+config :logger,
+  backends: [:console, Sentry.LoggerBackend],
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
@@ -39,6 +40,14 @@ config :tq2, Tq2.Repo, migration_timestamps: [type: :utc_datetime]
 config :scrivener_html,
   routes_helper: Tq2Web.Router.Helpers,
   view_style: :bootstrap_v4
+
+# Sentry config
+config :sentry,
+  dsn: System.get_env("SENTRY_DSN"),
+  release: System.get_env("APP_RELEASE"),
+  root_source_code_path: File.cwd!(),
+  root_source_code_paths: [File.cwd!()],
+  enable_source_code_context: true
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

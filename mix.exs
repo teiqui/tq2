@@ -5,7 +5,7 @@ defmodule Tq2.MixProject do
     [
       app: :tq2,
       version: "0.1.0",
-      elixir: "~> 1.11",
+      elixir: "~> 1.10",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -51,7 +51,8 @@ defmodule Tq2.MixProject do
       {:paper_trail, ">= 0.9.0"},
       {:tzdata, ">= 1.0.0"},
       {:scrivener_ecto, ">= 2.6.0"},
-      {:scrivener_html, ">= 1.8.0"}
+      {:scrivener_html, ">= 1.8.0"},
+      {:sentry, ">= 8.0.0"}
     ]
   end
 

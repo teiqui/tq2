@@ -1,4 +1,5 @@
 defmodule Tq2Web.Endpoint do
+  use Sentry.PlugCapture
   use Phoenix.Endpoint, otp_app: :tq2
 
   # The session will be stored in the cookie and signed,
@@ -43,6 +44,7 @@ defmodule Tq2Web.Endpoint do
     pass: ["*/*"],
     json_decoder: Phoenix.json_library()
 
+  plug Sentry.PlugContext
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options

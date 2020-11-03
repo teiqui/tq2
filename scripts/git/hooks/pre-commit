@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# First check for mix format
+exec mix format --check-formatted
+
 eslint="assets/node_modules/.bin/eslint"
 files=$(git diff --cached --name-only --diff-filter=d | grep -E '\.mjs$|\.js$')
 
