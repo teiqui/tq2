@@ -52,7 +52,7 @@ defmodule Tq2.MixProject do
       {:tzdata, ">= 1.0.0"},
       {:scrivener_ecto, ">= 2.6.0"},
       {:scrivener_html, ">= 1.8.0"},
-      {:sentry, "~> 8.0"}
+      {:sentry, ">= 8.0.0"}
     ]
   end
 
