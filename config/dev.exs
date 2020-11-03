@@ -2,8 +2,8 @@ use Mix.Config
 
 # Configure your database
 config :tq2, Tq2.Repo,
-  username: "tq2",
-  password: "tq2",
+  username: System.get_env("DATABASE_USERNAME", "tq2"),
+  password: System.get_env("DATABASE_PASSWORD", "tq2"),
   database: "tq2_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
