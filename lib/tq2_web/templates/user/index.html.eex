@@ -37,5 +37,6 @@
 </div>
 
 <div class="mt-3">
-  <%= link dgettext("users", "New user"), to: Routes.user_path(@conn, :new), class: "btn btn-primary" %>
+  <%= link dgettext("users", "New user"), to: Routes.user_path(@conn, :new),
+                                          class: "btn btn-primary rounded-pill font-weight-semi-bold" %>
 </div>

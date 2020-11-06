@@ -5,9 +5,20 @@ defmodule Tq2Web.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
+    plug :fetch_current_session
     plug :put_root_layout, {Tq2Web.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :put_cache_control_headers
+
+    if Mix.env() == :prod do
+      plug Plug.SSL,
+        host: nil,
+        hsts: true,
+        preload: true,
+        subdomains: true,
+        rewrite_on: [:x_forwarded_proto]
+    end
   end
 
   pipeline :api do
@@ -18,6 +29,16 @@ defmodule Tq2Web.Router do
     pipe_through :browser
 
     get "/", RootController, :index
+
+    resources(
+      "/sessions",
+      SessionController,
+      only: [:new, :create, :delete],
+      singleton: true
+    )
+
+    resources "/passwords", PasswordController, only: [:new, :create, :edit, :update]
+
     resources "/accounts", AccountController
     resources "/users", UserController
   end
@@ -26,6 +47,10 @@ defmodule Tq2Web.Router do
   # scope "/api", Tq2Web do
   #   pipe_through :api
   # end
+  #
+  if Mix.env() == :dev do
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
+  end
 
   # Enables LiveDashboard only for development
   #

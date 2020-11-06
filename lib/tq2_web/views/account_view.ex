@@ -80,7 +80,7 @@ defmodule Tq2Web.AccountView do
   def submit_button(account) do
     account
     |> submit_label()
-    |> submit(class: "btn btn-primary")
+    |> submit(class: "btn btn-primary rounded-pill font-weight-semi-bold")
   end
 
   defp submit_label(nil), do: dgettext("accounts", "Create")

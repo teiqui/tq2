@@ -21,9 +21,11 @@ defmodule Tq2Web do
     quote do
       use Phoenix.Controller, namespace: Tq2Web
 
+      alias Tq2Web.Router.Helpers, as: Routes
+
       import Plug.Conn
       import Tq2Web.Gettext
-      alias Tq2Web.Router.Helpers, as: Routes
+      import Tq2Web.SessionPlug, only: [authenticate: 2]
     end
   end
 
@@ -66,6 +68,8 @@ defmodule Tq2Web do
       import Plug.Conn
       import Phoenix.Controller
       import Phoenix.LiveView.Router
+      import Tq2Web.SessionPlug, only: [fetch_current_session: 2]
+      import Tq2Web.CacheControlPlug, only: [put_cache_control_headers: 2]
     end
   end
 

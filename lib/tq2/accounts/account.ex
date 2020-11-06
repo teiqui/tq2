@@ -2,7 +2,7 @@ defmodule Tq2.Accounts.Account do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Tq2.Accounts.Account
+  alias Tq2.Accounts.{Account, Membership}
 
   schema "accounts" do
     field :country, :string
@@ -10,6 +10,8 @@ defmodule Tq2.Accounts.Account do
     field :status, :string
     field :time_zone, :string
     field :lock_version, :integer, default: 0
+
+    has_many :memberships, Membership
 
     timestamps()
   end

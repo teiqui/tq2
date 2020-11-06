@@ -28,3 +28,6 @@ config :logger, level: :warn
 config :argon2_elixir,
   t_cost: 1,
   m_cost: 5
+
+# Bamboo test adapter
+config :tq2, Tq2.Notifications.Mailer, adapter: Bamboo.TestAdapter

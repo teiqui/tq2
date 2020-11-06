@@ -2,7 +2,7 @@ defmodule Tq2.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Tq2.Accounts.User
+  alias Tq2.Accounts.{Membership, User}
   alias Tq2.Repo
 
   schema "users" do
@@ -14,6 +14,8 @@ defmodule Tq2.Accounts.User do
     field :password_reset_token, :string
     field :password_reset_sent_at, :utc_datetime
     field :lock_version, :integer, default: 0
+
+    has_many :memberships, Membership
 
     timestamps()
   end

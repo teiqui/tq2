@@ -25,6 +25,7 @@ config :tq2, Tq2Web.Endpoint,
       "node_modules/webpack/bin/webpack.js",
       "--mode",
       "development",
+      "--color",
       "--watch",
       cd: Path.expand("../assets", __DIR__)
     ]
@@ -74,3 +75,6 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+# Bamboo local adapter
+config :tq2, Tq2.Notifications.Mailer, adapter: Bamboo.LocalAdapter

@@ -3,7 +3,7 @@ defmodule Tq2.Accounts.UserRepoTest do
 
   describe "user" do
     alias Tq2.Accounts
-    alias Tq2.Accounts.User
+    alias Tq2.Accounts.{Account, Session, User}
 
     @valid_attrs %{
       email: "some@email.com",
@@ -13,12 +13,20 @@ defmodule Tq2.Accounts.UserRepoTest do
     }
 
     def user_fixture(attrs \\ %{}) do
-      {:ok, user} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Accounts.create_user()
+      account = Tq2.Repo.get_by!(Account, name: "test_account")
+      session = %Session{account: account}
 
-      user
+      user_attrs =
+        Enum.into(attrs, %{
+          email: "some@email.com",
+          lastname: "some lastname",
+          name: "some name",
+          password: "123456"
+        })
+
+      {:ok, user} = Accounts.create_user(session, user_attrs)
+
+      %{user | password: nil}
     end
 
     test "converts unique constraint on email to error" do

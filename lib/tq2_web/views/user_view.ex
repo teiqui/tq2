@@ -40,7 +40,7 @@ defmodule Tq2Web.UserView do
   def submit_button(user) do
     user
     |> submit_label()
-    |> submit(class: "btn btn-primary")
+    |> submit(class: "btn btn-primary rounded-pill font-weight-semi-bold")
   end
 
   defp submit_label(nil), do: dgettext("users", "Create")

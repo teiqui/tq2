@@ -22,6 +22,22 @@ defmodule Tq2Web.InputHelpersTest do
       end)
     end
 
+    test "with custom wrapper options", %{conn: conn} do
+      form_for(conn, "/", [as: :test], fn form ->
+        input =
+          form
+          |> input(:name, nil, wrapper_html: [class: "test-wrapper-class"])
+          |> input_to_string()
+
+        assert input =~ "<input"
+        assert input =~ "test-wrapper-class"
+        assert input =~ "form-group"
+        assert input =~ "form-control"
+        refute input =~ "wrapper_html"
+        ""
+      end)
+    end
+
     test "with custom input options", %{conn: conn} do
       form_for(conn, "/", [as: :test], fn form ->
         input =

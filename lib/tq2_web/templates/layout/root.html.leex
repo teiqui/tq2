@@ -2,7 +2,7 @@
 <html lang="<%= locale() %>">
   <head>
     <%= csrf_meta_tag() %>
-    <%= live_title_tag assigns[:page_title] || "Teiqui", suffix: " · Teiqui" %>
+    <%= live_title_tag assigns[:page_title] || gettext("Teiqui"), suffix: " · #{gettext("Teiqui")}" %>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

@@ -1,7 +1,9 @@
 defmodule Tq2Web.UserControllerTest do
   use Tq2Web.ConnCase
+  use Tq2.Support.LoginHelper
 
   alias Tq2.Accounts
+  alias Tq2.Accounts.{Account, Session}
 
   @create_attrs %{
     email: "some@email.com",
@@ -16,13 +18,37 @@ defmodule Tq2Web.UserControllerTest do
   }
   @invalid_attrs %{email: "wrong@email", lastname: nil, name: nil, password: "123"}
 
-  def fixture(:user) do
-    {:ok, user} = Accounts.create_user(@create_attrs)
+  defp fixture(:user) do
+    account = Tq2.Repo.get_by!(Account, name: "test_account")
+    session = %Session{account: account}
 
-    user
+    {:ok, user} = Accounts.create_user(session, @create_attrs)
+
+    %{user | password: nil}
+  end
+
+  describe "unauthorized access" do
+    test "requires user authentication on all actions", %{conn: conn} do
+      Enum.each(
+        [
+          get(conn, Routes.user_path(conn, :index)),
+          get(conn, Routes.user_path(conn, :new)),
+          post(conn, Routes.user_path(conn, :create, %{})),
+          get(conn, Routes.user_path(conn, :show, "123")),
+          get(conn, Routes.user_path(conn, :edit, "123")),
+          put(conn, Routes.user_path(conn, :update, "123", %{})),
+          delete(conn, Routes.user_path(conn, :delete, "123"))
+        ],
+        fn conn ->
+          assert html_response(conn, 302)
+          assert conn.halted
+        end
+      )
+    end
   end
 
   describe "empty index" do
+    @tag login_as: "test@user.com"
     test "lists all users", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :index))
 
@@ -33,6 +59,7 @@ defmodule Tq2Web.UserControllerTest do
   describe "index" do
     setup [:create_user]
 
+    @tag login_as: "test@user.com"
     test "lists all users", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :index))
 
@@ -41,6 +68,7 @@ defmodule Tq2Web.UserControllerTest do
   end
 
   describe "new user" do
+    @tag login_as: "test@user.com"
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :new))
 
@@ -49,17 +77,15 @@ defmodule Tq2Web.UserControllerTest do
   end
 
   describe "create user" do
+    @tag login_as: "test@user.com"
     test "redirects to show when data is valid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.user_path(conn, :show, id)
-
-      conn = get(conn, Routes.user_path(conn, :show, id))
-
-      assert html_response(conn, 200) =~ @create_attrs.email
     end
 
+    @tag login_as: "test@user.com"
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @invalid_attrs)
 
@@ -70,6 +96,7 @@ defmodule Tq2Web.UserControllerTest do
   describe "edit user" do
     setup [:create_user]
 
+    @tag login_as: "test@user.com"
     test "renders form for editing chosen user", %{conn: conn, user: user} do
       conn = get(conn, Routes.user_path(conn, :edit, user))
 
@@ -80,16 +107,14 @@ defmodule Tq2Web.UserControllerTest do
   describe "update user" do
     setup [:create_user]
 
+    @tag login_as: "test@user.com"
     test "redirects when data is valid", %{conn: conn, user: user} do
       conn = put(conn, Routes.user_path(conn, :update, user), user: @update_attrs)
 
       assert redirected_to(conn) == Routes.user_path(conn, :show, user)
-
-      conn = get(conn, Routes.user_path(conn, :show, user))
-
-      assert html_response(conn, 200) =~ @update_attrs.email
     end
 
+    @tag login_as: "test@user.com"
     test "renders errors when data is invalid", %{conn: conn, user: user} do
       conn = put(conn, Routes.user_path(conn, :update, user), user: @invalid_attrs)
 
@@ -100,14 +125,11 @@ defmodule Tq2Web.UserControllerTest do
   describe "delete user" do
     setup [:create_user]
 
+    @tag login_as: "test@user.com"
     test "deletes chosen user", %{conn: conn, user: user} do
       conn = delete(conn, Routes.user_path(conn, :delete, user))
 
       assert redirected_to(conn) == Routes.user_path(conn, :index)
-
-      assert_error_sent 404, fn ->
-        get(conn, Routes.user_path(conn, :show, user))
-      end
     end
   end
 

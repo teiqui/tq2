@@ -3,11 +3,10 @@ defmodule Tq2Web.InputHelpers do
 
   def input(form, field, label \\ nil, opts \\ []) do
     type = opts[:using] || guess_input_type(form, field, opts)
-    wrapper_opts = [class: "form-group"]
     label_opts = opts[:label_html] || []
     input_opts = input_opts(type, form, field, opts)
 
-    content_tag :div, wrapper_opts do
+    content_tag :div, wrapper_opts(opts) do
       label = label(form, field, label || humanize(field), label_opts)
       input = input_tag(type, form, field, input_opts)
       error = Tq2Web.ErrorHelpers.error_tag(form, field)
@@ -22,6 +21,18 @@ defmodule Tq2Web.InputHelpers do
     else
       Phoenix.HTML.Form.input_type(form, field)
     end
+  end
+
+  defp wrapper_opts(opts) do
+    opts = opts[:wrapper_html] || []
+    {custom_class, opts} = Keyword.pop(opts, :class)
+
+    class =
+      ["form-group", custom_class]
+      |> Enum.filter(& &1)
+      |> Enum.join(" ")
+
+    Keyword.merge([class: class], opts)
   end
 
   defp input_opts(:select, form, field, opts) do

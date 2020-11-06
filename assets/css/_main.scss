@@ -1,0 +1,11 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "variables";
+
+.font-weight-semi-bold {
+  font-weight: 600 !important;
+}
+
+.turbolinks-progress-bar {
+  background-color: $primary;
+}

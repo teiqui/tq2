@@ -121,14 +121,14 @@ msgstr "Actualizar cuenta"
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr "Ups, parece que algo salió mal. Por favor, revise los errores."
 
-#: lib/tq2_web/controllers/account_controller.ex:23
+#: lib/tq2_web/controllers/account_controller.ex:25
 msgid "Account created successfully."
 msgstr "Cuenta creada correctamente."
 
-#: lib/tq2_web/controllers/account_controller.ex:63
+#: lib/tq2_web/controllers/account_controller.ex:65
 msgid "Account deleted successfully."
 msgstr "Cuenta eliminada correctamente."
 
-#: lib/tq2_web/controllers/account_controller.ex:50
+#: lib/tq2_web/controllers/account_controller.ex:52
 msgid "Account updated successfully."
 msgstr "Cuenta actualizada correctamente."

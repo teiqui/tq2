@@ -40,7 +40,7 @@ defmodule Tq2.MixProject do
       {:phoenix_live_view, ">= 0.14.0"},
       {:floki, ">= 0.27.0", only: :test},
       {:phoenix_html, ">= 2.11.0"},
-      {:phoenix_live_reload, ">= 1.2.0", only: :dev},
+      {:phoenix_live_reload, ">= 1.3.0", only: :dev},
       {:phoenix_live_dashboard, ">= 0.3.0"},
       {:telemetry_metrics, ">= 0.6.0"},
       {:telemetry_poller, ">= 0.4.0"},
@@ -48,6 +48,7 @@ defmodule Tq2.MixProject do
       {:jason, ">= 1.0.0"},
       {:plug_cowboy, ">= 2.4.0"},
       {:argon2_elixir, ">= 2.3.0"},
+      {:bamboo, ">= 1.6.0"},
       {:paper_trail, ">= 0.9.0"},
       {:tzdata, ">= 1.0.0"},
       {:scrivener_ecto, ">= 2.6.0"},
@@ -67,7 +68,12 @@ defmodule Tq2.MixProject do
       setup: ["deps.get", "ecto.setup", "cmd yarn install --cwd assets"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+      test: [
+        "ecto.create --quiet",
+        "ecto.migrate --quiet",
+        "run priv/repo/test_seeds.exs",
+        "test"
+      ]
     ]
   end
 end
