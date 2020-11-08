@@ -56,6 +56,15 @@ defmodule Tq2Web.UserControllerTest do
     end
   end
 
+  describe "new user" do
+    @tag login_as: "test@user.com"
+    test "renders form", %{conn: conn} do
+      conn = get(conn, Routes.user_path(conn, :new))
+
+      assert html_response(conn, 200) =~ "Create"
+    end
+  end
+
   describe "index" do
     setup [:create_user]
 
@@ -64,15 +73,6 @@ defmodule Tq2Web.UserControllerTest do
       conn = get(conn, Routes.user_path(conn, :index))
 
       assert html_response(conn, 200) =~ "Users"
-    end
-  end
-
-  describe "new user" do
-    @tag login_as: "test@user.com"
-    test "renders form", %{conn: conn} do
-      conn = get(conn, Routes.user_path(conn, :new))
-
-      assert html_response(conn, 200) =~ "Create"
     end
   end
 

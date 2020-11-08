@@ -16,13 +16,7 @@ defmodule Tq2.Accounts.UserRepoTest do
       account = Tq2.Repo.get_by!(Account, name: "test_account")
       session = %Session{account: account}
 
-      user_attrs =
-        Enum.into(attrs, %{
-          email: "some@email.com",
-          lastname: "some lastname",
-          name: "some name",
-          password: "123456"
-        })
+      user_attrs = Enum.into(attrs, @valid_attrs)
 
       {:ok, user} = Accounts.create_user(session, user_attrs)
 
