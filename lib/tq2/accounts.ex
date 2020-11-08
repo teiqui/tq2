@@ -180,9 +180,9 @@ defmodule Tq2.Accounts do
   """
   def create_user(%Session{account: account, user: user}, attrs \\ %{}) do
     # TODO: we should check for membership count to put true on default
-    membership = %Membership{account_id: account.id, default: true}
+    attrs = Membership.put_create_user_attrs(account, attrs)
 
-    %User{memberships: [membership]}
+    %User{}
     |> User.create_changeset(attrs)
     |> Trail.insert(originator: user, meta: %{account_id: account.id})
   end

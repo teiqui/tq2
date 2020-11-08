@@ -61,6 +61,7 @@ defmodule Tq2.Accounts.User do
 
   defp validation(changeset) do
     changeset
+    |> cast_assoc(:memberships)
     |> validate_required([:name, :lastname, :email])
     |> validate_format(:email, ~r/.+@.+\..+/)
     |> validate_length(:name, max: 255)
