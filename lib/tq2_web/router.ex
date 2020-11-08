@@ -29,6 +29,7 @@ defmodule Tq2Web.Router do
     pipe_through :browser
 
     get "/", RootController, :index
+    get "/healthy", HealthController, :index
 
     resources(
       "/sessions",
