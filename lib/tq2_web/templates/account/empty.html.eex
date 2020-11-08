@@ -8,6 +8,7 @@
   </p>
 
   <p>
-    <%= link dgettext("accounts", "New account"), to: Routes.account_path(@conn, :new), class: "btn btn-lg btn-primary" %>
+    <%= link dgettext("accounts", "New account"), to: Routes.account_path(@conn, :new),
+                                                  class: "btn btn-primary rounded-pill font-weight-semi-bold" %>
   </p>
 </div>
