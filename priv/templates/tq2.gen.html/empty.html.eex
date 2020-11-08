@@ -1,0 +1,13 @@
+<div class="jumbotron">
+  <h1>
+    <%%= dgettext("<%= schema.plural %>", "Looks like you have no <%= schema.plural %>.") %>
+  </h1>
+
+  <p class="lead">
+    <%%= dgettext("<%= schema.plural %>", "Let's create one...") %>
+  </p>
+
+  <p>
+    <%%= link dgettext("<%= schema.plural %>", "New <%= schema.singular %>"), to: Routes.<%= schema.route_helper %>_path(@conn, :new), class: "btn btn-primary rounded-pill font-weight-semi-bold" %>
+  </p>
+</div>
