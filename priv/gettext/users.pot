@@ -98,6 +98,7 @@ msgstr ""
 msgid "User updated successfully."
 msgstr ""
 
+#: lib/tq2_web/templates/layout/_menu.html.eex:21
 #: lib/tq2_web/templates/user/index.html.eex:2
 msgid "Users"
 msgstr ""

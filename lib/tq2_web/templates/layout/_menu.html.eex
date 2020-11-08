@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light py-1">
+  <div class="container-fluid">
+    <div class="navbar-nav">
+      <%= icon_link "door-open", to: Routes.session_path(@conn, :delete), method: :delete, data: [
+        confirm: dgettext("menu", "Are you sure?")
+      ] %>
+    </div>
+
+    <a class="navbar-text mx-3" href="<%= Routes.root_path(@conn, :index) %>">
+      <%= dgettext("menu", "Hello %{name}", name: String.slice(@account.name, 0..30)) %>
+    </a>
+
+    <%= icon_link "plus-circle", to: "#", class: "navbar-toggler border-0", data: [toggle: "collapse", target: "#menu"] %>
+
+    <div class="collapse navbar-collapse" id="menu">
+      <ul class="navbar-nav mr-auto">
+        <%= menu_item @conn, to: Routes.account_path(@conn, :index) do %>
+          <%= dgettext("accounts", "Accounts") %>
+        <% end %>
+        <%= menu_item @conn, to: Routes.user_path(@conn, :index) do %>
+          <%= dgettext("users", "Users") %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

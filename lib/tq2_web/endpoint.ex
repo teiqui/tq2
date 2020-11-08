@@ -8,7 +8,8 @@ defmodule Tq2Web.Endpoint do
   @session_options [
     store: :cookie,
     key: "_tq2_key",
-    signing_salt: "zvi3Sf0e"
+    signing_salt: "zvi3Sf0e",
+    same_site: "strict"
   ]
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]

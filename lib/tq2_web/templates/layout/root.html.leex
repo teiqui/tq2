@@ -16,7 +16,9 @@
     <script defer phx-track-static src="<%= Routes.static_path(@conn, "/js/app.js") %>" data-turbolinks-track="reload"></script>
   </head>
 
-  <body class="my-3 bg-light">
+  <body class="my-3 bg-light <%= if @current_session, do: " pt-5" %>">
+    <%= if @current_session, do: render "_menu.html", conn: @conn, account: @current_session.account %>
+
     <%= @inner_content %>
   </body>
 </html>
