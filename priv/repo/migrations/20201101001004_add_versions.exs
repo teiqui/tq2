@@ -14,7 +14,7 @@ defmodule Repo.Migrations.AddVersions do
       add :inserted_at, :utc_datetime, null: false
     end
 
-    create index(:versions, [:originator_id])
+    create index(:versions, :originator_id)
     create index(:versions, [:item_id, :item_type])
   end
 end
