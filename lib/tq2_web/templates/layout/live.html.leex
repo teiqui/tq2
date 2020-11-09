@@ -1,12 +1,12 @@
 <div class="container-fluid">
   <%= if live_flash(@flash, :info) do %>
-    <div class="alert alert-info text-center" role="alert" phx-click="lv:clear-flash" phx-value-key="info">
+    <div class="alert alert-info text-center rounded-pill" role="alert" phx-click="lv:clear-flash" phx-value-key="info">
       <%= live_flash(@flash, :info) %>
     </div>
   <% end %>
 
   <%= if live_flash(@flash, :error) do %>
-    <div class="alert alert-danger text-center" role="alert" phx-click="lv:clear-flash" phx-value-key="error">
+    <div class="alert alert-danger text-center rounded-pill" role="alert" phx-click="lv:clear-flash" phx-value-key="error">
       <%= live_flash(@flash, :error) %>
     </div>
   <% end %>

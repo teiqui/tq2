@@ -1,12 +1,12 @@
 <div class="container-fluid">
   <%= if get_flash(@conn, :info) do %>
-    <div class="alert alert-info text-center" role="alert">
+    <div class="alert alert-info text-center rounded-pill" role="alert">
       <%= get_flash(@conn, :info) %>
     </div>
   <% end %>
 
   <%= if get_flash(@conn, :error) do %>
-    <div class="alert alert-danger text-center" role="alert">
+    <div class="alert alert-danger text-center rounded-pill" role="alert">
       <%= get_flash(@conn, :error) %>
     </div>
   <% end %>
