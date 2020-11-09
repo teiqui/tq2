@@ -8,12 +8,12 @@
       <tr>
 <%= for {k, _} <- schema.attrs do %>        <th><%%= dgettext("<%= schema.plural %>", "<%= Phoenix.Naming.humanize(Atom.to_string(k)) %>") %></th>
 <% end %>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <%%= for <%= schema.singular %> <- @<%= schema.plural %> do %>
-              <tr>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%%= for <%= schema.singular %> <- @<%= schema.plural %> do %>
+        <tr>
 <%= for {k, _} <- schema.attrs do %>          <td><%%= <%= schema.singular %>.<%= k %> %></td>
 <% end %>
           <td class="text-right text-nowrap">

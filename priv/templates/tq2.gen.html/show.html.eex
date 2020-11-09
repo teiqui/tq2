@@ -4,10 +4,11 @@
       <%%= dgettext("<%= schema.plural %>", "<%= schema.human_singular %>") %>
     </h2>
   </div>
+
   <div class="card-body">
 <%= for {k, _} <- schema.attrs do %>    <p class="mb-1">
-            <strong><%%= dgettext("<%= schema.plural %>", "<%= Phoenix.Naming.humanize(Atom.to_string(k)) %>") %></strong>:
-            <%%= @<%= schema.singular %>.<%= k %> %>
+      <strong><%%= dgettext("<%= schema.plural %>", "<%= Phoenix.Naming.humanize(Atom.to_string(k)) %>") %></strong>:
+      <%%= @<%= schema.singular %>.<%= k %> %>
     </p>
 <% end %>
   </div>

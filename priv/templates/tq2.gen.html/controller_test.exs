@@ -37,7 +37,7 @@ defmodule <%= inspect context.web_module %>.<%= inspect Module.concat(schema.web
 
     @tag login_as: "test@user.com"
     test "lists all <%= schema.plural %>", %{conn: conn, <%= schema.singular %>: <%= schema.singular %>} do
-      conn     = get conn, Routes.<%= schema.route_helper %>_path(conn, :index)
+      conn = get conn, Routes.<%= schema.route_helper %>_path(conn, :index)
       response = html_response(conn, 200)
 
       assert response =~ "<%= schema.human_plural %>"
@@ -85,7 +85,7 @@ defmodule <%= inspect context.web_module %>.<%= inspect Module.concat(schema.web
 
     @tag login_as: "test@user.com"
     test "show <%= schema.singular %>", %{conn: conn, <%= schema.singular %>: <%= schema.singular %>} do
-      conn     = get conn, Routes.<%= schema.route_helper %>_path(conn, :show, <%= schema.singular %>)
+      conn = get conn, Routes.<%= schema.route_helper %>_path(conn, :show, <%= schema.singular %>)
       response = html_response(conn, 200)
 
       assert response =~ <%= schema.singular %>.<%= schema.types |> Enum.at(0) |> Tuple.to_list() |> hd() %>
