@@ -42,6 +42,8 @@ defmodule Tq2Web.Router do
 
     resources "/accounts", AccountController
     resources "/users", UserController
+
+    resources "/categories", CategoryController
   end
 
   # Other scopes may use custom stacks.
