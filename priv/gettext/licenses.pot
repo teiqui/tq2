@@ -1,0 +1,44 @@
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new translations manually only if they're dynamic
+## translations that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here as no
+## effect: edit them in PO (.po) files instead.
+msgid ""
+msgstr ""
+
+#: lib/tq2_web/templates/license/show.html.eex:8
+msgid "Status"
+msgstr ""
+
+#: lib/tq2_web/views/license_view.ex:7
+msgid "Active"
+msgstr ""
+
+#: lib/tq2_web/views/license_view.ex:10
+msgid "Cancelled"
+msgstr ""
+
+#: lib/tq2_web/views/license_view.ex:9
+msgid "Locked"
+msgstr ""
+
+#: lib/tq2_web/views/license_view.ex:6
+msgid "Trial"
+msgstr ""
+
+#: lib/tq2_web/views/license_view.ex:8
+msgid "Unpaid"
+msgstr ""
+
+#: lib/tq2_web/templates/layout/_menu.html.eex:21
+#: lib/tq2_web/templates/license/show.html.eex:2
+msgid "Licenses"
+msgstr ""
+
+#: lib/tq2_web/templates/license/show.html.eex:12
+msgid "Paid until"
+msgstr ""

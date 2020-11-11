@@ -17,6 +17,9 @@
         <%= menu_item @conn, to: Routes.account_path(@conn, :index) do %>
           <%= dgettext("accounts", "Accounts") %>
         <% end %>
+        <%= menu_item @conn, to: Routes.license_path(@conn, :show) do %>
+          <%= dgettext("licenses", "Licenses") %>
+        <% end %>
         <%= menu_item @conn, to: Routes.user_path(@conn, :index) do %>
           <%= dgettext("users", "Users") %>
         <% end %>

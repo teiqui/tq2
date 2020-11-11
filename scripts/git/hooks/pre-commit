@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ $SKIP_HOOK ] ; then
+  exit 0
+fi
+
 # First check for mix format
 exec mix format --check-formatted
 

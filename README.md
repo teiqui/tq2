@@ -44,3 +44,10 @@ Install git pre commit hooks:
 ```console
 cd .git/hooks/ && ln -s ../../scripts/git/hooks/pre-commit && cd ../../
 ```
+
+### Utils
+
+Generate new translations
+```console
+mix gettext.extract --merge
+```
