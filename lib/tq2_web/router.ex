@@ -42,8 +42,9 @@ defmodule Tq2Web.Router do
 
     resources "/accounts", AccountController
     resources "/users", UserController
-
     resources "/categories", CategoryController
+
+    get "/license", LicenseController, :show
   end
 
   # Other scopes may use custom stacks.

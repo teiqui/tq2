@@ -1,0 +1,16 @@
+<h1 class="h3">
+  <%= dgettext("licenses", "Licenses") %>
+</h1>
+
+<div class="card my-3">
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= dgettext("licenses", "Status") %></strong>:
+      <%= status @license %>
+    </p>
+    <p class="mb-1">
+      <strong><%= dgettext("licenses", "Paid until") %></strong>:
+      <%= localize @license.paid_until %>
+    </p>
+  </div>
+</div>

@@ -2,7 +2,7 @@ defmodule Tq2.Accounts.Account do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Tq2.Accounts.{Account, Membership}
+  alias Tq2.Accounts.{Account, Membership, License}
 
   schema "accounts" do
     field :country, :string
@@ -12,6 +12,7 @@ defmodule Tq2.Accounts.Account do
     field :lock_version, :integer, default: 0
 
     has_many :memberships, Membership
+    has_one :license, License
 
     timestamps()
   end
@@ -31,6 +32,13 @@ defmodule Tq2.Accounts.Account do
     |> validate_inclusion(:status, @statuses)
     |> validate_time_zone(:time_zone)
     |> optimistic_lock(:lock_version)
+  end
+
+  @doc false
+  def create_changeset(account, attrs) do
+    account
+    |> changeset(attrs)
+    |> cast_assoc(:license, with: {License, :create_changeset, [account]})
   end
 
   defp put_status(%Account{status: nil} = account) do

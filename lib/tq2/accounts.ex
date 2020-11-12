@@ -6,7 +6,7 @@ defmodule Tq2.Accounts do
   import Ecto.Query, warn: false
   alias Tq2.{Repo, Trail}
 
-  alias Tq2.Accounts.Account
+  alias Tq2.Accounts.{Account, License}
 
   @doc """
   Returns the list of accounts.
@@ -50,8 +50,10 @@ defmodule Tq2.Accounts do
 
   """
   def create_account(attrs \\ %{}) do
+    attrs = License.put_create_account_attrs(attrs)
+
     %Account{}
-    |> Account.changeset(attrs)
+    |> Account.create_changeset(attrs)
     |> Trail.insert()
   end
 
@@ -295,4 +297,58 @@ defmodule Tq2.Accounts do
       {:ok, %User{}}
   """
   def password_reset(user), do: Password.reset(user)
+
+  @doc """
+  Gets a single license.
+
+  Raises `Ecto.NoResultsError` if the License does not exist.
+
+  ## Examples
+
+      iex> get_license!(%Account{id: 1})
+      %License{}
+
+      iex> get_license!(%Account{id: 2})
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_license!(%Account{} = account) do
+    Repo.get_by!(License, account_id: account.id)
+  end
+
+  @doc """
+  Updates a license.
+
+  ## Examples
+
+      iex> update_license(%Session{}, license, %{field: new_value})
+      {:ok, %License{}}
+
+      iex> update_license(%Session{}, license, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_license(%Session{account: account, user: user}, %License{} = license, attrs) do
+    license
+    |> License.changeset(attrs)
+    |> Trail.update(originator: user, meta: %{account_id: account.id})
+  end
+
+  @doc """
+  Deletes a License.
+
+  ## Examples
+
+      iex> delete_license(%Session{})
+      {:ok, %License{}}
+
+      iex> delete_license(%Session{})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_license(%Session{account: account, user: user}) do
+    account
+    |> get_license!()
+    |> Trail.delete(originator: user, meta: %{account_id: account.id})
+  end
 end

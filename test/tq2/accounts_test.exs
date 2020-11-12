@@ -1,17 +1,23 @@
 defmodule Tq2.AccountsTest do
   use Tq2.DataCase
 
+  import Ecto.Query
+
   alias Tq2.Accounts
+  alias Tq2.Accounts.Account
 
   defp create_session(_) do
-    account = Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
+    account =
+      Account
+      |> where(name: "test_account")
+      |> join(:left, [a], l in assoc(a, :license))
+      |> preload([a, l], license: l)
+      |> Tq2.Repo.one()
 
     {:ok, session: %Tq2.Accounts.Session{account: account}}
   end
 
   describe "accounts" do
-    alias Tq2.Accounts.Account
-
     @valid_attrs %{
       country: "ar",
       name: "some name",
@@ -47,15 +53,17 @@ defmodule Tq2.AccountsTest do
 
     test "get_account!/1 returns the account with given id" do
       account = account_fixture()
-      assert Accounts.get_account!(account.id) == account
+      assert Accounts.get_account!(account.id).id == account.id
     end
 
-    test "create_account/1 with valid data creates a account" do
+    test "create_account/1 with valid data creates a account and license" do
       assert {:ok, %Account{} = account} = Accounts.create_account(@valid_attrs)
       assert account.country == "ar"
       assert account.name == "some name"
       assert account.status == "active"
       assert account.time_zone == "America/Argentina/Mendoza"
+      assert account.license.status == "trial"
+      assert account.license.paid_until == Timex.shift(Timex.today(), months: 1)
     end
 
     test "create_account/1 with invalid data returns error changeset" do
@@ -74,7 +82,7 @@ defmodule Tq2.AccountsTest do
     test "update_account/2 with invalid data returns error changeset" do
       account = account_fixture()
       assert {:error, %Ecto.Changeset{}} = Accounts.update_account(account, @invalid_attrs)
-      assert account == Accounts.get_account!(account.id)
+      assert account.id == Accounts.get_account!(account.id).id
     end
 
     test "delete_account/1 deletes the account" do
@@ -293,6 +301,56 @@ defmodule Tq2.AccountsTest do
       {:ok, user} = Accounts.password_reset(user)
 
       assert_delivered_email(Email.password_reset(user))
+    end
+  end
+
+  describe "licenses" do
+    setup [:create_session]
+
+    alias Tq2.Accounts.License
+
+    @update_attrs %{reference: "some updated reference", status: "active"}
+    @invalid_attrs %{reference: "", status: "unknown"}
+
+    defp fixture(session, :license, attrs \\ %{}) do
+      {:ok, license} =
+        session.account.license
+        |> License.changeset(attrs)
+        |> Repo.update()
+
+      license
+    end
+
+    test "get_license!/2 returns the license with given id", %{session: session} do
+      license = fixture(session, :license)
+
+      assert Accounts.get_license!(session.account) == license
+    end
+
+    test "update_license/3 with valid data updates the license", %{session: session} do
+      license = fixture(session, :license)
+
+      assert {:ok, license} = Accounts.update_license(session, license, @update_attrs)
+      assert %License{} = license
+      assert license.reference == @update_attrs.reference
+      assert license.status == @update_attrs.status
+    end
+
+    test "update_license/3 with invalid data returns error changeset", %{session: session} do
+      license = fixture(session, :license)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Accounts.update_license(session, license, @invalid_attrs)
+
+      assert license == Accounts.get_license!(session.account)
+    end
+
+    test "delete_license/2 deletes the license", %{session: session} do
+      assert {:ok, %License{}} = Accounts.delete_license(session)
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Accounts.get_license!(session.account)
+      end
     end
   end
 end

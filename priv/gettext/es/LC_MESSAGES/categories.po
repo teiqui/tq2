@@ -21,7 +21,7 @@ msgid "Back"
 msgstr "Listado de categorías"
 
 #: lib/tq2_web/templates/category/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:24
+#: lib/tq2_web/templates/layout/_menu.html.eex:27
 msgid "Categories"
 msgstr "Categorías"
 
@@ -33,11 +33,11 @@ msgstr "Categoría"
 msgid "Category created successfully."
 msgstr "Categoría creada correctamente."
 
-#: lib/tq2_web/controllers/category_controller.ex:67
+#: lib/tq2_web/controllers/category_controller.ex:69
 msgid "Category deleted successfully."
 msgstr "Categoría eliminada correctamente."
 
-#: lib/tq2_web/controllers/category_controller.ex:55
+#: lib/tq2_web/controllers/category_controller.ex:56
 msgid "Category updated successfully."
 msgstr "Categoría actualizada correctamente."
 
