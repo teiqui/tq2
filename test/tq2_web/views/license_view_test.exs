@@ -21,7 +21,7 @@ defmodule Tq2Web.LicenseViewTest do
     assert content == String.capitalize(license.status)
   end
 
-  test "localize", %{conn: _} do
+  test "localize" do
     license = license()
     content = license.paid_until |> LicenseView.localize()
 
