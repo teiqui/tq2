@@ -50,6 +50,19 @@ config :logger, level: :info
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
-# Finally import the config/prod.secret.exs which loads secrets
-# and configuration from environment variables.
-import_config "prod.secret.exs"
+# Waffle config
+config :waffle,
+  storage: Waffle.Storage.S3,
+  bucket: {:system, "AWS_S3_BUCKET"},
+  asset_host:
+    Enum.join([
+      "https://s3.",
+      System.fetch_env!("AWS_REGION"),
+      ".amazonaws.com/",
+      System.fetch_env!("AWS_S3_BUCKET")
+    ])
+
+# AWS config
+config :ex_aws,
+  json_codec: Jason,
+  s3: [region: {:system, "AWS_REGION"}]

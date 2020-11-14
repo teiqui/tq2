@@ -112,6 +112,22 @@ defmodule Tq2Web.InputHelpersTest do
         ""
       end)
     end
+
+    test "with file input", %{conn: conn} do
+      form_for(conn, "/", [as: :test, multipart: true], fn form ->
+        input =
+          form
+          |> input(:file, nil, input_html: [class: "test-input-class"])
+          |> input_to_string()
+
+        assert input =~ "<input"
+        assert input =~ "test-input-class"
+        assert input =~ "form-group"
+        assert input =~ "form-control-file"
+        refute input =~ "input_html"
+        ""
+      end)
+    end
   end
 
   defp input_to_string(input) do

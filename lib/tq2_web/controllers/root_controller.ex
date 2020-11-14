@@ -3,7 +3,7 @@ defmodule Tq2Web.RootController do
 
   def index(%{assigns: %{current_session: %{user: user}}} = conn, _params)
       when is_map(user) do
-    redirect(conn, to: Routes.user_path(conn, :index))
+    redirect(conn, to: Routes.item_path(conn, :index))
   end
 
   def index(conn, _params) do

@@ -1,0 +1,24 @@
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger rounded-pill">
+      <p class="mb-0"><%= dgettext("items", "Oops, something went wrong! Please check the errors below.") %></p>
+    </div>
+  <% end %>
+
+  <%= input f, :sku, dgettext("items", "Sku"), input_html: [autofocus: true] %>
+  <%= input f, :name, dgettext("items", "Name") %>
+  <%= input f, :description, dgettext("items", "Description") %>
+  <%= input f, :category_id, dgettext("items", "Category"), collection: categories(@current_session.account),
+                                                            input_html: [prompt: dgettext("items", "None")] %>
+  <%= input f, :visibility, dgettext("items", "Visibility"), collection: visibilities() %>
+  <%= input f, :image, dgettext("items", "Image") %>
+  <%= input f, :price, dgettext("items", "Price") %>
+  <%= input f, :promotional_price, dgettext("items", "Promotional price") %>
+  <%= input f, :cost, dgettext("items", "Cost") %>
+
+  <%= lock_version_input f, assigns[:item] %>
+
+  <div>
+    <%= submit_button assigns[:item] %>
+  </div>
+<% end %>

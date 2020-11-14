@@ -45,9 +45,11 @@ config :scrivener_html,
 config :sentry,
   dsn: System.get_env("SENTRY_DSN"),
   release: System.get_env("APP_RELEASE"),
-  root_source_code_path: File.cwd!(),
   root_source_code_paths: [File.cwd!()],
   enable_source_code_context: true
+
+# Money config
+config :money, symbol: false
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

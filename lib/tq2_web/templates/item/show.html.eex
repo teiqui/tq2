@@ -1,0 +1,46 @@
+<div class="card my-3">
+  <div class="card-header">
+    <h2 class="h5">
+      <%= @item.name %>
+    </h2>
+  </div>
+
+  <div class="card-body">
+    <%= image @item %>
+
+    <p class="mb-1">
+      <strong><%= dgettext("items", "Sku") %></strong>:
+      <%= @item.sku %>
+    </p>
+    <p class="mb-1">
+      <strong><%= dgettext("items", "Description") %></strong>:
+      <%= @item.description %>
+    </p>
+    <p class="mb-1">
+      <strong><%= dgettext("items", "Category") %></strong>:
+      <%= category @item.category %>
+    </p>
+    <p class="mb-1">
+      <strong><%= dgettext("items", "Visibility") %></strong>:
+      <%= visibility @item %>
+    </p>
+    <p class="mb-1">
+      <strong><%= dgettext("items", "Price") %></strong>:
+      <%= money @item.price %>
+    </p>
+    <p class="mb-1">
+      <strong><%= dgettext("items", "Promotional price") %></strong>:
+      <%= money @item.promotional_price %>
+    </p>
+    <p class="mb-1">
+      <strong><%= dgettext("items", "Cost") %></strong>:
+      <%= money @item.cost %>
+    </p>
+
+  </div>
+</div>
+
+<div>
+  <%= link_to_edit @conn, @item %> |
+  <%= link dgettext("items", "Back"), to: Routes.item_path(@conn, :index) %>
+</div>

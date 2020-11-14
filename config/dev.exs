@@ -76,5 +76,10 @@ config :phoenix, :stacktrace_depth, 20
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
+# Waffle config
+config :waffle,
+  storage: Waffle.Storage.Local,
+  storage_dir_prefix: "priv/waffle/private"
+
 # Bamboo local adapter
 config :tq2, Tq2.Notifications.Mailer, adapter: Bamboo.LocalAdapter

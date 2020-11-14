@@ -1,0 +1,41 @@
+<h1 class="h3">
+  <%= dgettext("items", "Items") %>
+</h1>
+
+<div class="card my-3 table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th><%= dgettext("items", "Name") %></th>
+        <th class="d-none d-lg-table-cell"><%= dgettext("items", "Category") %></th>
+        <th class="d-none d-lg-table-cell"><%= dgettext("items", "Visibility") %></th>
+
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for item <- @items do %>
+        <tr>
+          <td><%= item.name %></td>
+          <td class="d-none d-lg-table-cell"><%= category item.category %></td>
+          <td class="d-none d-lg-table-cell"><%= visibility item %></td>
+
+          <td class="text-right text-nowrap">
+            <span><%= link_to_show @conn, item %></span>
+            <span><%= link_to_edit @conn, item %></span>
+            <span><%= link_to_delete @conn, item %></span>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="d-flex justify-content-center justify-content-lg-end mb-n3">
+  <%= pagination_links @conn, @page %>
+</div>
+
+<div class="mt-3">
+  <%= link dgettext("items", "New item"), to: Routes.item_path(@conn, :new),
+                                          class: "btn btn-primary rounded-pill font-weight-semi-bold" %>
+</div>

@@ -10,10 +10,10 @@ defmodule Tq2Web.RootControllerTest do
     end
 
     @tag login_as: "test@user.com"
-    test "redirect to user's index when logged in", %{conn: conn} do
+    test "redirect to item's index when logged in", %{conn: conn} do
       conn = get(conn, Routes.root_path(conn, :index))
 
-      assert redirected_to(conn) == Routes.user_path(conn, :index)
+      assert redirected_to(conn) == Routes.item_path(conn, :index)
     end
   end
 end

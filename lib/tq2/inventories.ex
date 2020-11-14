@@ -15,14 +15,28 @@ defmodule Tq2.Inventories do
 
   ## Examples
 
+      iex> list_categories(%Account{})
+      [%Category{}, ...]
+
+  """
+  def list_categories(account) do
+    account
+    |> list_categories_query()
+    |> Repo.all()
+  end
+
+  @doc """
+  Returns the list of categories.
+
+  ## Examples
+
       iex> list_categories(%Account{}, %{})
       [%Category{}, ...]
 
   """
   def list_categories(account, params) do
-    Category
-    |> where(account_id: ^account.id)
-    |> order_by(asc: :name)
+    account
+    |> list_categories_query()
     |> Repo.paginate(params)
   end
 
@@ -109,5 +123,123 @@ defmodule Tq2.Inventories do
   """
   def change_category(%Account{} = account, %Category{} = category) do
     Category.changeset(account, category, %{})
+  end
+
+  defp list_categories_query(account) do
+    Category
+    |> where(account_id: ^account.id)
+    |> order_by(asc: :name)
+  end
+
+  alias Tq2.Inventories.Item
+
+  @doc """
+  Returns the list of items.
+
+  ## Examples
+
+      iex> list_items(%Account{}, %{})
+      [%Item{}, ...]
+
+  """
+  def list_items(account, params) do
+    Item
+    |> where(account_id: ^account.id)
+    |> join(:left, [i], c in assoc(i, :category))
+    |> preload([i, c], category: c)
+    |> Repo.paginate(params)
+  end
+
+  @doc """
+  Gets a single item.
+
+  Raises `Ecto.NoResultsError` if the Item does not exist.
+
+  ## Examples
+
+      iex> get_item!(%Account{}, 123)
+      %Item{}
+
+      iex> get_item!(%Account{}, 456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_item!(account, id) do
+    Item
+    |> where(account_id: ^account.id)
+    |> join(:left, [i], c in assoc(i, :category))
+    |> preload([i, c], category: c)
+    |> Repo.get!(id)
+  end
+
+  @doc """
+  Creates a item.
+
+  ## Examples
+
+      iex> create_item(%Session{}, %{field: value})
+      {:ok, %Item{}}
+
+      iex> create_item(%Session{}, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_item(%Session{account: account, user: user}, attrs) do
+    account
+    |> Item.changeset(%Item{}, attrs)
+    |> Trail.insert(originator: user, meta: %{account_id: account.id})
+  end
+
+  @doc """
+  Updates a item.
+
+  ## Examples
+
+      iex> update_item(%Session{}, item, %{field: new_value})
+      {:ok, %Item{}}
+
+      iex> update_item(%Session{}, item, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_item(%Session{account: account, user: user}, %Item{} = item, attrs) do
+    account
+    |> Item.changeset(item, attrs)
+    |> Trail.update(originator: user, meta: %{account_id: account.id})
+  end
+
+  @doc """
+  Deletes a Item.
+
+  ## Examples
+
+      iex> delete_item(%Session{}, item)
+      {:ok, %Item{}}
+
+      iex> delete_item(%Session{}, item)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_item(%Session{account: account, user: user}, %Item{image: nil} = item) do
+    Trail.delete(item, originator: user, meta: %{account_id: account.id})
+  end
+
+  def delete_item(%Session{} = session, %Item{image: image} = item) do
+    :ok = Tq2.ImageUploader.delete({image, item})
+
+    delete_item(session, %{item | image: nil})
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking item changes.
+
+  ## Examples
+
+      iex> change_item(%Account{}, item)
+      %Ecto.Changeset{source: %Item{}}
+
+  """
+  def change_item(%Account{} = account, %Item{} = item) do
+    Item.changeset(account, item, %{})
   end
 end

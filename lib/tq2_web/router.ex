@@ -38,13 +38,15 @@ defmodule Tq2Web.Router do
       singleton: true
     )
 
-    resources "/passwords", PasswordController, only: [:new, :create, :edit, :update]
-
+    # Accounts
     resources "/accounts", AccountController
     resources "/users", UserController
-    resources "/categories", CategoryController
-
+    resources "/passwords", PasswordController, only: [:new, :create, :edit, :update]
     get "/license", LicenseController, :show
+
+    # Inventories
+    resources "/categories", CategoryController
+    resources "/items", ItemController
   end
 
   # Other scopes may use custom stacks.

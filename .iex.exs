@@ -1,4 +1,4 @@
 alias Tq2.Repo
-alias Tq2.{Accounts, Invetories}
-alias Tq2.Accounts.{Account, User}
-alias Tq2.Invetories.Category
+alias Tq2.{Accounts, Inventories}
+alias Tq2.Accounts.{Account, Session, User}
+alias Tq2.Inventories.{Category, Item}

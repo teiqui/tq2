@@ -21,8 +21,15 @@ defmodule Tq2Web.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :tq2,
-    gzip: false,
+    gzip: Mix.env() == :prod,
     only: ~w(css fonts images js favicon.ico robots.txt)
+
+  if Application.get_env(:waffle, :storage) == Waffle.Storage.Local do
+    plug Plug.Static,
+      at: "/images",
+      from: Path.expand("./priv/waffle/private/images"),
+      gzip: false
+  end
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

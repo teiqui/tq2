@@ -54,7 +54,11 @@ defmodule Tq2.MixProject do
       {:scrivener_ecto, ">= 2.6.0"},
       {:scrivener_html, ">= 1.8.0"},
       {:sentry, ">= 8.0.0"},
-      {:timex, ">= 3.6.0"}
+      {:timex, ">= 3.6.0"},
+      {:money, ">= 1.8.0"},
+      {:waffle_ecto, ">= 0.0.9"},
+      {:ex_aws_s3, ">= 2.0.0"},
+      {:sweet_xml, ">= 0.6.0"}
     ]
   end
 

@@ -26,6 +26,9 @@
         <%= menu_item @conn, to: Routes.category_path(@conn, :index) do %>
           <%= dgettext("categories", "Categories") %>
         <% end %>
+        <%= menu_item @conn, to: Routes.item_path(@conn, :index) do %>
+          <%= dgettext("items", "Items") %>
+        <% end %>
       </ul>
     </div>
   </div>

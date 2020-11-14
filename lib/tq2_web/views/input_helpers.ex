@@ -19,7 +19,15 @@ defmodule Tq2Web.InputHelpers do
     if is_list(opts[:collection]) || is_map(opts[:collection]) do
       :select
     else
-      Phoenix.HTML.Form.input_type(form, field)
+      Phoenix.HTML.Form.input_type(form, field, %{
+        "email" => :email_input,
+        "file" => :file_input,
+        "image" => :file_input,
+        "logo" => :file_input,
+        "password" => :password_input,
+        "search" => :search_input,
+        "url" => :url_input
+      })
     end
   end
 
@@ -40,12 +48,13 @@ defmodule Tq2Web.InputHelpers do
     |> Keyword.put(:collection, opts[:collection] || [])
   end
 
-  defp input_opts(_type, form, field, opts) do
+  defp input_opts(type, form, field, opts) do
     opts = opts[:input_html] || []
+    main_class = if type == :file_input, do: "form-control-file", else: "form-control"
     {custom_class, opts} = Keyword.pop(opts, :class)
 
     class =
-      ["form-control", custom_class, state_class(form, field)]
+      [main_class, custom_class, state_class(form, field)]
       |> Enum.filter(& &1)
       |> Enum.join(" ")
 

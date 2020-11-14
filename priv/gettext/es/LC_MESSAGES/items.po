@@ -1,0 +1,136 @@
+## "msgid"s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove "msgid"s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use "mix gettext.extract --merge" or "mix gettext.merge"
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: es\n"
+"Plural-Forms: nplurals=2\n"
+
+#: lib/tq2_web/views/item_view.ex:36
+msgid "Are you sure?"
+msgstr "¿Está seguro de eliminar el artículo?"
+
+#: lib/tq2_web/templates/item/edit.html.eex:14
+#: lib/tq2_web/templates/item/new.html.eex:14 lib/tq2_web/templates/item/show.html.eex:47
+msgid "Back"
+msgstr "Listado de artículos"
+
+#: lib/tq2_web/templates/item/_form.html.eex:11
+#: lib/tq2_web/templates/item/index.html.eex:10 lib/tq2_web/templates/item/show.html.eex:22
+msgid "Category"
+msgstr "Categoría"
+
+#: lib/tq2_web/templates/item/_form.html.eex:17
+#: lib/tq2_web/templates/item/show.html.eex:38
+msgid "Cost"
+msgstr "Costo"
+
+#: lib/tq2_web/views/item_view.ex:96
+msgid "Create"
+msgstr "Crear artículo"
+
+#: lib/tq2_web/views/item_view.ex:33
+msgid "Delete"
+msgstr "Eliminar artículo"
+
+#: lib/tq2_web/templates/item/_form.html.eex:10
+#: lib/tq2_web/templates/item/show.html.eex:18
+msgid "Description"
+msgstr "Descripción"
+
+#: lib/tq2_web/views/item_view.ex:24
+msgid "Edit"
+msgstr "Editar artículo"
+
+#: lib/tq2_web/templates/item/edit.html.eex:4
+msgid "Edit item"
+msgstr "Editar artículo"
+
+#: lib/tq2_web/views/item_view.ex:9
+msgid "Hidden"
+msgstr "Oculto"
+
+#: lib/tq2_web/templates/item/_form.html.eex:14
+msgid "Image"
+msgstr "Imagen"
+
+#: lib/tq2_web/controllers/item_controller.ex:29
+msgid "Item created successfully."
+msgstr "Artículo creado correctamente."
+
+#: lib/tq2_web/controllers/item_controller.ex:67
+msgid "Item deleted successfully."
+msgstr "Artículo eliminado correctamente."
+
+#: lib/tq2_web/controllers/item_controller.ex:55
+msgid "Item updated successfully."
+msgstr "Artículo actualizado correctamente."
+
+#: lib/tq2_web/templates/item/index.html.eex:2
+#: lib/tq2_web/templates/layout/_menu.html.eex:27
+msgid "Items"
+msgstr "Artículos"
+
+#: lib/tq2_web/templates/item/empty.html.eex:7
+msgid "Let's create one..."
+msgstr "Vamos, crea uno..."
+
+#: lib/tq2_web/templates/item/empty.html.eex:3
+msgid "Looks like you have no items."
+msgstr "Parece que no hay ningún artículo."
+
+#: lib/tq2_web/templates/item/_form.html.eex:9
+#: lib/tq2_web/templates/item/index.html.eex:9
+msgid "Name"
+msgstr "Nombre"
+
+#: lib/tq2_web/templates/item/empty.html.eex:11
+#: lib/tq2_web/templates/item/index.html.eex:39 lib/tq2_web/templates/item/new.html.eex:4
+msgid "New item"
+msgstr "Nuevo artículo"
+
+#: lib/tq2_web/templates/item/_form.html.eex:12
+#: lib/tq2_web/views/item_view.ex:69
+msgid "None"
+msgstr "Ninguna"
+
+#: lib/tq2_web/templates/item/_form.html.eex:4
+msgid "Oops, something went wrong! Please check the errors below."
+msgstr "Ups, parece que algo salió mal. Por favor, revise los errores."
+
+#: lib/tq2_web/templates/item/_form.html.eex:15
+#: lib/tq2_web/templates/item/show.html.eex:30
+msgid "Price"
+msgstr "Precio"
+
+#: lib/tq2_web/templates/item/_form.html.eex:16
+#: lib/tq2_web/templates/item/show.html.eex:34
+msgid "Promotional price"
+msgstr "Precio Teiqui"
+
+#: lib/tq2_web/views/item_view.ex:15
+msgid "Show"
+msgstr "Ver artículo"
+
+#: lib/tq2_web/templates/item/_form.html.eex:8
+#: lib/tq2_web/templates/item/show.html.eex:14
+msgid "Sku"
+msgstr "Código de artículo"
+
+#: lib/tq2_web/views/item_view.ex:97
+msgid "Update"
+msgstr "Actualizar artículo"
+
+#: lib/tq2_web/templates/item/_form.html.eex:13
+#: lib/tq2_web/templates/item/index.html.eex:11 lib/tq2_web/templates/item/show.html.eex:26
+msgid "Visibility"
+msgstr "Visibilidad"
+
+#: lib/tq2_web/views/item_view.ex:8
+msgid "Visible"
+msgstr "Visible"
