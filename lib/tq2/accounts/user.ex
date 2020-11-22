@@ -72,6 +72,7 @@ defmodule Tq2.Accounts.User do
     |> unsafe_validate_unique(:email, Repo)
     |> unique_constraint(:email)
     |> optimistic_lock(:lock_version)
+    |> downcase(:email)
     |> put_password_hash()
   end
 
@@ -86,5 +87,9 @@ defmodule Tq2.Accounts.User do
     |> :crypto.strong_rand_bytes()
     |> Base.url_encode64()
     |> binary_part(0, length)
+  end
+
+  defp downcase(%Ecto.Changeset{} = changeset, field) do
+    update_change(changeset, field, &String.downcase/1)
   end
 end

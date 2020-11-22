@@ -26,7 +26,7 @@ defmodule Tq2.Accounts.AuthTest do
 
     test "authenticate_by_email_and_password/2 returns :ok with valid credentials" do
       user = user_fixture()
-      email = user.email
+      email = String.upcase(" #{user.email} ")
       password = "123456"
       {:ok, auth_user} = Auth.authenticate_by_email_and_password(email, password)
 

@@ -6,7 +6,9 @@ defmodule Tq2.Accounts.Auth do
   import Ecto.Query, warn: false
 
   @doc false
-  def authenticate_by_email_and_password(email, password) do
+  def authenticate_by_email_and_password(email, password) when is_binary(email) do
+    email = email |> String.trim() |> String.downcase()
+
     query =
       from(
         u in User,
