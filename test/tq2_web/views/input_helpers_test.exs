@@ -123,7 +123,29 @@ defmodule Tq2Web.InputHelpersTest do
         assert input =~ "<input"
         assert input =~ "test-input-class"
         assert input =~ "form-group"
-        assert input =~ "form-control-file"
+        assert input =~ "custom-file"
+        assert input =~ "custom-file-input"
+        assert input =~ "custom-file-label"
+        assert input =~ "data-browse="
+        refute input =~ "input_html"
+        ""
+      end)
+    end
+
+    test "with checkbox input", %{conn: conn} do
+      form_for(conn, "/", [as: :test], fn form ->
+        input =
+          form
+          |> input(:check, nil, using: :checkbox, input_html: [class: "test-input-class"])
+          |> input_to_string()
+
+        assert input =~ "<input"
+        assert input =~ "test-input-class"
+        assert input =~ "form-group"
+        assert input =~ "custom-control"
+        assert input =~ "custom-switch"
+        assert input =~ "custom-control-input"
+        assert input =~ "custom-control-label"
         refute input =~ "input_html"
         ""
       end)

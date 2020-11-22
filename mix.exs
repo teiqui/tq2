@@ -33,15 +33,15 @@ defmodule Tq2.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, ">= 1.5.5", override: true},
+      {:phoenix, ">= 1.5.7", override: true},
       {:phoenix_ecto, ">= 4.1.0"},
       {:ecto_sql, ">= 3.4.0"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_live_view, ">= 0.14.0"},
+      {:phoenix_live_view, ">= 0.15.0"},
       {:floki, ">= 0.27.0", only: :test},
       {:phoenix_html, ">= 2.11.0"},
       {:phoenix_live_reload, ">= 1.3.0", only: :dev},
-      {:phoenix_live_dashboard, ">= 0.3.0"},
+      {:phoenix_live_dashboard, ">= 0.4.0"},
       {:telemetry_metrics, ">= 0.6.0"},
       {:telemetry_poller, ">= 0.4.0"},
       {:gettext, ">= 0.11.0"},
@@ -57,7 +57,7 @@ defmodule Tq2.MixProject do
       {:timex, ">= 3.6.0"},
       {:money, ">= 1.8.0"},
       {:waffle_ecto, ">= 0.0.9"},
-      {:ex_aws_s3, ">= 2.0.0"},
+      {:ex_aws_s3, ">= 2.1.0"},
       {:sweet_xml, ">= 0.6.0"}
     ]
   end

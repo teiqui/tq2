@@ -15,7 +15,11 @@ defmodule Tq2.InventoriesTest do
     price: Money.new(100, :ARS),
     promotional_price: Money.new(90, :ARS),
     cost: Money.new(80, :ARS),
-    image: nil
+    image: %Plug.Upload{
+      content_type: "image/png",
+      filename: "test.png",
+      path: Path.absname("test/support/fixtures/files/test.png")
+    }
   }
   @update_item_attrs %{
     sku: "some updated sku",
@@ -163,6 +167,15 @@ defmodule Tq2.InventoriesTest do
       assert item.promotional_price == @valid_item_attrs.promotional_price
       assert item.cost == @valid_item_attrs.cost
       assert item.visibility == @valid_item_attrs.visibility
+
+      url =
+        {item.image, item}
+        |> Tq2.ImageUploader.url(:original)
+        |> String.replace(~r(\?.*), "")
+
+      path = Path.absname("priv/waffle/private#{url}")
+
+      assert File.exists?(path)
     end
 
     test "create_item/2 with invalid data returns error changeset", %{session: session} do

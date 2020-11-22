@@ -1,0 +1,145 @@
+## "msgid"s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove "msgid"s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use "mix gettext.extract --merge" or "mix gettext.merge"
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: es\n"
+"Plural-Forms: nplurals=2\n"
+
+#: lib/tq2_web/templates/store/_form.html.eex:51
+msgid "Address"
+msgstr "Dirección de la tienda"
+
+#: lib/tq2_web/templates/store/_form.html.eex:67
+msgid "Checkout information"
+msgstr "Información de pago / compra"
+
+#: lib/tq2_web/views/store_view.ex:17
+msgid "Create"
+msgstr "Crear tienda"
+
+#: lib/tq2_web/templates/store/_form.html.eex:79
+msgid "Delivery"
+msgstr "Entrega"
+
+#: lib/tq2_web/templates/store/_form.html.eex:80
+msgid "Delivery area"
+msgstr "Área de entrega"
+
+#: lib/tq2_web/templates/store/_form.html.eex:81
+msgid "Delivery time limit"
+msgstr "Plazo de entrega"
+
+#: lib/tq2_web/templates/store/_form.html.eex:26
+msgid "Description"
+msgstr "Descripción"
+
+#: lib/tq2_web/templates/store/edit.html.eex:4
+msgid "Edit store"
+msgstr "Editar tienda"
+
+#: lib/tq2_web/templates/store/_form.html.eex:49
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: lib/tq2_web/templates/store/_form.html.eex:53
+msgid "Facebook"
+msgstr "Facebook"
+
+#: lib/tq2_web/templates/store/_form.html.eex:18
+msgid "General information"
+msgstr "Información general"
+
+#: lib/tq2_web/templates/store/_form.html.eex:54
+msgid "Instagram"
+msgstr "Instagram"
+
+#: lib/tq2_web/templates/store/_form.html.eex:103
+msgid "Latitude"
+msgstr "Latitud"
+
+#, fuzzy
+#: lib/tq2_web/templates/store/_form.html.eex:95
+msgid "Location information"
+msgstr "Información opcional"
+
+#: lib/tq2_web/templates/store/_form.html.eex:29
+msgid "Logo"
+msgstr "Logo"
+
+#: lib/tq2_web/templates/store/_form.html.eex:104
+msgid "Longitude"
+msgstr "Longitud"
+
+#: lib/tq2_web/templates/store/_form.html.eex:25
+msgid "Name"
+msgstr "Nombre"
+
+#: lib/tq2_web/templates/store/new.html.eex:4
+msgid "New store"
+msgstr "Nueva tienda"
+
+#: lib/tq2_web/templates/store/_form.html.eex:4
+msgid "Oops, something went wrong! Please check the errors below."
+msgstr "Ups, parece que algo salió mal. Por favor, revise los errores."
+
+#: lib/tq2_web/templates/store/_form.html.eex:41
+msgid "Optional information"
+msgstr "Información opcional"
+
+#: lib/tq2_web/templates/store/_form.html.eex:82
+msgid "Pay on delivery"
+msgstr "Pago contra entrega"
+
+#: lib/tq2_web/templates/store/_form.html.eex:50
+msgid "Phone"
+msgstr "Teléfono"
+
+#: lib/tq2_web/templates/store/_form.html.eex:77
+msgid "Pickup"
+msgstr "Retiro en tienda"
+
+#: lib/tq2_web/templates/store/_form.html.eex:78
+msgid "Pickup time limit"
+msgstr "Plazo de retiro"
+
+#: lib/tq2_web/templates/store/_form.html.eex:28
+msgid "Published"
+msgstr "Publicar"
+
+#: lib/tq2_web/templates/store/_form.html.eex:75
+msgid "Require email"
+msgstr "Requerir correo"
+
+#: lib/tq2_web/templates/store/_form.html.eex:76
+msgid "Require phone"
+msgstr "Requerir teléfono"
+
+#: lib/tq2_web/templates/store/_form.html.eex:27
+msgid "Slug"
+msgstr "Ruta"
+
+#: lib/tq2_web/controllers/store_controller.ex:33
+msgid "Store created successfully."
+msgstr "Tienda creada correctamente."
+
+#: lib/tq2_web/controllers/store_controller.ex:54
+msgid "Store updated successfully."
+msgstr "Tienda actualizada correctamente."
+
+#: lib/tq2_web/views/store_view.ex:18
+msgid "Update"
+msgstr "Actualizar tienda"
+
+#: lib/tq2_web/templates/store/_form.html.eex:52
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+#: lib/tq2_web/templates/layout/_menu.html.eex:24
+msgid "Store"
+msgstr "Tienda"

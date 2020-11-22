@@ -1,9 +1,11 @@
 defmodule Tq2Web.InputHelpers do
   use Phoenix.HTML
 
+  import Tq2Web.Gettext
+
   def input(form, field, label \\ nil, opts \\ []) do
     type = opts[:using] || guess_input_type(form, field, opts)
-    label_opts = opts[:label_html] || []
+    label_opts = label_opts(type, opts)
     input_opts = input_opts(type, form, field, opts)
 
     content_tag :div, wrapper_opts(opts) do
@@ -11,8 +13,24 @@ defmodule Tq2Web.InputHelpers do
       input = input_tag(type, form, field, input_opts)
       error = Tq2Web.ErrorHelpers.error_tag(form, field)
 
-      [label, input, error || ""]
+      group(type, label, input, error || "")
     end
+  end
+
+  defp group(:checkbox, label, input, error) do
+    content_tag :div, class: "custom-control custom-switch" do
+      [input, label, error]
+    end
+  end
+
+  defp group(:file_input, label, input, error) do
+    content_tag :div, class: "custom-file" do
+      [input, label, error]
+    end
+  end
+
+  defp group(_type, label, input, error) do
+    [label, input, error]
   end
 
   defp guess_input_type(form, field, opts) do
@@ -43,14 +61,51 @@ defmodule Tq2Web.InputHelpers do
     Keyword.merge([class: class], opts)
   end
 
+  defp label_opts(:checkbox, opts) do
+    label_opts(opts, "custom-control-label")
+  end
+
+  defp label_opts(:file_input, opts) do
+    opts = Keyword.merge([data_browse: dgettext("files", "Browse")], opts[:label_html] || [])
+
+    label_opts([label_html: opts], "custom-file-label")
+  end
+
+  defp label_opts(_type, opts) when is_list(opts) do
+    opts[:label_html] || []
+  end
+
+  defp label_opts(opts, main_class) when is_binary(main_class) do
+    opts = opts[:label_html] || []
+    {custom_class, opts} = Keyword.pop(opts, :class)
+
+    class =
+      [main_class, custom_class]
+      |> Enum.filter(& &1)
+      |> Enum.join(" ")
+
+    Keyword.merge([class: class], opts)
+  end
+
   defp input_opts(:select, form, field, opts) do
     input_opts(nil, form, field, opts)
     |> Keyword.put(:collection, opts[:collection] || [])
   end
 
-  defp input_opts(type, form, field, opts) do
+  defp input_opts(:file_input, form, field, opts) do
+    input_opts(form, field, opts, "custom-file-input")
+  end
+
+  defp input_opts(:checkbox, form, field, opts) do
+    input_opts(form, field, opts, "custom-control-input")
+  end
+
+  defp input_opts(type, form, field, opts) when is_atom(type) do
+    input_opts(form, field, opts, "form-control")
+  end
+
+  defp input_opts(form, field, opts, main_class) do
     opts = opts[:input_html] || []
-    main_class = if type == :file_input, do: "form-control-file", else: "form-control"
     {custom_class, opts} = Keyword.pop(opts, :class)
 
     class =

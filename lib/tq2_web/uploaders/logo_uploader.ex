@@ -1,4 +1,4 @@
-defmodule Tq2.ImageUploader do
+defmodule Tq2.LogoUploader do
   use Waffle.Definition
   use Waffle.Ecto.Definition
 
@@ -15,11 +15,11 @@ defmodule Tq2.ImageUploader do
   end
 
   def transform(:thumb, _) do
-    {:convert, "-thumbnail 150x150^ -gravity center -extent 150x150 -format png", :png}
+    {:convert, "-thumbnail 120x55^ -gravity center -extent 120x55 -format png", :png}
   end
 
   def transform(:thumb_2x, _) do
-    {:convert, "-thumbnail 300x300^ -gravity center -extent 300x300 -format png", :png}
+    {:convert, "-thumbnail 240x110^ -gravity center -extent 240x110 -format png", :png}
   end
 
   def filename(version, _) do
@@ -27,16 +27,16 @@ defmodule Tq2.ImageUploader do
   end
 
   def storage_dir(_version, {_file, nil}) do
-    "tmp/images"
+    "tmp/logos"
   end
 
   def storage_dir(_version, {_file, scope}) do
-    "/images/#{scope.uuid}"
+    "/logos/#{scope.uuid}"
   end
 
   # Provide a default URL if there hasn't been a file uploaded
   # def default_url(version, scope) do
-  #   "/images/default_#{version}.png"
+  #   "/logos/default_#{version}.png"
   # end
 
   # Specify custom headers for s3 objects

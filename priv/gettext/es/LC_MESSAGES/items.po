@@ -16,17 +16,17 @@ msgid "Are you sure?"
 msgstr "¿Está seguro de eliminar el artículo?"
 
 #: lib/tq2_web/templates/item/edit.html.eex:14
-#: lib/tq2_web/templates/item/new.html.eex:14 lib/tq2_web/templates/item/show.html.eex:47
+#: lib/tq2_web/templates/item/new.html.eex:14 lib/tq2_web/templates/item/show.html.eex:45
 msgid "Back"
 msgstr "Listado de artículos"
 
 #: lib/tq2_web/templates/item/_form.html.eex:11
-#: lib/tq2_web/templates/item/index.html.eex:10 lib/tq2_web/templates/item/show.html.eex:22
+#: lib/tq2_web/templates/item/index.html.eex:10 lib/tq2_web/templates/item/show.html.eex:20
 msgid "Category"
 msgstr "Categoría"
 
 #: lib/tq2_web/templates/item/_form.html.eex:17
-#: lib/tq2_web/templates/item/show.html.eex:38
+#: lib/tq2_web/templates/item/show.html.eex:36
 msgid "Cost"
 msgstr "Costo"
 
@@ -39,7 +39,7 @@ msgid "Delete"
 msgstr "Eliminar artículo"
 
 #: lib/tq2_web/templates/item/_form.html.eex:10
-#: lib/tq2_web/templates/item/show.html.eex:18
+#: lib/tq2_web/templates/item/show.html.eex:16
 msgid "Description"
 msgstr "Descripción"
 
@@ -63,16 +63,16 @@ msgstr "Imagen"
 msgid "Item created successfully."
 msgstr "Artículo creado correctamente."
 
-#: lib/tq2_web/controllers/item_controller.ex:67
+#: lib/tq2_web/controllers/item_controller.ex:69
 msgid "Item deleted successfully."
 msgstr "Artículo eliminado correctamente."
 
-#: lib/tq2_web/controllers/item_controller.ex:55
+#: lib/tq2_web/controllers/item_controller.ex:56
 msgid "Item updated successfully."
 msgstr "Artículo actualizado correctamente."
 
 #: lib/tq2_web/templates/item/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:27
+#: lib/tq2_web/templates/layout/_menu.html.eex:33
 msgid "Items"
 msgstr "Artículos"
 
@@ -104,12 +104,12 @@ msgid "Oops, something went wrong! Please check the errors below."
 msgstr "Ups, parece que algo salió mal. Por favor, revise los errores."
 
 #: lib/tq2_web/templates/item/_form.html.eex:15
-#: lib/tq2_web/templates/item/show.html.eex:30
+#: lib/tq2_web/templates/item/show.html.eex:28
 msgid "Price"
 msgstr "Precio"
 
 #: lib/tq2_web/templates/item/_form.html.eex:16
-#: lib/tq2_web/templates/item/show.html.eex:34
+#: lib/tq2_web/templates/item/show.html.eex:32
 msgid "Promotional price"
 msgstr "Precio Teiqui"
 
@@ -118,7 +118,7 @@ msgid "Show"
 msgstr "Ver artículo"
 
 #: lib/tq2_web/templates/item/_form.html.eex:8
-#: lib/tq2_web/templates/item/show.html.eex:14
+#: lib/tq2_web/templates/item/show.html.eex:12
 msgid "Sku"
 msgstr "Código de artículo"
 
@@ -127,7 +127,7 @@ msgid "Update"
 msgstr "Actualizar artículo"
 
 #: lib/tq2_web/templates/item/_form.html.eex:13
-#: lib/tq2_web/templates/item/index.html.eex:11 lib/tq2_web/templates/item/show.html.eex:26
+#: lib/tq2_web/templates/item/index.html.eex:11 lib/tq2_web/templates/item/show.html.eex:24
 msgid "Visibility"
 msgstr "Visibilidad"
 

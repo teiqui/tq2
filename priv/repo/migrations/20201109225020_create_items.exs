@@ -3,7 +3,7 @@ defmodule Tq2.Repo.Migrations.CreateItems do
 
   def up do
     create table(:items) do
-      add :uuid, :string, null: false
+      add :uuid, :uuid, null: false
       add :sku, :string
       add :name, :string, null: false
       add :description, :text

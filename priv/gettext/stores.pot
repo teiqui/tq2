@@ -1,0 +1,143 @@
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new translations manually only if they're dynamic
+## translations that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here as no
+## effect: edit them in PO (.po) files instead.
+msgid ""
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:51
+msgid "Address"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:67
+msgid "Checkout information"
+msgstr ""
+
+#: lib/tq2_web/views/store_view.ex:17
+msgid "Create"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:79
+msgid "Delivery"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:80
+msgid "Delivery area"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:81
+msgid "Delivery time limit"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:26
+msgid "Description"
+msgstr ""
+
+#: lib/tq2_web/templates/store/edit.html.eex:4
+msgid "Edit store"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:49
+msgid "Email"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:53
+msgid "Facebook"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:18
+msgid "General information"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:54
+msgid "Instagram"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:103
+msgid "Latitude"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:95
+msgid "Location information"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:29
+msgid "Logo"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:104
+msgid "Longitude"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:25
+msgid "Name"
+msgstr ""
+
+#: lib/tq2_web/templates/store/new.html.eex:4
+msgid "New store"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:4
+msgid "Oops, something went wrong! Please check the errors below."
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:41
+msgid "Optional information"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:82
+msgid "Pay on delivery"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:50
+msgid "Phone"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:77
+msgid "Pickup"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:78
+msgid "Pickup time limit"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:28
+msgid "Published"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:75
+msgid "Require email"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:76
+msgid "Require phone"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:27
+msgid "Slug"
+msgstr ""
+
+#: lib/tq2_web/controllers/store_controller.ex:33
+msgid "Store created successfully."
+msgstr ""
+
+#: lib/tq2_web/controllers/store_controller.ex:54
+msgid "Store updated successfully."
+msgstr ""
+
+#: lib/tq2_web/views/store_view.ex:18
+msgid "Update"
+msgstr ""
+
+#: lib/tq2_web/templates/store/_form.html.eex:52
+msgid "WhatsApp"
+msgstr ""
+
+#: lib/tq2_web/templates/layout/_menu.html.eex:24
+msgid "Store"
+msgstr ""

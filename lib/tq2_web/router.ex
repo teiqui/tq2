@@ -47,6 +47,11 @@ defmodule Tq2Web.Router do
     # Inventories
     resources "/categories", CategoryController
     resources "/items", ItemController
+
+    # Shops
+    resources "/store", StoreController,
+      singleton: true,
+      only: [:show, :new, :edit, :create, :update]
   end
 
   # Other scopes may use custom stacks.

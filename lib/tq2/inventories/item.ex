@@ -8,7 +8,7 @@ defmodule Tq2.Inventories.Item do
   alias Tq2.Accounts.Account
 
   schema "items" do
-    field :uuid, :string
+    field :uuid, Ecto.UUID, autogenerate: true
     field :sku, :string
     field :name, :string
     field :description, :string
@@ -50,7 +50,6 @@ defmodule Tq2.Inventories.Item do
     |> cast_attachments(attrs, [:image])
     |> put_account(account)
     |> validate_required([:uuid, :name, :visibility, :price, :promotional_price, :cost])
-    |> validate_length(:uuid, max: 255)
     |> validate_length(:sku, max: 255)
     |> validate_length(:name, max: 255)
     |> validate_inclusion(:visibility, @visibilities)
