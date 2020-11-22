@@ -35,7 +35,7 @@
     end
 
     test "create_<%= schema.singular %>/2 with valid data creates a <%= schema.singular %>", %{session: session} do
-      assert {:ok, %<%= inspect schema.alias %>{} = <%= schema.singular %>} = <%= inspect context.alias %>.create_<%= schema.singular %>(session, @valid_attrs)<%= for {field, value} <- schema.params.create do %>
+      assert {:ok, %<%= inspect schema.alias %>{} = <%= schema.singular %>} = <%= inspect context.alias %>.create_<%= schema.singular %>(session, @valid_attrs)<%= for {field, _value} <- schema.params.create do %>
       assert <%= schema.singular %>.<%= field %> == @valid_attrs.<%= field %><% end %>
     end
 
@@ -47,7 +47,7 @@
       <%= schema.singular %> = fixture(session, :<%= schema.singular %>)
 
       assert {:ok, <%= schema.singular %>} = <%= inspect context.alias %>.update_<%= schema.singular %>(session, <%= schema.singular %>, @update_attrs)
-      assert %<%= inspect schema.alias %>{} = <%= schema.singular %><%= for {field, value} <- schema.params.update do %>
+      assert %<%= inspect schema.alias %>{} = <%= schema.singular %><%= for {field, _value} <- schema.params.update do %>
       assert <%= schema.singular %>.<%= field %> == @update_attrs.<%= field %><% end %>
     end
 
