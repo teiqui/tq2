@@ -51,6 +51,14 @@ config :sentry,
 # Money config
 config :money, symbol: false
 
+# MercadoPago Credentials
+config :tq2, :mp,
+  ars_token: System.get_env("MP_ARS_TOKEN", ""),
+  clp_token: System.get_env("MP_CLP_TOKEN", ""),
+  cop_token: System.get_env("MP_COP_TOKEN", ""),
+  mxn_token: System.get_env("MP_MXN_TOKEN", ""),
+  pen_token: System.get_env("MP_PEN_TOKEN", "")
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
