@@ -25,6 +25,12 @@ defmodule Tq2Web.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/", Tq2Web, host: "#{Application.get_env(:tq2, :store_subdomain)}." do
+    pipe_through :browser
+
+    live "/:slug", StoreLive, :index
+  end
+
   scope "/", Tq2Web do
     pipe_through :browser
 

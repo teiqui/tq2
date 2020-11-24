@@ -12,6 +12,8 @@ defmodule Tq2.Shops.Data do
     field :whatsapp, :string
     field :facebook, :string
     field :instagram, :string
+
+    timestamps()
   end
 
   @doc false

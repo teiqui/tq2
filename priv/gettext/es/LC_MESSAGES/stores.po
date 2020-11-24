@@ -63,7 +63,6 @@ msgstr "Instagram"
 msgid "Latitude"
 msgstr "Latitud"
 
-#, fuzzy
 #: lib/tq2_web/templates/store/_form.html.eex:95
 msgid "Location information"
 msgstr "Información opcional"
@@ -143,3 +142,7 @@ msgstr "WhatsApp"
 #: lib/tq2_web/templates/layout/_menu.html.eex:24
 msgid "Store"
 msgstr "Tienda"
+
+#: lib/tq2_web/live/store_live.html.leex:15
+msgid "Loading..."
+msgstr "Cargando..."

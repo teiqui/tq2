@@ -51,7 +51,7 @@ defmodule Tq2.MixProject do
       {:bamboo, ">= 1.6.0"},
       {:paper_trail, ">= 0.9.0"},
       {:tzdata, ">= 1.0.0"},
-      {:scrivener_ecto, ">= 2.6.0"},
+      {:scrivener_ecto, ">= 2.7.0"},
       {:scrivener_html, ">= 1.8.0"},
       {:sentry, ">= 8.0.0"},
       {:timex, ">= 3.6.0"},

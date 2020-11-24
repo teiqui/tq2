@@ -8,6 +8,8 @@ defmodule Tq2.Shops.Location do
   embedded_schema do
     field :latitude, :decimal
     field :longitude, :decimal
+
+    timestamps()
   end
 
   @doc false

@@ -5,6 +5,12 @@
     "alternate": "test/tq2_web/channels/{}_channel_test.exs"
   },
 
+  "lib/tq2_web/live/components/*_component.ex": {
+    "type": "component",
+    "dispatch": "mix test test/tq2_web/live/components/{}_component_test.exs",
+    "alternate": "test/tq2_web/live/components/{}_component_test.exs"
+  },
+
   "lib/tq2_web/controllers/*_controller.ex": {
     "type": "controller",
     "dispatch": "mix test test/tq2_web/controllers/{}_controller_test.exs",
@@ -49,6 +55,12 @@
     "type": "tchannel",
     "dispatch": "mix test {file}",
     "alternate": "lib/tq2_web/channels/{}_channel.ex"
+  },
+
+  "test/tq2_web/live/components/*_component_test.exs": {
+    "type": "tcomponent",
+    "dispatch": "mix test {file}",
+    "alternate": "lib/tq2_web/live/components/{}_component.ex"
   },
 
   "test/tq2_web/controllers/*_controller_test.exs": {

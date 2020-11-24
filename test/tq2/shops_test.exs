@@ -77,7 +77,19 @@ defmodule Tq2.ShopsTest do
     test "get_store!/1 returns the store for given account", %{session: session} do
       store = fixture(session, :store)
 
-      assert Shops.get_store!(session.account) == store
+      assert Shops.get_store!(session.account).id == store.id
+    end
+
+    test "get_store!/1 returns the store for given slug", %{session: session} do
+      store = fixture(session, :store)
+
+      assert Shops.get_store!(store.slug).id == store.id
+    end
+
+    test "get_store/1 returns the store for given account", %{session: session} do
+      store = fixture(session, :store)
+
+      assert Shops.get_store(session.account).id == store.id
     end
 
     test "create_store/2 with valid data creates a store", %{session: session} do
@@ -116,7 +128,7 @@ defmodule Tq2.ShopsTest do
       store = fixture(session, :store)
 
       assert {:error, %Ecto.Changeset{}} = Shops.update_store(session, store, @invalid_attrs)
-      assert store == Shops.get_store!(session.account)
+      assert store.id == Shops.get_store!(session.account).id
     end
 
     test "change_store/2 returns a store changeset", %{session: session} do

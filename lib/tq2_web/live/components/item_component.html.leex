@@ -1,0 +1,21 @@
+<div id="item-<%= @item.id %>" class="col">
+  <div class="card mx-2 my-3 position-relative">
+    <div class="embed-responsive embed-responsive-1by1">
+      <%= image @item %>
+    </div>
+
+    <div class="card-body py-3 px-2">
+      <p class="card-text h6 text-truncate font-weight-semi-bold mb-1">
+        <%= @item.name %>
+      </p>
+
+      <p class="card-text text-truncate text-muted small mb-1">
+        <%= @item.description || {:safe, "&nbsp;"} %>
+      </p>
+
+      <p class="h6 text-truncate font-weight-semi-bold mb-0">
+        <%= money @item.price %>
+      </p>
+    </div>
+  </div>
+</div>

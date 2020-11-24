@@ -36,6 +36,9 @@ config :tq2, Tq2Web.Gettext, default_locale: "es"
 # Ecto timestamps
 config :tq2, Tq2.Repo, migration_timestamps: [type: :utc_datetime]
 
+# Public store's subdomain
+config :tq2, store_subdomain: System.get_env("STORE_SUBDOMAIN", "store")
+
 # Scrivener HTML config
 config :scrivener_html,
   routes_helper: Tq2Web.Router.Helpers,

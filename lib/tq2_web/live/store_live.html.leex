@@ -1,0 +1,19 @@
+<h1>
+  <%= @store.name %>
+</h1>
+
+<div id="items" class="row no-gutters row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-4 row-cols-xl-6" phx-update="append">
+  <%= for item <- @items do %>
+    <%= live_component @socket, ItemComponent, item: item, id: item.id %>
+  <% end %>
+</div>
+
+<%= if @items.page_number < @items.total_pages do %>
+  <footer id="footer" phx-hook="InfiniteScroll">
+    <div class="text-center my-3">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only"><%= dgettext("stores", "Loading...") %></span>
+      </div>
+    </div>
+  </footer>
+<% end %>

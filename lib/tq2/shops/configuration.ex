@@ -14,6 +14,8 @@ defmodule Tq2.Shops.Configuration do
     field :delivery_area, :string
     field :delivery_time_limit, :string
     field :pay_on_delivery, :boolean, default: false
+
+    timestamps()
   end
 
   @cast_attrs [

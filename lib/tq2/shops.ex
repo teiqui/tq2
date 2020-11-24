@@ -20,14 +20,27 @@ defmodule Tq2.Shops do
       iex> get_store!(%Account{})
       %Store{}
 
+      iex> get_store!("slug")
+      %Store{}
+
       iex> get_store!(%Account{})
       ** (Ecto.NoResultsError)
 
+      iex> get_store!("not_found")
+      ** (Ecto.NoResultsError)
+
   """
-  def get_store!(account) do
+  def get_store!(%Account{} = account) do
+    store = Repo.get_by!(Store, account_id: account.id)
+
+    %{store | account: account}
+  end
+
+  def get_store!(slug) do
     Store
-    |> where(account_id: ^account.id)
-    |> Repo.one!()
+    |> join(:inner, [s], a in assoc(s, :account))
+    |> preload([s, a], account: a)
+    |> Repo.get_by!(slug: slug)
   end
 
   @doc """
@@ -44,10 +57,8 @@ defmodule Tq2.Shops do
       nil
 
   """
-  def get_store(account) do
-    Store
-    |> where(account_id: ^account.id)
-    |> Repo.one()
+  def get_store(%Account{} = account) do
+    Repo.get_by(Store, account_id: account.id)
   end
 
   @doc """

@@ -85,8 +85,8 @@ defmodule Tq2Web.ItemView do
 
     img_tag(url,
       srcset: set,
-      width: "120",
-      height: "55",
+      width: "150",
+      height: "150",
       loading: "lazy",
       alt: item.name,
       class: "img-thumbnail mb-1"
