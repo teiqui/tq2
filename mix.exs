@@ -58,7 +58,9 @@ defmodule Tq2.MixProject do
       {:money, ">= 1.8.0"},
       {:waffle_ecto, ">= 0.0.9"},
       {:ex_aws_s3, ">= 2.1.0"},
-      {:sweet_xml, ">= 0.6.0"}
+      {:sweet_xml, ">= 0.6.0"},
+      {:httpoison, ">= 1.7.0"},
+      {:mock, ">= 0.3.6"}
     ]
   end
 

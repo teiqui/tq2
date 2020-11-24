@@ -36,3 +36,6 @@ config :argon2_elixir,
 config :waffle,
   storage: Waffle.Storage.Local,
   storage_dir_prefix: "priv/waffle/private"
+
+# MercadoPago Overide
+config :tq2, :mp, ars_token: "3333-3333-3333-3333"
