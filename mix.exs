@@ -60,7 +60,7 @@ defmodule Tq2.MixProject do
       {:ex_aws_s3, ">= 2.1.0"},
       {:sweet_xml, ">= 0.6.0"},
       {:httpoison, ">= 1.7.0"},
-      {:mock, ">= 0.3.6"}
+      {:mock, ">= 0.3.6", only: :test}
     ]
   end
 
