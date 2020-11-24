@@ -52,7 +52,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
       assert link =~ "https://auth.mercadopago.com.ar"
       # token app_id
       assert link =~ "client_id=3333"
-      # TODO Change for the real url
+      # TODO: Change for the real url
       assert link =~ "redirect_uri=marketplace"
     end
 
