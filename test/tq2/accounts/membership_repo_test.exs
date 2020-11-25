@@ -36,6 +36,7 @@ defmodule Tq2.Accounts.MembershipRepoTest do
       session: session
     } do
       user_fixture(session)
+
       attrs = Membership.put_create_user_attrs(session.account, user_valid_attrs())
 
       refute List.first(attrs.memberships).owner
