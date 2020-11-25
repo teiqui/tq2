@@ -5,6 +5,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
 
   alias Tq2.Gateways.MercadoPago
   alias Tq2.Gateways.MercadoPago.Credential
+  import Tq2.Fixtures, only: [user_fixture: 1, create_session: 0]
 
   describe "mercado pago" do
     @default_payment %{
@@ -14,7 +15,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
       date_approved: Timex.now(),
       status: "approved"
     }
-    @client Credential.for_currency("ARS")
+    @credential Credential.for_currency("ARS")
 
     test "min_amount_for/1 returns min amount for currency" do
       assert 2.0 == MercadoPago.min_amount_for("ARS")
@@ -23,7 +24,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
 
     test "get_payment/2 returns payment" do
       with_mock HTTPoison, mock_get_with() do
-        payment = @client |> MercadoPago.get_payment("123")
+        payment = @credential |> MercadoPago.get_payment("123")
 
         assert %{} = payment
         assert 123 == payment["id"]
@@ -36,7 +37,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
 
       with_mock HTTPoison, mocked_fn do
         payment =
-          @client
+          @credential
           |> MercadoPago.last_payment_for_reference(@default_payment.external_reference)
 
         assert %{} = payment
@@ -47,7 +48,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
     end
 
     test "marketplace_association_link/1 returns valid url" do
-      link = @client |> MercadoPago.marketplace_association_link()
+      link = @credential |> MercadoPago.marketplace_association_link()
 
       assert link =~ "https://auth.mercadopago.com.ar"
       # token app_id
@@ -71,11 +72,42 @@ defmodule Tq2.Gateways.MercadoPagoTest do
       mocked_fn = default_marketplace |> mock_post_with()
 
       with_mock HTTPoison, mocked_fn do
-        marketplace = @client |> MercadoPago.associate_marketplace("111")
+        marketplace = @credential |> MercadoPago.associate_marketplace("111")
 
         assert %{} = marketplace
         assert default_marketplace.access_token == marketplace["access_token"]
         assert default_marketplace.refresh_token == marketplace["refresh_token"]
+      end
+    end
+
+    test "create_license_preference/1 returns a valid map preference" do
+      session = create_session()
+      session |> user_fixture()
+
+      default_preference = %{
+        id: 33,
+        external_reference: "123-321",
+        init_point: "https://mp.com/123"
+      }
+
+      mocked_fn = default_preference |> mock_post_with()
+
+      with_mock HTTPoison, mocked_fn do
+        preference = session.account |> MercadoPago.create_license_preference()
+
+        assert default_preference.id == preference["id"]
+        assert default_preference.external_reference == preference["external_reference"]
+        assert default_preference.init_point == preference["init_point"]
+      end
+    end
+
+    test "update_license_with_last_payment/1 returns true until payments" do
+      mocked_fn = %{results: [@default_payment]} |> mock_get_with()
+      session = create_session()
+
+      with_mock HTTPoison, mocked_fn do
+        # TODO redefine with real payments
+        assert MercadoPago.update_license_with_last_payment(session.account)
       end
     end
 

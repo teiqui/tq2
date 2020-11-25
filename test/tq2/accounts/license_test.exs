@@ -6,11 +6,11 @@ defmodule Tq2.Accounts.LicenseTest do
 
     @valid_attrs %{
       status: "trial",
-      reference: "123"
+      reference: Ecto.UUID.generate()
     }
     @invalid_attrs %{
       status: "unknown",
-      reference: ""
+      reference: "123"
     }
 
     test "changeset with valid attributes" do
@@ -23,17 +23,18 @@ defmodule Tq2.Accounts.LicenseTest do
       changeset = License.changeset(%License{}, @invalid_attrs)
 
       refute changeset.valid?
+
+      assert "is invalid" in errors_on(changeset).status
+      assert "is invalid" in errors_on(changeset).reference
     end
 
     test "changeset does not accept long attributes" do
       attrs =
         @valid_attrs
-        |> Map.put(:reference, String.duplicate("a", 256))
         |> Map.put(:status, String.duplicate("a", 256))
 
       changeset = License.changeset(%License{}, attrs)
 
-      assert "should be at most 255 character(s)" in errors_on(changeset).reference
       assert "should be at most 255 character(s)" in errors_on(changeset).status
     end
 

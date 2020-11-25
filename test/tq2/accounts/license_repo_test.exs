@@ -20,7 +20,7 @@ defmodule Tq2.Accounts.LicenseRepoTest do
     end
 
     test "converts unique constraint on reference to error" do
-      license = license_fixture(%{reference: "123"})
+      license = license_fixture(%{reference: Ecto.UUID.generate()})
       attrs = Map.put(@valid_attrs, :reference, license.reference)
       changeset = License.changeset(%License{}, attrs)
 

@@ -10,6 +10,7 @@ defmodule Tq2.Repo.Migrations.CreateMemberships do
         null: false
 
       add :default, :boolean, default: false, null: false
+      add :owner, :boolean, default: false, null: false
 
       timestamps()
     end

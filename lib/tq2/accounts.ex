@@ -299,6 +299,29 @@ defmodule Tq2.Accounts do
   def password_reset(user), do: Password.reset(user)
 
   @doc """
+  Gets the account owner.
+
+  Raises `Ecto.NoResultsError` if the User does not exist.
+
+  ## Examples
+
+      iex> get_account_owner!(%Account{id: 1})
+      %User{}
+
+      iex> get_account_owner!(%Account{id: 2})
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_account_owner!(%Account{} = account) do
+    from(
+      u in User,
+      join: m in assoc(u, :memberships),
+      where: m.account_id == ^account.id and m.owner == true
+    )
+    |> Repo.one!()
+  end
+
+  @doc """
   Gets a single license.
 
   Raises `Ecto.NoResultsError` if the License does not exist.
