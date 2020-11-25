@@ -143,10 +143,24 @@ defmodule Tq2.Inventories do
 
   """
   def list_items(account, params) do
-    Item
-    |> where(account_id: ^account.id)
-    |> join(:left, [i], c in assoc(i, :category))
-    |> preload([i, c], category: c)
+    account
+    |> list_items_query()
+    |> Repo.paginate(params)
+  end
+
+  @doc """
+  Returns the list of visible items.
+
+  ## Examples
+
+      iex> list_visible_items(%Account{}, %{})
+      [%Item{}, ...]
+
+  """
+  def list_visible_items(account, params) do
+    account
+    |> list_items_query()
+    |> where(visibility: "visible")
     |> Repo.paginate(params)
   end
 
@@ -241,5 +255,13 @@ defmodule Tq2.Inventories do
   """
   def change_item(%Account{} = account, %Item{} = item) do
     Item.changeset(account, item, %{})
+  end
+
+  defp list_items_query(account) do
+    Item
+    |> where(account_id: ^account.id)
+    |> join(:left, [i], c in assoc(i, :category))
+    |> order_by(asc: :name)
+    |> preload([i, c], category: c)
   end
 end

@@ -31,7 +31,7 @@ defmodule Tq2Web.StoreLive do
 
   defp load_items(socket, account) do
     items =
-      Inventories.list_items(account, %{
+      Inventories.list_visible_items(account, %{
         page: socket.assigns.page,
         page_size: socket.assigns.page_size
       })

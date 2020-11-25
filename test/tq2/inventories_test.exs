@@ -152,6 +152,14 @@ defmodule Tq2.InventoriesTest do
       assert Inventories.list_items(session.account, %{}).entries == [item]
     end
 
+    test "list_visible_items/2 returns all visible items", %{session: session} do
+      item = fixture(session, :item)
+
+      fixture(session, :item, %{name: "another name", sku: "another sku", visibility: "hidden"})
+
+      assert Inventories.list_visible_items(session.account, %{}).entries == [item]
+    end
+
     test "get_item!/2 returns the item with given id", %{session: session} do
       item = fixture(session, :item)
 

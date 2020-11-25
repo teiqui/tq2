@@ -23,6 +23,7 @@ defmodule Tq2.Repo.Migrations.CreateItems do
     end
 
     create index(:items, :name)
+    create index(:items, :visibility)
     create index(:items, :category_id)
     create index(:items, :account_id)
     create unique_index(:items, :uuid)
@@ -39,6 +40,7 @@ defmodule Tq2.Repo.Migrations.CreateItems do
     execute "DROP EXTENSION IF EXISTS pg_trgm;"
 
     drop index(:items, :name)
+    drop index(:items, :visibility)
     drop index(:items, :category_id)
     drop index(:items, :account_id)
     drop unique_index(:items, :uuid)
