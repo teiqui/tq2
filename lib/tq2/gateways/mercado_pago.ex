@@ -1,4 +1,8 @@
 defmodule Tq2.Gateways.MercadoPago do
+  import Tq2Web.Gettext
+
+  alias Tq2.Accounts
+  alias Tq2.Accounts.{Account, License}
   alias Tq2.Gateways.MercadoPago.Credential
 
   @default_time_format "{ISO:Extended}"
@@ -20,36 +24,43 @@ defmodule Tq2.Gateways.MercadoPago do
     "x-tracking-id" => "Teiqui Elixir SDK"
   }
 
-  # TODO Implement when license has currency & price AND Account. default email
-  # def create_license_preference(%License{} = license) do
-  #   preference = %{
-  #     items: [
-  #       %{
-  #         title:  dgettext("licenses", "monthly pay"),
-  #         description:  dgettext("licenses", "monthly pay"),
-  #         quantity: 1,
-  #         currency_id: license.currency,
-  #         unit_price: License.price_for(license)
-  #       }
-  #     ],
-  #     payer:
-  #       %{
-  #         email: Accounts.default_email_for(license.account)
-  #       },
-  #     back_urls: %{
-  #       success: license_check_url(),
-  #       failure: license_check_url(),
-  #       pending: license_check_url()
-  #     },
-  #     external_reference: license.reference
-  #   }
+  @doc "Create a license payment preference"
+  def create_license_preference(%Account{} = account) do
+    credential = account.country |> Credential.for_country()
 
-  #   client =
-  #     license.currency
-  #     |> client_for_currency()
+    preference = %{
+      items: [
+        %{
+          title: dgettext("licenses", "Monthly pay"),
+          description: dgettext("licenses", "Monthly pay"),
+          quantity: 1,
+          currency_id: credential.currency,
+          unit_price: License.price_for(account.country)
+        }
+      ],
+      payer: %{
+        email: Accounts.get_account_owner!(account).email
+      },
+      back_urls: %{
+        success: license_check_url(),
+        failure: license_check_url(),
+        pending: license_check_url()
+      },
+      external_reference: account.license.reference
+    }
 
-  #   request_post("/checkout/preferences", preference, credential.token)
-  # end
+    request_post("/checkout/preferences", preference, credential.token)
+  end
+
+  @doc "Get last payment and update license"
+  def update_license_with_last_payment(%Account{} = account) do
+    account = Tq2.Repo.preload(account, :license)
+
+    account.country
+    |> Credential.for_country()
+    |> last_payment_for_reference(account.license.reference)
+    |> License.update_payment(account.license)
+  end
 
   # TODO implement when cart is ready
   # def create_cart_preference(%Credential{} = credential, cart) do
@@ -142,7 +153,7 @@ defmodule Tq2.Gateways.MercadoPago do
     }
   end
 
-  def response_to_payment(_), do: %{}
+  def response_to_payment(nil), do: %{}
 
   @doc "Returns the min amount for a given currency"
   def min_amount_for(currency) do
@@ -179,9 +190,9 @@ defmodule Tq2.Gateways.MercadoPago do
     # Tq2Web.Router.Helpers.license_marketplace_url()
   end
 
-  # defp license_check_url do
-  #   # Tq2Web.Router.Helpers.license_check_url()
-  # end
+  defp license_check_url do
+    Tq2Web.Router.Helpers.license_check_url(Tq2Web.Endpoint, :show)
+  end
 
   # defp reservation_payment_url do
   #   # Tq2Web.Router.Helpers.mercado_pago_webhooks_url()

@@ -237,6 +237,16 @@ defmodule Tq2.AccountsTest do
 
       assert %Ecto.Changeset{} = Accounts.change_user_password(user)
     end
+
+    test "get_account_owner!/1 returns the owner user", %{session: session} do
+      user = user_fixture(session)
+      _other_user = user_fixture(session, %{email: "other@email.com"})
+
+      owner = session.account |> Accounts.get_account_owner!()
+
+      # same user
+      assert user.id == owner.id
+    end
   end
 
   describe "session" do
@@ -309,7 +319,7 @@ defmodule Tq2.AccountsTest do
 
     alias Tq2.Accounts.License
 
-    @update_attrs %{reference: "some updated reference", status: "active"}
+    @update_attrs %{reference: Ecto.UUID.generate(), status: "active"}
     @invalid_attrs %{reference: "", status: "unknown"}
 
     defp fixture(session, :license, attrs \\ %{}) do

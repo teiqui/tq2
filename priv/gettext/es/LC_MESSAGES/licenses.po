@@ -43,3 +43,15 @@ msgstr "Licencia"
 #: lib/tq2_web/templates/license/show.html.eex:12
 msgid "Paid until"
 msgstr "Pagado hasta"
+
+#: lib/tq2_web/controllers/license/check_controller.ex:17
+msgid "License updated"
+msgstr "Licencia actualizada"
+
+#: lib/tq2_web/controllers/license/check_controller.ex:18
+msgid "Nothing to update"
+msgstr "Nada para actualizar"
+
+#: lib/tq2/gateways/mercado_pago.ex:34 lib/tq2/gateways/mercado_pago.ex:35
+msgid "Monthly pay"
+msgstr "Pago mensual"

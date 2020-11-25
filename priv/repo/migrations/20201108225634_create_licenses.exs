@@ -7,7 +7,7 @@ defmodule Tq2.Repo.Migrations.CreateLicenses do
         null: false
 
       add :status, :string, null: false
-      add :reference, :string
+      add :reference, :uuid, null: false
       add :paid_until, :date, null: false
       add :lock_version, :integer, default: 0, null: false
 

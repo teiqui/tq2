@@ -5,6 +5,20 @@ defmodule Tq2.Gateways.MercadoPago.Credential do
 
   @currencies ~w(ARS CLP COP MXN PEN)
 
+  @country_to_currency %{
+    "ar" => "ARS",
+    "cl" => "CLP",
+    "co" => "COP",
+    "gt" => "MXN",
+    "mx" => "MXN",
+    "pe" => "PEN"
+  }
+
+  @doc "Returns a Credential strict given a country."
+  def for_country(country) do
+    @country_to_currency[country] |> for_currency()
+  end
+
   @doc "Returns a Credential strict given a user_id."
   def for_user_id(user_id) do
     Enum.find_value(@currencies, fn currency ->

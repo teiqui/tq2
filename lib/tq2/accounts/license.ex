@@ -7,7 +7,7 @@ defmodule Tq2.Accounts.License do
   alias Tq2.Repo
 
   schema "licenses" do
-    field :reference, :string
+    field :reference, Ecto.UUID, autogenerate: true
     field :status, :string
     field :paid_until, :date
     field :lock_version, :integer, default: 0
@@ -20,6 +20,29 @@ defmodule Tq2.Accounts.License do
   @cast_attrs [:status, :reference, :paid_until, :lock_version]
 
   @statuses ~w(trial active unpaid locked cancelled)
+
+  @currencies %{
+    "ar" => "ARS",
+    "cl" => "CLP",
+    "co" => "COP",
+    "gt" => "MXN",
+    "mx" => "MXN",
+    "pe" => "PEN"
+  }
+  @prices %{
+    "ARS" => 990.0,
+    "CLP" => 20_000.0,
+    "COP" => 58_000.0,
+    "MXN" => 330.0,
+    "PEN" => 48.0
+  }
+  @yearly_prices %{
+    "ARS" => 5_940.0,
+    "CLP" => 120_000.0,
+    "COP" => 348_000.0,
+    "MXN" => 1_980.0,
+    "PEN" => 288.0
+  }
 
   @doc false
   def changeset(%License{} = license, attrs) do
@@ -43,12 +66,25 @@ defmodule Tq2.Accounts.License do
     |> validate_required([:status])
     |> validate_length(:status, max: 255)
     |> validate_inclusion(:status, @statuses)
-    |> validate_length(:reference, max: 255)
     |> unsafe_validate_unique(:reference, Repo)
     |> unique_constraint(:reference)
     |> optimistic_lock(:lock_version)
     |> assoc_constraint(:account)
   end
+
+  def price_for(country, :yearly) do
+    currency = @currencies[country]
+
+    @yearly_prices[currency]
+  end
+
+  def price_for(country, :monthly) do
+    currency = @currencies[country]
+
+    @prices[currency]
+  end
+
+  def price_for(country), do: price_for(country, :monthly)
 
   defp put_status(%Ecto.Changeset{} = changeset) do
     changeset |> change(status: "trial")
@@ -70,5 +106,14 @@ defmodule Tq2.Accounts.License do
 
   defp put_account(%Ecto.Changeset{} = changeset, %Account{} = account) do
     changeset |> change(account_id: account.id)
+  end
+
+  def update_payment(payment, %License{} = _license) do
+    # TODO redefine with real payments
+    case payment.status do
+      :paid -> true
+      :cancelled -> false
+      :pending -> false
+    end
   end
 end
