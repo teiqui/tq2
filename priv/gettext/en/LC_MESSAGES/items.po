@@ -30,7 +30,7 @@ msgstr ""
 msgid "Cost"
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:96
+#: lib/tq2_web/views/item_view.ex:115
 msgid "Create"
 msgstr ""
 
@@ -122,7 +122,7 @@ msgstr ""
 msgid "Sku"
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:97
+#: lib/tq2_web/views/item_view.ex:116
 msgid "Update"
 msgstr ""
 

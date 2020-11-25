@@ -7,10 +7,22 @@ defmodule Tq2Web.ItemComponentTest do
   alias Tq2Web.ItemComponent
 
   describe "render" do
-    test "render item" do
+    test "render item with image" do
       item = item()
+      content = render_component(ItemComponent, item: item, id: item.id)
 
-      assert render_component(ItemComponent, item: item, id: item.id) =~ item.name
+      assert content =~ item.name
+      assert content =~ "<img"
+      refute content =~ "<svg"
+    end
+
+    test "render item with no image" do
+      item = %{item() | image: nil}
+      content = render_component(ItemComponent, item: item, id: item.id)
+
+      assert content =~ item.name
+      assert content =~ "<svg"
+      refute content =~ "<img"
     end
   end
 

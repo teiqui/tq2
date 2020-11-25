@@ -166,6 +166,17 @@ defmodule Tq2Web.ItemViewTest do
       |> safe_to_string()
 
     assert content =~ "<img"
+    refute content =~ "<svg"
+  end
+
+  test "image placeholder" do
+    content =
+      %Item{}
+      |> ItemView.image()
+      |> safe_to_string()
+
+    assert content =~ "<svg"
+    refute content =~ "<img"
   end
 
   defp account do

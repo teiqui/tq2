@@ -4,7 +4,26 @@ defmodule Tq2Web.ItemComponent do
   alias Tq2.Inventories.Item
   import Tq2Web.ItemView, only: [money: 1]
 
-  defp image(%Item{image: nil}), do: nil
+  defp image(%Item{image: nil} = item) do
+    ~E"""
+      <svg class="card-img-top embed-responsive-item"
+           viewBox="0 0 150 150"
+           width="150"
+           height="150"
+           xmlns="http://www.w3.org/2000/svg"
+           focusable="false"
+           role="img"
+           aria-label="<%= item.name %>">
+        <g>
+          <title><%= item.name %></title>
+          <rect width="150" height="150" x="0" y="0" fill="#c4c4c4"></rect>
+          <text x="50%" y="50%" text-anchor="middle" alignment-baseline="middle" fill="#838383" dy=".3em">
+            <%= String.slice(item.name, 0..10) %>
+          </text>
+        </g>
+      </svg>
+    """
+  end
 
   defp image(%Item{image: image} = item) do
     url = Tq2.ImageUploader.url({image, item}, :thumb)
