@@ -5,15 +5,14 @@
 //
 
 $gray-100: #f9f9fa;
-$purple: #5a59aa;
 $green: #5baa59;
 $yellow: #eebc5a;
 $red: #c74444;
 
-$primary: $purple;
+$primary: #f04350;
 $secondary: #f9f9fa;
 $success: $green;
-$info: #9591f0;
+$info: #457b9d;
 $warning: $yellow;
 $danger: $red;
 $light: $gray-100;
@@ -27,16 +26,10 @@ $border-radius-sm: .85rem;
 
 // Custom color
 
-$complementary: #f48c06;
-$complementary-light: #ffd7bf;
-$primary-dark: #494885;
-$success-dark: #3a8538;
+$complementary: #457b9d;
 
 $theme-colors: (
   "complementary": $complementary,
-  "complementary-light": $complementary-light,
-  "primary-dark": $primary-dark,
-  "success-dark": $success-dark,
 );
 
 // Fonts
@@ -44,11 +37,3 @@ $theme-colors: (
 $font-family-sans-serif: "Mulish", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 $web-font-path: '';
 $enable-responsive-font-sizes: true;
-
-// Popovers
-
-$popover-border-width:  4px;
-$popover-box-shadow:    none;
-$popover-border-radius: 20px;
-$popover-max-width:     326px;
-$popover-font-size:     $font-size-base;
