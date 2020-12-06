@@ -19,7 +19,8 @@ defmodule Tq2Web.Licenses.CheckControllerTest do
       external_reference: "123",
       transaction_amount: 12.0,
       date_approved: Timex.now(),
-      status: "approved"
+      status: "approved",
+      currency_id: "ARS"
     }
 
     @tag login_as: "test@user.com"
@@ -31,6 +32,18 @@ defmodule Tq2Web.Licenses.CheckControllerTest do
 
         assert html_response(conn, 302)
         assert get_flash(conn, :info) == "License updated"
+      end
+    end
+
+    @tag login_as: "test@user.com"
+    test "check license without update", %{conn: conn} do
+      mocked_fn = %{results: []} |> mock_get_with()
+
+      with_mock HTTPoison, mocked_fn do
+        conn = get(conn, Routes.license_check_path(conn, :show))
+
+        assert html_response(conn, 302)
+        assert get_flash(conn, :info) == "Nothing to update"
       end
     end
 

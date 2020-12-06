@@ -4,6 +4,7 @@ defmodule Tq2.Gateways.MercadoPago do
   alias Tq2.Accounts
   alias Tq2.Accounts.{Account, License}
   alias Tq2.Gateways.MercadoPago.Credential
+  alias Tq2.Payments
 
   @default_time_format "{ISO:Extended}"
   @base_uri "https://api.mercadopago.com"
@@ -59,7 +60,7 @@ defmodule Tq2.Gateways.MercadoPago do
     account.country
     |> Credential.for_country()
     |> last_payment_for_reference(account.license.reference)
-    |> License.update_payment(account.license)
+    |> Payments.create_or_update_license_payment(account)
   end
 
   # TODO implement when cart is ready
@@ -140,13 +141,15 @@ defmodule Tq2.Gateways.MercadoPago do
         "id" => id,
         "date_approved" => date,
         "status" => status,
-        "transaction_amount" => amount
+        "transaction_amount" => amount,
+        "currency_id" => currency
       }) do
     paid_at = date |> parse_date()
     status = status |> parse_payment_status()
+    amount = amount |> parse_amount(currency)
 
     %{
-      external_id: id,
+      external_id: "#{id}",
       amount: amount,
       paid_at: paid_at,
       status: status
@@ -216,10 +219,16 @@ defmodule Tq2.Gateways.MercadoPago do
     body |> Jason.decode!()
   end
 
-  defp parse_response(response) do
-    Sentry.capture_message("MP Error", extra: %{response: response})
+  defp parse_response({_, %HTTPoison.Response{status_code: code, body: body}}) do
+    body = Jason.decode(body)
+
+    Sentry.capture_message("MP Error", extra: %{body: body, status_code: code})
 
     nil
+  end
+
+  defp parse_response(response) do
+    Sentry.capture_message("MP Error", extra: %{response: inspect(response)})
   end
 
   defp fetch_first_payment(nil), do: nil
@@ -230,6 +239,8 @@ defmodule Tq2.Gateways.MercadoPago do
     |> response_to_payment()
   end
 
+  defp fetch_first_payment(_), do: nil
+
   defp parse_date(nil), do: nil
 
   defp parse_date(raw_datetime) do
@@ -238,9 +249,15 @@ defmodule Tq2.Gateways.MercadoPago do
 
   defp parse_payment_status(status) do
     case status do
-      s when s in ["approved", "in_process", "authorized"] -> :paid
-      s when s in ["rejected", "charged_back", "cancelled", "refunded"] -> :cancelled
-      _ -> :pending
+      s when s in ["approved", "in_process", "authorized"] -> "paid"
+      s when s in ["rejected", "charged_back", "cancelled", "refunded"] -> "cancelled"
+      _ -> "pending"
     end
+  end
+
+  defp parse_amount(amount, currency) do
+    {:ok, money} = Money.parse(amount, currency)
+
+    money
   end
 end

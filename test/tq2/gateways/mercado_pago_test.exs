@@ -13,7 +13,8 @@ defmodule Tq2.Gateways.MercadoPagoTest do
       external_reference: "123",
       transaction_amount: 12.0,
       date_approved: Timex.now(),
-      status: "approved"
+      status: "approved",
+      currency_id: "ARS"
     }
     @credential Credential.for_currency("ARS")
 
@@ -41,9 +42,10 @@ defmodule Tq2.Gateways.MercadoPagoTest do
           |> MercadoPago.last_payment_for_reference(@default_payment.external_reference)
 
         assert %{} = payment
-        assert 123 == payment.external_id
-        assert :paid == payment.status
+        assert "123" == payment.external_id
+        assert "paid" == payment.status
         assert %DateTime{} = payment.paid_at
+        assert Money.new(1200, :ARS) == payment.amount
       end
     end
 
@@ -106,8 +108,10 @@ defmodule Tq2.Gateways.MercadoPagoTest do
       session = create_session()
 
       with_mock HTTPoison, mocked_fn do
-        # TODO redefine with real payments
-        assert MercadoPago.update_license_with_last_payment(session.account)
+        {:ok, payment} = MercadoPago.update_license_with_last_payment(session.account)
+
+        assert payment.id
+        assert payment.status == "paid"
       end
     end
 

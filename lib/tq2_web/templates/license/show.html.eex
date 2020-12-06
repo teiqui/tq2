@@ -14,3 +14,29 @@
     </p>
   </div>
 </div>
+
+<%= if Enum.any?(@payments) do %>
+  <div class="card my-3">
+    <div class="card-header">
+      <h2 class="h5"><%= dgettext("licenses", "Payments") %></h2>
+    </div>
+    <div class="card-body table-responsive">
+      <table class="table">
+        <thead>
+          <th><%= dgettext("licenses", "Status") %></th>
+          <th><%= dgettext("licenses", "Amount") %></th>
+          <th><%= dgettext("licenses", "Paid at") %></th>
+        </thead>
+        <tbody>
+          <%= for payment <- @payments do %>
+            <tr>
+              <td><%= payment_status(payment.status) %></td>
+              <td><%= money(payment.amount) %></td>
+              <td><%= localize(payment.paid_at) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>

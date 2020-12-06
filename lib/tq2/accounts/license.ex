@@ -107,13 +107,4 @@ defmodule Tq2.Accounts.License do
   defp put_account(%Ecto.Changeset{} = changeset, %Account{} = account) do
     changeset |> change(account_id: account.id)
   end
-
-  def update_payment(payment, %License{} = _license) do
-    # TODO redefine with real payments
-    case payment.status do
-      :paid -> true
-      :cancelled -> false
-      :pending -> false
-    end
-  end
 end
