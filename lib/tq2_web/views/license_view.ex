@@ -22,8 +22,8 @@ defmodule Tq2Web.LicenseView do
     statuses[license.status]
   end
 
-  def localize(raw_date) do
-    {:ok, formatted} = raw_date |> Timex.format(dgettext("times", "{M}/{D}/{YYYY}"))
+  def localize(date) do
+    {:ok, formatted} = date |> Timex.format(dgettext("times", "{M}/{D}/{YYYY}"))
 
     formatted
   end
