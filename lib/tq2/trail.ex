@@ -6,9 +6,19 @@ defmodule Tq2.Trail do
   end
 
   def update(changeset, opts \\ []) do
-    changeset
-    |> PaperTrail.update(opts)
-    |> extract_model()
+    empty_changes = %{}
+
+    # Skip version without changes
+    # TODO: Remove after paper_trail solve this
+    case changeset do
+      %Ecto.Changeset{changes: ^empty_changes, valid?: true} ->
+        {:ok, changeset.data}
+
+      _ ->
+        changeset
+        |> PaperTrail.update(opts)
+        |> extract_model()
+    end
   end
 
   def delete(struct_or_changeset, opts \\ []) do

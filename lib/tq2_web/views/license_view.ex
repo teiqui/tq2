@@ -10,16 +10,32 @@ defmodule Tq2Web.LicenseView do
     dgettext("licenses", "Cancelled") => "cancelled"
   }
 
+  @payment_statuses %{
+    dgettext("licenses", "Paid") => "paid",
+    dgettext("licenses", "Pending") => "pending",
+    dgettext("licenses", "Cancelled") => "cancelled"
+  }
+
   def status(license) do
     statuses = invert(@statuses)
 
     statuses[license.status]
   end
 
-  def localize(paid_until) do
-    {:ok, formatted} = paid_until |> Timex.format(dgettext("times", "{M}/{D}/{YYYY}"))
+  def localize(date) do
+    {:ok, formatted} = date |> Timex.format(dgettext("times", "{M}/{D}/{YYYY}"))
 
     formatted
+  end
+
+  def money(money) do
+    Money.to_string(money, symbol: true)
+  end
+
+  def payment_status(status) do
+    statuses = invert(@payment_statuses)
+
+    statuses[status]
   end
 
   defp invert(map) when is_map(map) do

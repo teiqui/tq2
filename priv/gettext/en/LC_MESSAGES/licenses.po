@@ -12,6 +12,7 @@ msgstr ""
 "Plural-Forms: nplurals=2\n"
 
 #: lib/tq2_web/templates/license/show.html.eex:8
+#: lib/tq2_web/templates/license/show.html.eex:27
 msgid "Status"
 msgstr ""
 
@@ -19,7 +20,7 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-#: lib/tq2_web/views/license_view.ex:10
+#: lib/tq2_web/views/license_view.ex:10 lib/tq2_web/views/license_view.ex:16
 msgid "Cancelled"
 msgstr ""
 
@@ -44,14 +45,34 @@ msgstr ""
 msgid "Paid until"
 msgstr ""
 
-#: lib/tq2_web/controllers/license/check_controller.ex:17
+#: lib/tq2_web/controllers/license/check_controller.ex:15
 msgid "License updated"
 msgstr ""
 
-#: lib/tq2_web/controllers/license/check_controller.ex:18
+#: lib/tq2_web/controllers/license/check_controller.ex:16
 msgid "Nothing to update"
 msgstr ""
 
-#: lib/tq2/gateways/mercado_pago.ex:34 lib/tq2/gateways/mercado_pago.ex:35
+#: lib/tq2/gateways/mercado_pago.ex:35 lib/tq2/gateways/mercado_pago.ex:36
 msgid "Monthly pay"
+msgstr ""
+
+#: lib/tq2_web/templates/license/show.html.eex:28
+msgid "Amount"
+msgstr ""
+
+#: lib/tq2_web/views/license_view.ex:14
+msgid "Paid"
+msgstr ""
+
+#: lib/tq2_web/templates/license/show.html.eex:29
+msgid "Paid at"
+msgstr ""
+
+#: lib/tq2_web/templates/license/show.html.eex:22
+msgid "Payments"
+msgstr ""
+
+#: lib/tq2_web/views/license_view.ex:15
+msgid "Pending"
 msgstr ""

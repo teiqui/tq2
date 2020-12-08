@@ -10,6 +10,6 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/views/license_view.ex:20
+#: lib/tq2_web/views/license_view.ex:27
 msgid "{M}/{D}/{YYYY}"
 msgstr ""

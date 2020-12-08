@@ -12,8 +12,8 @@ defmodule Tq2Web.License.CheckController do
   def show(conn, session) do
     message =
       case MercadoPago.update_license_with_last_payment(session.account) do
-        true -> dgettext("licenses", "License updated")
-        false -> dgettext("licenses", "Nothing to update")
+        {:ok, _} -> dgettext("licenses", "License updated")
+        _ -> dgettext("licenses", "Nothing to update")
       end
 
     path = Routes.license_path(conn, :show)
