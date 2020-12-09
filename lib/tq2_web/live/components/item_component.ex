@@ -1,8 +1,13 @@
 defmodule Tq2Web.ItemComponent do
   use Tq2Web, :live_component
 
-  alias Tq2.Inventories.Item
   import Tq2Web.ItemView, only: [money: 1]
+
+  alias Tq2.Inventories.Item
+
+  defp path(socket, store, item) do
+    Routes.item_path(socket, :index, store.slug, item.id)
+  end
 
   defp image(%Item{image: nil} = item) do
     ~E"""

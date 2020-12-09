@@ -49,7 +49,7 @@ defmodule Tq2.MixProject do
       {:plug_cowboy, ">= 2.4.0"},
       {:argon2_elixir, ">= 2.3.0"},
       {:bamboo, ">= 1.6.0"},
-      {:paper_trail, ">= 0.9.0"},
+      {:paper_trail, ">= 0.11.0"},
       {:tzdata, ">= 1.0.0"},
       {:scrivener_ecto, ">= 2.7.0"},
       {:scrivener_html, ">= 1.8.0"},

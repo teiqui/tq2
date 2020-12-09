@@ -46,15 +46,74 @@ defmodule Tq2Web.StoreLiveTest do
     %{store: store}
   end
 
+  def items_fixture(_) do
+    account = Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
+    session = %Tq2.Accounts.Session{account: account}
+
+    items =
+      Enum.map(item_attributes(), fn attrs ->
+        {:ok, item} = Tq2.Inventories.create_item(session, attrs)
+
+        item
+      end)
+
+    %{items: items}
+  end
+
   describe "render" do
-    setup [:store_fixture]
+    setup [:store_fixture, :items_fixture]
 
-    test "disconnected and connected render", %{conn: conn, store: store} do
+    test "disconnected and connected render", %{conn: conn, store: store, items: items} do
       conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
-      {:ok, store_live, disconnected_html} = live(conn, "/#{store.slug}")
+      {:ok, store_live, html} = live(conn, "/#{store.slug}")
+      content = render(store_live)
 
-      assert disconnected_html =~ store.name
-      assert render(store_live) =~ store.name
+      assert html =~ store.name
+      assert content =~ store.name
+      assert content =~ List.first(items).name
     end
+
+    test "load more event", %{conn: conn, store: store, items: items} do
+      conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
+      {:ok, store_live, html} = live(conn, "/#{store.slug}")
+      content = render(store_live)
+
+      assert html =~ store.name
+      assert content =~ store.name
+      assert content =~ List.first(items).name
+      refute content =~ List.last(items).name
+
+      content =
+        store_live
+        |> element("#footer")
+        |> render_hook(:"load-more")
+
+      assert content =~ List.last(items).name
+    end
+  end
+
+  defp item_attributes do
+    [
+      %{
+        id: "1",
+        sku: "123",
+        name: "Chocolate",
+        description: "Very good",
+        visibility: "visible",
+        price: Money.new(100, :ARS),
+        promotional_price: Money.new(90, :ARS),
+        cost: Money.new(80, :ARS)
+      },
+      %{
+        id: "2",
+        sku: "234",
+        name: "Coke",
+        description: "Amazing",
+        visibility: "visible",
+        price: Money.new(120, :ARS),
+        promotional_price: Money.new(110, :ARS),
+        cost: Money.new(100, :ARS)
+      }
+    ]
   end
 end

@@ -1,0 +1,63 @@
+<h1>
+  <%= @store.name %>
+</h1>
+
+<div id="item-<%= @item.id %>" class="card card-body">
+  <div class="text-right mb-3">
+    <%= live_redirect to: Routes.store_path(@socket, :index, @store.slug),
+                      class: "h3 text-dark font-weight-semi-bold text-decoration-none" do %>
+      &times;
+    <% end %>
+  </div>
+
+  <div class="text-center">
+    <%= image @item %>
+  </div>
+
+  <h2 class="h4">
+    <%= @item.name %>
+  </h2>
+
+  <%= if @item.description do %>
+    <p class="text-muted my-3">
+      <%= @item.description %>
+    </p>
+  <% end %>
+
+  <div class="d-flex align-items-center justify-content-end">
+    <button type="button" class="btn btn-link mr-1" phx-click="decrease" <%= if @quantity == 1, do: "disabled" %>>
+      <svg class="bi" width="20" height="20" fill="currentColor">
+        <use xlink:href="/images/bootstrap-icons.svg#dash-circle"/>
+      </svg>
+    </button>
+    <div class="text-dark h5 mt-2" data-quantity="<%= @quantity %>"><%= @quantity %></div>
+    <button type="button" class="btn btn-link ml-2" phx-click="increase">
+      <svg class="bi" width="20" height="20" fill="currentColor">
+        <use xlink:href="/images/bootstrap-icons.svg#plus-circle"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="d-flex justify-content-between mt-5 mb-3">
+    <button type="button"
+            class="btn btn-outline-secondary btn-lg rounded-pill px-3 border mr-3"
+            phx-click="add"
+            phx-value-id="<%= @item.id %>"
+            phx-value-type="regular">
+      <%= money @item.price %>
+    </button>
+
+    <button type="button"
+            class="btn btn-primary btn-lg rounded-pill px-5"
+            phx-click="add"
+            phx-value-id="<%= @item.id %>"
+            phx-value-type="promotional">
+      <img src="<%= Routes.static_path(@socket, "/images/favicon_white.svg") %>"
+           class="mt-n1"
+           height="16"
+           width="16"
+           alt="Teiqui">
+      <%= money @item.promotional_price %>
+    </button>
+  </div>
+</div>

@@ -5,13 +5,46 @@ defmodule Tq2.Transactions.CartTest do
     alias Tq2.Transactions.Cart
 
     @valid_attrs %{
+      token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
+      price_type: "promotional",
       account_id: "1"
+    }
+    @invalid_attrs %{
+      token: nil,
+      price_type: nil,
+      account_id: nil
     }
 
     test "changeset with valid attributes" do
       changeset = default_account() |> Cart.changeset(%Cart{}, @valid_attrs)
 
       assert changeset.valid?
+    end
+
+    test "changeset with invalid attributes" do
+      changeset = default_account() |> Cart.changeset(%Cart{}, @invalid_attrs)
+
+      refute changeset.valid?
+    end
+
+    test "changeset does not accept long attributes" do
+      attrs =
+        @valid_attrs
+        |> Map.put(:token, String.duplicate("a", 256))
+
+      changeset = default_account() |> Cart.changeset(%Cart{}, attrs)
+
+      assert "should be at most 255 character(s)" in errors_on(changeset).token
+    end
+
+    test "changeset check inclusions" do
+      attrs =
+        @valid_attrs
+        |> Map.put(:price_type, "xx")
+
+      changeset = default_account() |> Cart.changeset(%Cart{}, attrs)
+
+      assert "is invalid" in errors_on(changeset).price_type
     end
   end
 

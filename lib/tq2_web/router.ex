@@ -21,14 +21,20 @@ defmodule Tq2Web.Router do
     end
   end
 
+  pipeline :store do
+    plug :fetch_token
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/", Tq2Web, host: "#{Application.get_env(:tq2, :store_subdomain)}." do
     pipe_through :browser
+    pipe_through :store
 
     live "/:slug", StoreLive, :index
+    live "/:slug/items/:id", ItemLive, :index
   end
 
   scope "/", Tq2Web do

@@ -16,17 +16,19 @@ defmodule Tq2.Transactions do
 
   ## Examples
 
-      iex> get_cart!(%Account{}, 123)
+      iex> get_cart(%Account{}, "token")
       %Cart{}
 
-      iex> get_cart!(%Account{}, 456)
-      ** (Ecto.NoResultsError)
+      iex> get_cart(%Account{}, "invalid_token")
+      nil
 
   """
-  def get_cart!(account, id) do
+  def get_cart(account, token) do
     Cart
-    |> where(account_id: ^account.id)
-    |> Repo.get!(id)
+    |> where(account_id: ^account.id, token: ^token)
+    |> join(:left, [c], l in assoc(c, :lines))
+    |> preload([c, l], lines: l)
+    |> Repo.one()
   end
 
   @doc """

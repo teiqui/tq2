@@ -2,11 +2,13 @@ defmodule Tq2.ImageUploader do
   use Waffle.Definition
   use Waffle.Ecto.Definition
 
-  @versions [:original, :thumb, :thumb_2x]
+  @versions [:original, :thumb, :thumb_2x, :preview, :preview_2x]
   @extension_whitelist ~w(.jpg .jpeg .gif .png .webp)
 
   def acl(:thumb, _), do: :public_read
   def acl(:thumb_2x, _), do: :public_read
+  def acl(:preview, _), do: :public_read
+  def acl(:preview_2x, _), do: :public_read
 
   def validate({file, _}) do
     file_extension = file.file_name |> Path.extname() |> String.downcase()
@@ -20,6 +22,14 @@ defmodule Tq2.ImageUploader do
 
   def transform(:thumb_2x, _) do
     {:convert, "-thumbnail 300x300^ -gravity center -extent 300x300 -format png", :png}
+  end
+
+  def transform(:preview, _) do
+    {:convert, "-thumbnail 280x280^ -gravity center -extent 280x280 -format png", :png}
+  end
+
+  def transform(:preview_2x, _) do
+    {:convert, "-thumbnail 560x560^ -gravity center -extent 560x560 -format png", :png}
   end
 
   def filename(version, _) do

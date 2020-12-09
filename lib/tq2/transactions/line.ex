@@ -9,9 +9,9 @@ defmodule Tq2.Transactions.Line do
   schema "lines" do
     field :name, :string
     field :quantity, :integer
-    field :price, :map
-    field :promotional_price, :map
-    field :cost, :map
+    field :price, Money.Ecto.Map.Type
+    field :promotional_price, Money.Ecto.Map.Type
+    field :cost, Money.Ecto.Map.Type
 
     belongs_to :item, Item
     belongs_to :cart, Cart
