@@ -145,3 +145,8 @@ msgstr ""
 #: lib/tq2_web/live/store_live.html.leex:13
 msgid "Loading..."
 msgstr ""
+
+#, elixir-format
+#: lib/tq2_web/live/components/header_component.html.leex:10
+msgid "Online store"
+msgstr ""

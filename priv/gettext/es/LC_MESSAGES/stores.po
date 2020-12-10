@@ -146,3 +146,7 @@ msgstr "Tienda"
 #: lib/tq2_web/live/store_live.html.leex:13
 msgid "Loading..."
 msgstr "Cargando..."
+
+#: lib/tq2_web/live/components/header_component.html.leex:10
+msgid "Online store"
+msgstr "Tienda en línea"
