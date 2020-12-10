@@ -143,6 +143,6 @@ msgstr "WhatsApp"
 msgid "Store"
 msgstr "Tienda"
 
-#: lib/tq2_web/live/store_live.html.leex:15
+#: lib/tq2_web/live/store_live.html.leex:13
 msgid "Loading..."
 msgstr "Cargando..."

@@ -12,7 +12,7 @@ msgstr ""
 "Plural-Forms: nplurals=2\n"
 
 #: lib/tq2_web/templates/license/show.html.eex:8
-#: lib/tq2_web/templates/license/show.html.eex:27
+#: lib/tq2_web/templates/license/show.html.eex:26
 msgid "Status"
 msgstr ""
 
@@ -57,7 +57,7 @@ msgstr ""
 msgid "Monthly pay"
 msgstr ""
 
-#: lib/tq2_web/templates/license/show.html.eex:28
+#: lib/tq2_web/templates/license/show.html.eex:27
 msgid "Amount"
 msgstr ""
 
@@ -65,11 +65,11 @@ msgstr ""
 msgid "Paid"
 msgstr ""
 
-#: lib/tq2_web/templates/license/show.html.eex:29
+#: lib/tq2_web/templates/license/show.html.eex:28
 msgid "Paid at"
 msgstr ""
 
-#: lib/tq2_web/templates/license/show.html.eex:22
+#: lib/tq2_web/templates/license/show.html.eex:21
 msgid "Payments"
 msgstr ""
 

@@ -15,11 +15,11 @@ defmodule Tq2.LogoUploader do
   end
 
   def transform(:thumb, _) do
-    {:convert, "-thumbnail 120x55^ -gravity center -extent 120x55 -format png", :png}
+    {:convert, "-thumbnail 70x70^ -gravity center -extent 70x70 -format png", :png}
   end
 
   def transform(:thumb_2x, _) do
-    {:convert, "-thumbnail 240x110^ -gravity center -extent 240x110 -format png", :png}
+    {:convert, "-thumbnail 140x140^ -gravity center -extent 140x140 -format png", :png}
   end
 
   def filename(version, _) do

@@ -1,0 +1,23 @@
+<nav class="bg-primary text-white fixed-top py-3">
+  <div class="container-fluid">
+    <div class="d-flex align-items-center">
+      <div class="mr-3">
+        <%= image @store %>
+      </div>
+
+      <div>
+        <h2 class="h6 mb-0">
+          <%= dgettext("store", "Online store") %>
+        </h2>
+
+        <h1 class="h5 font-weight-bold">
+          <%= live_redirect to: Routes.store_path(@socket, :index, @store.slug), class: "text-reset text-decoration-none" do %>
+            <%= @store.name %>
+          <% end %>
+        </h1>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="py-5"></div>

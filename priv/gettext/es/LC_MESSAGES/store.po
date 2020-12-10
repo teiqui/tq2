@@ -11,6 +11,6 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/views/license_view.ex:26
-msgid "{M}/{D}/{YYYY}"
-msgstr "{D}/{M}/{YYYY}"
+#: lib/tq2_web/live/components/header_component.html.leex:10
+msgid "Online store"
+msgstr "Tienda en línea"

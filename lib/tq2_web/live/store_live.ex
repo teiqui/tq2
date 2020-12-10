@@ -3,7 +3,7 @@ defmodule Tq2Web.StoreLive do
 
   alias Tq2.{Inventories, Shops, Transactions}
   alias Tq2.Transactions.Cart
-  alias Tq2Web.{ButtonComponent, ItemComponent}
+  alias Tq2Web.{ButtonComponent, HeaderComponent, ItemComponent}
 
   @impl true
   def mount(%{"slug" => slug}, session, socket) do

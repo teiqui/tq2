@@ -29,6 +29,11 @@ defmodule Tq2Web.Endpoint do
       at: "/images",
       from: Path.expand("./priv/waffle/private/images"),
       gzip: false
+
+    plug Plug.Static,
+      at: "/logos",
+      from: Path.expand("./priv/waffle/private/logos"),
+      gzip: false
   end
 
   # Code reloading can be explicitly enabled under the
