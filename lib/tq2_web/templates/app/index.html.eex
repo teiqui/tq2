@@ -1,0 +1,8 @@
+<h1 class="h3">
+  <%= dgettext("apps", "Apps") %>
+</h1>
+
+<%= for app_name <- app_names() do %>
+  <% app = app_by_name(@apps, app_name) %>
+  <%= render "_#{app_name}.html", Map.put(assigns, :app, app) %>
+<% end %>

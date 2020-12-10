@@ -1,0 +1,5 @@
+<p class="lead">
+  <%= dgettext("apps", "To link you'have to authorize Teiqui, after that your clients will have all MercadoPago payment methods available.") %>
+</p>
+
+<%= mp_link_to_authorize(@account) %>

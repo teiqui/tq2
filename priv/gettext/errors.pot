@@ -92,3 +92,9 @@ msgstr ""
 
 msgid "must be equal to %{number}"
 msgstr ""
+
+msgid "Invalid MercadoPago token"
+msgstr ""
+
+msgid "Can't link with a used MercadoPago account"
+msgstr ""

@@ -1,0 +1,28 @@
+## "msgid"s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove "msgid"s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use "mix gettext.extract --merge" or "mix gettext.merge"
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: en\n"
+"Plural-Forms: nplurals=2\n"
+
+# Apps.MercadoPago field
+msgid "status"
+msgstr ""
+
+#: lib/tq2_web/controllers/apps/mp_marketplace_controller.ex:57
+msgid "Already authorized"
+msgstr ""
+
+#: lib/tq2_web/controllers/apps/mp_marketplace_controller.ex:51
+msgid "Invalid authorization"
+msgstr ""
+
+#: lib/tq2_web/controllers/apps/mp_marketplace_controller.ex:33
+msgid "Successfully authorized"
+msgstr ""
