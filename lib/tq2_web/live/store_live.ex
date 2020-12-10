@@ -6,31 +6,32 @@ defmodule Tq2Web.StoreLive do
   alias Tq2Web.{ButtonComponent, HeaderComponent, ItemComponent}
 
   @impl true
-  def mount(%{"slug" => slug}, session, socket) do
+  def mount(%{"slug" => slug}, %{"token" => token}, socket) do
     store = Shops.get_store!(slug)
     options = %{page: 1, page_size: page_size()}
 
     socket =
       socket
-      |> assign(store: store)
+      |> assign(store: store, token: token)
       |> assign(options)
-      |> load_cart(session)
+      |> load_cart(token)
       |> load_items(store.account)
 
     {:ok, socket, temporary_assigns: [cart: nil, items: []]}
   end
 
   @impl true
-  def handle_event("load-more", _, %{assigns: %{store: store}} = socket) do
+  def handle_event("load-more", _, %{assigns: %{store: store, token: token}} = socket) do
     socket =
       socket
       |> update(:page, &(&1 + 1))
+      |> load_cart(token)
       |> load_items(store.account)
 
     {:noreply, socket}
   end
 
-  defp load_cart(%{assigns: %{store: %{account: account}}} = socket, %{"token" => token}) do
+  defp load_cart(%{assigns: %{store: %{account: account}}} = socket, token) do
     cart = Transactions.get_cart(account, token) || %Cart{lines: []}
 
     assign(socket, cart: cart)
@@ -49,7 +50,7 @@ defmodule Tq2Web.StoreLive do
   defp page_size do
     case Mix.env() do
       :test -> 1
-      _ -> 30
+      _ -> 12
     end
   end
 end
