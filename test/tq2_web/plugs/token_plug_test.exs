@@ -13,14 +13,14 @@ defmodule Tq2Web.TokenPlugTest do
   describe "token" do
     test "fetch token", %{conn: conn} do
       conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
-      store = store()
+      path = Routes.store_path(conn, :index, store())
 
       refute get_session(conn, :token)
 
       conn =
         conn
         |> bypass_through(Tq2Web.Router, :store)
-        |> get("/#{store.slug}")
+        |> get(path)
 
       assert get_session(conn, :token)
     end

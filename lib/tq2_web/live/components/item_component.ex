@@ -6,7 +6,7 @@ defmodule Tq2Web.ItemComponent do
   alias Tq2.Inventories.Item
 
   defp path(socket, store, item) do
-    Routes.item_path(socket, :index, store.slug, item.id)
+    Routes.item_path(socket, :index, store, item)
   end
 
   defp image(%Item{image: nil} = item) do

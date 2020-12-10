@@ -7,6 +7,8 @@ defmodule Tq2.Shops.Store do
   alias Tq2.Shops.{Configuration, Data, Location, Store}
   alias Tq2.Accounts.Account
 
+  @derive {Phoenix.Param, key: :slug}
+
   schema "stores" do
     field :uuid, Ecto.UUID, autogenerate: true
     field :name, :string

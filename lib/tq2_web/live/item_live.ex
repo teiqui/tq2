@@ -62,7 +62,7 @@ defmodule Tq2Web.ItemLive do
     socket =
       socket
       |> assign(cart: cart)
-      |> push_redirect(to: Routes.store_path(socket, :index, store.slug))
+      |> push_redirect(to: Routes.store_path(socket, :index, store))
 
     {:noreply, socket}
   end

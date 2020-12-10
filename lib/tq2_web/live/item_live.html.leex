@@ -2,7 +2,7 @@
 
 <div id="item-<%= @item.id %>" class="card card-body">
   <div class="text-right mb-3">
-    <%= live_redirect to: Routes.store_path(@socket, :index, @store.slug),
+    <%= live_redirect to: Routes.store_path(@socket, :index, @store),
                       class: "h3 text-dark font-weight-semi-bold text-decoration-none" do %>
       &times;
     <% end %>

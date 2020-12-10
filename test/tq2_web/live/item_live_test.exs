@@ -45,7 +45,8 @@ defmodule Tq2Web.ItemLiveTest do
 
     test "disconnected and connected render", %{conn: conn, item: item, store: store} do
       conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
-      {:ok, item_live, html} = live(conn, "/#{store.slug}/items/#{item.id}")
+      path = Routes.item_path(conn, :index, store, item)
+      {:ok, item_live, html} = live(conn, path)
 
       assert html =~ item.name
       assert render(item_live) =~ item.name
@@ -53,9 +54,10 @@ defmodule Tq2Web.ItemLiveTest do
 
     test "add event", %{conn: conn, item: item, store: store} do
       conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
-      {:ok, item_live, _html} = live(conn, "/#{store.slug}/items/#{item.id}")
+      path = Routes.item_path(conn, :index, store, item)
+      {:ok, item_live, _html} = live(conn, path)
 
-      store_path = "/#{store.slug}"
+      store_path = Routes.store_path(conn, :index, store)
 
       assert {:error, {:live_redirect, %{kind: :push, to: ^store_path}}} =
                render_click(item_live, :add, %{"type" => "promotional", "id" => item.id})
@@ -63,7 +65,8 @@ defmodule Tq2Web.ItemLiveTest do
 
     test "increase event", %{conn: conn, item: item, store: store} do
       conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
-      {:ok, item_live, _html} = live(conn, "/#{store.slug}/items/#{item.id}")
+      path = Routes.item_path(conn, :index, store, item)
+      {:ok, item_live, _html} = live(conn, path)
 
       assert item_live
              |> element("[data-quantity]")
@@ -74,7 +77,8 @@ defmodule Tq2Web.ItemLiveTest do
 
     test "decrease event", %{conn: conn, item: item, store: store} do
       conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
-      {:ok, item_live, _html} = live(conn, "/#{store.slug}/items/#{item.id}")
+      path = Routes.item_path(conn, :index, store, item)
+      {:ok, item_live, _html} = live(conn, path)
 
       assert render_click(item_live, :increase) =~ "data-quantity=\"2\""
       assert render_click(item_live, :decrease) =~ "data-quantity=\"1\""

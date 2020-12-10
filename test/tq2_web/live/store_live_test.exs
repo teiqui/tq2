@@ -65,7 +65,8 @@ defmodule Tq2Web.StoreLiveTest do
 
     test "disconnected and connected render", %{conn: conn, store: store, items: items} do
       conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
-      {:ok, store_live, html} = live(conn, "/#{store.slug}")
+      path = Routes.store_path(conn, :index, store)
+      {:ok, store_live, html} = live(conn, path)
       content = render(store_live)
 
       assert html =~ store.name
@@ -75,7 +76,8 @@ defmodule Tq2Web.StoreLiveTest do
 
     test "load more event", %{conn: conn, store: store, items: items} do
       conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
-      {:ok, store_live, html} = live(conn, "/#{store.slug}")
+      path = Routes.store_path(conn, :index, store)
+      {:ok, store_live, html} = live(conn, path)
       content = render(store_live)
 
       assert html =~ store.name
