@@ -4,26 +4,61 @@ defmodule Tq2Web.ItemComponentTest do
   import Phoenix.LiveViewTest
 
   alias Tq2.Inventories.{Category, Item}
+  alias Tq2.Transactions.Cart
   alias Tq2Web.ItemComponent
 
   describe "render" do
-    test "render item with image" do
+    test "render item with image and no price selected" do
       item = item()
+      cart = cart()
       store = store()
-      content = render_component(ItemComponent, item: item, id: item.id, store: store)
+      content = render_component(ItemComponent, store: store, cart: cart, item: item, id: item.id)
 
       assert content =~ item.name
       assert content =~ "<img"
       refute content =~ "<svg"
+      refute content =~ "<del"
     end
 
-    test "render item with no image" do
+    test "render item with no image and no price selected" do
       item = %{item() | image: nil}
+      cart = cart()
       store = store()
-      content = render_component(ItemComponent, item: item, id: item.id, store: store)
+      content = render_component(ItemComponent, store: store, cart: cart, item: item, id: item.id)
 
       assert content =~ item.name
       assert content =~ "<svg"
+      refute content =~ "<del"
+    end
+
+    test "render item with image and promotional price selected" do
+      item = item()
+      cart = %{cart() | lines: [%Tq2.Transactions.Line{}]}
+      store = store()
+      price = Money.to_string(item.price, symbol: true)
+      promotional_price = Money.to_string(item.promotional_price, symbol: true)
+      content = render_component(ItemComponent, store: store, cart: cart, item: item, id: item.id)
+
+      assert content =~ item.name
+      assert content =~ "<img"
+      assert content =~ "#{price}</del>"
+      refute content =~ "<svg"
+      refute content =~ "#{promotional_price}</del>"
+    end
+
+    test "render item with image and regular price selected" do
+      item = item()
+      cart = %{cart() | price_type: "regular", lines: [%Tq2.Transactions.Line{}]}
+      store = store()
+      price = Money.to_string(item.price, symbol: true)
+      promotional_price = Money.to_string(item.promotional_price, symbol: true)
+      content = render_component(ItemComponent, store: store, cart: cart, item: item, id: item.id)
+
+      assert content =~ item.name
+      assert content =~ "<img"
+      assert content =~ "#{promotional_price}</del>"
+      refute content =~ "<svg"
+      refute content =~ "#{price}</del>"
     end
   end
 
@@ -81,6 +116,14 @@ defmodule Tq2Web.ItemComponentTest do
         latitude: "12",
         longitude: "123"
       }
+    }
+  end
+
+  defp cart do
+    %Cart{
+      price_type: "promotional",
+      account_id: "1",
+      lines: []
     }
   end
 end

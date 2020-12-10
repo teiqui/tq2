@@ -4,6 +4,7 @@ defmodule Tq2Web.ItemComponent do
   import Tq2Web.ItemView, only: [money: 1]
 
   alias Tq2.Inventories.Item
+  alias Tq2.Transactions.Cart
 
   defp path(socket, store, item) do
     Routes.item_path(socket, :index, store, item)
@@ -46,5 +47,49 @@ defmodule Tq2Web.ItemComponent do
       alt: item.name,
       class: "card-img-top embed-responsive-item"
     )
+  end
+
+  defp price(%Cart{lines: []}, item) do
+    wrapped_price(:p, item)
+  end
+
+  defp price(%Cart{price_type: "regular"}, item) do
+    wrapped_price(:p, item)
+  end
+
+  defp price(_, item) do
+    wrapped_price(:del, item)
+  end
+
+  defp promotional_price(socket, %Cart{lines: []}, item) do
+    wrapped_promotional_price(socket, :p, item)
+  end
+
+  defp promotional_price(socket, %Cart{price_type: "promotional"}, item) do
+    wrapped_promotional_price(socket, :p, item)
+  end
+
+  defp promotional_price(socket, _cart, item) do
+    wrapped_promotional_price(socket, :del, item)
+  end
+
+  defp wrapped_price(tag, item) do
+    text = money(item.price)
+
+    content_tag(tag, text, class: "small text-truncate text-muted mb-0 mt-2")
+  end
+
+  defp wrapped_promotional_price(socket, tag, item) do
+    text = money(item.promotional_price)
+
+    image =
+      socket
+      |> Routes.static_path("/images/favicon.svg")
+      |> img_tag(height: 12, width: 12, alt: "Teiqui")
+      |> safe_to_string()
+
+    content = [image, text] |> Enum.join() |> raw()
+
+    content_tag(tag, content, class: "h6 text-truncate text-primary font-weight-semi-bold mb-0")
   end
 end

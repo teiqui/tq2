@@ -1,28 +1,20 @@
-<%= live_redirect to: path(@socket, @store, @item), class: "text-decoration-none", id: "item-#{@item.id}" do %>
-  <div class="col">
-    <div class="card mx-2 my-3 position-relative">
-      <div class="embed-responsive embed-responsive-1by1">
-        <%= image @item %>
-      </div>
+<%= live_redirect to: path(@socket, @store, @item), class: "col text-decoration-none", id: "item-#{@item.id}" do %>
+  <div class="card mx-2 my-3 position-relative">
+    <div class="embed-responsive embed-responsive-1by1">
+      <%= image @item %>
+    </div>
 
-      <div class="card-body py-3 px-2">
-        <p class="card-text h6 text-truncate text-dark font-weight-semi-bold mb-1">
-          <%= @item.name %>
-        </p>
+    <div class="card-body py-3 px-2">
+      <p class="card-text h6 text-truncate text-dark font-weight-semi-bold mb-1">
+        <%= @item.name %>
+      </p>
 
-        <p class="card-text text-truncate text-muted small mb-1">
-          <%= @item.description || {:safe, "&nbsp;"} %>
-        </p>
+      <p class="card-text text-truncate text-muted small mb-1">
+        <%= @item.description || {:safe, "&nbsp;"} %>
+      </p>
 
-        <p class="small text-truncate text-muted mb-2">
-          <%= money @item.price %>
-        </p>
-
-        <p class="h6 text-truncate text-primary font-weight-semi-bold mb-0">
-          <img src="<%= Routes.static_path(@socket, "/images/favicon.svg") %>" height="12" width="12" alt="Teiqui">
-          <%= money @item.promotional_price %>
-        </p>
-      </div>
+      <%= price @cart, @item %>
+      <%= promotional_price @socket, @cart, @item %>
     </div>
   </div>
 <% end %>

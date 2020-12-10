@@ -2,7 +2,7 @@
 
 <div id="items" class="row no-gutters row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-4 row-cols-xl-6" phx-update="append">
   <%= for item <- @items do %>
-    <%= live_component @socket, ItemComponent, store: @store, item: item, id: item.id %>
+    <%= live_component @socket, ItemComponent, store: @store, cart: @cart, item: item, id: item.id %>
   <% end %>
 </div>
 
