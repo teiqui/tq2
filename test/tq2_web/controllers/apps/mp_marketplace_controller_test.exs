@@ -55,7 +55,7 @@ defmodule Tq2Web.Apps.MpMarketplaceControllerTest do
     end
 
     @tag login_as: "test@user.com"
-    test "redirected_to new with invalid response", %{conn: conn} do
+    test "redirected to new with invalid response", %{conn: conn} do
       with_mock HTTPoison, mock_post_with(%{}) do
         conn = get(conn, Routes.mp_marketplace_path(conn, :show, code: 123))
 
