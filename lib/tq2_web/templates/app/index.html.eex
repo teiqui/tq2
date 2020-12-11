@@ -3,6 +3,5 @@
 </h1>
 
 <%= for app_name <- app_names() do %>
-  <% app = app_by_name(@apps, app_name) %>
-  <%= render "_#{app_name}.html", Map.put(assigns, :app, app) %>
+  <%= render "_#{app_name}.html", Map.put(assigns, :app, app_by_name(@apps, app_name)) %>
 <% end %>
