@@ -51,12 +51,12 @@ defmodule Tq2.Gateways.MercadoPagoTest do
 
     test "marketplace_association_link/1 returns valid url" do
       link = @credential |> MercadoPago.marketplace_association_link()
+      mp_link = Tq2Web.Router.Helpers.mp_marketplace_url(Tq2Web.Endpoint, :show)
 
       assert link =~ "https://auth.mercadopago.com.ar"
       # token app_id
       assert link =~ "client_id=3333"
-      # TODO: Change for the real url
-      assert link =~ "redirect_uri=marketplace"
+      assert link =~ "redirect_uri=#{mp_link}"
     end
 
     test "associate_marketplace/2 returns valid marketplace map" do
@@ -113,6 +113,14 @@ defmodule Tq2.Gateways.MercadoPagoTest do
         assert payment.id
         assert payment.status == "paid"
       end
+    end
+
+    test "commission_url_for/1 returns commission url" do
+      session = create_session()
+      url = session.account.country |> MercadoPago.commission_url_for()
+
+      assert String.contains?(url, "mercadopago.com.ar")
+      assert String.contains?(url, "costo-recibir-pagos")
     end
 
     defp mock_get_with(%{} = body \\ @default_payment, code \\ 200) do

@@ -53,7 +53,7 @@ msgstr "Licencia actualizada"
 msgid "Nothing to update"
 msgstr "Nada para actualizar"
 
-#: lib/tq2/gateways/mercado_pago.ex:35 lib/tq2/gateways/mercado_pago.ex:36
+#: lib/tq2/gateways/mercado_pago.ex:43 lib/tq2/gateways/mercado_pago.ex:44
 msgid "Monthly pay"
 msgstr "Pago mensual"
 

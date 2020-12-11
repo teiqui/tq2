@@ -25,6 +25,14 @@ defmodule Tq2.Gateways.MercadoPago do
     "x-tracking-id" => "Teiqui Elixir SDK"
   }
 
+  @commission_urls %{
+    "AR" => "https://www.mercadopago.com.ar/ayuda/costo-recibir-pagos_220",
+    "CL" => "https://www.mercadopago.cl/ayuda/costo-recibir-pagos-dinero_220",
+    "CO" => "https://www.mercadopago.com.co/ayuda/Cu-nto-cuesta-recibir-pagos_220",
+    "MX" => "https://www.mercadopago.com.mx/ayuda/costo-recibir-pagos_220",
+    "PE" => "https://www.mercadopago.com.pe/ayuda/cuanto-cuesta-recibir-pagos_2430"
+  }
+
   @doc "Create a license payment preference"
   def create_license_preference(%Account{} = account) do
     credential = account.country |> Credential.for_country()
@@ -101,7 +109,7 @@ defmodule Tq2.Gateways.MercadoPago do
     |> fetch_first_payment()
   end
 
-  @doc "Returns a valid link to associate with marketplace"
+  @doc "Returns a valid link to bound with marketplace"
   def marketplace_association_link(%Credential{} = credential) do
     params =
       URI.encode_query(%{
@@ -163,6 +171,11 @@ defmodule Tq2.Gateways.MercadoPago do
     @min_amounts |> Map.get(currency, 0.0)
   end
 
+  @doc "Returns the commission URL for a given country"
+  def commission_url_for(country) do
+    @commission_urls[String.upcase(country)]
+  end
+
   defp url_with_token(path, params, token) do
     query_params =
       params
@@ -189,8 +202,7 @@ defmodule Tq2.Gateways.MercadoPago do
   end
 
   defp license_marketplace_url do
-    "marketplace"
-    # Tq2Web.Router.Helpers.license_marketplace_url()
+    Tq2Web.Router.Helpers.mp_marketplace_url(Tq2Web.Endpoint, :show)
   end
 
   defp license_check_url do
