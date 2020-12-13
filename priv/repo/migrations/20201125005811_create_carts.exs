@@ -5,6 +5,7 @@ defmodule Tq2.Repo.Migrations.CreateCarts do
     create table(:carts) do
       add :token, :string, null: false
       add :price_type, :string, null: false
+      add :data, :map
       add :customer_id, references(:customers, on_delete: :delete_all, on_update: :update_all)
 
       add :account_id, references(:accounts, on_delete: :delete_all, on_update: :update_all),

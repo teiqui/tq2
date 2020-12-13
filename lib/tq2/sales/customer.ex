@@ -6,9 +6,9 @@ defmodule Tq2.Sales.Customer do
   alias Tq2.Sales.Customer
 
   schema "customers" do
-    field :address, :string
-    field :email, :string
     field :name, :string
+    field :email, :string
+    field :address, :string
     field :phone, :string
     field :lock_version, :integer, default: 0
 

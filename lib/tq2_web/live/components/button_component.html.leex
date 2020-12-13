@@ -1,9 +1,9 @@
 <%= if show_button?(@cart) do %>
   <nav class="fixed-bottom mb-1">
     <div class="container-fluid py-1 py-lg-2">
-      <button class="btn btn-lg btn-block btn-primary">
+      <%= live_redirect to: @to, class: "btn btn-lg btn-block btn-primary #{unless @enabled, do: "disabled"}" do %>
         <%= cart_total(@cart) %>
-      </button>
+      <% end %>
     </div>
   </nav>
 <% end %>

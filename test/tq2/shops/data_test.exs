@@ -5,7 +5,6 @@ defmodule Tq2.Shops.DataTest do
     alias Tq2.Shops.Data
 
     @valid_attrs %{
-      address: "some address",
       phone: "some phone",
       email: "some@email.com",
       whatsapp: "some whatsapp",
@@ -13,7 +12,6 @@ defmodule Tq2.Shops.DataTest do
       instagram: "some instagram"
     }
     @invalid_attrs %{
-      address: nil,
       phone: nil,
       email: "wrong",
       whatsapp: nil,

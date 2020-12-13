@@ -19,13 +19,13 @@ defmodule Tq2.Shops.StoreTest do
         require_phone: true,
         pickup: true,
         pickup_time_limit: "some time limit",
+        address: "some address",
         delivery: true,
         delivery_area: "some delivery area",
         delivery_time_limit: "some time limit",
         pay_on_delivery: true
       },
       data: %{
-        address: "some address",
         phone: "some phone",
         email: "some@email.com",
         whatsapp: "some whatsapp",
@@ -49,13 +49,13 @@ defmodule Tq2.Shops.StoreTest do
         require_phone: nil,
         pickup: nil,
         pickup_time_limit: nil,
+        address: nil,
         delivery: nil,
         delivery_area: nil,
         delivery_time_limit: nil,
         pay_on_delivery: nil
       },
       data: %{
-        address: nil,
         phone: nil,
         email: nil,
         whatsapp: nil,

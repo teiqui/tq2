@@ -4,12 +4,14 @@ defmodule Tq2.Transactions.Cart do
   import Ecto.Changeset
 
   alias Tq2.Accounts.Account
-  alias Tq2.Transactions.{Cart, Line}
+  alias Tq2.Transactions.{Cart, Data, Line}
   alias Tq2.Sales.Customer
 
   schema "carts" do
     field :token, :string
     field :price_type, :string, default: "promotional"
+
+    embeds_one :data, Data
 
     belongs_to :customer, Customer
     belongs_to :account, Account
@@ -25,6 +27,7 @@ defmodule Tq2.Transactions.Cart do
   def changeset(%Account{} = account, %Cart{} = cart, attrs) do
     cart
     |> cast(attrs, [:token, :price_type, :customer_id])
+    |> cast_embed(:data)
     |> put_account(account)
     |> validate_required([:token, :price_type])
     |> validate_length(:token, max: 255)

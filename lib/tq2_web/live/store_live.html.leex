@@ -16,4 +16,7 @@
   </footer>
 <% end %>
 
-<%= live_component @socket, ButtonComponent, store: @store, cart: @cart %>
+<%= live_component @socket, ButtonComponent, store: @store,
+                                             cart: @cart,
+                                             to: Routes.handing_path(@socket, :index, @store),
+                                             enabled: true %>

@@ -8,7 +8,6 @@ defmodule Tq2.Shops.Data do
   embedded_schema do
     field :phone, :string
     field :email, :string
-    field :address, :string
     field :whatsapp, :string
     field :facebook, :string
     field :instagram, :string
@@ -19,7 +18,7 @@ defmodule Tq2.Shops.Data do
   @doc false
   def changeset(%Data{} = data, attrs) do
     data
-    |> cast(attrs, [:phone, :email, :address, :whatsapp, :facebook, :instagram])
+    |> cast(attrs, [:phone, :email, :whatsapp, :facebook, :instagram])
     |> validate_length(:phone, max: 255)
     |> validate_length(:email, max: 255)
     |> validate_length(:whatsapp, max: 255)

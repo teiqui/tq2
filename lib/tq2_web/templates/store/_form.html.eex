@@ -48,7 +48,6 @@
           <%= inputs_for f, :data, fn df -> %>
             <%= input df, :email, dgettext("stores", "Email") %>
             <%= input df, :phone, dgettext("stores", "Phone") %>
-            <%= input df, :address, dgettext("stores", "Address"), using: :textarea %>
             <%= input df, :whatsapp, dgettext("stores", "WhatsApp") %>
             <%= input df, :facebook, dgettext("stores", "Facebook") %>
             <%= input df, :instagram, dgettext("stores", "Instagram") %>
@@ -76,6 +75,7 @@
             <%= input cf, :require_phone, dgettext("stores", "Require phone") %>
             <%= input cf, :pickup, dgettext("stores", "Pickup") %>
             <%= input cf, :pickup_time_limit, dgettext("stores", "Pickup time limit") %>
+            <%= input cf, :address, dgettext("stores", "Address"), using: :textarea %>
             <%= input cf, :delivery, dgettext("stores", "Delivery") %>
             <%= input cf, :delivery_area, dgettext("stores", "Delivery area"), using: :textarea %>
             <%= input cf, :delivery_time_limit, dgettext("stores", "Delivery time limit") %>

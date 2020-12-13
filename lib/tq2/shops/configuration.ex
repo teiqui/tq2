@@ -10,6 +10,7 @@ defmodule Tq2.Shops.Configuration do
     field :require_phone, :boolean, default: false
     field :pickup, :boolean, default: false
     field :pickup_time_limit, :string
+    field :address, :string
     field :delivery, :boolean, default: false
     field :delivery_area, :string
     field :delivery_time_limit, :string
@@ -23,6 +24,7 @@ defmodule Tq2.Shops.Configuration do
     :require_phone,
     :pickup,
     :pickup_time_limit,
+    :address,
     :delivery,
     :delivery_area,
     :delivery_time_limit,

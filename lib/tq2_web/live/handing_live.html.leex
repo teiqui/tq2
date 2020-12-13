@@ -1,0 +1,82 @@
+<%= live_component @socket, HeaderComponent, store: @store %>
+
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card card-body">
+      <form id="handing" phx-change="save">
+        <%= if @store.configuration && @store.configuration.pickup do %>
+          <div class="custom-control custom-radio mt-3">
+            <input type="radio"
+                   id="pickup"
+                   name="kind"
+                   class="custom-control-input"
+                   value="pickup"
+                   <%= if @cart.data && @cart.data.handing == "pickup", do: "checked" %>>
+            <label class="custom-control-label" for="pickup">
+              <span class="ml-2 d-block">
+                <span class="float-left text-primary ml-n4">
+                  <svg class="bi" width="16" height="16" fill="currentColor">
+                    <use xlink:href="/images/bootstrap-icons.svg#shop"/>
+                  </svg>
+                </span>
+
+                <span class="font-weight-semi-bold">
+                  <%= dgettext("stores", "Pickup") %>
+                </span>
+
+                <span class="text-muted d-block">
+                  <%= @store.configuration.address %>
+                </span>
+
+                <%= if @store.configuration.pickup_time_limit do %>
+                  <span class="text-muted d-block">
+                    <%= dgettext("stores", "Pickup time limit") %>:
+                    <%= @store.configuration.pickup_time_limit %>
+                  </span>
+                <% end %>
+              </span>
+            </label>
+          </div>
+        <% end %>
+
+        <%= if @store.configuration && @store.configuration.delivery do %>
+          <div class="custom-control custom-radio mt-3">
+            <input type="radio"
+                   id="delivery"
+                   name="kind"
+                   class="custom-control-input"
+                   value="delivery"
+                   <%= if @cart.data && @cart.data.handing == "delivery", do: "checked" %>>
+            <label class="custom-control-label" for="delivery">
+              <span class="ml-2 d-block">
+                <span class="float-left text-primary ml-n4">
+                  <svg class="bi" width="16" height="16" fill="currentColor">
+                    <use xlink:href="/images/bootstrap-icons.svg#truck"/>
+                  </svg>
+                </span>
+
+                <span class="font-weight-semi-bold">
+                  <%= dgettext("stores", "Delivery") %>
+                </span>
+
+
+                <span class="text-muted d-block">
+                  <%= text_to_html @store.configuration.delivery_area, wrapper_tag: :span, attributes: [class: "d-block"] %>
+                </span>
+
+                <%= if @store.configuration.delivery_time_limit do %>
+                  <span class="text-muted d-block">
+                    <%= dgettext("stores", "Delivery time limit") %>
+                    <%= @store.configuration.delivery_time_limit %>
+                  </span>
+                <% end %>
+              </span>
+            </label>
+          </div>
+        <% end %>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%= live_component @socket, ButtonComponent, store: @store, cart: @cart, enabled: @cart.data && @cart.data.handing, to: "#" %>
