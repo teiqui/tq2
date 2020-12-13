@@ -54,10 +54,10 @@ defmodule Tq2.Payments do
 
   ## Examples
 
-      iex> update_payment(%{field: new_value}, %Account{})
+      iex> update_payment(%{field: "new_value"}, %Account{})
       {:ok, %Payment{}}
 
-      iex> update_payment(%{field: bad_value}, %Account{})
+      iex> update_payment(%{field: "bad_value"}, %Account{})
       nil
 
   """
