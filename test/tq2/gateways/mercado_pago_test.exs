@@ -171,13 +171,12 @@ defmodule Tq2.Gateways.MercadoPagoTest do
 
     defp create_cart_with_line(account) do
       {:ok, customer} =
-        %{
+        Tq2.Sales.create_customer(%{
           name: "some name",
           email: "some@email.com",
           phone: "some phone",
           address: "some address"
-        }
-        |> Tq2.Sales.create_customer()
+        })
 
       cart_attrs = %{
         token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
