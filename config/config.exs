@@ -75,7 +75,8 @@ config :exq,
   queues: ["default"],
   scheduler_enable: true,
   max_retries: 25,
-  json_library: Jason
+  json_library: Jason,
+  start_on_application: false
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
