@@ -340,6 +340,29 @@ defmodule Tq2.Accounts do
   end
 
   @doc """
+  Gets a single license by reference.
+
+  Raises `Ecto.NoResultsError` if the License does not exist.
+
+  ## Examples
+
+      iex> get_account_by_license_reference!("1d04dea6-9f6b-40fa-933f-1490a927adc1")
+      %Account{}
+
+      iex> get_account_by_license_reference!("123")
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_account_by_license_reference!(reference) do
+    from(
+      a in Account,
+      join: l in assoc(a, :license),
+      where: l.reference == ^reference
+    )
+    |> Repo.one!()
+  end
+
+  @doc """
   Updates a license.
 
   ## Examples

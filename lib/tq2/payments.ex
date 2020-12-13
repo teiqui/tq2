@@ -47,7 +47,26 @@ defmodule Tq2.Payments do
     |> process_license_payment(account, attrs)
   end
 
-  def create_or_update_license_payment(_attrs, %Account{} = _account), do: nil
+  def create_or_update_license_payment(_attrs, %Account{}), do: nil
+
+  @doc """
+  Updates a payment.
+
+  ## Examples
+
+      iex> update_payment(%{field: new_value}, %Account{})
+      {:ok, %Payment{}}
+
+      iex> update_payment(%{field: bad_value}, %Account{})
+      nil
+
+  """
+  def update_payment(%{external_id: external_id}, %Account{})
+      when is_binary(external_id) do
+    "TBD"
+  end
+
+  def update_payment(_attrs, %Account{}), do: nil
 
   defp process_license_payment(nil, %Account{} = account, attrs) do
     account

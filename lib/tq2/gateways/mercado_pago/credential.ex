@@ -1,6 +1,7 @@
 defmodule Tq2.Gateways.MercadoPago.Credential do
   defstruct currency: nil, domain: nil, app_id: nil, user_id: nil, token: nil
 
+  alias Tq2.Apps.MercadoPago, as: MPApp
   alias Tq2.Gateways.MercadoPago.Credential
 
   @currencies ~w(ARS CLP COP MXN PEN)
@@ -14,12 +15,12 @@ defmodule Tq2.Gateways.MercadoPago.Credential do
     "pe" => "PEN"
   }
 
-  @doc "Returns a Credential strict given a country."
+  @doc "Returns a Credential struct given a country."
   def for_country(country) do
     @country_to_currency[country] |> for_currency()
   end
 
-  @doc "Returns a Credential strict given a user_id."
+  @doc "Returns a Credential struct given a user_id."
   def for_user_id(user_id) do
     Enum.find_value(@currencies, fn currency ->
       client = currency |> for_currency()
@@ -28,7 +29,12 @@ defmodule Tq2.Gateways.MercadoPago.Credential do
     end)
   end
 
-  @doc "Returns a Credential strict given a currency."
+  @doc "Returns a Credential struct given a MPApp."
+  def for_app(%MPApp{} = app) do
+    %Credential{token: app.data["access_token"]}
+  end
+
+  @doc "Returns a Credential struct given a currency."
   def for_currency("ARS") do
     token = mp_config(:ars_token)
 

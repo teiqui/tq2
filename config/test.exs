@@ -39,3 +39,6 @@ config :waffle,
 
 # MercadoPago Overide
 config :tq2, :mp, ars_token: "3333-3333-3333-3333"
+
+# Exq config
+config :exq, queue_adapter: Exq.Adapters.Queue.Mock
