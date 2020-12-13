@@ -123,6 +123,32 @@ defmodule Tq2.Gateways.MercadoPagoTest do
       assert String.contains?(url, "costo-recibir-pagos")
     end
 
+    test "create_cart_preference/1 returns a valid map preference" do
+      session = create_session()
+      cart = session.account |> create_cart_with_line()
+      app = session |> create_mp_app()
+
+      default_preference = %{
+        id: 33,
+        external_reference: "tq2-cart-#{cart.id}",
+        init_point: "https://mp.com/123"
+      }
+
+      mocked_fn = default_preference |> mock_post_with()
+
+      with_mock HTTPoison, mocked_fn do
+        # app
+        # |> Credential.for_app()
+        preference =
+          %Credential{token: app.data["access_token"]}
+          |> MercadoPago.create_cart_preference(cart)
+
+        assert default_preference.id == preference["id"]
+        assert default_preference.external_reference == preference["external_reference"]
+        assert default_preference.init_point == preference["init_point"]
+      end
+    end
+
     defp mock_get_with(%{} = body \\ @default_payment, code \\ 200) do
       json_body = body |> Jason.encode!()
 
@@ -141,6 +167,62 @@ defmodule Tq2.Gateways.MercadoPagoTest do
           {:ok, %HTTPoison.Response{status_code: code, body: json_body}}
         end
       ]
+    end
+
+    defp create_cart_with_line(account) do
+      {:ok, customer} =
+        %{
+          name: "some name",
+          email: "some@email.com",
+          phone: "some phone",
+          address: "some address"
+        }
+        |> Tq2.Sales.create_customer()
+
+      cart_attrs = %{
+        token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
+        price_type: "promotional",
+        account_id: account.id,
+        customer_id: customer.id
+      }
+
+      {:ok, cart} = account |> Tq2.Transactions.create_cart(cart_attrs)
+
+      line_attrs = %{
+        name: "some name",
+        quantity: 1,
+        price: Money.new(100, :ARS),
+        promotional_price: Money.new(90, :ARS),
+        cost: Money.new(80, :ARS),
+        cart_id: cart.id,
+        item: %Tq2.Inventories.Item{
+          sku: "some sku",
+          name: "some name",
+          description: "some description",
+          visibility: "visible",
+          price: Money.new(100, :ARS),
+          promotional_price: Money.new(90, :ARS),
+          cost: Money.new(80, :ARS),
+          account_id: account.id
+        }
+      }
+
+      {:ok, line} = cart |> Tq2.Transactions.create_line(line_attrs)
+
+      %{cart | lines: [line], customer: customer}
+    end
+
+    defp create_mp_app(session) do
+      attrs = %{
+        name: "mercado_pago",
+        data: %{
+          "access_token" => "123"
+        }
+      }
+
+      {:ok, app} = session |> Tq2.Apps.create_app(attrs)
+
+      app
     end
   end
 end
