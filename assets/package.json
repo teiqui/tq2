@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.5.3",
-    "bootstrap-icons": "^1.1.0",
+    "bootstrap-icons": "^1.2.1",
     "bootswatch": "^4.5.3",
     "jquery": "^3.5.1",
     "nprogress": "^0.2.0",
@@ -33,7 +33,7 @@
     "sass": "^1.30.0",
     "sass-loader": "^10.1.0",
     "terser-webpack-plugin": "^5.0.3",
-    "webpack": "5.10.0",
+    "webpack": "5.10.1",
     "webpack-cli": "^4.2.0"
   }
 }
