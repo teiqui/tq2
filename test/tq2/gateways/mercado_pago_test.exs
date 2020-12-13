@@ -137,8 +137,6 @@ defmodule Tq2.Gateways.MercadoPagoTest do
       mocked_fn = default_preference |> mock_post_with()
 
       with_mock HTTPoison, mocked_fn do
-        # app
-        # |> Credential.for_app()
         preference =
           %Credential{token: app.data["access_token"]}
           |> MercadoPago.create_cart_preference(cart)
