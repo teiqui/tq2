@@ -1,8 +1,6 @@
 @import "bootswatch/dist/materia/variables";
 
-//
 // Color system
-//
 
 $gray-100: #f5f5f5;
 $green: #73b8bb;
@@ -20,17 +18,10 @@ $light: $gray-100;
 $enable-gradients: false;
 
 // Components
+
 $border-radius:    1rem;
 $border-radius-lg: 1.1rem;
 $border-radius-sm: .85rem;
-
-// Custom color
-
-$complementary: #457b9d;
-
-$theme-colors: (
-  "complementary": $complementary,
-);
 
 // Fonts
 
