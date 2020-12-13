@@ -1,3 +1,5 @@
+import Ecto.Query
+
 alias Tq2.Repo
 alias Tq2.{Accounts, Inventories, Shops, Transactions}
 alias Tq2.Accounts.{Account, License, Session, User}
