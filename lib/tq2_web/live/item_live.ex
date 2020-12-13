@@ -90,7 +90,7 @@ defmodule Tq2Web.ItemLive do
   end
 
   defp add_line(%Cart{} = cart, %Item{} = item, quantity) do
-    case Enum.find(cart.lines, fn line -> line.item_id == item.id end) do
+    case Enum.find(cart.lines, &(&1.item_id == item.id)) do
       nil ->
         {:ok, line} = Transactions.create_line(cart, %{item: item, quantity: quantity})
 
@@ -102,7 +102,7 @@ defmodule Tq2Web.ItemLive do
             quantity: line.quantity + quantity
           })
 
-        %{cart | lines: [line | Enum.filter(cart.lines, fn l -> l.id != line.id end)]}
+        %{cart | lines: [line | Enum.filter(cart.lines, &(&1.id != line.id))]}
     end
   end
 
