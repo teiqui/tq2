@@ -151,6 +151,12 @@
     "alternate": "test/tq2/{}_test.exs"
   },
 
+  "lib/tq2/workers/*.ex": {
+    "type": "job",
+    "dispatch": "mix test test/tq2/workers/{}_test.exs",
+    "alternate": "test/tq2/workers/{}_test.exs"
+  },
+
   "lib/tq2_web.ex": {
     "type": "web"
   },

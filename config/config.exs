@@ -49,7 +49,12 @@ config :sentry,
   dsn: System.get_env("SENTRY_DSN"),
   release: System.get_env("APP_RELEASE"),
   root_source_code_paths: [File.cwd!()],
-  enable_source_code_context: true
+  enable_source_code_context: true,
+  environment_name: Mix.env(),
+  included_environments: [:prod, :dev],
+  report_deps: false,
+  context_lines: 5,
+  json_library: Jason
 
 # Money config
 config :money, symbol: false
@@ -61,6 +66,16 @@ config :tq2, :mp,
   cop_token: System.get_env("MP_COP_TOKEN", ""),
   mxn_token: System.get_env("MP_MXN_TOKEN", ""),
   pen_token: System.get_env("MP_PEN_TOKEN", "")
+
+# Exq config
+config :exq,
+  url: System.get_env("REDIS_URL", "redis://localhost:6379"),
+  namespace: "exq",
+  concurrency: 100,
+  queues: ["default"],
+  scheduler_enable: true,
+  max_retries: 25,
+  json_library: Jason
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -1,6 +1,7 @@
 defmodule Tq2.Gateways.MercadoPago.CredentialTest do
   use Tq2.DataCase
 
+  alias Tq2.Apps.MercadoPago, as: MPApp
   alias Tq2.Gateways.MercadoPago.Credential
 
   describe "mercado pago credentials" do
@@ -40,6 +41,13 @@ defmodule Tq2.Gateways.MercadoPago.CredentialTest do
       Enum.each(~w(ar cl co gt mx pe), fn country ->
         assert %Credential{} = Credential.for_country(country)
       end)
+    end
+
+    test "for_app/1 returns Credential with token" do
+      app = %MPApp{data: %{"access_token" => "3322"}}
+      cred = Credential.for_app(app)
+
+      assert cred.token == app.data["access_token"]
     end
   end
 end

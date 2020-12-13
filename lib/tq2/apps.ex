@@ -36,8 +36,7 @@ defmodule Tq2.Apps do
   """
   def get_app(account, "mercado_pago") do
     MercadoPago
-    |> where(account_id: ^account.id, name: "mercado_pago")
-    |> Repo.one()
+    |> Repo.get_by(account_id: account.id, name: "mercado_pago")
   end
 
   # @doc """
@@ -103,5 +102,24 @@ defmodule Tq2.Apps do
   """
   def change_app(%Account{} = account, %MercadoPago{} = app, attrs \\ %{}) do
     MercadoPago.changeset(account, app, attrs)
+  end
+
+  @doc """
+  Returns a MercadoPago app.
+
+  ## Examples
+
+      iex> get_mercado_pago_by_user_id(123)
+      %MercadoPago{}
+
+      iex> get_mercado_pago_by_user_id(321)
+      nil
+  """
+  def get_mercado_pago_by_user_id(user_id) do
+    MercadoPago
+    |> where(fragment("(data ->> 'user_id' = ?)", ^user_id))
+    |> join(:inner, [app], a in assoc(app, :account))
+    |> preload([app, a], account: a)
+    |> Repo.one()
   end
 end

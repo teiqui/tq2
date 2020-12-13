@@ -78,7 +78,7 @@ defmodule Tq2.Apps.MercadoPago do
        ) do
     exists =
       MercadoPago
-      |> where(fragment("(data ->> 'user_id' = ?)", ^user_id))
+      |> where(fragment("(data ->> 'user_id' = ?)", ^"#{user_id}"))
       |> where([mp], mp.account_id != ^changeset.changes[:account_id])
       |> Tq2.Repo.exists?()
 

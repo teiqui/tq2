@@ -72,10 +72,12 @@ defmodule Tq2Web.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", Tq2Web do
-  #   pipe_through :api
-  # end
-  #
+  scope "/api", Tq2Web do
+    pipe_through :api
+
+    post "/webhooks/mercado_pago", WebhookController, :mercado_pago, as: :mp_webhook
+  end
+
   if Mix.env() == :dev do
     forward "/sent_emails", Bamboo.SentEmailViewerPlug
   end

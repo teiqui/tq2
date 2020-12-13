@@ -20,7 +20,7 @@ defmodule Tq2.MixProject do
   def application do
     [
       mod: {Tq2.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :exq]
     ]
   end
 
@@ -60,7 +60,9 @@ defmodule Tq2.MixProject do
       {:ex_aws_s3, ">= 2.1.0"},
       {:sweet_xml, ">= 0.6.0"},
       {:httpoison, ">= 1.7.0"},
-      {:mock, ">= 0.3.6", only: :test}
+      {:mock, ">= 0.3.6", only: :test},
+      # Exq has poison as optional, but it's been installed
+      {:exq, ">= 0.14.0"}
     ]
   end
 

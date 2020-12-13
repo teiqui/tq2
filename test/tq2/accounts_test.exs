@@ -362,5 +362,15 @@ defmodule Tq2.AccountsTest do
         Accounts.get_license!(session.account)
       end
     end
+
+    test "get_account_by_license_reference!/1 returns account", %{session: session} do
+      license = session.account.license
+
+      assert license.reference
+
+      account = Accounts.get_account_by_license_reference!(license.reference)
+
+      assert session.account.id == account.id
+    end
   end
 end
