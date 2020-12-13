@@ -10,11 +10,10 @@ defmodule Tq2.Workers.WebhooksJobTest do
   describe "mercado pago" do
     test "perform/2 should process webhook" do
       {:ok, webhook} =
-        %{
+        Webhooks.create_webhook(%{
           name: "mercado_pago",
           payload: %{"user_id" => 123}
-        }
-        |> Webhooks.create_webhook()
+        })
 
       with_mock MPWebhook, process: fn _ -> {} end do
         "mercado_pago" |> WebhooksJob.perform(webhook.id)
