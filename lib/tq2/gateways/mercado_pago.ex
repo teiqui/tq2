@@ -5,6 +5,7 @@ defmodule Tq2.Gateways.MercadoPago do
   alias Tq2.Accounts.{Account, License}
   alias Tq2.Gateways.MercadoPago.Credential
   alias Tq2.Payments
+  alias Tq2.Transactions.{Cart, Line}
 
   @default_time_format "{ISO:Extended}"
   @base_uri "https://api.mercadopago.com"
@@ -71,25 +72,25 @@ defmodule Tq2.Gateways.MercadoPago do
     |> Payments.create_or_update_license_payment(account)
   end
 
-  # TODO implement when cart is ready
-  # def create_cart_preference(%Credential{} = credential, cart) do
-  #   preference = %{
-  #     external_reference: cart_external_reference(cart),
-  #     items: Enum.map(cart.lines, :to_mercado_pago_item),
-  #     payer: %{
-  #       name: cart.reservation.customer.name,
-  #       surname: cart.reservation.customer.lastname,
-  #       email: cart.reservation.customer.email
-  #     },
-  #     back_urls: %{
-  #       success: reservation_thanks_url(),
-  #       pending: reservation_thanks_url(),
-  #       failure: reservation_payment_url()
-  #     }
-  #   }
+  def create_cart_preference(%Credential{} = credential, cart) do
+    cart = Tq2.Repo.preload(cart, [:customer, :lines])
 
-  #   request_post("/checkout/preferences", preference, credential.token)
-  # end
+    preference = %{
+      external_reference: cart_external_reference(cart),
+      items: Enum.map(cart.lines, &to_mercado_pago_item(&1, cart)),
+      payer: %{
+        name: cart.customer.name,
+        email: cart.customer.email
+      },
+      back_urls: %{
+        success: reservation_thanks_url(),
+        pending: reservation_thanks_url(),
+        failure: reservation_payment_url()
+      }
+    }
+
+    request_post("/checkout/preferences", preference, credential.token)
+  end
 
   @doc "Returns a map with the payment attributes given an id."
   def get_payment(%Credential{} = credential, id) do
@@ -209,19 +210,17 @@ defmodule Tq2.Gateways.MercadoPago do
     Tq2Web.Router.Helpers.license_check_url(Tq2Web.Endpoint, :show)
   end
 
-  # defp reservation_payment_url do
-  #   # Tq2Web.Router.Helpers.mercado_pago_webhooks_url()
-  #   # Rails.application.routes.url_helpers.reservation_payment_url account.store
-  # end
+  defp reservation_payment_url do
+    "reservation_payment_url"
+  end
 
-  # defp reservation_thanks_url do
-  #   # Tq2Web.Router.Helpers.mercado_pago_webhooks_url()
-  #   # Rails.application.routes.url_helpers.reservation_thanks_url account.store
-  # end
+  defp reservation_thanks_url do
+    "reservation_thanks_url"
+  end
 
-  # defp cart_external_reference(cart) do
-  #   Enum.join([account.to_param, "cart",  cart.id], "-")
-  # end
+  defp cart_external_reference(cart) do
+    "tq2-cart-#{cart.id}"
+  end
 
   defp parse_response({:ok, %HTTPoison.Response{status_code: 200, body: body}}) do
     body |> Jason.decode!()
@@ -271,5 +270,29 @@ defmodule Tq2.Gateways.MercadoPago do
     {:ok, money} = Money.parse(amount, currency)
 
     money
+  end
+
+  defp to_mercado_pago_item(%Line{} = line, %Cart{price_type: "promotional"}) do
+    mp_item_map(line, line.promotional_price)
+  end
+
+  defp to_mercado_pago_item(%Line{} = line, %Cart{}) do
+    mp_item_map(line, line.price)
+  end
+
+  defp mp_item_map(%Line{} = line, %Money{} = price) do
+    unit_price =
+      price
+      |> Money.to_decimal()
+      |> Decimal.to_float()
+
+    %{
+      id: line.id,
+      title: line.name,
+      description: line.name,
+      currency_id: price.currency,
+      unit_price: unit_price,
+      quantity: line.quantity
+    }
   end
 end
