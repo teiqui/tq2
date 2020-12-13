@@ -20,7 +20,7 @@ defmodule Tq2.MixProject do
   def application do
     [
       mod: {Tq2.Application, []},
-      extra_applications: [:logger, :runtime_tools, :exq]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
