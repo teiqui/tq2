@@ -29,10 +29,10 @@ defmodule Tq2.Webhooks do
 
   ## Examples
 
-      iex> create_webhook(%{field: value})
+      iex> create_webhook(%{field: "value"})
       {:ok, %Webhook{}}
 
-      iex> create_webhook(%{field: bad_value})
+      iex> create_webhook(%{field: "bad_value"})
       ** (RuntimeError) Invalid webhook
   """
   def create_webhook(%{name: "mercado_pago"} = attrs) do
