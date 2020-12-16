@@ -86,6 +86,36 @@ defmodule Tq2.Accounts.License do
 
   def price_for(country), do: price_for(country, :monthly)
 
+  def put_paid_until_changes(license, %Ecto.Changeset{} = payment_cs) do
+    {status, months} =
+      case payment_cs.changes[:status] do
+        "paid" -> {"active", 1}
+        "cancelled" -> {"unpaid", -1}
+        _ -> {license.status, 0}
+      end
+
+    paid_until = license.paid_until |> Timex.shift(months: months)
+
+    attrs = %{status: status, paid_until: paid_until}
+
+    License.changeset(license, attrs)
+  end
+
+  def add_changeset_to_multi(%Ecto.Changeset{} = changeset, multi) do
+    # Handle PaperTrail manually update because of the multi returned "keys"
+    # https://github.com/izelnakri/paper_trail/blob/master/lib/paper_trail/multi.ex#L108
+    multi
+    |> Ecto.Multi.update(:license, changeset)
+    |> Ecto.Multi.run(:license_version, fn repo, _ ->
+      PaperTrail.Multi.make_version_struct(
+        %{event: "update"},
+        changeset,
+        meta: %{account_id: changeset.data.account_id}
+      )
+      |> repo.insert()
+    end)
+  end
+
   defp put_status(%Ecto.Changeset{} = changeset) do
     changeset |> change(status: "trial")
   end

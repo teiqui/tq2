@@ -6,8 +6,7 @@ defmodule Tq2.Payments do
   import Ecto.Query, warn: false
 
   alias Tq2.Repo
-  alias Tq2.Trail
-  alias Tq2.Accounts.Account
+  alias Tq2.Accounts.{Account, License}
   alias Tq2.Payments.LicensePayment, as: LPayment
 
   @doc """
@@ -71,12 +70,56 @@ defmodule Tq2.Payments do
   defp process_license_payment(nil, %Account{} = account, attrs) do
     account
     |> LPayment.changeset(%LPayment{}, attrs)
-    |> Trail.insert(meta: %{account_id: account.id})
+    |> insert_with_license(account)
   end
 
   defp process_license_payment(payment, %Account{} = account, attrs) do
     account
     |> LPayment.changeset(payment, attrs)
-    |> Trail.update(meta: %{account_id: account.id})
+    |> update_with_license(account)
+  end
+
+  defp insert_with_license(%Ecto.Changeset{valid?: false} = changeset, _account),
+    do: {:error, changeset}
+
+  defp insert_with_license(%Ecto.Changeset{} = changeset, %Account{} = account) do
+    Ecto.Multi.new()
+    |> PaperTrail.Multi.insert(changeset, meta: %{account_id: account.id})
+    |> update_license_with_payment(account)
+  end
+
+  defp update_with_license(%Ecto.Changeset{valid?: false} = changeset, _),
+    do: {:error, changeset}
+
+  defp update_with_license(%Ecto.Changeset{} = changeset, %Account{} = account) do
+    empty_map = %{}
+
+    case changeset.changes do
+      ^empty_map ->
+        # skip version without changes
+        {:ok, changeset.data}
+
+      _ ->
+        Ecto.Multi.new()
+        |> PaperTrail.Multi.update(changeset, meta: %{account_id: account.id})
+        |> update_license_with_payment(account)
+    end
+  end
+
+  defp update_license_with_payment(%Ecto.Multi{} = multi, %Account{} = account) do
+    account = Repo.preload(account, :license)
+    {_, payment_cs, _} = multi.operations[:model]
+
+    account.license
+    |> License.put_paid_until_changes(payment_cs)
+    |> License.add_changeset_to_multi(multi)
+    |> commit_license_and_payment_transaction()
+  end
+
+  defp commit_license_and_payment_transaction(multi) do
+    case Tq2.Repo.transaction(multi) do
+      {:ok, %{model: payment, license: license}} -> {:ok, %{payment | license: license}}
+      {:error, _operation, failed_value, _changes} -> {:error, failed_value}
+    end
   end
 end
