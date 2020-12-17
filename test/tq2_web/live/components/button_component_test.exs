@@ -79,6 +79,32 @@ defmodule Tq2Web.ButtonComponentTest do
     end
   end
 
+  describe "public functions" do
+    test "cart total" do
+      lines = [
+        %Line{
+          name: "some name",
+          quantity: 1,
+          price: Money.new(100, :ARS),
+          promotional_price: Money.new(90, :ARS),
+          cost: Money.new(80, :ARS)
+        },
+        %Line{
+          name: "some name",
+          quantity: 2,
+          price: Money.new(120, :ARS),
+          promotional_price: Money.new(110, :ARS),
+          cost: Money.new(100, :ARS)
+        }
+      ]
+
+      cart = %{cart() | lines: lines}
+
+      assert Money.to_string(Money.new(310, :ARS), symbol: true) ==
+               ButtonComponent.cart_total(cart)
+    end
+  end
+
   defp cart do
     %Cart{
       token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
@@ -111,7 +137,7 @@ defmodule Tq2Web.ButtonComponentTest do
         pay_on_delivery: true
       },
       data: %Tq2.Shops.Data{
-        phone: "some phone",
+        phone: "555-5555",
         email: "some@email.com",
         whatsapp: "some whatsapp",
         facebook: "some facebook",

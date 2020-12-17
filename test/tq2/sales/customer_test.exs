@@ -7,7 +7,7 @@ defmodule Tq2.Sales.CustomerTest do
     @valid_attrs %{
       name: "some name",
       email: "some@email.com",
-      phone: "some phone",
+      phone: "555-5555",
       address: "some address"
     }
     @invalid_attrs %{
@@ -34,7 +34,7 @@ defmodule Tq2.Sales.CustomerTest do
         @valid_attrs
         |> Map.put(:name, String.duplicate("a", 256))
         |> Map.put(:email, String.duplicate("a", 256))
-        |> Map.put(:phone, String.duplicate("a", 256))
+        |> Map.put(:phone, String.duplicate("5", 256))
 
       changeset = Customer.changeset(%Customer{}, attrs)
 
@@ -48,6 +48,18 @@ defmodule Tq2.Sales.CustomerTest do
       changeset = Customer.changeset(%Customer{}, attrs)
 
       assert "has invalid format" in errors_on(changeset).email
+    end
+
+    test "canonize email" do
+      assert "some@email.com" == Customer.canonized_email(" SOME@EMAIL.com ")
+      assert nil == Customer.canonized_email("")
+      assert nil == Customer.canonized_email(nil)
+    end
+
+    test "canonize phone" do
+      assert "123456" == Customer.canonized_phone(" 1 x 2 345^6 ")
+      assert nil == Customer.canonized_phone("")
+      assert nil == Customer.canonized_phone(nil)
     end
   end
 end

@@ -4,6 +4,7 @@ defmodule Tq2.Sales.Customer do
   import Ecto.Changeset
 
   alias Tq2.Sales.Customer
+  alias Tq2.Shares.Token
 
   schema "customers" do
     field :name, :string
@@ -12,13 +13,18 @@ defmodule Tq2.Sales.Customer do
     field :phone, :string
     field :lock_version, :integer, default: 0
 
+    has_many :tokens, Token
+
     timestamps()
   end
 
   @doc false
   def changeset(%Customer{} = customer, attrs) do
+    attrs = canonize(attrs)
+
     customer
     |> cast(attrs, [:name, :email, :phone, :address, :lock_version])
+    |> cast_assoc(:tokens)
     |> validate_required([:name])
     |> validate_length(:name, max: 255)
     |> validate_length(:email, max: 255)
@@ -29,10 +35,34 @@ defmodule Tq2.Sales.Customer do
     |> unique_constraint(:email)
     |> unique_constraint(:phone)
     |> optimistic_lock(:lock_version)
-    |> downcase(:email)
   end
 
-  defp downcase(%Ecto.Changeset{} = changeset, field) do
-    update_change(changeset, field, &String.downcase/1)
+  @doc false
+  def canonized_email(nil), do: nil
+
+  def canonized_email(email) do
+    email |> String.downcase() |> String.trim() |> cast_string()
   end
+
+  @doc false
+  def canonized_phone(nil), do: nil
+
+  def canonized_phone(phone) do
+    phone |> String.replace(~r/\D/, "") |> cast_string()
+  end
+
+  defp canonize(%{"name" => _} = attrs) do
+    attrs
+    |> Map.replace("email", canonized_email(attrs["email"]))
+    |> Map.replace("phone", canonized_phone(attrs["phone"]))
+  end
+
+  defp canonize(%{} = attrs) do
+    attrs
+    |> Map.replace(:email, canonized_email(attrs[:email]))
+    |> Map.replace(:phone, canonized_phone(attrs[:phone]))
+  end
+
+  defp cast_string(""), do: nil
+  defp cast_string(string), do: string
 end

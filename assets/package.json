@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "copy-webpack-plugin": "^7.0.0",
@@ -33,7 +33,7 @@
     "sass": "^1.30.0",
     "sass-loader": "^10.1.0",
     "terser-webpack-plugin": "^5.0.3",
-    "webpack": "5.10.1",
+    "webpack": "5.10.3",
     "webpack-cli": "^4.2.0"
   }
 }

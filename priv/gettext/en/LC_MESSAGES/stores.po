@@ -11,11 +11,11 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/templates/store/_form.html.eex:51
+#: lib/tq2_web/templates/store/_form.html.eex:78
 msgid "Address"
 msgstr ""
 
-#: lib/tq2_web/templates/store/_form.html.eex:67
+#: lib/tq2_web/templates/store/_form.html.eex:66
 msgid "Checkout information"
 msgstr ""
 
@@ -23,6 +23,7 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
+#: lib/tq2_web/live/handing_live.html.leex:59
 #: lib/tq2_web/templates/store/_form.html.eex:79
 msgid "Delivery"
 msgstr ""
@@ -31,6 +32,7 @@ msgstr ""
 msgid "Delivery area"
 msgstr ""
 
+#: lib/tq2_web/live/handing_live.html.leex:69
 #: lib/tq2_web/templates/store/_form.html.eex:81
 msgid "Delivery time limit"
 msgstr ""
@@ -47,7 +49,7 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: lib/tq2_web/templates/store/_form.html.eex:53
+#: lib/tq2_web/templates/store/_form.html.eex:52
 msgid "Facebook"
 msgstr ""
 
@@ -55,7 +57,7 @@ msgstr ""
 msgid "General information"
 msgstr ""
 
-#: lib/tq2_web/templates/store/_form.html.eex:54
+#: lib/tq2_web/templates/store/_form.html.eex:53
 msgid "Instagram"
 msgstr ""
 
@@ -99,11 +101,13 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
-#: lib/tq2_web/templates/store/_form.html.eex:77
+#: lib/tq2_web/live/handing_live.html.leex:24
+#: lib/tq2_web/templates/store/_form.html.eex:76
 msgid "Pickup"
 msgstr ""
 
-#: lib/tq2_web/templates/store/_form.html.eex:78
+#: lib/tq2_web/live/handing_live.html.leex:33
+#: lib/tq2_web/templates/store/_form.html.eex:77
 msgid "Pickup time limit"
 msgstr ""
 
@@ -111,11 +115,11 @@ msgstr ""
 msgid "Published"
 msgstr ""
 
-#: lib/tq2_web/templates/store/_form.html.eex:75
+#: lib/tq2_web/templates/store/_form.html.eex:74
 msgid "Require email"
 msgstr ""
 
-#: lib/tq2_web/templates/store/_form.html.eex:76
+#: lib/tq2_web/templates/store/_form.html.eex:75
 msgid "Require phone"
 msgstr ""
 
@@ -135,7 +139,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: lib/tq2_web/templates/store/_form.html.eex:52
+#: lib/tq2_web/templates/store/_form.html.eex:51
 msgid "WhatsApp"
 msgstr ""
 

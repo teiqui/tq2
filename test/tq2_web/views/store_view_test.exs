@@ -66,7 +66,7 @@ defmodule Tq2Web.StoreViewTest do
         pay_on_delivery: true
       },
       data: %Tq2.Shops.Data{
-        phone: "some phone",
+        phone: "555-5555",
         email: "some@email.com",
         whatsapp: "some whatsapp",
         facebook: "some facebook",

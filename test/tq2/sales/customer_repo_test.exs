@@ -8,7 +8,7 @@ defmodule Tq2.Sales.CustomerRepoTest do
     @valid_attrs %{
       name: "some name",
       email: "some@email.com",
-      phone: "some phone",
+      phone: "555-5555",
       address: "some address"
     }
 

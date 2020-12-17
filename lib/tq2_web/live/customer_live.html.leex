@@ -1,0 +1,57 @@
+<%= live_component @socket, HeaderComponent, store: @store %>
+
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card card-body">
+      <%= form_for @changeset, "#", [phx_submit: "save", phx_change: "validate"], fn f -> %>
+        <%= if @customer do %>
+          <div class="media">
+            <div class="text-info">
+              <svg class="bi" width="32" height="32" fill="currentColor">
+                <use xlink:href="/images/bootstrap-icons.svg#person-circle"/>
+              </svg>
+            </div>
+
+            <div class="media-body ml-3">
+              <p class="font-weight-semi-bold mb-1">
+                <%= @customer.name %>
+              </p>
+
+              <%= if @customer.email do %>
+                <p class="mb-0">
+                  <%= @customer.email %>
+                </p>
+              <% end %>
+
+              <%= if @customer.address do %>
+                <p class="text-muted mb-0">
+                  <%= @customer.address %>
+                </p>
+              <% end %>
+
+              <%= if @customer.phone do %>
+                <p class="text-muted mb-0">
+                  <%= @customer.phone %>
+                </p>
+              <% end %>
+            </div>
+          </div>
+
+          <%= hidden_input f, :email %>
+          <%= hidden_input f, :phone %>
+        <% else %>
+          <%= input f, :name, dgettext("customers", "Name"), input_html: [autofocus: true, phx_debounce: "blur"] %>
+          <%= input f, :email, dgettext("customers", "Email"), input_html: [phx_debounce: "blur"] %>
+          <%= input f, :phone, dgettext("customers", "Phone"), input_html: [phx_debounce: "blur"] %>
+          <%= input f, :address, dgettext("customers", "Address"), using: :textarea, input_html: [phx_debounce: "blur"] %>
+        <% end %>
+
+        <nav class="fixed-bottom mb-1">
+          <div class="container-fluid py-1 py-lg-2">
+            <%= submit_customer @cart %>
+          </div>
+        </nav>
+      <% end %>
+    </div>
+  </div>
+</div>

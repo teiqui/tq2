@@ -5,7 +5,7 @@ defmodule Tq2.Shops.DataTest do
     alias Tq2.Shops.Data
 
     @valid_attrs %{
-      phone: "some phone",
+      phone: "555-5555",
       email: "some@email.com",
       whatsapp: "some whatsapp",
       facebook: "some facebook",
@@ -34,7 +34,7 @@ defmodule Tq2.Shops.DataTest do
     test "changeset does not accept long attributes" do
       attrs =
         @valid_attrs
-        |> Map.put(:phone, String.duplicate("a", 256))
+        |> Map.put(:phone, String.duplicate("5", 256))
         |> Map.put(:email, String.duplicate("a", 256))
         |> Map.put(:whatsapp, String.duplicate("a", 256))
         |> Map.put(:facebook, String.duplicate("a", 256))

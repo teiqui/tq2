@@ -30,7 +30,7 @@ defmodule Tq2.ShopsTest do
         pay_on_delivery: true
       },
       data: %{
-        phone: "some phone",
+        phone: "555-5555",
         email: "some@email.com",
         whatsapp: "some whatsapp",
         facebook: "some facebook",

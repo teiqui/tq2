@@ -1,0 +1,32 @@
+## "msgid"s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove "msgid"s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use "mix gettext.extract --merge" or "mix gettext.merge"
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: es\n"
+"Plural-Forms: nplurals=2\n"
+
+#: lib/tq2_web/live/customer_live.html.leex:46
+msgid "Address"
+msgstr "Dirección"
+
+#: lib/tq2_web/live/customer_live.html.leex:44
+msgid "Email"
+msgstr "Correo electrónico"
+
+#: lib/tq2_web/live/customer_live.html.leex:43
+msgid "Name"
+msgstr "Nombre"
+
+#: lib/tq2_web/live/customer_live.html.leex:45
+msgid "Phone"
+msgstr "Teléfono"
+
+#: lib/tq2_web/live/customer_live.ex:126
+msgid "Saving..."
+msgstr "Guardando..."
