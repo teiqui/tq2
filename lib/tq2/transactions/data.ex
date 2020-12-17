@@ -7,16 +7,19 @@ defmodule Tq2.Transactions.Data do
 
   embedded_schema do
     field :handing, :string
+    field :payment, :string
 
     timestamps()
   end
 
   @handing_types ~w(pickup delivery)
+  @payment_types ~w(cash)
 
   @doc false
   def changeset(%Data{} = data, attrs) do
     data
-    |> cast(attrs, [:handing])
+    |> cast(attrs, [:handing, :payment])
     |> validate_inclusion(:handing, @handing_types)
+    |> validate_inclusion(:payment, @payment_types)
   end
 end

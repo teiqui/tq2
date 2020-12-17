@@ -114,7 +114,9 @@ defmodule Tq2Web.CustomerLiveTest do
                  "phone" => "555-5555",
                  "address" => "some address"
                }
-             }) =~ "#person-circle"
+             }) ==
+               {:error,
+                {:live_redirect, %{kind: :push, to: Routes.payment_path(conn, :index, store)}}}
 
       assert Tq2.Transactions.get_cart(store.account, cart.token).customer_id
     end
@@ -150,6 +152,12 @@ defmodule Tq2Web.CustomerLiveTest do
       assert customer_live
              |> element("form")
              |> render_change(%{customer: %{"email" => customer.email}}) =~ "#person-circle"
+
+      assert customer_live
+             |> element("form")
+             |> render_submit(%{}) ==
+               {:error,
+                {:live_redirect, %{kind: :push, to: Routes.payment_path(conn, :index, store)}}}
     end
   end
 end

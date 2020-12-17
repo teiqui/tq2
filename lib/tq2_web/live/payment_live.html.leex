@@ -1,0 +1,48 @@
+<%= live_component @socket, HeaderComponent, store: @store %>
+
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <form id="payment" phx-submit="save" phx-change="update">
+      <div class="accordion">
+        <div class="card">
+          <div class="card-header pb-4">
+            <div class="custom-control custom-radio mt-3">
+              <input type="radio"
+                     id="cash"
+                     name="kind"
+                     class="custom-control-input"
+                     value="cash"
+                     <%= if @cart.data && @cart.data.payment == "cash", do: "checked" %>>
+              <label class="custom-control-label" for="cash">
+                <span class="ml-2 d-block">
+                  <span class="float-left text-muted ml-n4">
+                    <svg class="bi" width="18" height="18" fill="currentColor">
+                      <use xlink:href="/images/bootstrap-icons.svg#cash"/>
+                    </svg>
+                  </span>
+
+                  <span class="font-weight-semi-bold">
+                    <%= dgettext("payments", "Cash") %>
+                  </span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div id="cash-details"
+               class="collapse<%= if @cart.data && @cart.data.payment == "cash", do: " show" %>">
+            <div class="card-body">
+              <%= dgettext("payments", "Your order must be paid on delivery.") %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="fixed-bottom mb-1">
+        <div class="container-fluid py-1 py-lg-2">
+          <%= submit_payment @cart %>
+        </div>
+      </nav>
+    </form>
+  </div>
+</div>

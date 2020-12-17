@@ -37,6 +37,7 @@ defmodule Tq2Web.Router do
     live "/:slug/items/:id", ItemLive, :index
     live "/:slug/handing", HandingLive, :index
     live "/:slug/customer", CustomerLive, :index
+    live "/:slug/payment", PaymentLive, :index
   end
 
   scope "/", Tq2Web do

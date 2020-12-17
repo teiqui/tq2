@@ -10,22 +10,14 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/live/customer_live.html.leex:46
-msgid "Address"
+#: lib/tq2_web/live/payment_live.html.leex:25
+msgid "Cash"
 msgstr ""
 
-#: lib/tq2_web/live/customer_live.html.leex:44
-msgid "Email"
+#: lib/tq2_web/live/payment_live.html.leex:35
+msgid "Your order must be paid on delivery."
 msgstr ""
 
-#: lib/tq2_web/live/customer_live.html.leex:43
-msgid "Name"
-msgstr ""
-
-#: lib/tq2_web/live/customer_live.html.leex:45
-msgid "Phone"
-msgstr ""
-
-#: lib/tq2_web/live/customer_live.ex:127
+#: lib/tq2_web/live/payment_live.ex:57
 msgid "Saving..."
 msgstr ""

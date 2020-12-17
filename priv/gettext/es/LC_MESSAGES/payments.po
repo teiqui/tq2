@@ -8,25 +8,17 @@
 ## to merge POT files into PO files.
 msgid ""
 msgstr ""
-"Language: en\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/live/customer_live.html.leex:46
-msgid "Address"
-msgstr ""
+#: lib/tq2_web/live/payment_live.html.leex:25
+msgid "Cash"
+msgstr "Efectivo"
 
-#: lib/tq2_web/live/customer_live.html.leex:44
-msgid "Email"
-msgstr ""
+#: lib/tq2_web/live/payment_live.html.leex:35
+msgid "Your order must be paid on delivery."
+msgstr "Su pedido deberá ser abonado a contra entrega."
 
-#: lib/tq2_web/live/customer_live.html.leex:43
-msgid "Name"
-msgstr ""
-
-#: lib/tq2_web/live/customer_live.html.leex:45
-msgid "Phone"
-msgstr ""
-
-#: lib/tq2_web/live/customer_live.ex:127
+#: lib/tq2_web/live/payment_live.ex:57
 msgid "Saving..."
-msgstr ""
+msgstr "Guardando..."

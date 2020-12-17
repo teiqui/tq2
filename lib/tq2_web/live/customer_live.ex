@@ -22,7 +22,11 @@ defmodule Tq2Web.CustomerLive do
   end
 
   @impl true
-  def handle_event("save", %{"customer" => customer_params}, %{assigns: %{token: token}} = socket) do
+  def handle_event(
+        "save",
+        %{"customer" => customer_params},
+        %{assigns: %{store: store, token: token}} = socket
+      ) do
     customer_params = customer_params |> Map.put("tokens", [%{"value" => token}])
 
     case customer(customer_params, token) do
@@ -32,6 +36,7 @@ defmodule Tq2Web.CustomerLive do
           |> load_cart(token)
           |> assign(:customer, customer)
           |> associate()
+          |> push_redirect(to: Routes.payment_path(socket, :index, store))
 
         {:noreply, socket}
 
@@ -51,9 +56,11 @@ defmodule Tq2Web.CustomerLive do
 
     case Sales.get_customer(email: email, phone: phone) do
       %Customer{} = customer ->
+        changeset = Sales.change_customer(customer)
+
         socket =
           socket
-          |> assign(customer: customer)
+          |> assign(customer: customer, changeset: changeset)
           |> load_cart(token)
 
         {:noreply, socket}
@@ -122,7 +129,6 @@ defmodule Tq2Web.CustomerLive do
 
     submit(text,
       class: "btn btn-lg btn-block btn-primary",
-      # disabled: true,
       phx_disable_width: dgettext("customers", "Saving...")
     )
   end
