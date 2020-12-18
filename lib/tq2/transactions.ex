@@ -44,8 +44,8 @@ defmodule Tq2.Transactions do
 
   """
   def create_cart(%Account{} = account, attrs) do
-    account
-    |> Cart.changeset(%Cart{}, attrs)
+    %Cart{}
+    |> Cart.changeset(attrs, account)
     |> Repo.insert()
   end
 
@@ -62,8 +62,8 @@ defmodule Tq2.Transactions do
 
   """
   def update_cart(%Account{} = account, %Cart{} = cart, attrs) do
-    account
-    |> Cart.changeset(cart, attrs)
+    cart
+    |> Cart.changeset(attrs, account)
     |> Repo.update()
   end
 
@@ -77,7 +77,7 @@ defmodule Tq2.Transactions do
 
   """
   def change_cart(%Account{} = account, %Cart{} = cart) do
-    Cart.changeset(account, cart, %{})
+    Cart.changeset(cart, %{}, account)
   end
 
   alias Tq2.Transactions.Line

@@ -26,8 +26,8 @@ defmodule Tq2.Transactions.CartRepoTest do
       attrs = Map.put(@valid_attrs, :token, cart.token)
 
       {:error, changeset} =
-        cart.account
-        |> Cart.changeset(%Cart{}, attrs)
+        %Cart{}
+        |> Cart.changeset(attrs, cart.account)
         |> Repo.insert()
 
       expected = {

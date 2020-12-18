@@ -24,7 +24,7 @@ defmodule Tq2.Transactions.Cart do
   @price_types ~w(promotional regular)
 
   @doc false
-  def changeset(%Account{} = account, %Cart{} = cart, attrs) do
+  def changeset(%Cart{} = cart, attrs, %Account{} = account) do
     cart
     |> cast(attrs, [:token, :price_type, :customer_id])
     |> cast_embed(:data)

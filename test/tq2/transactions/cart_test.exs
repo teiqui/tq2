@@ -16,13 +16,13 @@ defmodule Tq2.Transactions.CartTest do
     }
 
     test "changeset with valid attributes" do
-      changeset = default_account() |> Cart.changeset(%Cart{}, @valid_attrs)
+      changeset = Cart.changeset(%Cart{}, @valid_attrs, default_account())
 
       assert changeset.valid?
     end
 
     test "changeset with invalid attributes" do
-      changeset = default_account() |> Cart.changeset(%Cart{}, @invalid_attrs)
+      changeset = Cart.changeset(%Cart{}, @invalid_attrs, default_account())
 
       refute changeset.valid?
     end
@@ -32,7 +32,7 @@ defmodule Tq2.Transactions.CartTest do
         @valid_attrs
         |> Map.put(:token, String.duplicate("a", 256))
 
-      changeset = default_account() |> Cart.changeset(%Cart{}, attrs)
+      changeset = Cart.changeset(%Cart{}, attrs, default_account())
 
       assert "should be at most 255 character(s)" in errors_on(changeset).token
     end
@@ -42,7 +42,7 @@ defmodule Tq2.Transactions.CartTest do
         @valid_attrs
         |> Map.put(:price_type, "xx")
 
-      changeset = default_account() |> Cart.changeset(%Cart{}, attrs)
+      changeset = Cart.changeset(%Cart{}, attrs, default_account())
 
       assert "is invalid" in errors_on(changeset).price_type
     end
