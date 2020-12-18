@@ -5,8 +5,7 @@ defmodule Tq2.Shops do
 
   import Ecto.Query, warn: false
 
-  alias Tq2.Repo
-  alias Tq2.Trail
+  alias Tq2.{Repo, Trail}
   alias Tq2.Accounts.{Account, Session}
   alias Tq2.Shops.Store
 
