@@ -27,6 +27,6 @@ msgstr "Nombre"
 msgid "Phone"
 msgstr "Teléfono"
 
-#: lib/tq2_web/live/customer_live.ex:127
+#: lib/tq2_web/live/customer_live.ex:132
 msgid "Saving..."
 msgstr "Guardando..."

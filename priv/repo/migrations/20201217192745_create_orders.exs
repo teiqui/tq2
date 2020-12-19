@@ -20,7 +20,7 @@ defmodule Tq2.Repo.Migrations.CreateOrders do
 
     create index(:orders, :status)
     create index(:orders, :promotion_expires_at)
-    create index(:orders, :cart_id)
     create index(:orders, :account_id)
+    create unique_index(:orders, :cart_id)
   end
 end

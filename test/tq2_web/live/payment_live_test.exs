@@ -69,17 +69,39 @@ defmodule Tq2Web.PaymentLiveTest do
       assert has_element?(payment_live, ".btn[disabled]")
     end
 
+    test "update event", %{conn: conn, cart: _cart, store: store} do
+      path = Routes.payment_path(conn, :index, store)
+      {:ok, payment_live, _html} = live(conn, path)
+
+      assert has_element?(payment_live, ".btn[disabled]")
+
+      payment_live
+      |> element("form")
+      |> render_change(%{"kind" => "cash"})
+
+      refute has_element?(payment_live, ".btn[disabled]")
+    end
+
     test "save event", %{conn: conn, cart: _cart, store: store} do
       path = Routes.payment_path(conn, :index, store)
       {:ok, payment_live, _html} = live(conn, path)
 
       assert has_element?(payment_live, ".btn[disabled]")
 
-      assert payment_live
-             |> element("form")
-             |> render_change(%{"kind" => "cash"})
+      payment_live
+      |> element("form")
+      |> render_change(%{"kind" => "cash"})
 
-      refute has_element?(payment_live, ".btn[disabled]")
+      response =
+        payment_live
+        |> element("form")
+        |> render_submit(%{})
+
+      assert {:error, {:live_redirect, %{kind: :push, to: to}}} = response
+
+      order_id = String.replace(to, ~r/\D/, "")
+
+      assert Routes.order_path(conn, :index, store, order_id) == to
     end
   end
 end

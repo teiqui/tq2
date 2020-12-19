@@ -10,22 +10,6 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/live/customer_live.html.leex:46
-msgid "Address"
-msgstr ""
-
-#: lib/tq2_web/live/customer_live.html.leex:44
-msgid "Email"
-msgstr ""
-
-#: lib/tq2_web/live/customer_live.html.leex:43
-msgid "Name"
-msgstr ""
-
-#: lib/tq2_web/live/customer_live.html.leex:45
-msgid "Phone"
-msgstr ""
-
-#: lib/tq2_web/live/customer_live.ex:132
-msgid "Saving..."
+#: lib/tq2_web/live/order_live.html.leex:12
+msgid "Thank you for your purchase!"
 msgstr ""

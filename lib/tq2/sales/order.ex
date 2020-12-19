@@ -25,7 +25,7 @@ defmodule Tq2.Sales.Order do
   @doc false
   def changeset(%Account{} = account, %Order{} = order, attrs) do
     order
-    |> cast(attrs, [:status, :promotion_expires_at, :lock_version])
+    |> cast(attrs, [:status, :promotion_expires_at, :cart_id, :lock_version])
     |> cast_embed(:data)
     |> cast_assoc(:cart, with: {Cart, :changeset, [account]})
     |> put_account(account)

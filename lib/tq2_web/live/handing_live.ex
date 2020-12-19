@@ -30,6 +30,7 @@ defmodule Tq2Web.HandingLive do
         {:noreply, assign(socket, cart: cart)}
 
       {:error, %Ecto.Changeset{}} ->
+        # TODO: handle this case properly
         {:noreply, socket}
     end
   end

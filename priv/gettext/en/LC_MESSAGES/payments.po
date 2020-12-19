@@ -19,6 +19,6 @@ msgstr ""
 msgid "Your order must be paid on delivery."
 msgstr ""
 
-#: lib/tq2_web/live/payment_live.ex:57
+#: lib/tq2_web/live/payment_live.ex:79
 msgid "Saving..."
 msgstr ""

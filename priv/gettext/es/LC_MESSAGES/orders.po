@@ -11,14 +11,6 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/live/payment_live.html.leex:25
-msgid "Cash"
-msgstr "Efectivo"
-
-#: lib/tq2_web/live/payment_live.html.leex:35
-msgid "Your order must be paid on delivery."
-msgstr "Su pedido deberá ser abonado a contra entrega."
-
-#: lib/tq2_web/live/payment_live.ex:79
-msgid "Saving..."
-msgstr "Guardando..."
+#: lib/tq2_web/live/order_live.html.leex:12
+msgid "Thank you for your purchase!"
+msgstr "¡Gracias por tu compra!"

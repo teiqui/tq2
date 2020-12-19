@@ -129,6 +129,9 @@ defmodule Tq2.Sales do
   def get_order!(account, id) do
     Order
     |> where(account_id: ^account.id)
+    |> join(:left, [o], c in assoc(o, :cart))
+    |> join(:left, [o, c], l in assoc(c, :lines))
+    |> preload([o, c, l], cart: {c, lines: l})
     |> Repo.get!(id)
   end
 

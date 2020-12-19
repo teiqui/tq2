@@ -3,7 +3,7 @@ defmodule Tq2Web.PaymentLive do
 
   import Tq2Web.ButtonComponent, only: [cart_total: 1]
 
-  alias Tq2.{Shops, Transactions}
+  alias Tq2.{Sales, Shops, Transactions}
   alias Tq2Web.HeaderComponent
 
   @impl true
@@ -32,14 +32,36 @@ defmodule Tq2Web.PaymentLive do
         {:noreply, assign(socket, cart: cart)}
 
       {:error, %Ecto.Changeset{}} ->
+        # TODO: handle this case properly
         {:noreply, socket}
     end
   end
 
   @impl true
-  def handle_event("save", _params, socket) do
-    # TODO: implement order creation
-    {:noreply, socket}
+  def handle_event(
+        "save",
+        _params,
+        %{assigns: %{store: %{account: account} = store, token: token}} = socket
+      ) do
+    cart = Transactions.get_cart(account, token)
+
+    sale_params = %{
+      cart_id: cart.id,
+      promotion_expires_at: Timex.now() |> Timex.shift(days: 1)
+    }
+
+    case Sales.create_order(account, sale_params) do
+      {:ok, order} ->
+        socket =
+          socket
+          |> push_redirect(to: Routes.order_path(socket, :index, store, order))
+
+        {:noreply, socket}
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        # TODO: handle this case properly
+        {:noreply, socket}
+    end
   end
 
   defp load_cart(%{assigns: %{store: %{account: account}}} = socket, token) do
