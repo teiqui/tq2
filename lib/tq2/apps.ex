@@ -8,7 +8,7 @@ defmodule Tq2.Apps do
   alias Tq2.Repo
   alias Tq2.Trail
   alias Tq2.Accounts.{Account, Session}
-  alias Tq2.Apps.{App, MercadoPago}
+  alias Tq2.Apps.{App, MercadoPago, WireTransfer}
 
   @doc """
   Returns the list of apps.
@@ -26,7 +26,7 @@ defmodule Tq2.Apps do
   end
 
   @doc """
-  Returns the MercadoPago app for account
+  Returns the app for account
 
   ## Examples
 
@@ -39,15 +39,21 @@ defmodule Tq2.Apps do
     |> Repo.get_by(account_id: account.id, name: "mercado_pago")
   end
 
+  def get_app(account, "wire_transfer") do
+    WireTransfer
+    |> where(account_id: ^account.id, name: "wire_transfer")
+    |> Repo.one()
+  end
+
   # @doc """
-  # Creates a MercadoPago app.
+  # Creates an app.
 
   # ## Examples
 
-  #     iex> create_app(%Session{}, %{field: value})
+  #     iex> create_app(%Session{}, %{field: "value"})
   #     {:ok, %MercadoPago{}}
 
-  #     iex> create_app(%Session{}, %{field: bad_value})
+  #     iex> create_app(%Session{}, %{field: "bad_value"})
   #     {:error, %Ecto.Changeset{}}
 
   # """
@@ -57,15 +63,21 @@ defmodule Tq2.Apps do
     |> Trail.insert(originator: user, meta: %{account_id: account.id})
   end
 
+  def create_app(%Session{account: account, user: user}, %{"name" => "wire_transfer"} = attrs) do
+    account
+    |> WireTransfer.changeset(%WireTransfer{}, attrs)
+    |> Trail.insert(originator: user, meta: %{account_id: account.id})
+  end
+
   @doc """
-  Updates a MercadoPago app.
+  Updates an app.
 
   ## Examples
 
-      iex> update_app(%Session{}, app, %{field: new_value})
+      iex> update_app(%Session{}, app, %{field: "new_value"})
       {:ok, %MercadoPago{}}
 
-      iex> update_app(%Session{}, app, %{field: bad_value})
+      iex> update_app(%Session{}, app, %{field: "bad_value"})
       {:error, %Ecto.Changeset{}}
 
   """
@@ -75,8 +87,14 @@ defmodule Tq2.Apps do
     |> Trail.update(originator: user, meta: %{account_id: account.id})
   end
 
+  def update_app(%Session{account: account, user: user}, %WireTransfer{} = app, attrs) do
+    account
+    |> WireTransfer.changeset(app, attrs)
+    |> Trail.update(originator: user, meta: %{account_id: account.id})
+  end
+
   @doc """
-  Deletes a MercadoPago.
+  Deletes an app.
 
   ## Examples
 
@@ -87,7 +105,7 @@ defmodule Tq2.Apps do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_app(%Session{account: account, user: user}, %MercadoPago{} = app) do
+  def delete_app(%Session{account: account, user: user}, app) do
     Trail.delete(app, originator: user, meta: %{account_id: account.id})
   end
 
@@ -100,8 +118,14 @@ defmodule Tq2.Apps do
       %Ecto.Changeset{source: %MercadoPago{}}
 
   """
-  def change_app(%Account{} = account, %MercadoPago{} = app, attrs \\ %{}) do
+  def change_app(account, app, attrs \\ %{})
+
+  def change_app(%Account{} = account, %MercadoPago{} = app, attrs) do
     MercadoPago.changeset(account, app, attrs)
+  end
+
+  def change_app(%Account{} = account, %WireTransfer{} = app, attrs) do
+    WireTransfer.changeset(account, app, attrs)
   end
 
   @doc """

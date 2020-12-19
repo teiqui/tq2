@@ -10,15 +10,16 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:13
+#: lib/tq2_web/views/app_view.ex:14
 msgid "Active"
 msgstr ""
 
-#: lib/tq2_web/controllers/app_controller.ex:58
+#: lib/tq2_web/controllers/app_controller.ex:76
 msgid "App deleted successfully."
 msgstr ""
 
 #: lib/tq2_web/controllers/app_controller.ex:40
+#: lib/tq2_web/controllers/app_controller.ex:86
 msgid "App updated successfully."
 msgstr ""
 
@@ -27,27 +28,28 @@ msgstr ""
 msgid "Apps"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:30
+#: lib/tq2_web/views/app_view.ex:31
 msgid "Are you sure?"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:72
+#: lib/tq2_web/views/app_view.ex:77
 msgid "Link account"
 msgstr ""
 
 #: lib/tq2_web/templates/app/edit_mercado_pago.html.eex:33
+#: lib/tq2_web/templates/app/edit_wire_transfer.html.eex:14 lib/tq2_web/templates/app/new_wire_transfer.html.eex:14
 msgid "Back"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:83
+#: lib/tq2_web/views/app_view.ex:88
 msgid "Commissions"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:27
+#: lib/tq2_web/views/app_view.ex:28
 msgid "Delete"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:20
+#: lib/tq2_web/views/app_view.ex:21
 msgid "Edit"
 msgstr ""
 
@@ -55,26 +57,51 @@ msgstr ""
 msgid "Edit app"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:91
+#: lib/tq2_web/views/app_view.ex:96
 msgid "Install"
 msgstr ""
 
+#: lib/tq2_web/templates/app/_form_wire_transfer.html.eex:4
 #: lib/tq2_web/templates/app/edit_mercado_pago.html.eex:12
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:14
+#: lib/tq2_web/views/app_view.ex:15
 msgid "Paused"
 msgstr ""
 
+#: lib/tq2_web/templates/app/_form_wire_transfer.html.eex:8
 #: lib/tq2_web/templates/app/edit_mercado_pago.html.eex:21
 msgid "Status"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:105
+#: lib/tq2_web/views/app_view.ex:117
 msgid "Update"
 msgstr ""
 
 #: lib/tq2_web/templates/app/new_mercado_pago.html.eex:2
 msgid "To link you'have to authorize Teiqui, after that your clients will have all MercadoPago payment methods available."
+msgstr ""
+
+#: lib/tq2_web/templates/app/_form_wire_transfer.html.eex:11
+msgid "Account number"
+msgstr ""
+
+#: lib/tq2_web/templates/app/_wire_transfer.html.eex:6
+#: lib/tq2_web/templates/app/edit_wire_transfer.html.eex:4 lib/tq2_web/templates/app/new_wire_transfer.html.eex:4
+#: lib/tq2_web/views/app_view.ex:137
+msgid "Wire transfer"
+msgstr ""
+
+#: lib/tq2_web/views/app_view.ex:110
+msgid "Create"
+msgstr ""
+
+#: lib/tq2_web/templates/app/_form_wire_transfer.html.eex:10
+msgid "Description"
+msgstr ""
+
+#: lib/tq2_web/templates/app/_mercado_pago.html.eex:6
+#: lib/tq2_web/views/app_view.ex:133
+msgid "MercadoPago"
 msgstr ""

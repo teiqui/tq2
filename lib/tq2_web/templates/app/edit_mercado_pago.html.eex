@@ -23,7 +23,7 @@
       <%= lock_version_input(f, @app) %>
 
       <div>
-        <%= submit_button() %>
+        <%= submit_button @app %>
       </div>
     <% end %>
   </div>

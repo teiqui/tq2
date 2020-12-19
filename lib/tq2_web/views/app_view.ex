@@ -5,6 +5,7 @@ defmodule Tq2Web.AppView do
   import Utils, only: [invert: 1]
 
   alias Tq2.Apps.MercadoPago, as: MPApp
+  alias Tq2.Apps.WireTransfer, as: WTApp
 
   alias Tq2.Gateways.MercadoPago, as: MPClient
   alias Tq2.Gateways.MercadoPago.Credential, as: MPCredential
@@ -49,7 +50,7 @@ defmodule Tq2Web.AppView do
   end
 
   def app_names do
-    ~w(mercado_pago)
+    ~w(mercado_pago wire_transfer)
   end
 
   def app_by_name(apps, name) do
@@ -58,6 +59,10 @@ defmodule Tq2Web.AppView do
 
   def build_app("mercado_pago") do
     %MPApp{}
+  end
+
+  def build_app("wire_transfer") do
+    %WTApp{}
   end
 
   def build_app(_), do: nil
@@ -86,10 +91,10 @@ defmodule Tq2Web.AppView do
     )
   end
 
-  def mp_link_to_install(conn) do
+  def link_to_install(conn, app_name) do
     link(
       dgettext("apps", "Install"),
-      to: Routes.app_path(conn, :new, name: "mercado_pago"),
+      to: Routes.app_path(conn, :new, name: app_name),
       class: "btn btn-primary rounded-pill font-weight-semi-bold mt-2"
     )
   end
@@ -100,10 +105,35 @@ defmodule Tq2Web.AppView do
     hidden_input(form, :lock_version, value: app.lock_version)
   end
 
-  def submit_button do
+  def submit_button(nil) do
+    submit(
+      dgettext("apps", "Create"),
+      class: "btn btn-primary rounded-pill font-weight-semi-bold"
+    )
+  end
+
+  def submit_button(_) do
     submit(
       dgettext("apps", "Update"),
       class: "btn btn-primary rounded-pill font-weight-semi-bold"
     )
+  end
+
+  defp app_img_tag(conn, app_name) do
+    img_tag(
+      Routes.static_path(conn, "/images/#{app_name}.png"),
+      alt: translate_app(app_name),
+      width: "128",
+      height: "128",
+      class: "img-fluid rounded mr-3"
+    )
+  end
+
+  defp translate_app("mercado_pago") do
+    dgettext("apps", "MercadoPago")
+  end
+
+  defp translate_app("wire_transfer") do
+    dgettext("apps", "Wire transfer")
   end
 end

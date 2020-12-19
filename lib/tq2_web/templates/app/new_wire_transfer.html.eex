@@ -1,0 +1,15 @@
+<div class="card my-3">
+  <div class="card-header">
+    <h2 class="h5">
+      <%= dgettext("apps", "Wire transfer") %>
+    </h2>
+  </div>
+
+  <div class="card-body">
+    <%= render "_form_wire_transfer.html", assigns %>
+  </div>
+</div>
+
+<div class="mt-3">
+  <%= link dgettext("apps", "Back"), to: Routes.app_path(@conn, :index) %>
+</div>

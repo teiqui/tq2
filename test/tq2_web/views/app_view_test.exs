@@ -6,6 +6,7 @@ defmodule Tq2Web.AppViewTest do
   import Tq2.Fixtures, only: [default_account: 0]
 
   alias Tq2.Apps.MercadoPago, as: MPApp
+  alias Tq2.Apps.WireTransfer, as: WTApp
   alias Tq2Web.AppView
 
   test "link to edit", %{conn: conn} do
@@ -52,21 +53,23 @@ defmodule Tq2Web.AppViewTest do
   end
 
   test "app kinds for cards" do
-    assert ~w(mercado_pago) == AppView.app_names()
+    assert ~w(mercado_pago wire_transfer) == AppView.app_names()
   end
 
   test "app from apps by name" do
-    apps = [%MPApp{}]
+    apps = [%MPApp{}, %WTApp{}]
 
     assert %MPApp{} = AppView.app_by_name(apps, "mercado_pago")
     assert %MPApp{} = AppView.app_by_name([], "mercado_pago")
+    assert %WTApp{} = AppView.app_by_name(apps, "wire_transfer")
+    assert %WTApp{} = AppView.app_by_name([], "wire_transfer")
     refute AppView.app_by_name(apps, "unknown")
   end
 
   test "build app" do
-    app = AppView.build_app("mercado_pago")
-
-    assert %MPApp{} = app
+    assert %MPApp{} = AppView.build_app("mercado_pago")
+    assert %WTApp{} = AppView.build_app("wire_transfer")
+    refute AppView.build_app("unknwon")
   end
 
   test "mp link to authorize" do
@@ -94,11 +97,21 @@ defmodule Tq2Web.AppViewTest do
   test "mp link to install", %{conn: conn} do
     content =
       conn
-      |> AppView.mp_link_to_install()
+      |> AppView.link_to_install("mercado_pago")
       |> safe_to_string()
 
     assert content =~ "Install"
     assert content =~ "/apps/new?name=mercado_pago"
+  end
+
+  test "wire transfer link to install", %{conn: conn} do
+    content =
+      conn
+      |> AppView.link_to_install("wire_transfer")
+      |> safe_to_string()
+
+    assert content =~ "Install"
+    assert content =~ "/apps/new?name=wire_transfer"
   end
 
   defp mercado_pago_fixture() do
