@@ -1,8 +1,11 @@
 defmodule Tq2.Accounts.LicenseTest do
   use Tq2.DataCase, async: true
 
+  import Tq2.Fixtures, only: [default_account: 0]
+
   describe "license" do
     alias Tq2.Accounts.License
+    alias Tq2.Payments.LicensePayment, as: LPayment
 
     @valid_attrs %{
       status: "trial",
@@ -46,6 +49,49 @@ defmodule Tq2.Accounts.LicenseTest do
       changeset = License.changeset(%License{}, attrs)
 
       assert "is invalid" in errors_on(changeset).status
+    end
+
+    test "changeset for payment with active status" do
+      account = default_account()
+      next_month = account.license.paid_until |> Timex.shift(months: 1)
+      payment_cs = account |> LPayment.changeset(%LPayment{}, %{status: "paid"})
+      license_cs = account.license |> License.put_paid_until_changes(payment_cs)
+
+      assert license_cs.changes.status == "active"
+      assert license_cs.changes.paid_until == next_month
+    end
+
+    test "changeset for payment with unpaid status" do
+      account = default_account()
+      prev_month = account.license.paid_until |> Timex.shift(months: -1)
+      payment_cs = account |> LPayment.changeset(%LPayment{}, %{status: "cancelled"})
+      license_cs = account.license |> License.put_paid_until_changes(payment_cs)
+
+      assert license_cs.changes.status == "unpaid"
+      assert license_cs.changes.paid_until == prev_month
+    end
+
+    test "changeset for payment without status change" do
+      account = default_account()
+      payment_cs = account |> LPayment.changeset(%LPayment{}, %{status: "pending"})
+      license_cs = account.license |> License.put_paid_until_changes(payment_cs)
+
+      refute license_cs.changes[:status]
+      refute license_cs.changes[:paid_until]
+    end
+
+    test "add changeset to multi" do
+      account = default_account()
+      multi = Ecto.Multi.new()
+
+      multi =
+        account.license
+        |> License.changeset(%{})
+        |> License.add_changeset_to_multi(multi)
+        |> Ecto.Multi.to_list()
+
+      assert {:update, _, []} = multi[:license]
+      assert {:run, _} = multi[:license_version]
     end
   end
 end
