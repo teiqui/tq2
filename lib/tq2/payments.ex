@@ -5,9 +5,12 @@ defmodule Tq2.Payments do
 
   import Ecto.Query, warn: false
 
-  alias Tq2.Repo
   alias Tq2.Accounts.{Account, License}
   alias Tq2.Payments.LicensePayment, as: LPayment
+  alias Tq2.Payments.Payment
+  alias Tq2.Repo
+  alias Tq2.Trail
+  alias Tq2.Transactions.Cart
 
   @doc """
   Returns the list of license_payments.
@@ -47,6 +50,24 @@ defmodule Tq2.Payments do
   end
 
   def create_or_update_license_payment(_attrs, %Account{}), do: nil
+
+  @doc """
+  Creates a payment.
+
+  ## Examples
+
+      iex> create_payment(%Cart{}, %{field: value})
+      {:ok, %Payment{}}
+
+      iex> create_payment(%Cart{}, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_payment(%Cart{} = cart, attrs) do
+    cart
+    |> Payment.changeset(%Payment{}, attrs)
+    |> Trail.insert(meta: %{account_id: cart.account_id})
+  end
 
   @doc """
   Updates a payment.

@@ -46,22 +46,9 @@ defmodule Tq2Web.PaymentLive do
       ) do
     cart = Transactions.get_cart(account, token)
 
-    sale_params = %{
-      cart_id: cart.id,
-      promotion_expires_at: Timex.now() |> Timex.shift(days: 1)
-    }
-
-    case Sales.create_order(account, sale_params) do
-      {:ok, order} ->
-        socket =
-          socket
-          |> push_redirect(to: Routes.order_path(socket, :index, store, order))
-
-        {:noreply, socket}
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        # TODO: handle this case properly
-        {:noreply, socket}
+    case cart.data.payment do
+      "cash" ->
+        create_order(socket, store, cart)
     end
   end
 
@@ -79,6 +66,26 @@ defmodule Tq2Web.PaymentLive do
       disabled: !(cart.data && cart.data.payment),
       phx_disable_width: dgettext("payments", "Saving...")
     )
+  end
+
+  defp create_order(socket, store, cart) do
+    sale_params = %{
+      cart_id: cart.id,
+      promotion_expires_at: Timex.now() |> Timex.shift(days: 1)
+    }
+
+    case Sales.create_order(store.account, sale_params) do
+      {:ok, order} ->
+        socket =
+          socket
+          |> push_redirect(to: Routes.order_path(socket, :index, store, order))
+
+        {:noreply, socket}
+
+      {:error, %Ecto.Changeset{}} ->
+        # TODO: handle this case properly
+        {:noreply, socket}
+    end
   end
 
   defp available_payment_methods(store) do

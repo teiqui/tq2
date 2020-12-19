@@ -29,6 +29,10 @@ defmodule Tq2.Fixtures do
     |> Tq2.Repo.one()
   end
 
+  def default_account(_) do
+    {:ok, account: default_account()}
+  end
+
   def create_session do
     %Session{account: default_account()}
   end

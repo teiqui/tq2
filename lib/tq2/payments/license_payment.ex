@@ -2,6 +2,7 @@ defmodule Tq2.Payments.LicensePayment do
   use Ecto.Schema
 
   import Ecto.Changeset
+  import Tq2.SchemaUtils, only: [validate_money: 2]
 
   alias Tq2.Accounts.Account
   alias Tq2.Payments.LicensePayment, as: LPayment
@@ -40,12 +41,5 @@ defmodule Tq2.Payments.LicensePayment do
 
   defp put_account(%Ecto.Changeset{} = changeset, %Account{} = account) do
     changeset |> change(account_id: account.id)
-  end
-
-  defp validate_money(changeset, field) do
-    validate_change(changeset, field, fn
-      _, %Money{amount: amount} when amount >= 0 -> []
-      _, _ -> [{field, {"must be greater than or equal to %{number}", number: 0}}]
-    end)
   end
 end

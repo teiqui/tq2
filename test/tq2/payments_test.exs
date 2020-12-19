@@ -1,5 +1,5 @@
 defmodule Tq2.PaymentsTest do
-  use Tq2.DataCase
+  use Tq2.DataCase, async: true
 
   import Ecto.Query
   import Tq2.Fixtures, only: [create_session: 1]
@@ -130,6 +130,52 @@ defmodule Tq2.PaymentsTest do
       |> where(item_id: ^payment.id, item_type: "LicensePayment")
       |> select([v], count(v.id))
       |> Tq2.Repo.one()
+    end
+  end
+
+  describe "payments" do
+    setup [:create_session]
+
+    alias Tq2.Payments.Payment
+
+    @valid_attrs %{
+      amount: Money.new(2000, "ARS"),
+      kind: "cash",
+      status: "paid"
+    }
+    @invalid_attrs %{
+      amount: nil,
+      kind: nil,
+      status: nil
+    }
+    @valid_cart_attrs %{
+      token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoM="
+    }
+
+    defp cart_fixture(account) do
+      {:ok, cart} = account |> Tq2.Transactions.create_cart(@valid_cart_attrs)
+
+      cart
+    end
+
+    test "create_payment/2 with valid data creates a payment", %{session: %{account: account}} do
+      assert {:ok, %Payment{} = payment} =
+               account
+               |> cart_fixture()
+               |> Payments.create_payment(@valid_attrs)
+
+      assert payment.amount == @valid_attrs.amount
+      assert payment.kind == @valid_attrs.kind
+      assert payment.status == @valid_attrs.status
+    end
+
+    test "create_payment/2 with invalid data returns error changeset", %{
+      session: %{account: account}
+    } do
+      assert {:error, %Ecto.Changeset{}} =
+               account
+               |> cart_fixture()
+               |> Payments.create_payment(@invalid_attrs)
     end
   end
 end
