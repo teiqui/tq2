@@ -19,7 +19,7 @@
         </li>
       </ul>
     <% else %>
-      <%= link_to_install(@conn, "mercado_pago") %>
+      <%= link_to_install(@conn, @app.name) %>
 
       <p class="lead mt-4">
         <%= mp_link_to_commissions(@account) %>
