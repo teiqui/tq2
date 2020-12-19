@@ -23,10 +23,11 @@ defmodule Tq2Web.PaymentLiveTest do
     {:ok, store} =
       Tq2.Shops.create_store(session, %{
         name: "Test store",
-        slug: "test_store"
+        slug: "test_store",
+        configuration: %{pickup: true}
       })
 
-    %{store: %{store | account: account}}
+    %{store: %{store | account: account}, session: session}
   end
 
   def cart_fixture(%{conn: conn, store: store}) do
@@ -80,6 +81,27 @@ defmodule Tq2Web.PaymentLiveTest do
       |> render_change(%{"kind" => "cash"})
 
       refute has_element?(payment_live, ".btn[disabled]")
+      assert has_element?(payment_live, ".collapse.show", "Your order must be paid")
+    end
+
+    test "change kind to mercado_pago", %{conn: conn, store: store, session: session} do
+      {:ok, _} =
+        Tq2.Apps.create_app(
+          session,
+          %{name: "mercado_pago", data: %{"access_token" => "123"}}
+        )
+
+      path = Routes.payment_path(conn, :index, store)
+      {:ok, payment_live, _html} = live(conn, path)
+
+      assert has_element?(payment_live, ".btn[disabled]")
+
+      assert payment_live
+             |> element("form")
+             |> render_change(%{"kind" => "mercado_pago"})
+
+      refute has_element?(payment_live, ".btn[disabled]")
+      assert has_element?(payment_live, ".collapse.show", "Pay with MercadoPago")
     end
 
     test "save event", %{conn: conn, cart: _cart, store: store} do

@@ -3,16 +3,17 @@ defmodule Tq2Web.PaymentLive do
 
   import Tq2Web.ButtonComponent, only: [cart_total: 1]
 
-  alias Tq2.{Sales, Shops, Transactions}
+  alias Tq2.{Apps, Sales, Shops, Transactions}
   alias Tq2Web.HeaderComponent
 
   @impl true
   def mount(%{"slug" => slug}, %{"token" => token}, socket) do
     store = Shops.get_store!(slug)
+    payment_methods = available_payment_methods(store)
 
     socket =
       socket
-      |> assign(store: store, token: token)
+      |> assign(store: store, token: token, payment_methods: payment_methods)
       |> load_cart(token)
 
     {:ok, socket, temporary_assigns: [cart: nil]}
@@ -78,5 +79,56 @@ defmodule Tq2Web.PaymentLive do
       disabled: !(cart.data && cart.data.payment),
       phx_disable_width: dgettext("payments", "Saving...")
     )
+  end
+
+  defp available_payment_methods(store) do
+    main_methods =
+      if store.configuration.pickup || store.configuration.pay_on_delivery do
+        [{"cash", dgettext("payments", "Cash")}]
+      else
+        []
+      end
+
+    app_names =
+      store.account
+      |> Apps.payment_apps()
+      |> Enum.map(& &1.name)
+      |> Enum.map(fn name -> {name, translate_name(name)} end)
+
+    main_methods ++ app_names
+  end
+
+  defp payment_method_description("cash") do
+    dgettext("payments", "Your order must be paid on delivery.")
+  end
+
+  defp payment_method_description("mercado_pago") do
+    dgettext("payments", "Pay with MercadoPago.")
+  end
+
+  defp payment_method_description("wire_transfer") do
+    dgettext("payments", "Pay with a wire transfer.")
+  end
+
+  defp static_img(kind, text) do
+    img_tag(
+      Routes.static_path(Tq2Web.Endpoint, "/images/#{kind}.png"),
+      alt: text,
+      width: "20",
+      height: "20",
+      class: "img-fluid rounded mr-3"
+    )
+  end
+
+  defp cart_payment_kind?(cart, kind) do
+    cart.data && cart.data.payment == kind
+  end
+
+  defp translate_name("mercado_pago") do
+    dgettext("payments", "MercadoPago")
+  end
+
+  defp translate_name("wire_transfer") do
+    dgettext("payments", "Wire transfer")
   end
 end
