@@ -11,14 +11,30 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/live/payment_live.html.leex:25
+#: lib/tq2_web/live/payment_live.ex:87
 msgid "Cash"
 msgstr "Efectivo"
 
-#: lib/tq2_web/live/payment_live.html.leex:35
+#: lib/tq2_web/live/payment_live.ex:102
 msgid "Your order must be paid on delivery."
 msgstr "Su pedido deberá ser abonado a contra entrega."
 
-#: lib/tq2_web/live/payment_live.ex:79
+#: lib/tq2_web/live/payment_live.ex:80
 msgid "Saving..."
 msgstr "Guardando..."
+
+#: lib/tq2_web/live/payment_live.ex:106
+msgid "Pay with MercadoPago."
+msgstr "Pagar con MercadoPago."
+
+#: lib/tq2_web/live/payment_live.ex:110
+msgid "Pay with a wire transfer."
+msgstr "Pagar con transferencia bancaria."
+
+#: lib/tq2_web/live/payment_live.ex:128
+msgid "MercadoPago"
+msgstr "MercadoPago"
+
+#: lib/tq2_web/live/payment_live.ex:132
+msgid "Wire transfer"
+msgstr "Transferencia bancaria"

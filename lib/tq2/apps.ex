@@ -10,6 +10,8 @@ defmodule Tq2.Apps do
   alias Tq2.Accounts.{Account, Session}
   alias Tq2.Apps.{App, MercadoPago, WireTransfer}
 
+  @payment_names ~w(mercado_pago wire_transfer)
+
   @doc """
   Returns the list of apps.
 
@@ -26,7 +28,23 @@ defmodule Tq2.Apps do
   end
 
   @doc """
-  Returns the app for account
+  Returns the list of payment apps.
+
+  ## Examples
+
+      iex> payment_apps(%Account{})
+      [%App{}, ...]
+
+  """
+  def payment_apps(account) do
+    App
+    |> where(account_id: ^account.id)
+    |> where([a], a.name in @payment_names)
+    |> Repo.all()
+  end
+
+  @doc """
+  Returns an app for account
 
   ## Examples
 
@@ -41,8 +59,7 @@ defmodule Tq2.Apps do
 
   def get_app(account, "wire_transfer") do
     WireTransfer
-    |> where(account_id: ^account.id, name: "wire_transfer")
-    |> Repo.one()
+    |> Repo.get_by(account_id: account.id, name: "wire_transfer")
   end
 
   # @doc """

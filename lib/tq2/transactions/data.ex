@@ -13,7 +13,7 @@ defmodule Tq2.Transactions.Data do
   end
 
   @handing_types ~w(pickup delivery)
-  @payment_types ~w(cash)
+  @payment_types ~w(cash mercado_pago wire_transfer)
 
   @doc false
   def changeset(%Data{} = data, attrs) do
