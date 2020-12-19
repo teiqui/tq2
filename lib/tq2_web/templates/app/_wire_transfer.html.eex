@@ -15,7 +15,7 @@
         </li>
       </ul>
     <% else %>
-      <%= link_to_install(@conn, "wire_transfer") %>
+      <%= link_to_install(@conn, @app.name) %>
     <% end %>
   </div>
 </div>
