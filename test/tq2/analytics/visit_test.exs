@@ -16,13 +16,13 @@ defmodule Tq2.Analytics.VisitTest do
     }
 
     test "changeset with valid attributes" do
-      changeset = default_account() |> Visit.changeset(%Visit{}, @valid_attrs)
+      changeset = Visit.changeset(%Visit{}, @valid_attrs, default_account())
 
       assert changeset.valid?
     end
 
     test "changeset with invalid attributes" do
-      changeset = default_account() |> Visit.changeset(%Visit{}, @invalid_attrs)
+      changeset = Visit.changeset(%Visit{}, @invalid_attrs, default_account())
 
       refute changeset.valid?
     end
@@ -34,7 +34,7 @@ defmodule Tq2.Analytics.VisitTest do
         |> Map.put(:referral_token, String.duplicate("a", 256))
         |> Map.put(:utm_source, String.duplicate("a", 256))
 
-      changeset = default_account() |> Visit.changeset(%Visit{}, attrs)
+      changeset = Visit.changeset(%Visit{}, attrs, default_account())
 
       assert "should be at most 255 character(s)" in errors_on(changeset).token
       assert "should be at most 255 character(s)" in errors_on(changeset).referral_token

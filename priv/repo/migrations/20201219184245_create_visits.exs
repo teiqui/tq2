@@ -12,7 +12,7 @@ defmodule Tq2.Repo.Migrations.CreateVisits do
       add :account_id, references(:accounts, on_delete: :delete_all, on_update: :update_all),
         null: false
 
-      timestamps(updated_at: false)
+      timestamps updated_at: false
     end
 
     create index(:visits, :token)

@@ -21,7 +21,7 @@ defmodule Tq2.Analytics.Visit do
   end
 
   @doc false
-  def changeset(%Account{} = account, %Visit{} = visit, attrs) do
+  def changeset(%Visit{} = visit, attrs, %Account{} = account) do
     visit
     |> cast(attrs, [:token, :referral_token, :utm_source])
     |> cast_embed(:data)
