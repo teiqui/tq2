@@ -34,15 +34,13 @@ defmodule Tq2Web.VisitPlug do
   end
 
   defp track_view(conn, slug, visit_id) do
-    now = DateTime.utc_now()
-
     expires =
       conn
       |> get_session(:visit_timestamp)
       |> DateTime.from_unix!()
       |> Timex.shift(hours: 4)
 
-    case DateTime.compare(now, expires) do
+    case DateTime.utc_now() |> DateTime.compare(expires) do
       :gt ->
         register_visit(conn, slug)
 
