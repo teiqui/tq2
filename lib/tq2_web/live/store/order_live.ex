@@ -1,8 +1,8 @@
-defmodule Tq2Web.OrderLive do
+defmodule Tq2Web.Store.OrderLive do
   use Tq2Web, :live_view
 
   alias Tq2.{Sales, Shops}
-  alias Tq2Web.HeaderComponent
+  alias Tq2Web.Store.HeaderComponent
 
   @impl true
   def mount(%{"slug" => slug, "id" => id}, %{"token" => token}, socket) do

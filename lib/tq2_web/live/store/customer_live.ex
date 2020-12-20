@@ -1,11 +1,11 @@
-defmodule Tq2Web.CustomerLive do
+defmodule Tq2Web.Store.CustomerLive do
   use Tq2Web, :live_view
 
-  import Tq2Web.ButtonComponent, only: [cart_total: 1]
+  import Tq2Web.Store.ButtonComponent, only: [cart_total: 1]
 
   alias Tq2.{Sales, Shops, Transactions}
   alias Tq2.Sales.Customer
-  alias Tq2Web.HeaderComponent
+  alias Tq2Web.Store.HeaderComponent
 
   @impl true
   def mount(%{"slug" => slug}, %{"token" => token}, socket) do

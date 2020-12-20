@@ -1,4 +1,4 @@
-defmodule Tq2Web.CustomerLiveTest do
+defmodule Tq2Web.Store.CustomerLiveTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest

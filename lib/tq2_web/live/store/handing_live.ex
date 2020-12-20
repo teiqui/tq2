@@ -1,8 +1,8 @@
-defmodule Tq2Web.HandingLive do
+defmodule Tq2Web.Store.HandingLive do
   use Tq2Web, :live_view
 
   alias Tq2.{Shops, Transactions}
-  alias Tq2Web.{ButtonComponent, HeaderComponent}
+  alias Tq2Web.Store.{ButtonComponent, HeaderComponent}
 
   @impl true
   def mount(%{"slug" => slug}, %{"token" => token}, socket) do

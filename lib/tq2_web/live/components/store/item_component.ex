@@ -1,4 +1,4 @@
-defmodule Tq2Web.ItemComponent do
+defmodule Tq2Web.Store.ItemComponent do
   use Tq2Web, :live_component
 
   import Tq2Web.ItemView, only: [money: 1]

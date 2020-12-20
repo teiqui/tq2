@@ -13,7 +13,7 @@ defmodule Tq2Web.VisitPlugTest do
   describe "visit" do
     test "track visit", %{conn: conn} do
       conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
-      path = Routes.store_path(conn, :index, store())
+      path = Routes.counter_path(conn, :index, store())
 
       refute get_session(conn, :visit_id)
 
@@ -28,7 +28,7 @@ defmodule Tq2Web.VisitPlugTest do
 
     test "track visit only once", %{conn: conn} do
       conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
-      path = Routes.store_path(conn, :index, store())
+      path = Routes.counter_path(conn, :index, store())
 
       refute get_session(conn, :visit_id)
 

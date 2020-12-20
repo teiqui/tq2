@@ -1,11 +1,11 @@
-defmodule Tq2Web.ItemComponentTest do
+defmodule Tq2Web.Store.ItemComponentTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
 
   alias Tq2.Inventories.{Category, Item}
   alias Tq2.Transactions.Cart
-  alias Tq2Web.ItemComponent
+  alias Tq2Web.Store.ItemComponent
 
   describe "render" do
     test "render item with image and no price selected" do

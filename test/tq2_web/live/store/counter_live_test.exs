@@ -1,4 +1,4 @@
-defmodule Tq2Web.StoreLiveTest do
+defmodule Tq2Web.Store.CounterLiveTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
@@ -65,7 +65,7 @@ defmodule Tq2Web.StoreLiveTest do
 
     test "disconnected and connected render", %{conn: conn, store: store, items: items} do
       conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
-      path = Routes.store_path(conn, :index, store)
+      path = Routes.counter_path(conn, :index, store)
       {:ok, store_live, html} = live(conn, path)
       content = render(store_live)
 
@@ -76,7 +76,7 @@ defmodule Tq2Web.StoreLiveTest do
 
     test "load more event", %{conn: conn, store: store, items: items} do
       conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
-      path = Routes.store_path(conn, :index, store)
+      path = Routes.counter_path(conn, :index, store)
       {:ok, store_live, html} = live(conn, path)
       content = render(store_live)
 

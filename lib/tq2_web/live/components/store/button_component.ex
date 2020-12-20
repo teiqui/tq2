@@ -1,4 +1,4 @@
-defmodule Tq2Web.ButtonComponent do
+defmodule Tq2Web.Store.ButtonComponent do
   use Tq2Web, :live_component
 
   alias Tq2.Transactions.Cart

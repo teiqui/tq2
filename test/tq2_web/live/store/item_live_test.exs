@@ -1,4 +1,4 @@
-defmodule Tq2Web.ItemLiveTest do
+defmodule Tq2Web.Store.ItemLiveTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
@@ -57,9 +57,9 @@ defmodule Tq2Web.ItemLiveTest do
       path = Routes.item_path(conn, :index, store, item)
       {:ok, item_live, _html} = live(conn, path)
 
-      store_path = Routes.store_path(conn, :index, store)
+      counter_path = Routes.counter_path(conn, :index, store)
 
-      assert {:error, {:live_redirect, %{kind: :push, to: ^store_path}}} =
+      assert {:error, {:live_redirect, %{kind: :push, to: ^counter_path}}} =
                render_click(item_live, :add, %{"type" => "promotional", "id" => item.id})
     end
 

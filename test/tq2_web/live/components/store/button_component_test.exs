@@ -1,10 +1,10 @@
-defmodule Tq2Web.ButtonComponentTest do
+defmodule Tq2Web.Store.ButtonComponentTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
 
   alias Tq2.Transactions.{Cart, Line}
-  alias Tq2Web.ButtonComponent
+  alias Tq2Web.Store.ButtonComponent
 
   describe "render" do
     test "render button with empty cart" do

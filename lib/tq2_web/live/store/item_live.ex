@@ -1,11 +1,11 @@
-defmodule Tq2Web.ItemLive do
+defmodule Tq2Web.Store.ItemLive do
   use Tq2Web, :live_view
 
   alias Tq2.Accounts.Account
   alias Tq2.{Inventories, Shops, Transactions}
   alias Tq2.Inventories.Item
   alias Tq2.Transactions.Cart
-  alias Tq2Web.HeaderComponent
+  alias Tq2Web.Store.HeaderComponent
 
   import Tq2Web.ItemView, only: [money: 1]
 
@@ -62,7 +62,7 @@ defmodule Tq2Web.ItemLive do
     socket =
       socket
       |> assign(cart: cart)
-      |> push_redirect(to: Routes.store_path(socket, :index, store))
+      |> push_redirect(to: Routes.counter_path(socket, :index, store))
 
     {:noreply, socket}
   end

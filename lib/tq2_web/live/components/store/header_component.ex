@@ -1,4 +1,4 @@
-defmodule Tq2Web.HeaderComponent do
+defmodule Tq2Web.Store.HeaderComponent do
   use Tq2Web, :live_component
 
   alias Tq2.Shops.Store

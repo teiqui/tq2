@@ -1,9 +1,9 @@
-defmodule Tq2Web.HeaderComponentTest do
+defmodule Tq2Web.Store.HeaderComponentTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
 
-  alias Tq2Web.HeaderComponent
+  alias Tq2Web.Store.HeaderComponent
 
   describe "render" do
     test "render header with empty cart" do

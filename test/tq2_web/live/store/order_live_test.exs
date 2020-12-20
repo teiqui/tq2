@@ -1,4 +1,4 @@
-defmodule Tq2Web.HandingLiveTest do
+defmodule Tq2Web.Store.OrderLiveTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
@@ -23,24 +23,13 @@ defmodule Tq2Web.HandingLiveTest do
     {:ok, store} =
       Tq2.Shops.create_store(session, %{
         name: "Test store",
-        slug: "test_store",
-        configuration: %{
-          require_email: true,
-          require_phone: true,
-          pickup: true,
-          pickup_time_limit: "some time limit",
-          address: "some address",
-          delivery: true,
-          delivery_area: "some delivery area",
-          delivery_time_limit: "some time limit",
-          pay_on_delivery: true
-        }
+        slug: "test_store"
       })
 
     %{store: %{store | account: account}}
   end
 
-  def cart_fixture(%{conn: conn, store: store}) do
+  def order_fixture(%{conn: conn, store: store}) do
     token = get_session(conn, :token)
     {:ok, cart} = Tq2.Transactions.create_cart(store.account, %{@create_attrs | token: token})
 
@@ -65,32 +54,26 @@ defmodule Tq2Web.HandingLiveTest do
 
     {:ok, line} = cart |> Tq2.Transactions.create_line(line_attrs)
 
-    %{cart: %{cart | lines: [line]}}
+    {:ok, order} =
+      Tq2.Sales.create_order(store.account, %{
+        status: "processing",
+        promotion_expires_at:
+          DateTime.utc_now() |> DateTime.truncate(:second) |> DateTime.to_iso8601(),
+        cart_id: cart.id
+      })
+
+    %{order: %{order | cart: %{cart | lines: [line]}}}
   end
 
   describe "render" do
-    setup [:store_fixture, :cart_fixture]
+    setup [:store_fixture, :order_fixture]
 
-    test "disconnected and connected render", %{conn: conn, cart: _cart, store: store} do
-      path = Routes.handing_path(conn, :index, store)
-      {:ok, handing_live, html} = live(conn, path)
+    test "disconnected and connected render", %{conn: conn, order: order, store: store} do
+      path = Routes.order_path(conn, :index, store, order.id)
+      {:ok, order_live, html} = live(conn, path)
 
-      assert html =~ "pickup"
-      assert render(handing_live) =~ "pickup"
-      assert has_element?(handing_live, ".btn.disabled")
-    end
-
-    test "save event", %{conn: conn, cart: _cart, store: store} do
-      path = Routes.handing_path(conn, :index, store)
-      {:ok, handing_live, _html} = live(conn, path)
-
-      assert has_element?(handing_live, ".btn.disabled")
-
-      assert handing_live
-             |> element("form")
-             |> render_change(%{"kind" => "pickup"})
-
-      refute has_element?(handing_live, ".btn.disabled")
+      assert html =~ "Thank you for your purchase!"
+      assert render(order_live) =~ "Thank you for your purchase!"
     end
   end
 end

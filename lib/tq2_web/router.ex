@@ -34,12 +34,12 @@ defmodule Tq2Web.Router do
     pipe_through :browser
     pipe_through :store
 
-    live "/:slug", StoreLive, :index
-    live "/:slug/items/:id", ItemLive, :index
-    live "/:slug/handing", HandingLive, :index
-    live "/:slug/customer", CustomerLive, :index
-    live "/:slug/payment", PaymentLive, :index
-    live "/:slug/order/:id", OrderLive, :index
+    live "/:slug", Store.CounterLive, :index
+    live "/:slug/items/:id", Store.ItemLive, :index
+    live "/:slug/handing", Store.HandingLive, :index
+    live "/:slug/customer", Store.CustomerLive, :index
+    live "/:slug/payment", Store.PaymentLive, :index
+    live "/:slug/order/:id", Store.OrderLive, :index
   end
 
   scope "/", Tq2Web do
