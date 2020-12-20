@@ -23,6 +23,7 @@ defmodule Tq2Web.Router do
 
   pipeline :store do
     plug :fetch_token
+    plug :track_visit
   end
 
   pipeline :api do

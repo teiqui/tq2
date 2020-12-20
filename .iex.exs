@@ -1,8 +1,9 @@
 import Ecto.Query
 
 alias Tq2.Repo
-alias Tq2.{Accounts, Inventories, Sales, Shares, Shops, Transactions}
+alias Tq2.{Accounts, Analytics, Inventories, Sales, Shares, Shops, Transactions}
 alias Tq2.Accounts.{Account, License, Session, User}
+alias Tq2.Analytics.{View, Visit}
 alias Tq2.Inventories.{Category, Item}
 alias Tq2.Sales.Customer
 alias Tq2.Shares.Token

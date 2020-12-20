@@ -14,13 +14,13 @@ defmodule Tq2.Analytics.ViewTest do
     }
 
     test "changeset with valid attributes" do
-      changeset = default_account() |> View.changeset(%View{}, @valid_attrs)
+      changeset = View.changeset(%View{}, @valid_attrs)
 
       assert changeset.valid?
     end
 
     test "changeset with invalid attributes" do
-      changeset = default_account() |> View.changeset(%View{}, @invalid_attrs)
+      changeset = View.changeset(%View{}, @invalid_attrs)
 
       refute changeset.valid?
     end
@@ -30,13 +30,9 @@ defmodule Tq2.Analytics.ViewTest do
         @valid_attrs
         |> Map.put(:path, String.duplicate("a", 256))
 
-      changeset = default_account() |> View.changeset(%View{}, attrs)
+      changeset = View.changeset(%View{}, attrs)
 
       assert "should be at most 255 character(s)" in errors_on(changeset).path
     end
-  end
-
-  defp default_account do
-    Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
   end
 end

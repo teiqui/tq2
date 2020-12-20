@@ -4,6 +4,7 @@ defmodule Tq2.AnalyticsTest do
   alias Tq2.Analytics
 
   @valid_visit_attrs %{
+    slug: "test",
     token: "IXFz6ntHSmfmY2usXsXHu4WAU-CFJ8aFvl5xEYXi6bk=",
     referral_token: "N68iU2uIe4SDO1W50JVauF2PJESWoDxlHTl1RSbr3Z4=",
     utm_source: "whatsapp",
@@ -12,6 +13,7 @@ defmodule Tq2.AnalyticsTest do
     }
   }
   @invalid_visit_attrs %{
+    slug: nil,
     token: nil,
     referral_token: nil,
     utm_source: nil
@@ -20,6 +22,7 @@ defmodule Tq2.AnalyticsTest do
   @valid_view_attrs %{
     path: "/",
     visit: %{
+      slug: "test",
       token: "IXFz6ntHSmfmY2usXsXHu4WAU-CFJ8aFvl5xEYXi6bk=",
       referral_token: "N68iU2uIe4SDO1W50JVauF2PJESWoDxlHTl1RSbr3Z4=",
       utm_source: "whatsapp"
@@ -30,98 +33,87 @@ defmodule Tq2.AnalyticsTest do
     visit_id: nil
   }
 
-  defp create_session(_) do
-    account = Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
+  defp fixture(schema, attrs \\ %{})
 
-    {:ok, session: %Tq2.Accounts.Session{account: account}}
-  end
-
-  defp fixture(session, schema, attrs \\ %{})
-
-  defp fixture(session, :view, attrs) do
+  defp fixture(:view, attrs) do
     view_attrs = Enum.into(attrs, @valid_view_attrs)
 
-    {:ok, view} = Analytics.create_view(session.account, view_attrs)
+    {:ok, view} = Analytics.create_view(view_attrs)
 
     view
   end
 
-  defp fixture(session, :visit, attrs) do
+  defp fixture(:visit, attrs) do
     visit_attrs = Enum.into(attrs, @valid_visit_attrs)
 
-    {:ok, visit} = Analytics.create_visit(session.account, visit_attrs)
+    {:ok, visit} = Analytics.create_visit(visit_attrs)
 
     visit
   end
 
   describe "visits" do
-    setup [:create_session]
-
     alias Tq2.Analytics.Visit
 
-    test "list_visits/2 returns all visits", %{session: session} do
-      visit = fixture(session, :visit)
+    test "list_visits/2 returns all visits" do
+      visit = fixture(:visit)
 
-      assert Analytics.list_visits(session.account, %{}).entries == [visit]
+      assert Analytics.list_visits(%{}).entries == [visit]
     end
 
-    test "get_visit!/2 returns the visit with given id", %{session: session} do
-      visit = fixture(session, :visit)
+    test "get_visit!/2 returns the visit with given id" do
+      visit = fixture(:visit)
 
-      assert Analytics.get_visit!(session.account, visit.id) == visit
+      assert Analytics.get_visit!(visit.id) == visit
     end
 
-    test "create_visit/2 with valid data creates a visit", %{session: session} do
-      assert {:ok, %Visit{} = visit} = Analytics.create_visit(session.account, @valid_visit_attrs)
+    test "create_visit/2 with valid data creates a visit" do
+      assert {:ok, %Visit{} = visit} = Analytics.create_visit(@valid_visit_attrs)
+      assert visit.slug == @valid_visit_attrs.slug
       assert visit.token == @valid_visit_attrs.token
       assert visit.referral_token == @valid_visit_attrs.referral_token
       assert visit.utm_source == @valid_visit_attrs.utm_source
       assert visit.data.ip == @valid_visit_attrs.data.ip
     end
 
-    test "create_visit/2 with invalid data returns error changeset", %{session: session} do
-      assert {:error, %Ecto.Changeset{}} =
-               Analytics.create_visit(session.account, @invalid_visit_attrs)
+    test "create_visit/2 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Analytics.create_visit(@invalid_visit_attrs)
     end
 
-    test "change_visit/2 returns a visit changeset", %{session: session} do
-      visit = fixture(session, :visit)
+    test "change_visit/2 returns a visit changeset" do
+      visit = fixture(:visit)
 
-      assert %Ecto.Changeset{} = Analytics.change_visit(session.account, visit)
+      assert %Ecto.Changeset{} = Analytics.change_visit(visit)
     end
   end
 
   describe "views" do
-    setup [:create_session]
-
     alias Tq2.Analytics.View
 
-    test "list_views/2 returns all views", %{session: session} do
-      view = fixture(session, :view)
+    test "list_views/1 returns all views" do
+      view = fixture(:view)
 
-      assert Enum.map(Analytics.list_views(session.account, %{}).entries, & &1.id) == [view.id]
+      assert Enum.map(Analytics.list_views(%{}).entries, & &1.id) == [view.id]
     end
 
-    test "get_view!/2 returns the view with given id", %{session: session} do
-      view = fixture(session, :view)
+    test "get_view!/1 returns the view with given id" do
+      view = fixture(:view)
 
-      assert Analytics.get_view!(session.account, view.id).id == view.id
+      assert Analytics.get_view!(view.id).id == view.id
     end
 
-    test "create_view/2 with valid data creates a view", %{session: session} do
-      assert {:ok, %View{} = view} = Analytics.create_view(session.account, @valid_view_attrs)
+    test "create_view/1 with valid data creates a view" do
+      assert {:ok, %View{} = view} = Analytics.create_view(@valid_view_attrs)
       assert view.path == @valid_view_attrs.path
     end
 
-    test "create_view/2 with invalid data returns error changeset", %{session: session} do
-      assert {:error, %Ecto.Changeset{}} =
-               Analytics.create_view(session.account, @invalid_view_attrs)
+    test "create_view/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Analytics.create_view(@invalid_view_attrs)
     end
 
-    test "change_view/2 returns a view changeset", %{session: session} do
-      view = fixture(session, :view)
+    test "change_view/1 returns a view changeset" do
+      view = fixture(:view)
 
-      assert %Ecto.Changeset{} = Analytics.change_view(session.account, view)
+      assert %Ecto.Changeset{} = Analytics.change_view(view)
     end
   end
 end

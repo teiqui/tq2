@@ -6,7 +6,6 @@ defmodule Tq2.Analytics do
   import Ecto.Query, warn: false
 
   alias Tq2.Repo
-  alias Tq2.Accounts.Account
   alias Tq2.Analytics.Visit
 
   @doc """
@@ -14,14 +13,12 @@ defmodule Tq2.Analytics do
 
   ## Examples
 
-      iex> list_visits(%Account{}, %{})
+      iex> list_visits(%{})
       [%Visit{}, ...]
 
   """
-  def list_visits(account, params) do
-    Visit
-    |> where(account_id: ^account.id)
-    |> Repo.paginate(params)
+  def list_visits(params) do
+    Repo.paginate(Visit, params)
   end
 
   @doc """
@@ -31,17 +28,15 @@ defmodule Tq2.Analytics do
 
   ## Examples
 
-      iex> get_visit!(%Account{}, 123)
+      iex> get_visit!(123)
       %Visit{}
 
-      iex> get_visit!(%Account{}, 456)
+      iex> get_visit!(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_visit!(account, id) do
-    Visit
-    |> where(account_id: ^account.id)
-    |> Repo.get!(id)
+  def get_visit!(id) do
+    Repo.get!(Visit, id)
   end
 
   @doc """
@@ -49,16 +44,16 @@ defmodule Tq2.Analytics do
 
   ## Examples
 
-      iex> create_visit(%Account{}, %{field: value})
+      iex> create_visit(%{field: value})
       {:ok, %Visit{}}
 
-      iex> create_visit(%Account{}, %{field: bad_value})
+      iex> create_visit(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_visit(%Account{} = account, attrs) do
+  def create_visit(attrs) do
     %Visit{}
-    |> Visit.changeset(attrs, account)
+    |> Visit.changeset(attrs)
     |> Repo.insert()
   end
 
@@ -67,12 +62,12 @@ defmodule Tq2.Analytics do
 
   ## Examples
 
-      iex> change_visit(%Account{}, visit)
+      iex> change_visit(visit)
       %Ecto.Changeset{source: %Visit{}}
 
   """
-  def change_visit(%Account{} = account, %Visit{} = visit) do
-    Visit.changeset(visit, %{}, account)
+  def change_visit(%Visit{} = visit) do
+    Visit.changeset(visit, %{})
   end
 
   alias Tq2.Analytics.View
@@ -82,14 +77,12 @@ defmodule Tq2.Analytics do
 
   ## Examples
 
-      iex> list_views(%Account{}, %{})
+      iex> list_views(%{})
       [%View{}, ...]
 
   """
-  def list_views(account, params) do
+  def list_views(params) do
     View
-    |> join(:inner, [view], visit in assoc(view, :visit))
-    |> where([view, visit], visit.account_id == ^account.id)
     |> Repo.paginate(params)
   end
 
@@ -100,17 +93,15 @@ defmodule Tq2.Analytics do
 
   ## Examples
 
-      iex> get_view!(%Account{}, 123)
+      iex> get_view!(123)
       %View{}
 
-      iex> get_view!(%Account{}, 456)
+      iex> get_view!(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_view!(account, id) do
+  def get_view!(id) do
     View
-    |> join(:inner, [view], visit in assoc(view, :visit))
-    |> where([view, visit], visit.account_id == ^account.id)
     |> Repo.get!(id)
   end
 
@@ -119,16 +110,16 @@ defmodule Tq2.Analytics do
 
   ## Examples
 
-      iex> create_view(%Account{}, %{field: value})
+      iex> create_view(%{field: value})
       {:ok, %View{}}
 
-      iex> create_view(%Account{}, %{field: bad_value})
+      iex> create_view(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_view(%Account{} = account, attrs) do
-    account
-    |> View.changeset(%View{}, attrs)
+  def create_view(attrs) do
+    %View{}
+    |> View.changeset(attrs)
     |> Repo.insert()
   end
 
@@ -137,11 +128,11 @@ defmodule Tq2.Analytics do
 
   ## Examples
 
-      iex> change_view(%Account{}, view)
+      iex> change_view(view)
       %Ecto.Changeset{source: %View{}}
 
   """
-  def change_view(%Account{} = account, %View{} = view) do
-    View.changeset(account, view, %{})
+  def change_view(%View{} = view) do
+    View.changeset(view, %{})
   end
 end
