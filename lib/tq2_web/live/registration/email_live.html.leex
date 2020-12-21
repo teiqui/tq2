@@ -5,27 +5,28 @@
     </div>
 
     <h1 class="h5 text-primary mt-5">
-      <%= dgettext("registrations", "Come on!") %>
+      <%= dgettext("registrations", "Let's keep going!") %>
     </h1>
 
     <h2 class="h5 mb-5">
-      <%= dgettext("registrations", "Let's create your account") %>
+      <%= dgettext("registrations", "We are almost there") %>
     </h2>
 
     <span class="text-primary mb-5">
       <svg class="bi" width="64" height="64" fill="currentColor">
-        <use xlink:href="/images/bootstrap-icons.svg#shop"/>
+        <use xlink:href="/images/bootstrap-icons.svg#envelope-open"/>
       </svg>
     </span>
 
     <%= form_for @changeset, "#", [phx_submit: "save", class: "mt-5 mb-4 text-left"], fn f -> %>
-      <%= input f, :name, dgettext("registrations", "Store name"),
-                          input_html: [autofocus: true, placeholder: dgettext("registrations", "Store name")],
-                          label_html: [class: "sr-only"] %>
-      <%= input f, :type, dgettext("registrations", "Store type"),
-                          input_html: [prompt: dgettext("registrations", "Store type")],
-                          label_html: [class: "sr-only"],
-                          collection: types() %>
+      <%= input f, :email, dgettext("registrations", "Email"),
+                           input_html: [autofocus: true, placeholder: dgettext("registrations", "Enter your email")],
+                           label_html: [class: "sr-only"] %>
+      <%= input f, :email_confirmation, dgettext("registrations", "Email confirmation"),
+                                        input_html: [placeholder: dgettext("registrations", "Email confirmation")],
+                                        label_html: [class: "sr-only"] %>
+
+      <%= hidden_input f, :uuid %>
 
       <div class="text-center">
         <%= submit_registration() %>

@@ -14,6 +14,7 @@ msgstr ""
 msgid "Come on!"
 msgstr ""
 
+#: lib/tq2_web/live/registration/email_live.ex:43
 #: lib/tq2_web/live/registration/name_live.ex:54
 msgid "Continue"
 msgstr ""
@@ -70,4 +71,25 @@ msgstr ""
 
 #: lib/tq2_web/live/registration/name_live.ex:47
 msgid "Technology"
+msgstr ""
+
+#: lib/tq2_web/live/registration/email_live.html.leex:22
+msgid "Email"
+msgstr ""
+
+#: lib/tq2_web/live/registration/email_live.html.leex:25
+#: lib/tq2_web/live/registration/email_live.html.leex:26
+msgid "Email confirmation"
+msgstr ""
+
+#: lib/tq2_web/live/registration/email_live.html.leex:23
+msgid "Enter your email"
+msgstr ""
+
+#: lib/tq2_web/live/registration/email_live.html.leex:8
+msgid "Let's keep going!"
+msgstr ""
+
+#: lib/tq2_web/live/registration/email_live.html.leex:12
+msgid "We are almost there"
 msgstr ""

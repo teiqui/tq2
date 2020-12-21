@@ -450,7 +450,7 @@ defmodule Tq2.Accounts do
   """
   def update_registration(%Registration{} = registration, attrs) do
     registration
-    |> Registration.changeset(attrs)
+    |> Registration.update_changeset(attrs)
     |> Repo.update()
   end
 

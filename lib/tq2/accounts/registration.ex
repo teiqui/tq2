@@ -33,4 +33,11 @@ defmodule Tq2.Accounts.Registration do
     |> unique_constraint(:email)
     |> assoc_constraint(:account)
   end
+
+  def update_changeset(%Registration{} = registration, attrs) do
+    registration
+    |> changeset(attrs)
+    |> validate_required([:email])
+    |> validate_confirmation(:email)
+  end
 end

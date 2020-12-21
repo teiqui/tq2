@@ -385,7 +385,8 @@ defmodule Tq2.AccountsTest do
     @update_attrs %{
       name: "some updated name",
       type: "greengrocery",
-      email: "some_updated@email.com"
+      email: "some_updated@email.com",
+      email_confirmation: "some_updated@email.com"
     }
     @invalid_attrs %{
       name: nil,
