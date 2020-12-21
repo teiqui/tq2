@@ -1,0 +1,74 @@
+## "msgid"s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove "msgid"s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use "mix gettext.extract --merge" or "mix gettext.merge"
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: en\n"
+"Plural-Forms: nplurals=2\n"
+
+#: lib/tq2_web/live/registration/name_live.html.leex:8
+msgid "Come on!"
+msgstr ""
+
+#: lib/tq2_web/live/registration/name_live.ex:54
+msgid "Continue"
+msgstr ""
+
+#: lib/tq2_web/live/registration/name_live.html.leex:12
+msgid "Let's create your account"
+msgstr ""
+
+#: lib/tq2_web/live/registration/name_live.ex:39
+msgid "Butcher shop"
+msgstr ""
+
+#: lib/tq2_web/live/registration/name_live.ex:41
+msgid "Green grocery"
+msgstr ""
+
+#: lib/tq2_web/live/registration/name_live.ex:40
+msgid "Grocery"
+msgstr ""
+
+#: lib/tq2_web/live/registration/name_live.ex:48
+msgid "Other"
+msgstr ""
+
+#: lib/tq2_web/live/registration/name_live.html.leex:22
+#: lib/tq2_web/live/registration/name_live.html.leex:23
+msgid "Store name"
+msgstr ""
+
+#: lib/tq2_web/live/registration/name_live.html.leex:25
+#: lib/tq2_web/live/registration/name_live.html.leex:26
+msgid "Store type"
+msgstr ""
+
+#: lib/tq2_web/live/registration/name_live.ex:45
+msgid "Bakery"
+msgstr ""
+
+#: lib/tq2_web/live/registration/name_live.ex:46
+msgid "Bookshop / Stationery"
+msgstr ""
+
+#: lib/tq2_web/live/registration/name_live.ex:42
+msgid "Cleaning"
+msgstr ""
+
+#: lib/tq2_web/live/registration/name_live.ex:43
+msgid "Deli"
+msgstr ""
+
+#: lib/tq2_web/live/registration/name_live.ex:44
+msgid "Food / Restaurant"
+msgstr ""
+
+#: lib/tq2_web/live/registration/name_live.ex:47
+msgid "Technology"
+msgstr ""

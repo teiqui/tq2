@@ -2,13 +2,6 @@
   <%= img_tag Routes.static_path(@conn, "/images/logo.svg"), width: "101", height: "26", alt: gettext("Teiqui") %>
 </div>
 
-<p class="text-center my-4 pb-2 font-weight-semi-bold">
-  <span class="text-black-50">
-    <%= dgettext("sessions", "Don't have an account?") %>
-  </span>
-  <%= link dgettext("sessions", "Sign up"), to: "#" %>
-</p>
-
 <div class="row justify-content-center mb-4">
   <div class="col col-xl-4 col-lg-5 col-md-6 col-sm-8">
     <div class="card">
@@ -38,10 +31,17 @@
           </div>
         <% end %>
 
-        <p class="mt-3 text-center font-weight-semi-bold mt-4 mb-3 mb-md-5">
+        <p class="text-center font-weight-semi-bold mt-4 mb-3 mb-md-5">
           <%= link dgettext("sessions", "Forgot password?"), to: Routes.password_path(@conn, :new) %>
         </p>
       </div>
     </div>
+
+    <p class="text-center font-weight-semi-bold mt-4 mb-3">
+      <span class="text-black-50">
+        <%= dgettext("sessions", "Don't have an account?") %>
+      </span>
+      <%= link dgettext("sessions", "Sign up"), to: Routes.registration_path(@conn, :index) %>
+    </p>
   </div>
 </div>

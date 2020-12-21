@@ -397,4 +397,73 @@ defmodule Tq2.Accounts do
     |> get_license!()
     |> Trail.delete(originator: user, meta: %{account_id: account.id})
   end
+
+  alias Tq2.Accounts.Registration
+
+  @doc """
+  Gets a single registration.
+
+  Raises `Ecto.NoResultsError` if the Registration does not exist.
+
+  ## Examples
+
+      iex> get_registration!("cd71ec95-cb01-4e9b-ae7a-4cf3adf83aee")
+      %Registration{}
+
+      iex> get_registration!("73a7cf97-3ddb-4921-9e33-8b46d175945b")
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_registration!(uuid) do
+    Repo.get_by!(Registration, uuid: uuid)
+  end
+
+  @doc """
+  Creates a registration.
+
+  ## Examples
+
+      iex> create_registration(%{field: "value"})
+      {:ok, %Registration{}}
+
+      iex> create_registration(%{field: "bad_value"})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_registration(attrs) do
+    %Registration{}
+    |> Registration.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a registration.
+
+  ## Examples
+
+      iex> update_registration(registration, %{name: "new_value"})
+      {:ok, %Registration{}}
+
+      iex> update_registration(registration, %{name: "bad_value"})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_registration(%Registration{} = registration, attrs) do
+    registration
+    |> Registration.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking registration changes.
+
+  ## Examples
+
+      iex> change_registration(registration)
+      %Ecto.Changeset{source: %Registration{}}
+
+  """
+  def change_registration(%Registration{} = registration) do
+    Registration.changeset(registration, %{})
+  end
 end

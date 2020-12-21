@@ -10,6 +10,6 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/live/order_live.html.leex:12
+#: lib/tq2_web/live/store/order_live.html.leex:12
 msgid "Thank you for your purchase!"
 msgstr ""

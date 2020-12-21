@@ -15,9 +15,9 @@ msgid "See you soon!"
 msgstr ""
 
 #: lib/tq2/notifications/email.ex:20
-#: lib/tq2_web/templates/layout/root.html.leex:5 lib/tq2_web/templates/layout/root.html.leex:5
-#: lib/tq2_web/templates/password/edit.html.eex:2 lib/tq2_web/templates/password/new.html.eex:2
-#: lib/tq2_web/templates/session/new.html.eex:2
+#: lib/tq2_web/live/registration/name_live.html.leex:4 lib/tq2_web/templates/layout/root.html.leex:5
+#: lib/tq2_web/templates/layout/root.html.leex:5 lib/tq2_web/templates/password/edit.html.eex:2
+#: lib/tq2_web/templates/password/new.html.eex:2 lib/tq2_web/templates/session/new.html.eex:2
 msgid "Teiqui"
 msgstr ""
 

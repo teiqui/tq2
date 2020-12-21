@@ -23,7 +23,7 @@ msgstr "Información de pago / compra"
 msgid "Create"
 msgstr "Crear tienda"
 
-#: lib/tq2_web/live/handing_live.html.leex:59
+#: lib/tq2_web/live/store/handing_live.html.leex:59
 #: lib/tq2_web/templates/store/_form.html.eex:79
 msgid "Delivery"
 msgstr "Entrega"
@@ -32,7 +32,7 @@ msgstr "Entrega"
 msgid "Delivery area"
 msgstr "Área de entrega"
 
-#: lib/tq2_web/live/handing_live.html.leex:69
+#: lib/tq2_web/live/store/handing_live.html.leex:69
 #: lib/tq2_web/templates/store/_form.html.eex:81
 msgid "Delivery time limit"
 msgstr "Plazo de entrega"
@@ -101,12 +101,12 @@ msgstr "Pago contra entrega"
 msgid "Phone"
 msgstr "Teléfono"
 
-#: lib/tq2_web/live/handing_live.html.leex:24
+#: lib/tq2_web/live/store/handing_live.html.leex:24
 #: lib/tq2_web/templates/store/_form.html.eex:76
 msgid "Pickup"
 msgstr "Retiro en tienda"
 
-#: lib/tq2_web/live/handing_live.html.leex:33
+#: lib/tq2_web/live/store/handing_live.html.leex:33
 #: lib/tq2_web/templates/store/_form.html.eex:77
 msgid "Pickup time limit"
 msgstr "Plazo de retiro"
@@ -147,10 +147,10 @@ msgstr "WhatsApp"
 msgid "Store"
 msgstr "Tienda"
 
-#: lib/tq2_web/live/store_live.html.leex:13
+#: lib/tq2_web/live/store/counter_live.html.leex:13
 msgid "Loading..."
 msgstr "Cargando..."
 
-#: lib/tq2_web/live/components/header_component.html.leex:10
+#: lib/tq2_web/live/components/store/header_component.html.leex:10
 msgid "Online store"
 msgstr "Tienda en línea"

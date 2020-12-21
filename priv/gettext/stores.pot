@@ -22,7 +22,7 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: lib/tq2_web/live/handing_live.html.leex:59
+#: lib/tq2_web/live/store/handing_live.html.leex:59
 #: lib/tq2_web/templates/store/_form.html.eex:79
 msgid "Delivery"
 msgstr ""
@@ -31,7 +31,7 @@ msgstr ""
 msgid "Delivery area"
 msgstr ""
 
-#: lib/tq2_web/live/handing_live.html.leex:69
+#: lib/tq2_web/live/store/handing_live.html.leex:69
 #: lib/tq2_web/templates/store/_form.html.eex:81
 msgid "Delivery time limit"
 msgstr ""
@@ -100,12 +100,12 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
-#: lib/tq2_web/live/handing_live.html.leex:24
+#: lib/tq2_web/live/store/handing_live.html.leex:24
 #: lib/tq2_web/templates/store/_form.html.eex:76
 msgid "Pickup"
 msgstr ""
 
-#: lib/tq2_web/live/handing_live.html.leex:33
+#: lib/tq2_web/live/store/handing_live.html.leex:33
 #: lib/tq2_web/templates/store/_form.html.eex:77
 msgid "Pickup time limit"
 msgstr ""
@@ -146,10 +146,10 @@ msgstr ""
 msgid "Store"
 msgstr ""
 
-#: lib/tq2_web/live/store_live.html.leex:13
+#: lib/tq2_web/live/store/counter_live.html.leex:13
 msgid "Loading..."
 msgstr ""
 
-#: lib/tq2_web/live/components/header_component.html.leex:10
+#: lib/tq2_web/live/components/store/header_component.html.leex:10
 msgid "Online store"
 msgstr ""

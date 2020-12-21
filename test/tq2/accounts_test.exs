@@ -373,4 +373,76 @@ defmodule Tq2.AccountsTest do
       assert session.account.id == account.id
     end
   end
+
+  describe "registrations" do
+    alias Tq2.Accounts.Registration
+
+    @valid_attrs %{
+      name: "some name",
+      type: "grocery",
+      email: "some@email.com"
+    }
+    @update_attrs %{
+      name: "some updated name",
+      type: "greengrocery",
+      email: "some_updated@email.com"
+    }
+    @invalid_attrs %{
+      name: nil,
+      type: nil,
+      email: nil
+    }
+
+    defp registration_fixture(attrs \\ %{}) do
+      registration_attrs = Enum.into(attrs, @valid_attrs)
+
+      {:ok, registration} = Accounts.create_registration(registration_attrs)
+
+      registration
+    end
+
+    test "get_registration!/1 returns the registration with given id" do
+      registration = registration_fixture()
+
+      assert Accounts.get_registration!(registration.uuid) == registration
+    end
+
+    test "create_registration/1 with valid data creates a registration" do
+      assert {:ok, %Registration{} = registration} = Accounts.create_registration(@valid_attrs)
+
+      assert registration.name == @valid_attrs.name
+      assert registration.type == @valid_attrs.type
+      assert registration.email == @valid_attrs.email
+    end
+
+    test "create_registration/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_registration(@invalid_attrs)
+    end
+
+    test "update_registration/2 with valid data updates the registration" do
+      registration = registration_fixture()
+
+      assert {:ok, registration} = Accounts.update_registration(registration, @update_attrs)
+
+      assert %Registration{} = registration
+      assert registration.name == @update_attrs.name
+      assert registration.type == @update_attrs.type
+      assert registration.email == @update_attrs.email
+    end
+
+    test "update_registration/2 with invalid data returns error changeset" do
+      registration = registration_fixture()
+
+      assert {:error, %Ecto.Changeset{}} =
+               Accounts.update_registration(registration, @invalid_attrs)
+
+      assert registration == Accounts.get_registration!(registration.uuid)
+    end
+
+    test "change_registration/1 returns a registration changeset" do
+      registration = registration_fixture()
+
+      assert %Ecto.Changeset{} = Accounts.change_registration(registration)
+    end
+  end
 end
