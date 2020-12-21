@@ -14,7 +14,7 @@ defmodule Tq2.Repo.Migrations.CreateCarts do
       timestamps()
     end
 
-    create unique_index(:carts, :token)
+    create index(:carts, :token)
     create index(:carts, :customer_id)
     create index(:carts, :account_id)
   end

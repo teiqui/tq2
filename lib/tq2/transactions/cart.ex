@@ -5,7 +5,7 @@ defmodule Tq2.Transactions.Cart do
 
   alias Tq2.Accounts.Account
   alias Tq2.Transactions.{Cart, Data, Line}
-  alias Tq2.Sales.Customer
+  alias Tq2.Sales.{Customer, Order}
 
   schema "carts" do
     field :token, :string
@@ -15,6 +15,8 @@ defmodule Tq2.Transactions.Cart do
 
     belongs_to :customer, Customer
     belongs_to :account, Account
+
+    has_one :order, Order
 
     has_many :lines, Line
 

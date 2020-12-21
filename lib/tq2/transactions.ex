@@ -27,6 +27,8 @@ defmodule Tq2.Transactions do
     Cart
     |> where(account_id: ^account.id, token: ^token)
     |> join(:left, [c], l in assoc(c, :lines))
+    |> join(:left, [c], o in assoc(c, :order))
+    |> where([c, l, o], is_nil(o.id))
     |> preload([c, l], lines: l)
     |> Repo.one()
   end
