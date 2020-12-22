@@ -52,13 +52,13 @@ defmodule Tq2.Sales.CustomerTest do
 
     test "canonize email" do
       assert "some@email.com" == Customer.canonized_email(" SOME@EMAIL.com ")
-      assert nil == Customer.canonized_email("")
+      assert "" == Customer.canonized_email("")
       assert nil == Customer.canonized_email(nil)
     end
 
     test "canonize phone" do
       assert "123456" == Customer.canonized_phone(" 1 x 2 345^6 ")
-      assert nil == Customer.canonized_phone("")
+      assert "" == Customer.canonized_phone("")
       assert nil == Customer.canonized_phone(nil)
     end
   end

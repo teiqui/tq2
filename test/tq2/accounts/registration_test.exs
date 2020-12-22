@@ -19,7 +19,7 @@ defmodule Tq2.Accounts.RegistrationTest do
       name: "some updated name",
       type: "grocery",
       email: "some_updated@email.com",
-      email_confirmation: "some_updated@email.com"
+      email_confirmation: " some_UPDATED@email.com "
     }
     @invalid_update_attrs %{
       name: nil,
@@ -74,6 +74,23 @@ defmodule Tq2.Accounts.RegistrationTest do
       changeset = Registration.update_changeset(%Registration{}, attrs)
 
       assert "does not match confirmation" in errors_on(changeset).email_confirmation
+    end
+
+    test "password changeset requires valid password confirmation" do
+      attrs =
+        @valid_update_attrs
+        |> Map.put(:password, "123456")
+        |> Map.put(:password_confirmation, "654321")
+
+      changeset = Registration.password_changeset(%Registration{}, attrs)
+
+      assert "does not match confirmation" in errors_on(changeset).password_confirmation
+    end
+
+    test "account changeset requires account id" do
+      changeset = Registration.account_changeset(%Registration{}, @valid_update_attrs)
+
+      assert "can't be blank" in errors_on(changeset).account_id
     end
   end
 end

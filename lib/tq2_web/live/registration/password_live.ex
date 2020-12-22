@@ -1,4 +1,4 @@
-defmodule Tq2Web.Registration.EmailLive do
+defmodule Tq2Web.Registration.PasswordLive do
   use Tq2Web, :live_view
 
   alias Tq2.Accounts
@@ -21,11 +21,11 @@ defmodule Tq2Web.Registration.EmailLive do
   def handle_event("save", %{"registration" => %{"uuid" => uuid} = registration_params}, socket) do
     registration = Accounts.get_registration!(uuid)
 
-    case Accounts.update_registration(registration, registration_params) do
-      {:ok, registration} ->
+    case Accounts.finish_registration(registration, registration_params) do
+      {:ok, %{registration: registration}} ->
         socket =
           socket
-          |> push_redirect(to: Routes.registration_password_path(socket, :index, registration))
+          |> redirect(to: Routes.registration_path(socket, :show, registration))
 
         {:noreply, socket}
 
@@ -40,9 +40,9 @@ defmodule Tq2Web.Registration.EmailLive do
 
   defp submit_registration do
     submit(
-      dgettext("registrations", "Continue"),
-      class: "btn btn-lg btn-outline-primary border border-primary rounded-pill px-4 mt-4",
-      phx_disable_width: dgettext("registrations", "Saving...")
+      dgettext("registrations", "Create"),
+      class: "btn btn-lg btn-primary rounded-pill px-4 mt-4",
+      phx_disable_width: dgettext("registrations", "Creating...")
     )
   end
 end

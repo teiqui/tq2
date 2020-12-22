@@ -90,6 +90,12 @@ defmodule Tq2.Accounts.User do
   end
 
   defp downcase(%Ecto.Changeset{} = changeset, field) do
-    update_change(changeset, field, &String.downcase/1)
+    update_change(changeset, field, &canonize/1)
+  end
+
+  defp canonize(nil), do: nil
+
+  defp canonize(string) do
+    string |> String.downcase() |> String.trim()
   end
 end

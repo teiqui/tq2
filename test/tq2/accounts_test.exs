@@ -103,17 +103,22 @@ defmodule Tq2.AccountsTest do
     alias Tq2.Accounts.User
 
     @valid_attrs %{
-      email: "some@email.com",
-      lastname: "some lastname",
       name: "some name",
+      lastname: "some lastname",
+      email: "some@email.com",
       password: "123456"
     }
     @update_attrs %{
-      email: "new@email.com",
+      name: "some updated name",
       lastname: "some updated lastname",
-      name: "some updated name"
+      email: "new@email.com"
     }
-    @invalid_attrs %{email: "wrong@email", lastname: nil, name: nil, password: "123"}
+    @invalid_attrs %{
+      name: nil,
+      lastname: nil,
+      email: "wrong@email",
+      password: "123"
+    }
 
     defp user_fixture(session, attrs \\ %{}) do
       user_attrs =
@@ -388,10 +393,19 @@ defmodule Tq2.AccountsTest do
       email: "some_updated@email.com",
       email_confirmation: "some_updated@email.com"
     }
+    @finish_attrs %{
+      name: "some updated name",
+      type: "greengrocery",
+      email: "some_updated@email.com",
+      email_confirmation: "some_updated@email.com",
+      password: "123456",
+      password_confirmation: "123456"
+    }
     @invalid_attrs %{
       name: nil,
       type: nil,
-      email: nil
+      email: nil,
+      password: nil
     }
 
     defp registration_fixture(attrs \\ %{}) do
@@ -405,7 +419,7 @@ defmodule Tq2.AccountsTest do
     test "get_registration!/1 returns the registration with given id" do
       registration = registration_fixture()
 
-      assert Accounts.get_registration!(registration.uuid) == registration
+      assert Accounts.get_registration!(registration.uuid).id == registration.id
     end
 
     test "create_registration/1 with valid data creates a registration" do
@@ -437,7 +451,42 @@ defmodule Tq2.AccountsTest do
       assert {:error, %Ecto.Changeset{}} =
                Accounts.update_registration(registration, @invalid_attrs)
 
-      assert registration == Accounts.get_registration!(registration.uuid)
+      assert registration.id == Accounts.get_registration!(registration.uuid).id
+    end
+
+    test "finish_registration/2 with valid data creates account and user" do
+      registration = registration_fixture()
+
+      assert {:ok, %{account: account, user: user, registration: registration}} =
+               Accounts.finish_registration(registration, @finish_attrs)
+
+      assert %Registration{} = registration
+      assert registration.name == @finish_attrs.name
+      assert registration.type == @finish_attrs.type
+      assert registration.email == @finish_attrs.email
+      assert registration.account_id == account.id
+      assert account.name == registration.name
+      assert user.email == registration.email
+    end
+
+    test "finish_registration/2 with invalid data returns error changeset" do
+      registration = registration_fixture()
+
+      assert {:error, %Ecto.Changeset{}} =
+               Accounts.finish_registration(registration, @invalid_attrs)
+
+      assert registration.id == Accounts.get_registration!(registration.uuid).id
+    end
+
+    test "access_registration/1 mark the registration as accessed" do
+      registration = registration_fixture()
+
+      assert registration.accessed_at == nil
+
+      assert {:ok, registration} = Accounts.access_registration(registration)
+
+      assert %Registration{} = registration
+      refute registration.accessed_at == nil
     end
 
     test "change_registration/1 returns a registration changeset" do

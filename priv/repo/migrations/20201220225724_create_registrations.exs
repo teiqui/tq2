@@ -7,6 +7,7 @@ defmodule Tq2.Repo.Migrations.CreateRegistrations do
       add :name, :string, null: false
       add :type, :string, null: false
       add :email, :string
+      add :accessed_at, :utc_datetime
 
       add :account_id, references(:accounts, on_delete: :delete_all, on_update: :update_all)
 

@@ -41,14 +41,14 @@ defmodule Tq2.Sales.Customer do
   def canonized_email(nil), do: nil
 
   def canonized_email(email) do
-    email |> String.downcase() |> String.trim() |> cast_string()
+    email |> String.downcase() |> String.trim()
   end
 
   @doc false
   def canonized_phone(nil), do: nil
 
   def canonized_phone(phone) do
-    phone |> String.replace(~r/\D/, "") |> cast_string()
+    phone |> String.replace(~r/\D/, "")
   end
 
   defp canonize(%{"name" => _} = attrs) do
@@ -62,7 +62,4 @@ defmodule Tq2.Sales.Customer do
     |> Map.replace(:email, canonized_email(attrs[:email]))
     |> Map.replace(:phone, canonized_phone(attrs[:phone]))
   end
-
-  defp cast_string(""), do: nil
-  defp cast_string(string), do: string
 end

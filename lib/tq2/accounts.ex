@@ -4,8 +4,9 @@ defmodule Tq2.Accounts do
   """
 
   import Ecto.Query, warn: false
-  alias Tq2.{Repo, Trail}
 
+  alias Ecto.Multi
+  alias Tq2.{Repo, Trail}
   alias Tq2.Accounts.{Account, License}
 
   @doc """
@@ -181,7 +182,6 @@ defmodule Tq2.Accounts do
 
   """
   def create_user(%Session{account: account, user: user}, attrs \\ %{}) do
-    # TODO: we should check for membership count to put true on default
     attrs = Membership.put_create_user_attrs(account, attrs)
 
     %User{}
@@ -415,7 +415,11 @@ defmodule Tq2.Accounts do
 
   """
   def get_registration!(uuid) do
-    Repo.get_by!(Registration, uuid: uuid)
+    Registration
+    |> where([r], is_nil(r.accessed_at))
+    |> join(:left, [r], a in assoc(r, :account))
+    |> preload([r, a], account: a)
+    |> Repo.get_by!(uuid: uuid)
   end
 
   @doc """
@@ -455,6 +459,47 @@ defmodule Tq2.Accounts do
   end
 
   @doc """
+  Finish the registration, creates account and initial user.
+
+  ## Examples
+
+      iex> finish_registration(registration, %{name: "new_value"})
+      {:ok, %{
+        registration: %Registration{},
+        user: %User{},
+        account: %Account{}
+      }}
+
+      iex> finish_registration(registration, %{name: "bad_value"})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def finish_registration(%Registration{} = registration, attrs) do
+    registration
+    |> Registration.password_changeset(attrs)
+    |> Repo.update()
+    |> finish_registration()
+  end
+
+  @doc """
+  Mark the registration as accessed.
+
+  ## Examples
+
+      iex> access_registration(registration)
+      {:ok, %Registration{}}
+
+      iex> access_registration(registration)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def access_registration(%Registration{} = registration) do
+    registration
+    |> Ecto.Changeset.change(%{accessed_at: DateTime.utc_now() |> DateTime.truncate(:second)})
+    |> Repo.update()
+  end
+
+  @doc """
   Returns an `%Ecto.Changeset{}` for tracking registration changes.
 
   ## Examples
@@ -465,5 +510,44 @@ defmodule Tq2.Accounts do
   """
   def change_registration(%Registration{} = registration) do
     Registration.changeset(registration, %{})
+  end
+
+  defp finish_registration({:ok, registration}) do
+    account_attrs = registration_account_attributes(registration)
+
+    Multi.new()
+    |> Multi.insert(:account, Account.create_changeset(%Account{}, account_attrs))
+    |> Multi.insert(:user, &registration_user_changeset(registration, &1))
+    |> Multi.update(:registration, &registration_account_changeset(registration, &1))
+    |> Repo.transaction()
+  end
+
+  defp finish_registration({:error, changeset}), do: {:error, changeset}
+
+  defp registration_account_attributes(registration) do
+    License.put_create_account_attrs(%{
+      name: registration.name,
+      status: "green",
+      # TODO: infer next fields from geo db.
+      country: "ar",
+      time_zone: "America/Argentina/Buenos_Aires"
+    })
+  end
+
+  defp registration_user_changeset(registration, %{account: %Account{} = account}) do
+    attrs =
+      Membership.put_create_user_attrs(account, %{
+        name: registration.name,
+        lastname: registration.name,
+        email: registration.email,
+        password: registration.password,
+        password_confirmation: registration.password
+      })
+
+    User.create_changeset(%User{}, attrs)
+  end
+
+  defp registration_account_changeset(registration, %{account: %Account{} = account}) do
+    Registration.account_changeset(registration, %{account_id: account.id})
   end
 end

@@ -13,6 +13,8 @@ defmodule Tq2.Accounts.Registration do
     field :name, :string
     field :type, :string
     field :email, :string
+    field :accessed_at, :utc_datetime
+    field :password, :string, virtual: true
 
     belongs_to :account, Account
 
@@ -21,8 +23,10 @@ defmodule Tq2.Accounts.Registration do
 
   @doc false
   def changeset(%Registration{} = registration, attrs) do
+    attrs = canonize(attrs)
+
     registration
-    |> cast(attrs, [:name, :type, :email])
+    |> cast(attrs, [:name, :type, :email, :password])
     |> validate_required([:name, :type])
     |> validate_length(:name, max: 255)
     |> validate_length(:type, max: 255)
@@ -38,6 +42,39 @@ defmodule Tq2.Accounts.Registration do
     registration
     |> changeset(attrs)
     |> validate_required([:email])
-    |> validate_confirmation(:email)
+    |> validate_confirmation(:email, required: true)
   end
+
+  def password_changeset(%Registration{} = registration, attrs) do
+    registration
+    |> changeset(attrs)
+    |> validate_required([:password])
+    |> validate_confirmation(:password, required: true)
+    |> validate_length(:password, min: 6, max: 100)
+  end
+
+  def account_changeset(%Registration{} = registration, attrs) do
+    registration
+    |> changeset(attrs)
+    |> cast(attrs, [:account_id])
+    |> validate_required([:account_id])
+  end
+
+  defp canonize(%{"email" => _} = attrs) do
+    attrs
+    |> Map.replace("email", canonize(attrs["email"]))
+    |> Map.replace("email_confirmation", canonize(attrs["email_confirmation"]))
+  end
+
+  defp canonize(%{} = attrs) do
+    attrs
+    |> Map.replace(:email, canonize(attrs[:email]))
+    |> Map.replace(:email_confirmation, canonize(attrs[:email_confirmation]))
+  end
+
+  defp canonize(string) when is_binary(string) do
+    string |> String.downcase() |> String.trim()
+  end
+
+  defp canonize(nil), do: nil
 end

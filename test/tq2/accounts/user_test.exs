@@ -5,16 +5,16 @@ defmodule Tq2.Accounts.UserTest do
     alias Tq2.Accounts.User
 
     @valid_attrs %{
-      email: "some@email.com",
-      lastname: "some lastname",
       name: "some name",
+      lastname: "some lastname",
+      email: "some@email.com",
       password: "123456",
       password_confirmation: "123456"
     }
     @invalid_attrs %{
-      email: "wrong@email",
-      lastname: nil,
       name: nil,
+      lastname: nil,
+      email: "wrong@email",
       password: "123"
     }
 

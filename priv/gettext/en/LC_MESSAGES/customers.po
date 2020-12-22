@@ -27,7 +27,11 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
-#: lib/tq2_web/live/registration/email_live.ex:45
-#: lib/tq2_web/live/registration/name_live.ex:56 lib/tq2_web/live/store/customer_live.ex:132
+#: lib/tq2_web/live/registration/name_live.ex:56
+#: lib/tq2_web/live/store/customer_live.ex:132
 msgid "Saving..."
+msgstr ""
+
+#: lib/tq2_web/live/registration/password_live.ex:45
+msgid "Creating..."
 msgstr ""

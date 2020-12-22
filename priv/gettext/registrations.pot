@@ -93,3 +93,36 @@ msgstr ""
 #: lib/tq2_web/live/registration/email_live.html.leex:12
 msgid "We are almost there"
 msgstr ""
+
+#: lib/tq2_web/live/registration/password_live.ex:43
+msgid "Create"
+msgstr ""
+
+#: lib/tq2_web/live/registration/password_live.html.leex:23
+msgid "Enter your password"
+msgstr ""
+
+#: lib/tq2_web/live/registration/password_live.html.leex:12
+msgid "Finally"
+msgstr ""
+
+#: lib/tq2_web/live/registration/password_live.html.leex:22
+msgid "Password"
+msgstr ""
+
+#: lib/tq2_web/live/registration/password_live.html.leex:25
+#: lib/tq2_web/live/registration/password_live.html.leex:26
+msgid "Password confirmation"
+msgstr ""
+
+#: lib/tq2_web/live/registration/password_live.html.leex:8
+msgid "Yes!"
+msgstr ""
+
+#: lib/tq2_web/live/registration/password_live.ex:45
+msgid "Creating..."
+msgstr ""
+
+#: lib/tq2_web/live/registration/email_live.ex:45
+msgid "Saving..."
+msgstr ""
