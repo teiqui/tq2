@@ -40,4 +40,18 @@ defmodule Tq2.Fixtures do
   def create_session(_) do
     {:ok, session: create_session()}
   end
+
+  def create_customer(attrs \\ %{}) do
+    attrs =
+      Enum.into(attrs, %{
+        name: "some name",
+        email: "some@email.com",
+        phone: "555-5555",
+        address: "some address"
+      })
+
+    {:ok, customer} = Tq2.Sales.create_customer(attrs)
+
+    customer
+  end
 end

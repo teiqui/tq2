@@ -109,6 +109,9 @@ defmodule Tq2.Sales do
   def list_orders(account, params) do
     Order
     |> where(account_id: ^account.id)
+    |> join(:left, [o], cart in assoc(o, :cart))
+    |> join(:left, [o, cart], c in assoc(cart, :customer))
+    |> preload([o, cart, c], cart: cart, customer: c)
     |> Repo.paginate(params)
   end
 
@@ -131,7 +134,8 @@ defmodule Tq2.Sales do
     |> where(account_id: ^account.id)
     |> join(:left, [o], c in assoc(o, :cart))
     |> join(:left, [o, c], l in assoc(c, :lines))
-    |> preload([o, c, l], cart: {c, lines: l})
+    |> join(:left, [o, c], p in assoc(c, :payments))
+    |> preload([o, c, l, p], cart: {c, lines: l, payments: p})
     |> Repo.get!(id)
   end
 
