@@ -19,7 +19,7 @@ msgstr ""
 msgid "Your order must be paid on delivery."
 msgstr ""
 
-#: lib/tq2_web/live/store/payment_live.ex:67
+#: lib/tq2_web/live/store/payment_live.ex:80
 msgid "Saving..."
 msgstr ""
 
@@ -37,6 +37,10 @@ msgstr ""
 
 #: lib/tq2_web/live/store/payment_live.ex:139
 msgid "Wire transfer"
+msgstr ""
+
+#: lib/tq2_web/live/store/payment_check_live.html.leex:6
+msgid "Checking..."
 msgstr ""
 
 #: lib/tq2_web/templates/order/show.html.eex:72

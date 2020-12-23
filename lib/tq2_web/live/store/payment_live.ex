@@ -1,9 +1,14 @@
 defmodule Tq2Web.Store.PaymentLive do
   use Tq2Web, :live_view
 
+  import Tq2Web.PaymentLiveUtils, only: [create_order: 3, check_for_paid_cart: 1]
   import Tq2Web.Store.ButtonComponent, only: [cart_total: 1]
 
-  alias Tq2.{Apps, Sales, Shops, Transactions}
+  alias Tq2.Gateways.MercadoPago, as: MPClient
+  alias Tq2.Gateways.MercadoPago.Credential, as: MPCredential
+  alias Tq2.Payments
+  alias Tq2.Transactions.Cart
+  alias Tq2.{Apps, Shops, Transactions}
   alias Tq2Web.Store.HeaderComponent
 
   @impl true
@@ -15,6 +20,7 @@ defmodule Tq2Web.Store.PaymentLive do
       socket
       |> assign(store: store, token: token, payment_methods: payment_methods)
       |> load_cart(token)
+      |> check_for_paid_cart()
 
     {:ok, socket, temporary_assigns: [cart: nil]}
   end
@@ -48,7 +54,14 @@ defmodule Tq2Web.Store.PaymentLive do
 
     case cart.data.payment do
       "cash" ->
-        create_order(socket, store, cart)
+        socket = socket |> create_order(store, cart)
+
+        {:noreply, socket}
+
+      "mercado_pago" ->
+        socket = socket |> create_mp_payment(store, cart)
+
+        {:noreply, socket}
     end
   end
 
@@ -68,24 +81,11 @@ defmodule Tq2Web.Store.PaymentLive do
     )
   end
 
-  defp create_order(socket, store, cart) do
-    sale_params = %{
-      cart_id: cart.id,
-      promotion_expires_at: Timex.now() |> Timex.shift(days: 1)
-    }
-
-    case Sales.create_order(store.account, sale_params) do
-      {:ok, order} ->
-        socket =
-          socket
-          |> push_redirect(to: Routes.order_path(socket, :index, store, order))
-
-        {:noreply, socket}
-
-      {:error, %Ecto.Changeset{}} ->
-        # TODO: handle this case properly
-        {:noreply, socket}
-    end
+  defp create_mp_payment(socket, store, cart) do
+    cart
+    |> create_mp_preference(store)
+    |> create_pending_payment(cart)
+    |> response_from_payment(socket)
   end
 
   defp available_payment_methods(store) do
@@ -137,5 +137,53 @@ defmodule Tq2Web.Store.PaymentLive do
 
   defp translate_name("wire_transfer") do
     dgettext("payments", "Wire transfer")
+  end
+
+  defp create_mp_preference(cart, store) do
+    cart = Tq2.Repo.preload(cart, :payments)
+
+    cart.payments
+    |> Enum.find(&(&1.status == "pending" && &1.kind == "mercado_pago" && &1.gateway_data))
+    |> mp_cart_preference(cart, store)
+  end
+
+  defp mp_cart_preference(nil, cart, store) do
+    store.account
+    |> Apps.get_app("mercado_pago")
+    |> MPCredential.for_app()
+    |> MPClient.create_cart_preference(cart, store)
+  end
+
+  defp mp_cart_preference(payment, _, _), do: payment.gateway_data
+
+  defp create_pending_payment(%{"message" => error}, _), do: error
+
+  defp create_pending_payment(mp_preference, cart) do
+    attrs = %{
+      status: "pending",
+      kind: "mercado_pago",
+      amount: Cart.total(cart),
+      external_id: mp_preference["external_reference"],
+      gateway_data: mp_preference
+    }
+
+    cart |> Payments.create_payment(attrs)
+  end
+
+  defp response_from_payment({:error, _payment_cs}, socket) do
+    # TODO: handle this case properly
+    socket
+  end
+
+  defp response_from_payment({:ok, payment}, socket) do
+    socket =
+      socket
+      |> redirect(external: payment.gateway_data["init_point"])
+
+    socket
+  end
+
+  defp response_from_payment(error_msg, socket) do
+    socket |> assign(:alert, error_msg)
   end
 end
