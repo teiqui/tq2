@@ -50,10 +50,6 @@ msgstr ""
 msgid "Inserted at"
 msgstr ""
 
-#: lib/tq2_web/templates/order/empty.html.eex:3
-msgid "Looks like you have no orders."
-msgstr ""
-
 #: lib/tq2_web/templates/order/index.html.eex:9
 msgid "Number"
 msgstr ""
