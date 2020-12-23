@@ -101,3 +101,6 @@ msgstr ""
 
 msgid "Can't link with a used MercadoPago account"
 msgstr ""
+
+msgid "must be at least one enabled: %{fields}"
+msgstr ""
