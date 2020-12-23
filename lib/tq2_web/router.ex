@@ -55,16 +55,16 @@ defmodule Tq2Web.Router do
       singleton: true
     )
 
-    live "/welcome", WelcomeLive, :index
-
     # Registration
     live "/registrations/new", Registration.NameLive, :index, as: "registration"
-    get "/registrations/:uuid", RegistrationController, :show
 
     live "/registrations/:uuid/email", Registration.EmailLive, :index, as: "registration_email"
 
     live "/registrations/:uuid/password", Registration.PasswordLive, :index,
       as: "registration_password"
+
+    get "/registrations/:uuid", RegistrationController, :show
+    live "/welcome", Registration.WelcomeLive, :index
 
     # Accounts
     resources "/accounts", AccountController

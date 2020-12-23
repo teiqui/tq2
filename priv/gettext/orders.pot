@@ -27,7 +27,7 @@ msgstr ""
 msgid "Completed"
 msgstr ""
 
-#: lib/tq2_web/templates/order/index.html.eex:12
+#: lib/tq2_web/templates/order/index.html.eex:15
 msgid "Customer"
 msgstr ""
 
@@ -35,7 +35,7 @@ msgstr ""
 msgid "Delivery"
 msgstr ""
 
-#: lib/tq2_web/templates/order/index.html.eex:11
+#: lib/tq2_web/templates/order/index.html.eex:12
 #: lib/tq2_web/templates/order/show.html.eex:15
 msgid "Delivery type"
 msgstr ""
@@ -44,7 +44,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: lib/tq2_web/templates/order/index.html.eex:14
+#: lib/tq2_web/templates/order/index.html.eex:18
 #: lib/tq2_web/templates/order/show.html.eex:19
 msgid "Inserted at"
 msgstr ""

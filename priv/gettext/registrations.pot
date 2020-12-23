@@ -126,3 +126,39 @@ msgstr ""
 #: lib/tq2_web/live/registration/email_live.ex:45
 msgid "Saving..."
 msgstr ""
+
+#: lib/tq2_web/live/registration/welcome_live.html.leex:50
+msgid "Enable discounts in your items with Teiqui price and get more than one order for every customer."
+msgstr ""
+
+#: lib/tq2_web/live/registration/welcome_live.html.leex:32
+msgid "Online store"
+msgstr ""
+
+#: lib/tq2_web/live/registration/welcome_live.html.leex:76
+msgid "Start using the app"
+msgstr ""
+
+#: lib/tq2_web/live/registration/welcome_live.html.leex:46
+msgid "Teiqui price"
+msgstr ""
+
+#: lib/tq2_web/live/registration/welcome_live.html.leex:60
+msgid "Teiqui sellers"
+msgstr ""
+
+#: lib/tq2_web/live/registration/welcome_live.html.leex:22
+msgid "Thank you for choosing us. Our team will be happy to help you growth."
+msgstr ""
+
+#: lib/tq2_web/live/registration/welcome_live.html.leex:36
+msgid "Upload your items, choose delivery options, payment methods y get orders online."
+msgstr ""
+
+#: lib/tq2_web/live/registration/welcome_live.html.leex:18
+msgid "Welcome!"
+msgstr ""
+
+#: lib/tq2_web/live/registration/welcome_live.html.leex:64
+msgid "Your customers will become your sellers using group shopping, thus bringing new buyers."
+msgstr ""

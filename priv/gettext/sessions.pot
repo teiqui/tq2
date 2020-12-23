@@ -10,16 +10,16 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/templates/session/new.html.eex:42
+#: lib/tq2_web/templates/session/new.html.eex:36
 msgid "Don't have an account?"
 msgstr ""
 
+#: lib/tq2_web/templates/session/new.html.eex:12
 #: lib/tq2_web/templates/session/new.html.eex:16
-#: lib/tq2_web/templates/session/new.html.eex:20
 msgid "Email"
 msgstr ""
 
-#: lib/tq2_web/templates/session/new.html.eex:35
+#: lib/tq2_web/templates/session/new.html.eex:31
 msgid "Forgot password?"
 msgstr ""
 
@@ -27,20 +27,20 @@ msgstr ""
 msgid "Invalid email/password combination"
 msgstr ""
 
-#: lib/tq2_web/templates/session/new.html.eex:30
+#: lib/tq2_web/templates/session/new.html.eex:26
 msgid "Login"
 msgstr ""
 
-#: lib/tq2_web/templates/session/new.html.eex:11
+#: lib/tq2_web/templates/session/new.html.eex:8
 msgid "Login to your account!"
 msgstr ""
 
-#: lib/tq2_web/templates/session/new.html.eex:24
-#: lib/tq2_web/templates/session/new.html.eex:26
+#: lib/tq2_web/templates/session/new.html.eex:20
+#: lib/tq2_web/templates/session/new.html.eex:22
 msgid "Password"
 msgstr ""
 
-#: lib/tq2_web/templates/session/new.html.eex:44
+#: lib/tq2_web/templates/session/new.html.eex:38
 msgid "Sign up"
 msgstr ""
 

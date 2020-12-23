@@ -36,8 +36,8 @@ msgstr "Editar usuario"
 msgid "Edit user"
 msgstr "Editar usuario"
 
-#: lib/tq2_web/templates/password/new.html.eex:19
-#: lib/tq2_web/templates/password/new.html.eex:21 lib/tq2_web/templates/user/_form.html.eex:10
+#: lib/tq2_web/templates/password/new.html.eex:18
+#: lib/tq2_web/templates/password/new.html.eex:20 lib/tq2_web/templates/user/_form.html.eex:10
 #: lib/tq2_web/templates/user/index.html.eex:11 lib/tq2_web/templates/user/show.html.eex:7
 msgid "Email"
 msgstr "Correo"
@@ -69,13 +69,13 @@ msgstr "Nuevo usuario"
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr "Ups, parece que algo salió mal. Por favor, revise los errores."
 
-#: lib/tq2_web/templates/password/edit.html.eex:19
-#: lib/tq2_web/templates/password/edit.html.eex:23 lib/tq2_web/templates/user/_form.html.eex:11
+#: lib/tq2_web/templates/password/edit.html.eex:18
+#: lib/tq2_web/templates/password/edit.html.eex:22 lib/tq2_web/templates/user/_form.html.eex:11
 msgid "Password"
 msgstr "Contraseña"
 
-#: lib/tq2_web/templates/password/edit.html.eex:27
-#: lib/tq2_web/templates/password/edit.html.eex:29 lib/tq2_web/templates/user/_form.html.eex:12
+#: lib/tq2_web/templates/password/edit.html.eex:26
+#: lib/tq2_web/templates/password/edit.html.eex:28 lib/tq2_web/templates/user/_form.html.eex:12
 msgid "Password confirmation"
 msgstr "Confirmación de la contraseña"
 

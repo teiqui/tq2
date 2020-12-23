@@ -11,16 +11,16 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/templates/session/new.html.eex:42
+#: lib/tq2_web/templates/session/new.html.eex:36
 msgid "Don't have an account?"
 msgstr "¿No tienes cuenta?"
 
+#: lib/tq2_web/templates/session/new.html.eex:12
 #: lib/tq2_web/templates/session/new.html.eex:16
-#: lib/tq2_web/templates/session/new.html.eex:20
 msgid "Email"
 msgstr "Correo"
 
-#: lib/tq2_web/templates/session/new.html.eex:35
+#: lib/tq2_web/templates/session/new.html.eex:31
 msgid "Forgot password?"
 msgstr "¿Olvidaste tu contraseña?"
 
@@ -28,20 +28,20 @@ msgstr "¿Olvidaste tu contraseña?"
 msgid "Invalid email/password combination"
 msgstr "Tu correo y/o contraseña no están bien"
 
-#: lib/tq2_web/templates/session/new.html.eex:30
+#: lib/tq2_web/templates/session/new.html.eex:26
 msgid "Login"
 msgstr "Ingresar"
 
-#: lib/tq2_web/templates/session/new.html.eex:11
+#: lib/tq2_web/templates/session/new.html.eex:8
 msgid "Login to your account!"
 msgstr "¡Ingresa a tu cuenta!"
 
-#: lib/tq2_web/templates/session/new.html.eex:24
-#: lib/tq2_web/templates/session/new.html.eex:26
+#: lib/tq2_web/templates/session/new.html.eex:20
+#: lib/tq2_web/templates/session/new.html.eex:22
 msgid "Password"
 msgstr "Contraseña"
 
-#: lib/tq2_web/templates/session/new.html.eex:44
+#: lib/tq2_web/templates/session/new.html.eex:38
 msgid "Sign up"
 msgstr "Regístrate"
 

@@ -12,6 +12,15 @@
   border: 1px solid $gray-200;
 }
 
+.carousel-indicators {
+  li {
+    background-color: $white;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+  }
+}
+
 .navbar {
   box-shadow: none;
 }
