@@ -65,7 +65,7 @@ msgstr "Pedido"
 
 #: lib/tq2_web/controllers/order_controller.ex:41
 msgid "Order updated successfully."
-msgstr "Pedido actualizada correctamente."
+msgstr "Pedido actualizado correctamente."
 
 #: lib/tq2_web/templates/layout/_menu.html.eex:27
 #: lib/tq2_web/templates/order/index.html.eex:2
