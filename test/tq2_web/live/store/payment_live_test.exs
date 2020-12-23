@@ -24,7 +24,7 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       Tq2.Shops.create_store(session, %{
         name: "Test store",
         slug: "test_store",
-        configuration: %{pickup: true}
+        configuration: %{pickup: true, pickup_time_limit: "3hs"}
       })
 
     %{store: %{store | account: account}, session: session}

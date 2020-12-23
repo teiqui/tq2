@@ -91,3 +91,6 @@ msgstr "Token de MercadoPago inválido"
 
 msgid "Can't link with a used MercadoPago account"
 msgstr "Esta cuenta de MercadoPago ya está en uso"
+
+msgid "must be at least one enabled: %{fields}"
+msgstr "Uno de los campos debe estar habilitado: %{fields}"

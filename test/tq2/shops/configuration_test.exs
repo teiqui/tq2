@@ -50,5 +50,46 @@ defmodule Tq2.Shops.ConfigurationTest do
       assert "should be at most 255 character(s)" in errors_on(changeset).pickup_time_limit
       assert "should be at most 255 character(s)" in errors_on(changeset).delivery_time_limit
     end
+
+    test "changeset should has at least one active" do
+      attrs =
+        @valid_attrs
+        |> Map.put(:pickup, false)
+        |> Map.put(:delivery, false)
+
+      changeset = Configuration.changeset(%Configuration{}, attrs)
+
+      assert "must be at least one enabled: Pickup / Delivery" in errors_on(changeset).pickup
+    end
+
+    test "changeset should required pickup time limit with pickup" do
+      attrs =
+        @valid_attrs
+        |> Map.put(:pickup_time_limit, "")
+
+      changeset = Configuration.changeset(%Configuration{}, attrs)
+
+      assert "can't be blank" in errors_on(changeset).pickup_time_limit
+    end
+
+    test "changeset should required delivery time limit with delivery" do
+      attrs =
+        @valid_attrs
+        |> Map.put(:delivery_time_limit, "")
+
+      changeset = Configuration.changeset(%Configuration{}, attrs)
+
+      assert "can't be blank" in errors_on(changeset).delivery_time_limit
+    end
+
+    test "changeset should required delivery area with delivery" do
+      attrs =
+        @valid_attrs
+        |> Map.put(:delivery_area, "")
+
+      changeset = Configuration.changeset(%Configuration{}, attrs)
+
+      assert "can't be blank" in errors_on(changeset).delivery_area
+    end
   end
 end
