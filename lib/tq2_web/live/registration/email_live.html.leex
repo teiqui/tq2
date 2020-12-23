@@ -18,7 +18,7 @@
       </svg>
     </span>
 
-    <%= form_for @changeset, "#", [phx_submit: "save", class: "mt-5 mb-4 text-left"], fn f -> %>
+    <%= form_for @changeset, "#", [phx_submit: "save", class: "mt-5 mb-4 px-3 text-left"], fn f -> %>
       <%= input f, :email, dgettext("registrations", "Email"),
                            input_html: [autofocus: true, placeholder: dgettext("registrations", "Enter your email")],
                            label_html: [class: "sr-only"] %>

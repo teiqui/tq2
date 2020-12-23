@@ -1,43 +1,37 @@
-<div class="mb-4 mt-5 text-center">
-  <%= img_tag Routes.static_path(@conn, "/images/logo.svg"), width: "101", height: "26", alt: gettext("Teiqui") %>
-</div>
-
-<div class="row justify-content-center mb-4">
-  <div class="col col-xl-4 col-lg-5 col-md-6 col-sm-8">
-    <div class="card">
-      <div class="card-body p-md-4">
-        <div class="text-center w-75 m-auto">
-          <h2 class="h4 text-primary text-center mt-4 mb-5 font-weight-semi-bold">
-            <%= dgettext("sessions", "Login to your account!") %>
-          </h2>
-        </div>
-
-        <%= form_for @conn, Routes.session_path(@conn, :create), [as: :session], fn f -> %>
-          <%= input f, :email, dgettext("sessions", "Email"),
-            input_html: [
-              autofocus: true,
-              autocomplete: "email",
-              placeholder: dgettext("sessions", "Email")
-            ],
-            label_html: [class: "sr-only"] %>
-
-          <%= input f, :password, dgettext("sessions", "Password"),
-            wrapper_html: [class: "pb-3"],
-            input_html: [placeholder: dgettext("sessions", "Password"), autocomplete: "current-password"],
-            label_html: [class: "sr-only"] %>
-
-          <div class="form-actions text-center mt-5 mb-3">
-            <%= submit dgettext("sessions", "Login"), class: "btn btn-primary rounded-pill px-5 font-weight-semi-bold" %>
-          </div>
-        <% end %>
-
-        <p class="text-center font-weight-semi-bold mt-4 mb-3 mb-md-5">
-          <%= link dgettext("sessions", "Forgot password?"), to: Routes.password_path(@conn, :new) %>
-        </p>
-      </div>
+<div class="row justify-content-center">
+  <div class="col-lg-4 col-md-6 col-sm-8 text-center">
+    <div class="pb-5 mt-4">
+      <%= img_tag Routes.static_path(@conn, "/images/logo.svg"), width: "101", height: "26", alt: gettext("Teiqui") %>
     </div>
 
-    <p class="text-center font-weight-semi-bold mt-4 mb-3">
+    <h2 class="h5 mb-5">
+      <%= dgettext("sessions", "Login to your account!") %>
+    </h2>
+
+    <%= form_for @conn, Routes.session_path(@conn, :create), [as: :session, class: "pt-4 px-3"], fn f -> %>
+      <%= input f, :email, dgettext("sessions", "Email"),
+        input_html: [
+          autofocus: true,
+          autocomplete: "email",
+          placeholder: dgettext("sessions", "Email")
+        ],
+        label_html: [class: "sr-only"] %>
+
+      <%= input f, :password, dgettext("sessions", "Password"),
+        wrapper_html: [class: "pb-3"],
+        input_html: [placeholder: dgettext("sessions", "Password"), autocomplete: "current-password"],
+        label_html: [class: "sr-only"] %>
+
+      <div class="form-actions text-center mt-5 pb-3">
+        <%= submit dgettext("sessions", "Login"), class: "btn btn-lg btn-outline-primary border border-primary rounded-pill px-4 font-weight-semi-bold" %>
+      </div>
+    <% end %>
+
+    <p class="text-center mt-4 mb-3">
+      <%= link dgettext("sessions", "Forgot password?"), to: Routes.password_path(@conn, :new), class: "text-reset" %>
+    </p>
+
+    <p class="h5 text-center font-weight-semi-bold pt-5 mt-5 mb-3">
       <span class="text-black-50">
         <%= dgettext("sessions", "Don't have an account?") %>
       </span>
