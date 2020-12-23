@@ -72,7 +72,7 @@
     </div>
 
     <p class="text-center font-weight-bold mt-5 mb-3">
-      <%= link to: "#", class: "text-reset" do %>
+      <%= link to: Routes.root_path(@socket, :index), class: "text-reset" do %>
         <%= dgettext("registrations", "Start using the app") %>
 
         <span class="ml-2">
