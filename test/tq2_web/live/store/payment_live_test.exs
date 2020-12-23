@@ -1,11 +1,15 @@
 defmodule Tq2Web.Store.PaymentLiveTest do
-  use Tq2Web.ConnCase
+  use Tq2Web.ConnCase, async: true
 
+  import Mock
   import Phoenix.LiveViewTest
+  alias Tq2.Transactions.Cart
+  alias Tq2.Payments
 
   @create_attrs %{
     token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
-    price_type: "promotional"
+    price_type: "promotional",
+    customer_id: nil
   }
 
   setup %{conn: conn} do
@@ -31,8 +35,22 @@ defmodule Tq2Web.Store.PaymentLiveTest do
   end
 
   def cart_fixture(%{conn: conn, store: store}) do
+    {:ok, customer} =
+      Tq2.Sales.create_customer(%{
+        "name" => "some name",
+        "email" => "some@email.com",
+        "phone" => "555-5555",
+        "address" => "some address"
+      })
+
     token = get_session(conn, :token)
-    {:ok, cart} = Tq2.Transactions.create_cart(store.account, %{@create_attrs | token: token})
+
+    {:ok, cart} =
+      Tq2.Transactions.create_cart(store.account, %{
+        @create_attrs
+        | token: token,
+          customer_id: customer.id
+      })
 
     line_attrs = %{
       name: "some name",
@@ -55,7 +73,7 @@ defmodule Tq2Web.Store.PaymentLiveTest do
 
     {:ok, line} = cart |> Tq2.Transactions.create_line(line_attrs)
 
-    %{cart: %{cart | lines: [line]}}
+    %{cart: %{cart | customer: customer, lines: [line]}}
   end
 
   describe "render" do
@@ -85,11 +103,7 @@ defmodule Tq2Web.Store.PaymentLiveTest do
     end
 
     test "change kind to mercado_pago", %{conn: conn, store: store, session: session} do
-      {:ok, _} =
-        Tq2.Apps.create_app(
-          session,
-          %{name: "mercado_pago", data: %{"access_token" => "123"}}
-        )
+      create_mp_app(session)
 
       path = Routes.payment_path(conn, :index, store)
       {:ok, payment_live, _html} = live(conn, path)
@@ -124,6 +138,135 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       order_id = String.replace(to, ~r/\D/, "")
 
       assert Routes.order_path(conn, :index, store, order_id) == to
+    end
+
+    test "save event with redirect to mp", %{conn: conn, store: store, session: session} do
+      create_mp_app(session)
+
+      path = Routes.payment_path(conn, :index, store)
+      {:ok, payment_live, _html} = live(conn, path)
+
+      assert has_element?(payment_live, ".btn[disabled]")
+
+      payment_live
+      |> element("form")
+      |> render_change(%{"kind" => "mercado_pago"})
+
+      payment = %{
+        "id" => 123,
+        "external_reference" => Ecto.UUID.generate(),
+        "init_point" => "https://mp.com/123"
+      }
+
+      with_mock HTTPoison, mock_post_with(payment) do
+        response =
+          payment_live
+          |> element("form")
+          |> render_submit(%{})
+
+        assert {:error, {:redirect, %{to: to}}} = response
+        assert "https://mp.com/123" == to
+      end
+    end
+
+    test "save event with mp error", %{conn: conn, store: store, session: session} do
+      create_mp_app(session)
+
+      path = Routes.payment_path(conn, :index, store)
+      {:ok, payment_live, _html} = live(conn, path)
+
+      assert has_element?(payment_live, ".btn[disabled]")
+
+      payment_live
+      |> element("form")
+      |> render_change(%{"kind" => "mercado_pago"})
+
+      payment = %{
+        "message" => "Invalid credentials"
+      }
+
+      with_mock HTTPoison, mock_post_with(payment) do
+        payment_live
+        |> element("form")
+        |> render_submit(%{})
+
+        assert has_element?(payment_live, ".collapse.show", "Pay with MercadoPago")
+      end
+    end
+
+    test "save event with redirect to mp without create", %{
+      conn: conn,
+      cart: cart,
+      store: store,
+      session: session
+    } do
+      create_mp_app(session)
+
+      {:ok, _payment} =
+        Payments.create_payment(cart, %{
+          kind: "mercado_pago",
+          status: "pending",
+          amount: Cart.total(cart),
+          external_reference: Ecto.UUID.generate(),
+          gateway_data: %{
+            "id" => 123,
+            "external_reference" => Ecto.UUID.generate(),
+            "init_point" => "https://mp.com/123"
+          }
+        })
+
+      path = Routes.payment_path(conn, :index, store)
+      {:ok, payment_live, _html} = live(conn, path)
+
+      assert has_element?(payment_live, ".btn[disabled]")
+
+      payment_live
+      |> element("form")
+      |> render_change(%{"kind" => "mercado_pago"})
+
+      response =
+        payment_live
+        |> element("form")
+        |> render_submit(%{})
+
+      assert {:error, {:redirect, %{to: to}}} = response
+      assert "https://mp.com/123" == to
+    end
+
+    test "mount with paid cart", %{conn: conn, cart: cart, store: store} do
+      {:ok, _payment} =
+        Payments.create_payment(cart, %{
+          kind: "mercado_pago",
+          status: "paid",
+          amount: Cart.total(cart)
+        })
+
+      path = Routes.payment_path(conn, :index, store)
+      assert {:error, {:live_redirect, %{to: to}}} = live(conn, path)
+
+      order_id = String.replace(to, ~r/\D/, "")
+
+      assert Routes.order_path(conn, :index, store, order_id) == to
+    end
+
+    defp create_mp_app(session) do
+      {:ok, app} =
+        Tq2.Apps.create_app(session, %{
+          name: "mercado_pago",
+          data: %{"access_token" => "123"}
+        })
+
+      app
+    end
+
+    defp mock_post_with(%{} = body, code \\ 201) do
+      json_body = body |> Jason.encode!()
+
+      [
+        post: fn _url, _params, _headers ->
+          {:ok, %HTTPoison.Response{status_code: code, body: json_body}}
+        end
+      ]
     end
   end
 end

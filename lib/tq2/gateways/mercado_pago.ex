@@ -6,6 +6,7 @@ defmodule Tq2.Gateways.MercadoPago do
   alias Tq2.Gateways.MercadoPago.Credential
   alias Tq2.Payments
   alias Tq2.Transactions.{Cart, Line}
+  alias Tq2.Shops.Store
 
   @default_time_format "{ISO:Extended}"
   @base_uri "https://api.mercadopago.com"
@@ -72,7 +73,7 @@ defmodule Tq2.Gateways.MercadoPago do
     |> Payments.create_or_update_license_payment(account)
   end
 
-  def create_cart_preference(%Credential{} = credential, cart) do
+  def create_cart_preference(%Credential{} = credential, %Cart{} = cart, %Store{} = store) do
     cart = Tq2.Repo.preload(cart, [:customer, :lines])
 
     preference = %{
@@ -83,9 +84,9 @@ defmodule Tq2.Gateways.MercadoPago do
         email: cart.customer.email
       },
       back_urls: %{
-        success: reservation_thanks_url(),
-        pending: reservation_thanks_url(),
-        failure: reservation_payment_url()
+        success: check_payment_url(store),
+        pending: check_payment_url(store),
+        failure: store_payment_url(store)
       }
     }
 
@@ -165,7 +166,7 @@ defmodule Tq2.Gateways.MercadoPago do
     }
   end
 
-  def response_to_payment(nil), do: %{}
+  def response_to_payment(_), do: %{}
 
   @doc "Returns the min amount for a given currency"
   def min_amount_for(currency) do
@@ -210,16 +211,30 @@ defmodule Tq2.Gateways.MercadoPago do
     Tq2Web.Router.Helpers.license_check_url(Tq2Web.Endpoint, :show)
   end
 
-  defp reservation_payment_url do
-    "reservation_payment_url"
+  defp check_payment_url(store) do
+    scheme = if Tq2Web.Endpoint.config(:https), do: "https", else: "http"
+    config = Tq2Web.Endpoint.config(:url)
+
+    %URI{
+      scheme: scheme,
+      host: "#{Application.get_env(:tq2, :store_subdomain)}.#{config[:host]}"
+    }
+    |> Tq2Web.Router.Helpers.payment_check_url(:index, store)
   end
 
-  defp reservation_thanks_url do
-    "reservation_thanks_url"
+  defp store_payment_url(store) do
+    scheme = if Tq2Web.Endpoint.config(:https), do: "https", else: "http"
+    config = Tq2Web.Endpoint.config(:url)
+
+    %URI{
+      scheme: scheme,
+      host: "#{Application.get_env(:tq2, :store_subdomain)}.#{config[:host]}"
+    }
+    |> Tq2Web.Router.Helpers.payment_url(:index, store)
   end
 
   defp cart_external_reference(cart) do
-    "tq2-cart-#{cart.id}"
+    "tq2-mp-cart-#{cart.id}"
   end
 
   defp parse_response({:ok, %HTTPoison.Response{status_code: 200, body: body}}) do
@@ -231,11 +246,11 @@ defmodule Tq2.Gateways.MercadoPago do
   end
 
   defp parse_response({_, %HTTPoison.Response{status_code: code, body: body}}) do
-    body = Jason.decode(body)
+    {_, body} = Jason.decode(body)
 
     Sentry.capture_message("MP Error", extra: %{body: body, status_code: code})
 
-    nil
+    body
   end
 
   defp parse_response(response) do

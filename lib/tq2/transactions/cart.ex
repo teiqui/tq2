@@ -5,6 +5,7 @@ defmodule Tq2.Transactions.Cart do
 
   alias Tq2.Accounts.Account
   alias Tq2.Payments.Payment
+  alias Tq2.Payments.Payment
   alias Tq2.Sales.{Customer, Order}
   alias Tq2.Transactions.{Cart, Data, Line}
 
@@ -39,6 +40,23 @@ defmodule Tq2.Transactions.Cart do
     |> unique_constraint(:token)
     |> assoc_constraint(:customer)
     |> assoc_constraint(:account)
+  end
+
+  def paid?(%Cart{} = cart) do
+    cart = Tq2.Repo.preload(cart, :payments)
+
+    cart.payments
+    |> Enum.filter(&(&1.status == "paid"))
+    |> paid_in_full?(cart)
+  end
+
+  defp paid_in_full?([], _), do: false
+
+  defp paid_in_full?(payments, cart) do
+    payments
+    |> Enum.map(& &1.amount)
+    |> Enum.reduce(fn amount, total -> Money.add(amount, total) end)
+    |> Kernel.==(total(cart))
   end
 
   def total(%Cart{} = cart) do

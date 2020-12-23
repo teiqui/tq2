@@ -128,6 +128,13 @@ defmodule Tq2.Gateways.MercadoPagoTest do
       cart = session.account |> create_cart_with_line()
       app = session |> create_mp_app()
 
+      {:ok, store} =
+        Tq2.Shops.create_store(session, %{
+          name: "Test store",
+          slug: "test_store",
+          configuration: %{pickup: true, pickup_time_limit: "1h"}
+        })
+
       default_preference = %{
         id: 33,
         external_reference: "tq2-cart-#{cart.id}",
@@ -139,7 +146,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
       with_mock HTTPoison, mocked_fn do
         preference =
           %Credential{token: app.data["access_token"]}
-          |> MercadoPago.create_cart_preference(cart)
+          |> MercadoPago.create_cart_preference(cart, store)
 
         assert default_preference.id == preference["id"]
         assert default_preference.external_reference == preference["external_reference"]

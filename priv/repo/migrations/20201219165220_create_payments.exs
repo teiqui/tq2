@@ -18,6 +18,6 @@ defmodule Tq2.Repo.Migrations.CreatePayments do
     end
 
     create index(:payments, :cart_id)
-    create index(:payments, :external_id)
+    create unique_index(:payments, :external_id)
   end
 end
