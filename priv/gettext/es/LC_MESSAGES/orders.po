@@ -50,10 +50,6 @@ msgstr "Editar"
 msgid "Inserted at"
 msgstr "Fecha"
 
-#: lib/tq2_web/templates/order/empty.html.eex:3
-msgid "Looks like you have no orders."
-msgstr "Parece que no hay ningun pedido."
-
 #: lib/tq2_web/templates/order/index.html.eex:9
 msgid "Number"
 msgstr "Número"
