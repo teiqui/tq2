@@ -1,0 +1,5 @@
+<div class="jumbotron">
+  <h1>
+    <%= dgettext("orders", "Here you'll see all orders, at this time there is none. For starters, share the online store link with your customers!") %>
+  </h1>
+</div>

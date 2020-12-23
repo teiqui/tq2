@@ -1,0 +1,50 @@
+<h1 class="h3">
+  <%= dgettext("orders", "Orders") %>
+</h1>
+
+<div class="card my-3 table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th><%= dgettext("orders", "Number") %></th>
+        <th><%= dgettext("orders", "Status") %></th>
+        <th class="d-none d-md-table-cell d-print-table-cell">
+          <%= dgettext("orders", "Delivery type") %>
+        </th>
+        <th class="d-none d-md-table-cell d-print-table-cell">
+          <%= dgettext("orders", "Customer") %>
+        </th>
+        <th class="d-none d-md-table-cell d-print-table-cell">
+          <%= dgettext("orders", "Inserted at") %>
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for order <- @orders do %>
+        <tr>
+          <td>#<%= order.id %></td>
+          <td><%= status(order.status) %></td>
+          <td class="d-none d-md-table-cell d-print-table-cell">
+            <%= cart_handing(order.cart.data.handing) %>
+          </td>
+          <td class="d-none d-md-table-cell d-print-table-cell">
+            <%= order.customer.name %>
+          </td>
+          <td class="d-none d-md-table-cell d-print-table-cell">
+            <%= localize_datetime(order.inserted_at) %>
+          </td>
+
+          <td class="text-right text-nowrap">
+            <span><%= link_to_show @conn, order %></span>
+            <span><%= link_to_edit @conn, order %></span>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="d-flex justify-content-center justify-content-lg-end mb-n3">
+  <%= pagination_links @conn, @page %>
+</div>

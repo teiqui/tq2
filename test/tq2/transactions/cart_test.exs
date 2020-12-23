@@ -1,6 +1,8 @@
 defmodule Tq2.Transactions.CartTest do
   use Tq2.DataCase, async: true
 
+  import Tq2.Fixtures, only: [default_account: 0, create_session: 0]
+
   describe "cart" do
     alias Tq2.Transactions.Cart
 
@@ -46,9 +48,51 @@ defmodule Tq2.Transactions.CartTest do
 
       assert "is invalid" in errors_on(changeset).price_type
     end
+
+    test "total for promotinal price" do
+      {:ok, cart} =
+        default_account()
+        |> Tq2.Transactions.create_cart(@valid_attrs)
+
+      cart = create_line(cart)
+
+      assert Money.new(270, "ARS") == Cart.total(cart)
+    end
+
+    test "total for regular price" do
+      {:ok, cart} =
+        default_account()
+        |> Tq2.Transactions.create_cart(%{@valid_attrs | price_type: "regular"})
+
+      cart = create_line(cart)
+
+      assert Money.new(300, "ARS") == Cart.total(cart)
+    end
   end
 
-  defp default_account do
-    Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
+  defp create_line(cart) do
+    session = create_session()
+
+    {:ok, item} =
+      Tq2.Inventories.create_item(session, %{
+        sku: "some sku",
+        name: "some name",
+        visibility: "visible",
+        price: Money.new(100, :ARS),
+        promotional_price: Money.new(90, :ARS),
+        cost: Money.new(80, :ARS)
+      })
+
+    {:ok, _line} =
+      Tq2.Transactions.create_line(cart, %{
+        name: "some name",
+        quantity: 3,
+        price: Money.new(100, :ARS),
+        promotional_price: Money.new(90, :ARS),
+        cost: Money.new(80, :ARS),
+        item: item
+      })
+
+    Tq2.Repo.preload(cart, :lines, force: true)
   end
 end

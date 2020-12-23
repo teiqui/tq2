@@ -8,13 +8,21 @@
 ## to merge POT files into PO files.
 msgid ""
 msgstr ""
-"Language: es\n"
+"Language: en\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/utils.ex:11 lib/tq2_web/views/license_view.ex:26
-msgid "{M}/{D}/{YYYY}"
-msgstr "{D}/{M}/{YYYY}"
+#: lib/tq2_web/templates/order/show.html.eex:33
+msgid "Name"
+msgstr ""
 
-#: lib/tq2_web/utils.ex:19
-msgid "{M}/{D}/{YYYY} {h24}:{m}:{s}"
-msgstr "{D}/{M}/{YYYY} {h24}:{m}:{s}"
+#: lib/tq2_web/templates/order/show.html.eex:35
+msgid "Price"
+msgstr ""
+
+#: lib/tq2_web/templates/order/show.html.eex:34
+msgid "Quantity"
+msgstr ""
+
+#: lib/tq2_web/templates/order/show.html.eex:36
+msgid "Total"
+msgstr ""

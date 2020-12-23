@@ -4,8 +4,9 @@ defmodule Tq2.Transactions.Cart do
   import Ecto.Changeset
 
   alias Tq2.Accounts.Account
-  alias Tq2.Transactions.{Cart, Data, Line}
+  alias Tq2.Payments.Payment
   alias Tq2.Sales.{Customer, Order}
+  alias Tq2.Transactions.{Cart, Data, Line}
 
   schema "carts" do
     field :token, :string
@@ -19,6 +20,7 @@ defmodule Tq2.Transactions.Cart do
     has_one :order, Order
 
     has_many :lines, Line
+    has_many :payments, Payment
 
     timestamps()
   end
@@ -37,6 +39,20 @@ defmodule Tq2.Transactions.Cart do
     |> unique_constraint(:token)
     |> assoc_constraint(:customer)
     |> assoc_constraint(:account)
+  end
+
+  def total(%Cart{} = cart) do
+    cart.lines
+    |> Enum.map(&line_total(cart, &1))
+    |> Enum.reduce(fn price, total -> Money.add(price, total) end)
+  end
+
+  def line_total(%Cart{price_type: "promotional"}, line) do
+    Money.multiply(line.promotional_price, line.quantity)
+  end
+
+  def line_total(_, line) do
+    Money.multiply(line.price, line.quantity)
   end
 
   defp put_account(%Ecto.Changeset{} = changeset, %Account{} = account) do

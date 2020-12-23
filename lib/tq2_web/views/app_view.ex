@@ -2,7 +2,7 @@ defmodule Tq2Web.AppView do
   use Tq2Web, :view
   use Scrivener.HTML
 
-  import Utils, only: [invert: 1]
+  import Tq2Web.Utils, only: [invert: 1]
 
   alias Tq2.Apps.MercadoPago, as: MPApp
   alias Tq2.Apps.WireTransfer, as: WTApp

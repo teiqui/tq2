@@ -9,7 +9,7 @@ defmodule Tq2Web.AppViewTest do
   alias Tq2.Apps.WireTransfer, as: WTApp
   alias Tq2Web.AppView
 
-  test "link to edit", %{conn: conn} do
+  test "link to show", %{conn: conn} do
     app = mercado_pago_fixture()
 
     content =

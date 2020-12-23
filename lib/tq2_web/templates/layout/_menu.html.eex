@@ -23,6 +23,9 @@
         <%= menu_item @conn, to: Routes.store_path(@conn, :show) do %>
           <%= dgettext("stores", "Store") %>
         <% end %>
+        <%= menu_item @conn, to: Routes.order_path(@conn, :index) do %>
+          <%= dgettext("orders", "Orders") %>
+        <% end %>
         <%= menu_item @conn, to: Routes.user_path(@conn, :index) do %>
           <%= dgettext("users", "Users") %>
         <% end %>

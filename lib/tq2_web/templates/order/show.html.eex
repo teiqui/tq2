@@ -1,0 +1,95 @@
+<div class="card my-3">
+  <div class="card-header">
+    <h2 class="h5">
+      <%= dgettext("orders", "Order") %> #<%= @order.id %>
+    </h2>
+  </div>
+
+  <div class="card-body">
+    <p class="mb-1">
+      <strong><%= dgettext("orders", "Status") %></strong>:
+      <%= status(@order.status) %>
+    </p>
+
+    <p class="mb-1">
+      <strong><%= dgettext("orders", "Delivery type") %></strong>:
+      <%= cart_handing(@order.cart.data.handing) %>
+    </p>
+    <p class="mb-1">
+      <strong><%= dgettext("orders", "Inserted at") %></strong>:
+      <%= localize_datetime(@order.inserted_at) %>
+    </p>
+
+    <%= if @order.data && @order.data.notes do %>
+      <div class="mb-1">
+        <strong><%= dgettext("orders", "Notes") %></strong>:
+        <%= @order.data.notes %>
+      </div>
+    <% end %>
+
+    <div class="table-responsive">
+      <table class="table table-hover small my-3">
+        <thead>
+          <th><%= dgettext("lines", "Name") %></th>
+          <th><%= dgettext("lines", "Quantity") %></th>
+          <th class="d-none d-md-table-cell d-print-table-cell"><%= dgettext("lines", "Price") %></th>
+          <th><%= dgettext("lines", "Total") %></th>
+        </thead>
+
+        <tbody>
+          <%= for line <- @order.cart.lines do %>
+            <tr>
+              <td><%= line.name %></td>
+              <td><%= line.quantity %></td>
+              <td class="d-none d-md-table-cell d-print-table-cell text-nowrap"><%= format_money line.price %></td>
+              <td><%= line_total @order.cart, line %></td>
+            </tr>
+          <% end %>
+        </tbody>
+
+        <tfoot>
+          <tr>
+            <td colspan="3">
+              <strong><%= dgettext("orders", "Total") %></strong>
+            </td>
+            <td>
+              <strong><%= cart_total @order.cart %></strong>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <%= if Enum.any?(@order.cart.payments) do %>
+      <h3 class="h6">
+        <%= dgettext("orders", "Payments") %>
+      </h3>
+
+      <div class="table-responsive">
+        <table class="table table-hover my-3">
+          <thead>
+            <th><%= dgettext("payments", "Kind") %></th>
+            <th><%= dgettext("payments", "Amount") %></th>
+            <th><%= dgettext("payments", "Inserted at") %></th>
+          </thead>
+
+          <%= for payment <- @order.cart.payments do %>
+            <tr>
+              <td>
+                <%= payment_kind(payment.kind) %>
+                <%= pending_payment_alert(payment) %>
+              </td>
+              <td><%= format_money payment.amount %></td>
+              <td><%= localize_datetime payment.inserted_at %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <%= link_to_edit @conn, @order %> |
+  <%= link dgettext("orders", "Back"), to: Routes.order_path(@conn, :index) %>
+</div>

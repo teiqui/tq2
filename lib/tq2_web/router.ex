@@ -82,8 +82,12 @@ defmodule Tq2Web.Router do
       singleton: true,
       only: [:show, :new, :edit, :create, :update]
 
+    # Apps
     get "/apps/mp_marketplace", Apps.MpMarketplaceController, :show, as: :mp_marketplace
     resources "/apps", AppController, param: "name"
+
+    # Sales
+    resources "/orders", OrderController, only: [:index, :show, :edit, :update]
   end
 
   # Other scopes may use custom stacks.
