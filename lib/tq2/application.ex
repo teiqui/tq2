@@ -38,8 +38,8 @@ defmodule Tq2.Application do
 
   # Exq supervisor spec
   def exq_spec do
-    case Mix.env() do
-      :test ->
+    case Application.get_env(:exq, :queue_adapter) do
+      Exq.Adapters.Queue.Mock ->
         nil
 
       _ ->

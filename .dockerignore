@@ -1,0 +1,15 @@
+.dockerignore
+.git
+.gitignore
+_build/
+assets/node_modules/
+node_modules/
+deps/
+!deps/phoenix
+!deps/phoenix_html
+doc/
+Dockerfile
+priv/static/*
+priv/waffle/*
+erl_crash.dump
+*.ez

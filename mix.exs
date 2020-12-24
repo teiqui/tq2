@@ -10,7 +10,8 @@ defmodule Tq2.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      releases: releases()
     ]
   end
 
@@ -82,6 +83,15 @@ defmodule Tq2.MixProject do
         "ecto.migrate --quiet",
         "run priv/repo/test_seeds.exs",
         "test"
+      ]
+    ]
+  end
+
+  defp releases do
+    [
+      tq2: [
+        include_executables_for: [:unix],
+        applications: [runtime_tools: :permanent]
       ]
     ]
   end
