@@ -40,11 +40,11 @@ COPY --from=assets_deps $APP_HOME/deps/phoenix_live_view $APP_HOME/deps/phoenix_
 
 WORKDIR $APP_HOME/assets
 
-RUN yarn install --prod
+RUN yarn install
 
-# COPY . $APP_HOME
+COPY . $APP_HOME
 
-# RUN yarn build
+RUN yarn deploy
 
 # ----------------------
 # ---- App builder -----
@@ -54,7 +54,6 @@ FROM elixir:alpine AS build
 LABEL stage=intermediate
 
 ARG APP_HOME
-
 ENV MIX_ENV prod
 
 RUN apk add --update --no-cache build-base
@@ -70,6 +69,7 @@ RUN mix local.hex --force         && \
     mix deps.get --only $MIX_ENV
 
 COPY . $APP_HOME
+COPY --from=assets_build $APP_HOME/priv/static ./priv/static
 
 RUN mix phx.digest && mix release
 
