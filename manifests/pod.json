@@ -122,7 +122,7 @@
             }
           },
           {
-            "name": "AWS_S#_BUCKET",
+            "name": "AWS_S3_BUCKET",
             "valueFrom": {
               "configMapKeyRef": {
                 "key": "awsS3Bucket",
