@@ -248,5 +248,23 @@ defmodule Tq2.InventoriesTest do
 
       assert %Ecto.Changeset{} = Inventories.change_item(session.account, item)
     end
+
+    test "create_or_update_item/2 should update item", %{session: session} do
+      original_item = fixture(session, :item)
+
+      attrs = %{description: "Changed", name: original_item.name}
+
+      {:ok, item} = Tq2.Inventories.create_or_update_item(session, attrs)
+
+      assert item.description == attrs.description
+    end
+
+    test "create_or_update_item/2 should create item", %{session: session} do
+      refute Tq2.Repo.get_by(Item, name: @valid_item_attrs.name)
+
+      assert {:ok, %Item{}} =
+               session
+               |> Tq2.Inventories.create_or_update_item(@valid_item_attrs)
+    end
   end
 end

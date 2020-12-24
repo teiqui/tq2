@@ -1,5 +1,5 @@
 defmodule Tq2Web.WebhookControllerTest do
-  use Tq2Web.ConnCase
+  use Tq2Web.ConnCase, async: true
   use Tq2.Support.LoginHelper
 
   describe "mercado pago" do

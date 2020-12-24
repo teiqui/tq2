@@ -78,6 +78,19 @@ config :exq,
   json_library: Jason,
   start_on_application: false
 
+# GDrive secrets
+config :goth,
+  json:
+    System.get_env("GDRIVE_CREDENTIALS_PATH", "config/credentials.sample.json") |> File.read!()
+
+# GDrive client config
+config :elixir_google_spreadsheets, :client,
+  request_workers: 5,
+  max_demand: 100,
+  max_interval: :timer.minutes(1),
+  interval: 100,
+  max_rows_per_request: 20
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

@@ -1,5 +1,5 @@
 defmodule Tq2Web.Store.PaymentLiveTest do
-  use Tq2Web.ConnCase, async: true
+  use Tq2Web.ConnCase
 
   import Mock
   import Phoenix.LiveViewTest

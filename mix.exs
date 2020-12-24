@@ -20,7 +20,7 @@ defmodule Tq2.MixProject do
   def application do
     [
       mod: {Tq2.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :elixir_google_spreadsheets]
     ]
   end
 
@@ -62,7 +62,9 @@ defmodule Tq2.MixProject do
       {:httpoison, ">= 1.7.0"},
       {:mock, ">= 0.3.6", only: :test},
       # Exq has poison as optional, but it's been installed
-      {:exq, ">= 0.14.0"}
+      {:exq, ">= 0.14.0"},
+      {:poison, "~> 3.1"},
+      {:elixir_google_spreadsheets, ">= 0.1.17"}
     ]
   end
 
