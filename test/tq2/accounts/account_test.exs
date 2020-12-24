@@ -49,5 +49,12 @@ defmodule Tq2.Accounts.AccountTest do
       assert "is invalid" in errors_on(changeset).status
       assert "is invalid" in errors_on(changeset).time_zone
     end
+
+    test "currency/1 for countries" do
+      ~w(ar cl co gt mx pe)
+      |> Enum.each(fn country ->
+        assert Account.currency(%Account{country: country})
+      end)
+    end
   end
 end

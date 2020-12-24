@@ -1,5 +1,5 @@
 defmodule Tq2.Gateways.MercadoPago.WebhookTest do
-  use Tq2.DataCase, async: true
+  use Tq2.DataCase
 
   import Mock
   import Tq2.Fixtures, only: [default_account: 0, create_session: 0]

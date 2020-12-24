@@ -125,6 +125,30 @@ defmodule Tq2.Inventories do
     Category.changeset(account, category, %{})
   end
 
+  @doc """
+  Get or create a category per name
+
+  ## Examples
+
+      iex> get_or_create_category_by_name(%Session{}, %{name: new_value})
+      {:ok, %Item{}}
+
+      iex> get_or_create_category_by_name(%Session{}, %{name: bad_name})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def get_or_create_category_by_name(%Session{account: account} = session, %{name: name} = attrs) do
+    Category
+    |> where(account_id: ^account.id)
+    |> where([c], ilike(c.name, ^String.trim(name)))
+    |> Repo.one()
+    |> get_or_create_category(session, attrs)
+  end
+
+  defp get_or_create_category(nil, session, attrs), do: create_category(session, attrs)
+
+  defp get_or_create_category(category, _, _), do: {:ok, category}
+
   defp list_categories_query(account) do
     Category
     |> where(account_id: ^account.id)
@@ -255,6 +279,34 @@ defmodule Tq2.Inventories do
   """
   def change_item(%Account{} = account, %Item{} = item) do
     Item.changeset(account, item, %{})
+  end
+
+  @doc """
+  Create or update an item per name
+
+  ## Examples
+
+      iex> create_or_update_item(%Session{}, %{name: new_value})
+      {:ok, %Item{}}
+
+      iex> create_or_update_item(%Session{}, %{name: bad_name})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_or_update_item(%Session{account: account} = session, %{name: name} = attrs) do
+    Item
+    |> where(account_id: ^account.id)
+    |> where([i], ilike(i.name, ^String.trim(name)))
+    |> Repo.one()
+    |> create_or_update_item(session, attrs)
+  end
+
+  defp create_or_update_item(nil, session, attrs) do
+    session |> create_item(attrs)
+  end
+
+  defp create_or_update_item(%Item{} = item, session, attrs) do
+    session |> update_item(item, attrs)
   end
 
   defp list_items_query(account) do

@@ -19,6 +19,14 @@ defmodule Tq2.Accounts.Account do
 
   @statuses ~w(green active suspended)
   @countries ~w(ar cl co gt mx pe)
+  @currencies %{
+    "ar" => "ARS",
+    "cl" => "CLP",
+    "co" => "COP",
+    "gt" => "GTQ",
+    "mx" => "MXN",
+    "pe" => "PEN"
+  }
 
   @doc false
   def changeset(account, attrs) do
@@ -54,5 +62,9 @@ defmodule Tq2.Accounts.Account do
         false -> [{field, options[:message] || "is invalid"}]
       end
     end)
+  end
+
+  def currency(%Account{country: country}) do
+    @currencies[country]
   end
 end
