@@ -153,6 +153,34 @@ defmodule Tq2.Accounts do
     Repo.get!(query, id)
   end
 
+  @doc """
+  Gets the account owner.
+
+  Returns nil if the owner does not exist.
+
+  ## Examples
+
+      iex> get_owner(%Account{id: 1})
+      %User{}
+
+      iex> get_owner!(%Account{id: 2})
+      nil
+
+  """
+  def get_owner(%Account{} = account) do
+    query =
+      from(
+        u in User,
+        join: m in assoc(u, :memberships),
+        where: m.account_id == ^account.id,
+        order_by: :id
+      )
+
+    query
+    |> first()
+    |> Repo.one()
+  end
+
   alias Tq2.Accounts.Password
 
   @doc """

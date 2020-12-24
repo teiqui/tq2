@@ -1,0 +1,46 @@
+<h2><%= dgettext("emails", "Hello %{name}!", name: @user.name) %></h2>
+
+<p>
+  <strong><%= dgettext("emails", "Congratulations!") %></strong>
+  <%= dgettext("emails", "You have a new order, this is it:") %>
+</p>
+
+<table>
+  <thead>
+    <th><%= dgettext("lines", "Name") %></th>
+    <th><%= dgettext("lines", "Quantity") %></th>
+    <th><%= dgettext("lines", "Price") %></th>
+    <th><%= dgettext("lines", "Total") %></th>
+  </thead>
+
+  <tbody>
+    <%= for line <- @order.cart.lines do %>
+      <tr>
+        <td><%= line.name %></td>
+        <td><%= line.quantity %></td>
+        <td><%= format_money line.price %></td>
+        <td><%= line_total @order.cart, line %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <td colspan="3">
+        <strong><%= dgettext("orders", "Total") %></strong>
+      </td>
+      <td>
+        <strong><%= cart_total @order.cart %></strong>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<p>
+  <%= dgettext("emails", "For reference, the order is #%{number}", number: @order.id) %>
+</p>
+
+<p>
+  <%= dgettext("emails", "Go to the app and see more information about this ") %>
+  <%= link dgettext("emails", "here"), to: Routes.order_url(Tq2Web.Endpoint, :show, @order) %>.
+</p>

@@ -29,8 +29,9 @@ defmodule Tq2Web.PasswordControllerTest do
   end
 
   describe "create password" do
-    alias Tq2.Notifications.Email
     use Bamboo.Test
+
+    alias Tq2.Notifications.Email
 
     test "sends instructions when email exist", %{conn: conn} do
       user = fixture(:user)

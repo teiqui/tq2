@@ -15,7 +15,7 @@ msgstr ""
 msgid "See you soon!"
 msgstr "¡Hasta pronto!"
 
-#: lib/tq2/notifications/email.ex:20
+#: lib/tq2/notifications/email.ex:43
 #: lib/tq2_web/live/registration/email_live.html.leex:4 lib/tq2_web/live/registration/name_live.html.leex:4
 #: lib/tq2_web/live/registration/password_live.html.leex:4 lib/tq2_web/live/registration/welcome_live.html.leex:4
 #: lib/tq2_web/templates/layout/root.html.leex:5 lib/tq2_web/templates/layout/root.html.leex:5

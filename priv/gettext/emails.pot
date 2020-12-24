@@ -28,7 +28,7 @@ msgstr ""
 msgid "If you didn't ask for this you can safely disregard this message"
 msgstr ""
 
-#: lib/tq2/notifications/email.ex:10
+#: lib/tq2/notifications/email.ex:11
 msgid "Password reset"
 msgstr ""
 
@@ -39,4 +39,66 @@ msgstr ""
 #: lib/tq2_web/templates/email/password_reset.html.eex:3
 #: lib/tq2_web/templates/email/password_reset.text.eex:3
 msgid "Someone requested a password reset for your user account"
+msgstr ""
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:4
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:3
+msgid "Congratulations!"
+msgstr ""
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:40
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:12
+msgid "For reference, the order is #%{number}"
+msgstr ""
+
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:42
+#: lib/tq2_web/templates/email/order_confirmation.text.eex:14
+msgid "For reference, your order is #%{number}"
+msgstr ""
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:44
+msgid "Go to the app and see more information about this "
+msgstr ""
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:14
+msgid "Go to the app and see more information about this, visit the following direction:"
+msgstr ""
+
+#: lib/tq2/notifications/email.ex:22 lib/tq2/notifications/email.ex:31
+msgid "New order"
+msgstr ""
+
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:4
+#: lib/tq2_web/templates/email/order_confirmation.text.eex:3
+msgid "Thanks!"
+msgstr ""
+
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:8
+#: lib/tq2_web/templates/email/order_confirmation.text.eex:6
+msgid "This is what you ask for:"
+msgstr ""
+
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:5
+#: lib/tq2_web/templates/email/order_confirmation.text.eex:4
+msgid "We have receive your order"
+msgstr ""
+
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:46
+#: lib/tq2_web/templates/email/order_confirmation.text.eex:16
+msgid "We'll keep you informed about it."
+msgstr ""
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:5
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:4
+msgid "You have a new order, this is it:"
+msgstr ""
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:45
+msgid "here"
+msgstr ""
+
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:1
+#: lib/tq2_web/templates/email/order_confirmation.text.eex:1 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:1
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:1
+msgid "Hello %{name}!"
 msgstr ""

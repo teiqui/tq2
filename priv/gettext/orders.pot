@@ -104,7 +104,9 @@ msgstr ""
 msgid "Payments"
 msgstr ""
 
-#: lib/tq2_web/templates/order/show.html.eex:53
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:32
+#: lib/tq2_web/templates/email/order_confirmation.text.eex:12 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:30
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:10 lib/tq2_web/templates/order/show.html.eex:53
 msgid "Total"
 msgstr ""
 

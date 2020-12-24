@@ -11,18 +11,22 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/templates/order/show.html.eex:33
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:12
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:10 lib/tq2_web/templates/order/show.html.eex:33
 msgid "Name"
 msgstr "Nombre"
 
-#: lib/tq2_web/templates/order/show.html.eex:35
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:14
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:12 lib/tq2_web/templates/order/show.html.eex:35
 msgid "Price"
 msgstr "Precio"
 
-#: lib/tq2_web/templates/order/show.html.eex:34
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:13
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:11 lib/tq2_web/templates/order/show.html.eex:34
 msgid "Quantity"
 msgstr "Cantidad"
 
-#: lib/tq2_web/templates/order/show.html.eex:36
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:15
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:13 lib/tq2_web/templates/order/show.html.eex:36
 msgid "Total"
 msgstr "Total"

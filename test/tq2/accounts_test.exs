@@ -185,6 +185,15 @@ defmodule Tq2.AccountsTest do
       refute Accounts.get_user(token: "wrong-token")
     end
 
+    test "get_owner/1 returns the owner user of the account", %{session: session} do
+      user = user_fixture(session)
+      assert Accounts.get_owner(session.account).id == user.id
+    end
+
+    test "get_owner/1 returns nil when account has no users", %{session: session} do
+      refute Accounts.get_owner(session.account)
+    end
+
     test "create_user/2 with valid data creates a user", %{session: session} do
       assert {:ok, %User{} = user} = Accounts.create_user(session, @valid_attrs)
       assert user.email == "some@email.com"
@@ -308,8 +317,9 @@ defmodule Tq2.AccountsTest do
   describe "password" do
     setup [:create_session]
 
-    alias Tq2.Notifications.Email
     use Bamboo.Test
+
+    alias Tq2.Notifications.Email
 
     test "reset", %{session: session} do
       user = user_fixture(session)

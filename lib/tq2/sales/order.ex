@@ -4,6 +4,7 @@ defmodule Tq2.Sales.Order do
   import Ecto.Changeset
 
   alias Tq2.Accounts.Account
+  alias Tq2.Repo
   alias Tq2.Sales.{Data, Order}
   alias Tq2.Transactions.Cart
 
@@ -37,6 +38,19 @@ defmodule Tq2.Sales.Order do
     |> assoc_constraint(:cart)
     |> assoc_constraint(:account)
   end
+
+  @doc false
+  def notify({:ok, order}) do
+    order = Repo.preload(order, [:account, :customer, cart: [lines: :item]])
+    owner = Tq2.Accounts.get_owner(order.account)
+
+    Tq2.Notifications.send_new_order(order, order.customer)
+    Tq2.Notifications.send_new_order(order, owner)
+
+    {:ok, order}
+  end
+
+  def notify({:error, _changeset} = result), do: result
 
   defp put_account(%Ecto.Changeset{} = changeset, %Account{} = account) do
     changeset |> change(account_id: account.id)

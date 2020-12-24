@@ -1,6 +1,8 @@
 defmodule Tq2.SalesTest do
   use Tq2.DataCase
 
+  import Tq2.Fixtures, only: [create_customer: 0]
+
   alias Tq2.Sales
 
   @valid_customer_attrs %{
@@ -121,7 +123,10 @@ defmodule Tq2.SalesTest do
   describe "orders" do
     setup [:create_session]
 
+    use Bamboo.Test
+
     alias Tq2.Sales.Order
+    alias Tq2.Notifications.Email
 
     defp create_session(_) do
       account = Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
@@ -152,6 +157,21 @@ defmodule Tq2.SalesTest do
     test "create_order/2 with invalid data returns error changeset", %{session: session} do
       assert {:error, %Ecto.Changeset{}} =
                Sales.create_order(session.account, @invalid_order_attrs)
+    end
+
+    test "create_order/2 notifies to owner and customer", %{session: session} do
+      {:ok, owner} = create_user(session)
+      {:ok, cart} = create_cart(session)
+
+      attrs =
+        @valid_order_attrs
+        |> Map.delete(:cart)
+        |> Map.put(:cart_id, cart.id)
+
+      assert {:ok, %Order{} = order} = Sales.create_order(session.account, attrs)
+
+      assert_delivered_email(Email.new_order(order, owner))
+      assert_delivered_email(Email.new_order(order, order.customer))
     end
 
     test "update_order/3 with valid data updates the order", %{session: session} do
@@ -186,5 +206,45 @@ defmodule Tq2.SalesTest do
 
       assert %Ecto.Changeset{} = Sales.change_order(session.account, order)
     end
+  end
+
+  defp create_user(session) do
+    Tq2.Accounts.create_user(session, %{
+      email: "some@email.com",
+      lastname: "some lastname",
+      name: "some name",
+      password: "123456"
+    })
+  end
+
+  defp create_cart(session) do
+    {:ok, cart} =
+      Tq2.Transactions.create_cart(session.account, %{
+        token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoo=",
+        customer_id: create_customer().id,
+        data: %{handing: "pickup"}
+      })
+
+    {:ok, item} =
+      Tq2.Inventories.create_item(session, %{
+        sku: "some sku",
+        name: "some name",
+        visibility: "visible",
+        price: Money.new(100, :ARS),
+        promotional_price: Money.new(90, :ARS),
+        cost: Money.new(80, :ARS)
+      })
+
+    {:ok, _line} =
+      Tq2.Transactions.create_line(cart, %{
+        name: "some name",
+        quantity: 42,
+        price: Money.new(100, :ARS),
+        promotional_price: Money.new(90, :ARS),
+        cost: Money.new(80, :ARS),
+        item: item
+      })
+
+    {:ok, cart}
   end
 end

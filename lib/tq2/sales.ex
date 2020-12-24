@@ -155,6 +155,7 @@ defmodule Tq2.Sales do
     account
     |> Order.changeset(%Order{}, attrs)
     |> Repo.insert()
+    |> Order.notify()
   end
 
   @doc """

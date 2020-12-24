@@ -46,8 +46,9 @@ defmodule Tq2.Accounts.PasswordTest do
   end
 
   describe "reset" do
-    alias Tq2.Notifications.Email
     use Bamboo.Test
+
+    alias Tq2.Notifications.Email
 
     test "reset" do
       user = user_fixture()

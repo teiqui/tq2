@@ -29,7 +29,7 @@ msgstr "Hola, %{name}"
 msgid "If you didn't ask for this you can safely disregard this message"
 msgstr "Si no pediste este cambio, puedes ignorar este correo"
 
-#: lib/tq2/notifications/email.ex:10
+#: lib/tq2/notifications/email.ex:11
 msgid "Password reset"
 msgstr "Restablecer contraseña"
 
@@ -41,3 +41,65 @@ msgstr "Cambiar contraseña"
 #: lib/tq2_web/templates/email/password_reset.text.eex:3
 msgid "Someone requested a password reset for your user account"
 msgstr "Alguien ha pedido modificar la contraseña de tu cuenta"
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:4
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:3
+msgid "Congratulations!"
+msgstr "¡Felicitaciones!"
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:40
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:12
+msgid "For reference, the order is #%{number}"
+msgstr "Para referencia el pedido es el #%{number}"
+
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:42
+#: lib/tq2_web/templates/email/order_confirmation.text.eex:14
+msgid "For reference, your order is #%{number}"
+msgstr "Para referencia, tu pedido es el #%{number}"
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:44
+msgid "Go to the app and see more information about this "
+msgstr "Puedes ver más información acerca de este pedido "
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:14
+msgid "Go to the app and see more information about this, visit the following direction:"
+msgstr "Puedes ver más información acerca de este pedido ingresando a la siguiente dirección:"
+
+#: lib/tq2/notifications/email.ex:22 lib/tq2/notifications/email.ex:31
+msgid "New order"
+msgstr "Nuevo pedido"
+
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:4
+#: lib/tq2_web/templates/email/order_confirmation.text.eex:3
+msgid "Thanks!"
+msgstr "¡Muchas gracias!"
+
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:8
+#: lib/tq2_web/templates/email/order_confirmation.text.eex:6
+msgid "This is what you ask for:"
+msgstr "Esto fue lo que ordenaste:"
+
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:5
+#: lib/tq2_web/templates/email/order_confirmation.text.eex:4
+msgid "We have receive your order"
+msgstr "Hemos recibido tu pedido"
+
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:46
+#: lib/tq2_web/templates/email/order_confirmation.text.eex:16
+msgid "We'll keep you informed about it."
+msgstr "Te mantendremos al tanto de su estado."
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:5
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:4
+msgid "You have a new order, this is it:"
+msgstr "Hicieron un nuevo pedido, esto fue lo que ordenaron:"
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:45
+msgid "here"
+msgstr "aquí"
+
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:1
+#: lib/tq2_web/templates/email/order_confirmation.text.eex:1 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:1
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:1
+msgid "Hello %{name}!"
+msgstr "¡Hola, %{name}!"
