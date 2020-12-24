@@ -12,7 +12,7 @@ defmodule Tq2Web.Router do
     plug :put_cache_control_headers
 
     if Mix.env() == :prod do
-      plug Plug.SSL,
+      plug Tq2Web.SSLPlug,
         host: nil,
         hsts: true,
         preload: true,
