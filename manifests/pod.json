@@ -1,0 +1,234 @@
+{
+  "apiVersion": "v1",
+  "kind": "Pod",
+  "metadata": {
+    "annotations": {
+      "cluster-autoscaler.kubernetes.io/safe-to-evict": "false"
+    },
+    "labels": {
+      "app": "tq2-app"
+    }
+  },
+  "spec": {
+    "containers": [
+      {
+        "name": "app",
+        "image": "568278658148.dkr.ecr.sa-east-1.amazonaws.com/tq2-app:latest",
+        "args": [
+          "eval", "Tq2.Release.migrate()"
+        ],
+        "env": [
+          {
+            "name": "MIX_ENV",
+            "value": "production"
+          },
+          {
+            "name": "APP_SUBDOMAIN",
+            "valueFrom": {
+              "configMapKeyRef": {
+                "key": "appSubdomain",
+                "name": "tq2-app-config"
+              }
+            }
+          },
+          {
+            "name": "STORE_SUBDOMAIN",
+            "valueFrom": {
+              "configMapKeyRef": {
+                "key": "storeSubdomain",
+                "name": "tq2-app-config"
+              }
+            }
+          },
+          {
+            "name": "CREDENTIALS_PATH",
+            "valueFrom": {
+              "configMapKeyRef": {
+                "key": "credentialsPath",
+                "name": "tq2-app-config"
+              }
+            }
+          },
+          {
+            "name": "DATABASE_URL",
+            "valueFrom": {
+              "secretKeyRef": {
+                "key": "databaseUrl",
+                "name": "tq2-app-secrets"
+              }
+            }
+          },
+          {
+            "name": "REDIS_URL",
+            "valueFrom": {
+              "secretKeyRef": {
+                "key": "redisUrl",
+                "name": "tq2-app-secrets"
+              }
+            }
+          },
+          {
+            "name": "SECRET_KEY_BASE",
+            "valueFrom": {
+              "secretKeyRef": {
+                "key": "secretKeyBase",
+                "name": "tq2-app-secrets"
+              }
+            }
+          },
+          {
+            "name": "EMAIL_ADDRESS",
+            "valueFrom": {
+              "configMapKeyRef": {
+                "key": "emailAddress",
+                "name": "tq2-app-config"
+              }
+            }
+          },
+          {
+            "name": "SMTP_ADDRESS",
+            "valueFrom": {
+              "configMapKeyRef": {
+                "key": "smtpAddress",
+                "name": "tq2-app-config"
+              }
+            }
+          },
+          {
+            "name": "SMTP_USER_NAME",
+            "valueFrom": {
+              "secretKeyRef": {
+                "key": "smtpUser",
+                "name": "tq2-app-secrets"
+              }
+            }
+          },
+          {
+            "name": "SMTP_PASSWORD",
+            "valueFrom": {
+              "secretKeyRef": {
+                "key": "smtpPassword",
+                "name": "tq2-app-secrets"
+              }
+            }
+          },
+          {
+            "name": "DEFAULT_CRAWLER_URL",
+            "valueFrom": {
+              "configMapKeyRef": {
+                "key": "defaultCrawlerUrl",
+                "name": "tq2-app-config"
+              }
+            }
+          },
+          {
+            "name": "AWS_S#_BUCKET",
+            "valueFrom": {
+              "configMapKeyRef": {
+                "key": "awsS3Bucket",
+                "name": "tq2-app-config"
+              }
+            }
+          },
+          {
+            "name": "AWS_REGION",
+            "valueFrom": {
+              "configMapKeyRef": {
+                "key": "awsRegion",
+                "name": "tq2-app-config"
+              }
+            }
+          },
+          {
+            "name": "AWS_ACCESS_KEY_ID",
+            "valueFrom": {
+              "secretKeyRef": {
+                "key": "awsAccessKeyId",
+                "name": "tq2-app-secrets"
+              }
+            }
+          },
+          {
+            "name": "AWS_SECRET_ACCESS_KEY",
+            "valueFrom": {
+              "secretKeyRef": {
+                "key": "awsSecretAccessKey",
+                "name": "tq2-app-secrets"
+              }
+            }
+          },
+          {
+            "name": "MP_ARS_TOKEN",
+            "valueFrom": {
+              "secretKeyRef": {
+                "key": "mpArsToken",
+                "name": "tq2-app-secrets"
+              }
+            }
+          },
+          {
+            "name": "MP_CLP_TOKEN",
+            "valueFrom": {
+              "secretKeyRef": {
+                "key": "mpClpToken",
+                "name": "tq2-app-secrets"
+              }
+            }
+          },
+          {
+            "name": "MP_COP_TOKEN",
+            "valueFrom": {
+              "secretKeyRef": {
+                "key": "mpCopToken",
+                "name": "tq2-app-secrets"
+              }
+            }
+          },
+          {
+            "name": "MP_MXN_TOKEN",
+            "valueFrom": {
+              "secretKeyRef": {
+                "key": "mpMxnToken",
+                "name": "tq2-app-secrets"
+              }
+            }
+          },
+          {
+            "name": "MP_PEN_TOKEN",
+            "valueFrom": {
+              "secretKeyRef": {
+                "key": "mpPenToken",
+                "name": "tq2-app-secrets"
+              }
+            }
+          },
+          {
+            "name": "SENTRY_DSN",
+            "valueFrom": {
+              "secretKeyRef": {
+                "key": "sentryDsn",
+                "name": "tq2-app-secrets"
+              }
+            }
+          }
+        ],
+        "volumeMounts": [
+          {
+            "name": "tq2-app-secret-volume",
+            "mountPath": "/opt/app/config/app_credentials.json",
+            "subPath": "app_credentials.json"
+          }
+        ]
+      }
+    ],
+    "volumes": [
+      {
+        "name": "tq2-app-secret-volume",
+        "secret": {
+          "secretName": "tq2-app-secrets"
+        }
+      }
+    ],
+    "restartPolicy": "Never"
+  }
+}
