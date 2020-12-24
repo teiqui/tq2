@@ -10,7 +10,16 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :tq2, Tq2Web.Endpoint,
-  url: [host: "example.com", port: 80],
+  url: [
+    host: Enum.join([System.get_env("APP_SUBDOMAIN", "app"), "teiqui.com"], "."),
+    scheme: "https",
+    port: 443
+  ],
+  http: [port: 80],
+  server: true,
+  load_from_system_env: true,
+  root: ".",
+  version: Application.spec(:tq2, :vsn),
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
@@ -50,6 +59,13 @@ config :logger, level: :info
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
+# ## Using releases
+#
+# If you are doing OTP releases, you need to instruct Phoenix
+# to start the server for all endpoints:
+
+config :phoenix, :serve_endpoints, true
+
 # Waffle config
 config :waffle,
   storage: Waffle.Storage.S3,
@@ -57,9 +73,9 @@ config :waffle,
   asset_host:
     Enum.join([
       "https://s3.",
-      System.fetch_env!("AWS_REGION"),
+      System.get_env("AWS_REGION", "sa-east-1"),
       ".amazonaws.com/",
-      System.fetch_env!("AWS_S3_BUCKET")
+      System.get_env("AWS_S3_BUCKET", "tq2")
     ])
 
 # AWS config

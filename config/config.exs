@@ -47,7 +47,7 @@ config :scrivener_html,
 # Sentry config
 config :sentry,
   dsn: System.get_env("SENTRY_DSN"),
-  release: System.get_env("APP_RELEASE"),
+  release: Application.spec(:tq2, :vsn),
   root_source_code_paths: [File.cwd!()],
   enable_source_code_context: true,
   environment_name: Mix.env(),
@@ -80,8 +80,7 @@ config :exq,
 
 # GDrive secrets
 config :goth,
-  json:
-    System.get_env("GDRIVE_CREDENTIALS_PATH", "config/credentials.sample.json") |> File.read!()
+  json: System.get_env("CREDENTIALS_PATH", "config/credentials.sample.json") |> File.read!()
 
 # GDrive client config
 config :elixir_google_spreadsheets, :client,

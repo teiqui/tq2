@@ -79,7 +79,7 @@ defmodule Tq2.Inventories.ItemImportTest do
       refute item.image
     end
 
-    if System.get_env("GDRIVE_CREDENTIALS_PATH") == nil, do: @tag(:skip)
+    if System.get_env("CREDENTIALS_PATH") == nil, do: @tag(:skip)
 
     test "batch_import/2 should create 13 items with remote sheet" do
       [_h | spreadsheet] =
