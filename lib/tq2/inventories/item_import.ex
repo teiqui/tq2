@@ -74,7 +74,7 @@ defmodule Tq2.Inventories.ItemImport do
     |> Map.merge(attrs)
   end
 
-  defp image_from_url(v, _) when v in [nil, ""], do: nil
+  defp image_from_url(url, _) when url in [nil, ""], do: nil
 
   defp image_from_url(url, name) do
     # Similar than Waffle internal url handle
