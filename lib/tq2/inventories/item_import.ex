@@ -67,11 +67,10 @@ defmodule Tq2.Inventories.ItemImport do
 
     category = row |> field_value(:category, headers_with_index)
 
-    %{
+    Map.merge(%{
       image: image,
       category_id: category_ids[category]
-    }
-    |> Map.merge(attrs)
+    }, attrs)
   end
 
   defp image_from_url(url, _) when url in [nil, ""], do: nil
