@@ -10,11 +10,44 @@
           <%= dgettext("stores", "Online store") %>
         </h2>
 
-        <h1 class="h5 font-weight-bold">
+        <h1 class="h5 font-weight-bold mb-1">
           <%= live_redirect to: Routes.counter_path(@socket, :index, @store), class: "text-reset text-decoration-none" do %>
             <%= @store.name %>
           <% end %>
         </h1>
+
+        <%= if @store.data && @store.data.facebook do %>
+          <%= link to: "https://www.facebook.com/#{@store.data.facebook}",
+                   class: "text-reset mr-3",
+                   title: @store.data.facebook,
+                   target: '_blank' do %>
+            <svg class="bi" width="16" height="16" fill="currentColor">
+              <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#facebook") %>"/>
+            </svg>
+          <% end %>
+        <% end %>
+
+        <%= if @store.data && @store.data.instagram do %>
+          <%= link to: "https://www.instagram.com/#{@store.data.instagram}",
+                   class: "text-reset mr-3",
+                   title: @store.data.instagram,
+                   target: '_blank' do %>
+            <svg class="bi" width="16" height="16" fill="currentColor">
+              <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#instagram") %>"/>
+            </svg>
+          <% end %>
+        <% end %>
+
+        <%= if @store.data && @store.data.whatsapp do %>
+          <%= link to: "https://wa.me/#{@store.data.whatsapp}",
+                   class: "text-reset mr-3",
+                   title: @store.data.whatsapp,
+                   target: '_blank' do %>
+            <svg class="bi" width="16" height="16" fill="currentColor">
+              <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#telephone") %>"/>
+            </svg>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>
