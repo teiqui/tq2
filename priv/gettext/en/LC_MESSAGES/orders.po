@@ -67,7 +67,7 @@ msgstr ""
 msgid "Order updated successfully."
 msgstr ""
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:27
+#: lib/tq2_web/templates/layout/_menu.html.eex:29
 #: lib/tq2_web/templates/order/index.html.eex:2
 msgid "Orders"
 msgstr ""

@@ -28,7 +28,8 @@ defmodule Tq2Web.PasswordViewTest do
       name: "John",
       lastname: "Doe",
       email: "j@doe.com",
-      password_reset_token: "test-token"
+      password_reset_token: "test-token",
+      role: "owner"
     }
 
     changeset = Accounts.change_user_password(user)

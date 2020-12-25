@@ -25,5 +25,6 @@ session = %Tq2.Accounts.Session{account: account}
     name: "Admin",
     lastname: "Admin",
     email: "admin@tq2.com",
-    password: "123456"
+    password: "123456",
+    role: "admin"
   })

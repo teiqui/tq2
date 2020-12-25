@@ -45,7 +45,7 @@ defmodule Tq2Web.AccountControllerTest do
   end
 
   describe "empty index" do
-    @tag login_as: "test@user.com"
+    @tag login_as: "test@user.com", login_role: "admin"
     test "lists all accounts", %{conn: conn} do
       Tq2.Accounts.Account
       |> Tq2.Repo.get_by!(name: "test_account")
@@ -60,7 +60,7 @@ defmodule Tq2Web.AccountControllerTest do
   describe "index" do
     setup [:create_account]
 
-    @tag login_as: "test@user.com"
+    @tag login_as: "test@user.com", login_role: "admin"
     test "lists all accounts", %{conn: conn} do
       conn = get(conn, Routes.account_path(conn, :index))
 
@@ -69,7 +69,7 @@ defmodule Tq2Web.AccountControllerTest do
   end
 
   describe "new account" do
-    @tag login_as: "test@user.com"
+    @tag login_as: "test@user.com", login_role: "admin"
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.account_path(conn, :new))
 
@@ -78,7 +78,7 @@ defmodule Tq2Web.AccountControllerTest do
   end
 
   describe "create account" do
-    @tag login_as: "test@user.com"
+    @tag login_as: "test@user.com", login_role: "admin"
     test "redirects to show when data is valid", %{conn: conn} do
       conn = post(conn, Routes.account_path(conn, :create), account: @create_attrs)
 
@@ -86,7 +86,7 @@ defmodule Tq2Web.AccountControllerTest do
       assert redirected_to(conn) == Routes.account_path(conn, :show, id)
     end
 
-    @tag login_as: "test@user.com"
+    @tag login_as: "test@user.com", login_role: "admin"
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.account_path(conn, :create), account: @invalid_attrs)
 
@@ -97,7 +97,7 @@ defmodule Tq2Web.AccountControllerTest do
   describe "edit account" do
     setup [:create_account]
 
-    @tag login_as: "test@user.com"
+    @tag login_as: "test@user.com", login_role: "admin"
     test "renders form for editing chosen account", %{conn: conn, account: account} do
       conn = get(conn, Routes.account_path(conn, :edit, account))
 
@@ -108,14 +108,14 @@ defmodule Tq2Web.AccountControllerTest do
   describe "update account" do
     setup [:create_account]
 
-    @tag login_as: "test@user.com"
+    @tag login_as: "test@user.com", login_role: "admin"
     test "redirects when data is valid", %{conn: conn, account: account} do
       conn = put(conn, Routes.account_path(conn, :update, account), account: @update_attrs)
 
       assert redirected_to(conn) == Routes.account_path(conn, :show, account)
     end
 
-    @tag login_as: "test@user.com"
+    @tag login_as: "test@user.com", login_role: "admin"
     test "renders errors when data is invalid", %{conn: conn, account: account} do
       conn = put(conn, Routes.account_path(conn, :update, account), account: @invalid_attrs)
 
@@ -126,7 +126,7 @@ defmodule Tq2Web.AccountControllerTest do
   describe "delete account" do
     setup [:create_account]
 
-    @tag login_as: "test@user.com"
+    @tag login_as: "test@user.com", login_role: "admin"
     test "deletes chosen account", %{conn: conn, account: account} do
       conn = delete(conn, Routes.account_path(conn, :delete, account))
 

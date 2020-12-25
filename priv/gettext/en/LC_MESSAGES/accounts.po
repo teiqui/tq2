@@ -12,7 +12,7 @@ msgstr ""
 "Plural-Forms: nplurals=2\n"
 
 #: lib/tq2_web/templates/account/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:18
+#: lib/tq2_web/templates/layout/_menu.html.eex:19
 msgid "Accounts"
 msgstr ""
 
@@ -122,14 +122,14 @@ msgstr ""
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
 
-#: lib/tq2_web/controllers/account_controller.ex:25
+#: lib/tq2_web/controllers/account_controller.ex:26
 msgid "Account created successfully."
 msgstr ""
 
-#: lib/tq2_web/controllers/account_controller.ex:65
+#: lib/tq2_web/controllers/account_controller.ex:66
 msgid "Account deleted successfully."
 msgstr ""
 
-#: lib/tq2_web/controllers/account_controller.ex:52
+#: lib/tq2_web/controllers/account_controller.ex:53
 msgid "Account updated successfully."
 msgstr ""

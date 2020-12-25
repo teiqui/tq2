@@ -20,7 +20,7 @@ msgid "Back"
 msgstr ""
 
 #: lib/tq2_web/templates/category/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:33
+#: lib/tq2_web/templates/layout/_menu.html.eex:35
 msgid "Categories"
 msgstr ""
 

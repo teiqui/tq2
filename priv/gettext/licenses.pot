@@ -35,7 +35,7 @@ msgstr ""
 msgid "Unpaid"
 msgstr ""
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:21
+#: lib/tq2_web/templates/layout/_menu.html.eex:23
 #: lib/tq2_web/templates/license/show.html.eex:2
 msgid "Licenses"
 msgstr ""

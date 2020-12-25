@@ -9,14 +9,22 @@ defmodule Tq2Web.UserControllerTest do
     email: "some@email.com",
     lastname: "some lastname",
     name: "some name",
-    password: "123456"
+    password: "123456",
+    role: "owner"
   }
   @update_attrs %{
     email: "new@email.com",
     lastname: "some updated lastname",
-    name: "some updated name"
+    name: "some updated name",
+    role: "owner"
   }
-  @invalid_attrs %{email: "wrong@email", lastname: nil, name: nil, password: "123"}
+  @invalid_attrs %{
+    email: "wrong@email",
+    lastname: nil,
+    name: nil,
+    password: "123",
+    role: nil
+  }
 
   defp fixture(:user) do
     account = Tq2.Repo.get_by!(Account, name: "test_account")

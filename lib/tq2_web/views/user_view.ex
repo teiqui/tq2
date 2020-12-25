@@ -20,6 +20,10 @@ defmodule Tq2Web.UserView do
     )
   end
 
+  def link_to_delete(%{assigns: %{current_session: %{user: user}}}, user) do
+    nil
+  end
+
   def link_to_delete(conn, user) do
     icon_link(
       "trash2-fill",

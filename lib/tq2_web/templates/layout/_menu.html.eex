@@ -14,8 +14,10 @@
 
     <div class="collapse navbar-collapse" id="menu">
       <ul class="navbar-nav mr-auto">
-        <%= menu_item @conn, to: Routes.account_path(@conn, :index) do %>
-          <%= dgettext("accounts", "Accounts") %>
+        <%= if @user.role == "admin" do %>
+          <%= menu_item @conn, to: Routes.account_path(@conn, :index) do %>
+            <%= dgettext("accounts", "Accounts") %>
+          <% end %>
         <% end %>
         <%= menu_item @conn, to: Routes.license_path(@conn, :show) do %>
           <%= dgettext("licenses", "Licenses") %>

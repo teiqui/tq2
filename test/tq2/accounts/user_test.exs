@@ -9,13 +9,15 @@ defmodule Tq2.Accounts.UserTest do
       lastname: "some lastname",
       email: "some@email.com",
       password: "123456",
-      password_confirmation: "123456"
+      password_confirmation: "123456",
+      role: "owner"
     }
     @invalid_attrs %{
       name: nil,
       lastname: nil,
       email: "wrong@email",
-      password: "123"
+      password: "123",
+      role: nil
     }
 
     test "changeset with valid attributes" do

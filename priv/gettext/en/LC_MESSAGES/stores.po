@@ -143,7 +143,7 @@ msgstr ""
 msgid "WhatsApp"
 msgstr ""
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:24
+#: lib/tq2_web/templates/layout/_menu.html.eex:26
 msgid "Store"
 msgstr ""
 

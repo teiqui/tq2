@@ -13,6 +13,7 @@ defmodule Tq2.Accounts.User do
     field :password, :string, virtual: true
     field :password_reset_token, :string
     field :password_reset_sent_at, :utc_datetime
+    field :role, :string, default: "owner"
     field :lock_version, :integer, default: 0
 
     has_many :memberships, Membership

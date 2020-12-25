@@ -13,7 +13,8 @@ defmodule Tq2.Accounts.AuthTest do
         email: "some@email.com",
         lastname: "some lastname",
         name: "some name",
-        password: "123456"
+        password: "123456",
+        role: "owner"
       })
 
     {:ok, user} = Accounts.create_user(session, user_attrs)

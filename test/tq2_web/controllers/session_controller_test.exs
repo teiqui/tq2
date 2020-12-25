@@ -8,7 +8,8 @@ defmodule Tq2Web.SessionControllerTest do
     email: "some@email.com",
     lastname: "some lastname",
     name: "some name",
-    password: "123456"
+    password: "123456",
+    role: "owner"
   }
   @invalid_user %{email: "wrong@email.com", password: "wrong"}
 

@@ -106,18 +106,21 @@ defmodule Tq2.AccountsTest do
       name: "some name",
       lastname: "some lastname",
       email: "some@email.com",
-      password: "123456"
+      password: "123456",
+      role: "owner"
     }
     @update_attrs %{
       name: "some updated name",
       lastname: "some updated lastname",
-      email: "new@email.com"
+      email: "new@email.com",
+      role: "owner"
     }
     @invalid_attrs %{
       name: nil,
       lastname: nil,
       email: "wrong@email",
-      password: "123"
+      password: "123",
+      role: nil
     }
 
     defp user_fixture(session, attrs \\ %{}) do
@@ -126,7 +129,8 @@ defmodule Tq2.AccountsTest do
           email: "some@email.com",
           lastname: "some lastname",
           name: "some name",
-          password: "123456"
+          password: "123456",
+          role: "owner"
         })
 
       {:ok, user} = Accounts.create_user(session, user_attrs)

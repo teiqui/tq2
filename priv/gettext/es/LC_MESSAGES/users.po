@@ -11,7 +11,7 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/views/user_view.ex:29
+#: lib/tq2_web/views/user_view.ex:33
 msgid "Are you sure?"
 msgstr "¿Está seguro de eliminar el usuario?"
 
@@ -20,11 +20,11 @@ msgstr "¿Está seguro de eliminar el usuario?"
 msgid "Back"
 msgstr "Listado de usuarios"
 
-#: lib/tq2_web/views/user_view.ex:46
+#: lib/tq2_web/views/user_view.ex:50
 msgid "Create"
 msgstr "Crear usuario"
 
-#: lib/tq2_web/views/user_view.ex:26
+#: lib/tq2_web/views/user_view.ex:30
 msgid "Delete"
 msgstr "Eliminar usuario"
 
@@ -83,7 +83,7 @@ msgstr "Confirmación de la contraseña"
 msgid "Show"
 msgstr "Ver usuario"
 
-#: lib/tq2_web/views/user_view.ex:47
+#: lib/tq2_web/views/user_view.ex:51
 msgid "Update"
 msgstr "Actualizar usuario"
 
@@ -99,7 +99,7 @@ msgstr "Usuario eliminado correctamente."
 msgid "User updated successfully."
 msgstr "Usuario actualizado correctamente."
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:30
+#: lib/tq2_web/templates/layout/_menu.html.eex:32
 #: lib/tq2_web/templates/user/index.html.eex:2
 msgid "Users"
 msgstr "Usuarios"

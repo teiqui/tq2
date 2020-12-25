@@ -569,7 +569,8 @@ defmodule Tq2.Accounts do
         lastname: registration.name,
         email: registration.email,
         password: registration.password,
-        password_confirmation: registration.password
+        password_confirmation: registration.password,
+        role: "owner"
       })
 
     User.create_changeset(%User{}, attrs)

@@ -5,6 +5,7 @@ defmodule Tq2Web.AccountController do
   alias Tq2.Accounts.Account
 
   plug :authenticate
+  plug :authorize, as: :admin
 
   def index(conn, params) do
     page = Accounts.list_accounts(params)

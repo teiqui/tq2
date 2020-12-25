@@ -57,3 +57,7 @@ msgstr ""
 #: lib/tq2_web/live/registration/name_live.html.leex:39
 msgid "Sign in"
 msgstr ""
+
+#: lib/tq2_web/plugs/authorization_plug.ex:26
+msgid "You are not authorized to see the content."
+msgstr ""

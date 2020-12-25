@@ -17,7 +17,9 @@
   </head>
 
   <body class="mt-3 mb-5 bg-light <%= if @current_session, do: " pt-5" %>">
-    <%= if @current_session, do: render "_menu.html", conn: @conn, account: @current_session.account %>
+    <%= if @current_session, do: render "_menu.html", conn: @conn,
+                                                      account: @current_session.account,
+                                                      user: @current_session.user %>
 
     <%= @inner_content %>
   </body>

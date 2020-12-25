@@ -26,6 +26,7 @@ defmodule Tq2Web do
       import Plug.Conn
       import Tq2Web.Gettext
       import Tq2Web.SessionPlug, only: [authenticate: 2]
+      import Tq2Web.AuthorizationPlug, only: [authorize: 2]
     end
   end
 
