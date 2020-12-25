@@ -181,6 +181,14 @@ defmodule Tq2.Inventories do
       [%Item{}, ...]
 
   """
+  def list_visible_items(account, %{search: query} = params) do
+    account
+    |> list_items_query()
+    |> search_items(query)
+    |> where(visibility: "visible")
+    |> Repo.paginate(params)
+  end
+
   def list_visible_items(account, params) do
     account
     |> list_items_query()
@@ -315,5 +323,17 @@ defmodule Tq2.Inventories do
     |> join(:left, [i], c in assoc(i, :category))
     |> order_by(asc: :name)
     |> preload([i, c], category: c)
+  end
+
+  defp search_items(item_scope, query) do
+    item_scope
+    |> where(
+      [i],
+      fragment(
+        "immutable_unaccent(?) % ANY(STRING_TO_ARRAY(immutable_unaccent(?), ' '))",
+        i.name,
+        ^String.trim(query)
+      )
+    )
   end
 end
