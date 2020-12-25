@@ -50,8 +50,7 @@ module.exports = (env, options) => {
                 sassOptions: {
                   includePaths: [
                     Path.resolve(__dirname, 'node_modules/bootstrap'),
-                    Path.resolve(__dirname, 'node_modules/bootswatch'),
-                    Path.resolve(__dirname, 'node_modules/nprogress')
+                    Path.resolve(__dirname, 'node_modules/bootswatch')
                   ]
                 }
               }
