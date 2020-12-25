@@ -35,7 +35,7 @@ jobs:
         uses: actions/setup-elixir@v1
         with:
           otp-version: '23.1'
-          elixir-version: '1.11.2'
+          elixir-version: '1.11.3'
 
       - name: Test
         env:

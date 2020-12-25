@@ -14,31 +14,31 @@
 
     <div class="collapse navbar-collapse" id="menu">
       <ul class="navbar-nav mr-auto">
-        <%= if @user.role == "admin" do %>
-          <%= menu_item @conn, to: Routes.account_path(@conn, :index) do %>
-            <%= dgettext("accounts", "Accounts") %>
-          <% end %>
-        <% end %>
-        <%= menu_item @conn, to: Routes.license_path(@conn, :show) do %>
-          <%= dgettext("licenses", "Licenses") %>
-        <% end %>
         <%= menu_item @conn, to: Routes.store_path(@conn, :show) do %>
           <%= dgettext("stores", "Store") %>
         <% end %>
         <%= menu_item @conn, to: Routes.order_path(@conn, :index) do %>
           <%= dgettext("orders", "Orders") %>
         <% end %>
-        <%= menu_item @conn, to: Routes.user_path(@conn, :index) do %>
-          <%= dgettext("users", "Users") %>
+        <%= menu_item @conn, to: Routes.item_path(@conn, :index) do %>
+          <%= dgettext("items", "Items") %>
         <% end %>
         <%= menu_item @conn, to: Routes.category_path(@conn, :index) do %>
           <%= dgettext("categories", "Categories") %>
         <% end %>
-        <%= menu_item @conn, to: Routes.item_path(@conn, :index) do %>
-          <%= dgettext("items", "Items") %>
+        <%= menu_item @conn, to: Routes.user_path(@conn, :index) do %>
+          <%= dgettext("users", "Users") %>
         <% end %>
         <%= menu_item @conn, to: Routes.app_path(@conn, :index) do %>
           <%= dgettext("apps", "Apps") %>
+        <% end %>
+        <%= menu_item @conn, to: Routes.license_path(@conn, :show) do %>
+          <%= dgettext("licenses", "Licenses") %>
+        <% end %>
+        <%= if @user.role == "admin" do %>
+          <%= menu_item @conn, to: Routes.account_path(@conn, :index) do %>
+            <%= dgettext("accounts", "Accounts") %>
+          <% end %>
         <% end %>
       </ul>
     </div>
