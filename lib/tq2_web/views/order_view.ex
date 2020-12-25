@@ -3,7 +3,7 @@ defmodule Tq2Web.OrderView do
   use Scrivener.HTML
 
   import Tq2Web.Utils, only: [localize_datetime: 1, invert: 1]
-  import Tq2Web.LinkHelpers, only: [icon_link: 2]
+  import Tq2Web.LinkHelpers, only: [icon_link: 3]
 
   alias Tq2.Payments.Payment
   alias Tq2.Transactions.Cart
@@ -26,6 +26,7 @@ defmodule Tq2Web.OrderView do
 
   def link_to_show(conn, order) do
     icon_link(
+      conn,
       "eye-fill",
       title: dgettext("orders", "Show"),
       to: Routes.order_path(conn, :show, order),
@@ -35,6 +36,7 @@ defmodule Tq2Web.OrderView do
 
   def link_to_edit(conn, order) do
     icon_link(
+      conn,
       "pencil-fill",
       title: dgettext("orders", "Edit"),
       to: Routes.order_path(conn, :edit, order),
@@ -71,15 +73,16 @@ defmodule Tq2Web.OrderView do
     |> format_money()
   end
 
-  defp pending_payment_alert(%Payment{status: "pending"}) do
+  defp pending_payment_alert(conn, %Payment{status: "pending"}) do
     options = [class: "bi", width: "14", height: "14", fill: "currentColor"]
+    icon_path = Routes.static_path(conn, "/images/bootstrap-icons.svg#exclamation-triangle")
 
     content_tag(:svg, options) do
-      raw("<use xlink:href=\"/images/bootstrap-icons.svg#exclamation-triangle\"/>")
+      raw("<use xlink:href=\"#{icon_path}\"/>")
     end
   end
 
-  defp pending_payment_alert(_), do: nil
+  defp pending_payment_alert(_conn, _), do: nil
 
   defp payment_kind(kind), do: @payment_kinds[kind]
 end

@@ -4,6 +4,7 @@ defmodule <%= inspect context.web_module %>.<%= inspect Module.concat(schema.web
 
   def link_to_show(conn, <%= schema.singular %>) do
     icon_link(
+      conn,
       "eye-fill",
       title: dgettext("<%= schema.plural %>", "Show"),
       to: Routes.<%= schema.route_helper %>_path(conn, :show, <%= schema.singular %>),
@@ -13,6 +14,7 @@ defmodule <%= inspect context.web_module %>.<%= inspect Module.concat(schema.web
 
   def link_to_edit(conn, <%= schema.singular %>) do
     icon_link(
+      conn,
       "pencil-fill",
       title: dgettext("<%= schema.plural %>", "Edit"),
       to: Routes.<%= schema.route_helper %>_path(conn, :edit, <%= schema.singular %>),
@@ -22,6 +24,7 @@ defmodule <%= inspect context.web_module %>.<%= inspect Module.concat(schema.web
 
   def link_to_delete(conn, <%= schema.singular %>) do
     icon_link(
+      conn,
       "trash2-fill",
       title: dgettext("<%= schema.plural %>", "Delete"),
       to: Routes.<%= schema.route_helper %>_path(conn, :delete, <%= schema.singular %>),

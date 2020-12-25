@@ -3,21 +3,26 @@ defmodule Tq2Web.LinkHelpers do
   import Phoenix.HTML.Link, only: [link: 2]
   import Phoenix.HTML.Tag, only: [content_tag: 3]
 
-  def icon_link(icon, [{:text, text} | opts]) do
-    {:safe, icon_svg} = icon_tag(icon)
+  alias Tq2Web.Router.Helpers, as: Routes
+
+  def icon_link(conn, icon, [{:text, text} | opts]) do
+    {:safe, icon_svg} = icon_tag(conn, icon)
 
     raw("#{icon_svg} #{text}") |> link(opts)
   end
 
-  def icon_link(icon, opts) do
-    icon_tag(icon) |> link(opts)
+  def icon_link(conn, icon, opts) do
+    conn
+    |> icon_tag(icon)
+    |> link(opts)
   end
 
-  defp icon_tag(icon) do
+  defp icon_tag(conn, icon) do
     options = [class: "bi", width: "14", height: "14", fill: "currentColor"]
+    icon_path = Routes.static_path(conn, "/images/bootstrap-icons.svg##{icon}")
 
     content_tag(:svg, options) do
-      raw("<use xlink:href=\"/images/bootstrap-icons.svg##{icon}\"/>")
+      raw("<use xlink:href=\"#{icon_path}\"/>")
     end
   end
 end

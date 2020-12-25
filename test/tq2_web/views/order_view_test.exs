@@ -12,6 +12,15 @@ defmodule Tq2Web.OrderViewTest do
   alias Tq2.Transactions.{Cart, Line}
   alias Tq2Web.OrderView
 
+  setup %{conn: conn} do
+    conn =
+      conn
+      |> bypass_through(Tq2Web.Router, :browser)
+      |> get("/")
+
+    {:ok, %{conn: conn}}
+  end
+
   @tag login_as: "test@user.com"
   test "renders index.html", %{conn: conn} do
     orders = [order()]

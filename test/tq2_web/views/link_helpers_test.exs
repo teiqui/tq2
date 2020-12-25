@@ -5,9 +5,19 @@ defmodule Tq2Web.LinkHelpersTest do
     import Tq2Web.LinkHelpers
     import Phoenix.HTML, only: [safe_to_string: 1]
 
-    test "with default options" do
+    setup %{conn: conn} do
+      conn =
+        conn
+        |> bypass_through(Tq2Web.Router, :browser)
+        |> get("/")
+
+      {:ok, %{conn: conn}}
+    end
+
+    test "with default options", %{conn: conn} do
       link =
-        icon_link("test", to: "#test")
+        conn
+        |> icon_link("test", to: "#test")
         |> safe_to_string
 
       assert link =~ "bootstrap-icons.svg#test"

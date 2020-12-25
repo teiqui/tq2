@@ -9,6 +9,15 @@ defmodule Tq2Web.AppViewTest do
   alias Tq2.Apps.WireTransfer, as: WTApp
   alias Tq2Web.AppView
 
+  setup %{conn: conn} do
+    conn =
+      conn
+      |> bypass_through(Tq2Web.Router, :browser)
+      |> get("/")
+
+    {:ok, %{conn: conn}}
+  end
+
   test "link to show", %{conn: conn} do
     app = mercado_pago_fixture()
 
@@ -83,10 +92,10 @@ defmodule Tq2Web.AppViewTest do
     assert content =~ "auth.mercadopago.com.ar"
   end
 
-  test "mp link to commissions" do
+  test "mp link to commissions", %{conn: conn} do
     content =
-      default_account()
-      |> AppView.mp_link_to_commissions()
+      conn
+      |> AppView.mp_link_to_commissions(default_account())
       |> safe_to_string()
 
     assert content =~ "<a"

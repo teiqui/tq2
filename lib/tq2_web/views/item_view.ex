@@ -11,6 +11,7 @@ defmodule Tq2Web.ItemView do
 
   def link_to_show(conn, item) do
     icon_link(
+      conn,
       "eye-fill",
       title: dgettext("items", "Show"),
       to: Routes.item_path(conn, :show, item),
@@ -20,6 +21,7 @@ defmodule Tq2Web.ItemView do
 
   def link_to_edit(conn, item) do
     icon_link(
+      conn,
       "pencil-fill",
       title: dgettext("items", "Edit"),
       to: Routes.item_path(conn, :edit, item),
@@ -29,6 +31,7 @@ defmodule Tq2Web.ItemView do
 
   def link_to_delete(conn, item) do
     icon_link(
+      conn,
       "trash2-fill",
       title: dgettext("items", "Delete"),
       to: Routes.item_path(conn, :delete, item),

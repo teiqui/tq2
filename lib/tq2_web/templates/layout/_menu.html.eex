@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light py-1">
   <div class="container-fluid">
     <div class="navbar-nav">
-      <%= icon_link "door-open", to: Routes.session_path(@conn, :delete), method: :delete, data: [
+      <%= icon_link @conn, "door-open", to: Routes.session_path(@conn, :delete), method: :delete, data: [
         confirm: dgettext("menu", "Are you sure?")
       ] %>
     </div>
@@ -10,7 +10,7 @@
       <%= dgettext("menu", "Hello %{name}", name: String.slice(@account.name, 0..30)) %>
     </a>
 
-    <%= icon_link "plus-circle", to: "#", class: "navbar-toggler border-0", data: [toggle: "collapse", target: "#menu"] %>
+    <%= icon_link @conn, "plus-circle", to: "#", class: "navbar-toggler border-0", data: [toggle: "collapse", target: "#menu"] %>
 
     <div class="collapse navbar-collapse" id="menu">
       <ul class="navbar-nav mr-auto">

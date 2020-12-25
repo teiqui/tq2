@@ -8,6 +8,15 @@ defmodule Tq2Web.CategoryViewTest do
   import Phoenix.View
   import Phoenix.HTML, only: [safe_to_string: 1]
 
+  setup %{conn: conn} do
+    conn =
+      conn
+      |> bypass_through(Tq2Web.Router, :browser)
+      |> get("/")
+
+    {:ok, %{conn: conn}}
+  end
+
   test "renders index.html", %{conn: conn} do
     page = %Scrivener.Page{total_pages: 1, page_number: 1}
 

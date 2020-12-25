@@ -25,13 +25,13 @@
   <div class="d-flex align-items-center justify-content-end">
     <button type="button" class="btn btn-link mr-1" phx-click="decrease" <%= if @quantity == 1, do: "disabled" %>>
       <svg class="bi" width="20" height="20" fill="currentColor">
-        <use xlink:href="/images/bootstrap-icons.svg#dash-circle"/>
+        <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#dash-circle") %>"/>
       </svg>
     </button>
     <div class="text-dark h5 mt-2" data-quantity="<%= @quantity %>"><%= @quantity %></div>
     <button type="button" class="btn btn-link ml-2" phx-click="increase">
       <svg class="bi" width="20" height="20" fill="currentColor">
-        <use xlink:href="/images/bootstrap-icons.svg#plus-circle"/>
+        <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#plus-circle") %>"/>
       </svg>
     </button>
   </div>

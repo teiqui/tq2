@@ -4,6 +4,7 @@ defmodule Tq2Web.CategoryView do
 
   def link_to_show(conn, category) do
     icon_link(
+      conn,
       "eye-fill",
       title: dgettext("categories", "Show"),
       to: Routes.category_path(conn, :show, category),
@@ -13,6 +14,7 @@ defmodule Tq2Web.CategoryView do
 
   def link_to_edit(conn, category) do
     icon_link(
+      conn,
       "pencil-fill",
       title: dgettext("categories", "Edit"),
       to: Routes.category_path(conn, :edit, category),
@@ -22,6 +24,7 @@ defmodule Tq2Web.CategoryView do
 
   def link_to_delete(conn, category) do
     icon_link(
+      conn,
       "trash2-fill",
       title: dgettext("categories", "Delete"),
       to: Routes.category_path(conn, :delete, category),

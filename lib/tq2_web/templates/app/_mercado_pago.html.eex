@@ -15,14 +15,14 @@
         </li>
 
         <li class="mb-1">
-          <%= mp_link_to_commissions(@account) %>
+          <%= mp_link_to_commissions(@conn, @account) %>
         </li>
       </ul>
     <% else %>
       <%= link_to_install(@conn, @app.name) %>
 
       <p class="lead mt-4">
-        <%= mp_link_to_commissions(@account) %>
+        <%= mp_link_to_commissions(@conn, @account) %>
       </p>
     <% end %>
   </div>

@@ -77,7 +77,7 @@
             <tr>
               <td>
                 <%= payment_kind(payment.kind) %>
-                <%= pending_payment_alert(payment) %>
+                <%= pending_payment_alert(@conn, payment) %>
               </td>
               <td><%= format_money payment.amount %></td>
               <td><%= localize_datetime payment.inserted_at %></td>
