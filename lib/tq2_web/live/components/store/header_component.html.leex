@@ -1,4 +1,4 @@
-<nav class="bg-primary text-white fixed-top py-3">
+<nav class="bg-primary text-white fixed-top py-2">
   <div class="container-fluid">
     <div class="d-flex align-items-center">
       <div class="mr-3">
@@ -102,6 +102,21 @@
       </div>
     </div>
   </div>
+
+  <%= if Map.has_key?(assigns, :show_categories) do %>
+    <nav class="navbar navbar-light text-secondary bg-white mt-3 mb-n2 py-3">
+      <div class="col-6">
+        <%= dgettext("stores", "Search...") %>
+      </div>
+      <div class="col-6">
+        <a class="float-right" id="toggle_categories" phx-click="toggle-categories" phx-hook="ScrollToTop">
+          <%= dgettext("stores", "Categories") %>
+          <%= caret_direction(@socket, @show_categories) %>
+        </a>
+      </div>
+    </nav>
+  <% end %>
 </nav>
 
 <div class="py-5"></div>
+<div class="py-4"></div>

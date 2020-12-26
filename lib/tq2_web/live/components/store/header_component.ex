@@ -72,4 +72,16 @@ defmodule Tq2Web.Store.HeaderComponent do
       query: URI.encode_query(%{u: url})
     })
   end
+
+  defp caret_direction(conn, true), do: icon_tag(conn, "caret-up")
+  defp caret_direction(conn, _), do: icon_tag(conn, "caret-down")
+
+  defp icon_tag(conn, icon) do
+    options = [class: "bi", width: "14", height: "14", fill: "currentColor"]
+    icon_path = Routes.static_path(conn, "/images/bootstrap-icons.svg##{icon}")
+
+    content_tag(:svg, options) do
+      raw("<use xlink:href=\"#{icon_path}\"/>")
+    end
+  end
 end

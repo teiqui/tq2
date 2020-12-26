@@ -149,7 +149,7 @@ msgstr ""
 msgid "Store"
 msgstr ""
 
-#: lib/tq2_web/live/store/counter_live.html.leex:13
+#: lib/tq2_web/live/store/counter_live.html.leex:21
 msgid "Loading..."
 msgstr ""
 
@@ -175,4 +175,16 @@ msgstr ""
 
 #: lib/tq2_web/live/components/store/header_component.html.leex:68
 msgid "Share on:"
+msgstr ""
+
+#: lib/tq2_web/live/components/store/header_component.html.leex:113
+msgid "Categories"
+msgstr ""
+
+#: lib/tq2_web/live/components/store/header_component.html.leex:109
+msgid "Search..."
+msgstr ""
+
+#: lib/tq2_web/live/store/counter_live.ex:144
+msgid "Show all"
 msgstr ""

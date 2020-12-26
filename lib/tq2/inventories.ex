@@ -26,6 +26,22 @@ defmodule Tq2.Inventories do
   end
 
   @doc """
+  Returns the list of categories ordering items with images first.
+
+  ## Examples
+
+      iex> categories_with_images(%Account{})
+      [%Category{}, ...]
+
+  """
+
+  def categories_with_images(account) do
+    account
+    |> preload_one_item_per_category()
+    |> Repo.all()
+  end
+
+  @doc """
   Returns the list of categories.
 
   ## Examples
@@ -181,18 +197,10 @@ defmodule Tq2.Inventories do
       [%Item{}, ...]
 
   """
-  def list_visible_items(account, %{search: query} = params) do
-    account
-    |> list_items_query()
-    |> search_items(query)
-    |> where(visibility: "visible")
-    |> Repo.paginate(params)
-  end
-
   def list_visible_items(account, params) do
     account
     |> list_items_query()
-    |> where(visibility: "visible")
+    |> filter_items_by_params(params)
     |> Repo.paginate(params)
   end
 
@@ -323,6 +331,41 @@ defmodule Tq2.Inventories do
     |> join(:left, [i], c in assoc(i, :category))
     |> order_by(asc: :name)
     |> preload([i, c], category: c)
+  end
+
+  defp filter_items_by_params(query, %{search: query} = params) when is_binary(query) do
+    query
+    |> search_items(query)
+    |> filter_items_by_params(Map.delete(params, :search))
+  end
+
+  defp filter_items_by_params(query, %{category_id: id} = params) when is_number(id) do
+    query
+    |> where(category_id: ^id)
+    |> filter_items_by_params(Map.delete(params, :category_id))
+  end
+
+  defp filter_items_by_params(query, _params) do
+    query |> where(visibility: "visible")
+  end
+
+  defp preload_one_item_per_category(account) do
+    from c in Category,
+      as: :category,
+      where: [account_id: ^account.id],
+      join: i in assoc(c, :items),
+      inner_lateral_join:
+        sub in subquery(
+          from item in Item,
+            where:
+              item.category_id == parent_as(:category).id and
+                item.visibility == "visible",
+            limit: 1,
+            order_by: [asc: :image],
+            select: [:id]
+        ),
+      on: sub.id == i.id,
+      preload: [items: i]
   end
 
   defp search_items(item_scope, query) do
