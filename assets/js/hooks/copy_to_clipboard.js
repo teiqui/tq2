@@ -29,5 +29,11 @@ export const CopyToClipboard = {
         helpers.copyElementTextToClipboard(element)
       })
     }
+  },
+
+  updated () {
+    if (navigator.clipboard) {
+      this.el.classList.remove('d-none')
+    }
   }
 }

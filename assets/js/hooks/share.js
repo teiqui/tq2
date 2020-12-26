@@ -15,5 +15,11 @@ export const Share = {
         })
       })
     }
+  },
+
+  updated () {
+    if (navigator.canShare) {
+      this.el.classList.remove('d-none')
+    }
   }
 }
