@@ -62,7 +62,7 @@ defmodule Tq2Web.Store.HeaderComponent do
                class="border-0 form-control"
                placeholder="<%= dgettext("stores", "Search...") %>"
                autocomplete="off"
-               id="search-input"/>
+               id="search-input">
         <div class="input-group-append">
           <button type="submit" class="btn btn-secondary">
             <%= icon_tag(@socket, "search") %>
