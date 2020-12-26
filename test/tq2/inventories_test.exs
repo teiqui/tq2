@@ -266,5 +266,36 @@ defmodule Tq2.InventoriesTest do
                session
                |> Tq2.Inventories.create_or_update_item(@valid_item_attrs)
     end
+
+    test "list_visible_items/2 should search by name", %{session: %{account: account} = session} do
+      assert Inventories.list_visible_items(account, %{search: "some"}).entries == []
+
+      item = fixture(session, :item)
+
+      assert Enum.map(
+               Inventories.list_visible_items(account, %{search: "some name"}).entries,
+               & &1.id
+             ) == [item.id]
+
+      assert Enum.map(
+               Inventories.list_visible_items(account, %{search: "some"}).entries,
+               & &1.id
+             ) == [item.id]
+
+      assert Enum.map(
+               Inventories.list_visible_items(account, %{search: "NaME"}).entries,
+               & &1.id
+             ) == [item.id]
+
+      assert Enum.map(
+               Inventories.list_visible_items(account, %{search: "NáMÉ"}).entries,
+               & &1.id
+             ) == [item.id]
+
+      assert Enum.map(
+               Inventories.list_visible_items(account, %{search: "somme namme"}).entries,
+               & &1.id
+             ) == [item.id]
+    end
   end
 end
