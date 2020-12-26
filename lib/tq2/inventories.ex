@@ -373,19 +373,19 @@ defmodule Tq2.Inventories do
     )
   end
 
-  def filter_items_by_params(items_scope, %{search: query} = params) when is_binary(query) do
+  defp filter_items_by_params(items_scope, %{search: query} = params) when is_binary(query) do
     items_scope
     |> search_items(query)
     |> filter_items_by_params(Map.delete(params, :search))
   end
 
-  def filter_items_by_params(items_scope, %{category_id: id} = params) when is_number(id) do
+  defp filter_items_by_params(items_scope, %{category_id: id} = params) when is_number(id) do
     items_scope
     |> where(category_id: ^id)
     |> filter_items_by_params(Map.delete(params, :category_id))
   end
 
-  def filter_items_by_params(items_scope, _params) do
+  defp filter_items_by_params(items_scope, _params) do
     items_scope |> where(visibility: "visible")
   end
 end
