@@ -333,22 +333,6 @@ defmodule Tq2.Inventories do
     |> preload([i, c], category: c)
   end
 
-  defp filter_items_by_params(query, %{search: query} = params) when is_binary(query) do
-    query
-    |> search_items(query)
-    |> filter_items_by_params(Map.delete(params, :search))
-  end
-
-  defp filter_items_by_params(query, %{category_id: id} = params) when is_number(id) do
-    query
-    |> where(category_id: ^id)
-    |> filter_items_by_params(Map.delete(params, :category_id))
-  end
-
-  defp filter_items_by_params(query, _params) do
-    query |> where(visibility: "visible")
-  end
-
   defp preload_one_item_per_category(account) do
     from c in Category,
       as: :category,
@@ -369,14 +353,39 @@ defmodule Tq2.Inventories do
   end
 
   defp search_items(item_scope, query) do
+    query = String.trim(query)
+
     where(
       item_scope,
       [i],
       fragment(
-        "immutable_unaccent(?) % ANY(STRING_TO_ARRAY(immutable_unaccent(?), ' '))",
+        """
+        (
+          (immutable_unaccent(?) % ANY(STRING_TO_ARRAY(immutable_unaccent(?), ' '))) OR
+          (immutable_unaccent(?) %>> ANY(STRING_TO_ARRAY(immutable_unaccent(?), ' ')))
+        )
+        """,
         i.name,
-        ^String.trim(query)
+        ^query,
+        i.name,
+        ^query
       )
     )
+  end
+
+  def filter_items_by_params(items_scope, %{search: query} = params) when is_binary(query) do
+    items_scope
+    |> search_items(query)
+    |> filter_items_by_params(Map.delete(params, :search))
+  end
+
+  def filter_items_by_params(items_scope, %{category_id: id} = params) when is_number(id) do
+    items_scope
+    |> where(category_id: ^id)
+    |> filter_items_by_params(Map.delete(params, :category_id))
+  end
+
+  def filter_items_by_params(items_scope, _params) do
+    items_scope |> where(visibility: "visible")
   end
 end

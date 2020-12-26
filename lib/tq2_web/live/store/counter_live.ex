@@ -15,24 +15,19 @@ defmodule Tq2Web.Store.CounterLive do
   end
 
   @impl true
-  def handle_params(%{"category" => id}, _, socket) do
-    {id, ""} = Integer.parse(id)
+  def handle_params(params, _, socket) do
+    category_id =
+      case Integer.parse(params["category"] || "") do
+        :error -> nil
+        {id, ""} -> id
+      end
+
+    query = String.trim(params["search"] || "")
 
     socket =
       socket
       |> load_defaults()
-      |> assign(page: 1, category_id: id)
-      |> load_items()
-      |> hide_categories()
-
-    {:noreply, socket}
-  end
-
-  @impl true
-  def handle_params(_, _, socket) do
-    socket =
-      socket
-      |> load_defaults()
+      |> assign(category_id: category_id, search: query)
       |> load_items()
       |> hide_categories()
 
@@ -77,6 +72,20 @@ defmodule Tq2Web.Store.CounterLive do
     {:noreply, socket}
   end
 
+  @impl true
+  def handle_event("search", params, %{assigns: %{store: store}} = socket) do
+    extras =
+      socket
+      |> assign(search: params["search"])
+      |> extra_params()
+
+    socket =
+      socket
+      |> push_redirect(to: Routes.counter_path(socket, :index, store, extras))
+
+    {:noreply, socket}
+  end
+
   defp load_cart(%{assigns: %{store: %{account: account}}} = socket, token) do
     cart = Transactions.get_cart(account, token) || %Cart{lines: []}
 
@@ -89,20 +98,22 @@ defmodule Tq2Web.Store.CounterLive do
     assign(socket, items: items)
   end
 
-  defp item_params(%{assigns: %{page: page, page_size: page_size, category_id: category_id}})
-       when is_number(category_id) do
-    %{
-      page: page,
-      page_size: page_size,
-      category_id: category_id
-    }
-  end
+  defp item_params(%{assigns: %{page: page, page_size: page_size} = assigns}) do
+    attrs = %{page: page, page_size: page_size}
 
-  defp item_params(%{assigns: %{page: page, page_size: page_size}}) do
-    %{
-      page: page,
-      page_size: page_size
-    }
+    attrs =
+      case assigns[:category_id] do
+        id when is_number(id) -> Map.put(attrs, :category_id, id)
+        _ -> attrs
+      end
+
+    attrs =
+      case assigns[:search] do
+        query when is_binary(query) and query != "" -> Map.put(attrs, :search, query)
+        _ -> attrs
+      end
+
+    attrs
   end
 
   defp page_size do
@@ -144,9 +155,19 @@ defmodule Tq2Web.Store.CounterLive do
     live_patch(
       dgettext("stores", "Show all"),
       to: Routes.counter_path(socket, :index, store),
-      class: "text-decoration-none float-right",
+      class: "text-decoration-none float-right mt-3",
       id: "show_all",
       phx_hook: "ScrollToTop"
+    )
+  end
+
+  defp extra_params(%{assigns: assigns}) do
+    Enum.reject(
+      %{
+        search: assigns[:search],
+        category: assigns[:category_id]
+      },
+      fn {_, v} -> is_nil(v) or v == "" end
     )
   end
 end
