@@ -5,10 +5,12 @@ defmodule Tq2Web.Store.HeaderComponentTest do
 
   alias Tq2Web.Store.HeaderComponent
 
+  @token "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c="
+
   describe "render" do
     test "render header with empty cart" do
       store = store()
-      content = render_component(HeaderComponent, store: store)
+      content = render_component(HeaderComponent, store: store, token: @token)
 
       assert content =~ store.name
     end

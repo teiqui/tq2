@@ -17,7 +17,7 @@ defmodule Tq2Web.Store.PaymentCheckLive do
 
     socket =
       socket
-      |> assign(store: store, cart: cart)
+      |> assign(store: store, cart: cart, token: token)
       |> check_payments()
 
     self() |> Process.send_after({:timer}, 5000)
