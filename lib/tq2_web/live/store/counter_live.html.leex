@@ -1,4 +1,4 @@
-<%= live_component @socket, HeaderComponent, store: @store, token: @token, show_categories: @show_categories %>
+<%= live_component @socket, HeaderComponent, store: @store, token: @token, show_categories: @show_categories, search: assigns[:search] %>
 
 <%= if @show_categories do %>
   <%= if @category_id, do: link_show_all(@socket, @store) %>

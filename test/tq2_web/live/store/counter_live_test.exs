@@ -2,6 +2,7 @@ defmodule Tq2Web.Store.CounterLiveTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
+  import Tq2.Fixtures, only: [create_session: 0]
 
   @create_attrs %{
     name: "some name",
@@ -38,8 +39,7 @@ defmodule Tq2Web.Store.CounterLiveTest do
   }
 
   def store_fixture(_) do
-    account = Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
-    session = %Tq2.Accounts.Session{account: account}
+    session = create_session()
 
     {:ok, store} = Tq2.Shops.create_store(session, @create_attrs)
 
@@ -47,8 +47,7 @@ defmodule Tq2Web.Store.CounterLiveTest do
   end
 
   def items_fixture(_) do
-    account = Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
-    session = %Tq2.Accounts.Session{account: account}
+    session = create_session()
 
     {:ok, candies} = Tq2.Inventories.create_category(session, %{name: "Candies"})
     {:ok, drinks} = Tq2.Inventories.create_category(session, %{name: "Drinks"})
@@ -62,12 +61,10 @@ defmodule Tq2Web.Store.CounterLiveTest do
       Enum.map(item_attributes(), fn attrs ->
         category = categories[attrs.name]
 
-        {:ok, item} = Tq2.Inventories.create_item(session, %{attrs | category_id: category.id})
-
-        %{item | category: category}
+        create_item(session, %{attrs | category_id: category.id}, category)
       end)
 
-    %{items: items}
+    %{items: items, categories: categories}
   end
 
   describe "render" do
@@ -165,6 +162,82 @@ defmodule Tq2Web.Store.CounterLiveTest do
 
       assert content =~ List.first(items).name
     end
+
+    test "search items", %{conn: conn, store: store} do
+      conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
+      path = Routes.counter_path(conn, :index, store)
+      {:ok, store_live, _html} = live(conn, path)
+
+      {:ok, store_live, content} =
+        store_live
+        |> element("form")
+        |> render_submit(%{"search" => "coke"})
+        |> follow_redirect(conn)
+
+      assert content =~ "Coke"
+
+      {:ok, _, content} =
+        store_live
+        |> element("form")
+        |> render_submit(%{"search" => "choco"})
+        |> follow_redirect(conn)
+
+      assert content =~ "Chocolate"
+    end
+
+    test "search items inside category", %{
+      conn: conn,
+      store: store,
+      categories: %{"Chocolate" => category}
+    } do
+      conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
+      session = create_session()
+
+      create_item(
+        session,
+        %{
+          name: "Other candy",
+          visibility: "visible",
+          price: Money.new(100, :ARS),
+          promotional_price: Money.new(90, :ARS),
+          cost: Money.new(80, :ARS),
+          category_id: category.id
+        },
+        category
+      )
+
+      create_item(
+        session,
+        %{
+          name: "Other",
+          visibility: "visible",
+          price: Money.new(100, :ARS),
+          promotional_price: Money.new(90, :ARS),
+          cost: Money.new(80, :ARS),
+          category_id: nil
+        }
+      )
+
+      path = Routes.counter_path(conn, :index, store, category: category.id)
+      {:ok, store_live, content} = live(conn, path)
+
+      assert content =~ "Chocolate"
+
+      content =
+        store_live
+        |> element("#footer")
+        |> render_hook(:"load-more")
+
+      assert content =~ "Other candy"
+
+      store_live
+      |> element("form")
+      |> render_submit(%{"search" => "other"})
+      |> follow_redirect(conn)
+
+      assert content =~ "Other candy"
+      refute content =~ "#footer"
+    end
   end
 
   defp item_attributes do
@@ -197,5 +270,11 @@ defmodule Tq2Web.Store.CounterLiveTest do
         category_id: nil
       }
     ]
+  end
+
+  defp create_item(session, attrs, category \\ nil) do
+    {:ok, item} = Tq2.Inventories.create_item(session, attrs)
+
+    %{item | category: category}
   end
 end

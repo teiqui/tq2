@@ -49,4 +49,27 @@ defmodule Tq2Web.Store.HeaderComponent do
       raw("<use xlink:href=\"#{icon_path}\"/>")
     end
   end
+
+  defp search_input(assigns) do
+    assigns = if assigns[:search], do: assigns, else: Map.put(assigns, :search, "")
+
+    ~L"""
+    <form phx-submit="search">
+      <div class="input-group mb-3">
+        <input type="text"
+               name="search"
+               value="<%= @search %>"
+               class="border-0 form-control"
+               placeholder="<%= dgettext("stores", "Search...") %>"
+               autocomplete="off"
+               id="search-input"/>
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-secondary">
+            <%= icon_tag(@socket, "search") %>
+          </button>
+        </div>
+      </div>
+    </form>
+    """
+  end
 end

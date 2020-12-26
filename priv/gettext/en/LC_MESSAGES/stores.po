@@ -181,11 +181,11 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:70
+#: lib/tq2_web/live/components/store/header_component.ex:59
 msgid "Search..."
 msgstr ""
 
-#: lib/tq2_web/live/store/counter_live.ex:145
+#: lib/tq2_web/live/store/counter_live.ex:156
 msgid "Show all"
 msgstr ""
 
