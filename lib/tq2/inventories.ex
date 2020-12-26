@@ -326,8 +326,8 @@ defmodule Tq2.Inventories do
   end
 
   defp search_items(item_scope, query) do
-    item_scope
-    |> where(
+    where(
+      item_scope,
       [i],
       fragment(
         "immutable_unaccent(?) % ANY(STRING_TO_ARRAY(immutable_unaccent(?), ' '))",
