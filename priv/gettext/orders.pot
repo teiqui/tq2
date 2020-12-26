@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:12
+#: lib/tq2_web/live/store/order_live.html.leex:57
 msgid "Thank you for your purchase!"
 msgstr ""
 
@@ -112,4 +112,16 @@ msgstr ""
 
 #: lib/tq2_web/templates/order/empty.html.eex:3
 msgid "Here you'll see all orders, at this time there is none. For starters, share the online store link with your customers!"
+msgstr ""
+
+#: lib/tq2_web/live/store/order_live.html.leex:61
+msgid "Order #%{number}"
+msgstr ""
+
+#: lib/tq2_web/live/store/order_live.html.leex:12
+msgid "Share this store link and if you get someone buying before 24 hours because of it, you get the deal. Otherwise, you should pay the difference. If you wish, you can join an existing order."
+msgstr ""
+
+#: lib/tq2_web/live/store/order_live.html.leex:8
+msgid "You have chosen Teiqui price"
 msgstr ""

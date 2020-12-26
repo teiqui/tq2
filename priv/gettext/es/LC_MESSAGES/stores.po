@@ -49,8 +49,8 @@ msgstr "Editar tienda"
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:78
-#: lib/tq2_web/live/components/store/header_component.html.leex:81 lib/tq2_web/templates/store/_form.html.eex:52
+#: lib/tq2_web/live/components/store/share_component.html.leex:18
+#: lib/tq2_web/live/components/store/share_component.html.leex:21 lib/tq2_web/templates/store/_form.html.eex:52
 msgid "Facebook"
 msgstr "Facebook"
 
@@ -140,8 +140,8 @@ msgstr "Tienda actualizada correctamente."
 msgid "Update"
 msgstr "Actualizar tienda"
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:72
-#: lib/tq2_web/live/components/store/header_component.html.leex:75 lib/tq2_web/templates/store/_form.html.eex:51
+#: lib/tq2_web/live/components/store/share_component.html.leex:12
+#: lib/tq2_web/live/components/store/share_component.html.leex:15 lib/tq2_web/templates/store/_form.html.eex:51
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
@@ -157,34 +157,42 @@ msgstr "Cargando..."
 msgid "Online store"
 msgstr "Tienda en línea"
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:91
+#: lib/tq2_web/live/components/store/share_component.html.leex:31
 msgid "Copy store link"
 msgstr "Copiar enlace de tienda"
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:97
+#: lib/tq2_web/live/components/store/share_component.html.leex:37
 msgid "Hey, check our store!"
 msgstr "¡Hola! Conoce nuestra tienda"
 
-#: lib/tq2_web/live/components/store/header_component.ex:61
+#: lib/tq2_web/live/components/store/share_component.ex:29
 msgid "Hey, check our store!\n\n%{url}"
 msgstr "¡Hola! Conoce nuestra tienda\n\n%{url}"
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:100
+#: lib/tq2_web/live/components/store/share_component.html.leex:40
 msgid "Share in another app"
 msgstr "Compartir en otra aplicación"
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:68
+#: lib/tq2_web/live/components/store/share_component.html.leex:8
 msgid "Share on:"
 msgstr "Compartir en:"
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:113
+#: lib/tq2_web/live/components/store/header_component.html.leex:74
 msgid "Categories"
 msgstr "Categorías"
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:109
+#: lib/tq2_web/live/components/store/header_component.html.leex:70
 msgid "Search..."
 msgstr "Buscar..."
 
-#: lib/tq2_web/live/store/counter_live.ex:144
+#: lib/tq2_web/live/store/counter_live.ex:145
 msgid "Show all"
 msgstr "Ver todo"
+
+#: lib/tq2_web/live/store/order_live.html.leex:41
+msgid "Promotion expired!"
+msgstr "¡La promoción ya expiró!"
+
+#: lib/tq2_web/live/store/order_live.html.leex:21
+msgid "Share"
+msgstr "Compartir"

@@ -1,0 +1,43 @@
+<div class="dropdown">
+  <a href="#" id="<%= @id %>-share" class="<%= @class %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <%= render_block(@inner_block) %>
+  </a>
+
+  <div class="dropdown-menu<%= if @align_right, do: " dropdown-menu-right" %>" aria-labelledby="<%= @id %>-share">
+    <span class="d-block mb-2 mx-4">
+      <%= dgettext("stores", "Share on:") %>
+    </span>
+
+    <%= link to: whatsapp_share_url(@store, @token),
+             title: dgettext("stores", "WhatsApp"),
+             class: "dropdown-item",
+             target: "_blank" do %>
+      <%= dgettext("stores", "WhatsApp") %>
+    <% end %>
+    <%= link to: facebook_share_url(@store, @token),
+             title: dgettext("stores", "Facebook"),
+             class:  "dropdown-item",
+             target: "_blank" do %>
+      <%= dgettext("stores", "Facebook") %>
+    <% end %>
+
+    <span class="d-block dropdown-divider"></span>
+
+    <a id="<%= @id %>-store-copy-to-clipboard"
+       class="dropdown-item d-none"
+       href="#"
+       data-text="<%= Routes.counter_url(base_uri(), :index, @store, referral: @token, utm_source: "clipboard") %>"
+       phx-hook="CopyToClipboard">
+      <%= dgettext("stores", "Copy store link") %>
+    </a>
+    <a id="<%= @id %>-store-share-in-app"
+       class="dropdown-item d-none"
+       href="#"
+       data-title="<%= @store.name %>"
+       data-text="<%= dgettext("stores", "Hey, check our store!") %>"
+       data-url="<%= Routes.counter_url(base_uri(), :index, @store, referral: @token, utm_source: "other_app") %>"
+       phx-hook="Share">
+      <%= dgettext("stores", "Share in another app") %>
+    </a>
+  </div>
+</div>
