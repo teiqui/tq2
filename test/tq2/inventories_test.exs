@@ -139,6 +139,32 @@ defmodule Tq2.InventoriesTest do
 
       assert %Ecto.Changeset{} = Inventories.change_category(session.account, category)
     end
+
+    test "categories_with_images/1 returns categories with 1 item", %{session: session} do
+      category = session |> fixture(:category)
+
+      session |> fixture(:item, %{category_id: category.id})
+
+      fixture(
+        session,
+        :item,
+        %{category_id: category.id, sku: "Milk", name: "Milk"}
+      )
+
+      [category] = session.account |> Inventories.categories_with_images()
+
+      assert Enum.count(category.items) == 1
+
+      item = List.first(category.items)
+
+      # remove image and get category with other image
+      {:ok, _} = session |> Inventories.update_item(item, %{image: nil})
+
+      [category] = session.account |> Inventories.categories_with_images()
+
+      assert Enum.count(category.items) == 1
+      refute List.first(category.items).id == item.id
+    end
   end
 
   describe "items" do

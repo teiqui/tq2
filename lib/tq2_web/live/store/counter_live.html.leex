@@ -1,19 +1,28 @@
-<%= live_component @socket, HeaderComponent, store: @store, token: @token %>
+<%= live_component @socket, HeaderComponent, store: @store, token: @token, show_categories: @show_categories %>
 
-<div id="items" class="row no-gutters row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-4 row-cols-xl-6" phx-update="append">
-  <%= for item <- @items do %>
-    <%= live_component @socket, ItemComponent, store: @store, cart: @cart, item: item, id: item.id %>
-  <% end %>
-</div>
+<%= if @show_categories do %>
+  <%= if @category_id, do: link_show_all(@socket, @store) %>
 
-<%= if @items.page_number < @items.total_pages do %>
-  <footer id="footer" phx-hook="InfiniteScroll">
-    <div class="text-center my-3">
-      <div class="spinner-border text-primary" role="status">
-        <span class="sr-only"><%= dgettext("stores", "Loading...") %></span>
+  <div id="categories" class="row no-gutters row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-4 row-cols-xl-6">
+    <%= for category <- @categories do %>
+      <%= live_component @socket, CategoryComponent, store: @store, category: category, id: category.id %>
+    <% end %>
+<% else %>
+  <div id="items" class="row no-gutters row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-4 row-cols-xl-6" phx-update="append">
+    <%= for item <- @items do %>
+      <%= live_component @socket, ItemComponent, store: @store, cart: @cart, item: item, id: item.id %>
+    <% end %>
+  </div>
+
+  <%= if @items.page_number < @items.total_pages do %>
+    <footer id="footer" phx-hook="InfiniteScroll">
+      <div class="text-center my-3">
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only"><%= dgettext("stores", "Loading...") %></span>
+        </div>
       </div>
-    </div>
-  </footer>
+    </footer>
+  <% end %>
 <% end %>
 
 <%= live_component @socket, ButtonComponent, store: @store,

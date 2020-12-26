@@ -3,7 +3,7 @@ defmodule Tq2.Inventories.Category do
 
   import Ecto.Changeset
 
-  alias Tq2.Inventories.Category
+  alias Tq2.Inventories.{Category, Item}
   alias Tq2.Accounts.Account
 
   schema "categories" do
@@ -12,6 +12,8 @@ defmodule Tq2.Inventories.Category do
     field :lock_version, :integer, default: 0
 
     belongs_to :account, Account
+
+    has_many :items, Item
 
     timestamps()
   end
