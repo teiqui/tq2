@@ -112,7 +112,7 @@ defmodule Tq2Web.Store.CounterLiveTest do
 
       content =
         store_live
-        |> element("#toggle_categories")
+        |> element("#toggle-categories")
         |> render_click()
 
       {[with_image], [without_image]} = items |> Enum.split_with(& &1.image)
@@ -137,7 +137,7 @@ defmodule Tq2Web.Store.CounterLiveTest do
 
       content =
         store_live
-        |> element("#toggle_categories")
+        |> element("#toggle-categories")
         |> render_click()
 
       assert content =~ store.name
@@ -155,7 +155,7 @@ defmodule Tq2Web.Store.CounterLiveTest do
       refute content =~ "#footer"
 
       store_live
-      |> element("#toggle_categories")
+      |> element("#toggle-categories")
       |> render_click()
 
       content =
