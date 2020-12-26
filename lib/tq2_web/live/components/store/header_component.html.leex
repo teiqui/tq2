@@ -66,10 +66,10 @@
 
   <%= if Map.has_key?(assigns, :show_categories) do %>
     <nav class="navbar navbar-light text-secondary bg-white mt-3 mb-n2 py-1">
-      <div class="col-8">
+      <div class="col-6">
         <%= search_input(assigns) %>
       </div>
-      <div class="col-4">
+      <div class="col-auto">
         <a class="float-right" id="toggle-categories" phx-click="toggle-categories" phx-hook="ScrollToTop">
           <%= dgettext("stores", "Categories") %>
           <%= caret_direction(@socket, @show_categories) %>
