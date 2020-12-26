@@ -80,4 +80,7 @@
 </nav>
 
 <div class="py-5"></div>
-<div class="py-4"></div>
+
+<%= if Map.has_key?(assigns, :show_categories) do %>
+  <div class="py-4"></div>
+<% end %>
