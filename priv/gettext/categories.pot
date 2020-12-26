@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/views/category_view.ex:29
+#: lib/tq2_web/views/category_view.ex:32
 msgid "Are you sure?"
 msgstr ""
 
@@ -20,7 +20,7 @@ msgid "Back"
 msgstr ""
 
 #: lib/tq2_web/templates/category/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:35
+#: lib/tq2_web/templates/layout/_menu.html.eex:27
 msgid "Categories"
 msgstr ""
 
@@ -40,15 +40,15 @@ msgstr ""
 msgid "Category updated successfully."
 msgstr ""
 
-#: lib/tq2_web/views/category_view.ex:46
+#: lib/tq2_web/views/category_view.ex:49
 msgid "Create"
 msgstr ""
 
-#: lib/tq2_web/views/category_view.ex:26
+#: lib/tq2_web/views/category_view.ex:29
 msgid "Delete"
 msgstr ""
 
-#: lib/tq2_web/views/category_view.ex:17
+#: lib/tq2_web/views/category_view.ex:19
 msgid "Edit"
 msgstr ""
 
@@ -78,10 +78,10 @@ msgstr ""
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
 
-#: lib/tq2_web/views/category_view.ex:8
+#: lib/tq2_web/views/category_view.ex:9
 msgid "Show"
 msgstr ""
 
-#: lib/tq2_web/views/category_view.ex:47
+#: lib/tq2_web/views/category_view.ex:50
 msgid "Update"
 msgstr ""

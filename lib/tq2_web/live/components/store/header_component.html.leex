@@ -20,7 +20,7 @@
           <%= link to: "https://www.facebook.com/#{@store.data.facebook}",
                    class: "text-reset mr-3",
                    title: @store.data.facebook,
-                   target: '_blank' do %>
+                   target: "_blank" do %>
             <svg class="bi" width="16" height="16" fill="currentColor">
               <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#facebook") %>"/>
             </svg>
@@ -31,7 +31,7 @@
           <%= link to: "https://www.instagram.com/#{@store.data.instagram}",
                    class: "text-reset mr-3",
                    title: @store.data.instagram,
-                   target: '_blank' do %>
+                   target: "_blank" do %>
             <svg class="bi" width="16" height="16" fill="currentColor">
               <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#instagram") %>"/>
             </svg>
@@ -42,12 +42,62 @@
           <%= link to: "https://wa.me/#{@store.data.whatsapp}",
                    class: "text-reset mr-3",
                    title: @store.data.whatsapp,
-                   target: '_blank' do %>
+                   target: "_blank" do %>
             <svg class="bi" width="16" height="16" fill="currentColor">
               <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#telephone") %>"/>
             </svg>
           <% end %>
         <% end %>
+      </div>
+    </div>
+
+    <div class="dropdown float-right mt-n4">
+      <a href="#"
+         id="share"
+         class="btn btn-sm btn-light text-primary rounded-circle h-28-px w-28-px p-1 mt-n1"
+         data-toggle="dropdown"
+         aria-haspopup="true"
+         aria-expanded="false">
+        <svg class="bi" width="12" height="12" fill="currentColor">
+          <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#share-fill") %>"/>
+        </svg>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="share">
+        <span class="d-block mb-2 mx-4">
+          <%= dgettext("stores", "Share on:") %>
+        </span>
+
+        <%= link to: whatsapp_share_uri(@socket, @store, @token),
+                 title: dgettext("stores", "WhatsApp"),
+                 class: "dropdown-item",
+                 target: "_blank" do %>
+          <%= dgettext("stores", "WhatsApp") %>
+        <% end %>
+        <%= link to: facebook_share_uri(@socket, @store, @token),
+                 title: dgettext("stores", "Facebook"),
+                 class:  "dropdown-item",
+                 target: "_blank" do %>
+          <%= dgettext("stores", "Facebook") %>
+        <% end %>
+
+        <span class="d-block dropdown-divider"></span>
+
+        <a id="store-copy-to-clipboard"
+           class="dropdown-item d-none"
+           href="#"
+           data-text="<%= Routes.counter_url(uri(), :index, @store, referral: @token, utm_source: "clipboard") %>"
+           phx-hook="CopyToClipboard">
+          <%= dgettext("stores", "Copy store link") %>
+        </a>
+        <a id="store-share-in-app"
+           class="dropdown-item d-none"
+           href="#"
+           data-title="<%= @store.name %>"
+           data-text="<%= dgettext("stores", "Hey, check our store!") %>"
+           data-url="<%= Routes.counter_url(uri(), :index, @store, referral: @token, utm_source: "other_app") %>"
+           phx-hook="Share">
+          <%= dgettext("stores", "Share in another app") %>
+        </a>
       </div>
     </div>
   </div>

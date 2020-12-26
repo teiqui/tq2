@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:36
+#: lib/tq2_web/views/item_view.ex:39
 msgid "Are you sure?"
 msgstr ""
 
@@ -29,11 +29,11 @@ msgstr ""
 msgid "Cost"
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:115
+#: lib/tq2_web/views/item_view.ex:118
 msgid "Create"
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:33
+#: lib/tq2_web/views/item_view.ex:36
 msgid "Delete"
 msgstr ""
 
@@ -42,7 +42,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:24
+#: lib/tq2_web/views/item_view.ex:26
 msgid "Edit"
 msgstr ""
 
@@ -71,7 +71,7 @@ msgid "Item updated successfully."
 msgstr ""
 
 #: lib/tq2_web/templates/item/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:38
+#: lib/tq2_web/templates/layout/_menu.html.eex:24
 msgid "Items"
 msgstr ""
 
@@ -94,7 +94,7 @@ msgid "New item"
 msgstr ""
 
 #: lib/tq2_web/templates/item/_form.html.eex:12
-#: lib/tq2_web/views/item_view.ex:69
+#: lib/tq2_web/views/item_view.ex:72
 msgid "None"
 msgstr ""
 
@@ -112,7 +112,7 @@ msgstr ""
 msgid "Promotional price"
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:15
+#: lib/tq2_web/views/item_view.ex:16
 msgid "Show"
 msgstr ""
 
@@ -121,7 +121,7 @@ msgstr ""
 msgid "Sku"
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:116
+#: lib/tq2_web/views/item_view.ex:119
 msgid "Update"
 msgstr ""
 

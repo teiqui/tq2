@@ -1,19 +1,5 @@
-export const Hooks = {
-  InfiniteScroll: {
-    mounted () {
-      this.observer = new IntersectionObserver(entries => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            this.pushEvent('load-more')
-          }
-        }
-      })
+import {CopyToClipboard} from './hooks/copy_to_clipboard'
+import {InfiniteScroll} from './hooks/infinite_scroll'
+import {Share} from './hooks/share'
 
-      this.observer.observe(this.el)
-    },
-
-    destroyed () {
-      this.observer.disconnect()
-    }
-  }
-}
+export const Hooks = {CopyToClipboard, InfiniteScroll, Share}

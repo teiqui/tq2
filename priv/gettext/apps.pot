@@ -24,15 +24,15 @@ msgid "App updated successfully."
 msgstr ""
 
 #: lib/tq2_web/templates/app/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:41
+#: lib/tq2_web/templates/layout/_menu.html.eex:33
 msgid "Apps"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:31
+#: lib/tq2_web/views/app_view.ex:32
 msgid "Are you sure?"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:77
+#: lib/tq2_web/views/app_view.ex:78
 msgid "Link account"
 msgstr ""
 
@@ -41,15 +41,15 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:88
+#: lib/tq2_web/views/app_view.ex:90
 msgid "Commissions"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:28
+#: lib/tq2_web/views/app_view.ex:29
 msgid "Delete"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:21
+#: lib/tq2_web/views/app_view.ex:22
 msgid "Edit"
 msgstr ""
 
@@ -57,7 +57,7 @@ msgstr ""
 msgid "Edit app"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:96
+#: lib/tq2_web/views/app_view.ex:98
 msgid "Install"
 msgstr ""
 
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:117
+#: lib/tq2_web/views/app_view.ex:119
 msgid "Update"
 msgstr ""
 
@@ -89,11 +89,11 @@ msgstr ""
 
 #: lib/tq2_web/templates/app/_wire_transfer.html.eex:6
 #: lib/tq2_web/templates/app/edit_wire_transfer.html.eex:4 lib/tq2_web/templates/app/new_wire_transfer.html.eex:4
-#: lib/tq2_web/views/app_view.ex:137
+#: lib/tq2_web/views/app_view.ex:139
 msgid "Wire transfer"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:110
+#: lib/tq2_web/views/app_view.ex:112
 msgid "Create"
 msgstr ""
 
@@ -102,6 +102,6 @@ msgid "Description"
 msgstr ""
 
 #: lib/tq2_web/templates/app/_mercado_pago.html.eex:6
-#: lib/tq2_web/views/app_view.ex:133
+#: lib/tq2_web/views/app_view.ex:135
 msgid "MercadoPago"
 msgstr ""

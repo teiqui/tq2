@@ -40,7 +40,7 @@ msgstr ""
 msgid "Delivery type"
 msgstr ""
 
-#: lib/tq2_web/views/order_view.ex:39
+#: lib/tq2_web/views/order_view.ex:41
 msgid "Edit"
 msgstr ""
 
@@ -66,7 +66,7 @@ msgstr ""
 msgid "Order updated successfully."
 msgstr ""
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:29
+#: lib/tq2_web/templates/layout/_menu.html.eex:21
 #: lib/tq2_web/templates/order/index.html.eex:2
 msgid "Orders"
 msgstr ""
@@ -83,7 +83,7 @@ msgstr ""
 msgid "Processing"
 msgstr ""
 
-#: lib/tq2_web/views/order_view.ex:30
+#: lib/tq2_web/views/order_view.ex:31
 msgid "Show"
 msgstr ""
 
@@ -92,7 +92,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: lib/tq2_web/views/order_view.ex:50
+#: lib/tq2_web/views/order_view.ex:52
 msgid "Update"
 msgstr ""
 

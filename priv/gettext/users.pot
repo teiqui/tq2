@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/views/user_view.ex:33
+#: lib/tq2_web/views/user_view.ex:36
 msgid "Are you sure?"
 msgstr ""
 
@@ -19,15 +19,15 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: lib/tq2_web/views/user_view.ex:50
+#: lib/tq2_web/views/user_view.ex:53
 msgid "Create"
 msgstr ""
 
-#: lib/tq2_web/views/user_view.ex:30
+#: lib/tq2_web/views/user_view.ex:33
 msgid "Delete"
 msgstr ""
 
-#: lib/tq2_web/views/user_view.ex:17
+#: lib/tq2_web/views/user_view.ex:19
 msgid "Edit"
 msgstr ""
 
@@ -78,11 +78,11 @@ msgstr ""
 msgid "Password confirmation"
 msgstr ""
 
-#: lib/tq2_web/views/user_view.ex:8
+#: lib/tq2_web/views/user_view.ex:9
 msgid "Show"
 msgstr ""
 
-#: lib/tq2_web/views/user_view.ex:51
+#: lib/tq2_web/views/user_view.ex:54
 msgid "Update"
 msgstr ""
 
@@ -98,7 +98,7 @@ msgstr ""
 msgid "User updated successfully."
 msgstr ""
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:32
+#: lib/tq2_web/templates/layout/_menu.html.eex:30
 #: lib/tq2_web/templates/user/index.html.eex:2
 msgid "Users"
 msgstr ""

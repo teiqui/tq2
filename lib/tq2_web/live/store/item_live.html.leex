@@ -1,4 +1,4 @@
-<%= live_component @socket, HeaderComponent, store: @store %>
+<%= live_component @socket, HeaderComponent, store: @store, token: @token %>
 
 <div id="item-<%= @item.id %>" class="card card-body">
   <div class="text-right mb-3">

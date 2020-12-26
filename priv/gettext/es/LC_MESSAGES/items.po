@@ -11,7 +11,7 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/views/item_view.ex:36
+#: lib/tq2_web/views/item_view.ex:39
 msgid "Are you sure?"
 msgstr "¿Está seguro de eliminar el artículo?"
 
@@ -30,11 +30,11 @@ msgstr "Categoría"
 msgid "Cost"
 msgstr "Costo"
 
-#: lib/tq2_web/views/item_view.ex:115
+#: lib/tq2_web/views/item_view.ex:118
 msgid "Create"
 msgstr "Crear artículo"
 
-#: lib/tq2_web/views/item_view.ex:33
+#: lib/tq2_web/views/item_view.ex:36
 msgid "Delete"
 msgstr "Eliminar artículo"
 
@@ -43,7 +43,7 @@ msgstr "Eliminar artículo"
 msgid "Description"
 msgstr "Descripción"
 
-#: lib/tq2_web/views/item_view.ex:24
+#: lib/tq2_web/views/item_view.ex:26
 msgid "Edit"
 msgstr "Editar artículo"
 
@@ -72,7 +72,7 @@ msgid "Item updated successfully."
 msgstr "Artículo actualizado correctamente."
 
 #: lib/tq2_web/templates/item/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:38
+#: lib/tq2_web/templates/layout/_menu.html.eex:24
 msgid "Items"
 msgstr "Artículos"
 
@@ -95,7 +95,7 @@ msgid "New item"
 msgstr "Nuevo artículo"
 
 #: lib/tq2_web/templates/item/_form.html.eex:12
-#: lib/tq2_web/views/item_view.ex:69
+#: lib/tq2_web/views/item_view.ex:72
 msgid "None"
 msgstr "Ninguna"
 
@@ -113,7 +113,7 @@ msgstr "Precio"
 msgid "Promotional price"
 msgstr "Precio Teiqui"
 
-#: lib/tq2_web/views/item_view.ex:15
+#: lib/tq2_web/views/item_view.ex:16
 msgid "Show"
 msgstr "Ver artículo"
 
@@ -122,7 +122,7 @@ msgstr "Ver artículo"
 msgid "Sku"
 msgstr "Código de artículo"
 
-#: lib/tq2_web/views/item_view.ex:116
+#: lib/tq2_web/views/item_view.ex:119
 msgid "Update"
 msgstr "Actualizar artículo"
 

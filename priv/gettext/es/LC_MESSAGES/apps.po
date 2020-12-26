@@ -25,15 +25,15 @@ msgid "App updated successfully."
 msgstr "Aplicación actualizada correctamente."
 
 #: lib/tq2_web/templates/app/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:41
+#: lib/tq2_web/templates/layout/_menu.html.eex:33
 msgid "Apps"
 msgstr "Aplicaciones"
 
-#: lib/tq2_web/views/app_view.ex:31
+#: lib/tq2_web/views/app_view.ex:32
 msgid "Are you sure?"
 msgstr "¿Está seguro?"
 
-#: lib/tq2_web/views/app_view.ex:77
+#: lib/tq2_web/views/app_view.ex:78
 msgid "Link account"
 msgstr "Vincular cuenta"
 
@@ -42,15 +42,15 @@ msgstr "Vincular cuenta"
 msgid "Back"
 msgstr "Volver"
 
-#: lib/tq2_web/views/app_view.ex:88
+#: lib/tq2_web/views/app_view.ex:90
 msgid "Commissions"
 msgstr "Comisiones"
 
-#: lib/tq2_web/views/app_view.ex:28
+#: lib/tq2_web/views/app_view.ex:29
 msgid "Delete"
 msgstr "Borrar"
 
-#: lib/tq2_web/views/app_view.ex:21
+#: lib/tq2_web/views/app_view.ex:22
 msgid "Edit"
 msgstr "Editar"
 
@@ -58,7 +58,7 @@ msgstr "Editar"
 msgid "Edit app"
 msgstr "Editar aplicación"
 
-#: lib/tq2_web/views/app_view.ex:96
+#: lib/tq2_web/views/app_view.ex:98
 msgid "Install"
 msgstr "Instalar"
 
@@ -76,7 +76,7 @@ msgstr "Pausado"
 msgid "Status"
 msgstr "Estado"
 
-#: lib/tq2_web/views/app_view.ex:117
+#: lib/tq2_web/views/app_view.ex:119
 msgid "Update"
 msgstr "Actualizar"
 
@@ -90,11 +90,11 @@ msgstr "Número de cuenta"
 
 #: lib/tq2_web/templates/app/_wire_transfer.html.eex:6
 #: lib/tq2_web/templates/app/edit_wire_transfer.html.eex:4 lib/tq2_web/templates/app/new_wire_transfer.html.eex:4
-#: lib/tq2_web/views/app_view.ex:137
+#: lib/tq2_web/views/app_view.ex:139
 msgid "Wire transfer"
 msgstr "Transferencia bancaria"
 
-#: lib/tq2_web/views/app_view.ex:110
+#: lib/tq2_web/views/app_view.ex:112
 msgid "Create"
 msgstr "Crear"
 
@@ -103,6 +103,6 @@ msgid "Description"
 msgstr "Descripción"
 
 #: lib/tq2_web/templates/app/_mercado_pago.html.eex:6
-#: lib/tq2_web/views/app_view.ex:133
+#: lib/tq2_web/views/app_view.ex:135
 msgid "MercadoPago"
 msgstr "MercadoPago"
