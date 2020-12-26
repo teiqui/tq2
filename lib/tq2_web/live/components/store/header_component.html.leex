@@ -109,7 +109,7 @@
         <%= dgettext("stores", "Search...") %>
       </div>
       <div class="col-6">
-        <a class="float-right" id="toggle_categories" phx-click="toggle-categories" phx-hook="ScrollToTop">
+        <a class="float-right" id="toggle-categories" phx-click="toggle-categories" phx-hook="ScrollToTop">
           <%= dgettext("stores", "Categories") %>
           <%= caret_direction(@socket, @show_categories) %>
         </a>
