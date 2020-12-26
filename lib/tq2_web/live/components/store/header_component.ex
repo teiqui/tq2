@@ -33,7 +33,7 @@ defmodule Tq2Web.Store.HeaderComponent do
     )
   end
 
-  defp uri do
+  defp base_uri do
     scheme = if Tq2Web.Endpoint.config(:https), do: "https", else: "http"
     url_config = Tq2Web.Endpoint.config(:url)
 
@@ -51,8 +51,8 @@ defmodule Tq2Web.Store.HeaderComponent do
     }
   end
 
-  defp whatsapp_share_uri(_socket, store, token) do
-    url = Routes.counter_url(uri(), :index, store, referral: token, utm_source: "whatsapp")
+  defp whatsapp_share_url(store, token) do
+    url = base_uri() |> Routes.counter_url(:index, store, referral: token, utm_source: "whatsapp")
 
     URI.to_string(%URI{
       host: "wa.me",
@@ -62,8 +62,8 @@ defmodule Tq2Web.Store.HeaderComponent do
     })
   end
 
-  defp facebook_share_uri(_socket, store, token) do
-    url = Routes.counter_url(uri(), :index, store, referral: token, utm_source: "facebook")
+  defp facebook_share_url(store, token) do
+    url = base_uri() |> Routes.counter_url(:index, store, referral: token, utm_source: "facebook")
 
     URI.to_string(%URI{
       host: "www.facebook.com",

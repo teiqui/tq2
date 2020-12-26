@@ -62,18 +62,19 @@
           <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#share-fill") %>"/>
         </svg>
       </a>
+
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="share">
         <span class="d-block mb-2 mx-4">
           <%= dgettext("stores", "Share on:") %>
         </span>
 
-        <%= link to: whatsapp_share_uri(@socket, @store, @token),
+        <%= link to: whatsapp_share_url(@store, @token),
                  title: dgettext("stores", "WhatsApp"),
                  class: "dropdown-item",
                  target: "_blank" do %>
           <%= dgettext("stores", "WhatsApp") %>
         <% end %>
-        <%= link to: facebook_share_uri(@socket, @store, @token),
+        <%= link to: facebook_share_url(@store, @token),
                  title: dgettext("stores", "Facebook"),
                  class:  "dropdown-item",
                  target: "_blank" do %>
@@ -85,7 +86,7 @@
         <a id="store-copy-to-clipboard"
            class="dropdown-item d-none"
            href="#"
-           data-text="<%= Routes.counter_url(uri(), :index, @store, referral: @token, utm_source: "clipboard") %>"
+           data-text="<%= Routes.counter_url(base_uri(), :index, @store, referral: @token, utm_source: "clipboard") %>"
            phx-hook="CopyToClipboard">
           <%= dgettext("stores", "Copy store link") %>
         </a>
@@ -94,7 +95,7 @@
            href="#"
            data-title="<%= @store.name %>"
            data-text="<%= dgettext("stores", "Hey, check our store!") %>"
-           data-url="<%= Routes.counter_url(uri(), :index, @store, referral: @token, utm_source: "other_app") %>"
+           data-url="<%= Routes.counter_url(base_uri(), :index, @store, referral: @token, utm_source: "other_app") %>"
            phx-hook="Share">
           <%= dgettext("stores", "Share in another app") %>
         </a>
