@@ -42,7 +42,7 @@ defmodule Tq2Web.Registration.PasswordLive do
     submit(
       dgettext("registrations", "Create"),
       class: "btn btn-lg btn-primary rounded-pill px-4 mt-4",
-      phx_disable_width: dgettext("registrations", "Creating...")
+      phx_disable_with: dgettext("registrations", "Creating...")
     )
   end
 end

@@ -37,7 +37,10 @@ config :tq2, Tq2Web.Gettext, default_locale: "es"
 config :tq2, Tq2.Repo, migration_timestamps: [type: :utc_datetime]
 
 # Public store's subdomain
-config :tq2, store_subdomain: System.get_env("STORE_SUBDOMAIN", "store")
+config :tq2,
+  store_subdomain: System.get_env("STORE_SUBDOMAIN", "store"),
+  default_sheet_id:
+    System.get_env("DEFAULT_SHEET_ID", "1RFOEmiQvsMglWcMxCkGpoIc9d6nxvOwyerVVUw3RyIo")
 
 # Scrivener HTML config
 config :scrivener_html,

@@ -134,3 +134,33 @@ msgstr ""
 #: lib/tq2_web/views/item_view.ex:8
 msgid "Visible"
 msgstr ""
+
+#: lib/tq2_web/live/inventories/import_live.html.leex:29
+msgid "One item imported!"
+msgid_plural "%{count} items imported!"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/tq2_web/live/inventories/import_live.html.leex:32
+msgid "Go to item list"
+msgstr ""
+
+#: lib/tq2_web/live/inventories/import_live.html.leex:22
+msgid "Import"
+msgstr ""
+
+#: lib/tq2_web/live/inventories/import_live.html.leex:3
+msgid "Import some items!"
+msgstr ""
+
+#: lib/tq2_web/live/inventories/import_live.html.leex:23
+msgid "Importing..."
+msgstr ""
+
+#: lib/tq2_web/live/inventories/import_live.ex:46
+msgid "Select store type..."
+msgstr ""
+
+#: lib/tq2_web/live/inventories/import_live.html.leex:18
+msgid "Store type"
+msgstr ""

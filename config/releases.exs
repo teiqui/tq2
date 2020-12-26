@@ -36,7 +36,10 @@ config :tq2, Tq2Web.Endpoint,
   secret_key_base: secret_key_base
 
 # Public store's subdomain
-config :tq2, store_subdomain: System.get_env("STORE_SUBDOMAIN", "store")
+config :tq2,
+  store_subdomain: System.get_env("STORE_SUBDOMAIN", "store"),
+  default_sheet_id:
+    System.get_env("DEFAULT_SHEET_ID", "1RFOEmiQvsMglWcMxCkGpoIc9d6nxvOwyerVVUw3RyIo")
 
 # Sentry config
 config :sentry, dsn: System.get_env("SENTRY_DSN")

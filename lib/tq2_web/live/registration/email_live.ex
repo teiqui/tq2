@@ -42,7 +42,7 @@ defmodule Tq2Web.Registration.EmailLive do
     submit(
       dgettext("registrations", "Continue"),
       class: "btn btn-lg btn-outline-primary border border-primary rounded-pill px-4 mt-4",
-      phx_disable_width: dgettext("registrations", "Saving...")
+      phx_disable_with: dgettext("registrations", "Saving...")
     )
   end
 end

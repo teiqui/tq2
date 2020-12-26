@@ -53,7 +53,7 @@ defmodule Tq2Web.Registration.NameLive do
     submit(
       dgettext("registrations", "Continue"),
       class: "btn btn-lg btn-outline-primary border border-primary rounded-pill px-4 mt-4",
-      phx_disable_width: dgettext("customers", "Saving...")
+      phx_disable_with: dgettext("customers", "Saving...")
     )
   end
 end

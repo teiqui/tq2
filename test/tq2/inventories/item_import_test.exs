@@ -83,7 +83,8 @@ defmodule Tq2.Inventories.ItemImportTest do
 
     test "batch_import/2 should create 13 items with remote sheet" do
       [_h | spreadsheet] =
-        "1RFOEmiQvsMglWcMxCkGpoIc9d6nxvOwyerVVUw3RyIo"
+        :tq2
+        |> Application.get_env(:default_sheet_id)
         |> Tq2.Gdrive.rows_for("Quesos y Fiambres")
 
       results =

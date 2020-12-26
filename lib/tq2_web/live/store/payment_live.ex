@@ -77,7 +77,7 @@ defmodule Tq2Web.Store.PaymentLive do
     submit(text,
       class: "btn btn-lg btn-block btn-primary",
       disabled: !(cart.data && cart.data.payment),
-      phx_disable_width: dgettext("payments", "Saving...")
+      phx_disable_with: dgettext("payments", "Saving...")
     )
   end
 

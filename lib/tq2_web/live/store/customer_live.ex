@@ -129,7 +129,7 @@ defmodule Tq2Web.Store.CustomerLive do
 
     submit(text,
       class: "btn btn-lg btn-block btn-primary",
-      phx_disable_width: dgettext("customers", "Saving...")
+      phx_disable_with: dgettext("customers", "Saving...")
     )
   end
 end
