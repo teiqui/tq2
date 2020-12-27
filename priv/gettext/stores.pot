@@ -164,7 +164,7 @@ msgstr ""
 msgid "Hey, check our store!"
 msgstr ""
 
-#: lib/tq2_web/live/components/store/share_component.ex:29
+#: lib/tq2_web/live/components/store/share_component.ex:21
 msgid "Hey, check our store!\n\n%{url}"
 msgstr ""
 

@@ -14,12 +14,11 @@ msgstr ""
 msgid "See you soon!"
 msgstr ""
 
-#: lib/tq2/notifications/email.ex:43
-#: lib/tq2_web/live/registration/email_live.html.leex:4 lib/tq2_web/live/registration/name_live.html.leex:4
-#: lib/tq2_web/live/registration/password_live.html.leex:4 lib/tq2_web/live/registration/welcome_live.html.leex:4
-#: lib/tq2_web/templates/layout/root.html.leex:5 lib/tq2_web/templates/layout/root.html.leex:5
-#: lib/tq2_web/templates/password/edit.html.eex:5 lib/tq2_web/templates/password/new.html.eex:5
-#: lib/tq2_web/templates/session/new.html.eex:4
+#: lib/tq2_web/live/registration/email_live.html.leex:4
+#: lib/tq2_web/live/registration/name_live.html.leex:4 lib/tq2_web/live/registration/password_live.html.leex:4
+#: lib/tq2_web/live/registration/welcome_live.html.leex:4 lib/tq2_web/templates/layout/root.html.leex:5
+#: lib/tq2_web/templates/layout/root.html.leex:5 lib/tq2_web/templates/password/edit.html.eex:5
+#: lib/tq2_web/templates/password/new.html.eex:5 lib/tq2_web/templates/session/new.html.eex:4
 msgid "Teiqui"
 msgstr ""
 
