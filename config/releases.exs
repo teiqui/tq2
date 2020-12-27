@@ -60,6 +60,23 @@ config :exq,
 config :goth,
   json: System.get_env("CREDENTIALS_PATH", "config/credentials.sample.json") |> File.read!()
 
+# AWS config
+config :ex_aws,
+  json_codec: Jason,
+  s3: [region: {:system, "AWS_REGION"}]
+
+# Waffle config
+config :waffle,
+  storage: Waffle.Storage.S3,
+  bucket: {:system, "AWS_S3_BUCKET"},
+  asset_host:
+    Enum.join([
+      "https://s3.",
+      System.get_env("AWS_REGION", "sa-east-1"),
+      ".amazonaws.com/",
+      System.get_env("AWS_S3_BUCKET", "tq2")
+    ])
+
 # ## Using releases (Elixir v1.9+)
 #
 # If you are doing OTP releases, you need to instruct Phoenix

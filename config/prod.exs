@@ -65,20 +65,3 @@ config :logger, level: :info
 # to start the server for all endpoints:
 
 config :phoenix, :serve_endpoints, true
-
-# Waffle config
-config :waffle,
-  storage: Waffle.Storage.S3,
-  bucket: {:system, "AWS_S3_BUCKET"},
-  asset_host:
-    Enum.join([
-      "https://s3.",
-      System.get_env("AWS_REGION", "sa-east-1"),
-      ".amazonaws.com/",
-      System.get_env("AWS_S3_BUCKET", "tq2")
-    ])
-
-# AWS config
-config :ex_aws,
-  json_codec: Jason,
-  s3: [region: {:system, "AWS_REGION"}]
