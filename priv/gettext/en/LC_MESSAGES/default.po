@@ -26,3 +26,7 @@ msgstr ""
 #: lib/tq2_web/controllers/session_controller.ex:21
 msgid "Welcome!"
 msgstr ""
+
+#: lib/tq2/notifications/email.ex:45
+msgid "Teiqui 🔔"
+msgstr ""
