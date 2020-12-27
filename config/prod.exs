@@ -22,6 +22,9 @@ config :tq2, Tq2Web.Endpoint,
   version: Application.spec(:tq2, :vsn),
   cache_static_manifest: "priv/static/cache_manifest.json"
 
+# Environment to avoid Mix.env query on production
+config :tq2, :env, :prod
+
 # Do not print debug messages in production
 config :logger, level: :info
 

@@ -21,7 +21,7 @@ defmodule Tq2Web.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :tq2,
-    gzip: Mix.env() == :prod,
+    gzip: Application.get_env(:tq2, :env) == :prod,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   if Application.get_env(:waffle, :storage) == Waffle.Storage.Local do

@@ -11,7 +11,7 @@ defmodule Tq2Web.Router do
     plug :put_secure_browser_headers
     plug :put_cache_control_headers
 
-    if Mix.env() == :prod do
+    if Application.get_env(:tq2, :env) == :prod do
       plug Tq2Web.SSLPlug,
         host: nil,
         hsts: true,
@@ -99,7 +99,7 @@ defmodule Tq2Web.Router do
     post "/webhooks/mercado_pago", WebhookController, :mercado_pago, as: :mp_webhook
   end
 
-  if Mix.env() == :dev do
+  if Application.get_env(:tq2, :env) == :dev do
     forward "/sent_emails", Bamboo.SentEmailViewerPlug
   end
 
@@ -110,7 +110,7 @@ defmodule Tq2Web.Router do
   # If your application does not have an admins-only section yet,
   # you can use Plug.BasicAuth to set up some basic authentication
   # as long as you are also using SSL (which you should anyway).
-  if Mix.env() in [:dev, :test] do
+  if Application.get_env(:tq2, :env) in [:dev, :test] do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do

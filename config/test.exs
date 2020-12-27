@@ -27,6 +27,9 @@ config :logger, level: :warn
 # Bamboo test adapter
 config :tq2, Tq2.Notifications.Mailer, adapter: Bamboo.TestAdapter
 
+# Environment to avoid Mix.env query on production
+config :tq2, :env, :test
+
 # Argon config
 config :argon2_elixir,
   t_cost: 1,

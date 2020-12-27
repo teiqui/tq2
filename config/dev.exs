@@ -66,6 +66,9 @@ config :tq2, Tq2Web.Endpoint,
     ]
   ]
 
+# Environment to avoid Mix.env query on production
+config :tq2, :env, :dev
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 

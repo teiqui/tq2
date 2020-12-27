@@ -70,6 +70,18 @@ config :tq2, Tq2.Notifications.Mailer,
   adapter: Bamboo.SesAdapter,
   ex_aws: [region: {:system, "AWS_REGION"}]
 
+config :tq2, Tq2.Notifications.Mailer,
+  adapter: Bamboo.SMTPAdapter,
+  server: {:system, "SMTP_ADDRESS"},
+  hostname: "teiqui.com",
+  port: 465,
+  username: {:system, "SMTP_USER_NAME"},
+  password: {:system, "SMTP_PASSWORD"},
+  tls: :always,
+  allowed_tls_versions: [:tlsv1, :"tlsv1.1", :"tlsv1.2"],
+  retries: 5,
+  auth: :always
+
 # Waffle config
 config :waffle,
   storage: Waffle.Storage.S3,

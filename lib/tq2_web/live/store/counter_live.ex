@@ -117,7 +117,7 @@ defmodule Tq2Web.Store.CounterLive do
   end
 
   defp page_size do
-    case Mix.env() do
+    case Application.get_env(:tq2, :env) do
       :test -> 1
       _ -> 12
     end
