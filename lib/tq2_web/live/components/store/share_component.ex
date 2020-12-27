@@ -7,7 +7,6 @@ defmodule Tq2Web.Store.ShareComponent do
 
     %URI{
       scheme: scheme,
-      port: url_config[:port],
       host: Enum.join([Application.get_env(:tq2, :store_subdomain), url_config[:host]], ".")
     }
   end

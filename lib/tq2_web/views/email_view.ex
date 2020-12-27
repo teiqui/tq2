@@ -9,7 +9,6 @@ defmodule Tq2Web.EmailView do
 
     %URI{
       scheme: scheme,
-      port: url_config[:port],
       host: Enum.join([Application.get_env(:tq2, :app_subdomain), url_config[:host]], ".")
     }
   end
