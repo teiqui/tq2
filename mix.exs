@@ -21,13 +21,7 @@ defmodule Tq2.MixProject do
   def application do
     [
       mod: {Tq2.Application, []},
-      extra_applications: [
-        :logger,
-        :runtime_tools,
-        :bamboo,
-        :bamboo_smtp,
-        :elixir_google_spreadsheets
-      ]
+      extra_applications: [:logger, :runtime_tools, :elixir_google_spreadsheets]
     ]
   end
 
