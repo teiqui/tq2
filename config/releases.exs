@@ -37,7 +37,7 @@ config :tq2, Tq2Web.Endpoint,
 
 # Public store's subdomain
 config :tq2,
-  store_subdomain: System.get_env("STORE_SUBDOMAIN", "store"),
+  store_subdomain: System.get_env("STORE_SUBDOMAIN", "t2"),
   default_sheet_id:
     System.get_env("DEFAULT_SHEET_ID", "1RFOEmiQvsMglWcMxCkGpoIc9d6nxvOwyerVVUw3RyIo")
 
