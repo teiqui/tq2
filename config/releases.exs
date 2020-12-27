@@ -27,7 +27,7 @@ app_host = Enum.join([System.get_env("APP_SUBDOMAIN", "app"), "teiqui.com"], "."
 store_host = Enum.join([System.get_env("STORE_SUBDOMAIN", "t2"), "teiqui.com"], ".")
 
 config :tq2, Tq2Web.Endpoint,
-  url: [host: app_host, scheme: "https", port: 443],
+  url: [host: "teiqui.com", scheme: "https", port: 443],
   http: [
     port: String.to_integer(System.get_env("PORT") || "4000"),
     transport_options: [socket_opts: [:inet6]]
@@ -37,6 +37,7 @@ config :tq2, Tq2Web.Endpoint,
 
 # Public store's subdomain
 config :tq2,
+  app_subdomain: System.get_env("APP_SUBDOMAIN", "app"),
   store_subdomain: System.get_env("STORE_SUBDOMAIN", "t2"),
   default_sheet_id:
     System.get_env("DEFAULT_SHEET_ID", "1RFOEmiQvsMglWcMxCkGpoIc9d6nxvOwyerVVUw3RyIo")
@@ -66,10 +67,6 @@ config :ex_aws,
   s3: [region: {:system, "AWS_REGION"}]
 
 # Bamboo config
-config :tq2, Tq2.Notifications.Mailer,
-  adapter: Bamboo.SesAdapter,
-  ex_aws: [region: {:system, "AWS_REGION"}]
-
 config :tq2, Tq2.Notifications.Mailer,
   adapter: Bamboo.SMTPAdapter,
   server: {:system, "SMTP_ADDRESS"},

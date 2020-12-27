@@ -12,4 +12,4 @@
 <%= dgettext("emails", "For reference, the order is #%{number}", number: @order.id) %>
 
 <%= dgettext("emails", "Go to the app and see more information about this, visit the following direction:") %>
-<%= Routes.order_url(Tq2Web.Endpoint, :show, @order) %>
+<%= Routes.order_url(base_uri(), :show, @order) %>

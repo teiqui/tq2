@@ -10,11 +10,7 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :tq2, Tq2Web.Endpoint,
-  url: [
-    host: Enum.join([System.get_env("APP_SUBDOMAIN", "app"), "teiqui.com"], "."),
-    scheme: "https",
-    port: 443
-  ],
+  url: [host: "teiqui.com", scheme: "https", port: 443],
   http: [port: 80],
   server: true,
   load_from_system_env: true,

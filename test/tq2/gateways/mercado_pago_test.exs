@@ -51,7 +51,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
 
     test "marketplace_association_link/1 returns valid url" do
       link = @credential |> MercadoPago.marketplace_association_link()
-      mp_link = Tq2Web.Router.Helpers.mp_marketplace_url(Tq2Web.Endpoint, :show)
+      mp_link = app_uri() |> Tq2Web.Router.Helpers.mp_marketplace_url(:show)
 
       assert link =~ "https://auth.mercadopago.com.ar"
       # token app_id
@@ -227,6 +227,17 @@ defmodule Tq2.Gateways.MercadoPagoTest do
       {:ok, app} = session |> Tq2.Apps.create_app(attrs)
 
       app
+    end
+
+    defp app_uri do
+      scheme = if Tq2Web.Endpoint.config(:https), do: "https", else: "http"
+      url_config = Tq2Web.Endpoint.config(:url)
+
+      %URI{
+        scheme: scheme,
+        port: url_config[:port],
+        host: Enum.join([Application.get_env(:tq2, :app_subdomain), url_config[:host]], ".")
+      }
     end
   end
 end

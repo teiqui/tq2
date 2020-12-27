@@ -42,5 +42,5 @@
 
 <p>
   <%= dgettext("emails", "Go to the app and see more information about this ") %>
-  <%= link dgettext("emails", "here"), to: Routes.order_url(Tq2Web.Endpoint, :show, @order) %>.
+  <%= link dgettext("emails", "here"), to: Routes.order_url(base_uri(), :show, @order) %>.
 </p>

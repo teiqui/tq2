@@ -204,11 +204,11 @@ defmodule Tq2.Gateways.MercadoPago do
   end
 
   defp license_marketplace_url do
-    Tq2Web.Router.Helpers.mp_marketplace_url(Tq2Web.Endpoint, :show)
+    app_uri() |> Tq2Web.Router.Helpers.mp_marketplace_url(:show)
   end
 
   defp license_check_url do
-    Tq2Web.Router.Helpers.license_check_url(Tq2Web.Endpoint, :show)
+    app_uri() |> Tq2Web.Router.Helpers.license_check_url(:show)
   end
 
   defp check_payment_url(store) do
@@ -308,6 +308,17 @@ defmodule Tq2.Gateways.MercadoPago do
       currency_id: price.currency,
       unit_price: unit_price,
       quantity: line.quantity
+    }
+  end
+
+  defp app_uri do
+    scheme = if Tq2Web.Endpoint.config(:https), do: "https", else: "http"
+    url_config = Tq2Web.Endpoint.config(:url)
+
+    %URI{
+      scheme: scheme,
+      port: url_config[:port],
+      host: Enum.join([Application.get_env(:tq2, :app_subdomain), url_config[:host]], ".")
     }
   end
 end
