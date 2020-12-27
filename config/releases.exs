@@ -65,6 +65,11 @@ config :ex_aws,
   json_codec: Jason,
   s3: [region: {:system, "AWS_REGION"}]
 
+# Bamboo config
+config :tq2, Tq2.Notifications.Mailer,
+  adapter: Bamboo.SesAdapter,
+  ex_aws: [region: {:system, "AWS_REGION"}]
+
 # Waffle config
 config :waffle,
   storage: Waffle.Storage.S3,
@@ -74,7 +79,7 @@ config :waffle,
       "https://s3.",
       System.get_env("AWS_REGION", "sa-east-1"),
       ".amazonaws.com/",
-      System.get_env("AWS_S3_BUCKET", "tq2")
+      System.get_env("AWS_S3_BUCKET", "public.teiqui.com")
     ])
 
 # ## Using releases (Elixir v1.9+)

@@ -50,6 +50,7 @@ defmodule Tq2.MixProject do
       {:plug_cowboy, ">= 2.4.0"},
       {:argon2_elixir, ">= 2.3.0"},
       {:bamboo, ">= 1.6.0"},
+      {:bamboo_ses, ">= 0.1.0"},
       {:paper_trail, ">= 0.12.0"},
       {:tzdata, ">= 1.0.0"},
       {:scrivener_ecto, ">= 2.7.0"},
