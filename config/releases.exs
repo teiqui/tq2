@@ -74,11 +74,11 @@ config :tq2, Tq2.Notifications.Mailer,
   adapter: Bamboo.SMTPAdapter,
   server: {:system, "SMTP_ADDRESS"},
   hostname: "teiqui.com",
-  port: 465,
+  port: 587,
   username: {:system, "SMTP_USER_NAME"},
   password: {:system, "SMTP_PASSWORD"},
   tls: :always,
-  allowed_tls_versions: [:tlsv1, :"tlsv1.1", :"tlsv1.2"],
+  ssl: false,
   retries: 5,
   auth: :always
 
