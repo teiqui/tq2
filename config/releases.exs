@@ -23,16 +23,16 @@ secret_key_base =
     You can generate one by calling: mix phx.gen.secret
     """
 
+app_host = Enum.join([System.get_env("APP_SUBDOMAIN", "app"), "teiqui.com"], ".")
+store_host = Enum.join([System.get_env("STORE_SUBDOMAIN", "t2"), "teiqui.com"], ".")
+
 config :tq2, Tq2Web.Endpoint,
-  url: [
-    host: Enum.join([System.get_env("APP_SUBDOMAIN", "app"), "teiqui.com"], "."),
-    scheme: "https",
-    port: 443
-  ],
+  url: [host: app_host, scheme: "https", port: 443],
   http: [
     port: String.to_integer(System.get_env("PORT") || "4000"),
     transport_options: [socket_opts: [:inet6]]
   ],
+  check_origin: ["https://#{app_host}", "https://#{store_host}"],
   secret_key_base: secret_key_base
 
 # Public store's subdomain
