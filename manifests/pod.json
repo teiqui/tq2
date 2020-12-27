@@ -113,10 +113,10 @@
             }
           },
           {
-            "name": "DEFAULT_CRAWLER_URL",
+            "name": "DEFAULT_SHEET_ID",
             "valueFrom": {
               "configMapKeyRef": {
-                "key": "defaultCrawlerUrl",
+                "key": "defaultSheetId",
                 "name": "tq2-app-config"
               }
             }
