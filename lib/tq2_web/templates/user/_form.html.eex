@@ -13,7 +13,7 @@
 
   <%= lock_version_input f, assigns[:user] %>
 
-  <div>
+  <div class="text-right">
     <%= submit_button assigns[:user] %>
   </div>
 <% end %>

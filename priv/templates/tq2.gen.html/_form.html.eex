@@ -9,7 +9,7 @@
 <% end %>
   <%%= lock_version_input f, assigns[:<%= schema.singular %>] %>
 
-  <div>
+  <div class="text-right">
     <%%= submit_button assigns[:<%= schema.singular %>] %>
   </div>
 <%% end %>

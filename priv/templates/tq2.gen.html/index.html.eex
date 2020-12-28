@@ -31,6 +31,6 @@
   <%%= pagination_links @conn, @page, distance: 1 %>
 </div>
 
-<div class="mt-3">
+<div class="mt-3 text-right">
   <%%= link dgettext("<%= schema.plural %>", "New <%= schema.singular %>"), to: Routes.<%= schema.route_helper %>_path(@conn, :new), class: "btn btn-primary rounded-pill font-weight-semi-bold" %>
 </div>

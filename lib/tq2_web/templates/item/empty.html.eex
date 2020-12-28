@@ -7,7 +7,7 @@
     <%= dgettext("items", "Let's create one...") %>
   </p>
 
-  <p>
+  <p class="text-right">
     <%= link dgettext("items", "New item"), to: Routes.item_path(@conn, :new),
                                             class: "btn btn-primary rounded-pill font-weight-semi-bold" %>
   </p>

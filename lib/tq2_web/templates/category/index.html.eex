@@ -30,7 +30,7 @@
   <%= pagination_links @conn, @page, distance: 1 %>
 </div>
 
-<div class="mt-3">
+<div class="mt-3 text-right">
   <%= link dgettext("categories", "New category"), to: Routes.category_path(@conn, :new),
                                                    class: "btn btn-primary rounded-pill font-weight-semi-bold" %>
 </div>

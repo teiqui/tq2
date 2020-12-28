@@ -110,7 +110,7 @@
 
   <%= lock_version_input f, assigns[:store] %>
 
-  <div>
+  <div class="text-right">
     <%= submit_button assigns[:store] %>
   </div>
 <% end %>

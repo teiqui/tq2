@@ -7,7 +7,7 @@
     <%= dgettext("accounts", "Let's create one...") %>
   </p>
 
-  <p>
+  <p class="text-right">
     <%= link dgettext("accounts", "New account"), to: Routes.account_path(@conn, :new),
                                                   class: "btn btn-primary rounded-pill font-weight-semi-bold" %>
   </p>
