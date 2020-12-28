@@ -34,13 +34,20 @@ defmodule Tq2Web.Inventories.ImportLiveTest do
       path = Routes.import_path(conn, :index)
       {:ok, import_live, _html} = live(conn, path)
 
+      :erlang.trace(import_live.pid, true, [:receive])
+
+      pid = import_live.pid
+
       assert import_live
              |> element("form")
              |> render_submit(%{
                item: %{
                  "title" => "Quesos y Fiambres"
                }
-             }) =~ "13 items imported!"
+             }) =~ "class=\"progress-bar\""
+
+      assert_receive {:trace, ^pid, :receive, {:batch_import_finished, result}}, 20_000
+      assert render(import_live) =~ "13 items imported!"
     end
   end
 end

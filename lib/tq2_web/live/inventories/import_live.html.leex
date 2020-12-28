@@ -12,16 +12,7 @@
 
 <div class="row justify-content-center mt-5">
   <div class="col-sm-10 col-md-8 col-lg-6 col-xl-4">
-    <%= if @imported_items == 0 do %>
-      <%= form_for @changeset, "#", [phx_submit: "import"], fn f -> %>
-        <%= input f, :title, dgettext("items", "Store type"), collection: @titles,
-                                                              label_html: [class: "sr-only"],
-                                                              input_html: [prompt: title_prompt(), autofocus: true] %>
-
-        <%= submit dgettext("items", "Import"), class: "btn btn-lg btn-block btn-primary",
-                                                phx_disable_with: dgettext("items", "Importing...") %>
-      <% end %>
-    <% else %>
+    <%= if @finished do %>
       <div class="text-center">
         <div class="alert alert-info">
           <%= dngettext("items", "One item imported!", "%{count} items imported!", @imported_items) %>
@@ -29,6 +20,41 @@
 
         <%= link dgettext("items", "Go to item list"), to: Routes.item_path(@socket, :index) %>
       </div>
+    <% else %>
+      <%= form_for @changeset, "#", [phx_submit: "import"], fn f -> %>
+        <%= if @title do %>
+          <%= input f, :title, dgettext("items", "Store type"), label_html: [class: "sr-only"],
+                                                                input_html: [value: @title] %>
+        <% else %>
+          <%= input f, :title, dgettext("items", "Store type"), collection: @titles,
+                                                                label_html: [class: "sr-only"],
+                                                                input_html: [prompt: title_prompt(), autofocus: true] %>
+        <% end %>
+
+        <%= submit_import @total_items, @finished %>
+
+        <%= unless @total_items do %>
+          <div class="text-center mt-4">
+            <%= link dgettext("items", "No thanks, go to the app"), to: Routes.item_path(@socket, :index) %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <%= if @total_items && @total_items > 0 do %>
+        <p class="mt-4 mb-2 text-center">
+          <%= dgettext("items", "Importing items, please wait...") %>
+        </p>
+
+        <div class="progress">
+          <div class="progress-bar"
+               role="progressbar"
+               style="width: <%= round(@imported_items / @total_items * 100) %>%"
+               aria-valuenow="<%= round(@imported_items / @total_items * 100) %>"
+               aria-valuemin="0"
+               aria-valuemax="100">
+          </div>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

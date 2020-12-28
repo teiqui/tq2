@@ -6,9 +6,13 @@ defmodule Tq2.Inventories.ItemImportTest do
   describe "item import" do
     alias Tq2.Inventories.ItemImport
 
-    test "batch_import/2 should create 1 item with default headers" do
+    test "batch_import/3 should create 1 item and notifies with default headers" do
+      session = create_session()
+
+      Tq2.Inventories.subscribe(session)
+
       # With untrusted https request
-      spreadsheet = [
+      rows = [
         [
           "  Water bottle  ",
           " Waters \n ",
@@ -20,8 +24,8 @@ defmodule Tq2.Inventories.ItemImportTest do
       ]
 
       results =
-        create_session()
-        |> ItemImport.batch_import(spreadsheet)
+        session
+        |> ItemImport.batch_import(rows)
         |> Enum.filter(fn {status, _} -> status == :ok end)
 
       assert Enum.count(results) == 1
@@ -36,11 +40,13 @@ defmodule Tq2.Inventories.ItemImportTest do
       assert item.cost == Money.new(5000, "ARS")
       assert item.image.file_name
       assert item.category.name == "Waters"
+
+      assert_received {:batch_import_finished, _results}
     end
 
     test "batch_import/3 should create 1 item with custom headers" do
       # With untrusted https request
-      spreadsheet = [
+      rows = [
         [
           "50",
           "  Water bottle  ",
@@ -62,7 +68,7 @@ defmodule Tq2.Inventories.ItemImportTest do
 
       results =
         create_session()
-        |> ItemImport.batch_import(spreadsheet, headers)
+        |> ItemImport.batch_import(rows, headers)
         |> Enum.filter(fn {status, _} -> status == :ok end)
 
       assert Enum.count(results) == 1
@@ -81,15 +87,15 @@ defmodule Tq2.Inventories.ItemImportTest do
 
     if System.get_env("CREDENTIALS_PATH") == nil, do: @tag(:skip)
 
-    test "batch_import/2 should create 13 items with remote sheet" do
-      [_h | spreadsheet] =
+    test "batch_import/3 should create 13 items with remote sheet" do
+      [_h | rows] =
         :tq2
         |> Application.get_env(:default_sheet_id)
         |> Tq2.Gdrive.rows_for("Quesos y Fiambres")
 
       results =
         create_session()
-        |> ItemImport.batch_import(spreadsheet)
+        |> ItemImport.batch_import(rows)
         |> Enum.filter(fn {status, _} -> status == :ok end)
 
       assert Enum.count(results) == 13

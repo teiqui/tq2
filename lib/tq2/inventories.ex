@@ -11,6 +11,38 @@ defmodule Tq2.Inventories do
   alias Tq2.Inventories.Category
 
   @doc """
+  Subscribe to be notified about changes on items and categories.
+
+  ## Examples
+
+      iex> subscribe(%Session{})
+      :ok
+
+  """
+  def subscribe(%Session{account: account, user: user}) do
+    Phoenix.PubSub.subscribe(Tq2.PubSub, "inventories:#{account.id}:#{user.id}")
+  end
+
+  @doc """
+  Broadcast the given message.
+
+  ## Examples
+
+      iex> broadcast({:ok, "some result"}, %Session{}, :event_finished)
+      {:ok, "some result"}
+
+  """
+  def broadcast(result, %Session{account: account, user: user}, message) do
+    Phoenix.PubSub.broadcast(
+      Tq2.PubSub,
+      "inventories:#{account.id}:#{user.id}",
+      {message, result}
+    )
+
+    result
+  end
+
+  @doc """
   Returns the list of categories.
 
   ## Examples
@@ -88,10 +120,11 @@ defmodule Tq2.Inventories do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_category(%Session{account: account, user: user}, attrs) do
+  def create_category(%Session{account: account, user: user} = session, attrs) do
     account
     |> Category.changeset(%Category{}, attrs)
     |> Trail.insert(originator: user, meta: %{account_id: account.id})
+    |> broadcast(session, :create_category_finished)
   end
 
   @doc """
@@ -106,10 +139,15 @@ defmodule Tq2.Inventories do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_category(%Session{account: account, user: user}, %Category{} = category, attrs) do
+  def update_category(
+        %Session{account: account, user: user} = session,
+        %Category{} = category,
+        attrs
+      ) do
     account
     |> Category.changeset(category, attrs)
     |> Trail.update(originator: user, meta: %{account_id: account.id})
+    |> broadcast(session, :update_category_finished)
   end
 
   @doc """
@@ -124,8 +162,10 @@ defmodule Tq2.Inventories do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_category(%Session{account: account, user: user}, %Category{} = category) do
-    Trail.delete(category, originator: user, meta: %{account_id: account.id})
+  def delete_category(%Session{account: account, user: user} = session, %Category{} = category) do
+    category
+    |> Trail.delete(originator: user, meta: %{account_id: account.id})
+    |> broadcast(session, :delete_category_finished)
   end
 
   @doc """
@@ -238,10 +278,11 @@ defmodule Tq2.Inventories do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_item(%Session{account: account, user: user}, attrs) do
+  def create_item(%Session{account: account, user: user} = session, attrs) do
     account
     |> Item.changeset(%Item{}, attrs)
     |> Trail.insert(originator: user, meta: %{account_id: account.id})
+    |> broadcast(session, :create_item_finished)
   end
 
   @doc """
@@ -256,10 +297,11 @@ defmodule Tq2.Inventories do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_item(%Session{account: account, user: user}, %Item{} = item, attrs) do
+  def update_item(%Session{account: account, user: user} = session, %Item{} = item, attrs) do
     account
     |> Item.changeset(item, attrs)
     |> Trail.update(originator: user, meta: %{account_id: account.id})
+    |> broadcast(session, :update_item_finished)
   end
 
   @doc """
@@ -274,8 +316,10 @@ defmodule Tq2.Inventories do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_item(%Session{account: account, user: user}, %Item{image: nil} = item) do
-    Trail.delete(item, originator: user, meta: %{account_id: account.id})
+  def delete_item(%Session{account: account, user: user} = session, %Item{image: nil} = item) do
+    item
+    |> Trail.delete(originator: user, meta: %{account_id: account.id})
+    |> broadcast(session, :delete_item_finished)
   end
 
   def delete_item(%Session{} = session, %Item{image: image} = item) do

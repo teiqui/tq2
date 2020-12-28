@@ -66,6 +66,26 @@ defmodule Tq2.InventoriesTest do
     category
   end
 
+  describe "subscription" do
+    setup [:create_session]
+
+    test "subscription/1 annotates process for notifications", %{session: session} do
+      Inventories.subscribe(session)
+
+      _category = fixture(session, :category)
+
+      assert_received {:create_category_finished, {:ok, _category}}
+    end
+
+    test "broadcast/3 send message to all subscribers", %{session: session} do
+      Inventories.subscribe(session)
+
+      Inventories.broadcast({:ok, "test message"}, session, :test_message)
+
+      assert_received {:test_message, {:ok, "test message"}}
+    end
+  end
+
   describe "categories" do
     setup [:create_session]
 
@@ -288,9 +308,7 @@ defmodule Tq2.InventoriesTest do
     test "create_or_update_item/2 should create item", %{session: session} do
       refute Tq2.Repo.get_by(Item, name: @valid_item_attrs.name)
 
-      assert {:ok, %Item{}} =
-               session
-               |> Tq2.Inventories.create_or_update_item(@valid_item_attrs)
+      assert {:ok, %Item{}} = session |> Tq2.Inventories.create_or_update_item(@valid_item_attrs)
     end
 
     test "list_visible_items/2 should search by name", %{session: %{account: account} = session} do

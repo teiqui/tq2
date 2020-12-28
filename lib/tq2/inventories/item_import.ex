@@ -1,4 +1,6 @@
 defmodule Tq2.Inventories.ItemImport do
+  use Task
+
   alias Tq2.Inventories
   alias Tq2.Accounts.{Account, Session}
 
@@ -13,11 +15,15 @@ defmodule Tq2.Inventories.ItemImport do
 
   @money_fields [:price, :promotional_price, :cost]
 
-  def batch_import(
-        %Session{} = session,
-        rows,
-        headers_with_index \\ @default_headers
-      ) do
+  def start_link([session, rows, headers_with_index]) do
+    Task.start_link(__MODULE__, :batch_import, [
+      session,
+      rows,
+      headers_with_index || @default_headers
+    ])
+  end
+
+  def batch_import(%Session{} = session, rows, headers_with_index \\ @default_headers) do
     categories_by_name =
       session
       |> categories_from_rows(rows, headers_with_index)
@@ -25,6 +31,7 @@ defmodule Tq2.Inventories.ItemImport do
     rows
     |> Enum.map(&row_to_item(&1, session.account, categories_by_name, headers_with_index))
     |> Enum.map(&Inventories.create_or_update_item(session, &1))
+    |> Inventories.broadcast(session, :batch_import_finished)
   end
 
   defp categories_from_rows(session, rows, headers_with_index) do
