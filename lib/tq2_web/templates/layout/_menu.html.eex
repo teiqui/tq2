@@ -10,7 +10,7 @@
       <%= dgettext("menu", "Hello %{name}", name: String.slice(@account.name, 0..30)) %>
     </a>
 
-    <%= icon_link @conn, "plus-circle", to: "#", class: "navbar-toggler border-0", data: [toggle: "collapse", target: "#menu"] %>
+    <%= icon_link @conn, "list", to: "#", class: "navbar-toggler border-0", data: [toggle: "collapse", target: "#menu"] %>
 
     <div class="collapse navbar-collapse" id="menu">
       <ul class="navbar-nav mr-auto">
