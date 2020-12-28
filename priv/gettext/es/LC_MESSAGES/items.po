@@ -101,7 +101,7 @@ msgstr "Ninguna"
 
 #: lib/tq2_web/templates/item/_form.html.eex:4
 msgid "Oops, something went wrong! Please check the errors below."
-msgstr "Ups, parece que algo salió mal. Por favor, revise los errores."
+msgstr "Ups, parece que algo no salió bien. Por favor, revisa los errores."
 
 #: lib/tq2_web/templates/item/_form.html.eex:15
 #: lib/tq2_web/templates/item/show.html.eex:28
@@ -157,7 +157,7 @@ msgstr "¡Importa algunos artículos!"
 msgid "Importing..."
 msgstr "Importando..."
 
-#: lib/tq2_web/live/inventories/import_live.ex:96
+#: lib/tq2_web/live/inventories/import_live.ex:98
 msgid "Select store type..."
 msgstr "Seleccione un tipo de tienda..."
 
@@ -171,5 +171,5 @@ msgid "Importing items, please wait..."
 msgstr "Importando artículos, por favor espere..."
 
 #: lib/tq2_web/live/inventories/import_live.html.leex:38
-msgid "No thanks, go to the app"
-msgstr "No gracias, ir a la app"
+msgid "Skip import"
+msgstr "Omitir importación"

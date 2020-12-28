@@ -35,7 +35,7 @@
 
         <%= unless @total_items do %>
           <div class="text-center mt-4">
-            <%= link dgettext("items", "No thanks, go to the app"), to: Routes.item_path(@socket, :index) %>
+            <%= link dgettext("items", "Skip import"), to: Routes.item_path(@socket, :index) %>
           </div>
         <% end %>
       <% end %>

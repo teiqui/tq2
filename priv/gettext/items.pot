@@ -156,7 +156,7 @@ msgstr ""
 msgid "Importing..."
 msgstr ""
 
-#: lib/tq2_web/live/inventories/import_live.ex:96
+#: lib/tq2_web/live/inventories/import_live.ex:98
 msgid "Select store type..."
 msgstr ""
 
@@ -170,5 +170,5 @@ msgid "Importing items, please wait..."
 msgstr ""
 
 #: lib/tq2_web/live/inventories/import_live.html.leex:38
-msgid "No thanks, go to the app"
+msgid "Skip import"
 msgstr ""
