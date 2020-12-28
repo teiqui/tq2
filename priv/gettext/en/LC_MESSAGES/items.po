@@ -108,8 +108,8 @@ msgstr ""
 msgid "Price"
 msgstr ""
 
-#: lib/tq2_web/templates/item/_form.html.eex:16
-#: lib/tq2_web/templates/item/show.html.eex:32
+#: lib/tq2_web/live/store/item_live.html.leex:56
+#: lib/tq2_web/templates/item/_form.html.eex:16 lib/tq2_web/templates/item/show.html.eex:32
 msgid "Promotional price"
 msgstr ""
 
@@ -172,4 +172,8 @@ msgstr ""
 
 #: lib/tq2_web/live/inventories/import_live.html.leex:38
 msgid "Skip import"
+msgstr ""
+
+#: lib/tq2_web/templates/item/index.html.eex:41
+msgid "Import items"
 msgstr ""

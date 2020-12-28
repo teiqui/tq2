@@ -1,16 +1,16 @@
 <div class="text-center">
-  <h2 class="h4 text-info mt-5 mb-4">
+  <h2 class="h4 text-info mt-5 mb-5">
     <%= dgettext("items", "Import some items!") %>
   </h2>
 
   <div class="text-info">
-    <svg class="bi" width="128" height="128" fill="currentColor">
+    <svg class="bi" width="96" height="96" fill="currentColor">
       <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#box-seam") %>"/>
     </svg>
   </div>
 </div>
 
-<div class="row justify-content-center mt-5">
+<div class="row justify-content-center mt-5 px-3">
   <div class="col-sm-10 col-md-8 col-lg-6 col-xl-4">
     <%= if @finished do %>
       <div class="text-center">
@@ -45,7 +45,7 @@
           <%= dgettext("items", "Importing items, please wait...") %>
         </p>
 
-        <div class="progress">
+        <div class="progress rounded-pill">
           <div class="progress-bar"
                role="progressbar"
                style="width: <%= round(@imported_items / @total_items * 100) %>%"
