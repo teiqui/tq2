@@ -8,6 +8,8 @@
   </p>
 
   <p class="text-right">
+    <%= link dgettext("items", "Import items"), to: Routes.import_path(@conn, :index),
+                                                class: "mr-3 font-weight-semi-bold" %>
     <%= link dgettext("items", "New item"), to: Routes.item_path(@conn, :new),
                                             class: "btn btn-primary rounded-pill font-weight-semi-bold" %>
   </p>
