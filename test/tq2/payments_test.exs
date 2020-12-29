@@ -151,11 +151,31 @@ defmodule Tq2.PaymentsTest do
     @valid_cart_attrs %{
       token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoM="
     }
+    @mp_attrs %{
+      amount: Money.new(2000, "ARS"),
+      status: "pending",
+      external_id: "tq2-mp-cart-123",
+      kind: "mercado_pago"
+    }
 
     defp cart_fixture(account) do
       {:ok, cart} = account |> Tq2.Transactions.create_cart(@valid_cart_attrs)
 
       cart
+    end
+
+    defp order_fixture(account, cart) do
+      {:ok, order} =
+        Tq2.Sales.create_order(
+          account,
+          %{
+            cart_id: cart.id,
+            promotion_expires_at: DateTime.utc_now(),
+            data: %{}
+          }
+        )
+
+      %{order | cart: cart}
     end
 
     test "create_payment/2 with valid data creates a payment", %{session: %{account: account}} do
@@ -176,6 +196,60 @@ defmodule Tq2.PaymentsTest do
                account
                |> cart_fixture()
                |> Payments.create_payment(@invalid_attrs)
+    end
+
+    test "update_payment/2 with valid data update payment create order", %{
+      session: %{account: account}
+    } do
+      assert {:ok, %Payment{} = original_payment} =
+               account
+               |> cart_fixture()
+               |> Payments.create_payment(@mp_attrs)
+
+      original_payment = Tq2.Repo.preload(original_payment, :order, force: true)
+
+      refute original_payment.order
+
+      assert {:ok, payment} =
+               Payments.update_payment(
+                 %{
+                   external_id: @mp_attrs.external_id,
+                   status: "paid"
+                 },
+                 account
+               )
+
+      assert payment.status == "paid"
+      assert payment.order.id
+      assert payment.order.data.paid
+    end
+
+    test "update_payment/2 with valid data update payment with order", %{
+      session: %{account: account}
+    } do
+      cart = account |> cart_fixture()
+
+      assert {:ok, %Payment{} = original_payment} = cart |> Payments.create_payment(@mp_attrs)
+
+      assert order_fixture(account, cart)
+
+      original_payment = Tq2.Repo.preload(original_payment, :order, force: true)
+
+      assert original_payment.order
+      refute original_payment.order.data.paid
+
+      assert {:ok, payment} =
+               Payments.update_payment(
+                 %{
+                   external_id: @mp_attrs.external_id,
+                   status: "paid"
+                 },
+                 account
+               )
+
+      assert payment.status == "paid"
+      assert payment.order.id == original_payment.order.id
+      assert payment.order.data.paid
     end
   end
 end

@@ -149,6 +149,7 @@ defmodule Tq2.Gateways.MercadoPago do
   @doc "Returns a parsed payment map given a MP-payment"
   def response_to_payment(%{
         "id" => id,
+        "external_reference" => ext_id,
         "date_approved" => date,
         "status" => status,
         "transaction_amount" => amount,
@@ -157,9 +158,12 @@ defmodule Tq2.Gateways.MercadoPago do
     paid_at = date |> parse_date()
     status = status |> parse_payment_status()
     amount = amount |> parse_amount(currency)
+    # License payment => id
+    # Marketplace payment => external_id
+    external_id = if String.starts_with?(ext_id, "tq2-mp-cart-"), do: ext_id, else: id
 
     %{
-      external_id: "#{id}",
+      external_id: "#{external_id}",
       amount: amount,
       paid_at: paid_at,
       status: status

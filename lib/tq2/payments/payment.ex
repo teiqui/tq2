@@ -16,6 +16,7 @@ defmodule Tq2.Payments.Payment do
     field :lock_version, :integer, default: 0
 
     belongs_to :cart, Cart
+    has_one :order, through: [:cart, :order]
 
     timestamps()
   end

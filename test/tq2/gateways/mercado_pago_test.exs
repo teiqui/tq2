@@ -137,7 +137,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
 
       default_preference = %{
         id: 33,
-        external_reference: "tq2-cart-#{cart.id}",
+        external_reference: "tq2-mp-cart-#{cart.id}",
         init_point: "https://mp.com/123"
       }
 

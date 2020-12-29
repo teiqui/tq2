@@ -23,7 +23,7 @@ defmodule Tq2Web.OrderController do
 
   def edit(conn, %{"id" => id}, session) do
     order = Sales.get_order!(session.account, id)
-    changeset = Sales.change_order(session.account, order)
+    changeset = session.account |> Sales.change_order(order)
 
     render(conn, "edit.html",
       order: order,
