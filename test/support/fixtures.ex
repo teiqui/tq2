@@ -55,4 +55,60 @@ defmodule Tq2.Fixtures do
 
     customer
   end
+
+  def init_test_session(%{conn: conn}) do
+    session = create_session()
+    user = user_fixture(session)
+
+    session = %{session | user: user}
+
+    conn =
+      conn
+      |> Plug.Test.init_test_session(account_id: session.account.id, user_id: session.user.id)
+
+    {:ok, %{conn: conn, session: session}}
+  end
+
+  def create_order(_) do
+    session = create_session()
+
+    {:ok, cart} =
+      Tq2.Transactions.create_cart(session.account, %{
+        token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoo=",
+        customer_id: create_customer().id,
+        data: %{handing: "pickup"}
+      })
+
+    {:ok, item} =
+      Tq2.Inventories.create_item(session, %{
+        sku: "some sku",
+        name: "some name",
+        visibility: "visible",
+        price: Money.new(100, :ARS),
+        promotional_price: Money.new(90, :ARS),
+        cost: Money.new(80, :ARS)
+      })
+
+    {:ok, _line} =
+      Tq2.Transactions.create_line(cart, %{
+        name: "some name",
+        quantity: 42,
+        price: Money.new(100, :ARS),
+        promotional_price: Money.new(90, :ARS),
+        cost: Money.new(80, :ARS),
+        item: item
+      })
+
+    {:ok, order} =
+      Tq2.Sales.create_order(
+        session.account,
+        %{
+          cart_id: cart.id,
+          promotion_expires_at: Timex.now() |> Timex.shift(days: 1),
+          status: "pending"
+        }
+      )
+
+    %{order: order}
+  end
 end

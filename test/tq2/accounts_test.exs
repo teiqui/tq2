@@ -45,7 +45,7 @@ defmodule Tq2.AccountsTest do
       account = account_fixture()
       default_account = Tq2.Repo.get_by!(Account, name: "test_account")
 
-      assert Enum.map(Accounts.list_accounts(%{}).entries, & &1.id) == [
+      assert Enum.sort(Enum.map(Accounts.list_accounts(%{}).entries, & &1.id)) == [
                default_account.id,
                account.id
              ]

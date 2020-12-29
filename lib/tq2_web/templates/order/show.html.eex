@@ -49,9 +49,10 @@
 
         <tfoot>
           <tr>
-            <td colspan="3">
+            <td colspan="2">
               <strong><%= dgettext("orders", "Total") %></strong>
             </td>
+            <td class="d-none d-md-table-cell d-print-table-cell text-nowrap"></td>
             <td>
               <strong><%= cart_total @order.cart %></strong>
             </td>

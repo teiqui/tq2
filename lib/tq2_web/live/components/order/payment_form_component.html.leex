@@ -1,0 +1,31 @@
+<%= form_for @changeset, "#", [phx_submit: "save", phx_change: "update"], fn f -> %>
+  <%= input f, :amount, dgettext("payments", "Amount") %>
+
+  <div class="card">
+    <div class="card-header pb-4">
+      <%= for {kind, text} <- payment_methods() do %>
+        <div class="custom-control custom-radio mt-3">
+          <input type="radio"
+                 id="<%= kind %>"
+                 name="payment[kind]"
+                 class="custom-control-input"
+                 value="<%= kind %>"
+                 <%= if payment_kind?(@changeset, kind), do: "checked" %>>
+         <label class="custom-control-label" for="<%= kind %>">
+           <span class="ml-2 d-block">
+             <%= static_img kind, text %>
+
+             <span class="font-weight-semi-bold">
+               <%= text %>
+             </span>
+           </span>
+         </label>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="container-fluid py-1 py-lg-2 text-right mt-2 mb-n1">
+    <%= submit_payment(@changeset) %>
+  </div>
+<% end %>

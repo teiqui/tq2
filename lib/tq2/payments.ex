@@ -5,7 +5,7 @@ defmodule Tq2.Payments do
 
   import Ecto.Query, warn: false
 
-  alias Tq2.Accounts.{Account, License}
+  alias Tq2.Accounts.{Account, License, Session}
   alias Tq2.Payments.LicensePayment, as: LPayment
   alias Tq2.Payments.Payment
   alias Tq2.Repo
@@ -54,24 +54,6 @@ defmodule Tq2.Payments do
   def create_or_update_license_payment(_attrs, %Account{}), do: nil
 
   @doc """
-  Creates a payment.
-
-  ## Examples
-
-      iex> create_payment(%Cart{}, %{field: value})
-      {:ok, %Payment{}}
-
-      iex> create_payment(%Cart{}, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def create_payment(%Cart{} = cart, attrs) do
-    cart
-    |> Payment.changeset(%Payment{}, attrs)
-    |> Trail.insert(meta: %{account_id: cart.account_id})
-  end
-
-  @doc """
   Get a payment
 
   ## Examples
@@ -91,6 +73,42 @@ defmodule Tq2.Payments do
     |> preload([p, c, o], cart: {c, order: o}, order: o)
     |> Repo.get_by!(external_id: external_id)
     |> Map.put(:account, account)
+  end
+
+  @doc """
+  Creates a payment.
+
+  ## Examples
+
+      iex> create_payment(%Cart{}, %{field: value})
+      {:ok, %Payment{}}
+
+      iex> create_payment(%Cart{}, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_payment(%Cart{} = cart, attrs) do
+    cart
+    |> Payment.changeset(%Payment{}, attrs)
+    |> Trail.insert(meta: %{account_id: cart.account_id})
+  end
+
+  @doc """
+  Creates a payment.
+
+  ## Examples
+
+      iex> create_payment(%Session{}, %Cart{}, %{field: value})
+      {:ok, %Payment{}}
+
+      iex> create_payment(%Session{}, %Cart{}, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_payment(%Session{account: account, user: user}, %Cart{} = cart, attrs) do
+    cart
+    |> Payment.changeset(%Payment{}, attrs)
+    |> Trail.insert(originator: user, meta: %{account_id: account.id})
   end
 
   @doc """
@@ -134,14 +152,30 @@ defmodule Tq2.Payments do
   def update_payment(%{external_id: external_id} = ext_payment, %Account{} = account)
       when is_binary(external_id) do
     payment = account |> get_payment!(external_id)
+    cart = %{payment.cart | account: account}
 
-    payment.cart
+    cart
     |> change_payment(payment, ext_payment)
     |> update_payment_with_order()
     |> commit_payment_and_order_transaction()
   end
 
   def update_payment(_attrs, %Account{}), do: nil
+
+  @doc """
+  Deletes a License.
+
+  ## Examples
+
+      iex> delete_payment(%Session{}, %Payment{})
+      {:ok, %License{}}
+
+      iex> delete_payment(%Session{}, %Payment{})
+      {:error, %Ecto.Changeset{}}
+  """
+  def delete_payment(%Session{account: account, user: user}, %Payment{} = payment) do
+    Trail.delete(payment, originator: user, meta: %{account_id: account.id})
+  end
 
   # Only update payments on paid
   defp update_payment_with_order(

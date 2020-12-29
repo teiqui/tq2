@@ -7,6 +7,7 @@ defmodule Tq2Web.OrderView do
 
   alias Tq2.Payments.Payment
   alias Tq2.Transactions.Cart
+  alias Tq2Web.Order.PaymentLive
 
   @statuses %{
     dgettext("orders", "Pending") => "pending",
@@ -21,7 +22,10 @@ defmodule Tq2Web.OrderView do
   }
 
   @payment_kinds %{
-    "mercado_pago" => dgettext("payments", "MercadoPago")
+    "cash" => dgettext("payments", "Cash"),
+    "mercado_pago" => dgettext("payments", "MercadoPago"),
+    "wire_transfer" => dgettext("payments", "Wire transfer"),
+    "other" => dgettext("payments", "Other")
   }
 
   def link_to_show(conn, order) do
@@ -50,7 +54,13 @@ defmodule Tq2Web.OrderView do
 
   def submit_button do
     dgettext("orders", "Update")
-    |> submit(class: "btn btn-primary rounded-pill font-weight-semi-bold")
+    |> submit(class: "btn btn-primary rounded-pill font-weight-bold py-2")
+  end
+
+  def payment_kind(kind), do: @payment_kinds[kind]
+
+  def format_money(%Money{} = money) do
+    Money.to_string(money, symbol: true)
   end
 
   defp statuses, do: @statuses
@@ -61,10 +71,6 @@ defmodule Tq2Web.OrderView do
 
   defp line_total(cart, line) do
     Cart.line_total(cart, line) |> format_money()
-  end
-
-  defp format_money(%Money{} = money) do
-    Money.to_string(money, symbol: true)
   end
 
   defp cart_total(%Cart{} = cart) do
@@ -83,6 +89,4 @@ defmodule Tq2Web.OrderView do
   end
 
   defp pending_payment_alert(_conn, _), do: nil
-
-  defp payment_kind(kind), do: @payment_kinds[kind]
 end

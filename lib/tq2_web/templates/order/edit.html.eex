@@ -5,6 +5,8 @@
     </h2>
   </div>
 
+  <%= live_render(@conn, PaymentLive, session: %{"order_id" => @order.id}) %>
+
   <div class="card-body">
     <%= form_for @changeset, @action, fn f -> %>
       <%= if @changeset.action do %>
