@@ -4,20 +4,33 @@ defmodule Tq2Web.Inventories.ImportLiveTest do
   import Tq2.Fixtures, only: [create_session: 0, user_fixture: 2]
   import Phoenix.LiveViewTest
 
-  setup %{conn: conn} do
-    session = create_session()
-    user = user_fixture(session, %{})
-
-    session = %{session | user: user}
-
-    conn =
-      conn
-      |> Plug.Test.init_test_session(account_id: session.account.id, user_id: session.user.id)
-
-    {:ok, %{conn: conn}}
+  describe "unauthorized access" do
+    test "requires user authentication on all actions", %{conn: conn} do
+      Enum.each(
+        [
+          live(conn, Routes.import_path(conn, :index))
+        ],
+        fn {:error, {:redirect, %{to: path}}} ->
+          assert path =~ Routes.root_path(conn, :index)
+        end
+      )
+    end
   end
 
   describe "render" do
+    setup %{conn: conn} do
+      session = create_session()
+      user = user_fixture(session, %{})
+
+      session = %{session | user: user}
+
+      conn =
+        conn
+        |> Plug.Test.init_test_session(account_id: session.account.id, user_id: session.user.id)
+
+      {:ok, %{conn: conn}}
+    end
+
     if System.get_env("CREDENTIALS_PATH") == nil, do: @tag(:skip)
 
     test "disconnected and connected render", %{conn: conn} do
@@ -46,7 +59,7 @@ defmodule Tq2Web.Inventories.ImportLiveTest do
                }
              }) =~ "class=\"progress-bar\""
 
-      assert_receive {:trace, ^pid, :receive, {:batch_import_finished, result}}, 20_000
+      assert_receive {:trace, ^pid, :receive, {:batch_import_finished, _result}}, 20_000
       assert render(import_live) =~ "13 items imported!"
     end
   end

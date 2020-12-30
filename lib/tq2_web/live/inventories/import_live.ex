@@ -29,6 +29,16 @@ defmodule Tq2Web.Inventories.ImportLive do
   end
 
   @impl true
+  def mount(_params, _session, socket) do
+    socket =
+      socket
+      |> put_flash(:error, dgettext("sessions", "You must be logged in."))
+      |> redirect(to: Routes.root_path(socket, :index))
+
+    {:ok, socket}
+  end
+
+  @impl true
   def handle_event("import", %{"item" => %{"title" => title}}, socket) do
     socket =
       socket
