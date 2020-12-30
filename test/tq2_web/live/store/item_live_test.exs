@@ -40,11 +40,16 @@ defmodule Tq2Web.Store.ItemLiveTest do
     %{store: store}
   end
 
+  setup %{conn: conn} do
+    conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
+
+    {:ok, %{conn: conn}}
+  end
+
   describe "render" do
     setup [:item_fixture, :store_fixture]
 
     test "disconnected and connected render", %{conn: conn, item: item, store: store} do
-      conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
       path = Routes.item_path(conn, :index, store, item)
       {:ok, item_live, html} = live(conn, path)
 
@@ -53,7 +58,6 @@ defmodule Tq2Web.Store.ItemLiveTest do
     end
 
     test "add event", %{conn: conn, item: item, store: store} do
-      conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
       path = Routes.item_path(conn, :index, store, item)
       {:ok, item_live, _html} = live(conn, path)
 
@@ -64,7 +68,6 @@ defmodule Tq2Web.Store.ItemLiveTest do
     end
 
     test "increase event", %{conn: conn, item: item, store: store} do
-      conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
       path = Routes.item_path(conn, :index, store, item)
       {:ok, item_live, _html} = live(conn, path)
 
@@ -76,7 +79,6 @@ defmodule Tq2Web.Store.ItemLiveTest do
     end
 
     test "decrease event", %{conn: conn, item: item, store: store} do
-      conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
       path = Routes.item_path(conn, :index, store, item)
       {:ok, item_live, _html} = live(conn, path)
 

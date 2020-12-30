@@ -67,11 +67,16 @@ defmodule Tq2Web.Store.CounterLiveTest do
     %{items: items, categories: categories}
   end
 
+  setup %{conn: conn} do
+    conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
+
+    {:ok, %{conn: conn}}
+  end
+
   describe "render" do
     setup [:store_fixture, :items_fixture]
 
     test "disconnected and connected render", %{conn: conn, store: store, items: items} do
-      conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
       path = Routes.counter_path(conn, :index, store)
       {:ok, store_live, html} = live(conn, path)
       content = render(store_live)
@@ -82,7 +87,6 @@ defmodule Tq2Web.Store.CounterLiveTest do
     end
 
     test "load more event", %{conn: conn, store: store, items: items} do
-      conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
       path = Routes.counter_path(conn, :index, store)
       {:ok, store_live, html} = live(conn, path)
       content = render(store_live)
@@ -101,7 +105,6 @@ defmodule Tq2Web.Store.CounterLiveTest do
     end
 
     test "toggle categories and back to items", %{conn: conn, store: store, items: items} do
-      conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
       path = Routes.counter_path(conn, :index, store)
       {:ok, store_live, html} = live(conn, path)
 
@@ -143,7 +146,6 @@ defmodule Tq2Web.Store.CounterLiveTest do
 
     test "change category then clean", %{conn: conn, store: store, items: items} do
       item = List.last(items)
-      conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
       path = Routes.counter_path(conn, :index, store, category: item.category_id)
 
       {:ok, store_live, content} = live(conn, path)
@@ -164,7 +166,6 @@ defmodule Tq2Web.Store.CounterLiveTest do
     end
 
     test "search items", %{conn: conn, store: store} do
-      conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
       path = Routes.counter_path(conn, :index, store)
       {:ok, store_live, _html} = live(conn, path)
 
@@ -190,7 +191,6 @@ defmodule Tq2Web.Store.CounterLiveTest do
       store: store,
       categories: %{"Chocolate" => category}
     } do
-      conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
       session = create_session()
 
       create_item(
