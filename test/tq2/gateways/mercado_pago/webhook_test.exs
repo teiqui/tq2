@@ -6,13 +6,14 @@ defmodule Tq2.Gateways.MercadoPago.WebhookTest do
 
   alias Tq2.Apps
   alias Tq2.Gateways.MercadoPago.Webhook, as: MPWebhookClient
+  alias Tq2.Payments
   alias Tq2.Payments.LicensePayment, as: LPayment
   alias Tq2.Webhooks.MercadoPago, as: MPWebhook
 
   describe "mercado pago webhooks" do
     @default_payment %{
       id: 888,
-      external_reference: "cart-123",
+      external_reference: "tq2-mp-cart-123",
       transaction_amount: 12.0,
       date_approved: Timex.now(),
       status: "approved",
@@ -66,8 +67,6 @@ defmodule Tq2.Gateways.MercadoPago.WebhookTest do
         }
       }
 
-      {:ok, _app} = create_session() |> Apps.create_app(mp_attrs)
-
       webhook = %MPWebhook{
         name: "mercado_pago",
         payload: %{
@@ -77,8 +76,44 @@ defmodule Tq2.Gateways.MercadoPago.WebhookTest do
         }
       }
 
+      session = create_session()
+
+      {:ok, _app} = session |> Apps.create_app(mp_attrs)
+
+      {:ok, cart} =
+        Tq2.Transactions.create_cart(
+          session.account,
+          %{
+            token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
+            price_type: "promotional"
+          }
+        )
+
+      amount =
+        Money.parse!(
+          "#{@default_payment.transaction_amount}",
+          @default_payment.currency_id
+        )
+
+      {:ok, original_payment} =
+        Payments.create_payment(
+          cart,
+          %{
+            amount: amount,
+            kind: "mercado_pago",
+            status: "pending",
+            external_id: @default_payment.external_reference
+          }
+        )
+
+      # Update payment & create order
       with_mock HTTPoison, mock_get_with(@default_payment) do
-        "TBD" = MPWebhookClient.process(webhook)
+        {:ok, payment} = MPWebhookClient.process(webhook)
+
+        assert payment.id == original_payment.id
+        assert payment.status == "paid"
+        assert payment.order.id
+        assert payment.order.data.paid
       end
     end
 

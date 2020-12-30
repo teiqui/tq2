@@ -197,11 +197,28 @@ defmodule Tq2.Sales do
 
   ## Examples
 
-      iex> change_order(%Account{}, order)
+      iex> change_order(%Account{}, %Order{}, %{})
+      %Ecto.Changeset{source: %Order{}}
+
+  """
+  def change_order(%Account{} = account, %Order{} = order, attrs) do
+    account |> Order.changeset(order, attrs)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking order changes.
+
+  ## Examples
+
+      iex> change_order(%Account{}, %Order{})
       %Ecto.Changeset{source: %Order{}}
 
   """
   def change_order(%Account{} = account, %Order{} = order) do
-    Order.changeset(account, order, %{})
+    account |> change_order(order, %{})
+  end
+
+  def change_order(%Account{} = account, attrs) do
+    account |> change_order(%Order{}, attrs)
   end
 end
