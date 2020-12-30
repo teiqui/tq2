@@ -1,0 +1,9 @@
+<div class="bg-primary vh-100 vw-100 fixed-top">
+  <div class="text-center mt-5 pt-5">
+    <%= img_tag Routes.static_path(@conn, "/images/logo_white.svg"), width: "202", height: "52", alt: gettext("Teiqui") %>
+  </div>
+
+  <h2 class="h3 text-light text-center mt-5">
+    <%= dgettext("page", "Coming soon...") %>
+  </h2>
+</div>
