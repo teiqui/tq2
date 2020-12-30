@@ -158,10 +158,30 @@ defmodule Tq2.PaymentsTest do
       kind: "mercado_pago"
     }
 
-    defp cart_fixture(account) do
-      {:ok, cart} = account |> Tq2.Transactions.create_cart(@valid_cart_attrs)
+    defp cart_fixture(session) do
+      {:ok, cart} = session.account |> Tq2.Transactions.create_cart(@valid_cart_attrs)
 
-      cart
+      {:ok, item} =
+        Tq2.Inventories.create_item(session, %{
+          sku: "some sku",
+          name: "some name",
+          visibility: "visible",
+          price: Money.new(100, :ARS),
+          promotional_price: Money.new(90, :ARS),
+          cost: Money.new(80, :ARS)
+        })
+
+      {:ok, line} =
+        Tq2.Transactions.create_line(cart, %{
+          name: "some name",
+          quantity: 3,
+          price: Money.new(100, :ARS),
+          promotional_price: Money.new(90, :ARS),
+          cost: Money.new(80, :ARS),
+          item: item
+        })
+
+      %{cart | lines: [line]}
     end
 
     defp order_fixture(account, cart) do
@@ -178,9 +198,9 @@ defmodule Tq2.PaymentsTest do
       %{order | cart: cart}
     end
 
-    test "create_payment/2 with valid data creates a payment", %{session: %{account: account}} do
+    test "create_payment/2 with valid data creates a payment", %{session: session} do
       assert {:ok, %Payment{} = payment} =
-               account
+               session
                |> cart_fixture()
                |> Payments.create_payment(@valid_attrs)
 
@@ -189,20 +209,16 @@ defmodule Tq2.PaymentsTest do
       assert payment.status == @valid_attrs.status
     end
 
-    test "create_payment/2 with invalid data returns error changeset", %{
-      session: %{account: account}
-    } do
+    test "create_payment/2 with invalid data returns error changeset", %{session: session} do
       assert {:error, %Ecto.Changeset{}} =
-               account
+               session
                |> cart_fixture()
                |> Payments.create_payment(@invalid_attrs)
     end
 
-    test "update_payment/2 with valid data update payment create order", %{
-      session: %{account: account}
-    } do
+    test "update_payment/2 with valid data update payment create order", %{session: session} do
       assert {:ok, %Payment{} = original_payment} =
-               account
+               session
                |> cart_fixture()
                |> Payments.create_payment(@mp_attrs)
 
@@ -216,7 +232,7 @@ defmodule Tq2.PaymentsTest do
                    external_id: @mp_attrs.external_id,
                    status: "paid"
                  },
-                 account
+                 session.account
                )
 
       assert payment.status == "paid"
@@ -224,14 +240,12 @@ defmodule Tq2.PaymentsTest do
       assert payment.order.data.paid
     end
 
-    test "update_payment/2 with valid data update payment with order", %{
-      session: %{account: account}
-    } do
-      cart = account |> cart_fixture()
+    test "update_payment/2 with valid data update payment with order", %{session: session} do
+      cart = session |> cart_fixture()
 
       assert {:ok, %Payment{} = original_payment} = cart |> Payments.create_payment(@mp_attrs)
 
-      assert order_fixture(account, cart)
+      assert order_fixture(session.account, cart)
 
       original_payment = Tq2.Repo.preload(original_payment, :order, force: true)
 
@@ -244,7 +258,7 @@ defmodule Tq2.PaymentsTest do
                    external_id: @mp_attrs.external_id,
                    status: "paid"
                  },
-                 account
+                 session.account
                )
 
       assert payment.status == "paid"

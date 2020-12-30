@@ -3,7 +3,7 @@ defmodule Tq2.Payments.PaymentTest do
 
   describe "payments" do
     alias Tq2.Payments.Payment
-    alias Tq2.Transactions.Cart
+    alias Tq2.Transactions.{Cart, Line}
 
     @valid_attrs %{
       amount: Money.new(20000, :ARS),
@@ -66,8 +66,20 @@ defmodule Tq2.Payments.PaymentTest do
       assert "must be greater than or equal to 0" in errors_on(changeset).amount
     end
 
+    test "changeset convert amount to money attributes" do
+      changeset =
+        @valid_attrs
+        |> Map.put(:amount, "100")
+        |> changeset_for_attrs()
+
+      assert changeset.valid?
+    end
+
     defp changeset_for_attrs(attrs) do
-      %Cart{} |> Payment.changeset(%Payment{}, attrs)
+      line = %Line{price: Money.new(2000, "ARS")}
+
+      %Cart{lines: [line]}
+      |> Payment.changeset(%Payment{}, attrs)
     end
   end
 end

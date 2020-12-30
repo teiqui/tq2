@@ -96,6 +96,7 @@ defmodule Tq2Web.Router do
 
     # Sales
     resources "/orders", OrderController, only: [:index, :show, :edit, :update]
+    live "/orders/:id/payments", Order.PaymentLive, :index, as: :order_payment
   end
 
   # Other scopes may use custom stacks.

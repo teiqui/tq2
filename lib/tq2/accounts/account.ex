@@ -67,4 +67,8 @@ defmodule Tq2.Accounts.Account do
   def currency(%Account{country: country}) do
     @currencies[country]
   end
+
+  def currency(country) when is_binary(country) do
+    @currencies[country]
+  end
 end

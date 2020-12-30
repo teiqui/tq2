@@ -4,7 +4,7 @@ defmodule Tq2Web.OrderViewTest do
 
   import Phoenix.HTML, only: [safe_to_string: 1]
   import Phoenix.View
-  import Tq2.Fixtures, only: [default_account: 0]
+  import Tq2.Fixtures, only: [init_test_session: 1, create_order: 1]
 
   alias Tq2.Payments.Payment
   alias Tq2.Sales
@@ -57,9 +57,10 @@ defmodule Tq2Web.OrderViewTest do
   end
 
   @tag login_as: "test@user.com"
-  test "renders edit.html", %{conn: conn} do
-    order = order()
-    changeset = default_account() |> Sales.change_order(order)
+  setup [:init_test_session, :create_order]
+
+  test "renders edit.html", %{conn: conn, order: order, session: session} do
+    changeset = Sales.change_order(session.account, order)
 
     content =
       render_to_string(
@@ -71,7 +72,7 @@ defmodule Tq2Web.OrderViewTest do
         action: Routes.order_path(conn, :update, order)
       )
 
-    assert String.contains?(content, "Order #1")
+    assert String.contains?(content, "Order ##{order.id}")
     assert String.contains?(content, "Pending")
   end
 
@@ -102,6 +103,7 @@ defmodule Tq2Web.OrderViewTest do
       inserted_at: Timex.now(),
       customer: %Customer{name: "Sample"},
       cart: %Cart{
+        id: 1,
         data: %{handing: "pickup"},
         lines: [
           %Line{

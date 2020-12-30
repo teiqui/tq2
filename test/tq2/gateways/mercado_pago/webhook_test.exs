@@ -80,14 +80,7 @@ defmodule Tq2.Gateways.MercadoPago.WebhookTest do
 
       {:ok, _app} = session |> Apps.create_app(mp_attrs)
 
-      {:ok, cart} =
-        Tq2.Transactions.create_cart(
-          session.account,
-          %{
-            token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
-            price_type: "promotional"
-          }
-        )
+      cart = cart_fixture(session)
 
       amount =
         Money.parse!(
@@ -125,6 +118,39 @@ defmodule Tq2.Gateways.MercadoPago.WebhookTest do
           {:ok, %HTTPoison.Response{status_code: code, body: json_body}}
         end
       ]
+    end
+
+    defp cart_fixture(session) do
+      {:ok, cart} =
+        Tq2.Transactions.create_cart(
+          session.account,
+          %{
+            token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
+            price_type: "promotional"
+          }
+        )
+
+      {:ok, item} =
+        Tq2.Inventories.create_item(session, %{
+          sku: "some sku",
+          name: "some name",
+          visibility: "visible",
+          price: Money.new(100, :ARS),
+          promotional_price: Money.new(90, :ARS),
+          cost: Money.new(80, :ARS)
+        })
+
+      {:ok, line} =
+        Tq2.Transactions.create_line(cart, %{
+          name: "some name",
+          quantity: 3,
+          price: Money.new(100, :ARS),
+          promotional_price: Money.new(90, :ARS),
+          cost: Money.new(80, :ARS),
+          item: item
+        })
+
+      %{cart | lines: [line]}
     end
   end
 end

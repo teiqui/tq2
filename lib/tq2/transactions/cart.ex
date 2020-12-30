@@ -50,13 +50,35 @@ defmodule Tq2.Transactions.Cart do
     |> paid_in_full?(cart)
   end
 
-  defp paid_in_full?([], _), do: false
+  def pending_amount(%Cart{} = cart) do
+    cart = Tq2.Repo.preload(cart, :payments)
+    currency = currency(cart)
 
-  defp paid_in_full?(payments, cart) do
+    cart.payments
+    |> payments_amount(currency)
+    |> Money.multiply(-1)
+    |> Money.add(total(cart))
+  end
+
+  def paid_in_full?([], _), do: false
+
+  def paid_in_full?(payments, cart) do
+    currency = currency(cart)
+
     payments
+    |> payments_amount(currency)
+    |> Kernel.>=(total(cart))
+  end
+
+  def payments_amount([], currency) do
+    Money.new(0, currency)
+  end
+
+  def payments_amount(payments, _) do
+    payments
+    |> Enum.filter(&(&1.status == "paid"))
     |> Enum.map(& &1.amount)
     |> Enum.reduce(fn amount, total -> Money.add(amount, total) end)
-    |> Kernel.==(total(cart))
   end
 
   def total(%Cart{} = cart) do
@@ -71,6 +93,14 @@ defmodule Tq2.Transactions.Cart do
 
   def line_total(_, line) do
     Money.multiply(line.price, line.quantity)
+  end
+
+  def currency(%Cart{account: %Account{country: country}}) do
+    Account.currency(country)
+  end
+
+  def currency(%Cart{lines: lines}) do
+    lines |> List.first() |> Map.get(:price) |> Map.get(:currency) |> Atom.to_string()
   end
 
   defp put_account(%Ecto.Changeset{} = changeset, %Account{} = account) do

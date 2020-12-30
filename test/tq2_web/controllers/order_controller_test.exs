@@ -1,54 +1,14 @@
 defmodule Tq2Web.OrderControllerTest do
-  use Tq2Web.ConnCase, async: true
+  use Tq2Web.ConnCase, assync: true
   use Tq2.Support.LoginHelper
 
-  import Tq2.Fixtures, only: [create_session: 0, create_customer: 0]
+  import Tq2.Fixtures, only: [create_order: 1, init_test_session: 1]
 
-  @valid_attrs %{
-    status: "pending",
-    cart_id: 1,
-    promotion_expires_at: Timex.now() |> Timex.shift(days: 1)
-  }
   @invalid_attrs %{
     status: nil,
     cart_id: nil,
     promotion_expires_at: nil
   }
-
-  def order_fixture(_) do
-    session = create_session()
-
-    {:ok, cart} =
-      Tq2.Transactions.create_cart(session.account, %{
-        token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoo=",
-        customer_id: create_customer().id,
-        data: %{handing: "pickup"}
-      })
-
-    {:ok, item} =
-      Tq2.Inventories.create_item(session, %{
-        sku: "some sku",
-        name: "some name",
-        visibility: "visible",
-        price: Money.new(100, :ARS),
-        promotional_price: Money.new(90, :ARS),
-        cost: Money.new(80, :ARS)
-      })
-
-    {:ok, _line} =
-      Tq2.Transactions.create_line(cart, %{
-        name: "some name",
-        quantity: 42,
-        price: Money.new(100, :ARS),
-        promotional_price: Money.new(90, :ARS),
-        cost: Money.new(80, :ARS),
-        item: item
-      })
-
-    {:ok, order} = Tq2.Sales.create_order(session.account, %{@valid_attrs | cart_id: cart.id})
-
-    %{order: order}
-  end
 
   describe "unauthorized access" do
     test "requires user authentication on all actions", %{conn: conn} do
@@ -68,7 +28,7 @@ defmodule Tq2Web.OrderControllerTest do
   end
 
   describe "index" do
-    setup [:order_fixture]
+    setup [:create_order]
 
     @tag login_as: "test@user.com"
     test "lists all orders", %{conn: conn, order: order} do
@@ -90,7 +50,7 @@ defmodule Tq2Web.OrderControllerTest do
   end
 
   describe "show" do
-    setup [:order_fixture]
+    setup [:create_order]
 
     @tag login_as: "test@user.com"
     test "show order", %{conn: conn, order: order} do
@@ -102,10 +62,11 @@ defmodule Tq2Web.OrderControllerTest do
   end
 
   describe "edit order" do
-    setup [:order_fixture]
+    setup [:init_test_session, :create_order]
 
     @tag login_as: "test@user.com"
     test "renders form for editing chosen order", %{conn: conn, order: order} do
+      # conn = init_test_session(conn)
       conn = get(conn, Routes.order_path(conn, :edit, order))
 
       assert html_response(conn, 200) =~ "Update"
@@ -113,7 +74,7 @@ defmodule Tq2Web.OrderControllerTest do
   end
 
   describe "update order" do
-    setup [:order_fixture]
+    setup [:init_test_session, :create_order]
 
     @tag login_as: "test@user.com"
     test "redirects when data is valid", %{conn: conn, order: order} do

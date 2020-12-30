@@ -30,10 +30,16 @@ defmodule Tq2.Payments.Payment do
     :lock_version
   ]
   @statuses ~w(pending paid)
-  @kinds ~w(cash mercado_pago wire_transfer)
+  @kinds ~w(cash mercado_pago other wire_transfer)
+  @money_attrs [:amount, "amount"]
 
   @doc false
   def changeset(%Cart{} = cart, %Payment{} = payment, attrs) do
+    attrs =
+      cart
+      |> Cart.currency()
+      |> put_currency(attrs)
+
     payment
     |> cast(attrs, @cast_attrs)
     |> put_assoc(:cart, cart)
@@ -47,4 +53,19 @@ defmodule Tq2.Payments.Payment do
     |> assoc_constraint(:cart)
     |> optimistic_lock(:lock_version)
   end
+
+  defp put_currency(currency, %{} = attrs) do
+    for {field, value} <- attrs, into: attrs do
+      {field, cast_to_money(currency, field, value)}
+    end
+  end
+
+  defp cast_to_money(currency, field, value) when field in @money_attrs and is_binary(value) do
+    case Money.parse(value, currency) do
+      {:ok, money} -> money
+      :error -> value
+    end
+  end
+
+  defp cast_to_money(_currency, _field, value), do: value
 end

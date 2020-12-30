@@ -68,6 +68,84 @@ defmodule Tq2.Transactions.CartTest do
 
       assert Money.new(300, "ARS") == Cart.total(cart)
     end
+
+    test "pending_amount without payment" do
+      {:ok, cart} =
+        default_account()
+        |> Tq2.Transactions.create_cart(%{@valid_attrs | price_type: "regular"})
+
+      cart = create_line(cart)
+
+      assert Cart.pending_amount(cart) == Cart.total(cart)
+    end
+
+    test "amount checkings with partial payment" do
+      {:ok, cart} =
+        default_account()
+        |> Tq2.Transactions.create_cart(%{@valid_attrs | price_type: "regular"})
+
+      cart = create_line(cart)
+
+      half = cart |> Cart.total() |> Money.multiply(0.5)
+
+      {:ok, _payment} =
+        Tq2.Payments.create_payment(
+          cart,
+          %{
+            amount: half,
+            kind: "cash",
+            status: "paid"
+          }
+        )
+
+      cart = Tq2.Repo.preload(cart, :payments)
+
+      assert Cart.pending_amount(cart) == half
+      assert Cart.payments_amount(cart.payments, cart) == half
+      refute Cart.paid_in_full?(cart.payments, cart)
+    end
+
+    test "amount checkings with payment" do
+      {:ok, cart} =
+        default_account()
+        |> Tq2.Transactions.create_cart(%{@valid_attrs | price_type: "regular"})
+
+      cart = create_line(cart)
+
+      total = Cart.total(cart)
+
+      {:ok, _payment} =
+        Tq2.Payments.create_payment(
+          cart,
+          %{
+            amount: total,
+            kind: "cash",
+            status: "paid"
+          }
+        )
+
+      cart = Tq2.Repo.preload(cart, :payments)
+
+      assert Cart.pending_amount(cart) == Money.new(0, total.currency)
+      assert Cart.payments_amount(cart.payments, cart) == total
+      assert Cart.paid_in_full?(cart.payments, cart)
+    end
+
+    test "currency for preloaded account" do
+      cart = %Cart{account: %Tq2.Accounts.Account{country: "ar"}}
+
+      assert Cart.currency(cart) == "ARS"
+    end
+
+    test "currency for preloaded lines" do
+      {:ok, cart} =
+        default_account()
+        |> Tq2.Transactions.create_cart(%{@valid_attrs | price_type: "regular"})
+
+      cart = create_line(cart)
+
+      assert Cart.currency(cart) == "ARS"
+    end
   end
 
   defp create_line(cart) do

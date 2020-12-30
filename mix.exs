@@ -83,6 +83,7 @@ defmodule Tq2.MixProject do
       setup: ["deps.get", "ecto.setup", "cmd yarn install --cwd assets"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
+      server: ["deps.get", "ecto.migrate", "phx.server"],
       test: [
         "ecto.create --quiet",
         "ecto.migrate --quiet",

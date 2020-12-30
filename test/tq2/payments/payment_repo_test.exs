@@ -5,7 +5,6 @@ defmodule Tq2.Payments.PaymentRepoTest do
 
   describe "payment" do
     alias Tq2.Payments.Payment
-    alias Tq2.Transactions.Cart
 
     @valid_attrs %{
       amount: Money.new(20000, :ARS),
@@ -19,21 +18,25 @@ defmodule Tq2.Payments.PaymentRepoTest do
     }
 
     defp payment_fixture(attrs \\ %{}) do
+      line = %Tq2.Transactions.Line{price: Money.new(2000, "ARS")}
+
       {:ok, cart} =
         default_account()
         |> Tq2.Transactions.create_cart(@valid_cart_attrs)
+
+      cart = %{cart | lines: [line]}
 
       payment_attrs = Enum.into(attrs, @valid_attrs)
 
       {:ok, payment} = cart |> Tq2.Payments.create_payment(payment_attrs)
 
-      payment
+      %{payment | cart: cart}
     end
 
     test "converts unique constraint on external_id to error" do
       payment = payment_fixture()
       attrs = Map.put(@valid_attrs, :external_id, payment.external_id)
-      changeset = Payment.changeset(%Cart{}, %Payment{}, attrs)
+      changeset = Payment.changeset(payment.cart, %Payment{}, attrs)
 
       expected = {
         "has already been taken",
