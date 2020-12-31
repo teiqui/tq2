@@ -1,0 +1,15 @@
+<div id="payments-component">
+  <h4 class="mt-2">
+    <%= dgettext("orders", "Payments") %>
+  </h4>
+
+  <div id="payments" class="mb-3">
+    <%= for payment <- @payments do %>
+      <%= live_component @socket, PaymentComponent, payment: payment, id: "payment-#{payment.id}" %>
+    <% end %>
+  </div>
+
+  <%= if need_payments?(@cart, @payments) do %>
+    <%= live_component @socket, PaymentFormComponent, changeset: @changeset, id: "payment-form" %>
+  <% end %>
+</div>

@@ -4,10 +4,8 @@ defmodule Tq2Web.OrderViewTest do
 
   import Phoenix.HTML, only: [safe_to_string: 1]
   import Phoenix.View
-  import Tq2.Fixtures, only: [init_test_session: 1, create_order: 1]
 
   alias Tq2.Payments.Payment
-  alias Tq2.Sales
   alias Tq2.Sales.{Customer, Order}
   alias Tq2.Transactions.{Cart, Line}
   alias Tq2Web.OrderView
@@ -57,39 +55,10 @@ defmodule Tq2Web.OrderViewTest do
   end
 
   @tag login_as: "test@user.com"
-  setup [:init_test_session, :create_order]
-
-  test "renders edit.html", %{conn: conn, order: order, session: session} do
-    changeset = Sales.change_order(session.account, order)
-
-    content =
-      render_to_string(
-        OrderView,
-        "edit.html",
-        conn: conn,
-        order: order,
-        changeset: changeset,
-        action: Routes.order_path(conn, :update, order)
-      )
-
-    assert String.contains?(content, "Order ##{order.id}")
-    assert String.contains?(content, "Pending")
-  end
-
-  @tag login_as: "test@user.com"
   test "link to show", %{conn: conn} do
     order = order()
 
     content = conn |> OrderView.link_to_show(order) |> safe_to_string()
-
-    assert String.contains?(content, "#{order.id}")
-    assert String.contains?(content, "href")
-  end
-
-  test "link to edit", %{conn: conn} do
-    order = order()
-
-    content = conn |> OrderView.link_to_edit(order) |> safe_to_string()
 
     assert String.contains?(content, "#{order.id}")
     assert String.contains?(content, "href")
