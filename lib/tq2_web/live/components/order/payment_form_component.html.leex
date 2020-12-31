@@ -1,4 +1,4 @@
-<%= form_for @changeset, "#", [phx_submit: "save", phx_change: "update"], fn f -> %>
+<%= form_for @changeset, "#", [phx_submit: "save", phx_change: "update", phx_target: "#payments-component"], fn f -> %>
   <%= input f, :amount, dgettext("payments", "Amount") %>
 
   <div class="card">

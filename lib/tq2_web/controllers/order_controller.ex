@@ -21,35 +21,6 @@ defmodule Tq2Web.OrderController do
     render(conn, "show.html", order: order)
   end
 
-  def edit(conn, %{"id" => id}, session) do
-    order = Sales.get_order!(session.account, id)
-    changeset = session.account |> Sales.change_order(order)
-
-    render(conn, "edit.html",
-      order: order,
-      changeset: changeset,
-      action: Routes.order_path(conn, :update, order)
-    )
-  end
-
-  def update(conn, %{"id" => id, "order" => order_params}, session) do
-    order = Sales.get_order!(session.account, id)
-
-    case Sales.update_order(session, order, order_params) do
-      {:ok, order} ->
-        conn
-        |> put_flash(:info, dgettext("orders", "Order updated successfully."))
-        |> redirect(to: Routes.order_path(conn, :show, order))
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html",
-          order: order,
-          changeset: changeset,
-          action: Routes.order_path(conn, :update, order)
-        )
-    end
-  end
-
   defp render_index(conn, %{total_entries: 0}), do: render(conn, "empty.html")
 
   defp render_index(conn, page) do

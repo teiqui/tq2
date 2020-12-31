@@ -96,7 +96,8 @@ defmodule Tq2Web.Router do
     resources "/apps", AppController, param: "name"
 
     # Sales
-    resources "/orders", OrderController, only: [:index, :show, :edit, :update]
+    resources "/orders", OrderController, only: [:index, :show]
+    live "/orders/:id/edit", Order.OrderEditLive, :index
     live "/orders/:id/payments", Order.PaymentLive, :index, as: :order_payment
   end
 

@@ -7,7 +7,6 @@ defmodule Tq2Web.OrderView do
 
   alias Tq2.Payments.Payment
   alias Tq2.Transactions.Cart
-  alias Tq2Web.Order.PaymentLive
 
   @statuses %{
     dgettext("orders", "Pending") => "pending",
@@ -43,18 +42,9 @@ defmodule Tq2Web.OrderView do
       conn,
       "pencil-fill",
       title: dgettext("orders", "Edit"),
-      to: Routes.order_path(conn, :edit, order),
+      to: Routes.order_edit_path(conn, :index, order),
       class: "ml-2"
     )
-  end
-
-  def lock_version_input(form, order) do
-    hidden_input(form, :lock_version, value: order.lock_version)
-  end
-
-  def submit_button do
-    dgettext("orders", "Update")
-    |> submit(class: "btn btn-primary rounded-pill font-weight-bold py-2")
   end
 
   def payment_kind(kind), do: @payment_kinds[kind]
@@ -62,8 +52,6 @@ defmodule Tq2Web.OrderView do
   def format_money(%Money{} = money) do
     Money.to_string(money, symbol: true)
   end
-
-  defp statuses, do: @statuses
 
   defp status(status), do: invert(@statuses)[status]
 

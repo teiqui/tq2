@@ -1,7 +1,6 @@
-defmodule Tq2Web.Order.PaymentLive do
-  use Tq2Web, :live_view
+defmodule Tq2Web.Order.PaymentsComponent do
+  use Tq2Web, :live_component
 
-  alias Tq2.Accounts
   alias Tq2.Payments
   alias Tq2.Sales
   alias Tq2.Transactions.Cart
@@ -15,23 +14,11 @@ defmodule Tq2Web.Order.PaymentLive do
   @order_payment_methods ~w(cash other wire_transfer)
 
   @impl true
-  def mount(_, %{"account_id" => account_id, "order_id" => id, "user_id" => user_id}, socket) do
-    session = Accounts.get_current_session(account_id, user_id)
-
+  def update(%{id: id, order: %{cart: cart} = order, session: session}, socket) do
     socket =
       socket
-      |> assign(session: session)
-      |> load_order(id)
-
-    {:ok, socket}
-  end
-
-  @impl true
-  def mount(_params, _session, socket) do
-    socket =
-      socket
-      |> put_flash(:error, dgettext("sessions", "You must be logged in."))
-      |> redirect(to: Routes.root_path(socket, :index))
+      |> assign(cart: cart, id: id, order: order, session: session)
+      |> filter_payments()
 
     {:ok, socket}
   end
@@ -67,14 +54,12 @@ defmodule Tq2Web.Order.PaymentLive do
     {:noreply, socket}
   end
 
-  defp load_order(%{assigns: %{session: %{account: account}}} = socket, id) do
-    order = Sales.get_order!(account, id)
+  defp filter_payments(%{assigns: %{cart: %{payments: []}}} = socket) do
+    assign_payments([], socket)
+  end
 
-    socket =
-      socket
-      |> assign(order: order, cart: %{order.cart | account: account})
-
-    order.cart.payments
+  defp filter_payments(%{assigns: %{cart: %{payments: payments}}} = socket) do
+    payments
     |> Enum.filter(&(&1.status == "paid"))
     |> assign_payments(socket)
   end
@@ -150,7 +135,7 @@ defmodule Tq2Web.Order.PaymentLive do
     assign(socket, payments: payments, changeset: changeset)
   end
 
-  defp pay_order(%{assigns: %{order: order, session: session}} = socket) do
+  defp pay_order(%{assigns: %{order: order, payments: payments, session: session}} = socket) do
     data =
       case order.data do
         nil -> %{paid: true}
@@ -158,9 +143,14 @@ defmodule Tq2Web.Order.PaymentLive do
       end
 
     case Sales.update_order(session, order, %{data: data}) do
-      {:ok, _order} -> socket
+      {:ok, order} ->
+        send(self(), {:refresh_order, %{order: order, payments: payments}})
+
+        socket
+
       # TODO: handle this case properly
-      {:error, _changeset} -> socket
+      {:error, _changeset} ->
+        socket
     end
   end
 end

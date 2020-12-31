@@ -1,11 +1,10 @@
-defmodule Tq2Web.Order.PaymentLiveTest do
+defmodule Tq2Web.Order.PaymentsComponentTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
   import Tq2.Fixtures, only: [create_customer: 0, init_test_session: 1]
 
   alias Tq2.Transactions.Cart
-  alias Tq2Web.Order.PaymentLive
 
   @valid_attrs %{
     cart_id: 1,
@@ -61,33 +60,20 @@ defmodule Tq2Web.Order.PaymentLiveTest do
     %{order: %{order | cart: cart}}
   end
 
-  describe "unauthorized access" do
-    test "requires user authentication on all actions", %{conn: conn} do
-      Enum.each(
-        [
-          live(conn, Routes.order_payment_path(conn, :index, ""))
-        ],
-        fn {:error, {:redirect, %{to: path}}} ->
-          assert path =~ Routes.root_path(conn, :index)
-        end
-      )
-    end
-  end
-
   describe "render" do
     setup [:init_test_session, :order_fixture]
 
-    test "disconnected and connected render", %{conn: conn, order: order} do
-      {:ok, _payment_live, html} =
-        live_isolated(conn, PaymentLive, session: %{"order_id" => order.id})
+    test "render", %{conn: conn, order: order} do
+      path = Routes.order_edit_path(conn, :index, order)
+      {:ok, _payment_live, html} = live(conn, path)
 
       assert html =~ "Cash"
       assert html =~ "Create payment"
     end
 
     test "update event", %{conn: conn, order: %{cart: cart} = order} do
-      {:ok, payment_live, html} =
-        live_isolated(conn, PaymentLive, session: %{"order_id" => order.id})
+      path = Routes.order_edit_path(conn, :index, order)
+      {:ok, payment_live, html} = live(conn, path)
 
       assert html =~ "Create payment"
 
@@ -95,21 +81,23 @@ defmodule Tq2Web.Order.PaymentLiveTest do
 
       content =
         payment_live
-        |> element("form")
+        |> element("#payments-component form")
         |> render_change(%{payment: %{amount: pending, kind: "cash"}})
 
       assert content =~ "Create payment"
     end
 
     test "save event", %{conn: conn, order: %{cart: cart} = order} do
-      {:ok, payment_live, _html} =
-        live_isolated(conn, PaymentLive, session: %{"order_id" => order.id})
+      path = Routes.order_edit_path(conn, :index, order)
+      {:ok, payment_live, html} = live(conn, path)
+
+      assert html =~ "Create payment"
 
       pending = Cart.pending_amount(cart)
 
       content =
         payment_live
-        |> element("form")
+        |> element("#payments-component form")
         |> render_submit(%{
           payment: %{
             amount: Money.to_string(pending),
@@ -121,8 +109,10 @@ defmodule Tq2Web.Order.PaymentLiveTest do
     end
 
     test "save event with partial payment", %{conn: conn, order: %{cart: cart} = order} do
-      {:ok, payment_live, _html} =
-        live_isolated(conn, PaymentLive, session: %{"order_id" => order.id})
+      path = Routes.order_edit_path(conn, :index, order)
+      {:ok, payment_live, html} = live(conn, path)
+
+      assert html =~ "Create payment"
 
       refute has_element?(payment_live, "#payments .card")
 
@@ -132,7 +122,7 @@ defmodule Tq2Web.Order.PaymentLiveTest do
         |> Money.multiply(0.5)
 
       payment_live
-      |> element("form")
+      |> element("#payments-component form")
       |> render_submit(%{
         payment: %{
           amount: Money.to_string(amount),
@@ -145,13 +135,15 @@ defmodule Tq2Web.Order.PaymentLiveTest do
       # Check amount input for other half
       assert has_element?(
                payment_live,
-               "form [name=\"payment[amount]\"][value=\"#{Money.to_string(amount)}\"]"
+               "#payments-component form [name=\"payment[amount]\"][value=\"#{
+                 Money.to_string(amount)
+               }\"]"
              )
 
       # Pay other half
       content =
         payment_live
-        |> element("form")
+        |> element("#payments-component form")
         |> render_submit(%{
           payment: %{
             amount: Money.to_string(amount),
@@ -166,8 +158,10 @@ defmodule Tq2Web.Order.PaymentLiveTest do
       conn: conn,
       order: %{cart: cart} = order
     } do
-      {:ok, payment_live, _html} =
-        live_isolated(conn, PaymentLive, session: %{"order_id" => order.id})
+      path = Routes.order_edit_path(conn, :index, order)
+      {:ok, payment_live, html} = live(conn, path)
+
+      assert html =~ "Create payment"
 
       refute has_element?(payment_live, "#payments .card")
 
@@ -175,7 +169,7 @@ defmodule Tq2Web.Order.PaymentLiveTest do
       amount = total |> Money.multiply(0.5)
 
       payment_live
-      |> element("form")
+      |> element("#payments-component form")
       |> render_submit(%{
         payment: %{
           amount: Money.to_string(amount),

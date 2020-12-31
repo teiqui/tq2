@@ -9,7 +9,8 @@ defmodule Tq2Web.Order.PaymentComponent do
       "backspace-reverse",
       to: "#",
       phx_click: "delete",
-      phx_value_id: payment.id
+      phx_value_id: payment.id,
+      phx_target: "#payments-component"
     )
   end
 end
