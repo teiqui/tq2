@@ -31,7 +31,11 @@ defmodule Tq2.TransactionsTest do
     end
 
     test "create_cart/2 with valid data creates a cart" do
-      assert {:ok, %Cart{}} = account() |> Transactions.create_cart(@valid_cart_attrs)
+      account = account()
+      visit = fixture(account, :visit)
+      attrs = Map.put(@valid_cart_attrs, :visit_id, visit.id)
+
+      assert {:ok, %Cart{}} = account |> Transactions.create_cart(attrs)
     end
 
     test "create_cart/2 with invalid data returns error changeset" do
@@ -114,7 +118,20 @@ defmodule Tq2.TransactionsTest do
 
     defp create_cart(_) do
       account = Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
-      {:ok, cart} = Transactions.create_cart(account, @valid_cart_attrs)
+
+      {:ok, visit} =
+        Tq2.Analytics.create_visit(%{
+          slug: "test",
+          token: "IXFz6ntHSmfmY2usXsXHu4WAU-CFJ8aFvl5xEYXi6bk=",
+          referral_token: "N68iU2uIe4SDO1W50JVauF2PJESWoDxlHTl1RSbr3Z4=",
+          utm_source: "whatsapp",
+          data: %{
+            ip: "127.0.0.1"
+          }
+        })
+
+      attrs = Map.put(@valid_cart_attrs, :visit_id, visit.id)
+      {:ok, cart} = Transactions.create_cart(account, attrs)
 
       {:ok, cart: cart}
     end
@@ -180,8 +197,28 @@ defmodule Tq2.TransactionsTest do
 
   defp fixture(account, kind, attrs \\ %{})
 
+  defp fixture(_account, :visit, _attrs) do
+    {:ok, visit} =
+      Tq2.Analytics.create_visit(%{
+        slug: "test",
+        token: "IXFz6ntHSmfmY2usXsXHu4WAU-CFJ8aFvl5xEYXi6bk=",
+        referral_token: "N68iU2uIe4SDO1W50JVauF2PJESWoDxlHTl1RSbr3Z4=",
+        utm_source: "whatsapp",
+        data: %{
+          ip: "127.0.0.1"
+        }
+      })
+
+    visit
+  end
+
   defp fixture(account, :cart, attrs) do
-    cart_attrs = Enum.into(attrs, @valid_cart_attrs)
+    visit = fixture(account, :visit)
+
+    cart_attrs =
+      attrs
+      |> Enum.into(@valid_cart_attrs)
+      |> Map.put(:visit_id, visit.id)
 
     {:ok, cart} = Transactions.create_cart(account, cart_attrs)
 

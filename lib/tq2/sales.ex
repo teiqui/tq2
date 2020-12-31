@@ -116,6 +116,28 @@ defmodule Tq2.Sales do
   end
 
   @doc """
+  Returns the list of orders.
+
+  ## Examples
+
+      iex> list_unexpired_orders(%Account{}, %{})
+      [%Order{}, ...]
+
+  """
+  def list_unexpired_orders(account, params) do
+    now = DateTime.utc_now()
+
+    Order
+    |> where([o], o.account_id == ^account.id and o.promotion_expires_at > ^now)
+    |> join(:left, [o], cart in assoc(o, :cart))
+    |> where([o, cart], cart.price_type == "promotional")
+    |> join(:left, [o, cart], c in assoc(cart, :customer))
+    |> preload([o, cart, c], cart: cart, customer: c)
+    |> order_by([o], asc: o.promotion_expires_at)
+    |> Repo.paginate(params)
+  end
+
+  @doc """
   Gets a single order.
 
   Raises `Ecto.NoResultsError` if the Order does not exist.

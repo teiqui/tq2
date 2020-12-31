@@ -121,12 +121,24 @@ defmodule Tq2.Gateways.MercadoPago.WebhookTest do
     end
 
     defp cart_fixture(session) do
+      {:ok, visit} =
+        Tq2.Analytics.create_visit(%{
+          slug: "test",
+          token: "IXFz6ntHSmfmY2usXsXHu4WAU-CFJ8aFvl5xEYXi6bk=",
+          referral_token: "N68iU2uIe4SDO1W50JVauF2PJESWoDxlHTl1RSbr3Z4=",
+          utm_source: "whatsapp",
+          data: %{
+            ip: "127.0.0.1"
+          }
+        })
+
       {:ok, cart} =
         Tq2.Transactions.create_cart(
           session.account,
           %{
             token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
-            price_type: "promotional"
+            price_type: "promotional",
+            visit_id: visit.id
           }
         )
 

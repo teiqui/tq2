@@ -14,15 +14,27 @@ defmodule Tq2.Payments.PaymentRepoTest do
     }
 
     @valid_cart_attrs %{
-      token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoM="
+      token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoM=",
+      visit_id: nil
     }
 
     defp payment_fixture(attrs \\ %{}) do
       line = %Tq2.Transactions.Line{price: Money.new(2000, "ARS")}
 
+      {:ok, visit} =
+        Tq2.Analytics.create_visit(%{
+          slug: "test",
+          token: "IXFz6ntHSmfmY2usXsXHu4WAU-CFJ8aFvl5xEYXi6bk=",
+          referral_token: "N68iU2uIe4SDO1W50JVauF2PJESWoDxlHTl1RSbr3Z4=",
+          utm_source: "whatsapp",
+          data: %{
+            ip: "127.0.0.1"
+          }
+        })
+
       {:ok, cart} =
         default_account()
-        |> Tq2.Transactions.create_cart(@valid_cart_attrs)
+        |> Tq2.Transactions.create_cart(%{@valid_cart_attrs | visit_id: visit.id})
 
       cart = %{cart | lines: [line]}
 

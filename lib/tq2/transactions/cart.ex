@@ -4,6 +4,7 @@ defmodule Tq2.Transactions.Cart do
   import Ecto.Changeset
 
   alias Tq2.Accounts.Account
+  alias Tq2.Analytics.Visit
   alias Tq2.Payments.Payment
   alias Tq2.Payments.Payment
   alias Tq2.Sales.{Customer, Order}
@@ -16,6 +17,7 @@ defmodule Tq2.Transactions.Cart do
     embeds_one :data, Data
 
     belongs_to :customer, Customer
+    belongs_to :visit, Visit
     belongs_to :account, Account
 
     has_one :order, Order
@@ -31,7 +33,7 @@ defmodule Tq2.Transactions.Cart do
   @doc false
   def changeset(%Cart{} = cart, attrs, %Account{} = account) do
     cart
-    |> cast(attrs, [:token, :price_type, :customer_id])
+    |> cast(attrs, [:token, :price_type, :customer_id, :visit_id])
     |> cast_embed(:data)
     |> put_account(account)
     |> validate_required([:token, :price_type])
@@ -39,6 +41,7 @@ defmodule Tq2.Transactions.Cart do
     |> validate_inclusion(:price_type, @price_types)
     |> unique_constraint(:token)
     |> assoc_constraint(:customer)
+    |> assoc_constraint(:visit)
     |> assoc_constraint(:account)
   end
 

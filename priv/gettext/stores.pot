@@ -176,7 +176,7 @@ msgstr ""
 msgid "Share on:"
 msgstr ""
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:74
+#: lib/tq2_web/live/components/store/header_component.html.leex:45
 msgid "Categories"
 msgstr ""
 
@@ -194,4 +194,16 @@ msgstr ""
 
 #: lib/tq2_web/live/store/order_live.html.leex:21
 msgid "Share"
+msgstr ""
+
+#: lib/tq2_web/live/components/store/group_component.html.leex:11
+msgid "Join"
+msgstr ""
+
+#: lib/tq2_web/live/components/store/group_component.html.leex:7
+msgid "Share the store and take advantage of the Teiqui price"
+msgstr ""
+
+#: lib/tq2_web/live/components/store/group_component.ex:19
+msgid "Users"
 msgstr ""

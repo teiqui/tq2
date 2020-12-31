@@ -9,22 +9,3 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
-
-{:ok, account} =
-  Tq2.Accounts.create_account(%{
-    name: "Default",
-    status: "active",
-    country: "ar",
-    time_zone: "America/Argentina/Mendoza"
-  })
-
-session = %Tq2.Accounts.Session{account: account}
-
-{:ok, _} =
-  Tq2.Accounts.create_user(session, %{
-    name: "Admin",
-    lastname: "Admin",
-    email: "admin@tq2.com",
-    password: "123456",
-    role: "admin"
-  })

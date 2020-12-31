@@ -19,6 +19,7 @@ defmodule Tq2.Sales.Order do
     belongs_to :account, Account
 
     has_one :customer, through: [:cart, :customer]
+    has_one :visit, through: [:cart, :visit]
 
     timestamps()
   end

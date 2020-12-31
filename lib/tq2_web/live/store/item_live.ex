@@ -10,14 +10,12 @@ defmodule Tq2Web.Store.ItemLive do
   import Tq2Web.ItemView, only: [money: 1]
 
   @impl true
-  def mount(%{"slug" => slug}, %{"token" => token} = session, socket) do
+  def mount(%{"slug" => slug}, %{"token" => token, "visit_id" => visit_id} = session, socket) do
     store = Shops.get_store!(slug)
 
     socket =
       socket
-      |> assign(store: store)
-      |> assign(token: token)
-      |> assign(quantity: 1)
+      |> assign(store: store, token: token, visit_id: visit_id, quantity: 1)
       |> load_cart(session)
 
     {:ok, socket, temporary_assigns: [item: nil]}
@@ -50,13 +48,21 @@ defmodule Tq2Web.Store.ItemLive do
   def handle_event(
         "add",
         %{"type" => price_type, "id" => id},
-        %{assigns: %{cart: cart, store: store, token: token, quantity: quantity}} = socket
+        %{
+          assigns: %{
+            cart: cart,
+            store: store,
+            token: token,
+            quantity: quantity,
+            visit_id: visit_id
+          }
+        } = socket
       ) do
     item = Inventories.get_item!(store.account, id)
 
     cart =
       store.account
-      |> cart(cart, %{token: token, price_type: price_type})
+      |> cart(cart, %{token: token, price_type: price_type, visit_id: visit_id})
       |> add_line(item, quantity)
 
     socket =

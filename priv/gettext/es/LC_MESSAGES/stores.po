@@ -177,7 +177,7 @@ msgstr "Compartir en otra aplicación"
 msgid "Share on:"
 msgstr "Compartir en:"
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:74
+#: lib/tq2_web/live/components/store/header_component.html.leex:45
 msgid "Categories"
 msgstr "Categorías"
 
@@ -196,3 +196,15 @@ msgstr "¡La promoción ya expiró!"
 #: lib/tq2_web/live/store/order_live.html.leex:21
 msgid "Share"
 msgstr "Compartir"
+
+#: lib/tq2_web/live/components/store/group_component.html.leex:11
+msgid "Join"
+msgstr "Unirse"
+
+#: lib/tq2_web/live/components/store/group_component.html.leex:7
+msgid "Share the store and take advantage of the Teiqui price"
+msgstr "Comparte la tienda y aprovecha el precio Teiqui"
+
+#: lib/tq2_web/live/components/store/group_component.ex:19
+msgid "Users"
+msgstr "Usuarios"

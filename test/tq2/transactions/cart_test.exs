@@ -9,12 +9,14 @@ defmodule Tq2.Transactions.CartTest do
     @valid_attrs %{
       token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
       price_type: "promotional",
-      account_id: "1"
+      account_id: "1",
+      visit_id: nil
     }
     @invalid_attrs %{
       token: nil,
       price_type: nil,
-      account_id: nil
+      account_id: nil,
+      visit_id: nil
     }
 
     test "changeset with valid attributes" do
@@ -50,9 +52,11 @@ defmodule Tq2.Transactions.CartTest do
     end
 
     test "total for promotinal price" do
+      visit = create_visit()
+
       {:ok, cart} =
         default_account()
-        |> Tq2.Transactions.create_cart(@valid_attrs)
+        |> Tq2.Transactions.create_cart(%{@valid_attrs | visit_id: visit.id})
 
       cart = create_line(cart)
 
@@ -60,9 +64,15 @@ defmodule Tq2.Transactions.CartTest do
     end
 
     test "total for regular price" do
+      visit = create_visit()
+
       {:ok, cart} =
         default_account()
-        |> Tq2.Transactions.create_cart(%{@valid_attrs | price_type: "regular"})
+        |> Tq2.Transactions.create_cart(%{
+          @valid_attrs
+          | price_type: "regular",
+            visit_id: visit.id
+        })
 
       cart = create_line(cart)
 
@@ -70,9 +80,15 @@ defmodule Tq2.Transactions.CartTest do
     end
 
     test "pending_amount without payment" do
+      visit = create_visit()
+
       {:ok, cart} =
         default_account()
-        |> Tq2.Transactions.create_cart(%{@valid_attrs | price_type: "regular"})
+        |> Tq2.Transactions.create_cart(%{
+          @valid_attrs
+          | price_type: "regular",
+            visit_id: visit.id
+        })
 
       cart = create_line(cart)
 
@@ -80,9 +96,15 @@ defmodule Tq2.Transactions.CartTest do
     end
 
     test "amount checkings with partial payment" do
+      visit = create_visit()
+
       {:ok, cart} =
         default_account()
-        |> Tq2.Transactions.create_cart(%{@valid_attrs | price_type: "regular"})
+        |> Tq2.Transactions.create_cart(%{
+          @valid_attrs
+          | price_type: "regular",
+            visit_id: visit.id
+        })
 
       cart = create_line(cart)
 
@@ -106,9 +128,15 @@ defmodule Tq2.Transactions.CartTest do
     end
 
     test "amount checkings with payment" do
+      visit = create_visit()
+
       {:ok, cart} =
         default_account()
-        |> Tq2.Transactions.create_cart(%{@valid_attrs | price_type: "regular"})
+        |> Tq2.Transactions.create_cart(%{
+          @valid_attrs
+          | price_type: "regular",
+            visit_id: visit.id
+        })
 
       cart = create_line(cart)
 
@@ -138,14 +166,35 @@ defmodule Tq2.Transactions.CartTest do
     end
 
     test "currency for preloaded lines" do
+      visit = create_visit()
+
       {:ok, cart} =
         default_account()
-        |> Tq2.Transactions.create_cart(%{@valid_attrs | price_type: "regular"})
+        |> Tq2.Transactions.create_cart(%{
+          @valid_attrs
+          | price_type: "regular",
+            visit_id: visit.id
+        })
 
       cart = create_line(cart)
 
       assert Cart.currency(cart) == "ARS"
     end
+  end
+
+  defp create_visit do
+    {:ok, visit} =
+      Tq2.Analytics.create_visit(%{
+        slug: "test",
+        token: "IXFz6ntHSmfmY2usXsXHu4WAU-CFJ8aFvl5xEYXi6bk=",
+        referral_token: "N68iU2uIe4SDO1W50JVauF2PJESWoDxlHTl1RSbr3Z4=",
+        utm_source: "whatsapp",
+        data: %{
+          ip: "127.0.0.1"
+        }
+      })
+
+    visit
   end
 
   defp create_line(cart) do

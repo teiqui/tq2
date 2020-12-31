@@ -29,10 +29,22 @@ defmodule Tq2.Sales.OrderRepoTest do
   end
 
   def order_fixture(%{session: session}) do
+    {:ok, visit} =
+      Tq2.Analytics.create_visit(%{
+        slug: "test",
+        token: "IXFz6ntHSmfmY2usXsXHu4WAU-CFJ8aFvl5xEYXi6bk=",
+        referral_token: "N68iU2uIe4SDO1W50JVauF2PJESWoDxlHTl1RSbr3Z4=",
+        utm_source: "whatsapp",
+        data: %{
+          ip: "127.0.0.1"
+        }
+      })
+
     {:ok, cart} =
       Tq2.Transactions.create_cart(session.account, %{
         token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoo=",
         customer_id: create_customer().id,
+        visit_id: visit.id,
         data: %{handing: "pickup"}
       })
 

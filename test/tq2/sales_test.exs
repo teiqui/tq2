@@ -3,7 +3,7 @@ defmodule Tq2.SalesTest do
 
   import Tq2.Fixtures, only: [create_customer: 0]
 
-  alias Tq2.Sales
+  alias Tq2.{Analytics, Sales}
 
   @valid_customer_attrs %{
     name: "some name",
@@ -18,12 +18,27 @@ defmodule Tq2.SalesTest do
     address: nil
   }
 
+  @valid_visit_attrs %{
+    slug: "test",
+    token: "IXFz6ntHSmfmY2usXsXHu4WAU-CFJ8aFvl5xEYXi6bk=",
+    referral_token: "N68iU2uIe4SDO1W50JVauF2PJESWoDxlHTl1RSbr3Z4=",
+    utm_source: "whatsapp",
+    data: %{
+      ip: "127.0.0.1"
+    }
+  }
+
   @valid_order_attrs %{
     status: "pending",
     promotion_expires_at:
-      DateTime.utc_now() |> DateTime.truncate(:second) |> DateTime.to_iso8601(),
+      DateTime.utc_now()
+      |> DateTime.add(3600, :second)
+      |> DateTime.truncate(:second)
+      |> DateTime.to_iso8601(),
     cart: %{
       token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoM=",
+      price_type: "promotional",
+      visit_id: nil,
       lines: [
         %{
           name: "some name",
@@ -46,7 +61,10 @@ defmodule Tq2.SalesTest do
   @update_order_attrs %{
     status: "processing",
     promotion_expires_at:
-      DateTime.utc_now() |> DateTime.truncate(:second) |> DateTime.to_iso8601()
+      DateTime.utc_now()
+      |> DateTime.add(3600, :second)
+      |> DateTime.truncate(:second)
+      |> DateTime.to_iso8601()
   }
   @invalid_order_attrs %{
     status: nil,
@@ -63,8 +81,22 @@ defmodule Tq2.SalesTest do
     customer
   end
 
+  defp fixture(_session, :visit, attrs) do
+    visit_attrs = Enum.into(attrs, @valid_visit_attrs)
+
+    {:ok, visit} = Analytics.create_visit(visit_attrs)
+
+    visit
+  end
+
   defp fixture(session, :order, attrs) do
-    order_attrs = Enum.into(attrs, @valid_order_attrs)
+    cart_attrs = attrs[:cart] || @valid_order_attrs.cart
+    visit_id = cart_attrs.visit_id || fixture(session, :visit).id
+
+    order_attrs =
+      attrs
+      |> Enum.into(@valid_order_attrs)
+      |> Map.put(:cart, %{cart_attrs | visit_id: visit_id})
 
     {:ok, order} = Sales.create_order(session.account, order_attrs)
 
@@ -140,6 +172,27 @@ defmodule Tq2.SalesTest do
       assert Enum.map(Sales.list_orders(session.account, %{}).entries, & &1.id) == [order.id]
     end
 
+    test "list_unexpired_orders/2 returns unexpired promotional orders", %{session: session} do
+      visit = fixture(session, :visit)
+      order = fixture(session, :order)
+
+      _non_promotional_order =
+        fixture(session, :order, %{
+          cart: %{@valid_order_attrs.cart | price_type: "regular", visit_id: visit.id}
+        })
+
+      assert Enum.map(Sales.list_unexpired_orders(session.account, %{}).entries, & &1.id) == [
+               order.id
+             ]
+
+      {:ok, _order} =
+        Sales.update_order(session, order, %{
+          promotion_expires_at: DateTime.utc_now() |> DateTime.add(-1000, :second)
+        })
+
+      assert Sales.list_unexpired_orders(session.account, %{}).entries == []
+    end
+
     test "get_order!/2 returns the order with given id", %{session: session} do
       order = fixture(session, :order)
 
@@ -147,11 +200,12 @@ defmodule Tq2.SalesTest do
     end
 
     test "create_order/2 with valid data creates a order", %{session: session} do
-      assert {:ok, %Order{} = order} = Sales.create_order(session.account, @valid_order_attrs)
-      assert order.status == @valid_order_attrs.status
+      visit = fixture(session, :visit)
+      attrs = Map.put(@valid_order_attrs, :cart, %{@valid_order_attrs.cart | visit_id: visit.id})
 
-      assert DateTime.to_iso8601(order.promotion_expires_at) ==
-               @valid_order_attrs.promotion_expires_at
+      assert {:ok, %Order{} = order} = Sales.create_order(session.account, attrs)
+      assert order.status == attrs.status
+      assert DateTime.to_iso8601(order.promotion_expires_at) == attrs.promotion_expires_at
     end
 
     test "create_order/2 with invalid data returns error changeset", %{session: session} do
@@ -160,6 +214,7 @@ defmodule Tq2.SalesTest do
     end
 
     test "create_order/2 notifies to owner and customer", %{session: session} do
+      visit = fixture(session, :visit)
       {:ok, owner} = create_user(session)
       {:ok, cart} = create_cart(session)
 
@@ -167,6 +222,7 @@ defmodule Tq2.SalesTest do
         @valid_order_attrs
         |> Map.delete(:cart)
         |> Map.put(:cart_id, cart.id)
+        |> Map.put(:visit_id, visit.id)
 
       assert {:ok, %Order{} = order} = Sales.create_order(session.account, attrs)
 
@@ -219,10 +275,13 @@ defmodule Tq2.SalesTest do
   end
 
   defp create_cart(session) do
+    visit = fixture(session, :visit)
+
     {:ok, cart} =
       Tq2.Transactions.create_cart(session.account, %{
         token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoo=",
         customer_id: create_customer().id,
+        visit_id: visit.id,
         data: %{handing: "pickup"}
       })
 

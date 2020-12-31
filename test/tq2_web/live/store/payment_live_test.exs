@@ -9,13 +9,29 @@ defmodule Tq2Web.Store.PaymentLiveTest do
   @create_attrs %{
     token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
     price_type: "promotional",
+    visit_id: nil,
     customer_id: nil
   }
 
   setup %{conn: conn} do
+    {:ok, visit} =
+      Tq2.Analytics.create_visit(%{
+        slug: "test",
+        token: "IXFz6ntHSmfmY2usXsXHu4WAU-CFJ8aFvl5xEYXi6bk=",
+        referral_token: "N68iU2uIe4SDO1W50JVauF2PJESWoDxlHTl1RSbr3Z4=",
+        utm_source: "whatsapp",
+        data: %{
+          ip: "127.0.0.1"
+        }
+      })
+
     conn =
       %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
-      |> Plug.Test.init_test_session(token: @create_attrs.token)
+      |> Plug.Test.init_test_session(
+        token: @create_attrs.token,
+        visit_id: visit.id,
+        visit_timestamp: DateTime.utc_now() |> DateTime.to_unix()
+      )
 
     {:ok, %{conn: conn}}
   end
@@ -44,12 +60,14 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       })
 
     token = get_session(conn, :token)
+    visit_id = get_session(conn, :visit_id)
 
     {:ok, cart} =
       Tq2.Transactions.create_cart(store.account, %{
         @create_attrs
         | token: token,
-          customer_id: customer.id
+          customer_id: customer.id,
+          visit_id: visit_id
       })
 
     line_attrs = %{
