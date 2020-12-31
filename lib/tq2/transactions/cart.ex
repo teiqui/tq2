@@ -13,6 +13,7 @@ defmodule Tq2.Transactions.Cart do
   schema "carts" do
     field :token, :string
     field :price_type, :string, default: "promotional"
+    field :referred, :boolean, default: false, virtual: true
 
     embeds_one :data, Data
 

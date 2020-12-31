@@ -148,7 +148,7 @@ msgstr ""
 msgid "Store"
 msgstr ""
 
-#: lib/tq2_web/live/store/counter_live.html.leex:24
+#: lib/tq2_web/live/store/counter_live.html.leex:26
 msgid "Loading..."
 msgstr ""
 
@@ -180,11 +180,11 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: lib/tq2_web/live/components/store/header_component.ex:68
+#: lib/tq2_web/live/components/store/header_component.ex:84
 msgid "Search..."
 msgstr ""
 
-#: lib/tq2_web/live/store/counter_live.ex:156
+#: lib/tq2_web/live/store/counter_live.ex:165
 msgid "Show all"
 msgstr ""
 
@@ -196,14 +196,18 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
-#: lib/tq2_web/live/components/store/group_component.html.leex:11
+#: lib/tq2_web/live/components/store/team_component.ex:30
 msgid "Join"
 msgstr ""
 
-#: lib/tq2_web/live/components/store/group_component.html.leex:7
+#: lib/tq2_web/live/components/store/team_component.html.leex:10
 msgid "Share the store and take advantage of the Teiqui price"
 msgstr ""
 
-#: lib/tq2_web/live/components/store/group_component.ex:19
+#: lib/tq2_web/live/components/store/team_component.ex:15
 msgid "Users"
+msgstr ""
+
+#: lib/tq2_web/live/components/store/team_component.html.leex:8
+msgid "Great! Your are buying with %{name}"
 msgstr ""

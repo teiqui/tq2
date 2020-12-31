@@ -8,13 +8,13 @@ defmodule Tq2Web.Store.CustomerLive do
   alias Tq2Web.Store.HeaderComponent
 
   @impl true
-  def mount(%{"slug" => slug}, %{"token" => token}, socket) do
+  def mount(%{"slug" => slug}, %{"token" => token, "visit_id" => visit_id}, socket) do
     store = Shops.get_store!(slug)
     changeset = get_customer_changeset(token)
 
     socket =
       socket
-      |> assign(store: store, token: token, changeset: changeset)
+      |> assign(store: store, token: token, visit_id: visit_id, changeset: changeset)
       |> load_customer(token)
       |> load_cart(token)
 

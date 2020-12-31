@@ -5,12 +5,12 @@ defmodule Tq2Web.Store.OrderLive do
   alias Tq2Web.Store.{HeaderComponent, ShareComponent}
 
   @impl true
-  def mount(%{"slug" => slug, "id" => id}, %{"token" => token}, socket) do
+  def mount(%{"slug" => slug, "id" => id}, %{"token" => token, "visit_id" => visit_id}, socket) do
     store = Shops.get_store!(slug)
 
     socket =
       socket
-      |> assign(store: store, token: token)
+      |> assign(store: store, token: token, visit_id: visit_id)
       |> load_order(id)
 
     {:ok, socket, temporary_assigns: [order: nil, cart: nil]}

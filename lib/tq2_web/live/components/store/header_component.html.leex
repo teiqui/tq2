@@ -1,4 +1,4 @@
-<nav class="bg-primary text-white fixed-top py-2">
+<nav id="store-header-<%= @id %>" class="bg-primary text-white fixed-top py-2">
   <div class="container-fluid">
     <div class="d-flex align-items-center">
       <div class="mr-3">
@@ -32,7 +32,7 @@
       <% end %>
     </div>
 
-    <%= live_component @socket, TeamComponent, id: :group, store: @store %>
+    <%= live_component @socket, TeamComponent, id: :group, store: @store, referral_customer: @referral_customer %>
   </div>
 
   <%= if Map.has_key?(assigns, :show_categories) do %>
@@ -41,7 +41,7 @@
         <%= search_input(assigns) %>
       </div>
       <div class="col-auto">
-        <a class="float-right text-info" id="toggle-categories" phx-click="toggle-categories" phx-hook="ScrollToTop">
+        <a href="#" class="float-right text-info" id="toggle-categories" phx-click="toggle-categories" phx-hook="ScrollToTop">
           <%= dgettext("stores", "Categories") %>
           <%= caret_direction(@socket, @show_categories) %>
         </a>

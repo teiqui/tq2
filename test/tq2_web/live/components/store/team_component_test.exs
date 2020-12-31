@@ -1,4 +1,4 @@
-defmodule Tq2Web.Store.GroupComponentTest do
+defmodule Tq2Web.Store.TeamComponentTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
@@ -6,12 +6,34 @@ defmodule Tq2Web.Store.GroupComponentTest do
   alias Tq2Web.Store.TeamComponent
 
   describe "render" do
-    test "render group with empty cart" do
+    test "render team with no referral" do
       store = store()
-      content = render_component(TeamComponent, id: :group, store: store)
+      content = render_component(TeamComponent, id: :team, store: store, referral_customer: nil)
 
       assert content =~ "Share the store"
+      refute content =~ "disabled"
     end
+
+    test "render team with referral" do
+      customer = customer()
+      store = store()
+
+      content =
+        render_component(TeamComponent, id: :team, store: store, referral_customer: customer)
+
+      assert content =~ "Great!"
+      assert content =~ customer.name
+      assert content =~ "disabled"
+    end
+  end
+
+  defp customer do
+    %Tq2.Sales.Customer{
+      name: "some name",
+      email: "some@email.com",
+      phone: "555-5555",
+      address: "some address"
+    }
   end
 
   defp store do

@@ -20,6 +20,7 @@ defmodule Tq2.Sales.Order do
 
     has_one :customer, through: [:cart, :customer]
     has_one :visit, through: [:cart, :visit]
+    has_one :referral_customer, through: [:visit, :referral_customer]
 
     timestamps()
   end
@@ -39,6 +40,20 @@ defmodule Tq2.Sales.Order do
     |> assoc_constraint(:cart)
     |> assoc_constraint(:account)
   end
+
+  @doc false
+  def update_visit({:ok, %{cart_id: cart_id} = order}) do
+    visit = Tq2.Analytics.get_visit!(cart_id: cart_id)
+
+    visit
+    |> change()
+    |> put_change(:order_id, order.id)
+    |> Repo.update!()
+
+    {:ok, order}
+  end
+
+  def update_visit({:error, _changeset} = result), do: result
 
   @doc false
   def notify({:ok, order}) do

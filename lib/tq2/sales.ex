@@ -177,6 +177,7 @@ defmodule Tq2.Sales do
     account
     |> Order.changeset(%Order{}, attrs)
     |> Repo.insert()
+    |> Order.update_visit()
     |> Order.notify()
   end
 

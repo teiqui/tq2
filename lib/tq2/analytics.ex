@@ -22,7 +22,7 @@ defmodule Tq2.Analytics do
   end
 
   @doc """
-  Gets a single visit.
+  Gets a single visit by ID or cart_id.
 
   Raises `Ecto.NoResultsError` if the Visit does not exist.
 
@@ -31,12 +31,25 @@ defmodule Tq2.Analytics do
       iex> get_visit!(123)
       %Visit{}
 
+      iex> get_visit!(cart_id: 123)
+      %Visit{}
+
       iex> get_visit!(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_visit!(id) do
-    Repo.get!(Visit, id)
+  def get_visit!(id) when is_integer(id) do
+    Visit
+    |> join(:left, [v], r in assoc(v, :referral_customer))
+    |> preload([v, r], referral_customer: r)
+    |> Repo.get!(id)
+  end
+
+  def get_visit!(cart_id: cart_id) do
+    Visit
+    |> join(:inner, [v], c in assoc(v, :cart))
+    |> where([v, c], c.id == ^cart_id)
+    |> Repo.one!()
   end
 
   @doc """

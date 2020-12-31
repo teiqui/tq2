@@ -1,5 +1,7 @@
-<%= live_component @socket, HeaderComponent, store: @store,
+<%= live_component @socket, HeaderComponent, id: :header,
+                                             store: @store,
                                              token: @token,
+                                             visit_id: @visit_id,
                                              show_categories: @show_categories,
                                              search: assigns[:search] %>
 

@@ -49,7 +49,7 @@ defmodule Tq2Web.Store.ItemComponent do
     )
   end
 
-  defp price(%Cart{lines: []}, item) do
+  defp price(%Cart{referred: false, lines: []}, item) do
     wrapped_price(:p, item)
   end
 
@@ -61,7 +61,7 @@ defmodule Tq2Web.Store.ItemComponent do
     wrapped_price(:del, item)
   end
 
-  defp promotional_price(socket, %Cart{lines: []}, item) do
+  defp promotional_price(socket, %Cart{referred: false, lines: []}, item) do
     wrapped_promotional_price(socket, :p, item)
   end
 

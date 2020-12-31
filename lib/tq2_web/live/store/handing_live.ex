@@ -5,12 +5,12 @@ defmodule Tq2Web.Store.HandingLive do
   alias Tq2Web.Store.{ButtonComponent, HeaderComponent}
 
   @impl true
-  def mount(%{"slug" => slug}, %{"token" => token}, socket) do
+  def mount(%{"slug" => slug}, %{"token" => token, "visit_id" => visit_id}, socket) do
     store = Shops.get_store!(slug)
 
     socket =
       socket
-      |> assign(store: store, token: token)
+      |> assign(store: store, token: token, visit_id: visit_id)
       |> load_cart(token)
 
     {:ok, socket, temporary_assigns: [cart: nil]}

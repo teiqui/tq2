@@ -1,6 +1,8 @@
 defmodule Tq2.AnalyticsTest do
   use Tq2.DataCase
 
+  import Tq2.Fixtures, only: [default_account: 0]
+
   alias Tq2.Analytics
 
   @valid_visit_attrs %{
@@ -63,7 +65,20 @@ defmodule Tq2.AnalyticsTest do
     test "get_visit!/2 returns the visit with given id" do
       visit = fixture(:visit)
 
-      assert Analytics.get_visit!(visit.id) == visit
+      assert Analytics.get_visit!(visit.id).id == visit.id
+    end
+
+    test "get_visit!/2 returns the visit with given cart id" do
+      visit = fixture(:visit)
+      account = default_account()
+
+      {:ok, cart} =
+        Tq2.Transactions.create_cart(account, %{
+          token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
+          visit_id: visit.id
+        })
+
+      assert Analytics.get_visit!(cart_id: cart.id).id == visit.id
     end
 
     test "create_visit/2 with valid data creates a visit" do

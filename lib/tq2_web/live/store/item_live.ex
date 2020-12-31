@@ -2,7 +2,7 @@ defmodule Tq2Web.Store.ItemLive do
   use Tq2Web, :live_view
 
   alias Tq2.Accounts.Account
-  alias Tq2.{Inventories, Shops, Transactions}
+  alias Tq2.{Analytics, Inventories, Shops, Transactions}
   alias Tq2.Inventories.Item
   alias Tq2.Transactions.Cart
   alias Tq2Web.Store.HeaderComponent
@@ -12,13 +12,21 @@ defmodule Tq2Web.Store.ItemLive do
   @impl true
   def mount(%{"slug" => slug}, %{"token" => token, "visit_id" => visit_id} = session, socket) do
     store = Shops.get_store!(slug)
+    visit = Analytics.get_visit!(visit_id)
 
     socket =
       socket
-      |> assign(store: store, token: token, visit_id: visit_id, quantity: 1)
+      |> assign(
+        store: store,
+        token: token,
+        visit_id: visit_id,
+        quantity: 1,
+        referral_customer: visit.referral_customer,
+        referred: !!visit.referral_customer
+      )
       |> load_cart(session)
 
-    {:ok, socket, temporary_assigns: [item: nil]}
+    {:ok, socket, temporary_assigns: [item: nil, referral_customer: nil]}
   end
 
   @impl true
@@ -73,8 +81,10 @@ defmodule Tq2Web.Store.ItemLive do
     {:noreply, socket}
   end
 
-  defp load_cart(%{assigns: %{store: %{account: account}}} = socket, %{"token" => token}) do
-    cart = Transactions.get_cart(account, token) || %Cart{lines: []}
+  defp load_cart(%{assigns: %{referred: referred, store: %{account: account}}} = socket, %{
+         "token" => token
+       }) do
+    cart = Transactions.get_cart(account, token) || %Cart{referred: referred, lines: []}
 
     assign(socket, cart: cart)
   end
@@ -112,7 +122,7 @@ defmodule Tq2Web.Store.ItemLive do
     end
   end
 
-  def image(%Item{image: nil} = item) do
+  defp image(%Item{image: nil} = item) do
     ~E"""
       <svg class="img-fluid mb-3"
            viewBox="0 0 280 280"
@@ -133,7 +143,7 @@ defmodule Tq2Web.Store.ItemLive do
     """
   end
 
-  def image(%Item{image: image} = item) do
+  defp image(%Item{image: image} = item) do
     url = Tq2.ImageUploader.url({image, item}, :preview)
 
     set = %{
@@ -148,6 +158,61 @@ defmodule Tq2Web.Store.ItemLive do
       loading: "lazy",
       alt: item.name,
       class: "img-fluid mb-3"
+    )
+  end
+
+  defp regular_price_button(%Cart{referred: false, lines: []} = cart, item) do
+    regular_price_button(cart, item, false)
+  end
+
+  defp regular_price_button(%Cart{price_type: "regular"} = cart, item) do
+    regular_price_button(cart, item, false)
+  end
+
+  defp regular_price_button(cart, item) do
+    regular_price_button(cart, item, true)
+  end
+
+  defp regular_price_button(_cart, %Item{id: id, price: price}, disabled) do
+    content_tag(:button, money(price),
+      type: "button",
+      class: "btn btn-outline-primary btn-lg rounded-pill px-3 border border-primary mr-3",
+      disabled: disabled,
+      phx_click: "add",
+      phx_value_id: id,
+      phx_value_type: "regular"
+    )
+  end
+
+  defp promotional_price_button(socket, %Cart{referred: false, lines: []} = cart, item) do
+    promotional_price_button(socket, cart, item, false)
+  end
+
+  defp promotional_price_button(socket, %Cart{price_type: "promotional"} = cart, item) do
+    promotional_price_button(socket, cart, item, false)
+  end
+
+  defp promotional_price_button(socket, cart, item) do
+    promotional_price_button(socket, cart, item, true)
+  end
+
+  defp promotional_price_button(socket, _cart, %Item{id: id, price: price}, disabled) do
+    content = ~E"""
+    <img src="<%= Routes.static_path(socket, "/images/favicon_white.svg") %>"
+         class="mt-n1"
+         height="16"
+         width="16"
+         alt="Teiqui">
+    <%= money price %>
+    """
+
+    content_tag(:button, content,
+      type: "button",
+      class: "btn btn-primary btn-lg rounded-pill px-4",
+      disabled: disabled,
+      phx_click: "add",
+      phx_value_id: id,
+      phx_value_type: "promotional"
     )
   end
 end

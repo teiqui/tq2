@@ -1,4 +1,8 @@
-<%= live_component @socket, HeaderComponent, store: @store, token: @token %>
+<%= live_component @socket, HeaderComponent, id: :header,
+                                             store: @store,
+                                             token: @token,
+                                             visit_id: @visit_id,
+                                             referral_customer: @referral_customer %>
 
 <div class="text-right mb-3">
   <%= live_redirect to: Routes.counter_path(@socket, :index, @store),
@@ -42,13 +46,8 @@
       <p class="mb-2">
         &nbsp;
       </p>
-      <button type="button"
-              class="btn btn-outline-primary btn-lg rounded-pill px-3 border border-primary mr-3"
-              phx-click="add"
-              phx-value-id="<%= @item.id %>"
-              phx-value-type="regular">
-        <%= money @item.price %>
-      </button>
+
+      <%= regular_price_button @cart, @item %>
     </div>
 
     <div class="col-auto">
@@ -56,18 +55,7 @@
         <%= dgettext("items", "Promotional price") %>
       </p>
 
-      <button type="button"
-              class="btn btn-primary btn-lg rounded-pill px-4"
-              phx-click="add"
-              phx-value-id="<%= @item.id %>"
-              phx-value-type="promotional">
-        <img src="<%= Routes.static_path(@socket, "/images/favicon_white.svg") %>"
-             class="mt-n1"
-             height="16"
-             width="16"
-             alt="Teiqui">
-        <%= money @item.promotional_price %>
-      </button>
+      <%= promotional_price_button @socket, @cart, @item %>
     </div>
   </div>
 </div>

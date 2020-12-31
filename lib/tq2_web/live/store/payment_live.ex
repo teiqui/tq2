@@ -12,13 +12,13 @@ defmodule Tq2Web.Store.PaymentLive do
   alias Tq2Web.Store.HeaderComponent
 
   @impl true
-  def mount(%{"slug" => slug}, %{"token" => token}, socket) do
+  def mount(%{"slug" => slug}, %{"token" => token, "visit_id" => visit_id}, socket) do
     store = Shops.get_store!(slug)
     payment_methods = available_payment_methods(store)
 
     socket =
       socket
-      |> assign(store: store, token: token, payment_methods: payment_methods)
+      |> assign(store: store, token: token, visit_id: visit_id, payment_methods: payment_methods)
       |> load_cart(token)
       |> check_for_paid_cart()
 

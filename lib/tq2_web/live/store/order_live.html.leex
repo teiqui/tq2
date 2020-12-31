@@ -1,4 +1,4 @@
-<%= live_component @socket, HeaderComponent, store: @store, token: @token %>
+<%= live_component @socket, HeaderComponent, id: :header, store: @store, token: @token, visit_id: @visit_id %>
 
 <div class="row justify-content-center px-3">
   <div class="col-sm-10 col-md-8 col-lg-6 col-xl-4">

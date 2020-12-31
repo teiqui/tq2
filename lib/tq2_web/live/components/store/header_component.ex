@@ -1,8 +1,24 @@
 defmodule Tq2Web.Store.HeaderComponent do
   use Tq2Web, :live_component
 
+  alias Tq2.Analytics
   alias Tq2.Shops.Store
   alias Tq2Web.Store.{InformationComponent, ShareComponent, TeamComponent}
+
+  def update(%{referral_customer: _} = assigns, socket) do
+    {:ok, assign(socket, assigns)}
+  end
+
+  def update(%{visit_id: visit_id} = assigns, socket) do
+    visit = Analytics.get_visit!(visit_id)
+
+    socket =
+      socket
+      |> assign(assigns)
+      |> assign(referral_customer: visit.referral_customer)
+
+    {:ok, socket}
+  end
 
   defp image(socket, %Store{logo: nil} = store) do
     path = Routes.static_path(socket, "/images/store_default_logo.svg")

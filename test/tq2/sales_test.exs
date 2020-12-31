@@ -213,8 +213,9 @@ defmodule Tq2.SalesTest do
                Sales.create_order(session.account, @invalid_order_attrs)
     end
 
-    test "create_order/2 notifies to owner and customer", %{session: session} do
-      visit = fixture(session, :visit)
+    test "create_order/2 notifies to owner and customer, and associates visit", %{
+      session: session
+    } do
       {:ok, owner} = create_user(session)
       {:ok, cart} = create_cart(session)
 
@@ -222,10 +223,12 @@ defmodule Tq2.SalesTest do
         @valid_order_attrs
         |> Map.delete(:cart)
         |> Map.put(:cart_id, cart.id)
-        |> Map.put(:visit_id, visit.id)
 
       assert {:ok, %Order{} = order} = Sales.create_order(session.account, attrs)
 
+      visit = Tq2.Analytics.get_visit!(cart_id: cart.id)
+
+      assert order.id == visit.order_id
       assert_delivered_email(Email.new_order(order, owner))
       assert_delivered_email(Email.new_order(order, order.customer))
     end

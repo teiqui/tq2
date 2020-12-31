@@ -2,13 +2,16 @@
   <div class="align-self-center mr-3">
     <%= avatar(@socket) %>
   </div>
-  <div class="align-self-center">
+  <div class="align-self-center flex-fill">
     <p class="mb-0 small font-weight-semi-bold">
-      <%= dgettext("stores", "Share the store and take advantage of the Teiqui price") %>
+      <%= if @referral_customer do %>
+        <%= dgettext("stores", "Great! Your are buying with %{name}", name: @referral_customer.name) %>
+      <% else %>
+        <%= dgettext("stores", "Share the store and take advantage of the Teiqui price") %>
+      <% end %>
     </p>
   </div>
   <div class="align-self-center ml-3">
-    <%= live_redirect dgettext("stores", "Join"), to: Routes.team_path(@socket, :index, @store),
-                                                  class: "btn btn-light btn-sm rounded-pill text-primary" %>
+    <%= link_to_join @socket, @store, @referral_customer %>
   </div>
 </div>

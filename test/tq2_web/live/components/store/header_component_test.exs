@@ -10,10 +10,33 @@ defmodule Tq2Web.Store.HeaderComponentTest do
   describe "render" do
     test "render header with empty cart" do
       store = store()
-      content = render_component(HeaderComponent, store: store, token: @token)
+      visit = visit()
+
+      content =
+        render_component(HeaderComponent,
+          id: :header,
+          store: store,
+          token: @token,
+          visit_id: visit.id
+        )
 
       assert content =~ store.name
     end
+  end
+
+  defp visit do
+    {:ok, visit} =
+      Tq2.Analytics.create_visit(%{
+        slug: "test",
+        token: "IXFz6ntHSmfmY2usXsXHu4WAU-CFJ8aFvl5xEYXi6bk=",
+        referral_token: "N68iU2uIe4SDO1W50JVauF2PJESWoDxlHTl1RSbr3Z4=",
+        utm_source: "whatsapp",
+        data: %{
+          ip: "127.0.0.1"
+        }
+      })
+
+    visit
   end
 
   defp store do
