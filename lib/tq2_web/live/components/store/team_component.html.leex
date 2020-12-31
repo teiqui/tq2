@@ -1,0 +1,14 @@
+<div id="header-group-<%= @id %>" class="d-flex align-self-center mt-3">
+  <div class="align-self-center mr-3">
+    <%= avatar(@socket) %>
+  </div>
+  <div class="align-self-center">
+    <p class="mb-0 small font-weight-semi-bold">
+      <%= dgettext("stores", "Share the store and take advantage of the Teiqui price") %>
+    </p>
+  </div>
+  <div class="align-self-center ml-3">
+    <%= live_redirect dgettext("stores", "Join"), to: Routes.team_path(@socket, :index, @store),
+                                                  class: "btn btn-light btn-sm rounded-pill text-primary" %>
+  </div>
+</div>

@@ -47,6 +47,7 @@ defmodule Tq2Web.Router do
     live "/:slug/payment", Store.PaymentLive, :index
     live "/:slug/payment/check", Store.PaymentCheckLive, :index
     live "/:slug/order/:id", Store.OrderLive, :index
+    live "/:slug/team", Store.TeamLive, :index
   end
 
   scope "/", Tq2Web do

@@ -2,7 +2,7 @@ defmodule Tq2Web.Store.HeaderComponent do
   use Tq2Web, :live_component
 
   alias Tq2.Shops.Store
-  alias Tq2Web.Store.{InformationComponent, ShareComponent}
+  alias Tq2Web.Store.{InformationComponent, ShareComponent, TeamComponent}
 
   defp image(socket, %Store{logo: nil} = store) do
     path = Routes.static_path(socket, "/images/store_default_logo.svg")
