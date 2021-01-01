@@ -10,7 +10,8 @@ defmodule Tq2.Inventories.ItemImport do
     price: 2,
     promotional_price: 3,
     cost: 4,
-    url: 5
+    url: 5,
+    description: 6
   }
 
   @money_fields [:price, :promotional_price, :cost]
@@ -21,6 +22,29 @@ defmodule Tq2.Inventories.ItemImport do
       rows,
       headers_with_index || @default_headers
     ])
+  end
+
+  def import_from_legacy(%Session{} = session, file_name, headers_with_index \\ @default_headers) do
+    [_titles | rows] =
+      file_name
+      |> File.stream!()
+      |> CSV.decode()
+      |> Stream.filter(fn {status, _} -> status == :ok end)
+      |> Enum.map(fn {_, row} -> row end)
+
+    categories_by_name =
+      session
+      |> categories_from_rows(rows, headers_with_index)
+
+    rows
+    |> Stream.map(&row_to_item(&1, session.account, categories_by_name, headers_with_index))
+    |> Task.async_stream(&Inventories.create_or_update_item(session, &1),
+      max_concurrency: 1,
+      timeout: :infinity,
+      ordered: false
+    )
+    |> Stream.filter(fn {task_status, {status, _}} -> task_status != :ok or status != :ok end)
+    |> Enum.to_list()
   end
 
   def batch_import(%Session{} = session, rows, headers_with_index \\ @default_headers) do
@@ -55,7 +79,7 @@ defmodule Tq2.Inventories.ItemImport do
 
   defp field_value(row, field, headers_with_index, _) do
     row
-    |> Enum.at(headers_with_index[field])
+    |> Enum.at(headers_with_index[field], "")
     |> String.trim()
   end
 
@@ -63,7 +87,7 @@ defmodule Tq2.Inventories.ItemImport do
     currency = Account.currency(account)
 
     attrs =
-      [:name, :price, :promotional_price, :cost]
+      [:name, :price, :promotional_price, :cost, :description]
       |> Enum.map(fn k -> {k, field_value(row, k, headers_with_index, currency)} end)
       |> Map.new()
 
@@ -87,7 +111,7 @@ defmodule Tq2.Inventories.ItemImport do
 
   defp image_from_url(url, name) do
     # Similar than Waffle internal url handle
-    case HTTPoison.get(url, [], hackney: [:insecure]) do
+    case HTTPoison.get(url, [], hackney: [:insecure, follow_redirect: true, max_redirect: 5]) do
       {:ok, %HTTPoison.Response{body: body}} -> plug_upload_file(url, name, body)
       _ -> nil
     end
@@ -98,10 +122,7 @@ defmodule Tq2.Inventories.ItemImport do
   end
 
   defp file_name_from_url(url, name) do
-    ext =
-      url
-      |> String.replace(~r"\?.*", "")
-      |> Path.extname()
+    ext = extension_from_url(url)
 
     name
     |> String.replace(~r"[^A-z]+", "-")
@@ -122,6 +143,23 @@ defmodule Tq2.Inventories.ItemImport do
 
       _ ->
         nil
+    end
+  end
+
+  defp extension_from_url(url) do
+    params = URI.decode_query(url)
+
+    case Enum.find(params, fn {k, _} -> k =~ "content-type" end) do
+      {_, value} ->
+        value
+        |> MIME.extensions()
+        |> hd()
+        |> String.replace_prefix("", ".")
+
+      _ ->
+        url
+        |> String.replace(~r"\?.*", "")
+        |> Path.extname()
     end
   end
 end
