@@ -29,14 +29,14 @@ defmodule Tq2.Notifications.EmailTest do
     assert email.text_body =~ "##{order.id}"
   end
 
-  test "returns nil when order has customer without email" do
+  test "new order returns nil when order has customer without email" do
     order = order()
     customer = %{customer() | email: nil}
 
     assert Email.new_order(order, customer) == nil
   end
 
-  test "returns nil when there is no recipient" do
+  test "new order returns nil when there is no recipient" do
     order = order()
 
     assert Email.new_order(order, nil) == nil
@@ -52,6 +52,23 @@ defmodule Tq2.Notifications.EmailTest do
     assert email.html_body =~ "##{order.id}"
     assert email.text_body =~ user.name
     assert email.text_body =~ "##{order.id}"
+  end
+
+  test "promotion confirmation email" do
+    order = %{order() | customer: customer()}
+    email = Email.promotion_confirmation(order)
+
+    assert email.to == order.customer.email
+    assert email.html_body =~ order.customer.name
+    assert email.html_body =~ "##{order.id}"
+    assert email.text_body =~ order.customer.name
+    assert email.text_body =~ "##{order.id}"
+  end
+
+  test "promotion confirmation returns nil when order has customer without email" do
+    order = %{order() | customer: %{customer() | email: nil}}
+
+    assert Email.promotion_confirmation(order) == nil
   end
 
   defp user do

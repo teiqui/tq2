@@ -43,7 +43,8 @@ msgid "Someone requested a password reset for your user account"
 msgstr "Alguien ha pedido modificar la contraseña de tu cuenta"
 
 #: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:4
-#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:3
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:3 lib/tq2_web/templates/email/promotion_confirmation.html.eex:4
+#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:3
 msgid "Congratulations!"
 msgstr "¡Felicitaciones!"
 
@@ -53,7 +54,8 @@ msgid "For reference, the order is #%{number}"
 msgstr "Para referencia el pedido es el #%{number}"
 
 #: lib/tq2_web/templates/email/order_confirmation.html.eex:42
-#: lib/tq2_web/templates/email/order_confirmation.text.eex:14
+#: lib/tq2_web/templates/email/order_confirmation.text.eex:14 lib/tq2_web/templates/email/promotion_confirmation.html.eex:42
+#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:14
 msgid "For reference, your order is #%{number}"
 msgstr "Para referencia, tu pedido es el #%{number}"
 
@@ -85,7 +87,8 @@ msgid "We have receive your order"
 msgstr "Hemos recibido tu pedido"
 
 #: lib/tq2_web/templates/email/order_confirmation.html.eex:46
-#: lib/tq2_web/templates/email/order_confirmation.text.eex:16
+#: lib/tq2_web/templates/email/order_confirmation.text.eex:16 lib/tq2_web/templates/email/promotion_confirmation.html.eex:46
+#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:16
 msgid "We'll keep you informed about it."
 msgstr "Te mantendremos al tanto de su estado."
 
@@ -100,6 +103,21 @@ msgstr "aquí"
 
 #: lib/tq2_web/templates/email/order_confirmation.html.eex:1
 #: lib/tq2_web/templates/email/order_confirmation.text.eex:1 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:1
-#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:1
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:1 lib/tq2_web/templates/email/promotion_confirmation.html.eex:1
+#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:1
 msgid "Hello %{name}!"
 msgstr "¡Hola, %{name}!"
+
+#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:8
+#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:6
+msgid "Just to recapitulate, this is what you ask for:"
+msgstr "Solo como recordatorio, esto fue lo que pediste:"
+
+#: lib/tq2/notifications/email.ex:43
+msgid "Promotion confirmed"
+msgstr "Promoción confirmada"
+
+#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:5
+#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:4
+msgid "We have received an order from the link you shared, so it's all set for the discounted price"
+msgstr "Recibimos un pedido de un enlace que compartiste, así que está todo listo para que tengas el precio con descuento"

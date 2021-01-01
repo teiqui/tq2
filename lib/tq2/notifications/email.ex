@@ -38,6 +38,17 @@ defmodule Tq2.Notifications.Email do
 
   def new_order(%Order{}, nil), do: nil
 
+  def promotion_confirmation(%Order{customer: %Customer{email: nil}}), do: nil
+
+  def promotion_confirmation(%Order{customer: customer} = order) do
+    subject = dgettext("emails", "Promotion confirmed")
+
+    base_email()
+    |> to(customer.email)
+    |> subject(subject)
+    |> render(:promotion_confirmation, order: order, customer: customer)
+  end
+
   defp base_email() do
     address = System.get_env("EMAIL_ADDRESS", "support@teiqui.com")
 

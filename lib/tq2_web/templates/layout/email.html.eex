@@ -2,9 +2,153 @@
 <html lang="<%= locale() %>">
   <head>
     <meta charset="utf-8">
+    <style type="text/css">
+      body, #teiqui-email {
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #333;
+        background-color: #fff;
+      }
+
+      #teiqui-email {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 1em;
+      }
+
+      #teiqui-email a {
+        color: #3992c3;
+      }
+
+      #teiqui-email a:hover {
+        color: #156fa0;
+      }
+
+      #teiqui-email footer a {
+        text-decoration: none;
+      }
+
+      #teiqui-email h2 {
+        font-size: 1em;
+        margin-bottom: 1em;
+      }
+
+      #teiqui-email h3 {
+        font-size: 1em;
+        margin-bottom: 1em;
+      }
+
+      #teiqui-email h4 {
+        font-size: 1em;
+        margin: 1em 0em;
+      }
+
+      #teiqui-email hr {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: 0;
+        border-top: 1px dashed #444;
+      }
+
+      #teiqui-email p {
+        margin-top: 0;
+        margin-bottom: 1em;
+      }
+
+      #teiqui-email table {
+        border: 3px solid #c4c4c4;
+        margin-bottom: 18px;
+        padding: 1em;
+        width: 100%;
+      }
+
+      #teiqui-email table tbody:before,
+      #teiqui-email table tbody:after {
+        content: '';
+        display: block;
+        height: 1em;
+      }
+
+      #teiqui-email table thead tr:last-child th {
+        border-bottom: 1px dashed #444;
+      }
+
+      #teiqui-email table tfoot td {
+        border-top: 1px dashed #444;
+        padding-top: 1em;
+      }
+
+      #teiqui-email table th,
+      #teiqui-email table td {
+        padding: 0.5em 0;
+        line-height: 20px;
+        text-align: left;
+        vertical-align: top;
+        border: none;
+      }
+
+      #teiqui-email table th {
+        font-weight: bold;
+      }
+
+      #teiqui-email .font-weight-normal {
+        font-weight: 400 !important;
+      }
+
+      #teiqui-email .mb-0 {
+        margin-bottom: 0 !important;
+      }
+
+      #teiqui-email .pr-1 {
+        padding-right: 0.5em !important;
+      }
+
+      #teiqui-email .pt-0 {
+        padding-top: 0 !important;
+      }
+
+      #teiqui-email .small {
+        font-size: .8em;
+      }
+
+      #teiqui-email .text-center {
+        text-align: center !important;
+      }
+
+      #teiqui-email .text-complementary {
+        color: #f48c06;
+      }
+
+      #teiqui-email .text-danger {
+        color: #c74444;
+      }
+
+      #teiqui-email .text-primary {
+        color: #5a59aa;
+      }
+
+      #teiqui-email .text-primary:hover {
+        color: #5a59aa;
+      }
+
+      #teiqui-email .text-right {
+        text-align: right !important;
+      }
+
+      #teiqui-email .text-success {
+        color: #5baa59;
+      }
+
+      #teiqui-email .text-uppercase {
+        text-transform: uppercase !important;
+      }
+    </style>
   </head>
 
   <body>
-    <%= @inner_content %>
+    <div id="teiqui-email">
+      <%= @inner_content %>
+    </div>
   </body>
 </html>

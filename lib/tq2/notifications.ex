@@ -15,6 +15,12 @@ defmodule Tq2.Notifications do
     |> deliver_later()
   end
 
+  def send_promotion_confirmation(%Order{} = order) do
+    order
+    |> Email.promotion_confirmation()
+    |> deliver_later()
+  end
+
   defp deliver_later(nil), do: nil
   defp deliver_later(email), do: Mailer.deliver_later(email)
 end

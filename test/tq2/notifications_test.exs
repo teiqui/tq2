@@ -52,6 +52,22 @@ defmodule Tq2.NotificationsTest do
     assert_no_emails_delivered()
   end
 
+  test "promotion confirmation email for customer" do
+    order = %{order() | customer: customer()}
+
+    Notifications.send_promotion_confirmation(order)
+
+    assert_delivered_email(Email.promotion_confirmation(order))
+  end
+
+  test "no promotion confirmation email is sent for customer without email" do
+    order = %{order() | customer: %{customer() | email: nil}}
+
+    Notifications.send_promotion_confirmation(order)
+
+    assert_no_emails_delivered()
+  end
+
   defp user do
     %User{
       name: "John",

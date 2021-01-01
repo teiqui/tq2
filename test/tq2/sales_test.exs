@@ -1,8 +1,6 @@
 defmodule Tq2.SalesTest do
   use Tq2.DataCase
 
-  import Tq2.Fixtures, only: [create_customer: 0]
-
   alias Tq2.{Analytics, Sales}
 
   @valid_customer_attrs %{
@@ -91,13 +89,13 @@ defmodule Tq2.SalesTest do
   end
 
   defp fixture(session, :order, attrs) do
-    cart_attrs = attrs[:cart] || @valid_order_attrs.cart
-    visit_id = cart_attrs[:visit_id] || fixture(session, :visit).id
+    {:ok, cart} = create_cart(session, attrs[:cart])
 
     order_attrs =
       attrs
       |> Enum.into(@valid_order_attrs)
-      |> Map.put(:cart, %{cart_attrs | visit_id: visit_id})
+      |> Map.delete(:cart)
+      |> Map.put(:cart_id, cart.id)
 
     {:ok, order} = Sales.create_order(session.account, order_attrs)
 
@@ -203,6 +201,7 @@ defmodule Tq2.SalesTest do
     test "get_promotional_order_for/2 returns the order on promotional status for customer", %{
       session: session
     } do
+      {:ok, owner} = create_user(session)
       {:ok, cart} = create_cart(session)
 
       attrs =
@@ -240,6 +239,10 @@ defmodule Tq2.SalesTest do
       assert Enum.empty?(child_order.children)
       assert List.first(child_order.parents).id == order_1.id
       assert List.first(order_1.children).id == child_order.id
+
+      assert_delivered_email(Email.new_order(child_order, owner))
+      assert_delivered_email(Email.new_order(child_order, child_order.customer))
+      assert_delivered_email(Email.promotion_confirmation(order_1))
     end
 
     test "create_order/2 with valid data creates a order", %{session: session} do
@@ -323,13 +326,26 @@ defmodule Tq2.SalesTest do
   defp create_cart(session, attrs \\ %{}) do
     visit = fixture(session, :visit)
 
-    {:ok, cart} =
-      Tq2.Transactions.create_cart(session.account, %{
-        token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoo=",
-        customer_id: attrs[:customer_id] || create_customer().id,
-        visit_id: visit.id,
-        data: %{handing: "pickup"}
+    {:ok, customer} =
+      Sales.create_customer(%{
+        name: "some name #{:random.uniform(999_999_999)}",
+        email: "some#{:random.uniform(999_999_999)}@email.com",
+        phone: "#{:random.uniform(999_999_999)}",
+        address: "some address"
       })
+
+    cart_attrs =
+      Map.merge(
+        %{
+          token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoo=",
+          customer_id: attrs[:customer_id] || customer.id,
+          visit_id: visit.id,
+          data: %{handing: "pickup"}
+        },
+        attrs || %{}
+      )
+
+    {:ok, cart} = Tq2.Transactions.create_cart(session.account, cart_attrs)
 
     {:ok, item} =
       Tq2.Inventories.create_item(session, %{

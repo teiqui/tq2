@@ -11,6 +11,7 @@ defmodule Tq2.Sales.Order do
   schema "orders" do
     field :status, :string, default: "pending"
     field :promotion_expires_at, :utc_datetime
+    field :confirmed, :boolean, virtual: true
     field :lock_version, :integer, default: 0
 
     embeds_one :data, Data
@@ -62,7 +63,26 @@ defmodule Tq2.Sales.Order do
   def update_visit({:error, _changeset} = result), do: result
 
   @doc false
-  def notify({:ok, order}) do
+  def notify({:ok, %Order{ties: %Ecto.Association.NotLoaded{}, confirmed: nil} = order}) do
+    notify({:ok, %{order | confirmed: false}})
+  end
+
+  def notify({:ok, %Order{ties: [], confirmed: nil} = order}) do
+    notify({:ok, %{order | confirmed: false}})
+  end
+
+  def notify({:ok, %Order{ties: [tie], confirmed: nil} = order}) do
+    %{originator: originator} =
+      Repo.preload(tie,
+        originator: [:account, :customer, :parents, :children, cart: [lines: :item]]
+      )
+
+    Tq2.Notifications.send_promotion_confirmation(originator)
+
+    notify({:ok, %{order | confirmed: true}})
+  end
+
+  def notify({:ok, %Order{confirmed: confirmed} = order}) when not is_nil(confirmed) do
     order = Repo.preload(order, [:account, :customer, cart: [lines: :item]])
     owner = Tq2.Accounts.get_owner(order.account)
 
