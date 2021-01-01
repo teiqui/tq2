@@ -17,6 +17,14 @@ defmodule Tq2Web.EmailView do
     Money.to_string(money, symbol: true)
   end
 
+  defp line_price(%Cart{price_type: "promotional"}, line) do
+    format_money(line.promotional_price)
+  end
+
+  defp line_price(_, line) do
+    format_money(line.price)
+  end
+
   defp cart_total(%Cart{} = cart) do
     cart
     |> Cart.total()

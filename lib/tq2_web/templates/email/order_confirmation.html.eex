@@ -20,7 +20,7 @@
       <tr>
         <td><%= line.name %></td>
         <td><%= line.quantity %></td>
-        <td><%= format_money line.price %></td>
+        <td><%= line_price @order.cart, line %></td>
         <td><%= line_total @order.cart, line %></td>
       </tr>
     <% end %>

@@ -41,7 +41,7 @@
             <tr>
               <td><%= line.name %></td>
               <td><%= line.quantity %></td>
-              <td class="d-none d-md-table-cell d-print-table-cell text-nowrap"><%= format_money line.price %></td>
+              <td class="d-none d-md-table-cell d-print-table-cell text-nowrap"><%= line_price @order.cart, line %></td>
               <td><%= line_total @order.cart, line %></td>
             </tr>
           <% end %>

@@ -57,6 +57,14 @@ defmodule Tq2Web.OrderView do
 
   defp cart_handing(type), do: @cart_handing[type]
 
+  defp line_price(%Cart{price_type: "promotional"}, line) do
+    format_money(line.promotional_price)
+  end
+
+  defp line_price(_, line) do
+    format_money(line.price)
+  end
+
   defp line_total(cart, line) do
     Cart.line_total(cart, line) |> format_money()
   end

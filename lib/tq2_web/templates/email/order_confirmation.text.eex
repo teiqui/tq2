@@ -6,7 +6,7 @@
 <%= dgettext("emails", "This is what you ask for:") %>
 
 <%= for line <- @order.cart.lines do %>
-  * <%= line.quantity %> x <%= line.name %> | <%= format_money line.price %> | <%= line_total @order.cart, line %>
+  * <%= line.quantity %> x <%= line.name %> | <%= line_price @order.cart, line %> | <%= line_total @order.cart, line %>
 <% end %>
 
 <%= dgettext("orders", "Total") %>: <%= cart_total @order.cart %>
