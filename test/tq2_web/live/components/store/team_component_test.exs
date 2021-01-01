@@ -12,6 +12,7 @@ defmodule Tq2Web.Store.TeamComponentTest do
 
       assert content =~ "Share the store"
       refute content =~ "disabled"
+      refute content =~ "avatar_join"
     end
 
     test "render team with referral" do
@@ -24,6 +25,7 @@ defmodule Tq2Web.Store.TeamComponentTest do
       assert content =~ "Great!"
       assert content =~ customer.name
       assert content =~ "disabled"
+      assert content =~ "avatar_join"
     end
   end
 
