@@ -68,7 +68,8 @@ defmodule Tq2.MixProject do
       # Exq has poison as optional, but it's been installed
       {:exq, ">= 0.14.0"},
       {:poison, "~> 3.1"},
-      {:elixir_google_spreadsheets, ">= 0.1.17"}
+      {:elixir_google_spreadsheets, ">= 0.1.17"},
+      {:csv, ">= 2.4.1"}
     ]
   end
 

@@ -63,7 +63,8 @@ defmodule Tq2.Inventories.ItemImportTest do
         price: 5,
         promotional_price: 3,
         cost: 0,
-        url: 4
+        url: 4,
+        description: 6
       }
 
       results =
