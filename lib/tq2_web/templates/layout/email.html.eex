@@ -81,7 +81,7 @@
 
       #teiqui-email table th,
       #teiqui-email table td {
-        padding: 0.5em 0;
+        padding: 0.5em;
         line-height: 20px;
         text-align: left;
         vertical-align: top;
