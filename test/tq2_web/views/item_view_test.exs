@@ -77,6 +77,7 @@ defmodule Tq2Web.ItemViewTest do
       )
 
     assert String.contains?(content, "New item")
+    assert String.contains?(content, "recommended to be about 40% off")
   end
 
   @tag login_as: "test@user.com"

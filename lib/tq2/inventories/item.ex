@@ -3,7 +3,12 @@ defmodule Tq2.Inventories.Item do
   use Waffle.Ecto.Schema
 
   import Ecto.Changeset
-  import Tq2.SchemaUtils, only: [validate_money: 2]
+
+  import Tq2.SchemaUtils,
+    only: [
+      validate_money: 2,
+      validate_less_than_money_field: 3
+    ]
 
   alias Tq2.Inventories.{Category, Item}
   alias Tq2.Accounts.Account
@@ -57,6 +62,8 @@ defmodule Tq2.Inventories.Item do
     |> validate_money(:price)
     |> validate_money(:promotional_price)
     |> validate_money(:cost)
+    |> validate_less_than_money_field(:promotional_price, :price)
+    |> validate_less_than_money_field(:cost, :promotional_price)
     |> unsafe_validate_unique([:sku, :account_id], Tq2.Repo)
     |> unsafe_validate_unique([:name, :account_id], Tq2.Repo)
     |> unique_constraint(:uuid)

@@ -92,6 +92,30 @@ defmodule Tq2.Inventories.ItemTest do
       assert Money.parse("20", :ARS) == {:ok, changeset.changes.promotional_price}
       assert Money.parse("30", :ARS) == {:ok, changeset.changes.cost}
     end
+
+    test "changeset price should be greater than promotional price and cost" do
+      attrs =
+        @valid_attrs
+        |> Map.put(:promotional_price, @valid_attrs.price)
+        |> Map.put(:cost, @valid_attrs.price)
+
+      changeset = default_account() |> Item.changeset(%Item{}, attrs)
+
+      price = @valid_attrs.price |> Money.to_decimal() |> to_string()
+
+      assert "must be less than #{price}" in errors_on(changeset).promotional_price
+      assert "must be less than #{price}" in errors_on(changeset).cost
+    end
+
+    test "changeset promotional price should be greater than cost" do
+      attrs = @valid_attrs |> Map.put(:cost, @valid_attrs.promotional_price)
+
+      changeset = default_account() |> Item.changeset(%Item{}, attrs)
+
+      price = @valid_attrs.promotional_price |> Money.to_decimal() |> to_string()
+
+      assert "must be less than #{price}" in errors_on(changeset).cost
+    end
   end
 
   defp default_account do
