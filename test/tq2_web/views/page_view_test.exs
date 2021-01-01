@@ -17,6 +17,6 @@ defmodule Tq2Web.PageViewTest do
   test "renders index.html", %{conn: conn} do
     content = render_to_string(PageView, "index.html", conn: conn)
 
-    assert String.contains?(content, "Coming soon...")
+    assert String.contains?(content, "Teiqui price")
   end
 end

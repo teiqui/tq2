@@ -65,7 +65,7 @@ msgstr "Ups, parece que algo no salió bien. Por favor, revisa los errores."
 msgid "Order"
 msgstr "Pedido"
 
-#: lib/tq2_web/live/order/order_edit_live.ex:80
+#: lib/tq2_web/live/order/order_edit_live.ex:82
 msgid "Order updated successfully."
 msgstr "Pedido actualizado correctamente."
 
@@ -97,7 +97,7 @@ msgstr "Mostrar"
 msgid "Status"
 msgstr "Estado"
 
-#: lib/tq2_web/live/order/order_edit_live.ex:68
+#: lib/tq2_web/live/order/order_edit_live.ex:70
 msgid "Update"
 msgstr "Actualizar"
 

@@ -2,6 +2,8 @@ defmodule Tq2Web.PageController do
   use Tq2Web, :controller
 
   def index(conn, _params) do
-    render(conn, "index.html")
+    conn
+    |> put_layout("page.html")
+    |> render("index.html")
   end
 end

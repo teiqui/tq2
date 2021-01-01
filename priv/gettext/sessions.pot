@@ -45,7 +45,7 @@ msgid "Sign up"
 msgstr ""
 
 #: lib/tq2_web/live/inventories/import_live.ex:35
-#: lib/tq2_web/live/order/order_edit_live.ex:31 lib/tq2_web/plugs/session_plug.ex:28
+#: lib/tq2_web/live/order/order_edit_live.ex:33 lib/tq2_web/plugs/session_plug.ex:28
 msgid "You must be logged in."
 msgstr ""
 

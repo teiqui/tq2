@@ -64,7 +64,7 @@ msgstr ""
 msgid "Order"
 msgstr ""
 
-#: lib/tq2_web/live/order/order_edit_live.ex:80
+#: lib/tq2_web/live/order/order_edit_live.ex:82
 msgid "Order updated successfully."
 msgstr ""
 
@@ -96,7 +96,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: lib/tq2_web/live/order/order_edit_live.ex:68
+#: lib/tq2_web/live/order/order_edit_live.ex:70
 msgid "Update"
 msgstr ""
 

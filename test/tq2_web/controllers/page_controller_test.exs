@@ -11,7 +11,7 @@ defmodule Tq2Web.PageControllerTest do
     test "show page", %{conn: conn} do
       conn = get(conn, Routes.page_path(conn, :index))
 
-      assert html_response(conn, 200) =~ "Coming soon..."
+      assert html_response(conn, 200) =~ "Teiqui price"
     end
   end
 end

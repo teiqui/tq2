@@ -1,9 +1,302 @@
-<div class="bg-primary vh-100 vw-100 fixed-top">
-  <div class="text-center mt-5 pt-5">
-    <%= img_tag Routes.static_path(@conn, "/images/logo_white.svg"), width: "202", height: "52", alt: gettext("Teiqui") %>
+<nav id="main-menu" class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top py-3 mb-5">
+  <div class="container">
+    <%= link to: Routes.page_path(@conn, :index), class: "navbar-brand" do %>
+      <%= img_tag Routes.static_path(@conn, "/images/logo_white.svg"), width: "101",
+                                                                       height: "26",
+                                                                       loading: "lazy",
+                                                                       class: "mt-n1",
+                                                                       alt: gettext("Teiqui") %>
+    <% end %>
+
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#menu-content"
+            aria-controls="menu-content"
+            aria-expanded="false"
+            aria-label="<%= dgettext("page", "Toggle menu") %>">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="menu-content">
+      <ul class="navbar-nav mr-auto font-weight-bold">
+        <li class="nav-item">
+          <a class="nav-link" href="#app">
+            <%= dgettext("page", "App") %>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#teiqui-price">
+            <%= dgettext("page", "Teiqui price") %>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#pricing">
+            <%= dgettext("page", "Pricing") %>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav font-weight-semi-bold mr-4">
+        <li class="nav-item">
+          <%= link dgettext("page", "Login"), to: Routes.session_url(app_uri(), :new), class: "nav-link" %>
+        </li>
+      </ul>
+
+      <%= link dgettext("page", "Free trial"), to: Routes.registration_url(app_uri(), :index),
+                                               class: "btn btn-light btn-sm text-primary rounded-pill font-weight-bold px-4" %>
+    </div>
+  </div>
+</nav>
+
+<div>
+  <div id="app" class="bg-primary text-white mt-5 pt-5 mb-0">
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-8 col-lg-6 col-xl-5 px-4">
+          <h1 class="display-4 font-weight-bold">
+            <%= dgettext("page", "Double your sells.") %>
+          </h1>
+          <h2 class="h5 font-weight-semi-bold mt-3">
+            <%= dgettext("page", "Teiqui price will make your customers bring more customers. Build and share your online store.") %>
+          </h2>
+
+          <%= link dgettext("page", "Free 14 days trial"), to: Routes.registration_url(app_uri(), :index),
+                                                           class: "btn btn-light btn-lg text-primary rounded-pill font-weight-bold px-4 mt-5 mb-4" %>
+        </div>
+        <div class="col">
+          <%= img_tag Routes.static_path(@conn, "/images/page/banner.svg"), width: "740",
+                                                                            height: "533",
+                                                                            loading: "lazy",
+                                                                            class: "img-fluid",
+                                                                            alt: dgettext("page", "Sharing") %>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <h2 class="h3 text-light text-center mt-5">
-    <%= dgettext("page", "Coming soon...") %>
-  </h2>
+  <div class="bg-primary-dark text-white">
+    <div class="container py-5">
+      <p class="lead mb-1 mt-n4 text-right">
+        <%= dgettext("page", "Now") %>
+      </p>
+
+      <div class="row">
+        <div class="col-md-3 col-lg-2 mb-4 px-4 pt-2">
+          <%= img_tag Routes.static_path(@conn, "/images/page/circles.svg"), width: "119",
+                                                                             height: "52",
+                                                                             loading: "lazy",
+                                                                             class: "img-fluid",
+                                                                             alt: dgettext("page", "Circles") %>
+        </div>
+        <div class="col-md-8 col-lg-9 px-4">
+          <h3 class="h1 font-weight-bold">
+            <%= dgettext("page", "896 people are shopping together on Teiqui online stores.") %>
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-md-3 col-lg-2 mb-4 px-4 pt-3">
+          <%= app_img_tag @conn %>
+        </div>
+        <div class="col-md-8 col-lg-9 px-4">
+          <h3 class="h1 text-primary font-weight-bold mt-5">
+            <%= dgettext("page", "Online store in just a few clicks.") %>
+          </h3>
+          <h4 class="h5 mt-3">
+            <%= dgettext("page", "Enter all your items easily and manage orders via WhatsApp.") %>
+          </h4>
+
+          <%= link dgettext("page", "Download the app"), to: "#", class: "btn btn-primary btn-lg disabled rounded-pill px-4 mt-4" %>
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-4 text-center">
+          <div class="text-muted mb-3">
+            <svg class="bi" width="64" height="64" fill="currentColor">
+              <use xlink:href="<%= Routes.static_path(@conn, "/images/bootstrap-icons.svg#shop") %>"/>
+            </svg>
+          </div>
+
+          <h5 class="h5 text-primary mb-1">
+            <%= dgettext("page", "Make") %>
+          </h5>
+
+          <h5 class="h5 text-dark">
+            <%= dgettext("page", "your store") %>
+          </h5>
+        </div>
+
+        <div class="col-4 text-center">
+          <div class="text-muted mb-3">
+            <svg class="bi" width="64" height="64" fill="currentColor">
+              <use xlink:href="<%= Routes.static_path(@conn, "/images/bootstrap-icons.svg#share") %>"/>
+            </svg>
+          </div>
+
+          <h5 class="h5 text-primary mb-1">
+            <%= dgettext("page", "Share") %>
+          </h5>
+
+          <h5 class="h5 text-dark">
+            <%= dgettext("page", "via WhatsApp") %>
+          </h5>
+        </div>
+
+        <div class="col-4 text-center">
+          <div class="text-muted mb-3">
+            <svg class="bi" width="64" height="64" fill="currentColor">
+              <use xlink:href="<%= Routes.static_path(@conn, "/images/bootstrap-icons.svg#basket") %>"/>
+            </svg>
+          </div>
+
+          <h5 class="h5 text-primary mb-1">
+            <%= dgettext("page", "Sell") %>
+          </h5>
+
+          <h5 class="h5 text-dark">
+            <%= dgettext("page", "double with Teiqui") %>
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="teiqui-price" class="bg-primary text-white">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-md-7 col-lg-7 px-4">
+          <h3 class="h1 font-weight-bold">
+            <%= dgettext("page", "Teiqui price,") %>
+            <br>
+            <%= dgettext("page", "double benefit.") %>
+          </h3>
+
+          <p class="lead mb-0 pr-lg-5">
+            <%= dgettext("page", "With Teiqui price, your customers will get discounts for sharing your store and get people to buy in it. They win, you win.") %>
+          </p>
+        </div>
+        <div class="col-md-3 col-lg-2 offset-md-2 offset-lg-3 mb-4 px-4 pt-3">
+          <%= teiqui_price_img_tag @conn %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="pricing" class="bg-white">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-md-7 col-lg-7 px-4">
+          <h3 class="h1 font-weight-bold">
+            <%= dgettext("page", "Choose the plan that feet your needs.") %>
+          </h3>
+
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-lg-4 text-center mb-4 border-right">
+          <h4 class="h4 text-primary font-weight-bold">
+            <%= dgettext("page", "Free") %>
+          </h4>
+
+          <h5 class="h4 text-info font-weight-bold mb-1">
+            <%= dgettext("page", "Test it 14 days") %>
+          </h5>
+
+          <p>&nbsp;</p>
+
+          <ul class="list-unstyled font-weight-semi-bold mb-5">
+            <li><%= dgettext("page", "Online store") %></li>
+            <li><%= dgettext("page", "Teiqui price") %></li>
+            <li><%= dgettext("page", "Offer many payment methods") %></li>
+            <li><%= dgettext("page", "No commision") %></li>
+            <li><%= dgettext("page", "No order limits") %></li>
+            <li><%= dgettext("page", "No credit card required") %></li>
+          </ul>
+
+          <%= link dgettext("page", "Sign up"), to: Routes.registration_url(app_uri(), :index),
+                                                class: "btn btn-outline-primary text-primary border border-primary rounded-pill font-weight-bold py-2 px-3" %>
+        </div>
+
+        <div class="col-lg-4 text-center mb-4 border-right">
+          <h4 class="h4 text-primary font-weight-bold">
+            <%= dgettext("page", "Monthly") %>
+          </h4>
+
+          <h5 class="h4 text-info font-weight-bold mb-1">
+            <%= dgettext("page", "ARS $499") %>
+          </h5>
+
+          <p>&nbsp;</p>
+
+          <ul class="list-unstyled font-weight-semi-bold mb-5">
+            <li><%= dgettext("page", "Online store") %></li>
+            <li><%= dgettext("page", "Teiqui price") %></li>
+            <li><%= dgettext("page", "Offer many payment methods") %></li>
+            <li><%= dgettext("page", "No commision") %></li>
+            <li><%= dgettext("page", "No order limits") %></li>
+            <li><%= dgettext("page", "Tax included") %></li>
+          </ul>
+
+          <%= link dgettext("page", "Sign up"), to: Routes.registration_url(app_uri(), :index),
+                                                class: "btn btn-outline-primary text-primary border border-primary rounded-pill font-weight-bold py-2 px-3" %>
+        </div>
+
+        <div class="col-lg-4 text-center mb-4">
+          <h4 class="h4 text-primary font-weight-bold">
+            <%= dgettext("page", "Annually") %>
+          </h4>
+
+          <h5 class="h4 text-info font-weight-bold mb-1">
+            <%= dgettext("page", "ARS $4990") %>
+          </h5>
+
+          <p class="text-info">
+            (<%= dgettext("page", "2 months savings") %>)
+          </p>
+
+          <ul class="list-unstyled font-weight-semi-bold mb-5">
+            <li><%= dgettext("page", "Online store") %></li>
+            <li><%= dgettext("page", "Teiqui price") %></li>
+            <li><%= dgettext("page", "Offer many payment methods") %></li>
+            <li><%= dgettext("page", "No commision") %></li>
+            <li><%= dgettext("page", "No order limits") %></li>
+            <li><%= dgettext("page", "Tax included") %></li>
+          </ul>
+
+          <%= link dgettext("page", "Sign up"), to: Routes.registration_url(app_uri(), :index),
+                                                class: "btn btn-outline-primary text-primary border border-primary rounded-pill font-weight-bold py-2 px-3" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-primary text-white py-5 mb-n5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 mb-3">
+          <%= img_tag Routes.static_path(@conn, "/images/logo_white.svg"), width: "101",
+                                                                           height: "26",
+                                                                           loading: "lazy",
+                                                                           alt: gettext("Teiqui") %>
+        </div>
+        <div class="col-lg-2 offset-lg-4">
+          <p class="mb-1">
+            <%= dgettext("page", "Need any help?") %>
+          </p>
+          <p class="mb-1">
+            <%= dgettext("page", "Write to") %>
+            <%= link "info@teiqui.com", to: "mailto:info@teiqui.com", class: "text-reset" %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

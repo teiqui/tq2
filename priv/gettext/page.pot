@@ -13,3 +13,180 @@ msgstr ""
 #: lib/tq2_web/templates/page/index.html.eex:7
 msgid "Coming soon..."
 msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:270
+msgid "2 months savings"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:94
+msgid "896 people are shopping together on Teiqui online stores."
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:242
+msgid "ARS $499"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:266
+msgid "ARS $4990"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:262
+msgid "Annually"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:25
+#: lib/tq2_web/templates/page/index.html.eex:109
+msgid "App"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:205
+msgid "Choose the plan that feet your needs."
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:90
+msgid "Circles"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:58
+msgid "Double your sells."
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:119
+msgid "Download the app"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:116
+msgid "Enter all your items easily and manage orders via WhatsApp."
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:214
+msgid "Free"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:64
+msgid "Free 14 days trial"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:46
+msgid "Free trial"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:42
+msgid "Login"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:132
+msgid "Make"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:238
+msgid "Monthly"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:300
+msgid "Need any help?"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:227
+#: lib/tq2_web/templates/page/index.html.eex:251 lib/tq2_web/templates/page/index.html.eex:277
+msgid "No commision"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:229
+msgid "No credit card required"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:228
+#: lib/tq2_web/templates/page/index.html.eex:252 lib/tq2_web/templates/page/index.html.eex:278
+msgid "No order limits"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:81
+msgid "Now"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:226
+#: lib/tq2_web/templates/page/index.html.eex:250 lib/tq2_web/templates/page/index.html.eex:276
+msgid "Offer many payment methods"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:224
+#: lib/tq2_web/templates/page/index.html.eex:248 lib/tq2_web/templates/page/index.html.eex:274
+msgid "Online store"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:113
+msgid "Online store in just a few clicks."
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:35
+msgid "Pricing"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:164
+msgid "Sell"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:148
+msgid "Share"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:72
+msgid "Sharing"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:232
+#: lib/tq2_web/templates/page/index.html.eex:256 lib/tq2_web/templates/page/index.html.eex:282
+msgid "Sign up"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:253
+#: lib/tq2_web/templates/page/index.html.eex:279
+msgid "Tax included"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:30
+#: lib/tq2_web/templates/page/index.html.eex:194 lib/tq2_web/templates/page/index.html.eex:225
+#: lib/tq2_web/templates/page/index.html.eex:249 lib/tq2_web/templates/page/index.html.eex:275
+msgid "Teiqui price"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:61
+msgid "Teiqui price will make your customers bring more customers. Build and share your online store."
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:180
+msgid "Teiqui price,"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:218
+msgid "Test it 14 days"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:17
+msgid "Toggle menu"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:186
+msgid "With Teiqui price, your customers will get discounts for sharing your store and get people to buy in it. They win, you win."
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:303
+msgid "Write to"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:182
+msgid "double benefit."
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:168
+msgid "double with Teiqui"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:152
+msgid "via WhatsApp"
+msgstr ""
+
+#: lib/tq2_web/templates/page/index.html.eex:136
+msgid "your store"
+msgstr ""
