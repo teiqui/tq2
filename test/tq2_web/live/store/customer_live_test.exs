@@ -103,7 +103,11 @@ defmodule Tq2Web.Store.CustomerLiveTest do
       assert has_element?(customer_live, ".btn.btn-block")
     end
 
-    test "render with existing customer", %{conn: conn, cart: cart, store: store} do
+    test "render with existing customer, then submit goes to payment", %{
+      conn: conn,
+      cart: cart,
+      store: store
+    } do
       path = Routes.customer_path(conn, :index, store)
 
       {:ok, customer} =
@@ -120,6 +124,12 @@ defmodule Tq2Web.Store.CustomerLiveTest do
       assert html =~ "#person-circle"
       assert html =~ customer.phone
       assert render(customer_live) =~ "#person-circle"
+
+      assert customer_live
+             |> element("form")
+             |> render_submit(%{}) ==
+               {:error,
+                {:live_redirect, %{kind: :push, to: Routes.payment_path(conn, :index, store)}}}
     end
 
     test "save event with new customer", %{conn: conn, cart: cart, store: store} do
@@ -158,7 +168,11 @@ defmodule Tq2Web.Store.CustomerLiveTest do
       refute render(customer_live) =~ "#person-circle"
     end
 
-    test "validate event with existing customer", %{conn: conn, cart: _cart, store: store} do
+    test "validate event with existing customer associates token", %{
+      conn: conn,
+      cart: _cart,
+      store: store
+    } do
       path = Routes.customer_path(conn, :index, store)
       {:ok, customer_live, _html} = live(conn, path)
 
@@ -174,13 +188,13 @@ defmodule Tq2Web.Store.CustomerLiveTest do
 
       assert customer_live
              |> element("form")
-             |> render_change(%{customer: %{"email" => customer.email}}) =~ "#person-circle"
-
-      assert customer_live
-             |> element("form")
-             |> render_submit(%{}) ==
+             |> render_change(%{customer: %{"email" => customer.email}}) ==
                {:error,
-                {:live_redirect, %{kind: :push, to: Routes.payment_path(conn, :index, store)}}}
+                {:live_redirect, %{kind: :push, to: Routes.customer_path(conn, :index, store)}}}
+
+      customer = Tq2.Repo.preload(customer, :tokens)
+
+      assert Enum.count(customer.tokens) == 1
     end
   end
 end

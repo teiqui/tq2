@@ -5,7 +5,7 @@ defmodule Tq2.Sales.Order do
 
   alias Tq2.Accounts.Account
   alias Tq2.Repo
-  alias Tq2.Sales.{Data, Order}
+  alias Tq2.Sales.{Data, Order, Tie}
   alias Tq2.Transactions.Cart
 
   schema "orders" do
@@ -22,6 +22,11 @@ defmodule Tq2.Sales.Order do
     has_one :visit, through: [:cart, :visit]
     has_one :referral_customer, through: [:visit, :referral_customer]
 
+    has_many :ties, Tie
+    has_many :originator_ties, Tie, foreign_key: :originator_id
+    has_many :children, through: [:originator_ties, :order]
+    has_many :parents, through: [:ties, :originator]
+
     timestamps()
   end
 
@@ -33,6 +38,7 @@ defmodule Tq2.Sales.Order do
     |> cast(attrs, [:status, :promotion_expires_at, :cart_id, :lock_version])
     |> cast_embed(:data)
     |> cast_assoc(:cart, with: {Cart, :changeset, [account]})
+    |> cast_assoc(:ties)
     |> put_account(account)
     |> validate_required([:status, :promotion_expires_at])
     |> validate_inclusion(:status, @statuses)

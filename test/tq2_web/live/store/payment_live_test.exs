@@ -13,12 +13,14 @@ defmodule Tq2Web.Store.PaymentLiveTest do
     customer_id: nil
   }
 
+  @referral_token "N68iU2uIe4SDO1W50JVauF2PJESWoDxlHTl1RSbr3Z4="
+
   setup %{conn: conn} do
     {:ok, visit} =
       Tq2.Analytics.create_visit(%{
         slug: "test",
-        token: "IXFz6ntHSmfmY2usXsXHu4WAU-CFJ8aFvl5xEYXi6bk=",
-        referral_token: "N68iU2uIe4SDO1W50JVauF2PJESWoDxlHTl1RSbr3Z4=",
+        token: @create_attrs.token,
+        referral_token: @referral_token,
         utm_source: "whatsapp",
         data: %{
           ip: "127.0.0.1"
@@ -51,16 +53,17 @@ defmodule Tq2Web.Store.PaymentLiveTest do
   end
 
   def cart_fixture(%{conn: conn, store: store}) do
+    token = get_session(conn, :token)
+    visit_id = get_session(conn, :visit_id)
+
     {:ok, customer} =
       Tq2.Sales.create_customer(%{
         "name" => "some name",
         "email" => "some@email.com",
         "phone" => "555-5555",
-        "address" => "some address"
+        "address" => "some address",
+        "tokens" => [%{"value" => @create_attrs.token}]
       })
-
-    token = get_session(conn, :token)
-    visit_id = get_session(conn, :visit_id)
 
     {:ok, cart} =
       Tq2.Transactions.create_cart(store.account, %{
@@ -92,6 +95,61 @@ defmodule Tq2Web.Store.PaymentLiveTest do
     {:ok, line} = cart |> Tq2.Transactions.create_line(line_attrs)
 
     %{cart: %{cart | customer: customer, lines: [line]}}
+  end
+
+  def order_fixture(%{conn: conn, store: store}) do
+    visit_id = get_session(conn, :visit_id)
+
+    {:ok, customer} =
+      Tq2.Sales.create_customer(%{
+        "name" => "some other name",
+        "email" => "some_other@email.com",
+        "phone" => "555-7777",
+        "address" => "some other address",
+        "tokens" => [%{"value" => @referral_token}]
+      })
+
+    {:ok, cart} =
+      Tq2.Transactions.create_cart(store.account, %{
+        @create_attrs
+        | token: @referral_token,
+          customer_id: customer.id,
+          visit_id: visit_id
+      })
+
+    line_attrs = %{
+      name: "some other name",
+      quantity: 1,
+      price: Money.new(100, :ARS),
+      promotional_price: Money.new(90, :ARS),
+      cost: Money.new(80, :ARS),
+      cart_id: cart.id,
+      item: %Tq2.Inventories.Item{
+        sku: "some other sku",
+        name: "some other name",
+        description: "some other description",
+        visibility: "visible",
+        price: Money.new(100, :ARS),
+        promotional_price: Money.new(90, :ARS),
+        cost: Money.new(80, :ARS),
+        account_id: store.account.id
+      }
+    }
+
+    {:ok, line} = cart |> Tq2.Transactions.create_line(line_attrs)
+
+    {:ok, order} =
+      Tq2.Sales.create_order(store.account, %{
+        status: "processing",
+        promotion_expires_at:
+          DateTime.utc_now()
+          |> DateTime.add(500, :second)
+          |> DateTime.truncate(:second)
+          |> DateTime.to_iso8601(),
+        cart_id: cart.id
+      })
+
+    %{order: %{order | cart: %{cart | lines: [line]}}}
   end
 
   describe "render" do
@@ -156,6 +214,36 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       order_id = String.replace(to, ~r/\D/, "")
 
       assert Routes.order_path(conn, :index, store, order_id) == to
+    end
+
+    test "save event with referral", %{conn: conn, cart: _cart, store: store} do
+      %{order: parent_order} = order_fixture(%{conn: conn, store: store})
+      path = Routes.payment_path(conn, :index, store)
+      {:ok, payment_live, _html} = live(conn, path)
+
+      assert has_element?(payment_live, ".btn[disabled]")
+
+      payment_live
+      |> element("form")
+      |> render_change(%{"kind" => "cash"})
+
+      response =
+        payment_live
+        |> element("form")
+        |> render_submit(%{})
+
+      assert {:error, {:live_redirect, %{kind: :push, to: to}}} = response
+
+      order_id = String.replace(to, ~r/\D/, "")
+
+      order =
+        store.account
+        |> Tq2.Sales.get_order!(order_id)
+        |> Tq2.Repo.preload(:parents)
+
+      assert Routes.order_path(conn, :index, store, order.id) == to
+
+      assert List.first(order.parents).id == parent_order.id
     end
 
     test "save event with redirect to mp", %{conn: conn, store: store, session: session} do

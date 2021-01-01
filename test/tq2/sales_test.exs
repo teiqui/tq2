@@ -38,6 +38,7 @@ defmodule Tq2.SalesTest do
     cart: %{
       token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoM=",
       price_type: "promotional",
+      customer_id: nil,
       visit_id: nil,
       lines: [
         %{
@@ -91,7 +92,7 @@ defmodule Tq2.SalesTest do
 
   defp fixture(session, :order, attrs) do
     cart_attrs = attrs[:cart] || @valid_order_attrs.cart
-    visit_id = cart_attrs.visit_id || fixture(session, :visit).id
+    visit_id = cart_attrs[:visit_id] || fixture(session, :visit).id
 
     order_attrs =
       attrs
@@ -199,6 +200,48 @@ defmodule Tq2.SalesTest do
       assert Sales.get_order!(session.account, order.id).id == order.id
     end
 
+    test "get_promotional_order_for/2 returns the order on promotional status for customer", %{
+      session: session
+    } do
+      {:ok, cart} = create_cart(session)
+
+      attrs =
+        @valid_order_attrs
+        |> Map.delete(:cart)
+        |> Map.put(:cart_id, cart.id)
+
+      assert {:ok, %Order{} = order_1} = Sales.create_order(session.account, attrs)
+      {:ok, cart} = create_cart(session, %{customer_id: order_1.customer.id})
+
+      order_2_promotion_expires_at =
+        DateTime.utc_now()
+        |> DateTime.add(3605, :second)
+        |> DateTime.truncate(:second)
+        |> DateTime.to_iso8601()
+
+      attrs =
+        @valid_order_attrs
+        |> Map.delete(:cart)
+        |> Map.put(:cart_id, cart.id)
+        |> Map.put(:promotion_expires_at, order_2_promotion_expires_at)
+
+      assert {:ok, %Order{} = order_2} = Sales.create_order(session.account, attrs)
+
+      assert Sales.get_promotional_order_for(session.account, order_1.customer).id == order_1.id
+
+      child_order = fixture(session, :order, %{ties: [%{originator_id: order_1.id}]})
+
+      assert Sales.get_promotional_order_for(session.account, order_1.customer).id == order_2.id
+
+      child_order = Tq2.Repo.preload(child_order, [:children, :parents])
+      order_1 = Tq2.Repo.preload(order_1, [:children, :parents])
+
+      assert Enum.empty?(order_1.parents)
+      assert Enum.empty?(child_order.children)
+      assert List.first(child_order.parents).id == order_1.id
+      assert List.first(order_1.children).id == child_order.id
+    end
+
     test "create_order/2 with valid data creates a order", %{session: session} do
       visit = fixture(session, :visit)
       attrs = Map.put(@valid_order_attrs, :cart, %{@valid_order_attrs.cart | visit_id: visit.id})
@@ -277,21 +320,21 @@ defmodule Tq2.SalesTest do
     })
   end
 
-  defp create_cart(session) do
+  defp create_cart(session, attrs \\ %{}) do
     visit = fixture(session, :visit)
 
     {:ok, cart} =
       Tq2.Transactions.create_cart(session.account, %{
         token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoo=",
-        customer_id: create_customer().id,
+        customer_id: attrs[:customer_id] || create_customer().id,
         visit_id: visit.id,
         data: %{handing: "pickup"}
       })
 
     {:ok, item} =
       Tq2.Inventories.create_item(session, %{
-        sku: "some sku",
-        name: "some name",
+        sku: "some sku #{:random.uniform()}",
+        name: "some name #{:random.uniform()}",
         visibility: "visible",
         price: Money.new(100, :ARS),
         promotional_price: Money.new(90, :ARS),
@@ -300,7 +343,7 @@ defmodule Tq2.SalesTest do
 
     {:ok, _line} =
       Tq2.Transactions.create_line(cart, %{
-        name: "some name",
+        name: "some name #{:random.uniform()}",
         quantity: 42,
         price: Money.new(100, :ARS),
         promotional_price: Money.new(90, :ARS),

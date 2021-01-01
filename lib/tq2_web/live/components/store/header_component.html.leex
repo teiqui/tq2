@@ -32,7 +32,7 @@
       <% end %>
     </div>
 
-    <%= live_component @socket, TeamComponent, id: :group, store: @store, referral_customer: @referral_customer %>
+    <%= live_component @socket, TeamComponent, id: :team, store: @store, referral_customer: @referral_customer %>
   </div>
 
   <%= if Map.has_key?(assigns, :show_categories) do %>

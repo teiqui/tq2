@@ -40,8 +40,12 @@ defmodule Tq2.Analytics do
   """
   def get_visit!(id) when is_integer(id) do
     Visit
-    |> join(:left, [v], r in assoc(v, :referral_customer))
-    |> preload([v, r], referral_customer: r)
+    |> join(:left, [v], c in assoc(v, :customer))
+    |> join(:left, [v, c], s in assoc(v, :source_token))
+    |> join(:left, [v, c, s], r in Tq2.Sales.Customer,
+      on: s.customer_id == r.id and (is_nil(c.id) or r.id != c.id)
+    )
+    |> preload([v, c, s, r], customer: c, referral_customer: r)
     |> Repo.get!(id)
   end
 

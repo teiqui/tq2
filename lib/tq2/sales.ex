@@ -162,6 +162,40 @@ defmodule Tq2.Sales do
   end
 
   @doc """
+  Gets a single order, only if on promotion.
+
+  Returns nil if the Order does not exist.
+
+  ## Examples
+
+      iex> get_promotional_order_for(%Account{}, %Customer{id: 1})
+      %Order{}
+
+      iex> get_promotional_order_for(%Account{}, %Customer{id: 2})
+      nil
+
+  """
+  def get_promotional_order_for(account, customer) do
+    now = DateTime.utc_now()
+
+    Order
+    |> join(:left, [o], c in assoc(o, :customer))
+    |> join(:left, [o, c], cart in assoc(o, :cart))
+    |> join(:left, [o, c, cart], t in assoc(o, :originator_ties))
+    |> where(
+      [o, c, cart, t],
+      o.account_id == ^account.id and
+        c.id == ^customer.id and
+        cart.price_type == "promotional" and
+        o.promotion_expires_at > ^now
+    )
+    |> group_by([o], o.id)
+    |> order_by([o, c, cart, t], asc: count(t.id), asc: o.promotion_expires_at)
+    |> first()
+    |> Repo.one()
+  end
+
+  @doc """
   Creates a order.
 
   ## Examples

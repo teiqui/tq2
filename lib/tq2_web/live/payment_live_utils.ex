@@ -16,7 +16,7 @@ defmodule Tq2Web.PaymentLiveUtils do
   end
 
   def create_order(socket, store, cart) do
-    attrs = sale_attrs(cart)
+    attrs = order_attrs(store.account, cart)
 
     case Sales.create_order(store.account, attrs) do
       {:ok, order} ->
@@ -35,17 +35,38 @@ defmodule Tq2Web.PaymentLiveUtils do
     end
   end
 
-  defp sale_attrs(cart) do
-    attrs = %{
-      cart_id: cart.id,
+  defp order_attrs(account, cart) do
+    cart
+    |> initial_order_attrs()
+    |> build_order_tie(account, cart)
+    |> mark_order_as_paid(cart)
+  end
+
+  def initial_order_attrs(%Cart{id: id}) do
+    %{
+      cart_id: id,
       promotion_expires_at: Timex.now() |> Timex.shift(days: 1),
       data: %{}
     }
+  end
 
-    case cart.payments do
-      %Ecto.Association.NotLoaded{} -> attrs
-      [] -> attrs
-      _ -> %{attrs | data: %{paid: Cart.paid?(cart)}}
+  defp build_order_tie(attrs, account, cart) do
+    visit = Tq2.Analytics.get_visit!(cart.visit_id)
+
+    case visit.referral_customer do
+      nil -> attrs
+      customer -> Map.put(attrs, :ties, build_order_tie(account, customer))
     end
   end
+
+  defp build_order_tie(account, customer) do
+    case Tq2.Sales.get_promotional_order_for(account, customer) do
+      nil -> []
+      order -> [%{originator_id: order.id}]
+    end
+  end
+
+  defp mark_order_as_paid(attrs, %Cart{payments: %Ecto.Association.NotLoaded{}}), do: attrs
+  defp mark_order_as_paid(attrs, %Cart{payments: []}), do: attrs
+  defp mark_order_as_paid(attrs, cart), do: %{attrs | data: %{paid: Cart.paid?(cart)}}
 end

@@ -49,19 +49,18 @@ defmodule Tq2Web.Store.CustomerLive do
   def handle_event(
         "validate",
         %{"customer" => customer_params},
-        %{assigns: %{token: token}} = socket
+        %{assigns: %{token: token, store: store}} = socket
       ) do
     email = customer_params["email"]
     phone = customer_params["phone"]
 
     case Sales.get_customer(email: email, phone: phone) do
       %Customer{} = customer ->
-        changeset = Sales.change_customer(customer)
+        {:ok, _token} = Tq2.Shares.create_token(%{customer_id: customer.id, value: token})
 
         socket =
           socket
-          |> assign(customer: customer, changeset: changeset)
-          |> load_cart(token)
+          |> push_redirect(to: Routes.customer_path(socket, :index, store))
 
         {:noreply, socket}
 
