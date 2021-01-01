@@ -1,16 +1,29 @@
-<%= live_component @socket, HeaderComponent, id: :header, store: @store, token: @token, visit_id: @visit_id %>
+<%= live_component @socket, HeaderComponent, id: :header,
+                                             store: @store,
+                                             token: @token,
+                                             visit_id: @visit_id,
+                                             referral_customer: @referral_customer %>
 
 <div class="row justify-content-center px-3">
   <div class="col-sm-10 col-md-8 col-lg-6 col-xl-4">
     <%= if @cart.price_type == "promotional" do %>
       <h2 class="h5 text-primary mt-4">
-        <%= img_tag(Routes.static_path(@socket, "/images/favicon.svg"), class: "mt-n1 mr-1", height: 12, width: 12, alt: "Teiqui") %>
+        <%= img_tag Routes.static_path(@socket, "/images/favicon.svg"), class: "mt-n1 mr-1",
+                                                                        height: 12,
+                                                                        width: 12,
+                                                                        alt: "Teiqui" %>
         <%= dgettext("orders", "You have chosen Teiqui price") %>
       </h2>
 
-      <p>
-        <%= dgettext("orders", "Share this store link and if you get someone buying before 24 hours because of it, you get the deal. Otherwise, you should pay the difference. If you wish, you can join an existing order.") %>
-      </p>
+      <%= if Enum.any?(@order.parents) && @referral_customer do %>
+        <p>
+          <%= dgettext("orders", "Thank you! Your and %{name} made a purchase together and now are saving.", name: @referral_customer.name) %>
+        </p>
+      <% else %>
+        <p>
+          <%= dgettext("orders", "Share this store link and if you get someone buying before 24 hours because of it, you get the deal. Otherwise, you should pay the difference. If you wish, you can join an existing order.") %>
+        </p>
+      <% end %>
 
       <div class="text-center mt-4">
         <%= live_component @socket, ShareComponent, id: :order,
@@ -22,26 +35,29 @@
         <% end %>
       </div>
 
-      <div class="mt-4 d-flex align-items-center justify-content-center">
-        <div class="text-primary mr-2 mt-n1">
-          <svg class="bi" width="18" height="18" fill="currentColor">
-            <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#stopwatch-fill") %>"/>
-          </svg>
+      <%= if Enum.empty?(@order.parents) && Enum.empty?(@order.children) do %>
+        <div class="mt-4 d-flex align-items-center justify-content-center">
+          <div class="text-primary mr-2 mt-n1">
+            <svg class="bi" width="18" height="18" fill="currentColor">
+              <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#stopwatch-fill") %>"/>
+            </svg>
+          </div>
+
+          <div>
+            <span id="countdown"
+                  class="h5"
+                  phx-hook="Countdown"
+                  data-expired-target="[data-expired-message]"
+                  data-date="<%= @order.promotion_expires_at |> DateTime.to_iso8601() %>">
+              23:59:59
+            </span>
+            <span class="h6 d-none text-danger font-weight-bold mb-0" data-expired-message>
+              <%= dgettext("stores", "Promotion expired!") %>
+            </span>
+          </div>
         </div>
 
-        <div>
-          <span id="countdown"
-                class="h5"
-                phx-hook="Countdown"
-                data-expired-target="[data-expired-message]"
-                data-date="<%= @order.promotion_expires_at |> DateTime.to_iso8601() %>">
-            23:59:59
-          </span>
-          <span class="h6 d-none text-danger font-weight-bold mb-0" data-expired-message>
-            <%= dgettext("stores", "Promotion expired!") %>
-          </span>
-        </div>
-      </div>
+      <% end %>
 
       <hr class="my-4">
     <% end %>

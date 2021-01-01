@@ -98,5 +98,13 @@ defmodule Tq2Web.Store.OrderLiveTest do
       assert html =~ "Thank you for your purchase!"
       assert render(order_live) =~ "Thank you for your purchase!"
     end
+
+    @tag :skip
+    test "render regular purchase" do
+    end
+
+    @tag :skip
+    test "render finished promotional purchase" do
+    end
   end
 end

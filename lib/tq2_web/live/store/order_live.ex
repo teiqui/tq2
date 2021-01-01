@@ -1,19 +1,25 @@
 defmodule Tq2Web.Store.OrderLive do
   use Tq2Web, :live_view
 
-  alias Tq2.{Sales, Shops}
+  alias Tq2.{Analytics, Sales, Shops}
   alias Tq2Web.Store.{HeaderComponent, ShareComponent}
 
   @impl true
   def mount(%{"slug" => slug, "id" => id}, %{"token" => token, "visit_id" => visit_id}, socket) do
     store = Shops.get_store!(slug)
+    visit = Analytics.get_visit!(visit_id)
 
     socket =
       socket
-      |> assign(store: store, token: token, visit_id: visit_id)
+      |> assign(
+        store: store,
+        token: token,
+        visit_id: visit_id,
+        referral_customer: visit.referral_customer
+      )
       |> load_order(id)
 
-    {:ok, socket, temporary_assigns: [order: nil, cart: nil]}
+    {:ok, socket, temporary_assigns: [order: nil, cart: nil, referral_customer: nil]}
   end
 
   defp load_order(%{assigns: %{store: %{account: account}}} = socket, id) do

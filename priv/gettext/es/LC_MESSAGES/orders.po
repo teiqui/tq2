@@ -11,7 +11,7 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/live/store/order_live.html.leex:57
+#: lib/tq2_web/live/store/order_live.html.leex:73
 msgid "Thank you for your purchase!"
 msgstr "¡Gracias por tu compra!"
 
@@ -120,18 +120,22 @@ msgstr "Total"
 msgid "Here you'll see all orders, at this time there is none. For starters, share the online store link with your customers!"
 msgstr "Aquí verás todos los pedidos, en éste momento no hay ninguno. Para empezar ¡Comparte el vínculo de la tienda en linea con tus clientes!"
 
-#: lib/tq2_web/live/store/order_live.html.leex:61
+#: lib/tq2_web/live/store/order_live.html.leex:77
 msgid "Order #%{number}"
 msgstr "Pedido #%{number}"
 
-#: lib/tq2_web/live/store/order_live.html.leex:12
+#: lib/tq2_web/live/store/order_live.html.leex:24
 msgid "Share this store link and if you get someone buying before 24 hours because of it, you get the deal. Otherwise, you should pay the difference. If you wish, you can join an existing order."
 msgstr "Comparte el enlace de la tienda, si alguien en menos de 24 horas hace una compra utilizándolo, obtienes el precio con descuento. Si esto no sucede, deberás abonar la diferencia. También puedes unirte a una compra existente."
 
-#: lib/tq2_web/live/store/order_live.html.leex:8
+#: lib/tq2_web/live/store/order_live.html.leex:15
 msgid "You have chosen Teiqui price"
 msgstr "Elegiste precio Teiqui"
 
 #: lib/tq2_web/live/order/payment_live.html.leex:2
 msgid "Payments for order #%{id}"
 msgstr "Pagos para el pedido #%{id}"
+
+#: lib/tq2_web/live/store/order_live.html.leex:20
+msgid "Thank you! Your and %{name} made a purchase together and now are saving."
+msgstr "¡Gracias! Tu compra con %{name} hizo que ambos ahorraran."

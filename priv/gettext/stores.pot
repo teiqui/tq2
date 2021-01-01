@@ -188,11 +188,11 @@ msgstr ""
 msgid "Show all"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:41
+#: lib/tq2_web/live/store/order_live.html.leex:55
 msgid "Promotion expired!"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:21
+#: lib/tq2_web/live/store/order_live.html.leex:34
 msgid "Share"
 msgstr ""
 
@@ -204,7 +204,7 @@ msgstr ""
 msgid "Share the store and take advantage of the Teiqui price"
 msgstr ""
 
-#: lib/tq2_web/live/components/store/team_component.ex:15
+#: lib/tq2_web/live/components/store/team_component.ex:16
 msgid "Users"
 msgstr ""
 
