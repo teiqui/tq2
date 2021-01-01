@@ -130,6 +130,15 @@ defmodule Tq2Web.InputHelpers do
   end
 
   defp input_tag(type, form, field, input_opts) do
-    apply(Phoenix.HTML.Form, type, [form, field, input_opts])
+    content = apply(Phoenix.HTML.Form, type, [form, field, input_opts])
+
+    case input_opts[:hint] do
+      nil -> content
+      text -> [content, hint_tag(text)]
+    end
+  end
+
+  defp hint_tag(text) do
+    content_tag(:small, text, class: "form-text text-muted")
   end
 end

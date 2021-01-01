@@ -113,7 +113,7 @@ msgstr "¡Hola, %{name}!"
 msgid "Just to recapitulate, this is what you ask for:"
 msgstr "Solo como recordatorio, esto fue lo que pediste:"
 
-#: lib/tq2/notifications/email.ex:43
+#: lib/tq2/notifications/email.ex:44
 msgid "Promotion confirmed"
 msgstr "Promoción confirmada"
 

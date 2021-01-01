@@ -13,7 +13,7 @@
   <%= input f, :visibility, dgettext("items", "Visibility"), collection: visibilities() %>
   <%= input f, :image, dgettext("items", "Image") %>
   <%= input f, :price, dgettext("items", "Price") %>
-  <%= input f, :promotional_price, dgettext("items", "Promotional price") %>
+  <%= promotional_price_input(f) %>
   <%= input f, :cost, dgettext("items", "Cost") %>
 
   <%= lock_version_input f, assigns[:item] %>

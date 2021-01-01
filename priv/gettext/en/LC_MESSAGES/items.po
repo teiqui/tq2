@@ -25,7 +25,7 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
-#: lib/tq2_web/templates/item/_form.html.eex:17
+#: lib/tq2_web/templates/item/_form.html.eex:18
 #: lib/tq2_web/templates/item/show.html.eex:36
 msgid "Cost"
 msgstr ""
@@ -177,4 +177,8 @@ msgstr ""
 #: lib/tq2_web/templates/item/empty.html.eex:11
 #: lib/tq2_web/templates/item/index.html.eex:39
 msgid "Import items"
+msgstr ""
+
+#: lib/tq2_web/templates/item/_form.html.eex:17
+msgid "This price is the secret sauce to attract new customers, it's recommended to be about 40% off the regular price."
 msgstr ""

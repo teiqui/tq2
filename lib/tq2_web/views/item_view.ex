@@ -121,4 +121,19 @@ defmodule Tq2Web.ItemView do
   defp invert(map) when is_map(map) do
     for {k, v} <- map, into: %{}, do: {v, k}
   end
+
+  defp promotional_price_input(form) do
+    hint =
+      dgettext(
+        "items",
+        "This price is the secret sauce to attract new customers, it's recommended to be about 40% off the regular price."
+      )
+
+    input(
+      form,
+      :promotional_price,
+      dgettext("items", "Promotional price"),
+      input_html: [hint: hint]
+    )
+  end
 end

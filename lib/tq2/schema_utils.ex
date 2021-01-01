@@ -1,9 +1,10 @@
 defmodule Tq2.SchemaUtils do
   import Ecto.Changeset,
     only: [
-      validate_change: 3,
-      get_field: 2,
       add_error: 3,
+      get_field: 2,
+      validate_change: 3,
+      validate_number: 3,
       validate_required: 2
     ]
 
@@ -41,4 +42,27 @@ defmodule Tq2.SchemaUtils do
       _ -> changeset
     end
   end
+
+  def validate_less_than_money_field(changeset, field, conditional_field) do
+    validate_number_with_value(
+      changeset,
+      field,
+      get_field(changeset, field),
+      get_field(changeset, conditional_field)
+    )
+  end
+
+  defp validate_number_with_value(changeset, field, %Money{}, %Money{} = value) do
+    msg =
+      Gettext.dgettext(
+        Tq2Web.Gettext,
+        "errors",
+        "must be less than %{number}",
+        number: Money.to_decimal(value)
+      )
+
+    changeset |> validate_number(field, less_than: value, message: msg)
+  end
+
+  defp validate_number_with_value(changeset, _, _, _), do: changeset
 end
