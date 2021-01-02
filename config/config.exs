@@ -39,8 +39,8 @@ config :tq2, Tq2.Repo, migration_timestamps: [type: :utc_datetime]
 # Public store's subdomain
 config :tq2,
   app_subdomain: System.get_env("APP_SUBDOMAIN", "app"),
-  store_subdomain: System.get_env("STORE_SUBDOMAIN", "t2"),
-  web_subdomain: System.get_env("WEB_SUBDOMAIN", "w2"),
+  store_subdomain: System.get_env("STORE_SUBDOMAIN", "tienda"),
+  web_subdomain: System.get_env("WEB_SUBDOMAIN", "www"),
   default_sheet_id:
     System.get_env("DEFAULT_SHEET_ID", "1RFOEmiQvsMglWcMxCkGpoIc9d6nxvOwyerVVUw3RyIo")
 
