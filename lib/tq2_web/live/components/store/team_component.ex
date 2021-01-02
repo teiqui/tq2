@@ -24,7 +24,7 @@ defmodule Tq2Web.Store.TeamComponent do
       if referral_customer do
         "btn btn-light btn-sm rounded-pill text-primary disabled"
       else
-        # TODO: remove disabled class when Team Live View works
+        # TODO: remove disabled class when Team Live View works and uncomment refute on test
         "btn btn-light btn-sm rounded-pill text-primary disabled"
       end
 

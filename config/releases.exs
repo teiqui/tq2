@@ -33,7 +33,7 @@ config :tq2, Tq2Web.Endpoint,
     port: String.to_integer(System.get_env("PORT") || "4000"),
     transport_options: [socket_opts: [:inet6]]
   ],
-  check_origin: ["https://#{app_host}", "https://#{store_host}"],
+  check_origin: ["https://#{app_host}", "https://#{store_host}", "https://#{web_host}"],
   secret_key_base: secret_key_base
 
 # Public store's subdomain
@@ -41,6 +41,7 @@ config :tq2,
   app_subdomain: System.get_env("APP_SUBDOMAIN", "app"),
   store_subdomain: System.get_env("STORE_SUBDOMAIN", "tienda"),
   web_subdomain: System.get_env("WEB_SUBDOMAIN", "www"),
+  web_host: web_host,
   default_sheet_id:
     System.get_env("DEFAULT_SHEET_ID", "1RFOEmiQvsMglWcMxCkGpoIc9d6nxvOwyerVVUw3RyIo")
 

@@ -2,7 +2,7 @@ defmodule Tq2Web.PageControllerTest do
   use Tq2Web.ConnCase
 
   setup %{conn: conn} do
-    conn = %{conn | host: "#{Application.get_env(:tq2, :web_subdomain)}.lvh.me"}
+    conn = %{conn | host: Application.get_env(:tq2, :web_host)}
 
     {:ok, %{conn: conn}}
   end

@@ -100,20 +100,20 @@ defmodule Tq2Web.Store.HandingLiveTest do
 
       assert html =~ "pickup"
       assert render(handing_live) =~ "pickup"
-      assert has_element?(handing_live, ".btn.disabled")
+      assert has_element?(handing_live, ".btn.btn-block.disabled")
     end
 
     test "save event", %{conn: conn, cart: _cart, store: store} do
       path = Routes.handing_path(conn, :index, store)
       {:ok, handing_live, _html} = live(conn, path)
 
-      assert has_element?(handing_live, ".btn.disabled")
+      assert has_element?(handing_live, ".btn.btn-block.disabled")
 
       assert handing_live
              |> element("form")
              |> render_change(%{"kind" => "pickup"})
 
-      refute has_element?(handing_live, ".btn.disabled")
+      refute has_element?(handing_live, ".btn.btn-block.disabled")
     end
   end
 end
