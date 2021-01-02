@@ -121,9 +121,9 @@ defmodule Tq2.Accounts.License do
   end
 
   defp put_paid_until(%Ecto.Changeset{} = changeset) do
-    next_month = Timex.today() |> Timex.shift(months: 1)
+    trial_until = Timex.today() |> Timex.shift(days: 14)
 
-    changeset |> change(paid_until: next_month)
+    changeset |> change(paid_until: trial_until)
   end
 
   def put_create_account_attrs(%{name: _} = attrs) do
