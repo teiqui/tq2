@@ -63,7 +63,7 @@ defmodule Tq2.AccountsTest do
       assert account.status == "active"
       assert account.time_zone == "America/Argentina/Mendoza"
       assert account.license.status == "trial"
-      assert account.license.paid_until == Timex.shift(Timex.today(), months: 1)
+      assert account.license.paid_until == Timex.shift(Timex.today(), days: 14)
     end
 
     test "create_account/1 with invalid data returns error changeset" do
