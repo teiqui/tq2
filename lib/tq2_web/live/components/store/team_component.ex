@@ -24,7 +24,8 @@ defmodule Tq2Web.Store.TeamComponent do
       if referral_customer do
         "btn btn-light btn-sm rounded-pill text-primary disabled"
       else
-        "btn btn-light btn-sm rounded-pill text-primary"
+        # TODO: remove disabled class when Team Live View works
+        "btn btn-light btn-sm rounded-pill text-primary disabled"
       end
 
     live_redirect(dgettext("stores", "Join"), to: path, class: classes)
