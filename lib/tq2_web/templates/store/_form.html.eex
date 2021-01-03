@@ -24,7 +24,7 @@
         <div class="card-body">
           <%= input f, :name, dgettext("stores", "Name"), input_html: [autofocus: true] %>
           <%= input f, :description, dgettext("stores", "Description") %>
-          <%= input f, :slug, dgettext("stores", "Slug") %>
+          <%= input f, :slug, dgettext("stores", "Slug"), input_html: [hint: store_slug_hint()] %>
           <%= input f, :published, dgettext("stores", "Published") %>
           <%= input f, :logo, dgettext("stores", "Logo") %>
         </div>

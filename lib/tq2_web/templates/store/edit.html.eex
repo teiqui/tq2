@@ -6,6 +6,10 @@
   </div>
 
   <div class="card-body">
+    <div class="alert alert-info">
+      <%= raw dgettext("stores", "Your store is published on %{link}", link: public_store_link(@store)) %>
+    </div>
+
     <%= render "_form.html", Map.put(assigns, :action, Routes.store_path(@conn, :update)) %>
   </div>
 </div>

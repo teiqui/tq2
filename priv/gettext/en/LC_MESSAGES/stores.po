@@ -19,7 +19,7 @@ msgstr ""
 msgid "Checkout information"
 msgstr ""
 
-#: lib/tq2_web/views/store_view.ex:17
+#: lib/tq2_web/views/store_view.ex:30
 msgid "Create"
 msgstr ""
 
@@ -136,7 +136,7 @@ msgstr ""
 msgid "Store updated successfully."
 msgstr ""
 
-#: lib/tq2_web/views/store_view.ex:18
+#: lib/tq2_web/views/store_view.ex:31
 msgid "Update"
 msgstr ""
 
@@ -150,6 +150,7 @@ msgid "Store"
 msgstr ""
 
 #: lib/tq2_web/live/store/counter_live.html.leex:26
+#: lib/tq2_web/live/store/team_live.html.leex:33
 msgid "Loading..."
 msgstr ""
 
@@ -197,7 +198,7 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
-#: lib/tq2_web/live/components/store/team_component.ex:30
+#: lib/tq2_web/live/components/store/team_component.ex:31
 msgid "Join"
 msgstr ""
 
@@ -211,4 +212,12 @@ msgstr ""
 
 #: lib/tq2_web/live/components/store/team_component.html.leex:8
 msgid "Great! Your are buying with %{name}"
+msgstr ""
+
+#: lib/tq2_web/views/store_view.ex:12
+msgid "This is part of the store address, you can only use letters, underscores and numbers, don't use spaces!"
+msgstr ""
+
+#: lib/tq2_web/templates/store/edit.html.eex:10
+msgid "Your store is published on %{link}"
 msgstr ""

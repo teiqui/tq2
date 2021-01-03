@@ -19,7 +19,7 @@ msgstr "Dirección de la tienda"
 msgid "Checkout information"
 msgstr "Información de pago / compra"
 
-#: lib/tq2_web/views/store_view.ex:17
+#: lib/tq2_web/views/store_view.ex:30
 msgid "Create"
 msgstr "Crear tienda"
 
@@ -136,7 +136,7 @@ msgstr "Tienda creada correctamente."
 msgid "Store updated successfully."
 msgstr "Tienda actualizada correctamente."
 
-#: lib/tq2_web/views/store_view.ex:18
+#: lib/tq2_web/views/store_view.ex:31
 msgid "Update"
 msgstr "Actualizar tienda"
 
@@ -150,6 +150,7 @@ msgid "Store"
 msgstr "Tienda"
 
 #: lib/tq2_web/live/store/counter_live.html.leex:26
+#: lib/tq2_web/live/store/team_live.html.leex:33
 msgid "Loading..."
 msgstr "Cargando..."
 
@@ -197,7 +198,7 @@ msgstr "¡La promoción ya expiró!"
 msgid "Share"
 msgstr "Compartir"
 
-#: lib/tq2_web/live/components/store/team_component.ex:30
+#: lib/tq2_web/live/components/store/team_component.ex:31
 msgid "Join"
 msgstr "Unirse"
 
@@ -212,3 +213,11 @@ msgstr "Usuarios"
 #: lib/tq2_web/live/components/store/team_component.html.leex:8
 msgid "Great! Your are buying with %{name}"
 msgstr "¡Excelente! Estás comprando con %{name}"
+
+#: lib/tq2_web/views/store_view.ex:12
+msgid "This is part of the store address, you can only use letters, underscores and numbers, don't use spaces!"
+msgstr "Esto formará parte de la dirección de tu tienda, solo puedes utilizar letras, guiones bajos y números ¡No uses espacios!"
+
+#: lib/tq2_web/templates/store/edit.html.eex:10
+msgid "Your store is published on %{link}"
+msgstr "Tu tienda está publicada en %{link}"
