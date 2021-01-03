@@ -23,4 +23,44 @@ defmodule Tq2Web.LayoutView do
       link(to: to, class: "nav-link", do: content)
     end
   end
+
+  def hotjar_script do
+    if Application.get_env(:tq2, :env) == :prod do
+      ~E"""
+        <script>
+          (function (h, o, t, j, a, r) {
+            h.hj          = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) }
+            h._hjSettings = { hjid: 1845634, hjsv: 6 }
+            a             = o.getElementsByTagName('head')[0]
+            r             = o.createElement('script')
+            r.async       = 1
+            r.src         = t + h._hjSettings.hjid + j + h._hjSettings.hjsv
+
+            a.appendChild(r)
+          })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=')
+        </script>
+      """
+    end
+  end
+
+  def google_analytics_script do
+    if Application.get_env(:tq2, :env) == :prod do
+      key = "UA-163313653-2"
+
+      ~E"""
+        <script async src="https://www.googletagmanager.com/gtag/js?id=<%= key %>"></script>
+        <script>
+          window.dataLayer = window.dataLayer || []
+
+          function gtag () { dataLayer.push(arguments) }
+
+          gtag('js', new Date())
+          gtag('config', '<%= key %>')
+          gtag('create', '<%= key %>', 'auto', { allowLinker: true })
+          gtag('require', 'linker')
+          gtag('linker:autoLink', ['teiqui.com'])
+        </script>
+      """
+    end
+  end
 end
