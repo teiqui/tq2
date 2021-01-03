@@ -8,10 +8,9 @@ defmodule Tq2Web.RootController do
 
   def index(%{host: "teiqui.com"} = conn, _params) do
     url_config = Tq2Web.Endpoint.config(:url)
-    scheme = if Tq2Web.Endpoint.config(:https), do: "https", else: "http"
     host = Enum.join([Application.get_env(:tq2, :web_subdomain), url_config[:host]], ".")
 
-    redirect(conn, external: Routes.page_url(%URI{scheme: scheme, host: host}, :index))
+    redirect(conn, external: Routes.page_url(%URI{scheme: "https", host: host}, :index))
   end
 
   def index(conn, _params) do

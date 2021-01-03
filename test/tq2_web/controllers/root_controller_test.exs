@@ -12,10 +12,9 @@ defmodule Tq2Web.RootControllerTest do
     test "redirect to page index", %{conn: conn} do
       url_config = Tq2Web.Endpoint.config(:url)
       host = Enum.join([Application.get_env(:tq2, :web_subdomain), url_config[:host]], ".")
-      scheme = if Tq2Web.Endpoint.config(:https), do: "https", else: "http"
       conn = %{conn | host: "teiqui.com"} |> get(Routes.root_path(conn, :index))
 
-      assert redirected_to(conn) == Routes.page_url(%URI{scheme: scheme, host: host}, :index)
+      assert redirected_to(conn) == Routes.page_url(%URI{scheme: "https", host: host}, :index)
     end
 
     @tag login_as: "test@user.com"
