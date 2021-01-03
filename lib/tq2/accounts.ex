@@ -4,6 +4,7 @@ defmodule Tq2.Accounts do
   """
 
   import Ecto.Query, warn: false
+  import Tq2.Utils.CountryCurrency, only: [time_zone_or_country_default: 2]
 
   alias Ecto.Multi
   alias Tq2.{Repo, Trail}
@@ -506,7 +507,7 @@ defmodule Tq2.Accounts do
     registration
     |> Registration.password_changeset(attrs)
     |> Repo.update()
-    |> finish_registration()
+    |> put_country_data(attrs)
   end
 
   @doc """
@@ -540,8 +541,8 @@ defmodule Tq2.Accounts do
     Registration.changeset(registration, %{})
   end
 
-  defp finish_registration({:ok, registration}) do
-    account_attrs = registration_account_attributes(registration)
+  defp put_country_data({:ok, registration}, extra_params) do
+    account_attrs = registration_account_attributes(registration, extra_params)
 
     Multi.new()
     |> Multi.insert(:account, Account.create_changeset(%Account{}, account_attrs))
@@ -550,15 +551,14 @@ defmodule Tq2.Accounts do
     |> Repo.transaction()
   end
 
-  defp finish_registration({:error, changeset}), do: {:error, changeset}
+  defp put_country_data({:error, changeset}, _), do: {:error, changeset}
 
-  defp registration_account_attributes(registration) do
+  defp registration_account_attributes(registration, %{"country" => country, "time_zone" => tz}) do
     License.put_create_account_attrs(%{
       name: registration.name,
       status: "green",
-      # TODO: infer next fields from geo db.
-      country: "ar",
-      time_zone: "America/Argentina/Buenos_Aires"
+      country: country,
+      time_zone: time_zone_or_country_default(tz, country)
     })
   end
 

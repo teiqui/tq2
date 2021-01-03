@@ -408,12 +408,14 @@ defmodule Tq2.AccountsTest do
       email_confirmation: "some_updated@email.com"
     }
     @finish_attrs %{
-      name: "some updated name",
-      type: "greengrocery",
-      email: "some_updated@email.com",
-      email_confirmation: "some_updated@email.com",
-      password: "123456",
-      password_confirmation: "123456"
+      "name" => "some updated name",
+      "type" => "greengrocery",
+      "email" => "some_updated@email.com",
+      "email_confirmation" => "some_updated@email.com",
+      "password" => "123456",
+      "password_confirmation" => "123456",
+      "country" => "ar",
+      "time_zone" => "America/Argentina/Buenos_Aires"
     }
     @invalid_attrs %{
       name: nil,
@@ -475,9 +477,9 @@ defmodule Tq2.AccountsTest do
                Accounts.finish_registration(registration, @finish_attrs)
 
       assert %Registration{} = registration
-      assert registration.name == @finish_attrs.name
-      assert registration.type == @finish_attrs.type
-      assert registration.email == @finish_attrs.email
+      assert registration.name == @finish_attrs["name"]
+      assert registration.type == @finish_attrs["type"]
+      assert registration.email == @finish_attrs["email"]
       assert registration.account_id == account.id
       assert account.name == registration.name
       assert user.email == registration.email

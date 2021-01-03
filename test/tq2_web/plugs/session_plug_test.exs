@@ -97,4 +97,33 @@ defmodule Tq2Web.SessionPlugTest do
       assert get_session(conn, :previous_url) == "/test"
     end
   end
+
+  describe "remote ip" do
+    test "put remote ip on public conn", %{conn: conn} do
+      public_conn =
+        conn
+        |> SessionPlug.put_remote_ip([])
+        |> send_resp(:ok, "")
+
+      next_conn = get(public_conn, "/")
+
+      assert get_session(next_conn, :remote_ip) == {127, 0, 0, 1}
+    end
+
+    test "put remote ip on private conn ", %{conn: conn} do
+      {user, account} = user_fixture()
+
+      login_conn =
+        conn
+        |> put_session(:account_id, account.id)
+        |> put_session(:user_id, user.id)
+        |> SessionPlug.fetch_current_session([])
+        |> SessionPlug.put_remote_ip([])
+        |> send_resp(:ok, "")
+
+      next_conn = get(login_conn, "/")
+
+      assert get_session(next_conn, :remote_ip) == {127, 0, 0, 1}
+    end
+  end
 end

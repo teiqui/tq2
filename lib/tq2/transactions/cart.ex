@@ -100,7 +100,7 @@ defmodule Tq2.Transactions.Cart do
   end
 
   def currency(%Cart{account: %Account{country: country}}) do
-    Account.currency(country)
+    Tq2.Utils.CountryCurrency.currency(country)
   end
 
   def currency(%Cart{lines: lines}) do

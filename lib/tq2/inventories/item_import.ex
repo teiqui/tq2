@@ -83,8 +83,8 @@ defmodule Tq2.Inventories.ItemImport do
     |> String.trim()
   end
 
-  defp row_to_item(row, account, category_ids, headers_with_index) do
-    currency = Account.currency(account)
+  defp row_to_item(row, %Account{country: country}, category_ids, headers_with_index) do
+    currency = Tq2.Utils.CountryCurrency.currency(country)
 
     attrs =
       [:name, :price, :promotional_price, :cost, :description]
