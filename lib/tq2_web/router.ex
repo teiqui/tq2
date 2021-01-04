@@ -10,6 +10,7 @@ defmodule Tq2Web.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :put_cache_control_headers
+    plug :put_remote_ip
 
     if Application.get_env(:tq2, :env) == :prod do
       plug Tq2Web.SSLPlug,

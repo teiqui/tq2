@@ -69,7 +69,8 @@ defmodule Tq2.MixProject do
       {:exq, ">= 0.14.0"},
       {:poison, "~> 3.1"},
       {:elixir_google_spreadsheets, ">= 0.1.17"},
-      {:csv, ">= 2.4.1"}
+      {:csv, ">= 2.4.1"},
+      {:geolix_adapter_mmdb2, ">= 0.6.0"}
     ]
   end
 

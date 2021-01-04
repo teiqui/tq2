@@ -87,15 +87,7 @@ defmodule Tq2.Inventories.Item do
   defp put_uuid(item), do: item
 
   defp cast_to_money(country, field, value) when field in @money_attrs and is_binary(value) do
-    currency =
-      %{
-        "ar" => :ARS,
-        "cl" => :CLP,
-        "co" => :COP,
-        "gt" => :GTQ,
-        "mx" => :MXN,
-        "pe" => :PEN
-      }[country]
+    currency = Tq2.Utils.CountryCurrency.currency(country)
 
     case Money.parse(value, currency) do
       {:ok, money} -> money

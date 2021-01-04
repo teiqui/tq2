@@ -2,6 +2,8 @@ defmodule Tq2.Accounts.Account do
   use Ecto.Schema
   import Ecto.Changeset
 
+  import Tq2.Utils.CountryCurrency, only: [valid_countries: 0]
+
   alias Tq2.Accounts.{Account, Membership, License}
 
   schema "accounts" do
@@ -18,15 +20,6 @@ defmodule Tq2.Accounts.Account do
   end
 
   @statuses ~w(green active suspended)
-  @countries ~w(ar cl co gt mx pe)
-  @currencies %{
-    "ar" => "ARS",
-    "cl" => "CLP",
-    "co" => "COP",
-    "gt" => "GTQ",
-    "mx" => "MXN",
-    "pe" => "PEN"
-  }
 
   @doc false
   def changeset(account, attrs) do
@@ -36,7 +29,7 @@ defmodule Tq2.Accounts.Account do
     |> validate_required([:name, :status, :country, :time_zone])
     |> validate_length(:name, max: 255)
     |> validate_length(:status, max: 255)
-    |> validate_inclusion(:country, @countries)
+    |> validate_inclusion(:country, valid_countries())
     |> validate_inclusion(:status, @statuses)
     |> validate_time_zone(:time_zone)
     |> optimistic_lock(:lock_version)
@@ -62,13 +55,5 @@ defmodule Tq2.Accounts.Account do
         false -> [{field, options[:message] || "is invalid"}]
       end
     end)
-  end
-
-  def currency(%Account{country: country}) do
-    @currencies[country]
-  end
-
-  def currency(country) when is_binary(country) do
-    @currencies[country]
   end
 end

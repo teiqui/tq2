@@ -98,6 +98,15 @@ config :elixir_google_spreadsheets, :client,
   interval: 100,
   max_rows_per_request: 20
 
+config :geolix,
+  databases: [
+    %{
+      id: :default,
+      adapter: Geolix.Adapter.MMDB2,
+      source: Path.expand("../priv/maxmind/country.mmdb", __DIR__)
+    }
+  ]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

@@ -3,5 +3,6 @@ import {Countdown} from './hooks/countdown'
 import {InfiniteScroll} from './hooks/infinite_scroll'
 import {ScrollToTop} from './hooks/scroll_to_top'
 import {Share} from './hooks/share'
+import {TimeZone} from './hooks/time_zone'
 
-export const Hooks = {CopyToClipboard, Countdown, InfiniteScroll, ScrollToTop, Share}
+export const Hooks = {CopyToClipboard, Countdown, InfiniteScroll, ScrollToTop, Share, TimeZone}

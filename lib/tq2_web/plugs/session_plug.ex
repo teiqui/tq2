@@ -30,6 +30,8 @@ defmodule Tq2Web.SessionPlug do
     |> halt()
   end
 
+  def put_remote_ip(conn, _), do: Plug.Conn.put_session(conn, :remote_ip, conn.remote_ip)
+
   defp put_return_path(%{method: "GET", request_path: request_path} = conn)
        when request_path != "/" do
     put_session(conn, :previous_url, current_path(conn))
