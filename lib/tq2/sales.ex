@@ -131,8 +131,21 @@ defmodule Tq2.Sales do
     |> where([o], o.account_id == ^account.id and o.promotion_expires_at > ^now)
     |> join(:left, [o], cart in assoc(o, :cart))
     |> where([o, cart], cart.price_type == "promotional")
-    |> join(:left, [o, cart], c in assoc(cart, :customer))
-    |> preload([o, cart, c], cart: cart, customer: c)
+    |> join(:left, [o, cart], c in assoc(cart, :customer), as: :customer)
+    |> join(:left, [o, cart, c], t in assoc(c, :tokens))
+    |> join(
+      :inner_lateral,
+      [o, cart, c, t],
+      latest_t in subquery(
+        from Tq2.Shares.Token,
+          where: [customer_id: parent_as(:customer).id],
+          order_by: [desc: :id],
+          limit: 1,
+          select: [:id]
+      ),
+      on: latest_t.id == t.id
+    )
+    |> preload([o, cart, c, t], cart: cart, customer: {c, tokens: t})
     |> order_by([o], asc: o.promotion_expires_at)
     |> Repo.paginate(params)
   end

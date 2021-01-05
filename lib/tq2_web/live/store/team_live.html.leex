@@ -1,0 +1,93 @@
+<%= live_component @socket, HeaderComponent, id: :header,
+                                             store: @store,
+                                             token: @token,
+                                             visit_id: @visit_id,
+                                             referral_customer: nil %>
+
+<div class="row justify-content-center px-3">
+  <div class="col-sm-10 col-md-8 col-lg-6 col-xl-4">
+    <h2 class="h5 text-primary mt-4">
+      <%= img_tag Routes.static_path(@socket, "/images/favicon.svg"), class: "mt-n1 mr-1",
+                                                                      height: 12,
+                                                                      width: 12,
+                                                                      alt: "Teiqui" %>
+      <%= dgettext("stores", "Teiqui price") %>
+    </h2>
+
+    <p class="mb-4">
+      <%= dgettext("stores", "Join an existing order before it expires, or get someone to join yours sharing the store link.") %>
+    </p>
+
+    <%= if @orders.total_entries == 0 do %>
+      <div class="alert alert-info">
+        <%= dgettext("stores", "Nobody has orders you can join at this time.") %>
+      </div>
+    <% else %>
+      <div id="orders" phx-update="append">
+        <%= for order <- @orders do %>
+          <div id="order-<%= order.id %>" class="media mb-4">
+            <%= avatar order.customer %>
+
+            <div class="media-body">
+              <div class="d-flex">
+                <div class="flex-fill">
+                  <p class="mb-0 small">
+                    <%= dgettext("stores", "%{name} is shopping", name: order.customer.name) %>
+                  </p>
+
+                  <p class="mb-0 small">
+                    <%= dgettext("stores", "Join this purchase!") %>
+                  </p>
+
+                  <div class="d-flex align-items-center">
+                    <div class="text-primary mr-2">
+                      <svg class="bi" width="11" height="11" fill="currentColor">
+                        <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#stopwatch-fill") %>"/>
+                      </svg>
+                    </div>
+
+                    <div>
+                      <span id="countdown-<%= order.id %>"
+                            phx-hook="Countdown"
+                            data-expired-target="[data-expired-message=<%= order.id %>]"
+                            data-date="<%= order.promotion_expires_at |> DateTime.to_iso8601() %>">
+                        <%= time_to_expire order %>
+                      </span>
+                      <span class="h6 d-none text-danger font-weight-bold mb-0" data-expired-message="<%= order.id %>">
+                        <%= dgettext("stores", "Promotion expired!") %>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="align-self-center pl-3">
+                  <%= link_to_join @socket, @store, order %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <%= if @orders.page_number < @orders.total_pages do %>
+        <footer id="footer" phx-hook="InfiniteScroll">
+          <div class="text-center my-3">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only"><%= dgettext("stores", "Loading...") %></span>
+            </div>
+          </div>
+        </footer>
+      <% end %>
+    <% end %>
+
+    <div class="text-center mt-4">
+      <%= live_component @socket, ShareComponent, id: :order,
+                                                  store: @store,
+                                                  token: @token,
+                                                  class: "btn btn-primary rounded-pill py-2 px-4",
+                                                  align_right: false do %>
+        <%= dgettext("stores", "Share my purchase") %>
+      <% end %>
+    </div>
+  </div>
+</div>

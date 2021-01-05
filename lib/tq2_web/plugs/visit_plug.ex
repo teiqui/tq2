@@ -3,6 +3,10 @@ defmodule Tq2Web.VisitPlug do
 
   alias Tq2.Analytics
 
+  def track_visit(%{params: %{"slug" => slug, "refresh_visit" => _}} = conn, _opts) do
+    register_visit(conn, slug)
+  end
+
   def track_visit(%{params: %{"slug" => slug}} = conn, _opts) do
     case get_session(conn, :visit_id) do
       nil ->

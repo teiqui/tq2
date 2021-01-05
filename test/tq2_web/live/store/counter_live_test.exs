@@ -102,6 +102,7 @@ defmodule Tq2Web.Store.CounterLiveTest do
         |> render_hook(:"load-more")
 
       assert content =~ List.last(items).name
+      refute has_element?(store_live, "#footer")
     end
 
     test "toggle categories and back to items", %{conn: conn, store: store, items: items} do

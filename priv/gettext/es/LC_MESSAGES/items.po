@@ -25,7 +25,7 @@ msgstr "Listado de artículos"
 msgid "Category"
 msgstr "Categoría"
 
-#: lib/tq2_web/templates/item/_form.html.eex:18
+#: lib/tq2_web/templates/item/_form.html.eex:17
 #: lib/tq2_web/templates/item/show.html.eex:36
 msgid "Cost"
 msgstr "Costo"
@@ -109,7 +109,7 @@ msgid "Price"
 msgstr "Precio"
 
 #: lib/tq2_web/live/store/item_live.html.leex:55
-#: lib/tq2_web/templates/item/_form.html.eex:16 lib/tq2_web/templates/item/show.html.eex:32
+#: lib/tq2_web/templates/item/show.html.eex:32 lib/tq2_web/views/item_view.ex:135
 msgid "Promotional price"
 msgstr "Precio Teiqui"
 
@@ -179,6 +179,6 @@ msgstr "Omitir importación"
 msgid "Import items"
 msgstr "Importar artículos"
 
-#: lib/tq2_web/templates/item/_form.html.eex:17
+#: lib/tq2_web/views/item_view.ex:127
 msgid "This price is the secret sauce to attract new customers, it's recommended to be about 40% off the regular price."
 msgstr "Este precio es la salsa secreta para atraer nuevos clientes, se recomienda cerca del 40% de descuento sobre el precio normal."

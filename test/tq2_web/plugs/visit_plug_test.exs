@@ -46,6 +46,28 @@ defmodule Tq2Web.VisitPlugTest do
 
       assert get_session(conn, :visit_id) == visit_id
     end
+
+    test "track visit again if refresh visit is set", %{conn: conn} do
+      path = Routes.counter_path(conn, :index, store(), refresh_visit: true)
+
+      refute get_session(conn, :visit_id)
+
+      conn =
+        conn
+        |> bypass_through(Tq2Web.Router, :store)
+        |> get(path)
+
+      visit_id = get_session(conn, :visit_id)
+
+      assert visit_id
+
+      conn =
+        conn
+        |> bypass_through(Tq2Web.Router, :store)
+        |> get(path)
+
+      refute get_session(conn, :visit_id) == visit_id
+    end
   end
 
   defp store do

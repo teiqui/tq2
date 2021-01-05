@@ -149,7 +149,7 @@ msgid "Store"
 msgstr ""
 
 #: lib/tq2_web/live/store/counter_live.html.leex:26
-#: lib/tq2_web/live/store/team_live.html.leex:33
+#: lib/tq2_web/live/store/team_live.html.leex:76
 msgid "Loading..."
 msgstr ""
 
@@ -190,6 +190,7 @@ msgid "Show all"
 msgstr ""
 
 #: lib/tq2_web/live/store/order_live.html.leex:55
+#: lib/tq2_web/live/store/team_live.html.leex:57
 msgid "Promotion expired!"
 msgstr ""
 
@@ -197,7 +198,8 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
-#: lib/tq2_web/live/components/store/team_component.ex:31
+#: lib/tq2_web/live/components/store/team_component.ex:30
+#: lib/tq2_web/live/store/team_live.ex:106
 msgid "Join"
 msgstr ""
 
@@ -219,4 +221,28 @@ msgstr ""
 
 #: lib/tq2_web/templates/store/edit.html.eex:10
 msgid "Your store is published on %{link}"
+msgstr ""
+
+#: lib/tq2_web/live/store/team_live.html.leex:35
+msgid "%{name} is shopping"
+msgstr ""
+
+#: lib/tq2_web/live/store/team_live.html.leex:18
+msgid "Join an existing order before it expires, or get someone to join yours sharing the store link."
+msgstr ""
+
+#: lib/tq2_web/live/store/team_live.html.leex:39
+msgid "Join this purchase!"
+msgstr ""
+
+#: lib/tq2_web/live/store/team_live.html.leex:23
+msgid "Nobody has orders you can join at this time."
+msgstr ""
+
+#: lib/tq2_web/live/store/team_live.html.leex:89
+msgid "Share my purchase"
+msgstr ""
+
+#: lib/tq2_web/live/store/team_live.html.leex:14
+msgid "Teiqui price"
 msgstr ""

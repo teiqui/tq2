@@ -331,7 +331,10 @@ defmodule Tq2.SalesTest do
         name: "some name #{:random.uniform(999_999_999)}",
         email: "some#{:random.uniform(999_999_999)}@email.com",
         phone: "#{:random.uniform(999_999_999)}",
-        address: "some address"
+        address: "some address",
+        tokens: [
+          %{value: :crypto.strong_rand_bytes(64) |> Base.url_encode64()}
+        ]
       })
 
     cart_attrs =

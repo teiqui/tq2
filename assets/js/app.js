@@ -11,4 +11,3 @@ import 'phoenix_html'
 import 'bootstrap'
 
 import './liveview'
-import './turbolinks'

@@ -11,8 +11,7 @@ defmodule Tq2Web.Store.TeamComponentTest do
       content = render_component(TeamComponent, id: :team, store: store, referral_customer: nil)
 
       assert content =~ "Share the store"
-      # TODO: uncoment when team live view
-      # refute content =~ "disabled"
+      refute content =~ "disabled"
       refute content =~ "avatar_join"
     end
 

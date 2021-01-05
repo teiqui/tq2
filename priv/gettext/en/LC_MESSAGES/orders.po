@@ -11,7 +11,7 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/live/store/order_live.html.leex:73
+#: lib/tq2_web/live/store/order_live.html.leex:72
 msgid "Thank you for your purchase!"
 msgstr ""
 
@@ -65,7 +65,7 @@ msgstr ""
 msgid "Order"
 msgstr ""
 
-#: lib/tq2_web/live/order/order_edit_live.ex:82
+#: lib/tq2_web/live/order/order_edit_live.ex:80
 msgid "Order updated successfully."
 msgstr ""
 
@@ -97,7 +97,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: lib/tq2_web/live/order/order_edit_live.ex:70
+#: lib/tq2_web/live/order/order_edit_live.ex:68
 msgid "Update"
 msgstr ""
 
@@ -121,7 +121,7 @@ msgstr ""
 msgid "Here you'll see all orders, at this time there is none. For starters, share the online store link with your customers!"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:77
+#: lib/tq2_web/live/store/order_live.html.leex:76
 msgid "Order #%{number}"
 msgstr ""
 
