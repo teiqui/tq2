@@ -547,6 +547,7 @@ defmodule Tq2.Accounts do
     Multi.new()
     |> Multi.insert(:account, Account.create_changeset(%Account{}, account_attrs))
     |> Multi.insert(:user, &registration_user_changeset(registration, &1))
+    |> Multi.insert(:store, &registration_store_changeset(registration, &1))
     |> Multi.update(:registration, &registration_account_changeset(registration, &1))
     |> Repo.transaction()
   end
@@ -578,5 +579,35 @@ defmodule Tq2.Accounts do
 
   defp registration_account_changeset(registration, %{account: %Account{} = account}) do
     Registration.account_changeset(registration, %{account_id: account.id})
+  end
+
+  defp registration_store_changeset(registration, %{account: %Account{} = account}) do
+    slug =
+      registration.name
+      |> String.replace(~r"[^A-z0-9]+", "-")
+      |> String.downcase()
+
+    attrs = %{
+      name: registration.name,
+      description: registration.name,
+      slug: slug,
+      published: true,
+      data: %{},
+      configuration: %{
+        pickup: true,
+        pickup_time_limit: "-"
+      },
+      location: %{}
+    }
+
+    case Tq2.Shops.Store.changeset(account, %Tq2.Shops.Store{}, attrs) do
+      %{valid?: true} = cs ->
+        cs
+
+      _ ->
+        attrs = attrs |> Map.put(:slug, "#{slug}---#{account.id}")
+
+        Tq2.Shops.Store.changeset(account, %Tq2.Shops.Store{}, attrs)
+    end
   end
 end
