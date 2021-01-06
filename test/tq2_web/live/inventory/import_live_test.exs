@@ -1,4 +1,4 @@
-defmodule Tq2Web.Inventories.ImportLiveTest do
+defmodule Tq2Web.Inventory.ImportLiveTest do
   use Tq2Web.ConnCase
 
   import Tq2.Fixtures, only: [create_session: 0, user_fixture: 2]

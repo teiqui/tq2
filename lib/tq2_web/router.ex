@@ -85,7 +85,7 @@ defmodule Tq2Web.Router do
     # Inventories
     resources "/categories", CategoryController
     resources "/items", ItemController
-    live "/import", Inventories.ImportLive, :index
+    live "/import", Inventory.ImportLive, :index
 
     # Shops
     resources "/store", StoreController,

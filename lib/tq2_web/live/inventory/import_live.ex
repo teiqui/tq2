@@ -1,4 +1,4 @@
-defmodule Tq2Web.Inventories.ImportLive do
+defmodule Tq2Web.Inventory.ImportLive do
   use Tq2Web, :live_view
 
   alias Tq2.Accounts
