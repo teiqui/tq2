@@ -196,7 +196,7 @@ defmodule Tq2Web.Store.ItemLive do
     promotional_price_button(socket, cart, item, true)
   end
 
-  defp promotional_price_button(socket, _cart, %Item{id: id, price: price}, disabled) do
+  defp promotional_price_button(socket, _cart, %Item{id: id, promotional_price: price}, disabled) do
     content = ~E"""
     <img src="<%= Routes.static_path(socket, "/images/favicon_white.svg") %>"
          class="mt-n1"
