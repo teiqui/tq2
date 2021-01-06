@@ -94,6 +94,14 @@ defmodule Tq2.Sales.Order do
 
   def notify({:error, _changeset} = result), do: result
 
+  def schedule_expiration_task({:ok, %Order{cart: %Cart{price_type: "promotional"}} = order}) do
+    Exq.enqueue_at(Exq, "default", order.promotion_expires_at, Tq2.Workers.OrdersJob, [order.id])
+
+    {:ok, order}
+  end
+
+  def schedule_expiration_task(result), do: result
+
   defp put_account(%Ecto.Changeset{} = changeset, %Account{} = account) do
     changeset |> change(account_id: account.id)
   end

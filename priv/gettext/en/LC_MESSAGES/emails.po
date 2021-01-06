@@ -53,7 +53,8 @@ msgstr ""
 msgid "For reference, the order is #%{number}"
 msgstr ""
 
-#: lib/tq2_web/templates/email/order_confirmation.html.eex:42
+#: lib/tq2_web/templates/email/expired_promotion.html.eex:41
+#: lib/tq2_web/templates/email/expired_promotion.text.eex:13 lib/tq2_web/templates/email/order_confirmation.html.eex:42
 #: lib/tq2_web/templates/email/order_confirmation.text.eex:14 lib/tq2_web/templates/email/promotion_confirmation.html.eex:42
 #: lib/tq2_web/templates/email/promotion_confirmation.text.eex:14
 msgid "For reference, your order is #%{number}"
@@ -86,7 +87,8 @@ msgstr ""
 msgid "We have receive your order"
 msgstr ""
 
-#: lib/tq2_web/templates/email/order_confirmation.html.eex:46
+#: lib/tq2_web/templates/email/expired_promotion.html.eex:45
+#: lib/tq2_web/templates/email/expired_promotion.text.eex:15 lib/tq2_web/templates/email/order_confirmation.html.eex:46
 #: lib/tq2_web/templates/email/order_confirmation.text.eex:16 lib/tq2_web/templates/email/promotion_confirmation.html.eex:46
 #: lib/tq2_web/templates/email/promotion_confirmation.text.eex:16
 msgid "We'll keep you informed about it."
@@ -101,7 +103,8 @@ msgstr ""
 msgid "here"
 msgstr ""
 
-#: lib/tq2_web/templates/email/order_confirmation.html.eex:1
+#: lib/tq2_web/templates/email/expired_promotion.html.eex:1
+#: lib/tq2_web/templates/email/expired_promotion.text.eex:1 lib/tq2_web/templates/email/order_confirmation.html.eex:1
 #: lib/tq2_web/templates/email/order_confirmation.text.eex:1 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:1
 #: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:1 lib/tq2_web/templates/email/promotion_confirmation.html.eex:1
 #: lib/tq2_web/templates/email/promotion_confirmation.text.eex:1
@@ -120,4 +123,18 @@ msgstr ""
 #: lib/tq2_web/templates/email/promotion_confirmation.html.eex:5
 #: lib/tq2_web/templates/email/promotion_confirmation.text.eex:4
 msgid "We have received an order from the link you shared, so it's all set for the discounted price"
+msgstr ""
+
+#: lib/tq2/notifications/email.ex:55
+msgid "Promotional price expired"
+msgstr ""
+
+#: lib/tq2_web/templates/email/expired_promotion.html.eex:4
+#: lib/tq2_web/templates/email/expired_promotion.text.eex:3
+msgid "The promotion time has ended, unfortunately no purchase was made using your referral link."
+msgstr ""
+
+#: lib/tq2_web/templates/email/expired_promotion.html.eex:7
+#: lib/tq2_web/templates/email/expired_promotion.text.eex:5
+msgid "These are the final order details:"
 msgstr ""

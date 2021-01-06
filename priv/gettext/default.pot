@@ -27,6 +27,6 @@ msgstr ""
 msgid "Welcome!"
 msgstr ""
 
-#: lib/tq2/notifications/email.ex:56
+#: lib/tq2/notifications/email.ex:67
 msgid "Teiqui 🔔"
 msgstr ""

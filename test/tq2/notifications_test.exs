@@ -68,6 +68,22 @@ defmodule Tq2.NotificationsTest do
     assert_no_emails_delivered()
   end
 
+  test "expired promotion email for customer" do
+    order = %{order() | customer: customer()}
+
+    Notifications.send_expired_promotion(order)
+
+    assert_delivered_email(Email.expired_promotion(order))
+  end
+
+  test "no expired promotion email is sent for customer without email" do
+    order = %{order() | customer: %{customer() | email: nil}}
+
+    Notifications.send_expired_promotion(order)
+
+    assert_no_emails_delivered()
+  end
+
   defp user do
     %User{
       name: "John",

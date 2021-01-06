@@ -1,0 +1,46 @@
+<h2><%= dgettext("emails", "Hello %{name}!", name: @customer.name) %></h2>
+
+<p>
+  <%= dgettext("emails", "The promotion time has ended, unfortunately no purchase was made using your referral link.") %>
+</p>
+
+<p><%= dgettext("emails", "These are the final order details:") %></p>
+
+<table>
+  <thead>
+    <th><%= dgettext("lines", "Name") %></th>
+    <th><%= dgettext("lines", "Quantity") %></th>
+    <th><%= dgettext("lines", "Price") %></th>
+    <th><%= dgettext("lines", "Total") %></th>
+  </thead>
+
+  <tbody>
+    <%= for line <- @order.cart.lines do %>
+      <tr>
+        <td><%= line.name %></td>
+        <td><%= line.quantity %></td>
+        <td><%= line_price @order.cart, line %></td>
+        <td><%= line_total @order.cart, line %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <td colspan="3">
+        <strong><%= dgettext("orders", "Total") %></strong>
+      </td>
+      <td>
+        <strong><%= cart_total @order.cart %></strong>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<p>
+  <%= dgettext("emails", "For reference, your order is #%{number}", number: @order.id) %>
+</p>
+
+<p>
+  <%= dgettext("emails", "We'll keep you informed about it.") %>
+</p>

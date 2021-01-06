@@ -6,7 +6,6 @@ defmodule Tq2.Transactions.Cart do
   alias Tq2.Accounts.Account
   alias Tq2.Analytics.Visit
   alias Tq2.Payments.Payment
-  alias Tq2.Payments.Payment
   alias Tq2.Sales.{Customer, Order}
   alias Tq2.Transactions.{Cart, Data, Line}
 

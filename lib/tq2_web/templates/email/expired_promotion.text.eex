@@ -1,0 +1,15 @@
+<%= dgettext("emails", "Hello %{name}!", name: @customer.name) %>
+
+<%= dgettext("emails", "The promotion time has ended, unfortunately no purchase was made using your referral link.") %>
+
+<%= dgettext("emails", "These are the final order details:") %>
+
+<%= for line <- @order.cart.lines do %>
+  * <%= line.name %> x <%= line.quantity %> | <%= line_price @order.cart, line %> | <%= line_total @order.cart, line %>
+<% end %>
+
+<%= dgettext("orders", "Total") %>: <%= cart_total @order.cart %>
+
+<%= dgettext("emails", "For reference, your order is #%{number}", number: @order.id) %>
+
+<%= dgettext("emails", "We'll keep you informed about it.") %>
