@@ -247,3 +247,7 @@ msgstr ""
 #: lib/tq2_web/live/store/team_live.html.leex:14
 msgid "Teiqui price"
 msgstr ""
+
+#: lib/tq2/accounts.ex:577
+msgid "No limit"
+msgstr ""

@@ -5,6 +5,7 @@ defmodule Tq2.Accounts do
 
   import Ecto.Query, warn: false
   import Tq2.Utils.CountryCurrency, only: [time_zone_or_country_default: 2]
+  import Tq2Web.Gettext
 
   alias Ecto.Multi
   alias Tq2.{Repo, Trail}
@@ -546,6 +547,7 @@ defmodule Tq2.Accounts do
 
     Multi.new()
     |> Multi.insert(:account, Account.create_changeset(%Account{}, account_attrs))
+    |> Multi.insert(:store, &registration_store_changeset(registration, &1))
     |> Multi.insert(:user, &registration_user_changeset(registration, &1))
     |> Multi.update(:registration, &registration_account_changeset(registration, &1))
     |> Repo.transaction()
@@ -560,6 +562,23 @@ defmodule Tq2.Accounts do
       country: country,
       time_zone: time_zone_or_country_default(tz, country)
     })
+  end
+
+  defp registration_store_changeset(registration, %{account: %Account{} = account}) do
+    rand = :crypto.strong_rand_bytes(3) |> Base.url_encode64(padding: false)
+    slug = Tq2.Shops.Store.slugified(registration.name)
+
+    attrs = %{
+      name: registration.name,
+      slug: "#{slug}_#{rand}",
+      published: true,
+      configuration: %{
+        pickup: true,
+        pickup_time_limit: dgettext("stores", "No limit")
+      }
+    }
+
+    Tq2.Shops.Store.changeset(account, %Tq2.Shops.Store{}, attrs)
   end
 
   defp registration_user_changeset(registration, %{account: %Account{} = account}) do

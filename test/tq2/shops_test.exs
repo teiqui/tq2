@@ -80,10 +80,28 @@ defmodule Tq2.ShopsTest do
       assert Shops.get_store!(session.account).id == store.id
     end
 
+    test "get_store!/1 returns the store for given account even if not published", %{
+      session: session
+    } do
+      store = fixture(session, :store, %{published: false})
+
+      assert Shops.get_store!(session.account).id == store.id
+    end
+
     test "get_store!/1 returns the store for given slug", %{session: session} do
       store = fixture(session, :store)
 
       assert Shops.get_store!(store.slug).id == store.id
+    end
+
+    test "get_store!/1 raises not found when the store for given slug is not published", %{
+      session: session
+    } do
+      store = fixture(session, :store, %{published: false})
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Shops.get_store!(store.slug)
+      end
     end
 
     test "get_store/1 returns the store for given account", %{session: session} do

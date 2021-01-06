@@ -102,6 +102,10 @@ defmodule Tq2.Shops.StoreTest do
 
       assert "has invalid format" in errors_on(changeset).slug
     end
+
+    test "slugified" do
+      assert "s_l_ugified" == Store.slugified("S L Ugi%%^fied")
+    end
   end
 
   defp default_account do

@@ -473,7 +473,7 @@ defmodule Tq2.AccountsTest do
     test "finish_registration/2 with valid data creates account and user" do
       registration = registration_fixture()
 
-      assert {:ok, %{account: account, user: user, registration: registration}} =
+      assert {:ok, %{account: account, store: store, user: user, registration: registration}} =
                Accounts.finish_registration(registration, @finish_attrs)
 
       assert %Registration{} = registration
@@ -482,6 +482,7 @@ defmodule Tq2.AccountsTest do
       assert registration.email == @finish_attrs["email"]
       assert registration.account_id == account.id
       assert account.name == registration.name
+      assert store.name == registration.name
       assert user.email == registration.email
     end
 

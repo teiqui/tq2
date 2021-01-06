@@ -27,13 +27,7 @@ defmodule Tq2.Shops.Store do
     timestamps()
   end
 
-  @cast_attrs [
-    :name,
-    :description,
-    :slug,
-    :published,
-    :lock_version
-  ]
+  @cast_attrs [:name, :description, :slug, :published, :lock_version]
 
   @doc false
   def changeset(%Account{} = account, %Store{} = store, attrs) do
@@ -55,6 +49,13 @@ defmodule Tq2.Shops.Store do
     |> unique_constraint(:slug)
     |> assoc_constraint(:account)
     |> optimistic_lock(:lock_version)
+  end
+
+  def slugified(name) do
+    name
+    |> String.downcase()
+    |> String.replace(~r/[^a-z0-9\s-]/, "")
+    |> String.replace(~r/(\s|-)+/, "_")
   end
 
   defp put_uuid(%Store{uuid: nil} = store) do

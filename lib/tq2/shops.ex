@@ -12,7 +12,7 @@ defmodule Tq2.Shops do
   @doc """
   Gets a single store.
 
-  Raises `Ecto.NoResultsError` if the Store does not exist.
+  Raises `Ecto.NoResultsError` if the Store does not exist or if isn't published (only when looking for slug).
 
   ## Examples
 
@@ -39,7 +39,7 @@ defmodule Tq2.Shops do
     Store
     |> join(:inner, [s], a in assoc(s, :account))
     |> preload([s, a], account: a)
-    |> Repo.get_by!(slug: slug)
+    |> Repo.get_by!(slug: slug, published: true)
   end
 
   @doc """

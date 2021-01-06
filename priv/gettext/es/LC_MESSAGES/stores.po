@@ -247,3 +247,7 @@ msgstr "Compartir mi compra"
 #: lib/tq2_web/live/store/team_live.html.leex:14
 msgid "Teiqui price"
 msgstr "Precio Teiqui"
+
+#: lib/tq2/accounts.ex:577
+msgid "No limit"
+msgstr "Sin límite"
