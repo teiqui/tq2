@@ -53,13 +53,13 @@ defmodule Tq2Web.Store.PaymentLive do
     cart = Transactions.get_cart(account, token)
 
     case cart.data.payment do
-      "cash" ->
-        socket = socket |> create_order(store, cart)
+      "mercado_pago" ->
+        socket = socket |> create_mp_payment(store, cart)
 
         {:noreply, socket}
 
-      "mercado_pago" ->
-        socket = socket |> create_mp_payment(store, cart)
+      _ ->
+        socket = socket |> create_order(store, cart)
 
         {:noreply, socket}
     end
@@ -91,7 +91,7 @@ defmodule Tq2Web.Store.PaymentLive do
   defp available_payment_methods(store) do
     main_methods =
       if store.configuration.pickup || store.configuration.pay_on_delivery do
-        [{"cash", dgettext("payments", "Cash")}]
+        [{"cash", dgettext("payments", "Cash"), nil}]
       else
         []
       end
@@ -99,22 +99,35 @@ defmodule Tq2Web.Store.PaymentLive do
     app_names =
       store.account
       |> Apps.payment_apps()
-      |> Enum.map(& &1.name)
-      |> Enum.map(fn name -> {name, translate_name(name)} end)
+      |> Enum.map(&{&1.name, &1})
+      |> Enum.map(fn {name, app} -> {name, translate_name(name), app} end)
 
     main_methods ++ app_names
   end
 
-  defp payment_method_description("cash") do
+  defp payment_method_description(_, "cash", _) do
     dgettext("payments", "Your order must be paid on delivery.")
   end
 
-  defp payment_method_description("mercado_pago") do
+  defp payment_method_description(_, "mercado_pago", _) do
     dgettext("payments", "Pay with MercadoPago.")
   end
 
-  defp payment_method_description("wire_transfer") do
-    dgettext("payments", "Pay with a wire transfer.")
+  defp payment_method_description(socket, "wire_transfer", app) do
+    number =
+      content_tag(:p) do
+        [
+          app.data["account_number"],
+          link_to_clipboard(
+            socket,
+            icon: "files",
+            text: app.data["account_number"],
+            class: "ml-2"
+          )
+        ]
+      end
+
+    [content_tag(:p, app.data["description"]), number]
   end
 
   defp static_img(kind, text) do

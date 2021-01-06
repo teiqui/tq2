@@ -17,6 +17,21 @@ defmodule Tq2Web.LinkHelpers do
     |> link(opts)
   end
 
+  def link_to_clipboard(conn, [{:icon, icon}, {:text, text} | opts]) do
+    id = text |> String.replace(~r"[^A-z0-9]+", "-")
+
+    opts =
+      opts ++
+        [
+          to: "#",
+          id: "#{id}-copy-to-clipboard",
+          data_text: text,
+          phx_hook: "CopyToClipboard"
+        ]
+
+    icon_link(conn, icon, opts)
+  end
+
   defp icon_tag(conn, icon) do
     options = [class: "bi", width: "14", height: "14", fill: "currentColor"]
     icon_path = Routes.static_path(conn, "/images/bootstrap-icons.svg##{icon}")

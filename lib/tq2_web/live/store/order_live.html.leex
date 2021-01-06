@@ -76,5 +76,7 @@
         <%= dgettext("orders", "Order #%{number}", number: @order.id) %>
       </h3>
     </div>
+
+    <%= show_payment_info(@socket, @order, @store.account) %>
   </div>
 </div>

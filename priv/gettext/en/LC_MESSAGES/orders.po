@@ -140,3 +140,7 @@ msgstr ""
 #: lib/tq2_web/live/store/order_live.html.leex:20
 msgid "Thank you! Your and %{name} made a purchase together and now are saving."
 msgstr ""
+
+#: lib/tq2_web/live/store/order_live.ex:40
+msgid "Don't forget to make the payment!"
+msgstr ""

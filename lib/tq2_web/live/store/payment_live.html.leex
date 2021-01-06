@@ -6,7 +6,7 @@
       <div class="accordion">
         <div class="card">
           <div class="card-header pb-4">
-            <%= for {kind, text} <- @payment_methods do %>
+            <%= for {kind, text, _} <- @payment_methods do %>
               <div class="custom-control custom-radio mt-3">
                 <input type="radio"
                        id="<%= kind %>"
@@ -27,11 +27,11 @@
             <% end %>
           </div>
 
-          <%= for {kind, _} <- @payment_methods do %>
+          <%= for {kind, _, app} <- @payment_methods do %>
             <div id="<%= kind %>-details"
                  class="collapse<%= if cart_payment_kind?(@cart, kind), do: " show" %>">
               <div class="card-body">
-                <%= payment_method_description kind %>
+                <%= payment_method_description @socket, kind, app %>
               </div>
             </div>
           <% end %>
