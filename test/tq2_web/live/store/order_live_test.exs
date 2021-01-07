@@ -2,11 +2,13 @@ defmodule Tq2Web.Store.OrderLiveTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
+  import Tq2.Fixtures, only: [create_session: 1]
 
   @create_attrs %{
     token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
     price_type: "promotional",
-    visit_id: nil
+    visit_id: nil,
+    data: %{}
   }
 
   setup %{conn: conn} do
@@ -32,17 +34,14 @@ defmodule Tq2Web.Store.OrderLiveTest do
     {:ok, %{conn: conn}}
   end
 
-  def store_fixture(_) do
-    account = Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
-    session = %Tq2.Accounts.Session{account: account}
-
+  def store_fixture(%{session: session}) do
     {:ok, store} =
       Tq2.Shops.create_store(session, %{
         name: "Test store",
         slug: "test_store"
       })
 
-    %{store: %{store | account: account}}
+    %{store: %{store | account: session.account}}
   end
 
   def order_fixture(%{conn: conn, store: store}) do
@@ -89,7 +88,7 @@ defmodule Tq2Web.Store.OrderLiveTest do
   end
 
   describe "render" do
-    setup [:store_fixture, :order_fixture]
+    setup [:create_session, :store_fixture, :order_fixture]
 
     test "disconnected and connected render", %{conn: conn, order: order, store: store} do
       path = Routes.order_path(conn, :index, store, order.id)
@@ -97,6 +96,25 @@ defmodule Tq2Web.Store.OrderLiveTest do
 
       assert html =~ "Thank you for your purchase!"
       assert render(order_live) =~ "Thank you for your purchase!"
+    end
+
+    test "render payment info", %{conn: conn, session: session, order: order, store: store} do
+      data = order.cart.data |> Map.from_struct() |> Map.put(:payment, "wire_transfer")
+      {:ok, _} = Tq2.Transactions.update_cart(store.account, order.cart, %{data: data})
+
+      {:ok, _} =
+        Tq2.Apps.create_app(session, %{
+          "name" => "wire_transfer",
+          "data" => %{"description" => "Pay me", "account_number" => "123-345-678"}
+        })
+
+      path = Routes.order_path(conn, :index, store, order.id)
+      {:ok, order_live, html} = live(conn, path)
+
+      assert html =~ "Thank you for your purchase!"
+      assert render(order_live) =~ "Thank you for your purchase!"
+      assert html =~ "Pay me"
+      assert html =~ "123-345-678"
     end
 
     @tag :skip

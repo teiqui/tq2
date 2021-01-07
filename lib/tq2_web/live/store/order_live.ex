@@ -31,4 +31,36 @@ defmodule Tq2Web.Store.OrderLive do
   defp share_classes do
     "btn btn-primary rounded-pill py-2 px-4"
   end
+
+  defp show_payment_info(socket, %{cart: %{data: %{payment: "wire_transfer"}}}, account) do
+    app = Tq2.Apps.get_app(account, "wire_transfer")
+
+    title =
+      content_tag(:div, class: "text-center") do
+        content_tag(:b, dgettext("orders", "Don't forget to make the payment!"))
+      end
+
+    number =
+      content_tag(:p) do
+        [
+          app.data.account_number,
+          link_to_clipboard(
+            socket,
+            icon: "files",
+            text: app.data.account_number,
+            class: "ml-2"
+          )
+        ]
+      end
+
+    [
+      tag(:hr, class: "my-4"),
+      title,
+      content_tag(:p, dgettext("payments", "Wire transfer")),
+      content_tag(:p, app.data.description),
+      number
+    ]
+  end
+
+  defp show_payment_info(_socket, _order, _account), do: nil
 end

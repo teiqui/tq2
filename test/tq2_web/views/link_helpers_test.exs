@@ -23,5 +23,15 @@ defmodule Tq2Web.LinkHelpersTest do
       assert link =~ "bootstrap-icons.svg#test"
       assert link =~ "href=\"#test\""
     end
+
+    test "to clipboard", %{conn: conn} do
+      link =
+        conn
+        |> link_to_clipboard(icon: "files", text: "123-text")
+        |> safe_to_string
+
+      assert link =~ "bootstrap-icons.svg#files"
+      assert link =~ "data-text=\"123-text\""
+    end
   end
 end

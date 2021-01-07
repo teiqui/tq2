@@ -31,12 +31,12 @@ msgstr ""
 msgid "Pay with a wire transfer."
 msgstr ""
 
-#: lib/tq2_web/live/store/payment_live.ex:135 lib/tq2_web/views/order_view.ex:25
+#: lib/tq2_web/live/store/payment_live.ex:148 lib/tq2_web/views/order_view.ex:25
 msgid "MercadoPago"
 msgstr ""
 
 #: lib/tq2_web/live/components/order/payment_form_component.ex:7
-#: lib/tq2_web/live/store/payment_live.ex:139 lib/tq2_web/views/order_view.ex:26
+#: lib/tq2_web/live/store/order_live.ex:59 lib/tq2_web/live/store/payment_live.ex:152 lib/tq2_web/views/order_view.ex:26
 msgid "Wire transfer"
 msgstr ""
 

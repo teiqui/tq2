@@ -94,7 +94,7 @@ msgstr ""
 msgid "We are almost there"
 msgstr ""
 
-#: lib/tq2_web/live/registration/password_live.ex:43
+#: lib/tq2_web/live/registration/password_live.ex:57
 msgid "Create"
 msgstr ""
 
@@ -119,7 +119,7 @@ msgstr ""
 msgid "Yes!"
 msgstr ""
 
-#: lib/tq2_web/live/registration/password_live.ex:45
+#: lib/tq2_web/live/registration/password_live.ex:59
 msgid "Creating..."
 msgstr ""
 
