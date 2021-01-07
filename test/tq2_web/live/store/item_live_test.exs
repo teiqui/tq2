@@ -55,6 +55,7 @@ defmodule Tq2Web.Store.ItemLiveTest do
 
       assert html =~ item.name
       assert render(item_live) =~ item.name
+      assert render(item_live) =~ Money.to_string(item.promotional_price)
     end
 
     test "add event", %{conn: conn, item: item, store: store} do
