@@ -5,12 +5,13 @@ defmodule Tq2.Sales.Customer do
 
   alias Tq2.Sales.Customer
   alias Tq2.Shares.Token
+  alias Tq2.Utils.TrimmedString
 
   schema "customers" do
-    field :name, :string
-    field :email, :string
-    field :address, :string
-    field :phone, :string
+    field :name, TrimmedString
+    field :email, TrimmedString
+    field :address, TrimmedString
+    field :phone, TrimmedString
     field :lock_version, :integer, default: 0
 
     has_many :tokens, Token

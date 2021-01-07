@@ -66,6 +66,17 @@ defmodule Tq2.AccountsTest do
       assert account.license.paid_until == Timex.shift(Timex.today(), days: 14)
     end
 
+    test "create_account/1 with valid data creates a account with timmed attrs" do
+      attrs =
+        @valid_attrs
+        |> Map.put(:name, " some name \n   ")
+        |> Map.put(:time_zone, " America/Argentina/Mendoza\n  ")
+
+      assert {:ok, %Account{} = account} = Accounts.create_account(attrs)
+      assert account.name == "some name"
+      assert account.time_zone == "America/Argentina/Mendoza"
+    end
+
     test "create_account/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Accounts.create_account(@invalid_attrs)
     end

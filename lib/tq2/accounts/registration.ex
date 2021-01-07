@@ -5,14 +5,15 @@ defmodule Tq2.Accounts.Registration do
 
   alias Tq2.Accounts.{Account, Registration}
   alias Tq2.Repo
+  alias Tq2.Utils.TrimmedString
 
   @derive {Phoenix.Param, key: :uuid}
 
   schema "registrations" do
     field :uuid, Ecto.UUID, autogenerate: true
-    field :name, :string
-    field :type, :string
-    field :email, :string
+    field :name, TrimmedString
+    field :type, TrimmedString
+    field :email, TrimmedString
     field :accessed_at, :utc_datetime
     field :password, :string, virtual: true
 

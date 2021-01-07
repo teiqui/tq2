@@ -4,11 +4,12 @@ defmodule Tq2.Accounts.User do
 
   alias Tq2.Accounts.{Membership, User}
   alias Tq2.Repo
+  alias Tq2.Utils.TrimmedString
 
   schema "users" do
-    field :name, :string
-    field :lastname, :string
-    field :email, :string
+    field :name, TrimmedString
+    field :lastname, TrimmedString
+    field :email, TrimmedString
     field :password_hash, :string
     field :password, :string, virtual: true
     field :password_reset_token, :string

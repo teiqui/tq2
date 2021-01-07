@@ -4,14 +4,15 @@ defmodule Tq2.Shops.Store do
 
   import Ecto.Changeset
 
-  alias Tq2.Shops.{Configuration, Data, Location, Store}
   alias Tq2.Accounts.Account
+  alias Tq2.Shops.{Configuration, Data, Location, Store}
+  alias Tq2.Utils.TrimmedString
 
   @derive {Phoenix.Param, key: :slug}
 
   schema "stores" do
     field :uuid, Ecto.UUID, autogenerate: true
-    field :name, :string
+    field :name, TrimmedString
     field :description, :string
     field :slug, :string
     field :published, :boolean, default: true

@@ -12,11 +12,12 @@ defmodule Tq2.Inventories.Item do
 
   alias Tq2.Inventories.{Category, Item}
   alias Tq2.Accounts.Account
+  alias Tq2.Utils.TrimmedString
 
   schema "items" do
     field :uuid, Ecto.UUID, autogenerate: true
-    field :sku, :string
-    field :name, :string
+    field :sku, TrimmedString
+    field :name, TrimmedString
     field :description, :string
     field :visibility, :string, default: "visible"
     field :price, Money.Ecto.Map.Type

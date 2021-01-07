@@ -5,9 +5,10 @@ defmodule Tq2.Inventories.Category do
 
   alias Tq2.Inventories.{Category, Item}
   alias Tq2.Accounts.Account
+  alias Tq2.Utils.TrimmedString
 
   schema "categories" do
-    field :name, :string
+    field :name, TrimmedString
     field :ordinal, :integer, default: 0
     field :lock_version, :integer, default: 0
 
