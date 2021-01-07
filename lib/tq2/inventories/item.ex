@@ -4,7 +4,7 @@ defmodule Tq2.Inventories.Item do
 
   import Ecto.Changeset
 
-  import Tq2.SchemaUtils,
+  import Tq2.Utils.Schema,
     only: [
       validate_money: 2,
       validate_less_than_money_field: 3

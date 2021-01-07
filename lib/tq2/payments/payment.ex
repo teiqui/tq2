@@ -2,7 +2,7 @@ defmodule Tq2.Payments.Payment do
   use Ecto.Schema
 
   import Ecto.Changeset
-  import Tq2.SchemaUtils, only: [validate_money: 2]
+  import Tq2.Utils.Schema, only: [validate_money: 2]
 
   alias Tq2.Payments.Payment
   alias Tq2.Transactions.Cart

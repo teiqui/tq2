@@ -1,4 +1,4 @@
-defmodule Tq2.SchemaUtils do
+defmodule Tq2.Utils.Schema do
   import Ecto.Changeset,
     only: [
       add_error: 3,
