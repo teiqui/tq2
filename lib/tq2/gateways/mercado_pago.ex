@@ -93,6 +93,23 @@ defmodule Tq2.Gateways.MercadoPago do
     request_post("/checkout/preferences", preference, credential.token)
   end
 
+  def create_partial_cart_preference(
+        %Credential{} = credential,
+        %Cart{} = cart,
+        %Money{} = pending_amount
+      ) do
+    preference = %{
+      external_reference: cart_external_reference(cart),
+      items: pending_payment_items(cart.order, pending_amount),
+      payer: %{
+        name: cart.customer.name,
+        email: cart.customer.email
+      }
+    }
+
+    request_post("/checkout/preferences", preference, credential.token)
+  end
+
   @doc "Returns a map with the payment attributes given an id."
   def get_payment(%Credential{} = credential, id) do
     request_get("/v1/payments/#{id}", credential.token)
@@ -323,5 +340,22 @@ defmodule Tq2.Gateways.MercadoPago do
       scheme: scheme,
       host: Enum.join([Application.get_env(:tq2, :app_subdomain), url_config[:host]], ".")
     }
+  end
+
+  defp pending_payment_items(order, pending_amount) do
+    amount =
+      pending_amount
+      |> Money.to_decimal()
+      |> Decimal.to_float()
+
+    [
+      %{
+        title: dgettext("mercado_pago", "Pending amount of order #%{id}", id: order.id),
+        description: dgettext("mercado_pago", "Pending amount of order #%{id}", id: order.id),
+        currency_id: pending_amount.currency,
+        unit_price: amount,
+        quantity: 1
+      }
+    ]
   end
 end

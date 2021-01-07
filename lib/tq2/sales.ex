@@ -215,6 +215,43 @@ defmodule Tq2.Sales do
   end
 
   @doc """
+  Gets a single not referred pending order to be expired.
+
+  Returns nil if the Order does not exist.
+
+  ## Examples
+
+      iex> get_not_referred_pending_order(123)
+      %Order{}
+
+      iex> get_not_referred_pending_order(456)
+      nil
+
+  """
+  def get_not_referred_pending_order(id) do
+    Order
+    |> join(:left, [o], account in assoc(o, :account))
+    |> join(:left, [o], t in assoc(o, :originator_ties))
+    |> join(:left, [o], cart in assoc(o, :cart))
+    |> join(:left, [o, account, t, cart], c in assoc(cart, :customer))
+    |> join(:left, [o, account, t, cart], l in assoc(cart, :lines))
+    |> join(:left, [o, account, t, cart], p in assoc(cart, :payments))
+    |> where(
+      [o, account, t, cart],
+      o.status == "pending" and
+        cart.price_type == "promotional" and
+        is_nil(t.id)
+    )
+    |> preload(
+      [o, account, t, cart, c, l, p],
+      account: account,
+      cart: {cart, lines: l, order: o, payments: p},
+      customer: c
+    )
+    |> Repo.get(id)
+  end
+
+  @doc """
   Creates a order.
 
   ## Examples
@@ -232,6 +269,7 @@ defmodule Tq2.Sales do
     |> Repo.insert()
     |> Order.update_visit()
     |> Order.notify()
+    |> Order.schedule_expiration_task()
   end
 
   @doc """

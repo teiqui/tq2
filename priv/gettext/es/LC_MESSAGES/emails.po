@@ -53,7 +53,8 @@ msgstr "¡Felicitaciones!"
 msgid "For reference, the order is #%{number}"
 msgstr "Para referencia el pedido es el #%{number}"
 
-#: lib/tq2_web/templates/email/order_confirmation.html.eex:42
+#: lib/tq2_web/templates/email/expired_promotion.html.eex:41
+#: lib/tq2_web/templates/email/expired_promotion.text.eex:13 lib/tq2_web/templates/email/order_confirmation.html.eex:42
 #: lib/tq2_web/templates/email/order_confirmation.text.eex:14 lib/tq2_web/templates/email/promotion_confirmation.html.eex:42
 #: lib/tq2_web/templates/email/promotion_confirmation.text.eex:14
 msgid "For reference, your order is #%{number}"
@@ -86,7 +87,8 @@ msgstr "Esto fue lo que ordenaste:"
 msgid "We have receive your order"
 msgstr "Hemos recibido tu pedido"
 
-#: lib/tq2_web/templates/email/order_confirmation.html.eex:46
+#: lib/tq2_web/templates/email/expired_promotion.html.eex:45
+#: lib/tq2_web/templates/email/expired_promotion.text.eex:15 lib/tq2_web/templates/email/order_confirmation.html.eex:46
 #: lib/tq2_web/templates/email/order_confirmation.text.eex:16 lib/tq2_web/templates/email/promotion_confirmation.html.eex:46
 #: lib/tq2_web/templates/email/promotion_confirmation.text.eex:16
 msgid "We'll keep you informed about it."
@@ -101,7 +103,8 @@ msgstr "Hicieron un nuevo pedido, esto fue lo que ordenaron:"
 msgid "here"
 msgstr "aquí"
 
-#: lib/tq2_web/templates/email/order_confirmation.html.eex:1
+#: lib/tq2_web/templates/email/expired_promotion.html.eex:1
+#: lib/tq2_web/templates/email/expired_promotion.text.eex:1 lib/tq2_web/templates/email/order_confirmation.html.eex:1
 #: lib/tq2_web/templates/email/order_confirmation.text.eex:1 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:1
 #: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:1 lib/tq2_web/templates/email/promotion_confirmation.html.eex:1
 #: lib/tq2_web/templates/email/promotion_confirmation.text.eex:1
@@ -121,3 +124,17 @@ msgstr "Promoción confirmada"
 #: lib/tq2_web/templates/email/promotion_confirmation.text.eex:4
 msgid "We have received an order from the link you shared, so it's all set for the discounted price"
 msgstr "Recibimos un pedido de un enlace que compartiste, así que está todo listo para que tengas el precio con descuento"
+
+#: lib/tq2/notifications/email.ex:55
+msgid "Promotional price expired"
+msgstr "El precio promocional expiró"
+
+#: lib/tq2_web/templates/email/expired_promotion.html.eex:4
+#: lib/tq2_web/templates/email/expired_promotion.text.eex:3
+msgid "The promotion time has ended, unfortunately no purchase was made using your referral link."
+msgstr "El tiempo de promoción terminó, desafortunadamente nadie con tu enlace realizó una compra."
+
+#: lib/tq2_web/templates/email/expired_promotion.html.eex:7
+#: lib/tq2_web/templates/email/expired_promotion.text.eex:5
+msgid "These are the final order details:"
+msgstr "Estos son los detalles finales de tu pedido"

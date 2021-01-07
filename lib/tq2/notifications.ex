@@ -21,6 +21,12 @@ defmodule Tq2.Notifications do
     |> deliver_later()
   end
 
+  def send_expired_promotion(%Order{} = order) do
+    order
+    |> Email.expired_promotion()
+    |> deliver_later()
+  end
+
   defp deliver_later(nil), do: nil
   defp deliver_later(email), do: Mailer.deliver_later(email)
 end

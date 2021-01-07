@@ -69,7 +69,7 @@ defmodule Tq2.Fixtures do
     {:ok, %{conn: conn, session: session}}
   end
 
-  def create_order(_) do
+  def create_order(_ \\ nil) do
     session = create_session()
 
     {:ok, visit} =
@@ -101,7 +101,7 @@ defmodule Tq2.Fixtures do
         cost: Money.new(80, :ARS)
       })
 
-    {:ok, _line} =
+    {:ok, line} =
       Tq2.Transactions.create_line(cart, %{
         name: "some name",
         quantity: 42,
@@ -110,6 +110,8 @@ defmodule Tq2.Fixtures do
         cost: Money.new(80, :ARS),
         item: item
       })
+
+    cart = %{cart | lines: [line]}
 
     {:ok, order} =
       Tq2.Sales.create_order(
@@ -121,6 +123,6 @@ defmodule Tq2.Fixtures do
         }
       )
 
-    %{order: order}
+    %{order: %{order | cart: cart}}
   end
 end

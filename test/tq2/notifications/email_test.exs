@@ -71,6 +71,33 @@ defmodule Tq2.Notifications.EmailTest do
     assert Email.promotion_confirmation(order) == nil
   end
 
+  test "expired promotion email" do
+    order = %{order() | customer: customer()}
+    order = %{order | cart: %{order.cart | price_type: "regular"}}
+    line = order.cart.lines |> List.first()
+    price = line.price |> Money.to_string(symbol: true)
+    promotional_price = line.promotional_price |> Money.to_string(symbol: true)
+
+    email = Email.expired_promotion(order)
+
+    assert email.to == order.customer.email
+    assert email.subject =~ "Promotional price expired"
+    assert email.html_body =~ order.customer.name
+    assert email.html_body =~ "##{order.id}"
+    assert email.html_body =~ price
+    refute email.html_body =~ promotional_price
+    assert email.text_body =~ order.customer.name
+    assert email.text_body =~ "##{order.id}"
+    assert email.text_body =~ price
+    refute email.text_body =~ promotional_price
+  end
+
+  test "expired promotion returns nil when order has customer without email" do
+    order = %{order() | customer: %{customer() | email: nil}}
+
+    assert Email.expired_promotion(order) == nil
+  end
+
   defp user do
     %User{
       name: "John",

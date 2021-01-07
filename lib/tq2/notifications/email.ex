@@ -49,6 +49,17 @@ defmodule Tq2.Notifications.Email do
     |> render(:promotion_confirmation, order: order, customer: customer)
   end
 
+  def expired_promotion(%Order{customer: %Customer{email: nil}}), do: nil
+
+  def expired_promotion(%Order{customer: customer} = order) do
+    subject = dgettext("emails", "Promotional price expired")
+
+    base_email()
+    |> to(customer.email)
+    |> subject(subject)
+    |> render(:expired_promotion, order: order, customer: customer)
+  end
+
   defp base_email() do
     address = System.get_env("EMAIL_ADDRESS", "support@teiqui.com")
 

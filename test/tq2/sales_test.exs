@@ -245,6 +245,44 @@ defmodule Tq2.SalesTest do
       assert_delivered_email(Email.promotion_confirmation(order_1))
     end
 
+    test "get_not_referred_pending_order/1 returns the order without a referral customer", %{
+      session: session
+    } do
+      {:ok, cart} = create_cart(session)
+
+      attrs =
+        @valid_order_attrs
+        |> Map.delete(:cart)
+        |> Map.put(:cart_id, cart.id)
+
+      assert {:ok, %Order{} = order_1} = Sales.create_order(session.account, attrs)
+
+      assert Sales.get_not_referred_pending_order(order_1.id)
+
+      fixture(session, :order, %{ties: [%{originator_id: order_1.id}]})
+
+      refute Sales.get_not_referred_pending_order(order_1.id)
+    end
+
+    test "get_not_referred_pending_order/1 returns the order on pending status", %{
+      session: session
+    } do
+      {:ok, cart} = create_cart(session)
+
+      attrs =
+        @valid_order_attrs
+        |> Map.delete(:cart)
+        |> Map.put(:cart_id, cart.id)
+
+      assert {:ok, %Order{} = order_1} = Sales.create_order(session.account, attrs)
+
+      assert Sales.get_not_referred_pending_order(order_1.id)
+
+      {:ok, _} = session |> Sales.update_order(order_1, %{status: "completed"})
+
+      refute Sales.get_not_referred_pending_order(order_1.id)
+    end
+
     test "create_order/2 with valid data creates a order", %{session: session} do
       visit = fixture(session, :visit)
       attrs = Map.put(@valid_order_attrs, :cart, %{@valid_order_attrs.cart | visit_id: visit.id})
@@ -252,6 +290,11 @@ defmodule Tq2.SalesTest do
       assert {:ok, %Order{} = order} = Sales.create_order(session.account, attrs)
       assert order.status == attrs.status
       assert DateTime.to_iso8601(order.promotion_expires_at) == attrs.promotion_expires_at
+
+      job = Exq.Mock.jobs() |> List.first()
+
+      assert job.class == Tq2.Workers.OrdersJob
+      assert job.args == [order.id]
     end
 
     test "create_order/2 with invalid data returns error changeset", %{session: session} do
