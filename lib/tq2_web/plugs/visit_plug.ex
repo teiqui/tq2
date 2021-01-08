@@ -27,7 +27,7 @@ defmodule Tq2Web.VisitPlug do
           referral_token: conn.params["referral"],
           utm_source: conn.params["utm_source"],
           data: %{
-            ip: conn.remote_ip |> Tuple.to_list() |> Enum.join(".")
+            ip: conn.remote_ip |> :inet_parse.ntoa() |> to_string()
           }
         }
       })
