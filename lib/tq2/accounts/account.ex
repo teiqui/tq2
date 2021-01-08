@@ -5,12 +5,13 @@ defmodule Tq2.Accounts.Account do
   import Tq2.Utils.CountryCurrency, only: [valid_countries: 0]
 
   alias Tq2.Accounts.{Account, Membership, License}
+  alias Tq2.Utils.TrimmedString
 
   schema "accounts" do
     field :country, :string
-    field :name, :string
+    field :name, TrimmedString
     field :status, :string
-    field :time_zone, :string
+    field :time_zone, TrimmedString
     field :lock_version, :integer, default: 0
 
     has_many :memberships, Membership

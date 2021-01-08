@@ -3,7 +3,7 @@ defmodule Tq2.Shops.Configuration do
 
   import Ecto.Changeset
 
-  import Tq2.SchemaUtils,
+  import Tq2.Utils.Schema,
     only: [
       validate_at_least_one_active: 3,
       validate_required_if_present: 3

@@ -4,13 +4,14 @@ defmodule Tq2.Shops.Data do
   import Ecto.Changeset
 
   alias Tq2.Shops.Data
+  alias Tq2.Utils.TrimmedString
 
   embedded_schema do
-    field :phone, :string
-    field :email, :string
-    field :whatsapp, :string
-    field :facebook, :string
-    field :instagram, :string
+    field :phone, TrimmedString
+    field :email, TrimmedString
+    field :whatsapp, TrimmedString
+    field :facebook, TrimmedString
+    field :instagram, TrimmedString
 
     timestamps()
   end
