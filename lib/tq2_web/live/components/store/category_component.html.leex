@@ -1,4 +1,6 @@
-<%= live_patch to: Routes.counter_path(@socket, :index, @store, category: @id), class: "col text-decoration-none", id: "category_#{@id}", phx_hook: "ScrollToTop" do %>
+<%= live_patch to: Routes.counter_path(@socket, :index, @store, category: @id),
+               class: "col text-decoration-none",
+               id: "category_#{@id}", phx_hook: "ScrollToTop" do %>
   <div class="card mx-2 my-3 position-relative bg-secondary">
     <div class="embed-responsive embed-responsive-1by1">
       <%= image_for @category %>

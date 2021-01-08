@@ -109,7 +109,7 @@ defmodule Tq2Web.Store.CounterLiveTest do
       path = Routes.counter_path(conn, :index, store)
       {:ok, store_live, html} = live(conn, path)
 
-      assert html =~ "caret-down"
+      assert html =~ "chevron-down"
 
       content =
         store_live
@@ -120,7 +120,7 @@ defmodule Tq2Web.Store.CounterLiveTest do
 
       assert content =~ with_image.category.name
       assert content =~ without_image.category.name
-      assert content =~ "caret-up"
+      assert content =~ "chevron-up"
 
       img =
         store_live

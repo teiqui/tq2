@@ -54,8 +54,8 @@ defmodule Tq2Web.Store.HeaderComponent do
     "btn btn-sm btn-light text-primary rounded-circle h-28-px w-28-px p-1 mt-n1"
   end
 
-  defp caret_direction(conn, true), do: icon_tag(conn, "caret-up")
-  defp caret_direction(conn, _), do: icon_tag(conn, "caret-down")
+  defp chevron_direction(conn, true), do: icon_tag(conn, "chevron-up")
+  defp chevron_direction(conn, _), do: icon_tag(conn, "chevron-down")
 
   defp icon_tag(conn, icon) do
     options = [class: "bi", width: "14", height: "14", fill: "currentColor"]

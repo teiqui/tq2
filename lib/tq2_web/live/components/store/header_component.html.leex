@@ -42,8 +42,11 @@
       </div>
       <div class="col-auto">
         <a href="#" class="float-right text-info" id="toggle-categories" phx-click="toggle-categories" phx-hook="ScrollToTop">
-          <%= dgettext("stores", "Categories") %>
-          <%= caret_direction(@socket, @show_categories) %>
+          <span class="mr-2">
+            <%= dgettext("stores", "Categories") %>
+          </span>
+
+          <%= chevron_direction(@socket, @show_categories) %>
         </a>
       </div>
     </nav>
