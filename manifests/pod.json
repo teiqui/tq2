@@ -158,51 +158,6 @@
             }
           },
           {
-            "name": "MP_ARS_TOKEN",
-            "valueFrom": {
-              "secretKeyRef": {
-                "key": "mpArsToken",
-                "name": "tq2-app-secrets"
-              }
-            }
-          },
-          {
-            "name": "MP_CLP_TOKEN",
-            "valueFrom": {
-              "secretKeyRef": {
-                "key": "mpClpToken",
-                "name": "tq2-app-secrets"
-              }
-            }
-          },
-          {
-            "name": "MP_COP_TOKEN",
-            "valueFrom": {
-              "secretKeyRef": {
-                "key": "mpCopToken",
-                "name": "tq2-app-secrets"
-              }
-            }
-          },
-          {
-            "name": "MP_MXN_TOKEN",
-            "valueFrom": {
-              "secretKeyRef": {
-                "key": "mpMxnToken",
-                "name": "tq2-app-secrets"
-              }
-            }
-          },
-          {
-            "name": "MP_PEN_TOKEN",
-            "valueFrom": {
-              "secretKeyRef": {
-                "key": "mpPenToken",
-                "name": "tq2-app-secrets"
-              }
-            }
-          },
-          {
             "name": "SENTRY_DSN",
             "valueFrom": {
               "secretKeyRef": {
