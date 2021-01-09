@@ -2,12 +2,11 @@ defmodule Tq2.Gateways.MercadoPago.WebhookTest do
   use Tq2.DataCase
 
   import Mock
-  import Tq2.Fixtures, only: [default_account: 0, create_session: 0]
+  import Tq2.Fixtures, only: [create_session: 0]
 
   alias Tq2.Apps
   alias Tq2.Gateways.MercadoPago.Webhook, as: MPWebhookClient
   alias Tq2.Payments
-  alias Tq2.Payments.LicensePayment, as: LPayment
   alias Tq2.Webhooks.MercadoPago, as: MPWebhook
 
   describe "mercado pago webhooks" do
@@ -30,32 +29,6 @@ defmodule Tq2.Gateways.MercadoPago.WebhookTest do
       }
 
       assert {:error, "Not found"} = MPWebhookClient.process(webhook)
-    end
-
-    test "process/1 returns created license payment for valid webhook" do
-      license = default_account().license
-
-      webhook = %MPWebhook{
-        name: "mercado_pago",
-        payload: %{
-          "type" => "payment",
-          "user_id" => "3333",
-          "data.id" => "888"
-        }
-      }
-
-      payment_mock = %{@default_payment | external_reference: license.reference}
-
-      with_mock HTTPoison, mock_get_with(payment_mock) do
-        {:ok, %LPayment{} = payment} = MPWebhookClient.process(webhook)
-
-        amount =
-          payment_mock.transaction_amount
-          |> Money.parse!(payment_mock.currency_id)
-
-        assert payment.amount == amount
-        assert payment.status == "paid"
-      end
     end
 
     test "process/1 returns created payment for valid webhook" do

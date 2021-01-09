@@ -10,12 +10,6 @@ defmodule Tq2Web.LicenseView do
     dgettext("licenses", "Cancelled") => "cancelled"
   }
 
-  @payment_statuses %{
-    dgettext("licenses", "Paid") => "paid",
-    dgettext("licenses", "Pending") => "pending",
-    dgettext("licenses", "Cancelled") => "cancelled"
-  }
-
   def status(license) do
     statuses = invert(@statuses)
 
@@ -30,12 +24,6 @@ defmodule Tq2Web.LicenseView do
 
   def money(money) do
     Money.to_string(money, symbol: true)
-  end
-
-  def payment_status(status) do
-    statuses = invert(@payment_statuses)
-
-    statuses[status]
   end
 
   defp invert(map) when is_map(map) do
