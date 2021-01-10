@@ -5,9 +5,11 @@ defmodule Tq2Web.WebhookController do
   alias Tq2.Workers.WebhooksJob
 
   def mercado_pago(conn, params) do
-    %{name: "mercado_pago", payload: params}
-    |> Webhooks.create_webhook()
-    |> enqueue_webhook()
+    if params["type"] == "payment" do
+      %{name: "mercado_pago", payload: params}
+      |> Webhooks.create_webhook()
+      |> enqueue_webhook()
+    end
 
     json(conn, %{})
   end

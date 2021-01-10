@@ -11,6 +11,11 @@ defmodule Tq2.Apps do
   alias Tq2.Apps.{App, MercadoPago, WireTransfer}
 
   @payment_names ~w(mercado_pago wire_transfer)
+  @app_names ~w(mercado_pago wire_transfer)
+  @app_modules %{
+    "mercado_pago" => MercadoPago,
+    "wire_transfer" => WireTransfer
+  }
 
   @doc """
   Returns the list of apps.
@@ -74,15 +79,12 @@ defmodule Tq2.Apps do
   #     {:error, %Ecto.Changeset{}}
 
   # """
-  def create_app(%Session{account: account, user: user}, %{name: "mercado_pago"} = attrs) do
-    account
-    |> MercadoPago.changeset(%MercadoPago{}, attrs)
-    |> Trail.insert(originator: user, meta: %{account_id: account.id})
-  end
+  def create_app(%Session{account: account, user: user}, %{"name" => app_name} = attrs)
+      when app_name in @app_names do
+    module = @app_modules[app_name]
 
-  def create_app(%Session{account: account, user: user}, %{"name" => "wire_transfer"} = attrs) do
     account
-    |> WireTransfer.changeset(%WireTransfer{}, attrs)
+    |> module.changeset(module.__struct__, attrs)
     |> Trail.insert(originator: user, meta: %{account_id: account.id})
   end
 

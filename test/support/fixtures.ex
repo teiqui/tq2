@@ -1,5 +1,6 @@
 defmodule Tq2.Fixtures do
   import Ecto.Query
+  import Tq2.Support.MercadoPagoHelper, only: [mock_check_credentials: 1]
 
   alias Tq2.Accounts
   alias Tq2.Accounts.{Account, Session}
@@ -124,5 +125,19 @@ defmodule Tq2.Fixtures do
       )
 
     %{order: %{order | cart: cart}}
+  end
+
+  def app_mercado_pago_fixture(_ \\ nil) do
+    attrs = %{
+      "name" => "mercado_pago",
+      "status" => "active",
+      "data" => %{"access_token" => "TEST-123-asd-123"}
+    }
+
+    mock_check_credentials do
+      {:ok, app} = create_session() |> Tq2.Apps.create_app(attrs)
+
+      %{app: app}
+    end
   end
 end

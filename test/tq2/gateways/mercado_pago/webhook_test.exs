@@ -2,9 +2,8 @@ defmodule Tq2.Gateways.MercadoPago.WebhookTest do
   use Tq2.DataCase
 
   import Mock
-  import Tq2.Fixtures, only: [create_session: 0]
+  import Tq2.Fixtures, only: [create_session: 0, app_mercado_pago_fixture: 0]
 
-  alias Tq2.Apps
   alias Tq2.Gateways.MercadoPago.Webhook, as: MPWebhookClient
   alias Tq2.Payments
   alias Tq2.Webhooks.MercadoPago, as: MPWebhook
@@ -32,14 +31,6 @@ defmodule Tq2.Gateways.MercadoPago.WebhookTest do
     end
 
     test "process/1 returns created payment for valid webhook" do
-      mp_attrs = %{
-        name: "mercado_pago",
-        data: %{
-          "access_token" => "1234",
-          "user_id" => 123
-        }
-      }
-
       webhook = %MPWebhook{
         name: "mercado_pago",
         payload: %{
@@ -51,7 +42,7 @@ defmodule Tq2.Gateways.MercadoPago.WebhookTest do
 
       session = create_session()
 
-      {:ok, _app} = session |> Apps.create_app(mp_attrs)
+      app_mercado_pago_fixture()
 
       cart = cart_fixture(session)
 

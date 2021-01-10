@@ -10,7 +10,7 @@ defmodule Tq2.Gateways.MercadoPago.Webhook do
   end
 
   defp process_by_type(%{"type" => "payment", "user_id" => user_id} = payload) do
-    client = MPCredential.for_user_id(user_id) || app_for_user_id(user_id)
+    client = app_for_user_id(user_id)
 
     process_payment(client, payload)
   end
@@ -21,7 +21,6 @@ defmodule Tq2.Gateways.MercadoPago.Webhook do
 
   defp process_payment(nil, _), do: {:error, "Not found"}
 
-  # Marketplace
   defp process_payment(%MPApp{} = app, %{"data.id" => id}) do
     app
     |> MPCredential.for_app()

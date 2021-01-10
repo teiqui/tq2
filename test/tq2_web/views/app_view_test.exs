@@ -1,9 +1,9 @@
 defmodule Tq2Web.AppViewTest do
-  use Tq2Web.ConnCase, async: true
+  use Tq2Web.ConnCase
   use Tq2.Support.LoginHelper
 
   import Phoenix.HTML, only: [safe_to_string: 1]
-  import Tq2.Fixtures, only: [default_account: 0]
+  import Tq2.Fixtures, only: [default_account: 0, app_mercado_pago_fixture: 0]
 
   alias Tq2.Apps.MercadoPago, as: MPApp
   alias Tq2.Apps.WireTransfer, as: WTApp
@@ -19,7 +19,7 @@ defmodule Tq2Web.AppViewTest do
   end
 
   test "link to show", %{conn: conn} do
-    app = mercado_pago_fixture()
+    %{app: app} = app_mercado_pago_fixture()
 
     content =
       conn
@@ -32,7 +32,7 @@ defmodule Tq2Web.AppViewTest do
   end
 
   test "link to delete", %{conn: conn} do
-    app = mercado_pago_fixture()
+    %{app: app} = app_mercado_pago_fixture()
 
     content =
       conn
@@ -52,8 +52,10 @@ defmodule Tq2Web.AppViewTest do
   end
 
   test "app status" do
+    %{app: app} = app_mercado_pago_fixture()
+
     content =
-      mercado_pago_fixture()
+      app
       |> AppView.app_status()
       |> safe_to_string()
 
@@ -62,7 +64,8 @@ defmodule Tq2Web.AppViewTest do
   end
 
   test "app kinds for cards" do
-    assert ~w(mercado_pago wire_transfer) == AppView.app_names()
+    assert ~w(mercado_pago wire_transfer) == AppView.app_names(%{country: "ar"})
+    assert ~w(wire_transfer) == AppView.app_names(%{country: "unknown"})
   end
 
   test "app from apps by name" do
@@ -79,17 +82,6 @@ defmodule Tq2Web.AppViewTest do
     assert %MPApp{} = AppView.build_app("mercado_pago")
     assert %WTApp{} = AppView.build_app("wire_transfer")
     refute AppView.build_app("unknwon")
-  end
-
-  test "mp link to authorize" do
-    content =
-      default_account()
-      |> AppView.mp_link_to_authorize()
-      |> safe_to_string()
-
-    assert content =~ "<a"
-    assert content =~ "Link account"
-    assert content =~ "auth.mercadopago.com.ar"
   end
 
   test "mp link to commissions", %{conn: conn} do
@@ -121,19 +113,5 @@ defmodule Tq2Web.AppViewTest do
 
     assert content =~ "Install"
     assert content =~ "/apps/new?name=wire_transfer"
-  end
-
-  defp mercado_pago_fixture() do
-    attrs = %{
-      status: "active",
-      data: %{"access_token" => 123}
-    }
-
-    {:ok, app} =
-      default_account()
-      |> MPApp.changeset(%MPApp{}, attrs)
-      |> Tq2.Repo.insert()
-
-    app
   end
 end

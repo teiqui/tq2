@@ -91,7 +91,6 @@ defmodule Tq2Web.Router do
     live "/store/edit/:section", Shop.StoreLive, :index
 
     # Apps
-    get "/apps/mp_marketplace", Apps.MpMarketplaceController, :show, as: :mp_marketplace
     resources "/apps", AppController, param: "name"
 
     # Sales
@@ -104,7 +103,7 @@ defmodule Tq2Web.Router do
   scope "/api", Tq2Web do
     pipe_through :api
 
-    post "/webhooks/mercado_pago", WebhookController, :mercado_pago, as: :mp_webhook
+    post "/webhooks/mercado_pago", WebhookController, :mercado_pago
   end
 
   if Application.get_env(:tq2, :env) == :dev do

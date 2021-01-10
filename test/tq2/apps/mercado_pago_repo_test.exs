@@ -1,8 +1,8 @@
 defmodule Tq2.Apps.MercadoPagoRepoTest do
-  use Tq2.DataCase, async: true
+  use Tq2.DataCase
 
   describe "mercado_pago" do
-    import Tq2.Fixtures, only: [create_session: 0]
+    import Tq2.Fixtures, only: [app_mercado_pago_fixture: 0, default_account: 0]
 
     alias Tq2.Apps
     alias Tq2.Apps.MercadoPago
@@ -10,15 +10,13 @@ defmodule Tq2.Apps.MercadoPagoRepoTest do
     @valid_attrs %{
       name: "mercado_pago",
       status: "active",
-      data: %{"access_token" => "123-asd"}
+      data: %{access_token: "TEST-123-asd-123"}
     }
 
     test "converts unique constraint on name to error" do
-      session = create_session()
+      app_mercado_pago_fixture()
 
-      mercado_pago_fixture(session)
-
-      changeset = Apps.change_app(session.account, %MercadoPago{}, @valid_attrs)
+      changeset = Apps.change_app(default_account(), %MercadoPago{}, @valid_attrs)
 
       expected = {
         "has already been taken",
@@ -26,12 +24,6 @@ defmodule Tq2.Apps.MercadoPagoRepoTest do
       }
 
       assert expected == changeset.errors[:name]
-    end
-
-    defp mercado_pago_fixture(session) do
-      {:ok, app} = Apps.create_app(session, @valid_attrs)
-
-      app
     end
   end
 end

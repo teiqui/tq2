@@ -27,6 +27,22 @@ msgstr ""
 msgid "Successfully authorized"
 msgstr ""
 
-#: lib/tq2/gateways/mercado_pago.ex:353 lib/tq2/gateways/mercado_pago.ex:354
+#: lib/tq2/gateways/mercado_pago.ex:272 lib/tq2/gateways/mercado_pago.ex:273
 msgid "Pending amount of order #%{id}"
+msgstr ""
+
+#: lib/tq2_web/templates/app/_form_mercado_pago.html.eex:11
+msgid "Access Token"
+msgstr ""
+
+#: lib/tq2/apps/mercado_pago/data.ex:53
+msgid "Invalid credentials: '%{error}'"
+msgstr ""
+
+#: lib/tq2_web/views/app_view.ex:144
+msgid "To use MercadoPago you have to create an application following the next %{link} and then copy the production Access Token in the field below."
+msgstr ""
+
+#: lib/tq2_web/views/app_view.ex:136
+msgid "link"
 msgstr ""
