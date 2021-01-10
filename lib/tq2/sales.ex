@@ -168,12 +168,14 @@ defmodule Tq2.Sales do
     Order
     |> where(account_id: ^account.id)
     |> join(:left, [o], c in assoc(o, :cart))
+    |> join(:left, [o], customer in assoc(o, :customer))
     |> join(:left, [o, c], l in assoc(c, :lines))
     |> join(:left, [o, c], p in assoc(c, :payments))
     |> join(:left, [o], parents in assoc(o, :parents))
     |> join(:left, [o], children in assoc(o, :children))
-    |> preload([o, c, l, p, parents, children],
+    |> preload([o, c, customer, l, p, parents, children],
       cart: {c, lines: l, payments: p},
+      customer: customer,
       parents: parents,
       children: children
     )

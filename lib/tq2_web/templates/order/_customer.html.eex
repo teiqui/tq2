@@ -1,0 +1,29 @@
+<div class="media my-3">
+  <span class="text-info mr-3">
+    <svg class="bi" width="16" height="16" fill="currentColor">
+      <use xlink:href="<%= Routes.static_path(@conn, "/images/bootstrap-icons.svg#people") %>"/>
+    </svg>
+  </span>
+
+  <div class="media-body pt-1">
+    <h3 class="h6 text-info font-weight-semi-bold mb-0">
+      <%= @customer.name %>
+    </h3>
+
+    <%= if @customer.email do %>
+      <p class="mb-0 small">
+        <%= link @customer.email, to: "mailto:#{@customer.email}", class: "text-reset" %>
+      </p>
+    <% end %>
+
+    <%= if @customer.address do %>
+      <%= text_to_html @customer.address, attributes: [class: "mb-0 small"] %>
+    <% end %>
+
+    <%= if @customer.phone do %>
+      <p class="mb-0 small">
+        <%= @customer.phone %>
+      </p>
+    <% end %>
+  </div>
+</div>

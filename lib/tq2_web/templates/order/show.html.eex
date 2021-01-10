@@ -20,10 +20,14 @@
       <%= localize_datetime(@order.inserted_at) %>
     </p>
 
+    <%= render "_customer.html", conn: @conn, customer: @order.customer %>
+
     <%= if @order.data && @order.data.notes do %>
       <div class="mb-1">
-        <strong><%= dgettext("orders", "Notes") %></strong>:
-        <%= @order.data.notes %>
+        <p class="mb-0">
+          <strong><%= dgettext("orders", "Notes") %></strong>:
+        </p>
+        <%= text_to_html @order.data.notes, attributes: [class: "mb-0 small"] %>
       </div>
     <% end %>
 
