@@ -2,7 +2,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
   use Tq2.DataCase
 
   import Mock
-  import Tq2.Fixtures, only: [user_fixture: 1, create_session: 0]
+  import Tq2.Fixtures, only: [create_session: 0]
 
   alias Tq2.Gateways.MercadoPago
   alias Tq2.Gateways.MercadoPago.Credential
@@ -80,39 +80,6 @@ defmodule Tq2.Gateways.MercadoPagoTest do
         assert %{} = marketplace
         assert default_marketplace.access_token == marketplace["access_token"]
         assert default_marketplace.refresh_token == marketplace["refresh_token"]
-      end
-    end
-
-    test "create_license_preference/1 returns a valid map preference" do
-      session = create_session()
-      session |> user_fixture()
-
-      default_preference = %{
-        id: 33,
-        external_reference: "123-321",
-        init_point: "https://mp.com/123"
-      }
-
-      mocked_fn = default_preference |> mock_post_with()
-
-      with_mock HTTPoison, mocked_fn do
-        preference = session.account |> MercadoPago.create_license_preference()
-
-        assert default_preference.id == preference["id"]
-        assert default_preference.external_reference == preference["external_reference"]
-        assert default_preference.init_point == preference["init_point"]
-      end
-    end
-
-    test "update_license_with_last_payment/1 returns true until payments" do
-      mocked_fn = %{results: [@default_payment]} |> mock_get_with()
-      session = create_session()
-
-      with_mock HTTPoison, mocked_fn do
-        {:ok, payment} = MercadoPago.update_license_with_last_payment(session.account)
-
-        assert payment.id
-        assert payment.status == "paid"
       end
     end
 

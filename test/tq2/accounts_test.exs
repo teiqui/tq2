@@ -1,21 +1,10 @@
 defmodule Tq2.AccountsTest do
   use Tq2.DataCase
 
-  import Ecto.Query
+  import Tq2.Fixtures, only: [create_session: 1]
 
   alias Tq2.Accounts
   alias Tq2.Accounts.Account
-
-  defp create_session(_) do
-    account =
-      Account
-      |> where(name: "test_account")
-      |> join(:left, [a], l in assoc(a, :license))
-      |> preload([a, l], license: l)
-      |> Tq2.Repo.one()
-
-    {:ok, session: %Tq2.Accounts.Session{account: account}}
-  end
 
   describe "accounts" do
     @valid_attrs %{
@@ -349,8 +338,12 @@ defmodule Tq2.AccountsTest do
 
     alias Tq2.Accounts.License
 
-    @update_attrs %{reference: Ecto.UUID.generate(), status: "active"}
-    @invalid_attrs %{reference: "", status: "unknown"}
+    @update_attrs %{
+      status: "active",
+      customer_id: "cus_123asd",
+      subscription_id: "sub_123asd"
+    }
+    @invalid_attrs %{status: "unknown"}
 
     defp fixture(session, :license, attrs \\ %{}) do
       {:ok, license} =
@@ -372,8 +365,9 @@ defmodule Tq2.AccountsTest do
 
       assert {:ok, license} = Accounts.update_license(session, license, @update_attrs)
       assert %License{} = license
-      assert license.reference == @update_attrs.reference
       assert license.status == @update_attrs.status
+      assert license.customer_id == @update_attrs.customer_id
+      assert license.subscription_id == @update_attrs.subscription_id
     end
 
     test "update_license/3 with invalid data returns error changeset", %{session: session} do
@@ -391,16 +385,6 @@ defmodule Tq2.AccountsTest do
       assert_raise Ecto.NoResultsError, fn ->
         Accounts.get_license!(session.account)
       end
-    end
-
-    test "get_account_by_license_reference!/1 returns account", %{session: session} do
-      license = session.account.license
-
-      assert license.reference
-
-      account = Accounts.get_account_by_license_reference!(license.reference)
-
-      assert session.account.id == account.id
     end
   end
 

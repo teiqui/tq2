@@ -81,7 +81,6 @@ defmodule Tq2Web.Router do
     resources "/users", UserController
     resources "/passwords", PasswordController, only: [:new, :create, :edit, :update]
     get "/license", LicenseController, :show
-    get "/license/check", License.CheckController, :show, as: :license_check
 
     # Inventories
     resources "/categories", CategoryController

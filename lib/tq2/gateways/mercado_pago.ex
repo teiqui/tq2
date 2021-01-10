@@ -4,7 +4,6 @@ defmodule Tq2.Gateways.MercadoPago do
   alias Tq2.Accounts
   alias Tq2.Accounts.{Account, License}
   alias Tq2.Gateways.MercadoPago.Credential
-  alias Tq2.Payments
   alias Tq2.Transactions.{Cart, Line}
   alias Tq2.Shops.Store
 
@@ -61,16 +60,6 @@ defmodule Tq2.Gateways.MercadoPago do
     }
 
     request_post("/checkout/preferences", preference, credential.token)
-  end
-
-  @doc "Get last payment and update license"
-  def update_license_with_last_payment(%Account{} = account) do
-    account = Tq2.Repo.preload(account, :license)
-
-    account.country
-    |> Credential.for_country()
-    |> last_payment_for_reference(account.license.reference)
-    |> Payments.create_or_update_license_payment(account)
   end
 
   def create_cart_preference(%Credential{} = credential, %Cart{} = cart, %Store{} = store) do

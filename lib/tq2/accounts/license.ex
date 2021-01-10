@@ -7,42 +7,41 @@ defmodule Tq2.Accounts.License do
   alias Tq2.Repo
 
   schema "licenses" do
-    field :reference, Ecto.UUID, autogenerate: true
     field :status, :string
     field :paid_until, :date
     field :lock_version, :integer, default: 0
+
+    # Vendor fields
+    field :customer_id, :string
+    field :subscription_id, :string
 
     belongs_to :account, Account
 
     timestamps()
   end
 
-  @cast_attrs [:status, :reference, :paid_until, :lock_version]
+  @cast_attrs [:status, :customer_id, :subscription_id, :paid_until, :lock_version]
 
   @statuses ~w(trial active unpaid locked cancelled)
 
-  @currencies %{
-    "ar" => "ARS",
-    "cl" => "CLP",
-    "co" => "COP",
-    "gt" => "MXN",
-    "mx" => "MXN",
-    "pe" => "PEN"
-  }
   @prices %{
-    "ARS" => 990.0,
-    "CLP" => 20_000.0,
-    "COP" => 58_000.0,
-    "MXN" => 330.0,
-    "PEN" => 48.0
+    "ar" => 499.0,
+    "cl" => 2800.0,
+    "co" => 13800.0,
+    "mx" => 80.0,
+    "pe" => 14.5,
+    "us" => 3.99
   }
   @yearly_prices %{
-    "ARS" => 5_940.0,
-    "CLP" => 120_000.0,
-    "COP" => 348_000.0,
-    "MXN" => 1_980.0,
-    "PEN" => 288.0
+    "ar" => 4990.0,
+    "cl" => 28000.0,
+    "co" => 138_000.0,
+    "mx" => 800.0,
+    "pe" => 145.0,
+    "us" => 39.9
   }
+
+  @default_country "us"
 
   @doc false
   def changeset(%License{} = license, attrs) do
@@ -66,55 +65,23 @@ defmodule Tq2.Accounts.License do
     |> validate_required([:status])
     |> validate_length(:status, max: 255)
     |> validate_inclusion(:status, @statuses)
-    |> unsafe_validate_unique(:reference, Repo)
-    |> unique_constraint(:reference)
+    |> unsafe_validate_unique(:customer_id, Repo)
+    |> unsafe_validate_unique(:subscription_id, Repo)
+    |> unique_constraint(:customer_id)
+    |> unique_constraint(:subscription_id)
     |> optimistic_lock(:lock_version)
     |> assoc_constraint(:account)
   end
 
   def price_for(country, :yearly) do
-    currency = @currencies[country]
-
-    @yearly_prices[currency]
+    @yearly_prices[country] || @yearly_prices[@default_country]
   end
 
   def price_for(country, :monthly) do
-    currency = @currencies[country]
-
-    @prices[currency]
+    @prices[country] || @prices[@default_country]
   end
 
   def price_for(country), do: price_for(country, :monthly)
-
-  def put_paid_until_changes(license, %Ecto.Changeset{} = payment_cs) do
-    {status, months} =
-      case payment_cs.changes[:status] do
-        "paid" -> {"active", 1}
-        "cancelled" -> {"unpaid", -1}
-        _ -> {license.status, 0}
-      end
-
-    paid_until = license.paid_until |> Timex.shift(months: months)
-
-    attrs = %{status: status, paid_until: paid_until}
-
-    License.changeset(license, attrs)
-  end
-
-  def add_changeset_to_multi(%Ecto.Changeset{} = changeset, multi) do
-    # Handle PaperTrail manually update because of the multi returned "keys"
-    # https://github.com/izelnakri/paper_trail/blob/master/lib/paper_trail/multi.ex#L108
-    multi
-    |> Ecto.Multi.update(:license, changeset)
-    |> Ecto.Multi.run(:license_version, fn repo, _ ->
-      PaperTrail.Multi.make_version_struct(
-        %{event: "update"},
-        changeset,
-        meta: %{account_id: changeset.data.account_id}
-      )
-      |> repo.insert()
-    end)
-  end
 
   defp put_status(%Ecto.Changeset{} = changeset) do
     changeset |> change(status: "trial")
