@@ -135,42 +135,42 @@ msgstr ""
 msgid "Visible"
 msgstr ""
 
-#: lib/tq2_web/live/inventories/import_live.html.leex:18
+#: lib/tq2_web/live/inventory/import_live.html.leex:18
 msgid "One item imported!"
 msgid_plural "%{count} items imported!"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/tq2_web/live/inventories/import_live.html.leex:21
+#: lib/tq2_web/live/inventory/import_live.html.leex:21
 msgid "Go to item list"
 msgstr ""
 
-#: lib/tq2_web/live/inventories/import_live.ex:89
+#: lib/tq2_web/live/inventory/import_live.ex:89
 msgid "Import"
 msgstr ""
 
-#: lib/tq2_web/live/inventories/import_live.html.leex:3
+#: lib/tq2_web/live/inventory/import_live.html.leex:3
 msgid "Import some items!"
 msgstr ""
 
-#: lib/tq2_web/live/inventories/import_live.ex:90
+#: lib/tq2_web/live/inventory/import_live.ex:90
 msgid "Importing..."
 msgstr ""
 
-#: lib/tq2_web/live/inventories/import_live.ex:108
+#: lib/tq2_web/live/inventory/import_live.ex:108
 msgid "Select store type..."
 msgstr ""
 
-#: lib/tq2_web/live/inventories/import_live.html.leex:26
-#: lib/tq2_web/live/inventories/import_live.html.leex:29
+#: lib/tq2_web/live/inventory/import_live.html.leex:26
+#: lib/tq2_web/live/inventory/import_live.html.leex:29
 msgid "Store type"
 msgstr ""
 
-#: lib/tq2_web/live/inventories/import_live.html.leex:45
+#: lib/tq2_web/live/inventory/import_live.html.leex:45
 msgid "Importing items, please wait..."
 msgstr ""
 
-#: lib/tq2_web/live/inventories/import_live.html.leex:38
+#: lib/tq2_web/live/inventory/import_live.html.leex:38
 msgid "Skip import"
 msgstr ""
 

@@ -542,12 +542,11 @@ defmodule Tq2.Accounts do
   end
 
   defp registration_store_changeset(registration, %{account: %Account{} = account}) do
-    rand = :crypto.strong_rand_bytes(3) |> Base.url_encode64(padding: false)
     slug = Tq2.Shops.Store.slugified(registration.name)
 
     attrs = %{
       name: registration.name,
-      slug: "#{slug}_#{rand}",
+      slug: slug,
       published: true,
       configuration: %{
         pickup: true,
@@ -555,7 +554,16 @@ defmodule Tq2.Accounts do
       }
     }
 
-    Tq2.Shops.Store.changeset(account, %Tq2.Shops.Store{}, attrs)
+    case Tq2.Shops.Store.changeset(account, %Tq2.Shops.Store{}, attrs) do
+      %{valid?: true} = changeset ->
+        changeset
+
+      _ ->
+        rand = :crypto.strong_rand_bytes(3) |> Base.url_encode64(padding: false)
+        attrs = attrs |> Map.put(:slug, "#{slug}_#{rand}")
+
+        Tq2.Shops.Store.changeset(account, %Tq2.Shops.Store{}, attrs)
+    end
   end
 
   defp registration_user_changeset(registration, %{account: %Account{} = account}) do

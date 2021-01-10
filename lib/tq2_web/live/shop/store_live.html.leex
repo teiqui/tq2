@@ -1,0 +1,167 @@
+<div class="row justify-content-center">
+  <div class="col-md-8 px-4 pt-4">
+    <%= if @section == "main" do %>
+      <div class="mb-5 h5">
+        <p class="mb-1">
+          <%= dgettext("stores", "Share your store link!") %>
+        </p>
+
+        <p class="mb-1 font-weight-bold">
+          <%= public_store_link @store %>
+        </p>
+      </div>
+
+      <%= form_for @changeset, "#", [phx_change: "save"], fn f -> %>
+        <%= input f, :published, dgettext("stores", "Published"), label_html: [class: "h5"] %>
+
+        <%= lock_version_input f, @store %>
+      <% end %>
+
+      <div class="list-group list-group-flush h5 mt-5">
+        <%= link_to_section @socket, dgettext("stores", "General information"), to: "general" %>
+        <%= link_to_section @socket, dgettext("stores", "Optional information"), to: "optional" %>
+        <%= link_to_section @socket, dgettext("stores", "Delivery"), to: "delivery" %>
+        <%= link_to_section @socket, dgettext("stores", "Pickup"), to: "pickup" %>
+        <%= link_to_section @socket, dgettext("stores", "Advanced"), to: "advanced" %>
+      </div>
+    <% end %>
+
+    <%= if @section == "general" do %>
+      <%= link_to_main @socket %>
+
+      <div class="mt-5">
+        <%= form_for @changeset, "#", [id: "store-general-form", phx_change: "validate", phx_submit: "save"], fn f -> %>
+          <%= input f, :name, dgettext("stores", "Name"), input_html: [autofocus: true] %>
+
+          <div class="custom-file my-3" phx-drop-target="<%= @uploads.logo.ref %>">
+            <%= live_file_input @uploads.logo, class: logo_input_class(f, :logo, @uploads.logo),
+                                               data_browse: dgettext("files", "Browse") %>
+            <%= content_tag :label, logo_label(@uploads.logo), class: "custom-file-label", for: @uploads.logo.ref %>
+            <%= logo_errors_tag f, :logo, @uploads.logo %>
+          </div>
+
+          <%= if Enum.empty?(@uploads.logo.entries) do %>
+            <div class="my-3">
+              <%= image @socket, @store %>
+            </div>
+          <% else %>
+            <%= for entry <- @uploads.logo.entries do %>
+              <div class="my-3">
+                <%= live_img_preview entry, width: 70, class: "img-fluid img-thumbnail" %>
+
+                <a href="#"
+                   class="btn btn-outline-danger btn-sm border border-danger rounded-pill ml-5"
+                   phx-click="cancel-entry"
+                   phx-value-ref="<%= entry.ref %>">
+                  &times;
+                </a>
+              </div>
+
+              <%= if entry.progress > 0 do %>
+                <div class="progress">
+                  <div class="progress-bar bg-info"
+                       role="progressbar"
+                       style="width: <%= entry.progress %>%"
+                       aria-valuenow="<%= entry.progress %>"
+                       aria-valuemin="0"
+                       aria-valuemax="100">
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+
+          <%= inputs_for f, :data, fn df -> %>
+            <%= input df, :whatsapp, dgettext("stores", "WhatsApp") %>
+          <% end %>
+
+          <%= lock_version_input f, @store %>
+
+          <div class="text-center mt-5 pt-4 mb-3">
+            <%= submit_button() %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= if @section == "optional" do %>
+      <%= link_to_main @socket %>
+
+      <div class="mt-5">
+        <%= form_for @changeset, "#", [phx_submit: "save"], fn f -> %>
+          <%= inputs_for f, :data, fn df -> %>
+            <%= input df, :email, dgettext("stores", "Email"), input_html: [autofocus: true] %>
+          <% end %>
+          <%= input f, :description, dgettext("stores", "Description"), using: :textarea %>
+          <%= inputs_for f, :data, fn df -> %>
+            <%= input df, :facebook, dgettext("stores", "Facebook") %>
+            <%= input df, :instagram, dgettext("stores", "Instagram") %>
+          <% end %>
+
+          <%= lock_version_input f, @store %>
+
+          <div class="text-center mt-5 pt-4 mb-3">
+            <%= submit_button() %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= if @section == "delivery" do %>
+      <%= link_to_main @socket %>
+
+      <div class="mt-5">
+        <%= form_for @changeset, "#", [phx_submit: "save"], fn f -> %>
+          <%= inputs_for f, :configuration, fn cf -> %>
+            <%= input cf, :delivery, dgettext("stores", "Delivery") %>
+            <%= input cf, :pay_on_delivery, dgettext("stores", "Pay on delivery") %>
+            <%= input cf, :delivery_area, dgettext("stores", "Delivery area"), using: :textarea %>
+            <%= input cf, :delivery_time_limit, dgettext("stores", "Delivery time limit") %>
+          <% end %>
+
+          <%= lock_version_input f, @store %>
+
+          <div class="text-center mt-5 pt-4 mb-3">
+            <%= submit_button() %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= if @section == "pickup" do %>
+      <%= link_to_main @socket %>
+
+      <div class="mt-5">
+        <%= form_for @changeset, "#", [phx_submit: "save"], fn f -> %>
+          <%= inputs_for f, :configuration, fn cf -> %>
+            <%= input cf, :pickup, dgettext("stores", "Pickup") %>
+            <%= input cf, :address, dgettext("stores", "Address"), using: :textarea %>
+            <%= input cf, :pickup_time_limit, dgettext("stores", "Pickup time limit") %>
+          <% end %>
+
+          <%= lock_version_input f, @store %>
+
+          <div class="text-center mt-5 pt-4 mb-3">
+            <%= submit_button() %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= if @section == "advanced" do %>
+      <%= link_to_main @socket %>
+
+      <div class="mt-5">
+        <%= form_for @changeset, "#", [phx_submit: "save"], fn f -> %>
+          <%= input f, :slug, dgettext("stores", "Slug"), input_html: [autofocus: true, hint: store_slug_hint()] %>
+
+          <%= lock_version_input f, @store %>
+
+          <div class="text-center mt-5 pt-4 mb-3">
+            <%= submit_button() %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

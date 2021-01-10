@@ -14,7 +14,7 @@
 
     <div class="collapse navbar-collapse" id="menu">
       <ul class="navbar-nav mr-auto">
-        <%= menu_item @conn, to: Routes.store_path(@conn, :show) do %>
+        <%= menu_item @conn, to: Routes.store_path(@conn, :index, "main") do %>
           <%= dgettext("stores", "Store") %>
         <% end %>
         <%= menu_item @conn, to: Routes.order_path(@conn, :index) do %>

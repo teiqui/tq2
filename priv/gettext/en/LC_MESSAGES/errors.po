@@ -104,3 +104,15 @@ msgstr ""
 
 msgid "must be at least one enabled: %{fields}"
 msgstr ""
+
+#: lib/tq2_web/live/shop/store_live.ex:241
+msgid "Too large, maximum is %{size}"
+msgstr ""
+
+#: lib/tq2_web/live/shop/store_live.ex:249
+msgid "You have selected an unacceptable file type"
+msgstr ""
+
+#: lib/tq2_web/live/shop/store_live.ex:245
+msgid "You have selected too many files, maximum is %{count}"
+msgstr ""

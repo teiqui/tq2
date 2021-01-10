@@ -92,6 +92,8 @@ defmodule Tq2Web.Router do
       singleton: true,
       only: [:show, :new, :edit, :create, :update]
 
+    live "/store/edit/:section", Shop.StoreLive, :index
+
     # Apps
     get "/apps/mp_marketplace", Apps.MpMarketplaceController, :show, as: :mp_marketplace
     resources "/apps", AppController, param: "name"

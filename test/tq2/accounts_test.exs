@@ -478,7 +478,44 @@ defmodule Tq2.AccountsTest do
       assert registration.account_id == account.id
       assert account.name == registration.name
       assert store.name == registration.name
+      assert store.slug == Tq2.Shops.Store.slugified(registration.name)
       assert user.email == registration.email
+    end
+
+    test "finish_registration/2 with repeated name creates account, user and store" do
+      {:ok, session: session} = create_session(%{})
+
+      {:ok, _} =
+        Tq2.Shops.create_store(
+          session,
+          %{
+            name: @update_attrs.name,
+            description: @update_attrs.name,
+            published: true,
+            slug: Tq2.Shops.Store.slugified(@update_attrs.name),
+            data: %{},
+            location: %{},
+            configuration: %{
+              pickup: true,
+              pickup_time_limit: "-"
+            }
+          }
+        )
+
+      registration = registration_fixture()
+
+      assert {:ok, %{account: account, user: user, registration: registration, store: store}} =
+               Accounts.finish_registration(registration, @finish_attrs)
+
+      assert %Registration{} = registration
+      assert registration.name == @finish_attrs["name"]
+      assert registration.type == @finish_attrs["type"]
+      assert registration.email == @finish_attrs["email"]
+      assert registration.account_id == account.id
+      assert account.name == registration.name
+      assert user.email == registration.email
+      assert store.name == registration.name
+      refute store.slug == Tq2.Shops.Store.slugified(@update_attrs.name)
     end
 
     test "finish_registration/2 with invalid data returns error changeset" do

@@ -36,7 +36,7 @@ msgstr "Cliente"
 
 #: lib/tq2_web/views/order_view.ex:20
 msgid "Delivery"
-msgstr "Entrega"
+msgstr "Envío a domicilio"
 
 #: lib/tq2_web/templates/order/index.html.eex:12
 #: lib/tq2_web/templates/order/show.html.eex:15
