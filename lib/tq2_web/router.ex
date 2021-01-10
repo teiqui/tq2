@@ -88,10 +88,6 @@ defmodule Tq2Web.Router do
     live "/import", Inventory.ImportLive, :index
 
     # Shops
-    resources "/store", StoreController,
-      singleton: true,
-      only: [:show, :new, :edit, :create, :update]
-
     live "/store/edit/:section", Shop.StoreLive, :index
 
     # Apps
