@@ -32,7 +32,7 @@
         <%= menu_item @conn, to: Routes.app_path(@conn, :index) do %>
           <%= dgettext("apps", "Apps") %>
         <% end %>
-        <%= menu_item @conn, to: Routes.license_path(@conn, :show) do %>
+        <%= menu_item @conn, to: Routes.license_path(@conn, :index) do %>
           <%= dgettext("licenses", "Licenses") %>
         <% end %>
         <%= if @user.role == "admin" do %>

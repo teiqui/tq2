@@ -12,24 +12,24 @@ msgstr ""
 
 #: lib/tq2_web/templates/email/expired_promotion.html.eex:11
 #: lib/tq2_web/templates/email/order_confirmation.html.eex:12 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:10
-#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:12 lib/tq2_web/templates/order/show.html.eex:33
+#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:12 lib/tq2_web/templates/order/show.html.eex:37
 msgid "Name"
 msgstr ""
 
 #: lib/tq2_web/templates/email/expired_promotion.html.eex:13
 #: lib/tq2_web/templates/email/order_confirmation.html.eex:14 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:12
-#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:14 lib/tq2_web/templates/order/show.html.eex:35
+#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:14 lib/tq2_web/templates/order/show.html.eex:39
 msgid "Price"
 msgstr ""
 
 #: lib/tq2_web/templates/email/expired_promotion.html.eex:12
 #: lib/tq2_web/templates/email/order_confirmation.html.eex:13 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:11
-#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:13 lib/tq2_web/templates/order/show.html.eex:34
+#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:13 lib/tq2_web/templates/order/show.html.eex:38
 msgid "Quantity"
 msgstr ""
 
 #: lib/tq2_web/templates/email/expired_promotion.html.eex:14
 #: lib/tq2_web/templates/email/order_confirmation.html.eex:15 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:13
-#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:15 lib/tq2_web/templates/order/show.html.eex:36
+#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:15 lib/tq2_web/templates/order/show.html.eex:40
 msgid "Total"
 msgstr ""

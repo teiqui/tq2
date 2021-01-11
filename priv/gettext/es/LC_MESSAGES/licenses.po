@@ -11,37 +11,36 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/templates/license/show.html.eex:8
-#: lib/tq2_web/templates/license/show.html.eex:26
+#: lib/tq2_web/live/account/license_live.html.leex:8
 msgid "Status"
 msgstr "Estado"
 
-#: lib/tq2_web/views/license_view.ex:7
+#: lib/tq2_web/live/account/license_live.ex:10
 msgid "Active"
 msgstr "Activo"
 
-#: lib/tq2_web/views/license_view.ex:10 lib/tq2_web/views/license_view.ex:16
+#: lib/tq2_web/live/account/license_live.ex:13
 msgid "Cancelled"
 msgstr "Cancelado"
 
-#: lib/tq2_web/views/license_view.ex:9
+#: lib/tq2_web/live/account/license_live.ex:12
 msgid "Locked"
 msgstr "Bloqueado"
 
-#: lib/tq2_web/views/license_view.ex:6
+#: lib/tq2_web/live/account/license_live.ex:9
 msgid "Trial"
 msgstr "Prueba"
 
-#: lib/tq2_web/views/license_view.ex:8
+#: lib/tq2_web/live/account/license_live.ex:11
 msgid "Unpaid"
 msgstr "Impago"
 
+#: lib/tq2_web/live/account/license_live.html.leex:2
 #: lib/tq2_web/templates/layout/_menu.html.eex:36
-#: lib/tq2_web/templates/license/show.html.eex:2
 msgid "Licenses"
 msgstr "Licencia"
 
-#: lib/tq2_web/templates/license/show.html.eex:12
+#: lib/tq2_web/live/account/license_live.html.leex:12
 msgid "Paid until"
 msgstr "Pagado hasta"
 
@@ -53,7 +52,7 @@ msgstr "Licencia actualizada"
 msgid "Nothing to update"
 msgstr "Nada para actualizar"
 
-#: lib/tq2/gateways/mercado_pago.ex:45 lib/tq2/gateways/mercado_pago.ex:46
+#: lib/tq2/gateways/mercado_pago.ex:44 lib/tq2/gateways/mercado_pago.ex:45
 msgid "Monthly pay"
 msgstr "Pago mensual"
 
