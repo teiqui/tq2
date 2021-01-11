@@ -32,7 +32,7 @@
               <div class="d-flex">
                 <div class="flex-fill">
                   <p class="mb-0 small">
-                    <%= dgettext("stores", "%{name} is shopping", name: order.customer.name) %>
+                    <%= dgettext("stores", "%{name} is shopping", name: initials(order.customer)) %>
                   </p>
 
                   <p class="mb-0 small">

@@ -52,7 +52,7 @@ defmodule Tq2Web.Store.TeamLive do
     end
   end
 
-  def avatar(%Tq2.Sales.Customer{name: name}) do
+  defp avatar(%Tq2.Sales.Customer{name: name}) do
     initial =
       name
       |> String.replace(~r/\W+/, "")
@@ -76,13 +76,23 @@ defmodule Tq2Web.Store.TeamLive do
                 y="50%"
                 text-anchor="middle"
                 alignment-baseline="middle"
+                dominant-baseline="middle"
                 fill="#838383"
-                dy=".4em">
+                dy=".1em">
             <%= initial || "T" %>
           </text>
         </g>
       </svg>
     """
+  end
+
+  defp initials(%Tq2.Sales.Customer{name: name}) do
+    name
+    |> String.upcase()
+    |> String.split(~r/\s+/)
+    |> Enum.map(fn part -> String.replace(part, ~r/\W+/, "") end)
+    |> Enum.map(&String.first/1)
+    |> Enum.join()
   end
 
   defp time_to_expire(%Tq2.Sales.Order{promotion_expires_at: promotion_expires_at}) do
