@@ -24,11 +24,14 @@ defmodule Tq2.Fixtures do
   end
 
   def default_account do
-    Account
-    |> where(name: "test_account")
-    |> join(:left, [a], l in assoc(a, :license))
-    |> preload([a, l], license: l)
-    |> Tq2.Repo.one()
+    account =
+      Account
+      |> where(name: "test_account")
+      |> join(:left, [a], l in assoc(a, :license))
+      |> preload([a, l], license: l)
+      |> Tq2.Repo.one()
+
+    %{account | license: %{account.license | account: account}}
   end
 
   def default_account(_) do

@@ -248,7 +248,7 @@ msgstr ""
 msgid "Teiqui price"
 msgstr ""
 
-#: lib/tq2/accounts.ex:553
+#: lib/tq2/accounts.ex:577
 msgid "No limit"
 msgstr ""
 
