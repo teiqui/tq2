@@ -74,8 +74,3 @@ msgstr ""
 #: lib/tq2_web/views/license_view.ex:15
 msgid "Pending"
 msgstr ""
-
-#, elixir-format
-#: lib/tq2_web/live/account/license_live.ex:13
-msgid "Canceled"
-msgstr ""
