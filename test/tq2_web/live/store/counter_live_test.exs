@@ -124,14 +124,14 @@ defmodule Tq2Web.Store.CounterLiveTest do
 
       img =
         store_live
-        |> element("#categories #category_#{with_image.category_id}")
+        |> element("#categories #category-#{with_image.category_id}")
         |> render()
 
       assert img =~ "<img"
 
       img =
         store_live
-        |> element("#categories #category_#{without_image.category_id}")
+        |> element("#categories #category-#{without_image.category_id}")
         |> render()
 
       assert img =~ "<svg"

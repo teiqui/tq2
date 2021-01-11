@@ -11,7 +11,7 @@ defmodule Tq2Web.Store.CategoryComponent do
 
   defp image(%Item{image: nil}, category) do
     ~E"""
-      <svg class="card-img-top embed-responsive-item"
+      <svg class="img-fluid rounded"
            viewBox="0 0 150 150"
            width="150"
            height="150"
@@ -44,7 +44,7 @@ defmodule Tq2Web.Store.CategoryComponent do
       height: "150",
       loading: "lazy",
       alt: category.name,
-      class: "card-img-top embed-responsive-item"
+      class: "img-fluid rounded"
     )
   end
 end
