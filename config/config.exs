@@ -99,6 +99,12 @@ config :geolix,
     }
   ]
 
+config :stripity_stripe,
+  api_key: System.get_env("STRIPE_API_KEY", "sk_test_JkGZbIzWxolyMtj5n4h1JcVh00X9Zh3pfI"),
+  public_key: System.get_env("STRIPE_PUBLIC_KEY", "pk_test_jkiVt4SNZbMJbZFjaQgTvAl00007xYdocb"),
+  hackney_opts: [{:connect_timeout, 2000}, {:recv_timeout, 10000}],
+  retries: [max_attempts: 3, base_backoff: 500, max_backoff: 2_000]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

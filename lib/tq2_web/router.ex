@@ -104,6 +104,7 @@ defmodule Tq2Web.Router do
     pipe_through :api
 
     post "/webhooks/mercado_pago", WebhookController, :mercado_pago
+    post "/webhooks/stripe", WebhookController, :stripe
   end
 
   if Application.get_env(:tq2, :env) == :dev do

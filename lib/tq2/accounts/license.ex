@@ -22,7 +22,7 @@ defmodule Tq2.Accounts.License do
 
   @cast_attrs [:status, :customer_id, :subscription_id, :paid_until, :lock_version]
 
-  @statuses ~w(trial active unpaid locked cancelled)
+  @statuses ~w(trial active unpaid locked canceled)
 
   @prices %{
     "ar" => 499.0,

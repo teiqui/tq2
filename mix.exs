@@ -21,7 +21,7 @@ defmodule Tq2.MixProject do
   def application do
     [
       mod: {Tq2.Application, []},
-      extra_applications: [:logger, :runtime_tools, :elixir_google_spreadsheets]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
@@ -70,7 +70,8 @@ defmodule Tq2.MixProject do
       {:poison, "~> 3.1"},
       {:elixir_google_spreadsheets, ">= 0.1.17"},
       {:csv, ">= 2.4.1"},
-      {:geolix_adapter_mmdb2, ">= 0.6.0"}
+      {:geolix_adapter_mmdb2, ">= 0.6.0"},
+      {:stripity_stripe, ">= 2.9.0"}
     ]
   end
 

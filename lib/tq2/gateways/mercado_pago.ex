@@ -233,7 +233,7 @@ defmodule Tq2.Gateways.MercadoPago do
   defp parse_payment_status(status) do
     case status do
       s when s in ["approved", "in_process", "authorized"] -> "paid"
-      s when s in ["rejected", "charged_back", "cancelled", "refunded"] -> "cancelled"
+      s when s in ["rejected", "charged_back", "cancelled", "refunded"] -> "canceled"
       _ -> "pending"
     end
   end

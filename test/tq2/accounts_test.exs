@@ -191,6 +191,8 @@ defmodule Tq2.AccountsTest do
 
     test "get_owner/1 returns the owner user of the account", %{session: session} do
       user = user_fixture(session)
+      user_fixture(session, %{email: "other_user@sample.com"})
+
       assert Accounts.get_owner(session.account).id == user.id
     end
 
@@ -351,19 +353,41 @@ defmodule Tq2.AccountsTest do
         |> License.changeset(attrs)
         |> Repo.update()
 
-      license
+      %{license | account: session.account}
     end
 
-    test "get_license!/2 returns the license with given id", %{session: session} do
+    test "get_license!/1 returns the license with given account", %{session: session} do
       license = fixture(session, :license)
 
       assert Accounts.get_license!(session.account) == license
+    end
+
+    test "get_license!/1 returns the license with customer_id value", %{session: session} do
+      license = fixture(session, :license, %{customer_id: "cus_123"})
+
+      assert Accounts.get_license!(customer_id: "cus_123").id == license.id
+    end
+
+    test "get_license!/1 returns the license with subscription_id value", %{session: session} do
+      license = fixture(session, :license, %{subscription_id: "sub_123"})
+
+      assert Accounts.get_license!(subscription_id: "sub_123").id == license.id
     end
 
     test "update_license/3 with valid data updates the license", %{session: session} do
       license = fixture(session, :license)
 
       assert {:ok, license} = Accounts.update_license(session, license, @update_attrs)
+      assert %License{} = license
+      assert license.status == @update_attrs.status
+      assert license.customer_id == @update_attrs.customer_id
+      assert license.subscription_id == @update_attrs.subscription_id
+    end
+
+    test "update_license/2 with valid data updates the license", %{session: session} do
+      license = fixture(session, :license)
+
+      assert {:ok, license} = Accounts.update_license(license, @update_attrs)
       assert %License{} = license
       assert license.status == @update_attrs.status
       assert license.customer_id == @update_attrs.customer_id

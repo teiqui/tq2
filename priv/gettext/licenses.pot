@@ -19,7 +19,7 @@ msgid "Active"
 msgstr ""
 
 #: lib/tq2_web/live/account/license_live.ex:13
-msgid "Cancelled"
+msgid "Canceled"
 msgstr ""
 
 #: lib/tq2_web/live/account/license_live.ex:12

@@ -170,16 +170,13 @@ defmodule Tq2.Accounts do
 
   """
   def get_owner(%Account{} = account) do
-    query =
-      from(
-        u in User,
-        join: m in assoc(u, :memberships),
-        where: m.account_id == ^account.id,
-        order_by: :id
-      )
-
-    query
-    |> first()
+    from(
+      u in User,
+      join: m in assoc(u, :memberships),
+      where: m.account_id == ^account.id and m.owner == true,
+      order_by: :id,
+      limit: 1
+    )
     |> Repo.one()
   end
 
@@ -361,12 +358,27 @@ defmodule Tq2.Accounts do
       iex> get_license!(%Account{id: 1})
       %License{}
 
+      iex> get_license!(%{customer_id: "cus_xxxx"})
+      %License{}
+
       iex> get_license!(%Account{id: 2})
+      ** (Ecto.NoResultsError)
+
+      iex> get_license!(%{customer_id: "unknown"})
       ** (Ecto.NoResultsError)
 
   """
   def get_license!(%Account{} = account) do
-    Repo.get_by!(License, account_id: account.id)
+    License
+    |> Repo.get_by!(account_id: account.id)
+    |> Map.put(:account, account)
+  end
+
+  def get_license!([{field, value}]) when field in [:customer_id, :subscription_id] do
+    License
+    |> join(:left, [l], a in assoc(l, :account))
+    |> preload([l, a], account: a)
+    |> Repo.get_by!(%{field => value})
   end
 
   @doc """
@@ -377,7 +389,13 @@ defmodule Tq2.Accounts do
       iex> update_license(%Session{}, license, %{field: new_value})
       {:ok, %License{}}
 
+      iex> update_license(license, %{field: new_value})
+      {:ok, %License{}}
+
       iex> update_license(%Session{}, license, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+      iex> update_license(license, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
@@ -385,6 +403,12 @@ defmodule Tq2.Accounts do
     license
     |> License.changeset(attrs)
     |> Trail.update(originator: user, meta: %{account_id: account.id})
+  end
+
+  def update_license(%License{account: account} = license, attrs) do
+    license
+    |> License.changeset(attrs)
+    |> Trail.update(meta: %{account_id: account.id})
   end
 
   @doc """
