@@ -15,8 +15,16 @@ defmodule Tq2Web.PageViewTest do
   end
 
   test "renders index.html", %{conn: conn} do
-    content = render_to_string(PageView, "index.html", conn: conn)
+    content = render_to_string(PageView, "index.html", conn: conn, country: nil)
 
     assert String.contains?(content, "Teiqui price")
+    assert String.contains?(content, "USD $3.99")
+  end
+
+  test "renders index.html for country", %{conn: conn} do
+    content = render_to_string(PageView, "index.html", conn: conn, country: "ar")
+
+    assert String.contains?(content, "Teiqui price")
+    assert String.contains?(content, "ARS $499.0")
   end
 end

@@ -1,6 +1,8 @@
 defmodule Tq2Web.PageView do
   use Tq2Web, :view
 
+  alias Tq2.Accounts.License
+
   defp app_uri do
     scheme = if Tq2Web.Endpoint.config(:https), do: "https", else: "http"
     url_config = Tq2Web.Endpoint.config(:url)
@@ -38,4 +40,22 @@ defmodule Tq2Web.PageView do
       alt: dgettext("page", "App")
     )
   end
+
+  defp localized_monthly_price(country) do
+    price = License.price_for(country)
+
+    "#{price.currency} #{Money.to_string(price, symbol: true)}"
+  end
+
+  defp localized_yearly_price(country) do
+    price = License.price_for(country, :yearly)
+
+    "#{price.currency} #{Money.to_string(price, symbol: true)}"
+  end
+
+  defp localized_taxes_text("ar") do
+    content_tag(:small, dgettext("page", "+ applicable taxes"), class: "text-info")
+  end
+
+  defp localized_taxes_text(_), do: content_tag(:small, raw("&nbsp;"))
 end

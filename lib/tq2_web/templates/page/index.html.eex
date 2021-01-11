@@ -210,9 +210,10 @@
             <%= dgettext("page", "Test it 14 days") %>
           </h5>
 
+          <p class="py-1 mb-0">&nbsp;</p>
           <p>&nbsp;</p>
 
-          <ul class="list-unstyled font-weight-semi-bold mb-5">
+          <ul class="list-unstyled font-weight-semi-bold mb-3 mt-n3">
             <li><%= dgettext("page", "Online store") %></li>
             <li><%= dgettext("page", "Teiqui price") %></li>
             <li><%= dgettext("page", "Offer many payment methods") %></li>
@@ -230,19 +231,22 @@
             <%= dgettext("page", "Monthly") %>
           </h4>
 
-          <h5 class="h4 text-info font-weight-bold mb-1">
-            <%= dgettext("page", "ARS $499") %>
+          <h5 class="h4 text-info font-weight-bold mb-n1">
+            <%= localized_monthly_price(@country) %>
           </h5>
 
+          <p class="py-1 mb-2">
+            <%= localized_taxes_text(@country) %>
+          </p>
           <p>&nbsp;</p>
 
-          <ul class="list-unstyled font-weight-semi-bold mb-5">
+          <ul class="list-unstyled font-weight-semi-bold mb-3 mt-n3">
             <li><%= dgettext("page", "Online store") %></li>
             <li><%= dgettext("page", "Teiqui price") %></li>
             <li><%= dgettext("page", "Offer many payment methods") %></li>
             <li><%= dgettext("page", "No commision") %></li>
             <li><%= dgettext("page", "No order limits") %></li>
-            <li><%= dgettext("page", "Tax included") %></li>
+            <li class="d-none d-md-table-cell">&nbsp;</li>
           </ul>
 
           <%= link dgettext("page", "Sign up"), to: Routes.registration_url(app_uri(), :index),
@@ -255,20 +259,21 @@
           </h4>
 
           <h5 class="h4 text-info font-weight-bold mb-1">
-            <%= dgettext("page", "ARS $4990") %>
+            <%= localized_yearly_price(@country) %>
           </h5>
 
-          <p class="text-info">
-            (<%= dgettext("page", "2 months savings") %>)
+          <p class="text-info py-2 mt-n2">
+            (<%= dgettext("page", "2 months savings") %>)<br>
+            <%= localized_taxes_text(@country) %>
           </p>
 
-          <ul class="list-unstyled font-weight-semi-bold mb-5">
+          <ul class="list-unstyled font-weight-semi-bold mb-3 mt-n3">
             <li><%= dgettext("page", "Online store") %></li>
             <li><%= dgettext("page", "Teiqui price") %></li>
             <li><%= dgettext("page", "Offer many payment methods") %></li>
             <li><%= dgettext("page", "No commision") %></li>
             <li><%= dgettext("page", "No order limits") %></li>
-            <li><%= dgettext("page", "Tax included") %></li>
+            <li class="d-none d-md-table-cell">&nbsp;</li>
           </ul>
 
           <%= link dgettext("page", "Sign up"), to: Routes.registration_url(app_uri(), :index),
