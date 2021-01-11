@@ -15,12 +15,11 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-#: lib/tq2_web/controllers/app_controller.ex:76
+#: lib/tq2_web/controllers/app_controller.ex:70
 msgid "App deleted successfully."
 msgstr ""
 
-#: lib/tq2_web/controllers/app_controller.ex:40
-#: lib/tq2_web/controllers/app_controller.ex:86
+#: lib/tq2_web/controllers/app_controller.ex:80
 msgid "App updated successfully."
 msgstr ""
 
@@ -37,12 +36,12 @@ msgstr ""
 msgid "Link account"
 msgstr ""
 
-#: lib/tq2_web/templates/app/edit_mercado_pago.html.eex:33
-#: lib/tq2_web/templates/app/edit_wire_transfer.html.eex:14 lib/tq2_web/templates/app/new_wire_transfer.html.eex:14
+#: lib/tq2_web/templates/app/edit.html.eex:16
+#: lib/tq2_web/templates/app/new.html.eex:16
 msgid "Back"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:90
+#: lib/tq2_web/views/app_view.ex:81
 msgid "Commissions"
 msgstr ""
 
@@ -58,12 +57,12 @@ msgstr ""
 msgid "Edit app"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:98
+#: lib/tq2_web/views/app_view.ex:89
 msgid "Install"
 msgstr ""
 
+#: lib/tq2_web/templates/app/_form_mercado_pago.html.eex:4
 #: lib/tq2_web/templates/app/_form_wire_transfer.html.eex:4
-#: lib/tq2_web/templates/app/edit_mercado_pago.html.eex:12
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
 
@@ -71,12 +70,12 @@ msgstr ""
 msgid "Paused"
 msgstr ""
 
+#: lib/tq2_web/templates/app/_form_mercado_pago.html.eex:8
 #: lib/tq2_web/templates/app/_form_wire_transfer.html.eex:8
-#: lib/tq2_web/templates/app/edit_mercado_pago.html.eex:21
 msgid "Status"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:119
+#: lib/tq2_web/views/app_view.ex:110
 msgid "Update"
 msgstr ""
 
@@ -89,12 +88,11 @@ msgid "Account number"
 msgstr ""
 
 #: lib/tq2_web/templates/app/_wire_transfer.html.eex:6
-#: lib/tq2_web/templates/app/edit_wire_transfer.html.eex:4 lib/tq2_web/templates/app/new_wire_transfer.html.eex:4
-#: lib/tq2_web/views/app_view.ex:139
+#: lib/tq2_web/views/app_view.ex:130
 msgid "Wire transfer"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:112
+#: lib/tq2_web/views/app_view.ex:103
 msgid "Create"
 msgstr ""
 
@@ -103,6 +101,10 @@ msgid "Description"
 msgstr ""
 
 #: lib/tq2_web/templates/app/_mercado_pago.html.eex:6
-#: lib/tq2_web/views/app_view.ex:135
+#: lib/tq2_web/views/app_view.ex:126
 msgid "MercadoPago"
+msgstr ""
+
+#: lib/tq2_web/controllers/app_controller.ex:100
+msgid "App created successfully."
 msgstr ""

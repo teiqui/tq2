@@ -67,14 +67,6 @@ config :sentry,
 # Money config
 config :money, symbol: false
 
-# MercadoPago Credentials
-config :tq2, :mp,
-  ars_token: System.get_env("MP_ARS_TOKEN", ""),
-  clp_token: System.get_env("MP_CLP_TOKEN", ""),
-  cop_token: System.get_env("MP_COP_TOKEN", ""),
-  mxn_token: System.get_env("MP_MXN_TOKEN", ""),
-  pen_token: System.get_env("MP_PEN_TOKEN", "")
-
 # Exq config
 config :exq,
   url: System.get_env("REDIS_URL", "redis://localhost:6379"),

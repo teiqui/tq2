@@ -2,9 +2,13 @@ defmodule Tq2Web.AppController do
   use Tq2Web, :controller
 
   alias Tq2.Apps
-  alias Tq2.Apps.WireTransfer
+  alias Tq2.Apps.{MercadoPago, WireTransfer}
 
   @app_names ~w(mercado_pago wire_transfer)
+  @app_structs %{
+    "mercado_pago" => %MercadoPago{},
+    "wire_transfer" => %WireTransfer{}
+  }
 
   plug :authenticate
 
@@ -18,43 +22,33 @@ defmodule Tq2Web.AppController do
     render(conn, "index.html", apps: apps, account: session.account)
   end
 
-  def new(conn, %{"name" => "mercado_pago"}, session) do
-    render(conn, "new_mercado_pago.html", account: session.account)
-  end
+  def new(conn, %{"name" => app_name}, session) when app_name in @app_names do
+    changeset = Apps.change_app(session.account, @app_structs[app_name])
 
-  def new(conn, %{"name" => "wire_transfer"}, session) do
-    changeset = Apps.change_app(session.account, %WireTransfer{})
-
-    render(conn, "new_wire_transfer.html",
+    render(conn, "new.html",
+      account: session.account,
       changeset: changeset,
-      action: Routes.app_path(conn, :create, %{name: "wire_transfer"})
+      app_name: app_name,
+      action: Routes.app_path(conn, :create, %{name: app_name})
     )
   end
 
+  def create(conn, %{"mercado_pago" => app_params}, session) do
+    conn |> create_app("mercado_pago", app_params, session)
+  end
+
   def create(conn, %{"wire_transfer" => app_params}, session) do
-    app_params = app_params |> Map.put("name", "wire_transfer")
-
-    case Apps.create_app(session, app_params) do
-      {:ok, _} ->
-        conn
-        |> put_flash(:info, dgettext("apps", "App updated successfully."))
-        |> redirect(to: Routes.app_path(conn, :index))
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new_wire_transfer.html",
-          changeset: changeset,
-          action: Routes.app_path(conn, :create, %{name: "wire_transfer"})
-        )
-    end
+    conn |> create_app("wire_transfer", app_params, session)
   end
 
   def edit(conn, %{"name" => app_name}, session) when app_name in @app_names do
     app = Apps.get_app(session.account, app_name)
     changeset = Apps.change_app(session.account, app)
 
-    render(conn, "edit_#{app_name}.html",
+    render(conn, "edit.html",
       account: session.account,
       app: app,
+      app_name: app_name,
       changeset: changeset,
       action: Routes.app_path(conn, :update, app)
     )
@@ -87,11 +81,31 @@ defmodule Tq2Web.AppController do
         |> redirect(to: Routes.app_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit_#{app_name}.html",
+        render(conn, "edit.html",
           account: session.account,
           app: app,
+          app_name: app_name,
           changeset: changeset,
           action: Routes.app_path(conn, :update, app)
+        )
+    end
+  end
+
+  defp create_app(conn, app_name, app_params, session) do
+    app_params = app_params |> Map.put("name", app_name)
+
+    case Apps.create_app(session, app_params) do
+      {:ok, _} ->
+        conn
+        |> put_flash(:info, dgettext("apps", "App created successfully."))
+        |> redirect(to: Routes.app_path(conn, :index))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "new.html",
+          account: session.account,
+          changeset: changeset,
+          app_name: app_name,
+          action: Routes.app_path(conn, :create, %{name: app_name})
         )
     end
   end

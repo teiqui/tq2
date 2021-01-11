@@ -1,10 +1,10 @@
 defmodule Tq2Web.AppControllerTest do
-  use Tq2Web.ConnCase, async: true
+  use Tq2Web.ConnCase
   use Tq2.Support.LoginHelper
 
-  import Tq2.Fixtures, only: [default_account: 0]
+  import Tq2.Fixtures, only: [default_account: 0, app_mercado_pago_fixture: 1]
+  import Tq2.Support.MercadoPagoHelper, only: [mock_check_credentials: 1]
 
-  alias Tq2.Apps.MercadoPago, as: MPApp
   alias Tq2.Apps.WireTransfer, as: WTApp
 
   describe "unauthorized access" do
@@ -43,12 +43,25 @@ defmodule Tq2Web.AppControllerTest do
       conn = get(conn, Routes.app_path(conn, :new, %{"name" => "mercado_pago"}))
       response = html_response(conn, 200)
 
-      assert response =~ "Link account"
+      assert response =~ "Create"
+    end
+
+    @tag login_as: "test@user.com"
+    test "redirect to index after create", %{conn: conn} do
+      mock_check_credentials do
+        conn =
+          post conn, Routes.app_path(conn, :create),
+            mercado_pago: %{status: "active", data: %{access_token: "TEST-123-asd-123"}}
+
+        assert html_response(conn, 302)
+        assert redirected_to(conn) == Routes.app_path(conn, :index)
+        assert get_flash(conn, :info) =~ "App created successfully"
+      end
     end
   end
 
   describe "mercado pago with app" do
-    setup [:mercado_pago_fixture]
+    setup [:app_mercado_pago_fixture]
 
     @tag login_as: "test@user.com"
     test "lists with apps", %{conn: conn, app: _app} do
@@ -85,8 +98,8 @@ defmodule Tq2Web.AppControllerTest do
 
       response = html_response(conn, 200)
 
-      assert response =~ "Invalid MercadoPago token"
       assert response =~ "is invalid"
+      assert response =~ "can&#39;t be blank"
     end
 
     @tag login_as: "test@user.com"
@@ -114,6 +127,20 @@ defmodule Tq2Web.AppControllerTest do
       response = html_response(conn, 200)
 
       assert response =~ "Create"
+    end
+
+    @tag login_as: "test@user.com"
+    test "redirect to index after create", %{conn: conn} do
+      conn =
+        post conn, Routes.app_path(conn, :create),
+          wire_transfer: %{
+            status: "active",
+            data: %{description: "Pay me", account_number: "123"}
+          }
+
+      assert html_response(conn, 302)
+      assert redirected_to(conn) == Routes.app_path(conn, :index)
+      assert get_flash(conn, :info) =~ "App created successfully"
     end
   end
 
@@ -159,7 +186,6 @@ defmodule Tq2Web.AppControllerTest do
       response = html_response(conn, 200)
 
       assert response =~ "is invalid"
-      assert response =~ "can&#39;t be blank"
     end
 
     @tag login_as: "test@user.com"
@@ -168,20 +194,6 @@ defmodule Tq2Web.AppControllerTest do
 
       assert redirected_to(conn) == Routes.app_path(conn, :index)
     end
-  end
-
-  defp mercado_pago_fixture(_) do
-    attrs = %{
-      status: "active",
-      data: %{"access_token" => 123}
-    }
-
-    {:ok, app} =
-      default_account()
-      |> MPApp.changeset(%MPApp{}, attrs)
-      |> Tq2.Repo.insert()
-
-    %{app: app}
   end
 
   defp wire_transfer_fixture(_) do

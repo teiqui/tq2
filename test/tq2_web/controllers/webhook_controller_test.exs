@@ -8,7 +8,8 @@ defmodule Tq2Web.WebhookControllerTest do
 
       assert Exq.Mock.jobs() == []
 
-      conn = post(conn, Routes.mp_webhook_path(conn, :mercado_pago, %{user_id: 123}))
+      conn =
+        post(conn, Routes.webhook_path(conn, :mercado_pago, %{user_id: 123, type: "payment"}))
 
       json_response(conn, 200)
 

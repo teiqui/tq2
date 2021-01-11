@@ -1,28 +1,30 @@
 defmodule Tq2.AppsTest do
   use Tq2.DataCase
 
+  import Tq2.Fixtures, only: [app_mercado_pago_fixture: 0, create_session: 1]
+  import Tq2.Support.MercadoPagoHelper, only: [mock_check_credentials: 1]
+
   alias Tq2.Apps
   alias Tq2.Apps.MercadoPago
-  alias Tq2.Accounts.{Account, Session}
 
   @mp_valid_attrs %{
-    name: "mercado_pago",
-    data: %{"access_token" => "123-asd"},
-    status: "active"
+    "name" => "mercado_pago",
+    "data" => %{"access_token" => "TEST-123-asd-123"},
+    "status" => "active"
   }
   @mp_invalid_attrs %{
-    name: "mercado_pago",
-    data: %{"access_token" => nil},
-    status: "unknown"
+    "name" => "mercado_pago",
+    "data" => %{"access_token" => nil},
+    "status" => "unknown"
   }
 
   describe "apps" do
     setup [:create_session]
 
-    test "list_apps/2 returns all apps", %{session: session} do
-      app = fixture_mercado_pago(session)
+    test "list_apps/2 returns all apps", %{session: %{account: account}} do
+      %{app: app} = app_mercado_pago_fixture()
 
-      assert Enum.map(Apps.list_apps(session.account), & &1.id) == [app.id]
+      assert Enum.map(Apps.list_apps(account), & &1.id) == [app.id]
     end
   end
 
@@ -30,34 +32,37 @@ defmodule Tq2.AppsTest do
     setup [:create_session]
 
     test "create_app/2 with valid data creates a mercado_pago app", %{session: session} do
-      assert {:ok, %MercadoPago{} = app} = Apps.create_app(session, @mp_valid_attrs)
-      assert app.name == "mercado_pago"
-      assert app.data == @mp_valid_attrs.data
-      assert app.status == @mp_valid_attrs.status
+      mock_check_credentials do
+        assert {:ok, %MercadoPago{} = app} = Apps.create_app(session, @mp_valid_attrs)
+        assert app.name == "mercado_pago"
+        assert app.status == @mp_valid_attrs["status"]
+        assert app.data.access_token == @mp_valid_attrs["data"]["access_token"]
+      end
     end
 
     test "create_app/2 with invalid data returns error changeset", %{session: session} do
       assert {:error, %Ecto.Changeset{}} = Apps.create_app(session, @mp_invalid_attrs)
     end
 
-    test "get_app/1 returns MercadoPagoApp", %{session: session} do
-      app = fixture_mercado_pago(session)
+    test "get_app/1 returns MercadoPagoApp", %{session: %{account: account}} do
+      %{app: app} = app_mercado_pago_fixture()
 
-      assert app == Apps.get_app(session.account, "mercado_pago")
+      assert app == Apps.get_app(account, "mercado_pago")
     end
 
     test "update_app/3 with valid data updates the app", %{session: session} do
-      app = fixture_mercado_pago(session)
+      %{app: app} = app_mercado_pago_fixture()
 
-      update_attrs = %{status: "paused", data: %{random_key: "value"}}
+      update_attrs = %{status: "paused", data: Map.from_struct(app.data)}
 
       assert {:ok, %MercadoPago{} = app} = Apps.update_app(session, app, update_attrs)
-      assert app.data == update_attrs.data
       assert app.status == update_attrs.status
+      assert app.data.access_token
+      assert app.data.user_id
     end
 
     test "update_app/3 with invalid data returns error changeset", %{session: session} do
-      app = fixture_mercado_pago(session)
+      %{app: app} = app_mercado_pago_fixture()
 
       assert {:error, %Ecto.Changeset{}} = Apps.update_app(session, app, @mp_invalid_attrs)
 
@@ -65,33 +70,16 @@ defmodule Tq2.AppsTest do
     end
 
     test "delete_app/2 deletes the app", %{session: session} do
-      app = fixture_mercado_pago(session)
+      %{app: app} = app_mercado_pago_fixture()
 
       assert {:ok, %MercadoPago{}} = Apps.delete_app(session, app)
       refute Apps.get_app(session.account, "mercado_pago")
     end
 
-    test "change_app/2 returns a MercadoPago changeset", %{session: session} do
-      app = fixture_mercado_pago(session)
+    test "change_app/2 returns a MercadoPago changeset", %{session: %{account: account}} do
+      %{app: app} = app_mercado_pago_fixture()
 
-      assert %Ecto.Changeset{} = Apps.change_app(session.account, app)
+      assert %Ecto.Changeset{} = Apps.change_app(account, app)
     end
-  end
-
-  defp default_account do
-    Account
-    |> where(name: "test_account")
-    |> Tq2.Repo.one()
-  end
-
-  defp create_session(_) do
-    {:ok, session: %Session{account: default_account()}}
-  end
-
-  defp fixture_mercado_pago(session, attrs \\ %{}) do
-    app_attrs = Enum.into(attrs, @mp_valid_attrs)
-    {:ok, app} = Apps.create_app(session, app_attrs)
-
-    app
   end
 end

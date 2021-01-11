@@ -2,7 +2,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
   use Tq2.DataCase
 
   import Mock
-  import Tq2.Fixtures, only: [create_session: 0]
+  import Tq2.Fixtures, only: [create_session: 0, app_mercado_pago_fixture: 0]
 
   alias Tq2.Gateways.MercadoPago
   alias Tq2.Gateways.MercadoPago.Credential
@@ -17,7 +17,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
       status: "approved",
       currency_id: "ARS"
     }
-    @credential Credential.for_currency("ARS")
+    @credential %Credential{token: "123-asd-123"}
 
     test "min_amount_for/1 returns min amount for currency" do
       assert 2.0 == MercadoPago.min_amount_for("ARS")
@@ -50,39 +50,6 @@ defmodule Tq2.Gateways.MercadoPagoTest do
       end
     end
 
-    test "marketplace_association_link/1 returns valid url" do
-      link = @credential |> MercadoPago.marketplace_association_link()
-      mp_link = app_uri() |> Tq2Web.Router.Helpers.mp_marketplace_url(:show)
-
-      assert link =~ "https://auth.mercadopago.com.ar"
-      # token app_id
-      assert link =~ "client_id=3333"
-      assert link =~ "redirect_uri=#{mp_link}"
-    end
-
-    test "associate_marketplace/2 returns valid marketplace map" do
-      default_marketplace = %{
-        access_token: "MARKETPLACE_SELLER_TOKEN",
-        public_key: "PUBLIC_KEY",
-        refresh_token: "TG-XXXXXXXXX-XXXXX",
-        live_mode: true,
-        user_id: "123",
-        token_type: "bearer",
-        expires_in: 15_552_000,
-        scope: "offline_access payments write"
-      }
-
-      mocked_fn = default_marketplace |> mock_post_with()
-
-      with_mock HTTPoison, mocked_fn do
-        marketplace = @credential |> MercadoPago.associate_marketplace("111")
-
-        assert %{} = marketplace
-        assert default_marketplace.access_token == marketplace["access_token"]
-        assert default_marketplace.refresh_token == marketplace["refresh_token"]
-      end
-    end
-
     test "commission_url_for/1 returns commission url" do
       session = create_session()
       url = session.account.country |> MercadoPago.commission_url_for()
@@ -94,7 +61,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
     test "create_cart_preference/1 returns a valid map preference" do
       session = create_session()
       cart = session.account |> create_cart_with_line()
-      app = session |> create_mp_app()
+      %{app: app} = app_mercado_pago_fixture()
 
       {:ok, store} =
         Tq2.Shops.create_store(session, %{
@@ -113,7 +80,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
 
       with_mock HTTPoison, mocked_fn do
         preference =
-          %Credential{token: app.data["access_token"]}
+          %Credential{token: app.data.access_token}
           |> MercadoPago.create_cart_preference(cart, store)
 
         assert default_preference.id == preference["id"]
@@ -126,7 +93,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
       session = create_session()
       cart = session.account |> create_cart_with_line()
       cart = %{cart | order: %Order{id: 123}}
-      app = session |> create_mp_app()
+      %{app: app} = app_mercado_pago_fixture()
 
       default_preference = %{
         id: 33,
@@ -138,7 +105,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
 
       with_mock HTTPoison, mocked_fn do
         preference =
-          %Credential{token: app.data["access_token"]}
+          %Credential{token: app.data.access_token}
           |> MercadoPago.create_partial_cart_preference(cart, Money.new(100, "ARS"))
 
         assert default_preference.id == preference["id"]
@@ -219,29 +186,6 @@ defmodule Tq2.Gateways.MercadoPagoTest do
       {:ok, line} = cart |> Tq2.Transactions.create_line(line_attrs)
 
       %{cart | lines: [line], customer: customer}
-    end
-
-    defp create_mp_app(session) do
-      attrs = %{
-        name: "mercado_pago",
-        data: %{
-          "access_token" => "123"
-        }
-      }
-
-      {:ok, app} = session |> Tq2.Apps.create_app(attrs)
-
-      app
-    end
-
-    defp app_uri do
-      scheme = if Tq2Web.Endpoint.config(:https), do: "https", else: "http"
-      url_config = Tq2Web.Endpoint.config(:url)
-
-      %URI{
-        scheme: scheme,
-        host: Enum.join([Application.get_env(:tq2, :app_subdomain), url_config[:host]], ".")
-      }
     end
   end
 end

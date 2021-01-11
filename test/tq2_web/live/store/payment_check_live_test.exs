@@ -1,7 +1,8 @@
 defmodule Tq2Web.Store.PaymentCheckLiveTest do
-  use Tq2Web.ConnCase, async: true
+  use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
+  import Tq2.Fixtures, only: [app_mercado_pago_fixture: 0, create_session: 0]
 
   alias Tq2.Analytics
   alias Tq2.Payments
@@ -39,8 +40,7 @@ defmodule Tq2Web.Store.PaymentCheckLiveTest do
   end
 
   def store_fixture(_) do
-    account = Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
-    session = %Tq2.Accounts.Session{account: account}
+    session = create_session()
 
     {:ok, store} =
       Tq2.Shops.create_store(session, %{
@@ -49,7 +49,7 @@ defmodule Tq2Web.Store.PaymentCheckLiveTest do
         configuration: %{pickup: true, pickup_time_limit: "1h"}
       })
 
-    %{store: %{store | account: account}, session: session}
+    %{store: %{store | account: session.account}, session: session}
   end
 
   def cart_fixture(%{conn: conn, store: store}) do
@@ -106,8 +106,8 @@ defmodule Tq2Web.Store.PaymentCheckLiveTest do
       assert to == Routes.payment_path(conn, :index, store)
     end
 
-    test "check and render loading", %{conn: conn, cart: cart, store: store, session: session} do
-      create_mp_app(session)
+    test "check and render loading", %{conn: conn, cart: cart, store: store} do
+      app_mercado_pago_fixture()
 
       {:ok, _payment} =
         Payments.create_payment(cart, %{
@@ -128,8 +128,8 @@ defmodule Tq2Web.Store.PaymentCheckLiveTest do
       assert html =~ "spinner-border"
     end
 
-    test "check and redirect to order", %{conn: conn, cart: cart, store: store, session: session} do
-      create_mp_app(session)
+    test "check and redirect to order", %{conn: conn, cart: cart, store: store} do
+      app_mercado_pago_fixture()
 
       {:ok, _payment} =
         Payments.create_payment(cart, %{
@@ -152,7 +152,7 @@ defmodule Tq2Web.Store.PaymentCheckLiveTest do
 
       assert Routes.order_path(conn, :index, store, order_id) == to
 
-      order = Tq2.Sales.get_order!(session.account, order_id)
+      order = Tq2.Sales.get_order!(store.account, order_id)
 
       assert order.data.paid
     end
@@ -160,10 +160,9 @@ defmodule Tq2Web.Store.PaymentCheckLiveTest do
     test "check twice and redirect to order", %{
       conn: conn,
       cart: cart,
-      store: store,
-      session: session
+      store: store
     } do
-      create_mp_app(session)
+      app_mercado_pago_fixture()
 
       {:ok, payment} =
         Payments.create_payment(cart, %{
@@ -204,16 +203,6 @@ defmodule Tq2Web.Store.PaymentCheckLiveTest do
 
       assert Routes.order_path(conn, :index, store, order.id) == to
       assert order.data.paid
-    end
-
-    defp create_mp_app(session) do
-      {:ok, app} =
-        Tq2.Apps.create_app(session, %{
-          name: "mercado_pago",
-          data: %{"access_token" => "123"}
-        })
-
-      app
     end
   end
 end

@@ -1,12 +1,14 @@
 <div class="card my-3">
   <div class="card-header">
     <h2 class="h5">
-      <%= dgettext("apps", "Wire transfer") %>
+      <%= translate_app(@app_name) %>
     </h2>
   </div>
 
+  <%= instructions(@account, @app_name) %>
+
   <div class="card-body">
-    <%= render "_form_wire_transfer.html", assigns %>
+    <%= render "_form_#{@app_name}.html", assigns %>
   </div>
 </div>
 

@@ -50,8 +50,12 @@ defmodule Tq2Web.AppView do
     content_tag(:span, text, class: "badge badge-#{html_class}")
   end
 
-  def app_names do
-    ~w(mercado_pago wire_transfer)
+  def app_names(%{country: country}) do
+    [
+      if(country in MPClient.countries(), do: "mercado_pago"),
+      "wire_transfer"
+    ]
+    |> Enum.filter(& &1)
   end
 
   def app_by_name(apps, name) do
@@ -67,19 +71,6 @@ defmodule Tq2Web.AppView do
   end
 
   def build_app(_), do: nil
-
-  def mp_link_to_authorize(account) do
-    url =
-      account.country
-      |> MPCredential.for_country()
-      |> MPClient.marketplace_association_link()
-
-    link(
-      dgettext("apps", "Link account"),
-      to: url,
-      class: "btn btn-primary"
-    )
-  end
 
   def mp_link_to_commissions(conn, account) do
     url = MPClient.commission_url_for(account.country)
@@ -138,4 +129,26 @@ defmodule Tq2Web.AppView do
   defp translate_app("wire_transfer") do
     dgettext("apps", "Wire transfer")
   end
+
+  defp instructions(%{country: country}, "mercado_pago") do
+    link =
+      link(
+        dgettext("mercado_pago", "link"),
+        to: MPCredential.credential_url(country),
+        target: "_blank"
+      )
+      |> safe_to_string()
+
+    content_tag(:p, class: "lead") do
+      raw(
+        dgettext(
+          "mercado_pago",
+          "To use MercadoPago you have to create an application following the next %{link} and then copy the production Access Token in the field below.",
+          link: link
+        )
+      )
+    end
+  end
+
+  defp instructions(_account, _), do: nil
 end

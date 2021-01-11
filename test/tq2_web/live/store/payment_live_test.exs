@@ -3,6 +3,8 @@ defmodule Tq2Web.Store.PaymentLiveTest do
 
   import Mock
   import Phoenix.LiveViewTest
+  import Tq2.Fixtures, only: [app_mercado_pago_fixture: 0, create_session: 0]
+
   alias Tq2.Transactions.Cart
   alias Tq2.Payments
 
@@ -39,8 +41,7 @@ defmodule Tq2Web.Store.PaymentLiveTest do
   end
 
   def store_fixture(_) do
-    account = Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
-    session = %Tq2.Accounts.Session{account: account}
+    session = create_session()
 
     {:ok, store} =
       Tq2.Shops.create_store(session, %{
@@ -49,7 +50,7 @@ defmodule Tq2Web.Store.PaymentLiveTest do
         configuration: %{pickup: true, pickup_time_limit: "3hs"}
       })
 
-    %{store: %{store | account: account}, session: session}
+    %{store: %{store | account: session.account}}
   end
 
   def cart_fixture(%{conn: conn, store: store}) do
@@ -178,8 +179,8 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       assert has_element?(payment_live, ".collapse.show", "Your order must be paid")
     end
 
-    test "change kind to mercado_pago", %{conn: conn, store: store, session: session} do
-      create_mp_app(session)
+    test "change kind to mercado_pago", %{conn: conn, store: store} do
+      app_mercado_pago_fixture()
 
       path = Routes.payment_path(conn, :index, store)
       {:ok, payment_live, _html} = live(conn, path)
@@ -246,8 +247,8 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       assert List.first(order.parents).id == parent_order.id
     end
 
-    test "save event with redirect to mp", %{conn: conn, store: store, session: session} do
-      create_mp_app(session)
+    test "save event with redirect to mp", %{conn: conn, store: store} do
+      app_mercado_pago_fixture()
 
       path = Routes.payment_path(conn, :index, store)
       {:ok, payment_live, _html} = live(conn, path)
@@ -275,8 +276,8 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       end
     end
 
-    test "save event with mp error", %{conn: conn, store: store, session: session} do
-      create_mp_app(session)
+    test "save event with mp error", %{conn: conn, store: store} do
+      app_mercado_pago_fixture()
 
       path = Routes.payment_path(conn, :index, store)
       {:ok, payment_live, _html} = live(conn, path)
@@ -300,13 +301,8 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       end
     end
 
-    test "save event with redirect to mp without create", %{
-      conn: conn,
-      cart: cart,
-      store: store,
-      session: session
-    } do
-      create_mp_app(session)
+    test "save event with redirect to mp without create", %{conn: conn, cart: cart, store: store} do
+      app_mercado_pago_fixture()
 
       {:ok, _payment} =
         Payments.create_payment(cart, %{
@@ -353,16 +349,6 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       order_id = String.replace(to, ~r/\D/, "")
 
       assert Routes.order_path(conn, :index, store, order_id) == to
-    end
-
-    defp create_mp_app(session) do
-      {:ok, app} =
-        Tq2.Apps.create_app(session, %{
-          name: "mercado_pago",
-          data: %{"access_token" => "123"}
-        })
-
-      app
     end
 
     defp mock_post_with(%{} = body, code \\ 201) do
