@@ -46,17 +46,17 @@ defmodule Tq2.Accounts.LicenseTest do
     end
 
     test "price_for/1 returns monthly price for country" do
-      assert 499.0 == License.price_for("ar")
+      assert %Money{amount: 49900, currency: :ARS} == License.price_for("ar")
     end
 
     test "price_for/2 returns price for country" do
-      assert 499.0 == License.price_for("ar", :monthly)
-      assert 4990.0 == License.price_for("ar", :yearly)
+      assert %Money{amount: 49900, currency: :ARS} == License.price_for("ar", :monthly)
+      assert %Money{amount: 499_000, currency: :ARS} == License.price_for("ar", :yearly)
     end
 
     test "price_for/2 returns default price for not local country" do
-      assert 3.99 == License.price_for("uy", :monthly)
-      assert 39.9 == License.price_for("uy", :yearly)
+      assert %Money{amount: 399, currency: :USD} == License.price_for("uy", :monthly)
+      assert %Money{amount: 3990, currency: :USD} == License.price_for("uy", :yearly)
     end
   end
 end

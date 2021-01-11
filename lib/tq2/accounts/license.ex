@@ -25,20 +25,20 @@ defmodule Tq2.Accounts.License do
   @statuses ~w(trial active unpaid locked cancelled)
 
   @prices %{
-    "ar" => 499.0,
-    "cl" => 2800.0,
-    "co" => 13800.0,
-    "mx" => 80.0,
-    "pe" => 14.5,
-    "us" => 3.99
+    "ar" => Money.parse!("499.0", "ARS"),
+    "cl" => Money.parse!("2800.0", "CLP"),
+    "co" => Money.parse!("13800.0", "COP"),
+    "mx" => Money.parse!("80.0", "MXN"),
+    "pe" => Money.parse!("14.5", "PEN"),
+    "us" => Money.parse!("3.99", "USD")
   }
   @yearly_prices %{
-    "ar" => 4990.0,
-    "cl" => 28000.0,
-    "co" => 138_000.0,
-    "mx" => 800.0,
-    "pe" => 145.0,
-    "us" => 39.9
+    "ar" => Money.parse!("4990.0", "ARS"),
+    "cl" => Money.parse!("28000.0", "CLP"),
+    "co" => Money.parse!("138_000.0", "COP"),
+    "mx" => Money.parse!("800.0", "MXN"),
+    "pe" => Money.parse!("145.0", "PEN"),
+    "us" => Money.parse!("39.9", "USD")
   }
 
   @default_country "us"

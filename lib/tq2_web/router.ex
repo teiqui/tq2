@@ -36,6 +36,7 @@ defmodule Tq2Web.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/:country", PageController, :index
   end
 
   scope "/", Tq2Web, host: "#{Application.get_env(:tq2, :store_subdomain)}." do

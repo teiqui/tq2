@@ -518,4 +518,11 @@ defmodule Tq2.Utils.CountryCurrency do
   end
 
   def time_zone_or_country_default(tz, _country), do: tz
+
+  def guess_country_from_ip(ip) do
+    case Geolix.lookup(ip) do
+      %{default: %{country: %{iso_code: country}}} -> String.downcase(country)
+      _ -> nil
+    end
+  end
 end
