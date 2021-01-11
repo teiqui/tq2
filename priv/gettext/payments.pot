@@ -45,15 +45,15 @@ msgid "Checking..."
 msgstr ""
 
 #: lib/tq2_web/live/components/order/payment_form_component.html.leex:2
-#: lib/tq2_web/templates/order/show.html.eex:73
+#: lib/tq2_web/templates/order/show.html.eex:77
 msgid "Amount"
 msgstr ""
 
-#: lib/tq2_web/templates/order/show.html.eex:74
+#: lib/tq2_web/templates/order/show.html.eex:78
 msgid "Inserted at"
 msgstr ""
 
-#: lib/tq2_web/templates/order/show.html.eex:72
+#: lib/tq2_web/templates/order/show.html.eex:76
 msgid "Kind"
 msgstr ""
 

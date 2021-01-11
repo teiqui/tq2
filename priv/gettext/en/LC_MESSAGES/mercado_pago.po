@@ -27,7 +27,7 @@ msgstr ""
 msgid "Successfully authorized"
 msgstr ""
 
-#: lib/tq2/gateways/mercado_pago.ex:272 lib/tq2/gateways/mercado_pago.ex:273
+#: lib/tq2/gateways/mercado_pago.ex:279 lib/tq2/gateways/mercado_pago.ex:280
 msgid "Pending amount of order #%{id}"
 msgstr ""
 

@@ -80,7 +80,7 @@ defmodule Tq2Web.Router do
     resources "/accounts", AccountController
     resources "/users", UserController
     resources "/passwords", PasswordController, only: [:new, :create, :edit, :update]
-    get "/license", LicenseController, :show
+    live "/license", Account.LicenseLive, :index
 
     # Inventories
     resources "/categories", CategoryController

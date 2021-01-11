@@ -16,7 +16,7 @@ msgid "Thank you for your purchase!"
 msgstr ""
 
 #: lib/tq2_web/live/order/order_edit_live.html.leex:30
-#: lib/tq2_web/templates/order/show.html.eex:95
+#: lib/tq2_web/templates/order/show.html.eex:99
 msgid "Back"
 msgstr ""
 
@@ -101,12 +101,12 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: lib/tq2_web/templates/order/show.html.eex:25
+#: lib/tq2_web/templates/order/show.html.eex:28
 msgid "Notes"
 msgstr ""
 
 #: lib/tq2_web/live/components/order/payments_component.html.leex:3
-#: lib/tq2_web/templates/order/show.html.eex:66
+#: lib/tq2_web/templates/order/show.html.eex:70
 msgid "Payments"
 msgstr ""
 
@@ -114,7 +114,7 @@ msgstr ""
 #: lib/tq2_web/templates/email/expired_promotion.text.eex:11 lib/tq2_web/templates/email/order_confirmation.html.eex:32
 #: lib/tq2_web/templates/email/order_confirmation.text.eex:12 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:30
 #: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:10 lib/tq2_web/templates/email/promotion_confirmation.html.eex:32
-#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:12 lib/tq2_web/templates/order/show.html.eex:53
+#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:12 lib/tq2_web/templates/order/show.html.eex:57
 msgid "Total"
 msgstr ""
 
