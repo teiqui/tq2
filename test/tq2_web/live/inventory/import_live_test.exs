@@ -60,7 +60,7 @@ defmodule Tq2Web.Inventory.ImportLiveTest do
              }) =~ "class=\"progress-bar\""
 
       assert_receive {:trace, ^pid, :receive, {:batch_import_finished, _result}}, 20_000
-      assert render(import_live) =~ "13 items imported!"
+      assert render(import_live) =~ "4 items imported!"
     end
   end
 end

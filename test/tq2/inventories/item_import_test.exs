@@ -88,7 +88,7 @@ defmodule Tq2.Inventories.ItemImportTest do
 
     if System.get_env("CREDENTIALS_PATH") == nil, do: @tag(:skip)
 
-    test "batch_import/3 should create 13 items with remote sheet" do
+    test "batch_import/3 should create 4 items with remote sheet" do
       [_h | rows] =
         :tq2
         |> Application.get_env(:default_sheet_id)
@@ -99,14 +99,14 @@ defmodule Tq2.Inventories.ItemImportTest do
         |> ItemImport.batch_import(rows)
         |> Enum.filter(fn {status, _} -> status == :ok end)
 
-      assert Enum.count(results) == 13
+      assert Enum.count(results) == 4
 
       category_ids =
         results
         |> Enum.map(fn {:ok, i} -> i.category_id end)
         |> Enum.uniq()
 
-      assert Enum.count(category_ids) == 2
+      assert Enum.count(category_ids) == 1
     end
   end
 end
