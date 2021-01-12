@@ -15,7 +15,7 @@ msgid "Come on!"
 msgstr ""
 
 #: lib/tq2_web/live/registration/email_live.ex:43
-#: lib/tq2_web/live/registration/name_live.ex:54
+#: lib/tq2_web/live/registration/name_live.ex:56
 msgid "Continue"
 msgstr ""
 
@@ -23,19 +23,19 @@ msgstr ""
 msgid "Let's create your account"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:39
+#: lib/tq2_web/live/registration/name_live.ex:41
 msgid "Butcher shop"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:41
+#: lib/tq2_web/live/registration/name_live.ex:43
 msgid "Green grocery"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:40
+#: lib/tq2_web/live/registration/name_live.ex:42
 msgid "Grocery"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:48
+#: lib/tq2_web/live/registration/name_live.ex:50
 msgid "Other"
 msgstr ""
 
@@ -49,27 +49,27 @@ msgstr ""
 msgid "Store type"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:45
+#: lib/tq2_web/live/registration/name_live.ex:47
 msgid "Bakery"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:46
+#: lib/tq2_web/live/registration/name_live.ex:48
 msgid "Bookshop / Stationery"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:42
+#: lib/tq2_web/live/registration/name_live.ex:44
 msgid "Cleaning"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:43
+#: lib/tq2_web/live/registration/name_live.ex:45
 msgid "Deli"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:44
+#: lib/tq2_web/live/registration/name_live.ex:46
 msgid "Food / Restaurant"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:47
+#: lib/tq2_web/live/registration/name_live.ex:49
 msgid "Technology"
 msgstr ""
 
@@ -161,4 +161,12 @@ msgstr ""
 
 #: lib/tq2_web/live/registration/welcome_live.html.leex:64
 msgid "Your customers will become your sellers using group shopping, thus bringing new buyers."
+msgstr ""
+
+#: lib/tq2_web/live/registration/name_live.html.leex:29
+msgid "I agree to the %{link}"
+msgstr ""
+
+#: lib/tq2_web/live/registration/name_live.ex:64
+msgid "terms of service"
 msgstr ""

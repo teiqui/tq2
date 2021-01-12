@@ -7,12 +7,14 @@ defmodule Tq2.Accounts.RegistrationTest do
     @valid_attrs %{
       name: "some name",
       type: "grocery",
-      email: "some@email.com"
+      email: "some@email.com",
+      terms_of_service: true
     }
     @invalid_attrs %{
       name: nil,
       type: nil,
-      email: nil
+      email: nil,
+      terms_of_service: false
     }
 
     @valid_update_attrs %{
@@ -36,6 +38,18 @@ defmodule Tq2.Accounts.RegistrationTest do
 
     test "changeset with invalid attributes" do
       changeset = Registration.changeset(%Registration{}, @invalid_attrs)
+
+      refute changeset.valid?
+    end
+
+    test "create_changeset with valid attributes" do
+      changeset = Registration.create_changeset(%Registration{}, @valid_attrs)
+
+      assert changeset.valid?
+    end
+
+    test "create_changeset with invalid attributes" do
+      changeset = Registration.create_changeset(%Registration{}, @invalid_attrs)
 
       refute changeset.valid?
     end
@@ -64,6 +78,16 @@ defmodule Tq2.Accounts.RegistrationTest do
       assert "should be at most 255 character(s)" in errors_on(changeset).name
       assert "should be at most 255 character(s)" in errors_on(changeset).type
       assert "should be at most 255 character(s)" in errors_on(changeset).email
+    end
+
+    test "create changeset requires terms of service acceptance" do
+      attrs =
+        @valid_attrs
+        |> Map.put(:terms_of_service, false)
+
+      changeset = Registration.create_changeset(%Registration{}, attrs)
+
+      assert "must be accepted" in errors_on(changeset).terms_of_service
     end
 
     test "update changeset requires valid email confirmation" do

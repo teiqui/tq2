@@ -19,7 +19,7 @@ msgstr ""
 #: lib/tq2_web/live/registration/name_live.html.leex:4 lib/tq2_web/live/registration/password_live.html.leex:4
 #: lib/tq2_web/live/registration/welcome_live.html.leex:4 lib/tq2_web/templates/layout/root.html.leex:5
 #: lib/tq2_web/templates/layout/root.html.leex:5 lib/tq2_web/templates/legal/index.html.eex:8
-#: lib/tq2_web/templates/legal/index.html.eex:723 lib/tq2_web/templates/page/index.html.eex:8
+#: lib/tq2_web/templates/legal/index.html.eex:719 lib/tq2_web/templates/page/index.html.eex:8
 #: lib/tq2_web/templates/page/index.html.eex:293 lib/tq2_web/templates/password/edit.html.eex:5
 #: lib/tq2_web/templates/password/new.html.eex:5 lib/tq2_web/templates/session/new.html.eex:4
 msgid "Teiqui"

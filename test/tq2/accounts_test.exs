@@ -418,7 +418,8 @@ defmodule Tq2.AccountsTest do
     @valid_attrs %{
       name: "some name",
       type: "grocery",
-      email: "some@email.com"
+      email: "some@email.com",
+      terms_of_service: true
     }
     @update_attrs %{
       name: "some updated name",
@@ -440,7 +441,8 @@ defmodule Tq2.AccountsTest do
       name: nil,
       type: nil,
       email: nil,
-      password: nil
+      password: nil,
+      terms_of_service: false
     }
 
     defp registration_fixture(attrs \\ %{}) do

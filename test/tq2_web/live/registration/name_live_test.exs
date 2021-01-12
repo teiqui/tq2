@@ -22,7 +22,8 @@ defmodule Tq2Web.Registration.NameLiveTest do
         |> render_submit(%{
           registration: %{
             "name" => "some name",
-            "type" => "grocery"
+            "type" => "grocery",
+            "terms_of_service" => "true"
           }
         })
 

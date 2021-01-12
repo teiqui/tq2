@@ -11,7 +11,7 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/templates/legal/index.html.eex:666
+#: lib/tq2_web/templates/legal/index.html.eex:662
 msgid "Active bank credit or debit cards"
 msgstr ""
 
@@ -99,7 +99,7 @@ msgstr ""
 msgid "Business models, goods, items, or services that we determine may be or are fraudulent, misleading, offensive, or deceptive, or may be or are exploitative, inappropriate, or exert undue pressure on targeted groups"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:678
+#: lib/tq2_web/templates/legal/index.html.eex:674
 msgid "Checks or checkbooks"
 msgstr ""
 
@@ -119,7 +119,7 @@ msgstr ""
 msgid "Contact lenses"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:703
+#: lib/tq2_web/templates/legal/index.html.eex:699
 msgid "Counterfeits, knockoffs, or replicas of branded goods, or posts offering goods that are likely to confuse consumers about the source, sponsorship or affiliation of those goods."
 msgstr ""
 
@@ -131,7 +131,7 @@ msgstr ""
 msgid "Dehydroepiandrosterone"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:637
+#: lib/tq2_web/templates/legal/index.html.eex:633
 msgid "Diet, weight loss, or other health related products that imply or attempt to generate negative self-perception"
 msgstr ""
 
@@ -179,7 +179,7 @@ msgstr ""
 msgid "Ephedra"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:682
+#: lib/tq2_web/templates/legal/index.html.eex:678
 msgid "Equipment to create counterfeit currency or financial instruments"
 msgstr ""
 
@@ -193,8 +193,8 @@ msgstr ""
 #: lib/tq2_web/templates/legal/index.html.eex:293 lib/tq2_web/templates/legal/index.html.eex:346
 #: lib/tq2_web/templates/legal/index.html.eex:383 lib/tq2_web/templates/legal/index.html.eex:489
 #: lib/tq2_web/templates/legal/index.html.eex:538 lib/tq2_web/templates/legal/index.html.eex:575
-#: lib/tq2_web/templates/legal/index.html.eex:616 lib/tq2_web/templates/legal/index.html.eex:653
-#: lib/tq2_web/templates/legal/index.html.eex:698
+#: lib/tq2_web/templates/legal/index.html.eex:616 lib/tq2_web/templates/legal/index.html.eex:649
+#: lib/tq2_web/templates/legal/index.html.eex:694
 msgid "Examples:"
 msgstr ""
 
@@ -314,7 +314,7 @@ msgstr ""
 msgid "Paintball guns"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:633
+#: lib/tq2_web/templates/legal/index.html.eex:629
 msgid "Payday loans, paycheck advances, P2P lending, debt collection, and bail bonds"
 msgstr ""
 
@@ -370,7 +370,7 @@ msgstr ""
 msgid "Policy: Businesses may not transact in the sale of illegal, prescription, or recreational drugs."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:649
+#: lib/tq2_web/templates/legal/index.html.eex:645
 msgid "Policy: Businesses may not transact in the sale of real or fake currency."
 msgstr ""
 
@@ -394,11 +394,11 @@ msgstr ""
 msgid "Policy: Businesses may not transact in the sale, including renewals and upgrades, etc., of digital content, digital subscriptions, or digital accounts."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:694
+#: lib/tq2_web/templates/legal/index.html.eex:690
 msgid "Policy: Transactions may not contain content that infringes upon or violates the intellectual property rights of any third party, including copyright or trademark. This includes, but is not limited to, the sale of counterfeit products, such as goods that copy the trademark (name or logo) and/or distinctive features of another company’s products to imitate a genuine product."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:674
+#: lib/tq2_web/templates/legal/index.html.eex:670
 msgid "Pre-paid credit or debit cards"
 msgstr ""
 
@@ -426,7 +426,7 @@ msgstr ""
 msgid "Promoting safety training or licenses for legal weapons"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:658
+#: lib/tq2_web/templates/legal/index.html.eex:654
 msgid "Real money (cash or cash equivalent instruments and coins)"
 msgstr ""
 
@@ -434,11 +434,11 @@ msgstr ""
 msgid "Real money gambling services"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:644
+#: lib/tq2_web/templates/legal/index.html.eex:640
 msgid "Real or fake currency"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:662
+#: lib/tq2_web/templates/legal/index.html.eex:658
 msgid "Replica or prop money"
 msgstr ""
 
@@ -470,7 +470,7 @@ msgstr ""
 msgid "Smoking Cessation Products - Examples:"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:670
+#: lib/tq2_web/templates/legal/index.html.eex:666
 msgid "Store credit cards or coupons"
 msgstr ""
 
@@ -494,7 +494,7 @@ msgstr ""
 msgid "Thermometers"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:689
+#: lib/tq2_web/templates/legal/index.html.eex:685
 msgid "Third-Party Infringement"
 msgstr ""
 
@@ -514,7 +514,7 @@ msgstr ""
 msgid "Toggle menu"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:707
+#: lib/tq2_web/templates/legal/index.html.eex:703
 msgid "Unauthorized or pirated copies of copyrighted works, such as videos, movies, TV shows and broadcasts, video games, CDs or other musical works, books, etc."
 msgstr ""
 

@@ -11,7 +11,8 @@ defmodule Tq2Web.RegistrationControllerTest do
     password: "123456",
     password_confirmation: "123456",
     country: "ar",
-    time_zone: "America/Argentina/Buenos_Aires"
+    time_zone: "America/Argentina/Buenos_Aires",
+    terms_of_service: true
   }
 
   defp fixture(:registration) do

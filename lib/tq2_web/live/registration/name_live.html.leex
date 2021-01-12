@@ -26,6 +26,7 @@
                           input_html: [prompt: dgettext("registrations", "Store type")],
                           label_html: [class: "sr-only"],
                           collection: types() %>
+      <%= input f, :terms_of_service, raw(dgettext("registrations", "I agree to the %{link}", link: terms_of_service_link())) %>
 
       <div class="text-center">
         <%= submit_registration() %>

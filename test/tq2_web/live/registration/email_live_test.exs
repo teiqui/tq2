@@ -10,7 +10,8 @@ defmodule Tq2Web.Registration.EmailLiveTest do
 
     @valid_attrs %{
       name: "some name",
-      type: "grocery"
+      type: "grocery",
+      terms_of_service: true
     }
 
     def create_registration(_) do

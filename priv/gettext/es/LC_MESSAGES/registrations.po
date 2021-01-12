@@ -16,7 +16,7 @@ msgid "Come on!"
 msgstr "¡Vamos!"
 
 #: lib/tq2_web/live/registration/email_live.ex:43
-#: lib/tq2_web/live/registration/name_live.ex:54
+#: lib/tq2_web/live/registration/name_live.ex:56
 msgid "Continue"
 msgstr "Continuar"
 
@@ -24,19 +24,19 @@ msgstr "Continuar"
 msgid "Let's create your account"
 msgstr "Creemos tu cuenta"
 
-#: lib/tq2_web/live/registration/name_live.ex:39
+#: lib/tq2_web/live/registration/name_live.ex:41
 msgid "Butcher shop"
 msgstr "Carnicería"
 
-#: lib/tq2_web/live/registration/name_live.ex:41
+#: lib/tq2_web/live/registration/name_live.ex:43
 msgid "Green grocery"
 msgstr "Verdulería"
 
-#: lib/tq2_web/live/registration/name_live.ex:40
+#: lib/tq2_web/live/registration/name_live.ex:42
 msgid "Grocery"
 msgstr "Almacén / Abarrotes"
 
-#: lib/tq2_web/live/registration/name_live.ex:48
+#: lib/tq2_web/live/registration/name_live.ex:50
 msgid "Other"
 msgstr "Otro"
 
@@ -50,27 +50,27 @@ msgstr "Nombre de la tienda"
 msgid "Store type"
 msgstr "Tipo de tienda"
 
-#: lib/tq2_web/live/registration/name_live.ex:45
+#: lib/tq2_web/live/registration/name_live.ex:47
 msgid "Bakery"
 msgstr "Panadería"
 
-#: lib/tq2_web/live/registration/name_live.ex:46
+#: lib/tq2_web/live/registration/name_live.ex:48
 msgid "Bookshop / Stationery"
 msgstr "Librería / Papelería"
 
-#: lib/tq2_web/live/registration/name_live.ex:42
+#: lib/tq2_web/live/registration/name_live.ex:44
 msgid "Cleaning"
 msgstr "Artículos de limpieza"
 
-#: lib/tq2_web/live/registration/name_live.ex:43
+#: lib/tq2_web/live/registration/name_live.ex:45
 msgid "Deli"
 msgstr "Fiambrería"
 
-#: lib/tq2_web/live/registration/name_live.ex:44
+#: lib/tq2_web/live/registration/name_live.ex:46
 msgid "Food / Restaurant"
 msgstr "Comida / Restaurante"
 
-#: lib/tq2_web/live/registration/name_live.ex:47
+#: lib/tq2_web/live/registration/name_live.ex:49
 msgid "Technology"
 msgstr "Tecnología"
 
@@ -163,3 +163,11 @@ msgstr "¡Te damos la bienvenida!"
 #: lib/tq2_web/live/registration/welcome_live.html.leex:64
 msgid "Your customers will become your sellers using group shopping, thus bringing new buyers."
 msgstr "Tus clientes se volverán tus vendedores al compartir la compra y traer nuevos compradores."
+
+#: lib/tq2_web/live/registration/name_live.html.leex:29
+msgid "I agree to the %{link}"
+msgstr "Acepto los %{link}"
+
+#: lib/tq2_web/live/registration/name_live.ex:64
+msgid "terms of service"
+msgstr "términos y condiciones"

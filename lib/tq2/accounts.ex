@@ -467,7 +467,7 @@ defmodule Tq2.Accounts do
   """
   def create_registration(attrs) do
     %Registration{}
-    |> Registration.changeset(attrs)
+    |> Registration.create_changeset(attrs)
     |> Repo.insert()
   end
 

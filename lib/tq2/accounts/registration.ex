@@ -14,6 +14,7 @@ defmodule Tq2.Accounts.Registration do
     field :name, TrimmedString
     field :type, TrimmedString
     field :email, TrimmedString
+    field :terms_of_service, :boolean, default: false
     field :accessed_at, :utc_datetime
     field :password, :string, virtual: true
 
@@ -37,6 +38,12 @@ defmodule Tq2.Accounts.Registration do
     |> unique_constraint(:uuid)
     |> unique_constraint(:email)
     |> assoc_constraint(:account)
+  end
+
+  def create_changeset(%Registration{} = registration, attrs) do
+    registration
+    |> changeset(attrs)
+    |> validate_acceptance(:terms_of_service)
   end
 
   def update_changeset(%Registration{} = registration, attrs) do

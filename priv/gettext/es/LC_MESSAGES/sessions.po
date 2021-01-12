@@ -52,12 +52,12 @@ msgid "You must be logged in."
 msgstr "Debe ingresar para ver el contenido."
 
 #: lib/tq2_web/live/registration/email_live.html.leex:38
-#: lib/tq2_web/live/registration/name_live.html.leex:37
+#: lib/tq2_web/live/registration/name_live.html.leex:38
 msgid "I already have an account."
 msgstr "Ya tengo mi cuenta."
 
 #: lib/tq2_web/live/registration/email_live.html.leex:40
-#: lib/tq2_web/live/registration/name_live.html.leex:39
+#: lib/tq2_web/live/registration/name_live.html.leex:40
 msgid "Sign in"
 msgstr "Ingresar"
 

@@ -12,7 +12,8 @@ defmodule Tq2Web.Registration.PasswordLiveTest do
       name: "some name",
       type: "grocery",
       email: "some@email.com",
-      email_confirmation: " soME@email.com"
+      email_confirmation: " soME@email.com",
+      terms_of_service: true
     }
 
     def create_registration(_) do

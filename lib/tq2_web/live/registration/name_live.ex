@@ -1,6 +1,8 @@
 defmodule Tq2Web.Registration.NameLive do
   use Tq2Web, :live_view
 
+  import Tq2.Utils.Urls, only: [web_uri: 0]
+
   alias Tq2.Accounts
   alias Tq2.Accounts.Registration
 
@@ -54,6 +56,15 @@ defmodule Tq2Web.Registration.NameLive do
       dgettext("registrations", "Continue"),
       class: "btn btn-lg btn-outline-primary border border-primary rounded-pill px-4 mt-4",
       phx_disable_with: dgettext("customers", "Saving...")
+    )
+  end
+
+  defp terms_of_service_link do
+    safe_to_string(
+      link(dgettext("registrations", "terms of service"),
+        to: Routes.legal_url(web_uri(), :index),
+        target: "_blank"
+      )
     )
   end
 end
