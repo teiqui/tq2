@@ -37,7 +37,7 @@ config :tq2, Tq2Web.Gettext, default_locale: "es"
 config :tq2, Tq2.Repo, migration_timestamps: [type: :utc_datetime]
 
 # Public store's subdomain
-web_host = Enum.join([System.get_env("WEB_SUBDOMAIN", "www"), "localhost"], ".")
+web_host = Enum.join([System.get_env("WEB_SUBDOMAIN", "www"), "teiqui.com"], ".")
 
 config :tq2,
   app_subdomain: System.get_env("APP_SUBDOMAIN", "app"),
