@@ -2,15 +2,31 @@
   <%= dgettext("licenses", "Licenses") %>
 </h1>
 
-<div class="card my-3">
-  <div class="card-body">
+<div class="row mt-4">
+  <div class="col-12 col-md-4 h5 ml-2">
     <p class="mb-1">
-      <strong><%= dgettext("licenses", "Status") %></strong>:
+      <span class="text-info"><%= dgettext("licenses", "Status") %></span>:
       <%= status @license %>
     </p>
     <p class="mb-1">
-      <strong><%= dgettext("licenses", "Paid until") %></strong>:
+      <span class="text-info"><%= dgettext("licenses", "Paid until") %></span>:
       <%= localize_date @license.paid_until %>
     </p>
+    <%= if @subscription do %>
+      <p class="mb-1">
+        <span class="text-info"><%= dgettext("licenses", "Subscription") %></span>:
+        <%= subscription_plan @subscription %>
+      </p>
+    <% end %>
+  </div>
+
+  <div class="d-none d-md-block col-12 col-md-8 text-center" phx-hook="License" id="license-links">
+    <%= subscription_info(assigns) %>
   </div>
 </div>
+
+<div class="d-block d-md-none fixed-bottom text-center mb-5" phx-hook="License" id="license-links-bottom">
+  <%= subscription_info(assigns) %>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>

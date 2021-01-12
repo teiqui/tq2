@@ -15,23 +15,23 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: lib/tq2_web/live/account/license_live.ex:10
+#: lib/tq2_web/live/account/license_live.ex:12
 msgid "Active"
 msgstr ""
 
-#: lib/tq2_web/live/account/license_live.ex:13
+#: lib/tq2_web/live/account/license_live.ex:15
 msgid "Canceled"
 msgstr ""
 
-#: lib/tq2_web/live/account/license_live.ex:12
+#: lib/tq2_web/live/account/license_live.ex:14
 msgid "Locked"
 msgstr ""
 
-#: lib/tq2_web/live/account/license_live.ex:9
+#: lib/tq2_web/live/account/license_live.ex:11
 msgid "Trial"
 msgstr ""
 
-#: lib/tq2_web/live/account/license_live.ex:11
+#: lib/tq2_web/live/account/license_live.ex:13
 msgid "Unpaid"
 msgstr ""
 
@@ -74,4 +74,47 @@ msgstr ""
 
 #: lib/tq2_web/views/license_view.ex:15
 msgid "Pending"
+msgstr ""
+
+#: lib/tq2_web/live/account/license_live.ex:255
+msgid "Monthly"
+msgstr ""
+
+#: lib/tq2_web/live/account/license_live.ex:203
+msgid "Monthly pay %{money}"
+msgstr ""
+
+#: lib/tq2_web/live/account/license_live.html.leex:17
+msgid "Subscription"
+msgstr ""
+
+#: lib/tq2_web/live/account/license_live.ex:218
+msgid "Until %{date}"
+msgstr ""
+
+#: lib/tq2_web/live/account/license_live.ex:243
+msgid "Until %{date} Save two months!"
+msgstr ""
+
+#: lib/tq2_web/live/account/license_live.ex:256
+msgid "Yearly"
+msgstr ""
+
+#: lib/tq2_web/live/account/license_live.ex:232
+msgid "Yearly pay %{money}"
+msgstr ""
+
+#: lib/tq2_web/live/account/license_live.ex:102
+#: lib/tq2_web/live/account/license_live.ex:114 lib/tq2_web/live/account/license_live.ex:124
+#: lib/tq2_web/live/account/license_live.ex:136
+msgid "Can't create subscription"
+msgstr ""
+
+#: lib/tq2_web/live/account/license_live.ex:157
+#: lib/tq2_web/live/account/license_live.ex:171
+msgid "Can't get your subscription"
+msgstr ""
+
+#: lib/tq2_web/live/account/license_live.ex:192
+msgid "Show / modify subscription"
 msgstr ""

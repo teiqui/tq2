@@ -94,7 +94,11 @@ defmodule Tq2.Gateways.StripeTest do
     test "find_subscription/1 returns a subscription", %{session: %{account: %{license: license}}} do
       license = %{license | subscription_id: "sub_123"}
 
-      mock = [retrieve: fn id -> {:ok, %{id: id, status: "active"}} end]
+      mock = [
+        retrieve: fn id ->
+          {:ok, %{id: id, status: "active", current_period_end: System.os_time(:second)}}
+        end
+      ]
 
       with_mock Stripe.Subscription, mock do
         assert subscription = StripeClient.find_subscription(license)

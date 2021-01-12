@@ -73,6 +73,12 @@ defmodule Tq2.Accounts.License do
     |> assoc_constraint(:account)
   end
 
+  def price_for(country, period \\ :monthly)
+
+  def price_for(%License{account: %{country: country}}, period) do
+    price_for(country, period)
+  end
+
   def price_for(country, :yearly) do
     @yearly_prices[country] || @yearly_prices[@default_country]
   end
@@ -80,8 +86,6 @@ defmodule Tq2.Accounts.License do
   def price_for(country, :monthly) do
     @prices[country] || @prices[@default_country]
   end
-
-  def price_for(country), do: price_for(country, :monthly)
 
   defp put_status(%Ecto.Changeset{} = changeset) do
     changeset |> change(status: "trial")
