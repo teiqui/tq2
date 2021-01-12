@@ -102,7 +102,7 @@ msgstr "Anual"
 
 #: lib/tq2_web/live/account/license_live.ex:232
 msgid "Yearly pay %{money}"
-msgstr "Pago anual: %{money"
+msgstr "Pago anual: %{money}"
 
 #: lib/tq2_web/live/account/license_live.ex:102
 #: lib/tq2_web/live/account/license_live.ex:114 lib/tq2_web/live/account/license_live.ex:124

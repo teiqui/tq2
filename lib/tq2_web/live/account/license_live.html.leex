@@ -3,17 +3,17 @@
 </h1>
 
 <div class="row mt-4">
-  <div class="col-12 col-md-4 h5 ml-2">
-    <p class="mb-1">
+  <div class="col-12 col-md-4 h5">
+    <p class="mb-1 ml-2">
       <span class="text-info"><%= dgettext("licenses", "Status") %></span>:
       <%= status @license %>
     </p>
-    <p class="mb-1">
+    <p class="mb-1 ml-2">
       <span class="text-info"><%= dgettext("licenses", "Paid until") %></span>:
       <%= localize_date @license.paid_until %>
     </p>
     <%= if @subscription do %>
-      <p class="mb-1">
+      <p class="mb-1 ml-2">
         <span class="text-info"><%= dgettext("licenses", "Subscription") %></span>:
         <%= subscription_plan @subscription %>
       </p>

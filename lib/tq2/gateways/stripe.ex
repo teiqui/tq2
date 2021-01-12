@@ -5,20 +5,20 @@ defmodule Tq2.Gateways.Stripe do
   alias Tq2.Accounts.License
 
   @monthly_plans %{
-    "ar" => "price_1I3qdWLvW6Kv2wj42WHC5QSd",
-    "cl" => "price_1I7Ob0LvW6Kv2wj41z16zLdK",
-    "co" => "price_1I7OcQLvW6Kv2wj4rCWdoCQF",
+    "ar" => "price_1I8vJ6LvW6Kv2wj4gr5At51o",
+    "cl" => "price_1I8vJ6LvW6Kv2wj43vANfj99",
+    "co" => "price_1I8vJ6LvW6Kv2wj4wjsTOzjT",
     "mx" => "price_1I7OdaLvW6Kv2wj4gNVRgeaW",
-    "pe" => "price_1I7OdILvW6Kv2wj4UaYeNGUg",
-    "us" => "price_1I0ybqLvW6Kv2wj4bU6tIYQz"
+    "pe" => "price_1I8vJ6LvW6Kv2wj4LlziLyet",
+    "us" => "price_1I8vJ6LvW6Kv2wj4HfFPfDfS"
   }
   @yearly_plans %{
-    "ar" => "price_1I7OfcLvW6Kv2wj4quCztx47",
-    "cl" => "price_1I7OgQLvW6Kv2wj4KojYs8CE",
-    "co" => "price_1I7Og1LvW6Kv2wj4hSoMiyC2",
+    "ar" => "price_1I8vBqLvW6Kv2wj49azo23X1",
+    "cl" => "price_1I8vBrLvW6Kv2wj4Cs2nK4Ez",
+    "co" => "price_1I8vBrLvW6Kv2wj4fPSlDJU7",
     "mx" => "price_1I7OhJLvW6Kv2wj4fjGkQO9I",
-    "pe" => "price_1I7OgtLvW6Kv2wj4xlegNB3V",
-    "us" => "price_1I7OfCLvW6Kv2wj4fVGvNRwG"
+    "pe" => "price_1I8vBqLvW6Kv2wj4wvL0aqyd",
+    "us" => "price_1I8vBrLvW6Kv2wj4iKScWZEd"
   }
   @default_price "us"
 
