@@ -32,7 +32,7 @@ defmodule Tq2Web.Store.TeamComponent do
 
   defp image_path(nil) do
     # For some weird reason :random.uniform/1 does not work here
-    index = DateTime.utc_now() |> DateTime.to_unix() |> Integer.mod(2)
+    index = System.os_time(:second) |> Integer.mod(2)
 
     "/images/avatars/avatar_#{index + 1}.svg"
   end

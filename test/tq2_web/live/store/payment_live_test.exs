@@ -34,7 +34,7 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       |> Plug.Test.init_test_session(
         token: @create_attrs.token,
         visit_id: visit.id,
-        visit_timestamp: DateTime.utc_now() |> DateTime.to_unix()
+        visit_timestamp: System.os_time(:second)
       )
 
     {:ok, %{conn: conn}}

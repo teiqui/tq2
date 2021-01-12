@@ -34,7 +34,7 @@ defmodule Tq2Web.VisitPlug do
 
     conn
     |> put_session(:visit_id, view.visit_id)
-    |> put_session(:visit_timestamp, DateTime.utc_now() |> DateTime.to_unix())
+    |> put_session(:visit_timestamp, System.os_time(:second))
   end
 
   defp track_view(conn, slug, visit_id) do
