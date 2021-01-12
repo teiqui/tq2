@@ -1,5 +1,11 @@
 defmodule Tq2Web.RemoteIpPlug do
-  def put_forwarded_for_remote_ip(%Plug.Conn{} = conn, _opts) do
+  @behaviour Plug
+
+  @impl true
+  def init(opts), do: opts
+
+  @impl true
+  def call(%Plug.Conn{} = conn, _opts) do
     conn
     |> Plug.Conn.get_req_header("x-forwarded-for")
     |> put_forwarded_for_ip(conn)

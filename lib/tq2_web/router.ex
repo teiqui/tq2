@@ -3,7 +3,6 @@ defmodule Tq2Web.Router do
 
   pipeline :browser do
     plug :accepts, ["html"]
-    plug :put_forwarded_for_remote_ip
     plug :fetch_session
     plug :fetch_live_flash
     plug :fetch_current_session

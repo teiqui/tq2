@@ -1,6 +1,9 @@
 defmodule Tq2Web.Endpoint do
-  use Sentry.PlugCapture
   use Phoenix.Endpoint, otp_app: :tq2
+
+  plug Tq2Web.RemoteIpPlug
+
+  use Sentry.PlugCapture
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.

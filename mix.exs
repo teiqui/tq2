@@ -63,7 +63,7 @@ defmodule Tq2.MixProject do
       {:waffle_ecto, ">= 0.0.9"},
       {:ex_aws_s3, ">= 2.1.0"},
       {:sweet_xml, ">= 0.6.0"},
-      {:httpoison, ">= 1.7.0"},
+      {:httpoison, ">= 1.8.0"},
       {:mock, ">= 0.3.6", only: :test},
       # Exq has poison as optional, but it's been installed
       {:exq, ">= 0.14.0"},

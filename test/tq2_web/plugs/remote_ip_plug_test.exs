@@ -5,7 +5,7 @@ defmodule Tq2Web.RemoteIpPlugTest do
 
   describe "remote ip" do
     test "don't do anything if the is no x-forwarded-for header", %{conn: conn} do
-      conn = conn |> RemoteIpPlug.put_forwarded_for_remote_ip([])
+      conn = conn |> RemoteIpPlug.call([])
 
       assert conn.remote_ip == {127, 0, 0, 1}
     end
@@ -14,7 +14,7 @@ defmodule Tq2Web.RemoteIpPlugTest do
       conn =
         conn
         |> Plug.Conn.put_req_header("x-forwarded-for", "10.0.0.1")
-        |> RemoteIpPlug.put_forwarded_for_remote_ip([])
+        |> RemoteIpPlug.call([])
 
       assert conn.remote_ip == {10, 0, 0, 1}
     end
