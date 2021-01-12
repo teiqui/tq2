@@ -15,23 +15,23 @@ msgstr ""
 msgid "Status"
 msgstr "Estado"
 
-#: lib/tq2_web/live/account/license_live.ex:10
+#: lib/tq2_web/live/account/license_live.ex:12
 msgid "Active"
 msgstr "Activo"
 
-#: lib/tq2_web/live/account/license_live.ex:13
+#: lib/tq2_web/live/account/license_live.ex:15
 msgid "Canceled"
 msgstr "Cancelado"
 
-#: lib/tq2_web/live/account/license_live.ex:12
+#: lib/tq2_web/live/account/license_live.ex:14
 msgid "Locked"
 msgstr "Bloqueado"
 
-#: lib/tq2_web/live/account/license_live.ex:9
+#: lib/tq2_web/live/account/license_live.ex:11
 msgid "Trial"
 msgstr "Prueba"
 
-#: lib/tq2_web/live/account/license_live.ex:11
+#: lib/tq2_web/live/account/license_live.ex:13
 msgid "Unpaid"
 msgstr "Impago"
 
@@ -42,7 +42,7 @@ msgstr "Licencia"
 
 #: lib/tq2_web/live/account/license_live.html.leex:12
 msgid "Paid until"
-msgstr "Pagado hasta"
+msgstr "Vigente hasta"
 
 #: lib/tq2_web/controllers/license/check_controller.ex:15
 msgid "License updated"
@@ -75,3 +75,46 @@ msgstr "Pagos"
 #: lib/tq2_web/views/license_view.ex:15
 msgid "Pending"
 msgstr "Pendiente"
+
+#: lib/tq2_web/live/account/license_live.ex:255
+msgid "Monthly"
+msgstr "Mensual"
+
+#: lib/tq2_web/live/account/license_live.ex:203
+msgid "Monthly pay %{money}"
+msgstr "Pago mensual %{money}"
+
+#: lib/tq2_web/live/account/license_live.html.leex:17
+msgid "Subscription"
+msgstr "Suscripción"
+
+#: lib/tq2_web/live/account/license_live.ex:218
+msgid "Until %{date}"
+msgstr "Hasta %{date}"
+
+#: lib/tq2_web/live/account/license_live.ex:243
+msgid "Until %{date} Save two months!"
+msgstr "Hasta %{date} ¡Ahorra dos meses!"
+
+#: lib/tq2_web/live/account/license_live.ex:256
+msgid "Yearly"
+msgstr "Anual"
+
+#: lib/tq2_web/live/account/license_live.ex:232
+msgid "Yearly pay %{money}"
+msgstr "Pago anual: %{money"
+
+#: lib/tq2_web/live/account/license_live.ex:102
+#: lib/tq2_web/live/account/license_live.ex:114 lib/tq2_web/live/account/license_live.ex:124
+#: lib/tq2_web/live/account/license_live.ex:136
+msgid "Can't create subscription"
+msgstr "No se pudo crear la suscripción"
+
+#: lib/tq2_web/live/account/license_live.ex:157
+#: lib/tq2_web/live/account/license_live.ex:171
+msgid "Can't get your subscription"
+msgstr "No se pudo obtener la suscripción"
+
+#: lib/tq2_web/live/account/license_live.ex:192
+msgid "Show / modify subscription"
+msgstr "Ver / modificar suscripción"

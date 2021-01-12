@@ -58,20 +58,8 @@ defmodule Tq2.Gateways.Stripe do
     end
   end
 
-  def create_subscription_session(
-        %License{account: account, customer_id: customer_id},
-        period \\ :monthly
-      ) do
-    session_params = %{
-      cancel_url: license_url(),
-      success_url: license_url(),
-      mode: "subscription",
-      payment_method_types: ["card"],
-      customer: customer_id,
-      line_items: [
-        %{quantity: 1, price: price_id(account, period)}
-      ]
-    }
+  def create_subscription_session(%License{} = license, period \\ :monthly) do
+    session_params = session_params(license, period)
 
     case Stripe.Session.create(session_params) do
       {:ok, session} -> {:ok, session.id}
@@ -87,17 +75,22 @@ defmodule Tq2.Gateways.Stripe do
   end
 
   def find_subscription(%License{subscription_id: id}) when not is_nil(id) do
-    {:ok, subscription} = Stripe.Subscription.retrieve(id)
-
-    subscription
+    case Stripe.Subscription.retrieve(id) do
+      {:ok, subscription} -> subscription
+      _ -> nil
+    end
   end
 
   def find_subscription(%License{customer_id: id}) do
-    {:ok, %{subscriptions: %{data: subscriptions}}} = Stripe.Customer.retrieve(id)
+    case Stripe.Customer.retrieve(id) do
+      {:ok, %{subscriptions: %{data: subscriptions}}} ->
+        subscriptions
+        |> Enum.filter(&(&1.status != "canceled"))
+        |> List.first()
 
-    subscriptions
-    |> Enum.filter(&(&1.status != "canceled"))
-    |> List.first()
+      _ ->
+        nil
+    end
   end
 
   def update_license(%License{account: account} = license) do
@@ -142,14 +135,63 @@ defmodule Tq2.Gateways.Stripe do
   end
 
   defp price_id(%{country: country}, :monthly) do
-    @monthly_plans[country] || @monthly_plans[@default_price]
+    if System.get_env("MOCK_STRIPE") do
+      "price_1I3qfnLvW6Kv2wj4yDzztvYo"
+    else
+      @monthly_plans[country] || @monthly_plans[@default_price]
+    end
   end
 
   defp price_id(%{country: country}, :yearly) do
-    @yearly_plans[country] || @yearly_plans[@default_price]
+    if System.get_env("MOCK_STRIPE") do
+      "price_1I8brELvW6Kv2wj4UC4sDVCD"
+    else
+      @yearly_plans[country] || @yearly_plans[@default_price]
+    end
+  end
+
+  defp subscription_to_license_attrs(%{current_period_end: ts, id: id, status: status})
+       when status in ["trialing", "active"] do
+    %{
+      status: @statuses_for_license[status],
+      subscription_id: id,
+      paid_until: DateTime.from_unix!(ts)
+    }
   end
 
   defp subscription_to_license_attrs(%{id: id, status: status}) do
-    %{status: @statuses_for_license[status], subscription_id: id}
+    %{
+      status: @statuses_for_license[status],
+      subscription_id: id
+    }
+  end
+
+  defp session_params(
+         %License{account: account, customer_id: customer_id, paid_until: paid_until},
+         period
+       ) do
+    defaults = %{
+      cancel_url: license_url(),
+      success_url: license_url(),
+      mode: "subscription",
+      payment_method_types: ["card"],
+      customer: customer_id,
+      allow_promotion_codes: false,
+      line_items: [
+        %{quantity: 1, price: price_id(account, period)}
+      ]
+    }
+
+    case trial_days(paid_until) do
+      nil -> defaults
+      n -> Map.put(defaults, :subscription_data, %{trial_period_days: n})
+    end
+  end
+
+  defp trial_days(date) do
+    case Timex.diff(date, Date.utc_today(), :days) do
+      d when d > 0 -> d
+      _ -> nil
+    end
   end
 end
