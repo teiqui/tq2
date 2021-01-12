@@ -90,6 +90,7 @@ config :elixir_google_spreadsheets, :client,
   interval: 100,
   max_rows_per_request: 20
 
+# Geolix config
 config :geolix,
   databases: [
     %{
@@ -99,6 +100,7 @@ config :geolix,
     }
   ]
 
+# Stripity Stripe config
 config :stripity_stripe,
   api_key: System.get_env("STRIPE_API_KEY", "sk_test_JkGZbIzWxolyMtj5n4h1JcVh00X9Zh3pfI"),
   public_key: System.get_env("STRIPE_PUBLIC_KEY", "pk_test_jkiVt4SNZbMJbZFjaQgTvAl00007xYdocb"),

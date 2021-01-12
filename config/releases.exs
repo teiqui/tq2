@@ -94,6 +94,23 @@ config :waffle,
       System.get_env("AWS_S3_BUCKET", "public.teiqui.com")
     ])
 
+# Geolix config
+config :geolix,
+  databases: [
+    %{
+      id: :default,
+      adapter: Geolix.Adapter.MMDB2,
+      source: Path.expand("../priv/maxmind/country.mmdb", __DIR__)
+    }
+  ]
+
+# Stripity Stripe config
+config :stripity_stripe,
+  api_key: System.get_env("STRIPE_API_KEY", "sk_test_JkGZbIzWxolyMtj5n4h1JcVh00X9Zh3pfI"),
+  public_key: System.get_env("STRIPE_PUBLIC_KEY", "pk_test_jkiVt4SNZbMJbZFjaQgTvAl00007xYdocb"),
+  hackney_opts: [{:connect_timeout, 2000}, {:recv_timeout, 10000}],
+  retries: [max_attempts: 3, base_backoff: 500, max_backoff: 2_000]
+
 # ## Using releases (Elixir v1.9+)
 #
 # If you are doing OTP releases, you need to instruct Phoenix
