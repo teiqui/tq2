@@ -100,7 +100,7 @@ config :geolix,
     %{
       id: :default,
       adapter: Geolix.Adapter.MMDB2,
-      source: Path.expand("../priv/maxmind/country.mmdb", __DIR__)
+      source: Path.join(:code.priv_dir(:tq2), "maxmind/country.mmdb")
     }
   ]
 
