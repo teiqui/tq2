@@ -28,7 +28,7 @@ msgid "Annually"
 msgstr ""
 
 #: lib/tq2_web/templates/page/index.html.eex:25
-#: lib/tq2_web/views/page_view.ex:40
+#: lib/tq2_web/views/page_view.ex:32
 msgid "App"
 msgstr ""
 
@@ -60,10 +60,12 @@ msgstr ""
 msgid "Free 14 days trial"
 msgstr ""
 
+#: lib/tq2_web/templates/legal/index.html.eex:34
 #: lib/tq2_web/templates/page/index.html.eex:46
 msgid "Free trial"
 msgstr ""
 
+#: lib/tq2_web/templates/legal/index.html.eex:30
 #: lib/tq2_web/templates/page/index.html.eex:42
 msgid "Login"
 msgstr ""
@@ -76,6 +78,7 @@ msgstr ""
 msgid "Monthly"
 msgstr ""
 
+#: lib/tq2_web/templates/legal/index.html.eex:727
 #: lib/tq2_web/templates/page/index.html.eex:297
 msgid "Need any help?"
 msgstr ""
@@ -135,7 +138,7 @@ msgstr ""
 
 #: lib/tq2_web/templates/page/index.html.eex:30
 #: lib/tq2_web/templates/page/index.html.eex:218 lib/tq2_web/templates/page/index.html.eex:245
-#: lib/tq2_web/templates/page/index.html.eex:272 lib/tq2_web/views/page_view.ex:26
+#: lib/tq2_web/templates/page/index.html.eex:272 lib/tq2_web/views/page_view.ex:18
 msgid "Teiqui price"
 msgstr ""
 
@@ -159,6 +162,7 @@ msgstr ""
 msgid "With Teiqui price, your customers will get discounts for sharing your store and get people to buy in it. They win, you win."
 msgstr ""
 
+#: lib/tq2_web/templates/legal/index.html.eex:730
 #: lib/tq2_web/templates/page/index.html.eex:300
 msgid "Write to"
 msgstr ""
@@ -179,6 +183,6 @@ msgstr ""
 msgid "your store"
 msgstr ""
 
-#: lib/tq2_web/views/page_view.ex:57
+#: lib/tq2_web/views/page_view.ex:49
 msgid "+ applicable taxes"
 msgstr ""

@@ -1,0 +1,732 @@
+<nav id="main-menu" class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top py-3 mb-5">
+  <div class="container">
+    <%= link to: Routes.page_path(@conn, :index), class: "navbar-brand" do %>
+      <%= img_tag Routes.static_path(@conn, "/images/logo_white.svg"), width: "101",
+                                                                       height: "26",
+                                                                       loading: "lazy",
+                                                                       class: "mt-n1",
+                                                                       alt: gettext("Teiqui") %>
+    <% end %>
+
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#menu-content"
+            aria-controls="menu-content"
+            aria-expanded="false"
+            aria-label="<%= dgettext("legal", "Toggle menu") %>">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="menu-content">
+      <ul class="navbar-nav mr-auto font-weight-bold">
+        <li class="nav-item">
+          <%= link dgettext("legal", "Site"), to: Routes.page_path(@conn, :index), class: "nav-link" %>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav font-weight-semi-bold mr-4">
+        <li class="nav-item">
+          <%= link dgettext("page", "Login"), to: Routes.session_url(app_uri(), :new), class: "nav-link" %>
+        </li>
+      </ul>
+
+      <%= link dgettext("page", "Free trial"), to: Routes.registration_url(app_uri(), :index),
+                                               class: "btn btn-light btn-sm text-primary rounded-pill font-weight-bold px-4" %>
+    </div>
+  </div>
+</nav>
+
+<div class="container my-5 pt-5">
+  <h1 class="h2 mt-5">
+    <%= dgettext("legal", "Teiqui Commerce Policy") %>
+  </h1>
+
+  <p class="lead my-3">
+    <%= dgettext("legal", "Last Modified: January 11, 2021") %>
+  </p>
+
+  <ul class="lead my-3">
+    <li>
+      <%= dgettext("legal", "When you offer goods or services for sale, we consider all messages and media related to your goods or services, including any descriptions, prices, fees, taxes and/or any required legal disclosures, to constitute transactions. Transactions must comply with the policies listed below, and applicable terms, laws and regulations.") %>
+    </li>
+    <li>
+      <%= dgettext("legal", "You are solely responsible for your transactions and providing any sales terms, privacy terms or other terms applicable to your interactions with users.") %>
+    </li>
+    <li>
+      <%= dgettext("legal", "We are not responsible for processing, paying for, or fulfilling any sales relating to your transactions.") %>
+    </li>
+    <li>
+      <%= dgettext("legal", "You are solely responsible for determining, collecting, withholding, reporting, and remitting all applicable taxes, duties, fees and additional charges for sales relating to your transactions.") %>
+    </li>
+    <li>
+      <%= dgettext("legal", "Examples listed below are representative, but not exhaustive.") %>
+    </li>
+
+    <li>
+      <%= dgettext("legal", "Offers to sell and sales of the following are prohibited:") %>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Illegal products or services") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Businesses may not transact in the operations or exchange of illegal products or services.") %>
+        </li>
+      </ul>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Drugs, whether prescription, recreational, or otherwise") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Businesses may not transact in the sale of illegal, prescription, or recreational drugs.") %>
+        </li>
+        <li>
+          <%= dgettext("legal", "Examples:") %>
+
+          <ul class="lead list-unstyled ml-3">
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Drugs, including marijuana and marijuana products") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Drug paraphernalia, including pipes and bongs") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Prescription drugs") %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Tobacco items and related paraphernalia") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Businesses may not transact in the sale of tobacco products or tobacco paraphernalia.") %>
+        </li>
+
+        <li>
+          <%= dgettext("legal", "Examples:") %>
+
+          <ul class="lead list-unstyled ml-3">
+            <li>
+              <span class="h4 text-success font-weight-bold mr-2">&#x2714;</span>
+              <%= dgettext("legal", "Apparel featuring a tobacco brand logo") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Cigarettes, cigars, and chewing tobacco") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Tobacco pipes and paraphernalia") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Tobacco rolling machines") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Hookahs") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Bongs") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Rolling papers") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Electronic cigarettes (E-cigarettes) or tobacco devices") %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Alcohol") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Businesses may not transact in the sale of alcohol.") %>
+        </li>
+
+        <li>
+          <%= dgettext("legal", "Examples:") %>
+
+          <ul class="lead list-unstyled ml-3">
+            <li>
+              <span class="h4 text-success font-weight-bold mr-2">&#x2714;</span>
+              <%= dgettext("legal", "Books or DVDs about alcohol") %>
+            </li>
+            <li>
+              <span class="h4 text-success font-weight-bold mr-2">&#x2714;</span>
+              <%= dgettext("legal", "Alcohol-related items, including glasses, coolers, and wine bottle holders") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Alcoholic beverages") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Kits for producing alcohol") %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Unsafe ingestible supplements") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Businesses may not transact in the sale of unsafe ingestible supplements, as determined by Teiqui in its sole discretion.") %>
+        </li>
+
+        <li>
+          <%= dgettext("legal", "Examples:") %>
+
+          <ul class="lead list-unstyled ml-3">
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Anabolic steroids") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Chitosan") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Comfrey") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Dehydroepiandrosterone") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Ephedra") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Human growth hormones") %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Weapons, ammunition, or explosives") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Businesses may not transact in the sale or use of weapons, ammunition, or explosives. ") %>
+        </li>
+
+        <li>
+          <%= dgettext("legal", "Examples:") %>
+
+          <ul class="lead list-unstyled ml-3">
+            <li>
+              <span class="h4 text-success font-weight-bold mr-2">&#x2714;</span>
+              <%= dgettext("legal", "Promoting safety training or licenses for legal weapons") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Firearms and firearm parts") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Paintball guns") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "BB Guns") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Fireworks") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Pepper spray") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Tasers") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Gun ranges") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Gun shows") %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Animals") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Businesses may not transact in the sale of any animals.") %>
+        </li>
+
+        <li>
+          <%= dgettext("legal", "Examples:") %>
+
+          <ul class="lead list-unstyled ml-3">
+            <li>
+              <span class="h4 text-success font-weight-bold mr-2">&#x2714;</span>
+              <%= dgettext("legal", "Animal cages") %>
+            </li>
+            <li>
+              <span class="h4 text-success font-weight-bold mr-2">&#x2714;</span>
+              <%= dgettext("legal", "Products for animals (toys, collars, etc.)") %>
+            </li>
+            <li>
+              <span class="h4 text-success font-weight-bold mr-2">&#x2714;</span>
+              <%= dgettext("legal", "Veterinary services") %>
+            </li>
+            <li>
+              <span class="h4 text-success font-weight-bold mr-2">&#x2714;</span>
+              <%= dgettext("legal", "Grooming services") %>
+            </li>
+            <li>
+              <span class="h4 text-success font-weight-bold mr-2">&#x2714;</span>
+              <%= dgettext("legal", "Boarding services") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Live animals") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Livestock") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Prohibited animal parts, including but not limited to bone, teeth, horn, ivory, taxidermy, organs, external limbs, secretions, or carcasses") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Any product or part, including but not limited to leather, skin, hide, fur, wool, or hair from any dogs, cats, and endangered or threatened animals") %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Adult products or services") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Businesses may not transact in the sale or use of adult products or services.") %>
+        </li>
+
+        <li>
+          <%= dgettext("legal", "Examples:") %>
+
+          <ul class="lead list-unstyled ml-3">
+            <li>
+              <span class="h4 text-success font-weight-bold mr-2">&#x2714;</span>
+              <%= dgettext("legal", "Products promoting family planning and contraception, which focus on the contraceptive features of the product, and not on sexual pleasure or sexual enhancement") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Sex toys") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Videos or live shows for adult entertainment") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Sexual enhancement products") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Sexually suggestive services") %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Body parts and fluids") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Businesses may not transact in the sale of human body parts or fluids.") %>
+        </li>
+
+        <li>
+          <%= dgettext("legal", "Examples:") %>
+
+          <ul class="lead list-unstyled ml-3">
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Blood") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Hair extensions and wigs") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Urine") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Body parts") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Organs") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Human tissue") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Teeth") %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Medical and healthcare products") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Businesses may not transact in certain healthcare products, including medical devices, and smoking cessation products containing nicotine.") %>
+        </li>
+
+        <li>
+          <%= dgettext("legal", "Medical Devices - Examples:") %>
+
+          <ul class="lead list-unstyled ml-3">
+            <li>
+              <span class="h4 text-success font-weight-bold mr-2">&#x2714;</span>
+              <%= dgettext("legal", "Lifestyle and fitness accessories") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Contact lenses") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Bandages and braces for physical injuries") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Thermometers") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Testing kits for medical conditions or diseases") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Breast pumps") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "First-aid kits") %>
+            </li>
+          </ul>
+
+        </li>
+
+        <li>
+          <%= dgettext("legal", "Smoking Cessation Products - Examples:") %>
+
+          <ul class="lead list-unstyled ml-3">
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Nicotine patches") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Nicotine gum") %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Items or products with overtly sexualized positioning") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Businesses may not position products or services in a sexually suggestive manner.") %>
+        </li>
+
+        <li>
+          <%= dgettext("legal", "Examples:") %>
+
+          <ul class="lead list-unstyled ml-3">
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Implied nudity") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Implied sexual acts") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Zoomed-in sexual images") %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Real money gambling services") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Businesses may not transact in or facilitate gambling, games of skill, or lotteries, including online casinos, sports books, bingo, or poker if it costs money.") %>
+        </li>
+      </ul>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Dating services") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Businesses may not transact in or facilitate online dating services.") %>
+        </li>
+      </ul>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Products or items that facilitate or encourage unauthorized access to digital media") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Businesses may not transact in the sale of devices that facilitate or encourage streaming digital content in an unauthorized manner or interfering with the functionality of electronic devices.") %>
+        </li>
+
+        <li>
+          <%= dgettext("legal", "Examples:") %>
+
+          <ul class="lead list-unstyled ml-3">
+            <li>
+              <span class="h4 text-success font-weight-bold mr-2">&#x2714;</span>
+              <%= dgettext("legal", "Add-on equipment for streaming devices such as keyboards and remotes") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Sale of streaming devices loaded with software that facilitates unauthorized access to content") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Jailbroken or loaded devices") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Jamming or descrambling devices") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Wiretapping devices") %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Digital and subscription services, including links to or processing of any subscription sales, renewals, or upgrades") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Businesses may not transact in the sale, including renewals and upgrades, etc., of digital content, digital subscriptions, or digital accounts.") %>
+        </li>
+
+        <li>
+          <%= dgettext("legal", "Examples:") %>
+
+          <ul class="lead list-unstyled ml-3">
+            <li>
+              <span class="h4 text-success font-weight-bold mr-2">&#x2714;</span>
+              <%= dgettext("legal", "Authentic audio or video CDs, DVDs, and Blu Ray") %>
+            </li>
+            <li>
+              <span class="h4 text-success font-weight-bold mr-2">&#x2714;</span>
+              <%= dgettext("legal", "Digital devices, including Smartphones, video game consoles, and TVs") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Downloadable content, including PDFs, music, games, movies, etc.") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Digital accounts, including games accounts") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Digital subscriptions and internet streaming services, including TV, Mobile, etc.") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Digital coupons") %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Business models, goods, items, or services that we determine may be or are fraudulent, misleading, offensive, or deceptive, or may be or are exploitative, inappropriate, or exert undue pressure on targeted groups") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Businesses may not transact in deceptive, false, misleading, or offensive offers or products.") %>
+        </li>
+
+        <li>
+          <%= dgettext("legal", "Examples:") %>
+
+          <ul class="lead list-unstyled ml-3">
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Multilevel marketing") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Penny auctions") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Payday loans, paycheck advances, P2P lending, debt collection, and bail bonds") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Diet, weight loss, or other health related products that imply or attempt to generate negative self-perception") %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Real or fake currency") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Businesses may not transact in the sale of real or fake currency.") %>
+        </li>
+
+        <li>
+          <%= dgettext("legal", "Examples:") %>
+
+          <ul class="lead list-unstyled ml-3">
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Real money (cash or cash equivalent instruments and coins)") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Replica or prop money") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Active bank credit or debit cards") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Store credit cards or coupons") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Pre-paid credit or debit cards") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Checks or checkbooks") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Equipment to create counterfeit currency or financial instruments") %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2 class="h3 text-info my-4">
+        <%= dgettext("legal", "Third-Party Infringement") %>
+      </h2>
+
+      <ul class="lead my-3">
+        <li>
+          <%= dgettext("legal", "Policy: Transactions may not contain content that infringes upon or violates the intellectual property rights of any third party, including copyright or trademark. This includes, but is not limited to, the sale of counterfeit products, such as goods that copy the trademark (name or logo) and/or distinctive features of another company’s products to imitate a genuine product.") %>
+        </li>
+
+        <li>
+          <%= dgettext("legal", "Examples:") %>
+
+          <ul class="lead list-unstyled ml-3">
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Counterfeits, knockoffs, or replicas of branded goods, or posts offering goods that are likely to confuse consumers about the source, sponsorship or affiliation of those goods.") %>
+            </li>
+            <li>
+              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
+              <%= dgettext("legal", "Unauthorized or pirated copies of copyrighted works, such as videos, movies, TV shows and broadcasts, video games, CDs or other musical works, books, etc.") %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div class="bg-primary text-white py-5 mb-n5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 mb-3">
+        <%= img_tag Routes.static_path(@conn, "/images/logo_white.svg"), width: "101",
+                                                                          height: "26",
+                                                                          loading: "lazy",
+                                                                          alt: gettext("Teiqui") %>
+      </div>
+      <div class="col-lg-2 offset-lg-4">
+        <p class="mb-1">
+          <%= dgettext("page", "Need any help?") %>
+        </p>
+        <p class="mb-1">
+          <%= dgettext("page", "Write to") %>
+          <%= link "info@teiqui.com", to: "mailto:info@teiqui.com", class: "text-reset" %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

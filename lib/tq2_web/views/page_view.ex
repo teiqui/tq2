@@ -3,15 +3,7 @@ defmodule Tq2Web.PageView do
 
   alias Tq2.Accounts.License
 
-  defp app_uri do
-    scheme = if Tq2Web.Endpoint.config(:https), do: "https", else: "http"
-    url_config = Tq2Web.Endpoint.config(:url)
-
-    %URI{
-      scheme: scheme,
-      host: Enum.join([Application.get_env(:tq2, :app_subdomain), url_config[:host]], ".")
-    }
-  end
+  import Tq2.Utils.Urls, only: [app_uri: 0]
 
   defp teiqui_price_img_tag(conn) do
     path = Routes.static_path(conn, "/images/page/teiqui_price.jpg")

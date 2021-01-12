@@ -36,6 +36,7 @@ defmodule Tq2Web.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/terms", LegalController, :index
     get "/:country", PageController, :index
   end
 
