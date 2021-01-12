@@ -96,8 +96,7 @@ defmodule Tq2.Gateways.StripeTest do
 
       mock = [
         retrieve: fn id ->
-          {:ok,
-           %{id: id, status: "active", current_period_end: System.os_time(:second)}}
+          {:ok, %{id: id, status: "active", current_period_end: System.os_time(:second)}}
         end
       ]
 
