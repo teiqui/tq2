@@ -5,7 +5,7 @@
   <div class="align-self-center flex-fill">
     <p class="mb-0 small font-weight-semi-bold">
       <%= if @referral_customer do %>
-        <%= dgettext("stores", "Great! Your are buying with %{name}", name: @referral_customer.name) %>
+        <%= dgettext("stores", "Great! Your are buying with %{name}", name: first_name(@referral_customer)) %>
       <% else %>
         <%= dgettext("stores", "Share the store and take advantage of the Teiqui price") %>
       <% end %>

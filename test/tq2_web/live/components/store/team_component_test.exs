@@ -18,12 +18,13 @@ defmodule Tq2Web.Store.TeamComponentTest do
     test "render team with referral" do
       customer = customer()
       store = store()
+      first_name = customer.name |> String.split(~r/\s+/) |> List.first()
 
       content =
         render_component(TeamComponent, id: :team, store: store, referral_customer: customer)
 
       assert content =~ "Great!"
-      assert content =~ customer.name
+      assert content =~ first_name
       assert content =~ "disabled"
       assert content =~ "avatar_join"
     end

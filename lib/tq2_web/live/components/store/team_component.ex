@@ -38,4 +38,10 @@ defmodule Tq2Web.Store.TeamComponent do
   end
 
   defp image_path(_), do: "/images/avatars/avatar_join.svg"
+
+  defp first_name(%Tq2.Sales.Customer{name: name}) do
+    name
+    |> String.split(~r/\s+/)
+    |> List.first()
+  end
 end
