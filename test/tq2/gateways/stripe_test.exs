@@ -63,19 +63,19 @@ defmodule Tq2.Gateways.StripeTest do
         assert {:ok, attrs} = StripeClient.create_subscription_session(license)
 
         # Monthly AR price
-        assert List.first(attrs.line_items).price == "price_1I3qdWLvW6Kv2wj42WHC5QSd"
+        assert List.first(attrs.line_items).price == "price_1I8vJ6LvW6Kv2wj4gr5At51o"
 
         license = %{license | account: %{account | country: "xx"}}
 
         # Monthly US price
         assert {:ok, attrs} = StripeClient.create_subscription_session(license)
 
-        assert List.first(attrs.line_items).price == "price_1I0ybqLvW6Kv2wj4bU6tIYQz"
+        assert List.first(attrs.line_items).price == "price_1I8vJ6LvW6Kv2wj4HfFPfDfS"
 
         # Yearly US price
         assert {:ok, attrs} = StripeClient.create_subscription_session(license, :yearly)
 
-        assert List.first(attrs.line_items).price == "price_1I7OfCLvW6Kv2wj4fVGvNRwG"
+        assert List.first(attrs.line_items).price == "price_1I8vBrLvW6Kv2wj4iKScWZEd"
       end
     end
 
