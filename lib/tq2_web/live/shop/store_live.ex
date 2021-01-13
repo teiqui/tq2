@@ -114,7 +114,7 @@ defmodule Tq2Web.Shop.StoreLive do
       <%= dgettext("stores", "Back") %>
     """
 
-    live_patch(content, to: path, class: "h5")
+    live_patch(content, to: path, class: "h5 text-decoration-none")
   end
 
   def lock_version_input(form, %Store{lock_version: lock_version}) do
