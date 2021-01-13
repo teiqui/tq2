@@ -165,6 +165,24 @@
                 "name": "tq2-app-secrets"
               }
             }
+          },
+          {
+            "name": "STRIPE_PUBLIC_KEY",
+            "valueFrom": {
+              "configMapKeyRef": {
+                "key": "stripePublicKey",
+                "name": "tq2-app-config"
+              }
+            }
+          },
+          {
+            "name": "STRIPE_API_KEY",
+            "valueFrom": {
+              "secretKeyRef": {
+                "key": "stripeApiKey",
+                "name": "tq2-app-secrets"
+              }
+            }
           }
         ],
         "volumeMounts": [
