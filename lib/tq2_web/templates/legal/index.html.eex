@@ -154,39 +154,6 @@
       </ul>
 
       <h2 class="h3 text-info my-4">
-        <%= dgettext("legal", "Alcohol") %>
-      </h2>
-
-      <ul class="lead my-3">
-        <li>
-          <%= dgettext("legal", "Policy: Businesses may not transact in the sale of alcohol.") %>
-        </li>
-
-        <li>
-          <%= dgettext("legal", "Examples:") %>
-
-          <ul class="lead list-unstyled ml-3">
-            <li>
-              <span class="h4 text-success font-weight-bold mr-2">&#x2714;</span>
-              <%= dgettext("legal", "Books or DVDs about alcohol") %>
-            </li>
-            <li>
-              <span class="h4 text-success font-weight-bold mr-2">&#x2714;</span>
-              <%= dgettext("legal", "Alcohol-related items, including glasses, coolers, and wine bottle holders") %>
-            </li>
-            <li>
-              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
-              <%= dgettext("legal", "Alcoholic beverages") %>
-            </li>
-            <li>
-              <span class="h4 text-danger font-weight-bold mr-2">&times;</span>
-              <%= dgettext("legal", "Kits for producing alcohol") %>
-            </li>
-          </ul>
-        </li>
-      </ul>
-
-      <h2 class="h3 text-info my-4">
         <%= dgettext("legal", "Unsafe ingestible supplements") %>
       </h2>
 

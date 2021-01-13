@@ -78,7 +78,7 @@ msgstr "Crea"
 msgid "Monthly"
 msgstr "Mensual"
 
-#: lib/tq2_web/templates/legal/index.html.eex:723
+#: lib/tq2_web/templates/legal/index.html.eex:690
 #: lib/tq2_web/templates/page/index.html.eex:297
 msgid "Need any help?"
 msgstr "¿Necesitas ayuda?"
@@ -162,7 +162,7 @@ msgstr "Conmutar menú"
 msgid "With Teiqui price, your customers will get discounts for sharing your store and get people to buy in it. They win, you win."
 msgstr "Con Precio Teiqui tus clientes accederán a descuentos al compartir tu tienda y lograr que otra persona realice una compra. Ganan ellos, ganas tu."
 
-#: lib/tq2_web/templates/legal/index.html.eex:726
+#: lib/tq2_web/templates/legal/index.html.eex:693
 #: lib/tq2_web/templates/page/index.html.eex:300
 msgid "Write to"
 msgstr "Escríbenos a"
