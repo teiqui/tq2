@@ -86,13 +86,10 @@ defmodule Tq2Web.Store.TeamLive do
     """
   end
 
-  defp initials(%Tq2.Sales.Customer{name: name}) do
+  defp first_name(%Tq2.Sales.Customer{name: name}) do
     name
-    |> String.upcase()
     |> String.split(~r/\s+/)
-    |> Enum.map(fn part -> String.replace(part, ~r/\W+/, "") end)
-    |> Enum.map(&String.first/1)
-    |> Enum.join()
+    |> List.first()
   end
 
   defp time_to_expire(%Tq2.Sales.Order{promotion_expires_at: promotion_expires_at}) do
