@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light py-1">
+<nav class="navbar navbar-expand-lg navbar-dark h5 font-weight-bold fixed-top bg-primary py-1">
   <div class="container-fluid">
     <div class="navbar-nav">
-      <%= icon_link @conn, "door-open", to: Routes.session_path(@conn, :delete), method: :delete, data: [
+      <%= icon_link @conn, "door-open", to: Routes.session_path(@conn, :delete), class: "text-light", method: :delete, data: [
         confirm: dgettext("menu", "Are you sure?")
       ] %>
     </div>
