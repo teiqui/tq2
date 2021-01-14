@@ -28,7 +28,7 @@ defmodule Tq2.Accounts.Registration do
     attrs = canonize(attrs)
 
     registration
-    |> cast(attrs, [:name, :type, :email, :password])
+    |> cast(attrs, [:name, :type, :email, :password, :terms_of_service])
     |> validate_required([:name, :type])
     |> validate_length(:name, max: 255)
     |> validate_length(:type, max: 255)
