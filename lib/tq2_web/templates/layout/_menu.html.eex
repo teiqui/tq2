@@ -1,46 +1,166 @@
-<nav class="navbar navbar-expand-lg navbar-dark h5 font-weight-bold fixed-top bg-primary py-1">
-  <div class="container-fluid">
-    <div class="navbar-nav">
-      <%= icon_link @conn, "door-open", to: Routes.session_path(@conn, :delete), class: "text-light", method: :delete, data: [
-        confirm: dgettext("menu", "Are you sure?")
-      ] %>
-    </div>
-
-    <a class="navbar-text mx-3" href="<%= Routes.root_path(@conn, :index) %>">
-      <%= dgettext("menu", "Hello %{name}", name: String.slice(@account.name, 0..30)) %>
-    </a>
-
-    <%= icon_link @conn, "list", to: "#", class: "navbar-toggler border-0", data: [toggle: "collapse", target: "#menu"] %>
-
-    <div class="collapse navbar-collapse" id="menu">
-      <ul class="navbar-nav mr-auto">
-        <%= menu_item @conn, to: Routes.store_path(@conn, :index, "main") do %>
-          <%= dgettext("stores", "Store") %>
-        <% end %>
-        <%= menu_item @conn, to: Routes.order_path(@conn, :index) do %>
-          <%= dgettext("orders", "Orders") %>
-        <% end %>
-        <%= menu_item @conn, to: Routes.item_path(@conn, :index) do %>
-          <%= dgettext("items", "Items") %>
-        <% end %>
-        <%= menu_item @conn, to: Routes.category_path(@conn, :index) do %>
-          <%= dgettext("categories", "Categories") %>
-        <% end %>
-        <%= menu_item @conn, to: Routes.user_path(@conn, :index) do %>
-          <%= dgettext("users", "Users") %>
-        <% end %>
-        <%= menu_item @conn, to: Routes.app_path(@conn, :index) do %>
-          <%= dgettext("apps", "Apps") %>
-        <% end %>
-        <%= menu_item @conn, to: Routes.license_path(@conn, :index) do %>
-          <%= dgettext("licenses", "Licenses") %>
-        <% end %>
-        <%= if @user.role == "admin" do %>
-          <%= menu_item @conn, to: Routes.account_path(@conn, :index) do %>
-            <%= dgettext("accounts", "Accounts") %>
-          <% end %>
-        <% end %>
-      </ul>
+<nav class="fixed-top bg-primary pt-4 pb-3 mt-4">
+  <div class="container-fluid pt-2">
+    <div class="row row-cols-5 no-gutters">
+      <div class="col">
+        <%= main_item @conn, text: dgettext("stores", "Store"),
+                             to: Routes.store_path(@conn, :index, "main"),
+                             icon: "shop",
+                             icon_class: "mb-1" %>
+      </div>
+      <div class="col">
+        <%= main_item @conn, text: dgettext("orders", "Orders"),
+                             to: Routes.order_path(@conn, :index),
+                             icon: "receipt-cutoff",
+                             icon_class: "mb-1" %>
+      </div>
+      <div class="col">
+        <%= main_item @conn, text: dgettext("items", "Items"),
+                             to: Routes.item_path(@conn, :index),
+                             icon: "box-seam",
+                             icon_class: "mb-1" %>
+      </div>
+      <div class="col">
+        <%= main_item @conn, text: dgettext("menu", "Payments"),
+                             to: Routes.app_path(@conn, :index),
+                             icon: "credit-card-2-back",
+                             icon_class: "mb-1" %>
+      </div>
+      <div class="col">
+        <%= main_item @conn, text: dgettext("menu", "More"),
+                             to: "#menu",
+                             icon: "plus",
+                             icon_class: "mb-1",
+                             opts: [data_toggle: "collapse"] %>
+      </div>
     </div>
   </div>
 </nav>
+
+<nav class="navbar navbar-dark h5 font-weight-bold fixed-top bg-primary py-1">
+  <div class="container-fluid">
+    <%= icon_link @conn, "door-open", to: Routes.session_path(@conn, :delete), class: "navbar-text", method: :delete, data: [
+      confirm: dgettext("menu", "Are you sure?")
+    ] %>
+
+    <a class="navbar-text text-left mx-3" href="<%= Routes.root_path(@conn, :index) %>">
+      <%= dgettext("menu", "Hello %{name}", name: String.slice(@account.name, 0..30)) %>
+    </a>
+
+    <span class="navbar-text ml-auto">
+      <svg class="bi" width="16" height="16" fill="currentColor">
+        <use xlink:href="<%= Routes.static_path(@conn, "/images/bootstrap-icons.svg#bell") %>"/>
+      </svg>
+    </span>
+  </div>
+</nav>
+
+<div class="collapse fixed-top vh-100 bg-light rounded mt-5 py-3" id="menu">
+  <div class="container-fluid px-4">
+    <p class="text-center mb-4">
+      <a href="#menu" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="menu">
+        <svg width="49" height="4" viewBox="0 0 49 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="47.5001"
+                y1="1.66064"
+                x2="1.50006"
+                y2="1.66064"
+                stroke="#C4C4C4"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </p>
+
+    <h2 class="h3 font-weight-bold mb-4">
+      <%= dgettext("stores", "Store") %>
+    </h2>
+
+    <div class="d-flex">
+      <div class="mr-4">
+        <%= main_item @conn, text: dgettext("stores", "Store"),
+                             to: Routes.store_path(@conn, :index, "main"),
+                             icon: "shop",
+                             icon_class: "btn-menu-lg text-primary border-primary",
+                             text_class: "text-dark mt-2",
+                             icon_size: 30 %>
+      </div>
+
+      <div class="mr-4">
+        <%= main_item @conn, text: dgettext("orders", "Orders"),
+                             to: Routes.order_path(@conn, :index),
+                             icon: "receipt-cutoff",
+                             icon_class: "btn-menu-lg text-primary border-primary",
+                             text_class: "text-dark mt-2",
+                             icon_size: 30 %>
+      </div>
+
+      <div class="mr-4">
+        <%= main_item @conn, text: dgettext("menu", "Payments"),
+                             to: Routes.app_path(@conn, :index),
+                             icon: "credit-card-2-back",
+                             icon_class: "btn-menu-lg text-primary border-primary",
+                             text_class: "text-dark mt-2",
+                             icon_size: 30 %>
+      </div>
+    </div>
+
+    <h2 class="h3 font-weight-bold mb-4 mt-5">
+      <%= dgettext("items", "Items") %>
+    </h2>
+
+    <div class="d-flex">
+      <div class="mr-4">
+        <%= main_item @conn, text: dgettext("items", "Items"),
+                             to: Routes.item_path(@conn, :index),
+                             icon: "box-seam",
+                             icon_class: "btn-menu-lg text-info border-info",
+                             text_class: "text-dark mt-2",
+                             icon_size: 30 %>
+      </div>
+
+      <div class="mr-4">
+        <%= main_item @conn, text: dgettext("categories", "Categories"),
+                             to: Routes.category_path(@conn, :index),
+                             icon: "layout-wtf",
+                             icon_class: "btn-menu-lg text-info border-info",
+                             text_class: "text-dark mt-2",
+                             icon_size: 30 %>
+      </div>
+    </div>
+
+    <h2 class="h3 font-weight-bold mb-4 mt-5">
+      <%= dgettext("menu", "Settings") %>
+    </h2>
+
+    <div class="d-flex">
+      <div class="mr-4">
+        <%= main_item @conn, text: dgettext("users", "Users"),
+                             to: Routes.user_path(@conn, :index),
+                             icon: "person-badge",
+                             icon_class: "btn-menu-lg text-dark border-dark",
+                             text_class: "text-dark mt-2",
+                             icon_size: 30 %>
+      </div>
+
+      <div class="mr-4">
+        <%= main_item @conn, text: dgettext("licenses", "Licenses"),
+                             to: Routes.license_path(@conn, :index),
+                             icon: "gear",
+                             icon_class: "btn-menu-lg text-dark border-dark",
+                             text_class: "text-dark mt-2",
+                             icon_size: 30 %>
+      </div>
+
+      <%= if @user.role == "admin" do %>
+        <div class="mr-4">
+          <%= main_item @conn, text: dgettext("accounts", "Accounts"),
+                               to: Routes.account_path(@conn, :index),
+                               icon: "building",
+                               icon_class: "btn-menu-lg text-dark border-dark",
+                               text_class: "text-dark mt-2",
+                               icon_size: 30 %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,20 @@
 @import "bootstrap/scss/variables";
 @import "variables";
 
+.btn-menu {
+  height: 48px;
+  width: 48px;
+  border: 2px solid $light;
+  border-radius: 50%;
+  padding: 8px 14px 16px 10px;
+}
+
+.btn-menu-lg {
+  height: 60px;
+  width: 60px;
+  padding: 12px 12px 12px 12px;
+}
+
 .font-weight-semi-bold {
   font-weight: 600 !important;
 }

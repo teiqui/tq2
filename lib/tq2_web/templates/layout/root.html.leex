@@ -23,10 +23,14 @@
         data-spy="scroll"
         data-target="#main-menu"
         data-offset="50">
-    <%= if @current_session, do: render "_menu.html", conn: @conn,
-                                                      account: @current_session.account,
-                                                      user: @current_session.user %>
+    <%= if @current_session do %>
+      <div class="mt-5 pt-5">
+        <%= @inner_content %>
+      </div>
 
-    <%= @inner_content %>
+      <%= render "_menu.html", conn: @conn, account: @current_session.account, user: @current_session.user %>
+    <% else %>
+      <%= @inner_content %>
+    <% end %>
   </body>
 </html>

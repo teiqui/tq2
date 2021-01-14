@@ -145,7 +145,8 @@ msgstr "Actualizar tienda"
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:18
+#: lib/tq2_web/templates/layout/_menu.html.eex:5
+#: lib/tq2_web/templates/layout/_menu.html.eex:75 lib/tq2_web/templates/layout/_menu.html.eex:80
 msgid "Store"
 msgstr "Tienda"
 
@@ -200,7 +201,7 @@ msgid "Share"
 msgstr "Compartir"
 
 #: lib/tq2_web/live/components/store/team_component.ex:30
-#: lib/tq2_web/live/store/team_live.ex:116
+#: lib/tq2_web/live/store/team_live.ex:113
 msgid "Join"
 msgstr "Unirse"
 

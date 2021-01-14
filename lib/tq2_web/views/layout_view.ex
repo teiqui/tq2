@@ -1,30 +1,44 @@
 defmodule Tq2Web.LayoutView do
   use Tq2Web, :view
 
-  import Phoenix.Controller, only: [get_flash: 2, current_path: 1]
-
   def locale do
     Tq2Web.Gettext
     |> Gettext.get_locale()
     |> String.replace(~r/_\w+/, "")
   end
 
-  def menu_item(conn, [to: to], do: content) do
-    current = current_path(conn)
+  defp main_item(conn, opts) do
+    {text, opts} = Keyword.pop(opts, :text)
+    {to, opts} = Keyword.pop(opts, :to)
+    {icon, opts} = Keyword.pop(opts, :icon)
+    {class, opts} = Keyword.pop(opts, :class, "text-light")
+    {text_class, opts} = Keyword.pop(opts, :text_class)
+    {icon_class, opts} = Keyword.pop(opts, :icon_class)
+    {icon_size, opts} = Keyword.pop(opts, :icon_size, 25)
 
-    html_class =
-      if String.starts_with?(current, to) do
-        "nav-item active"
-      else
-        "nav-item"
-      end
+    link_opts =
+      opts
+      |> Keyword.get(:opts, [])
+      |> Keyword.merge(to: to, class: "#{class} text-decoration-none")
 
-    content_tag(:li, class: html_class) do
-      link(to: to, class: "nav-link", do: content)
-    end
+    content = ~E"""
+      <div class="mt-1 text-center">
+        <span class="d-block btn-menu mx-auto <%= icon_class %>">
+          <svg class="bi" width="<%= icon_size %> " height="<%= icon_size %>" fill="currentColor">
+            <use xlink:href="<%= Routes.static_path(conn, "/images/bootstrap-icons.svg##{icon}") %>"/>
+          </svg>
+        </span>
+
+        <span class="d-block <%= text_class %>">
+          <%= text %>
+        </span>
+      </div>
+    """
+
+    link(content, link_opts)
   end
 
-  def hotjar_script do
+  defp hotjar_script do
     if Application.get_env(:tq2, :env) == :prod do
       ~E"""
         <script>
@@ -43,7 +57,7 @@ defmodule Tq2Web.LayoutView do
     end
   end
 
-  def google_analytics_script do
+  defp google_analytics_script do
     if Application.get_env(:tq2, :env) == :prod do
       key = "UA-163313653-2"
 

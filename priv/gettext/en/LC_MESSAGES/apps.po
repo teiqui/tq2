@@ -24,7 +24,6 @@ msgid "App updated successfully."
 msgstr ""
 
 #: lib/tq2_web/templates/app/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:33
 msgid "Apps"
 msgstr ""
 
