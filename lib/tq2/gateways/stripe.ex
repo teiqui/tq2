@@ -2,7 +2,7 @@ defmodule Tq2.Gateways.Stripe do
   import Tq2.Utils.Urls, only: [app_uri: 0]
 
   alias Tq2.Accounts
-  alias Tq2.Accounts.License
+  alias Tq2.Accounts.{Account, License}
 
   @monthly_plans %{
     "ar" => "price_1I8vJ6LvW6Kv2wj4gr5At51o",
@@ -93,18 +93,31 @@ defmodule Tq2.Gateways.Stripe do
     end
   end
 
-  def update_license(%License{account: account} = license) do
+  def update_license(%License{} = license) do
     attrs =
       license
       |> find_subscription()
       |> subscription_to_license_attrs()
 
-    case Accounts.update_license(license, attrs) do
-      {:ok, license} ->
+    update_license_status(license, attrs)
+  end
+
+  defp update_license_status(%{account: account} = license, %{status: status} = attrs) do
+    account_status = if status == "locked", do: "locked", else: "active"
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:account, Account.changeset(account, %{status: account_status}))
+    |> Ecto.Multi.update(:license, License.changeset(license, attrs))
+    |> commit_update()
+  end
+
+  defp commit_update(multi) do
+    case Tq2.Repo.transaction(multi) do
+      {:ok, %{account: account, license: license}} ->
         %{license | account: account}
 
-      {:error, changeset} ->
-        license_error_to_sentry(changeset, attrs)
+      {:error, _operation, failed_value, changes} ->
+        license_error_to_sentry(failed_value, changes)
 
         nil
     end

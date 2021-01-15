@@ -143,4 +143,20 @@ defmodule Tq2.Fixtures do
       %{app: app}
     end
   end
+
+  def default_store do
+    session = create_session()
+
+    store_attrs = %{
+      name: "some name",
+      description: "some description",
+      slug: "some_slug",
+      published: true,
+      account_id: session.account.id
+    }
+
+    {:ok, store} = Tq2.Shops.create_store(session, store_attrs)
+
+    %{store | account: session.account}
+  end
 end

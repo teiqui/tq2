@@ -30,4 +30,19 @@ defmodule Tq2.Utils.UrlsTest do
       assert root_url == "http://www.localhost/"
     end
   end
+
+  describe "store uri" do
+    test "store_uri/0 returns full url with store subdomain" do
+      assert URI.to_string(Urls.store_uri()) ==
+               "http://#{Application.get_env(:tq2, :store_subdomain)}.localhost"
+    end
+
+    test "store_uri/0 with root url returns full url" do
+      root_url =
+        Urls.store_uri()
+        |> Tq2Web.Router.Helpers.root_url(:index)
+
+      assert root_url == "http://#{Application.get_env(:tq2, :store_subdomain)}.localhost/"
+    end
+  end
 end

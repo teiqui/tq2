@@ -138,6 +138,23 @@ defmodule Tq2.Gateways.StripeTest do
 
         assert updated_license.subscription_id == license.subscription_id
         assert updated_license.status == "locked"
+        assert updated_license.account.status == "locked"
+      end
+    end
+
+    test "updated_license/1 returns an updated license without account update", %{
+      session: %{account: %{license: license} = account}
+    } do
+      license = %{license | subscription_id: "sub_123"}
+
+      mock = [retrieve: fn id -> {:ok, %{id: id, status: "active"}} end]
+
+      with_mock Stripe.Subscription, mock do
+        assert updated_license = StripeClient.update_license(license)
+
+        assert updated_license.subscription_id == license.subscription_id
+        assert updated_license.status == "active"
+        assert updated_license.account.status == account.status
       end
     end
   end

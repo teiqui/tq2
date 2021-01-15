@@ -70,7 +70,9 @@ defmodule Tq2Web do
       import Phoenix.Controller
       import Phoenix.LiveView.Router
       import Tq2Web.CacheControlPlug, only: [put_cache_control_headers: 2]
+      import Tq2Web.LicenseCheckPlug, only: [check_locked_license: 2]
       import Tq2Web.SessionPlug, only: [fetch_current_session: 2, put_remote_ip: 2]
+      import Tq2Web.StorePlug, only: [fetch_store: 2]
       import Tq2Web.TokenPlug, only: [fetch_token: 2]
       import Tq2Web.VisitPlug, only: [track_visit: 2]
     end
