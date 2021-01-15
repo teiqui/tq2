@@ -76,7 +76,7 @@ RUN mix phx.digest && mix release
 # ----------------------
 # --- Release image ----
 # ----------------------
-FROM alpine
+FROM alpine:3.12
 
 ARG APP_HOME
 ENV USER nobody
