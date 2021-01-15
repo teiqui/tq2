@@ -76,6 +76,10 @@
         <% end %>
       </form>
     </div>
+
+    <p class="mt-4 text-right">
+      <%= live_redirect dgettext("stores", "Review order"), to: Routes.checkout_path(@socket, :index, @store) %>
+    </p>
   </div>
 </div>
 

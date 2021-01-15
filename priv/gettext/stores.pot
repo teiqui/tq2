@@ -244,7 +244,7 @@ msgstr ""
 msgid "Share my purchase"
 msgstr ""
 
-#: lib/tq2_web/live/store/checkout_live.html.leex:42
+#: lib/tq2_web/live/store/checkout_live.html.leex:44
 #: lib/tq2_web/live/store/team_live.html.leex:14
 msgid "Teiqui price"
 msgstr ""
@@ -273,7 +273,8 @@ msgstr ""
 msgid "Saving..."
 msgstr ""
 
-#: lib/tq2_web/live/store/checkout_live.html.leex:73
+#: lib/tq2_web/live/store/checkout_live.html.leex:59
+#: lib/tq2_web/live/store/checkout_live.html.leex:79
 msgid "Back to store"
 msgstr ""
 
@@ -281,18 +282,22 @@ msgstr ""
 msgid "Checkout"
 msgstr ""
 
-#: lib/tq2_web/live/store/checkout_live.html.leex:51
+#: lib/tq2_web/live/store/checkout_live.html.leex:53
 msgid "Regular price: %{total}"
 msgstr ""
 
-#: lib/tq2_web/live/store/checkout_live.html.leex:48
+#: lib/tq2_web/live/store/checkout_live.html.leex:50
 msgid "Share the store link and get at least one person to buy in less than 24 hours. You can also join an existing order."
 msgstr ""
 
-#: lib/tq2_web/live/store/checkout_live.html.leex:65
+#: lib/tq2_web/live/store/checkout_live.html.leex:71
 msgid "Your cart is empty."
 msgstr ""
 
-#: lib/tq2_web/live/store/checkout_live.html.leex:68
+#: lib/tq2_web/live/store/checkout_live.html.leex:74
 msgid "Add some items!"
+msgstr ""
+
+#: lib/tq2_web/live/store/handing_live.html.leex:81
+msgid "Review order"
 msgstr ""
