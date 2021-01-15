@@ -1,6 +1,9 @@
 defmodule Tq2.ShopsTest do
   use Tq2.DataCase
 
+  import Tq2.Fixtures, only: [create_session: 1]
+
+  alias Tq2.Accounts
   alias Tq2.Shops
 
   describe "stores" do
@@ -60,12 +63,6 @@ defmodule Tq2.ShopsTest do
       logo: nil
     }
 
-    defp create_session(_) do
-      account = Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
-
-      {:ok, session: %Tq2.Accounts.Session{account: account}}
-    end
-
     defp fixture(session, :store, attrs \\ %{}) do
       store_attrs = Enum.into(attrs, @valid_attrs)
 
@@ -108,6 +105,24 @@ defmodule Tq2.ShopsTest do
       store = fixture(session, :store)
 
       assert Shops.get_store(session.account).id == store.id
+    end
+
+    test "get_store!/1 raises not found when the store for given slug is locked", %{
+      session: session
+    } do
+      store = fixture(session, :store)
+
+      paid_until = Date.utc_today() |> Timex.shift(days: -15)
+
+      {:ok, _} =
+        Accounts.update_license(session.account.license, %{
+          status: "locked",
+          paid_until: paid_until
+        })
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Shops.get_store!(store.slug)
+      end
     end
 
     test "create_store/2 with valid data creates a store", %{session: session} do

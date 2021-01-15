@@ -13,6 +13,13 @@ defmodule Tq2.Utils.Urls do
     }
   end
 
+  def store_uri do
+    %URI{
+      scheme: scheme(),
+      host: Enum.join([Application.get_env(:tq2, :store_subdomain), url_config(:host)], ".")
+    }
+  end
+
   defp url_config(key) do
     Tq2Web.Endpoint.config(:url)[key]
   end

@@ -6,6 +6,7 @@ defmodule Tq2Web.Router do
     plug :fetch_session
     plug :fetch_live_flash
     plug :fetch_current_session
+    plug :check_locked_license
     plug :put_root_layout, {Tq2Web.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
@@ -23,6 +24,7 @@ defmodule Tq2Web.Router do
   end
 
   pipeline :store do
+    plug :fetch_store
     plug :fetch_token
     plug :track_visit
   end

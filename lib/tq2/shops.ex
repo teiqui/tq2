@@ -12,7 +12,7 @@ defmodule Tq2.Shops do
   @doc """
   Gets a single store.
 
-  Raises `Ecto.NoResultsError` if the Store does not exist or if isn't published (only when looking for slug).
+  Raises `Ecto.NoResultsError` if the Store does not exist or if isn't published or has locked license (only when looking for slug).
 
   ## Examples
 
@@ -36,10 +36,18 @@ defmodule Tq2.Shops do
   end
 
   def get_store!(slug) do
+    two_weeks_ago = Date.utc_today() |> Timex.shift(weeks: -2)
+
     Store
     |> join(:inner, [s], a in assoc(s, :account))
+    |> join(:inner, [s, a], l in assoc(a, :license))
+    |> where(
+      [s, a, l],
+      s.slug == ^slug and s.published == true and
+        (l.status != "locked" or l.paid_until >= ^two_weeks_ago)
+    )
     |> preload([s, a], account: a)
-    |> Repo.get_by!(slug: slug, published: true)
+    |> Repo.one!()
   end
 
   @doc """

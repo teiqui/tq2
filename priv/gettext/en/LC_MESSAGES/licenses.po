@@ -118,3 +118,7 @@ msgstr ""
 #: lib/tq2_web/live/account/license_live.ex:192
 msgid "Show / modify subscription"
 msgstr ""
+
+#: lib/tq2_web/plugs/license_check_plug.ex:19
+msgid "Your license has expired."
+msgstr ""

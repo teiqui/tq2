@@ -20,7 +20,7 @@ defmodule Tq2.Accounts.Account do
     timestamps()
   end
 
-  @statuses ~w(green active suspended)
+  @statuses ~w(green active suspended locked)
 
   @doc false
   def changeset(account, attrs) do
