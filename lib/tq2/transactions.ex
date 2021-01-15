@@ -101,6 +101,8 @@ defmodule Tq2.Transactions do
   def get_line!(cart, id) do
     Line
     |> where(cart_id: ^cart.id)
+    |> join(:left, [l], i in assoc(l, :item))
+    |> preload([l, i], item: i)
     |> Repo.get!(id)
   end
 

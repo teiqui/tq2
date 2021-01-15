@@ -51,6 +51,7 @@ defmodule Tq2Web.Router do
     live "/:slug/payment/check", Store.PaymentCheckLive, :index
     live "/:slug/order/:id", Store.OrderLive, :index
     live "/:slug/team", Store.TeamLive, :index
+    live "/:slug/checkout", Store.CheckoutLive, :index
   end
 
   scope "/", Tq2Web do
@@ -83,6 +84,9 @@ defmodule Tq2Web.Router do
     resources "/passwords", PasswordController, only: [:new, :create, :edit, :update]
     live "/license", Account.LicenseLive, :index
 
+    # Apps
+    resources "/apps", AppController, param: "name"
+
     # Inventories
     resources "/categories", CategoryController
     resources "/items", ItemController
@@ -90,9 +94,6 @@ defmodule Tq2Web.Router do
 
     # Shops
     live "/store/edit/:section", Shop.StoreLive, :index
-
-    # Apps
-    resources "/apps", AppController, param: "name"
 
     # Sales
     resources "/orders", OrderController, only: [:index, :show]

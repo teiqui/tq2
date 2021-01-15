@@ -245,6 +245,7 @@ msgstr "Nadie tiene compras a las que puedas unirte en este momento."
 msgid "Share my purchase"
 msgstr "Compartir mi compra"
 
+#: lib/tq2_web/live/store/checkout_live.html.leex:42
 #: lib/tq2_web/live/store/team_live.html.leex:14
 msgid "Teiqui price"
 msgstr "Precio Teiqui"
@@ -272,3 +273,27 @@ msgstr "¡Difunde el link de tu tienda!"
 #: lib/tq2_web/live/shop/store_live.ex:129
 msgid "Saving..."
 msgstr "Guardando..."
+
+#: lib/tq2_web/live/store/checkout_live.html.leex:73
+msgid "Back to store"
+msgstr "Volver a la tienda"
+
+#: lib/tq2_web/live/components/store/button_component.html.leex:18
+msgid "Checkout"
+msgstr "Editar compra"
+
+#: lib/tq2_web/live/store/checkout_live.html.leex:51
+msgid "Regular price: %{total}"
+msgstr "Precio normal: %{total}"
+
+#: lib/tq2_web/live/store/checkout_live.html.leex:48
+msgid "Share the store link and get at least one person to buy in less than 24 hours. You can also join an existing order."
+msgstr "Comparte el enlace de la tienda y logra que al menos una persona más realice una compra en 24h. También puedes unirte a una compra existente."
+
+#: lib/tq2_web/live/store/checkout_live.html.leex:65
+msgid "Your cart is empty."
+msgstr "Tu carrito está vacío."
+
+#: lib/tq2_web/live/store/checkout_live.html.leex:68
+msgid "Add some items!"
+msgstr "¡Agrega artículos!"

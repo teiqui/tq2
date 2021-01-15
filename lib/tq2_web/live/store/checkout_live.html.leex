@@ -1,0 +1,82 @@
+<%= live_component @socket, HeaderComponent, id: :header,
+                                             store: @store,
+                                             token: @token,
+                                             visit_id: @visit_id %>
+<%= if Enum.any?(@cart.lines) do %>
+  <table class="table">
+    <tbody class="border-top-0">
+      <%= for line <- Enum.sort(@cart.lines, &(&1.id < &2.id)) do %>
+        <tr id="line-<%= line.id %>">
+          <td class="text-nowrap">
+            <a href="#" class="h4 text-dark font-weight-bold" phx-click="decrease" phx-value-id="<%= line.id %>">-</a>
+            <span class="mx-2"><%= line.quantity %></span>
+            <a href="#" class="h4 text-dark font-weight-bold" phx-click="increase" phx-value-id="<%= line.id %>">+</a>
+          </td>
+          <td>
+            <%= line.name %>
+          </td>
+          <td class="text-right">
+            <%= line_total @socket, @cart, line %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+
+    <tfoot>
+      <tr>
+        <td></td>
+        <td>
+          <%= dgettext("orders", "Total") %>
+        </td>
+        <td class="text-right">
+          <%= cart_total @socket, @cart %>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <%= if @cart.price_type == "promotional" do %>
+    <h2 class="h6 text-primary font-weight-bold ml-3 mt-5">
+      <%= teiqui_logo_img_tag(@socket) %>
+      <span class="ml-1">
+        <%= dgettext("stores", "Teiqui price") %>
+      </span>
+    </h2>
+
+    <div class="card card-body small">
+      <p class="mb-0">
+        <%= dgettext("stores", "Share the store link and get at least one person to buy in less than 24 hours. You can also join an existing order.") %>
+      </p>
+      <p class="mb-0 text-primary font-weight-bold">
+        <%= dgettext("stores", "Regular price: %{total}", total: regular_cart_total(@cart)) %>
+      </p>
+    </div>
+  <% end %>
+<% else %>
+  <div class="text-center">
+    <div class="text-muted mt-5 pt-5">
+      <svg class="bi" width="96" height="96" fill="currentColor">
+        <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#bag-plus") %>"/>
+      </svg>
+    </div>
+
+    <div class="h3 mt-4 text-muted">
+      <p class="mb-1">
+        <%= dgettext("stores", "Your cart is empty.") %>
+      </p>
+      <p class="mb-0">
+        <%= dgettext("stores", "Add some items!") %>
+      </p>
+    </div>
+
+    <p class="text-center mb-0 mt-4">
+      <%= live_redirect dgettext("stores", "Back to store"), to: Routes.counter_path(@socket, :index, @store) %>
+    </p>
+  </div>
+<% end %>
+
+<%= live_component @socket, ButtonComponent, store: @store,
+                                             cart: @cart,
+                                             token: @token,
+                                             to: Routes.handing_path(@socket, :index, @store),
+                                             enabled: true %>

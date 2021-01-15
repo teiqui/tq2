@@ -1,9 +1,44 @@
 <%= if show_button?(@cart) do %>
-  <nav class="fixed-bottom mb-1">
-    <div class="container-fluid py-1 py-lg-2">
-      <%= live_redirect to: @to, class: "btn btn-lg btn-block btn-primary#{unless @enabled, do: " disabled"}" do %>
-        <%= cart_total(@cart) %>
-      <% end %>
+  <nav class="fixed-bottom bg-light pb-1">
+    <div class="container-fluid pb-1 pt-2">
+      <div class="d-flex">
+        <div class="mr-2">
+          <div class="dropup">
+            <button type="button"
+                    id="store-options"
+                    class="btn btn-secondary rounded-circle"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+              <svg class="bi" width="12" height="12" fill="currentColor">
+                <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#three-dots-vertical") %>"/>
+              </svg>
+            </button>
+            <div class="dropdown-menu text-center" aria-labelledby="store-options">
+              <%= live_redirect dgettext("stores", "Checkout"), to: Routes.checkout_path(@socket, :index, @store),
+                                                                class: "dropdown-item" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-fill">
+          <%= live_redirect to: @to, class: "btn btn-lg btn-block btn-primary #{unless @enabled, do: " disabled"}" do %>
+            <%= cart_total(@cart) %>
+          <% end %>
+        </div>
+
+        <div class="ml-2">
+          <%= live_component @socket, ShareComponent, id: :button,
+                                                      store: @store,
+                                                      token: @token,
+                                                      class: "btn btn-secondary rounded-circle text-primary",
+                                                      align_right: true do %>
+            <svg class="bi" width="12" height="12" fill="currentColor">
+              <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#share-fill") %>"/>
+            </svg>
+          <% end %>
+        </div>
+      </div>
     </div>
   </nav>
 <% end %>

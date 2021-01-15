@@ -2,6 +2,14 @@
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/variables";
 
+tbody.border-top-0 {
+  tr:first-child {
+    td {
+      border-top: none;
+    }
+  }
+}
+
 .btn {
   box-shadow: none;
   text-transform: none;

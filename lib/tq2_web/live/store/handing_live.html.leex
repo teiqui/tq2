@@ -81,5 +81,6 @@
 
 <%= live_component @socket, ButtonComponent, store: @store,
                                              cart: @cart,
+                                             token: @token,
                                              enabled: @cart.data && @cart.data.handing,
                                              to: Routes.customer_path(@socket, :index, @store) %>

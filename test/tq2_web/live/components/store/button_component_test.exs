@@ -6,13 +6,21 @@ defmodule Tq2Web.Store.ButtonComponentTest do
   alias Tq2.Transactions.{Cart, Line}
   alias Tq2Web.Store.ButtonComponent
 
+  @token "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c="
+
   describe "render" do
     test "render button with empty cart" do
       cart = cart()
       store = store()
 
       content =
-        render_component(ButtonComponent, cart: cart, store: store, to: "#", enabled: true)
+        render_component(ButtonComponent,
+          cart: cart,
+          store: store,
+          token: @token,
+          to: "#",
+          enabled: true
+        )
 
       assert content == ""
     end
@@ -42,6 +50,7 @@ defmodule Tq2Web.Store.ButtonComponentTest do
         render_component(ButtonComponent,
           cart: cart,
           store: store,
+          token: @token,
           to: "/test_path",
           enabled: true
         )
@@ -69,6 +78,7 @@ defmodule Tq2Web.Store.ButtonComponentTest do
         render_component(ButtonComponent,
           cart: cart,
           store: store,
+          token: @token,
           to: "/test_path",
           enabled: false
         )
