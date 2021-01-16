@@ -7,7 +7,7 @@ defmodule Tq2Web.StorePlug do
     try do
       store = Shops.get_store!(slug)
 
-      conn |> assign(:current_store, store)
+      conn |> assign(:store, store)
     rescue
       Ecto.NoResultsError -> Tq2Web.ErrorView.render_404(conn)
     end

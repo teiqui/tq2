@@ -1,6 +1,11 @@
 defmodule Tq2Web.Router do
   use Tq2Web, :router
 
+  @session_extras %{
+    registration: {Tq2Web.SessionPlug, :session_extras, [:registration]},
+    store: {Tq2Web.SessionPlug, :session_extras, [:store]}
+  }
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -11,7 +16,6 @@ defmodule Tq2Web.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :put_cache_control_headers
-    plug :put_remote_ip
 
     if Application.get_env(:tq2, :env) == :prod do
       plug Tq2Web.SSLPlug,
@@ -45,15 +49,15 @@ defmodule Tq2Web.Router do
     pipe_through :browser
     pipe_through :store
 
-    live "/:slug", Store.CounterLive, :index
-    live "/:slug/items/:id", Store.ItemLive, :index
-    live "/:slug/handing", Store.HandingLive, :index
-    live "/:slug/customer", Store.CustomerLive, :index
-    live "/:slug/payment", Store.PaymentLive, :index
-    live "/:slug/payment/check", Store.PaymentCheckLive, :index
-    live "/:slug/order/:id", Store.OrderLive, :index
-    live "/:slug/team", Store.TeamLive, :index
-    live "/:slug/checkout", Store.CheckoutLive, :index
+    live "/:slug", Store.CounterLive, :index, session: @session_extras.store
+    live "/:slug/items/:id", Store.ItemLive, :index, session: @session_extras.store
+    live "/:slug/handing", Store.HandingLive, :index, session: @session_extras.store
+    live "/:slug/customer", Store.CustomerLive, :index, session: @session_extras.store
+    live "/:slug/payment", Store.PaymentLive, :index, session: @session_extras.store
+    live "/:slug/payment/check", Store.PaymentCheckLive, :index, session: @session_extras.store
+    live "/:slug/order/:id", Store.OrderLive, :index, session: @session_extras.store
+    live "/:slug/team", Store.TeamLive, :index, session: @session_extras.store
+    live "/:slug/checkout", Store.CheckoutLive, :index, session: @session_extras.store
   end
 
   scope "/", Tq2Web do
@@ -75,7 +79,8 @@ defmodule Tq2Web.Router do
     live "/registrations/:uuid/email", Registration.EmailLive, :index, as: "registration_email"
 
     live "/registrations/:uuid/password", Registration.PasswordLive, :index,
-      as: "registration_password"
+      as: "registration_password",
+      session: @session_extras.registration
 
     get "/registrations/:uuid", RegistrationController, :show
     live "/welcome", Registration.WelcomeLive, :index
