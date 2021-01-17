@@ -22,6 +22,35 @@ defmodule Tq2.Analytics do
   end
 
   @doc """
+  Returns the amount of visits for the slug on the given period and the previous one.
+
+  ## Examples
+
+      iex> visit_counts("example", :daily)
+      {current_count, previous_count} = {30, 25}
+
+  """
+  def visit_counts(slug, period \\ :daily) do
+    {from, to} = range_for(period)
+    {previous_from, previous_to} = previous_range_for(period)
+
+    previous_visits =
+      Visit
+      |> where(
+        [v],
+        v.slug == ^slug and v.inserted_at >= ^previous_from and v.inserted_at <= ^previous_to
+      )
+      |> select([v], count(v.id))
+
+    Visit
+    |> where([v], v.slug == ^slug and v.inserted_at >= ^from and v.inserted_at <= ^to)
+    |> select([v], count(v.id))
+    |> union_all(^previous_visits)
+    |> Repo.all()
+    |> List.to_tuple()
+  end
+
+  @doc """
   Gets a single visit by ID or cart_id.
 
   Raises `Ecto.NoResultsError` if the Visit does not exist.
@@ -151,5 +180,17 @@ defmodule Tq2.Analytics do
   """
   def change_view(%View{} = view) do
     View.changeset(view, %{})
+  end
+
+  defp range_for(:daily) do
+    now = DateTime.utc_now()
+
+    {Timex.beginning_of_day(now), Timex.end_of_day(now)}
+  end
+
+  defp previous_range_for(:daily) do
+    yesterday = DateTime.utc_now() |> Timex.shift(days: -1)
+
+    {Timex.beginning_of_day(yesterday), Timex.end_of_day(yesterday)}
   end
 end

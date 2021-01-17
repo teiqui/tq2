@@ -69,7 +69,7 @@ msgstr ""
 msgid "Order updated successfully."
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:53
+#: lib/tq2_web/live/dashboard/main_live.html.leex:100
 #: lib/tq2_web/templates/layout/_menu.html.eex:11 lib/tq2_web/templates/layout/_menu.html.eex:89
 #: lib/tq2_web/templates/order/index.html.eex:2
 msgid "Orders"
@@ -111,7 +111,7 @@ msgstr ""
 msgid "Payments"
 msgstr ""
 
-#: lib/tq2_web/live/store/checkout_live.html.leex:29
+#: lib/tq2_web/live/store/checkout_live.html.leex:31
 #: lib/tq2_web/templates/email/expired_promotion.html.eex:31 lib/tq2_web/templates/email/expired_promotion.text.eex:11
 #: lib/tq2_web/templates/email/order_confirmation.html.eex:32 lib/tq2_web/templates/email/order_confirmation.text.eex:12
 #: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:30 lib/tq2_web/templates/email/owner_order_confirmation.text.eex:10

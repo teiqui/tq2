@@ -1,0 +1,77 @@
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new translations manually only if they're dynamic
+## translations that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here as no
+## effect: edit them in PO (.po) files instead.
+msgid ""
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.ex:78
+msgid "* In relation to the previous day."
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:52
+msgid "All channels"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:47
+msgid "Dashboard"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:122
+msgid "Finished"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:105
+msgid "Go to orders"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:114
+msgid "Pending"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:87
+msgid "Performance"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:78
+msgid "Regular"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:10
+#: lib/tq2_web/live/dashboard/main_live.html.leex:64
+msgid "Sales"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:21
+msgid "Share your store."
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:56
+msgid "Store visits"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:70
+msgid "Teiqui price"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.ex:40
+msgid "There are no visits yet."
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.ex:48
+msgid "There is not enough data."
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:6
+#: lib/tq2_web/live/dashboard/main_live.html.leex:43
+msgid "Today"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:18
+msgid "You have no orders yet."
+msgstr ""

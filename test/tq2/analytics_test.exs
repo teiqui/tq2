@@ -62,6 +62,20 @@ defmodule Tq2.AnalyticsTest do
       assert Analytics.list_visits(%{}).entries == [visit]
     end
 
+    test "visit_counts/2 returns count for the given period" do
+      visit = fixture(:visit)
+
+      assert Analytics.visit_counts(visit.slug) == {1, 0}
+
+      fixture(:visit)
+      |> Ecto.Changeset.change(%{
+        inserted_at: DateTime.utc_now() |> Timex.shift(days: -1) |> DateTime.truncate(:second)
+      })
+      |> Tq2.Repo.update!()
+
+      assert Analytics.visit_counts(visit.slug) == {1, 1}
+    end
+
     test "get_visit!/2 returns the visit with given id" do
       visit = fixture(:visit)
 

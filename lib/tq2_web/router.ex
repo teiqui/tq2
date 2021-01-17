@@ -89,6 +89,9 @@ defmodule Tq2Web.Router do
     # Apps
     resources "/apps", AppController, param: "name"
 
+    # Dashboard
+    live "/dashboard", Dashboard.MainLive, :index, as: :dashboard
+
     # Inventories
     resources "/categories", CategoryController
     resources "/items", ItemController

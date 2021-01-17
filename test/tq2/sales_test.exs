@@ -192,6 +192,40 @@ defmodule Tq2.SalesTest do
       assert Sales.list_unexpired_orders(session.account, %{}).entries == []
     end
 
+    test "orders_by_status_count/2 returns counts", %{session: session} do
+      visit = fixture(session, :visit)
+      order = fixture(session, :order)
+      _other_order = fixture(session, :order)
+
+      non_promotional_order =
+        fixture(session, :order, %{
+          cart: %{@valid_order_attrs.cart | price_type: "regular", visit_id: visit.id}
+        })
+
+      assert Sales.orders_by_status_count(session.account) == [
+               {order.status, order.cart.price_type, 2},
+               {non_promotional_order.status, non_promotional_order.cart.price_type, 1}
+             ]
+    end
+
+    test "orders_sale_amount/2 returns the amounts of sales for the period", %{session: session} do
+      assert Sales.orders_sale_amount(session.account) == Money.new(0, :ARS)
+
+      _order = fixture(session, :order, %{status: "completed"})
+
+      assert Sales.orders_sale_amount(session.account) == Money.new(3780, :ARS)
+
+      _order = fixture(session, :order, %{status: "completed", cart: %{price_type: "regular"}})
+
+      # 3780 (first order promotional total) + 4200 (second order regular total) = 7980
+      assert Sales.orders_sale_amount(session.account) == Money.new(7980, :ARS)
+
+      _order = fixture(session, :order)
+
+      # Only take completed orders
+      assert Sales.orders_sale_amount(session.account) == Money.new(7980, :ARS)
+    end
+
     test "get_order!/2 returns the order with given id", %{session: session} do
       order = fixture(session, :order)
 

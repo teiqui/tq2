@@ -1,0 +1,78 @@
+## "msgid"s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove "msgid"s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use "mix gettext.extract --merge" or "mix gettext.merge"
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: en\n"
+"Plural-Forms: nplurals=2\n"
+
+#: lib/tq2_web/live/dashboard/main_live.ex:78
+msgid "* In relation to the previous day."
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:52
+msgid "All channels"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:47
+msgid "Dashboard"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:122
+msgid "Finished"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:105
+msgid "Go to orders"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:114
+msgid "Pending"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:87
+msgid "Performance"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:78
+msgid "Regular"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:10
+#: lib/tq2_web/live/dashboard/main_live.html.leex:64
+msgid "Sales"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:21
+msgid "Share your store."
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:56
+msgid "Store visits"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:70
+msgid "Teiqui price"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.ex:40
+msgid "There are no visits yet."
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.ex:48
+msgid "There is not enough data."
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:6
+#: lib/tq2_web/live/dashboard/main_live.html.leex:43
+msgid "Today"
+msgstr ""
+
+#: lib/tq2_web/live/dashboard/main_live.html.leex:18
+msgid "You have no orders yet."
+msgstr ""

@@ -25,7 +25,7 @@ defmodule Tq2.Analytics.Visit do
     has_one :customer, through: [:destionation_token, :customer]
     has_one :referral_customer, through: [:source_token, :customer]
 
-    timestamps updated_at: false
+    timestamps updated_at: false, type: :utc_datetime
   end
 
   @doc false

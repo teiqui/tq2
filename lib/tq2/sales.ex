@@ -96,6 +96,7 @@ defmodule Tq2.Sales do
   end
 
   alias Tq2.Sales.Order
+  alias Tq2.Transactions.Cart
 
   @doc """
   Returns the list of orders.
@@ -112,6 +113,7 @@ defmodule Tq2.Sales do
     |> join(:left, [o], cart in assoc(o, :cart))
     |> join(:left, [o, cart], c in assoc(cart, :customer))
     |> preload([o, cart, c], cart: cart, customer: c)
+    |> order_by([o], desc: o.inserted_at)
     |> Repo.paginate(params)
   end
 
@@ -148,6 +150,61 @@ defmodule Tq2.Sales do
     |> preload([o, cart, c, t], cart: cart, customer: {c, tokens: t})
     |> order_by([o], asc: o.promotion_expires_at)
     |> Repo.paginate(params)
+  end
+
+  @doc """
+  Returns the amount of sales for the given period.
+
+  ## Examples
+
+      iex> orders_sale_amount(%Account{}, :daily)
+      %Money{}
+
+  """
+  def orders_sale_amount(account, period \\ :daily) do
+    {from, to} = range_for(period)
+    currency = Tq2.Utils.CountryCurrency.currency(account.country)
+
+    amount =
+      Order
+      |> where([o], o.account_id == ^account.id and o.status == "completed")
+      |> where([o], o.inserted_at >= ^from and o.inserted_at <= ^to)
+      |> join(:left, [o], pc in Cart, on: pc.id == o.cart_id and pc.price_type == "promotional")
+      |> join(:left, [o, pc], pl in assoc(pc, :lines))
+      |> join(:left, [o], rc in Cart, on: rc.id == o.cart_id and rc.price_type == "regular")
+      |> join(:left, [o, pc, pl, rc], rl in assoc(rc, :lines))
+      |> select(
+        [o, pc, pl, rc, rl],
+        coalesce(
+          sum(fragment("(?->>'amount')::integer * ?", pl.promotional_price, pl.quantity)),
+          0
+        ) +
+          coalesce(sum(fragment("(?->>'amount')::integer * ?", rl.price, rl.quantity)), 0)
+      )
+      |> Repo.one()
+
+    Money.new(amount, currency)
+  end
+
+  @doc """
+  Returns the amount of orders for the given period, grouped by status and price type.
+
+  ## Examples
+
+      iex> orders_by_status_count(%Account{}, :daily)
+      [{"completed", "regular", 4}, {"completed", "promotional", 6}]
+
+  """
+  def orders_by_status_count(account, period \\ :daily) do
+    {from, to} = range_for(period)
+
+    Order
+    |> where([o], o.account_id == ^account.id)
+    |> where([o], o.inserted_at >= ^from and o.inserted_at <= ^to)
+    |> join(:left, [o], c in assoc(o, :cart))
+    |> group_by([o, c], [o.status, c.price_type])
+    |> select([o, c], {o.status, c.price_type, count(o.id)})
+    |> Repo.all()
   end
 
   @doc """
@@ -336,5 +393,11 @@ defmodule Tq2.Sales do
 
   def change_order(%Account{} = account, attrs) do
     account |> change_order(%Order{}, attrs)
+  end
+
+  defp range_for(:daily) do
+    now = DateTime.utc_now()
+
+    {Timex.beginning_of_day(now), Timex.end_of_day(now)}
   end
 end
