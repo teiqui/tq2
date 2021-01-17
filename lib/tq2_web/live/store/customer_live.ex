@@ -3,13 +3,12 @@ defmodule Tq2Web.Store.CustomerLive do
 
   import Tq2Web.Store.ButtonComponent, only: [cart_total: 1]
 
-  alias Tq2.{Sales, Shops, Transactions}
+  alias Tq2.{Sales, Transactions}
   alias Tq2.Sales.Customer
   alias Tq2Web.Store.HeaderComponent
 
   @impl true
-  def mount(%{"slug" => slug}, %{"token" => token, "visit_id" => visit_id}, socket) do
-    store = Shops.get_store!(slug)
+  def mount(_, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do
     changeset = get_customer_changeset(token)
 
     socket =

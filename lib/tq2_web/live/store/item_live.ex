@@ -2,7 +2,7 @@ defmodule Tq2Web.Store.ItemLive do
   use Tq2Web, :live_view
 
   alias Tq2.Accounts.Account
-  alias Tq2.{Analytics, Inventories, Shops, Transactions}
+  alias Tq2.{Analytics, Inventories, Transactions}
   alias Tq2.Inventories.Item
   alias Tq2.Transactions.Cart
   alias Tq2Web.Store.HeaderComponent
@@ -10,8 +10,7 @@ defmodule Tq2Web.Store.ItemLive do
   import Tq2Web.ItemView, only: [money: 1]
 
   @impl true
-  def mount(%{"slug" => slug}, %{"token" => token, "visit_id" => visit_id} = session, socket) do
-    store = Shops.get_store!(slug)
+  def mount(_, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do
     visit = Analytics.get_visit!(visit_id)
 
     socket =
@@ -24,7 +23,7 @@ defmodule Tq2Web.Store.ItemLive do
         referral_customer: visit.referral_customer,
         referred: !!visit.referral_customer
       )
-      |> load_cart(session)
+      |> load_cart(token)
 
     {:ok, socket, temporary_assigns: [item: nil, referral_customer: nil]}
   end
@@ -81,9 +80,7 @@ defmodule Tq2Web.Store.ItemLive do
     {:noreply, socket}
   end
 
-  defp load_cart(%{assigns: %{referred: referred, store: %{account: account}}} = socket, %{
-         "token" => token
-       }) do
+  defp load_cart(%{assigns: %{referred: referred, store: %{account: account}}} = socket, token) do
     cart = Transactions.get_cart(account, token) || %Cart{referred: referred, lines: []}
 
     assign(socket, cart: cart)

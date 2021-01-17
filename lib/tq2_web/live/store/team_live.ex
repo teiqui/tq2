@@ -1,13 +1,11 @@
 defmodule Tq2Web.Store.TeamLive do
   use Tq2Web, :live_view
 
-  alias Tq2.{Sales, Shops}
+  alias Tq2.Sales
   alias Tq2Web.Store.{HeaderComponent, ShareComponent}
 
   @impl true
-  def mount(%{"slug" => slug}, %{"token" => token, "visit_id" => visit_id}, socket) do
-    store = Shops.get_store!(slug)
-
+  def mount(_, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do
     default_options = %{
       page: 1,
       page_size: page_size(),

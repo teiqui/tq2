@@ -8,12 +8,11 @@ defmodule Tq2Web.Store.PaymentLive do
   alias Tq2.Gateways.MercadoPago.Credential, as: MPCredential
   alias Tq2.Payments
   alias Tq2.Transactions.Cart
-  alias Tq2.{Apps, Shops, Transactions}
+  alias Tq2.{Apps, Transactions}
   alias Tq2Web.Store.HeaderComponent
 
   @impl true
-  def mount(%{"slug" => slug}, %{"token" => token, "visit_id" => visit_id}, socket) do
-    store = Shops.get_store!(slug)
+  def mount(_, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do
     payment_methods = available_payment_methods(store)
 
     socket =

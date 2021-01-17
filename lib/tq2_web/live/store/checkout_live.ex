@@ -1,13 +1,12 @@
 defmodule Tq2Web.Store.CheckoutLive do
   use Tq2Web, :live_view
 
-  alias Tq2.{Analytics, Shops, Transactions}
+  alias Tq2.{Analytics, Transactions}
   alias Tq2.Transactions.{Cart, Line}
   alias Tq2Web.Store.{ButtonComponent, HeaderComponent}
 
   @impl true
-  def mount(%{"slug" => slug}, %{"token" => token, "visit_id" => visit_id}, socket) do
-    store = Shops.get_store!(slug)
+  def mount(_, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do
     visit = Analytics.get_visit!(visit_id)
 
     socket =

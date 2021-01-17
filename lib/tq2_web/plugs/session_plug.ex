@@ -30,7 +30,13 @@ defmodule Tq2Web.SessionPlug do
     |> halt()
   end
 
-  def put_remote_ip(conn, _), do: Plug.Conn.put_session(conn, :remote_ip, conn.remote_ip)
+  def session_extras(%{assigns: %{store: store}}, :store) do
+    %{"store" => store}
+  end
+
+  def session_extras(%{remote_ip: ip}, :registration) do
+    %{"remote_ip" => ip}
+  end
 
   defp put_return_path(%{method: "GET", request_path: request_path} = conn)
        when request_path != "/" do
