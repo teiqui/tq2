@@ -1,9 +1,9 @@
 <div id="payments-component">
-  <h4 class="mt-2">
+  <p class="mb-3">
     <%= dgettext("orders", "Payments") %>
-  </h4>
+  </p>
 
-  <div id="payments" class="mb-3">
+  <div id="payments" class="mb-3 accordion">
     <%= for payment <- @payments do %>
       <%= live_component @socket, PaymentComponent, payment: payment, id: "payment-#{payment.id}" %>
     <% end %>
