@@ -173,7 +173,8 @@ defmodule Tq2Web.Store.ItemLive do
   defp regular_price_button(_cart, %Item{id: id, price: price}, disabled) do
     content_tag(:button, money(price),
       type: "button",
-      class: "btn btn-outline-primary btn-lg rounded-pill px-3 border border-primary mr-3",
+      class:
+        "btn btn-outline-primary btn-lg btn-block rounded-pill px-3 border border-primary mr-3",
       disabled: disabled,
       phx_click: "add",
       phx_value_id: id,
@@ -205,7 +206,7 @@ defmodule Tq2Web.Store.ItemLive do
 
     content_tag(:button, content,
       type: "button",
-      class: "btn btn-primary btn-lg rounded-pill px-4",
+      class: "btn btn-primary btn-lg btn-block rounded-pill px-4",
       disabled: disabled,
       phx_click: "add",
       phx_value_id: id,
