@@ -19,10 +19,7 @@
     <%= google_analytics_script() %>
   </head>
 
-  <body class="mt-4 mb-5 bg-light <%= if @current_session, do: " pt-5" %>"
-        data-spy="scroll"
-        data-target="#main-menu"
-        data-offset="50">
+  <body class="<%= body_classes @conn, @current_session %>" data-spy="scroll" data-target="#main-menu" data-offset="50">
     <%= if @current_session do %>
       <div class="mt-5 pt-5">
         <%= @inner_content %>

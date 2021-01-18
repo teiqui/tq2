@@ -1,131 +1,127 @@
-<div class="bg-primary fixed-top vh-100 overflow-auto pt-5">
-  <div class="container-fluid mt-5 pt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <p class="small text-light float-right mt-3 mr-3 pt-1">
-          <%= dgettext("dashboard", "Today") %>
-        </p>
+<div class="row justify-content-center mt-n2 mb-n3">
+  <div class="col-md-8">
+    <p class="small text-light float-right mt-3 mr-3 pt-1">
+      <%= dgettext("dashboard", "Today") %>
+    </p>
 
-        <h2 class="h4 font-weight-semi-bold text-light mt-3 ml-3">
-          <%= dgettext("dashboard", "Sales") %>
-        </h2>
+    <h2 class="h4 font-weight-semi-bold text-light mt-3 ml-3">
+      <%= dgettext("dashboard", "Sales") %>
+    </h2>
 
-        <div class="card card-body py-2 mb-3 mt-2">
-          <%= if Money.zero?(@amount) do %>
-            <div class="d-flex align-items-center">
-              <div class="flex-fill">
-                <p class="h5 text-info mb-0">
-                  <%= dgettext("dashboard", "You have no orders yet.") %>
-                </p>
-                <p class="text-info mb-0">
-                  <%= dgettext("dashboard", "Share your store.") %>
-                </p>
-              </div>
-
-              <%= live_component @socket, ShareComponent, id: :header,
-                                                          store: @store,
-                                                          token: "dashboard",
-                                                          class: "btn btn-sm btn-info rounded-circle h-28-px w-28-px p-1",
-                                                          align_right: true do %>
-                <svg class="bi" width="12" height="12" fill="currentColor">
-                  <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#share-fill") %>"/>
-                </svg>
-              <% end %>
-            </div>
-          <% else %>
-            <p class="h3 text-info font-weight-semi-bold py-2 mb-0">
-              <%= Money.to_string(@amount, symbol: true) %>
+    <div class="card card-body py-2 mb-3 mt-2">
+      <%= if Money.zero?(@amount) do %>
+        <div class="d-flex align-items-center">
+          <div class="flex-fill">
+            <p class="h5 text-info mb-0">
+              <%= dgettext("dashboard", "You have no orders yet.") %>
             </p>
+            <p class="text-info mb-0">
+              <%= dgettext("dashboard", "Share your store.") %>
+            </p>
+          </div>
+
+          <%= live_component @socket, ShareComponent, id: :header,
+                                                      store: @store,
+                                                      token: "dashboard",
+                                                      class: "btn btn-sm btn-info rounded-circle h-28-px w-28-px p-1",
+                                                      align_right: true do %>
+            <svg class="bi" width="12" height="12" fill="currentColor">
+              <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#share-fill") %>"/>
+            </svg>
           <% end %>
         </div>
-
-        <p class="small text-light float-right mr-3 pt-1">
-          <%= dgettext("dashboard", "Today") %>
+      <% else %>
+        <p class="h3 text-info font-weight-semi-bold py-2 mb-0">
+          <%= Money.to_string(@amount, symbol: true) %>
         </p>
+      <% end %>
+    </div>
 
-        <h2 class="h4 font-weight-semi-bold text-light mt-3 ml-3">
-          <%= dgettext("dashboard", "Dashboard") %>
-        </h2>
+    <p class="small text-light float-right mr-3 pt-1">
+      <%= dgettext("dashboard", "Today") %>
+    </p>
 
-        <div class="card card-body mb-3 mt-2">
-          <p class="float-right text-right text-muted small mb-0 mb-n3">
-            <%= dgettext("dashboard", "All channels") %>
-          </p>
+    <h2 class="h4 font-weight-semi-bold text-light mt-3 ml-3">
+      <%= dgettext("dashboard", "Dashboard") %>
+    </h2>
 
-          <h4 class="h5 text-primary mb-2">
-            <%= dgettext("dashboard", "Store visits") %>
-          </h4>
+    <div class="card card-body mb-3 mt-2">
+      <p class="float-right text-right text-muted small mb-0 mb-n3">
+        <%= dgettext("dashboard", "All channels") %>
+      </p>
 
-          <p class="lead font-weight-semi-bold mb-0">
-            <%= current_visits @visits %>
-          </p>
+      <h4 class="h5 text-primary mb-2">
+        <%= dgettext("dashboard", "Store visits") %>
+      </h4>
 
-          <h4 class="h5 text-primary mb-2 mt-4">
-            <%= dgettext("dashboard", "Sales") %>
-          </h4>
+      <p class="lead font-weight-semi-bold mb-0">
+        <%= current_visits @visits %>
+      </p>
 
-          <div class="row">
-            <div class="col-6">
-              <h5 class="h6">
-                <%= dgettext("dashboard", "Teiqui price") %>
-              </h5>
-              <p class="lead mb-0">
-                <%= count(@counts, "promotional", "finished") %>
-              </p>
-            </div>
-            <div class="col-6">
-              <h5 class="h6">
-                <%= dgettext("dashboard", "Regular") %>
-              </h5>
-              <p class="lead mb-0">
-                <%= count(@counts, "regular", "finished") %>
-              </p>
-            </div>
-          </div>
+      <h4 class="h5 text-primary mb-2 mt-4">
+        <%= dgettext("dashboard", "Sales") %>
+      </h4>
 
-          <h3 class="h5 text-primary mb-2 mt-4">
-            <%= dgettext("dashboard", "Performance") %>
-          </h3>
-
-          <p class="mb-0">
-            <%= performance @visits %>
-            <%= performance_hint @visits %>
+      <div class="row">
+        <div class="col-6">
+          <h5 class="h6">
+            <%= dgettext("dashboard", "Teiqui price") %>
+          </h5>
+          <p class="lead mb-0">
+            <%= count(@counts, "promotional", "finished") %>
           </p>
         </div>
+        <div class="col-6">
+          <h5 class="h6">
+            <%= dgettext("dashboard", "Regular") %>
+          </h5>
+          <p class="lead mb-0">
+            <%= count(@counts, "regular", "finished") %>
+          </p>
+        </div>
+      </div>
 
-        <div class="card card-body my-3 pb-3">
-          <div class="row">
-            <div class="col-8">
-              <h3 class="h5 text-primary mb-3">
-                <%= dgettext("orders", "Orders") %>
-              </h3>
-            </div>
-            <div class="col-4">
-              <p class="text-right text-muted small mb-0">
-                <%= link dgettext("dashboard", "Go to orders"), to: Routes.order_path(@socket, :index),
-                                                                class: "text-info" %>
-              </p>
-            </div>
-          </div>
+      <h3 class="h5 text-primary mb-2 mt-4">
+        <%= dgettext("dashboard", "Performance") %>
+      </h3>
 
-          <div class="row">
-            <div class="col-6">
-              <h4 class="h6">
-                <%= dgettext("dashboard", "Pending") %>
-              </h4>
-              <p class="lead font-weight-bold mb-0">
-                <%= count(@counts, "regular", "pending") + count(@counts, "promotional", "pending") %>
-              </p>
-            </div>
-            <div class="col-6">
-              <h4 class="h6">
-                <%= dgettext("dashboard", "Finished") %>
-              </h4>
-              <p class="lead font-weight-bold mb-0">
-                <%= count(@counts, "regular", "finished") + count(@counts, "promotional", "finished") %>
-              </p>
-            </div>
-          </div>
+      <p class="mb-0">
+        <%= performance @visits %>
+        <%= performance_hint @visits %>
+      </p>
+    </div>
+
+    <div class="card card-body my-3 pb-3">
+      <div class="row">
+        <div class="col-8">
+          <h3 class="h5 text-primary mb-3">
+            <%= dgettext("orders", "Orders") %>
+          </h3>
+        </div>
+        <div class="col-4">
+          <p class="text-right text-muted small mb-0">
+            <%= link dgettext("dashboard", "Go to orders"), to: Routes.order_path(@socket, :index),
+                                                            class: "text-info" %>
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <h4 class="h6">
+            <%= dgettext("dashboard", "Pending") %>
+          </h4>
+          <p class="lead font-weight-bold mb-0">
+            <%= count(@counts, "regular", "pending") + count(@counts, "promotional", "pending") %>
+          </p>
+        </div>
+        <div class="col-6">
+          <h4 class="h6">
+            <%= dgettext("dashboard", "Finished") %>
+          </h4>
+          <p class="lead font-weight-bold mb-0">
+            <%= count(@counts, "regular", "finished") + count(@counts, "promotional", "finished") %>
+          </p>
         </div>
       </div>
     </div>

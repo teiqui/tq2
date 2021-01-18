@@ -69,7 +69,7 @@ msgstr "Pedido"
 msgid "Order updated successfully."
 msgstr "Pedido actualizado correctamente."
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:100
+#: lib/tq2_web/live/dashboard/main_live.html.leex:98
 #: lib/tq2_web/templates/layout/_menu.html.eex:11 lib/tq2_web/templates/layout/_menu.html.eex:89
 #: lib/tq2_web/templates/order/index.html.eex:2
 msgid "Orders"
@@ -144,6 +144,6 @@ msgstr "Pagos para el pedido #%{id}"
 msgid "Thank you! Your and %{name} made a purchase together and now are saving."
 msgstr "¡Gracias! Tu compra con %{name} hizo que ambos ahorraran."
 
-#: lib/tq2_web/live/store/order_live.ex:40
+#: lib/tq2_web/live/store/order_live.ex:39
 msgid "Don't forget to make the payment!"
 msgstr "¡No olvides realizar el pago!"

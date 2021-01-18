@@ -1,16 +1,16 @@
 defmodule Tq2Web.Dashboard.MainLive do
   use Tq2Web, :live_view
 
-  alias Tq2.{Accounts, Shops}
+  alias Tq2.{Accounts, Analytics, Sales, Shops}
   alias Tq2Web.Store.ShareComponent
 
   @impl true
   def mount(_params, %{"account_id" => account_id, "user_id" => user_id}, socket) do
     session = Accounts.get_current_session(account_id, user_id)
     store = Shops.get_store!(session.account)
-    amount = Tq2.Sales.orders_sale_amount(session.account)
-    counts = Tq2.Sales.orders_by_status_count(session.account)
-    visits = Tq2.Analytics.visit_counts(store.slug)
+    amount = Sales.orders_sale_amount(session.account)
+    counts = Sales.orders_by_status_count(session.account)
+    visits = Analytics.visit_counts(store.slug)
 
     socket =
       socket

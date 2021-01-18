@@ -11,19 +11,19 @@ msgid ""
 msgstr ""
 
 #: lib/tq2_web/live/components/order/payment_form_component.ex:6
-#: lib/tq2_web/live/store/payment_live.ex:94 lib/tq2_web/views/order_view.ex:24
+#: lib/tq2_web/live/store/payment_live.ex:93 lib/tq2_web/views/order_view.ex:24
 msgid "Cash"
 msgstr ""
 
-#: lib/tq2_web/live/store/payment_live.ex:109
+#: lib/tq2_web/live/store/payment_live.ex:108
 msgid "Your order must be paid on delivery."
 msgstr ""
 
-#: lib/tq2_web/live/store/payment_live.ex:80
+#: lib/tq2_web/live/store/payment_live.ex:79
 msgid "Saving..."
 msgstr ""
 
-#: lib/tq2_web/live/store/payment_live.ex:113
+#: lib/tq2_web/live/store/payment_live.ex:112
 msgid "Pay with MercadoPago."
 msgstr ""
 
@@ -31,12 +31,12 @@ msgstr ""
 msgid "Pay with a wire transfer."
 msgstr ""
 
-#: lib/tq2_web/live/store/payment_live.ex:148 lib/tq2_web/views/order_view.ex:25
+#: lib/tq2_web/live/store/payment_live.ex:147 lib/tq2_web/views/order_view.ex:25
 msgid "MercadoPago"
 msgstr ""
 
 #: lib/tq2_web/live/components/order/payment_form_component.ex:7
-#: lib/tq2_web/live/store/order_live.ex:59 lib/tq2_web/live/store/payment_live.ex:152 lib/tq2_web/views/order_view.ex:26
+#: lib/tq2_web/live/store/order_live.ex:58 lib/tq2_web/live/store/payment_live.ex:151 lib/tq2_web/views/order_view.ex:26
 msgid "Wire transfer"
 msgstr ""
 

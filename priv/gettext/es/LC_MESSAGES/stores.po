@@ -187,7 +187,7 @@ msgstr "Categorías"
 msgid "Search..."
 msgstr "Buscar..."
 
-#: lib/tq2_web/live/store/counter_live.ex:166
+#: lib/tq2_web/live/store/counter_live.ex:165
 msgid "Show all"
 msgstr "Ver todo"
 
@@ -201,7 +201,7 @@ msgid "Share"
 msgstr "Compartir"
 
 #: lib/tq2_web/live/components/store/team_component.ex:30
-#: lib/tq2_web/live/store/team_live.ex:113
+#: lib/tq2_web/live/store/team_live.ex:111
 msgid "Join"
 msgstr "Unirse"
 

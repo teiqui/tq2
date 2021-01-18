@@ -7,6 +7,21 @@ defmodule Tq2Web.LayoutView do
     |> String.replace(~r/_\w+/, "")
   end
 
+  defp body_classes(_conn, nil) do
+    "mt-4 mb-5 bg-light"
+  end
+
+  defp body_classes(conn, _current_session) do
+    bg_color =
+      if conn.request_path == Routes.dashboard_path(conn, :index) do
+        "bg-primary"
+      else
+        "bg-light"
+      end
+
+    "mt-4 mb-5 pt-5 #{bg_color}"
+  end
+
   defp main_item(conn, opts) do
     {text, opts} = Keyword.pop(opts, :text)
     {to, opts} = Keyword.pop(opts, :to)

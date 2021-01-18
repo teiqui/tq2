@@ -15,48 +15,48 @@ msgstr ""
 msgid "* In relation to the previous day."
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:52
+#: lib/tq2_web/live/dashboard/main_live.html.leex:50
 msgid "All channels"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:47
+#: lib/tq2_web/live/dashboard/main_live.html.leex:45
 msgid "Dashboard"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:122
+#: lib/tq2_web/live/dashboard/main_live.html.leex:120
 msgid "Finished"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:105
+#: lib/tq2_web/live/dashboard/main_live.html.leex:103
 msgid "Go to orders"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:114
+#: lib/tq2_web/live/dashboard/main_live.html.leex:112
 msgid "Pending"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:87
+#: lib/tq2_web/live/dashboard/main_live.html.leex:85
 msgid "Performance"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:78
+#: lib/tq2_web/live/dashboard/main_live.html.leex:76
 msgid "Regular"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:10
-#: lib/tq2_web/live/dashboard/main_live.html.leex:64
+#: lib/tq2_web/live/dashboard/main_live.html.leex:8
+#: lib/tq2_web/live/dashboard/main_live.html.leex:62
 msgid "Sales"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:21
+#: lib/tq2_web/live/dashboard/main_live.html.leex:19
 msgid "Share your store."
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:56
+#: lib/tq2_web/live/dashboard/main_live.html.leex:54
 msgid "Store visits"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:70
+#: lib/tq2_web/live/dashboard/main_live.html.leex:68
 msgid "Teiqui price"
 msgstr ""
 
@@ -68,11 +68,11 @@ msgstr ""
 msgid "There is not enough data."
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:6
-#: lib/tq2_web/live/dashboard/main_live.html.leex:43
+#: lib/tq2_web/live/dashboard/main_live.html.leex:4
+#: lib/tq2_web/live/dashboard/main_live.html.leex:41
 msgid "Today"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:18
+#: lib/tq2_web/live/dashboard/main_live.html.leex:16
 msgid "You have no orders yet."
 msgstr ""
