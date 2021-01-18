@@ -71,8 +71,8 @@ msgid "Item updated successfully."
 msgstr ""
 
 #: lib/tq2_web/templates/item/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:17 lib/tq2_web/templates/layout/_menu.html.eex:108
-#: lib/tq2_web/templates/layout/_menu.html.eex:113
+#: lib/tq2_web/templates/layout/_menu.html.eex:17 lib/tq2_web/templates/layout/_menu.html.eex:117
+#: lib/tq2_web/templates/layout/_menu.html.eex:122
 msgid "Items"
 msgstr ""
 

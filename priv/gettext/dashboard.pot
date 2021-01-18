@@ -19,6 +19,7 @@ msgid "All channels"
 msgstr ""
 
 #: lib/tq2_web/live/dashboard/main_live.html.leex:45
+#: lib/tq2_web/templates/layout/_menu.html.eex:107
 msgid "Dashboard"
 msgstr ""
 

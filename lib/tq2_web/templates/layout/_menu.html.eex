@@ -102,6 +102,15 @@
                              text_class: "text-dark mt-2",
                              icon_size: 30 %>
       </div>
+
+      <div class="mr-4">
+        <%= main_item @conn, text: dgettext("dashboard", "Dashboard"),
+                             to: Routes.dashboard_path(@conn, :index),
+                             icon: "bar-chart-line",
+                             icon_class: "btn-menu-lg text-primary border-primary",
+                             text_class: "text-dark mt-2",
+                             icon_size: 30 %>
+      </div>
     </div>
 
     <h2 class="h3 font-weight-bold mb-4 mt-5">

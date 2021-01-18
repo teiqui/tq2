@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 
 #: lib/tq2_web/templates/account/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:156
+#: lib/tq2_web/templates/layout/_menu.html.eex:165
 msgid "Accounts"
 msgstr ""
 

@@ -36,7 +36,7 @@ msgid "Unpaid"
 msgstr "Impago"
 
 #: lib/tq2_web/live/account/license_live.html.leex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:146
+#: lib/tq2_web/templates/layout/_menu.html.eex:155
 msgid "Licenses"
 msgstr "Licencia"
 

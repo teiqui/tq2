@@ -28,6 +28,6 @@ msgstr "Más"
 msgid "Payments"
 msgstr "Pagos"
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:132
+#: lib/tq2_web/templates/layout/_menu.html.eex:141
 msgid "Settings"
 msgstr "Ajustes"
