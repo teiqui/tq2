@@ -34,10 +34,11 @@ defmodule Tq2Web.VisitPlug do
 
     conn
     |> put_session(:visit_id, view.visit_id)
+    |> put_session(:visit_slug, slug)
     |> put_session(:visit_timestamp, System.os_time(:second))
   end
 
-  defp track_view(conn, slug, visit_id) do
+  defp track_view(%{private: %{plug_session: %{"visit_slug" => slug}}} = conn, slug, visit_id) do
     expires =
       conn
       |> get_session(:visit_timestamp)
@@ -57,5 +58,9 @@ defmodule Tq2Web.VisitPlug do
 
         conn
     end
+  end
+
+  defp track_view(conn, slug, _visit_id) do
+    register_visit(conn, slug)
   end
 end
