@@ -108,7 +108,7 @@ msgstr ""
 msgid "Price"
 msgstr ""
 
-#: lib/tq2_web/live/store/item_live.html.leex:55
+#: lib/tq2_web/live/store/item_live.html.leex:52
 #: lib/tq2_web/templates/item/show.html.eex:32 lib/tq2_web/views/item_view.ex:135
 msgid "Promotional price"
 msgstr ""

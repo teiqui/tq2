@@ -230,8 +230,8 @@ msgid "%{name} is shopping"
 msgstr "%{name} está comprando"
 
 #: lib/tq2_web/live/store/team_live.html.leex:18
-msgid "Join an existing order before it expires, or get someone to join yours sharing the store link."
-msgstr "Únete a una compra antes que finalicen o consigue que alguien se una a la tuya compartiendo la tienda."
+msgid "Join and get the promotional price."
+msgstr "Únete y obtén el precio de descuento."
 
 #: lib/tq2_web/live/store/team_live.html.leex:39
 msgid "Join this purchase!"
