@@ -33,5 +33,5 @@
 <%= live_component @socket, ButtonComponent, store: @store,
                                              cart: @cart,
                                              token: @token,
-                                             to: Routes.handing_path(@socket, :index, @store),
+                                             to: Routes.checkout_path(@socket, :index, @store),
                                              enabled: true %>
