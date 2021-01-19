@@ -65,27 +65,37 @@ defmodule Tq2Web.Store.ItemLiveTest do
       counter_path = Routes.counter_path(conn, :index, store)
 
       assert {:error, {:live_redirect, %{kind: :push, to: ^counter_path}}} =
-               render_click(item_live, :add, %{"type" => "promotional", "id" => item.id})
+               item_live
+               |> element("[phx-click=\"add\"][phx-value-type=\"promotional\"]")
+               |> render_click()
     end
 
     test "increase event", %{conn: conn, item: item, store: store} do
       path = Routes.item_path(conn, :index, store, item)
       {:ok, item_live, _html} = live(conn, path)
 
-      assert item_live
-             |> element("[data-quantity]")
-             |> render() =~ "1"
+      assert has_element?(item_live, "[data-quantity]", "1")
 
-      assert render_click(item_live, :increase) =~ "data-quantity=\"2\""
+      item_live
+      |> element("[phx-click=\"increase\"]")
+      |> render_click()
+
+      assert has_element?(item_live, "[data-quantity=\"2\"]", "2")
     end
 
     test "decrease event", %{conn: conn, item: item, store: store} do
       path = Routes.item_path(conn, :index, store, item)
       {:ok, item_live, _html} = live(conn, path)
 
-      assert render_click(item_live, :increase) =~ "data-quantity=\"2\""
-      assert render_click(item_live, :decrease) =~ "data-quantity=\"1\""
-      assert render_click(item_live, :decrease) =~ "data-quantity=\"1\""
+      item_live
+      |> element("[phx-click=\"increase\"]")
+      |> render_click() =~ "data-quantity=\"2\""
+
+      item_live
+      |> element("[phx-click=\"decrease\"]")
+      |> render_click() =~ "data-quantity=\"1\""
+
+      assert has_element?(item_live, "[phx-click=\"decrease\"][disabled]")
     end
   end
 end

@@ -119,7 +119,9 @@ defmodule Tq2Web.Shop.StoreLiveTest do
 
       assert store.published
 
-      render_change(store_live, :save, %{store: %{"published" => "false"}})
+      store_live
+      |> element("form")
+      |> render_change(%{store: %{"published" => "false"}})
 
       store = Tq2.Shops.get_store!(store.account)
 
@@ -133,7 +135,9 @@ defmodule Tq2Web.Shop.StoreLiveTest do
 
       assert content =~ store.name
 
-      assert render_submit(store_live, :save, %{store: %{"name" => "New name"}}) =~ "New name"
+      assert store_live
+             |> element("form")
+             |> render_submit(%{store: %{"name" => "New name"}}) =~ "New name"
 
       store = Tq2.Shops.get_store!(store.slug)
 
@@ -151,12 +155,14 @@ defmodule Tq2Web.Shop.StoreLiveTest do
 
       logo = logo_input(store_live)
 
-      assert {:ok, %{entries: entries}} = preflight_upload(logo)
+      assert {:ok, %{entries: _entries}} = preflight_upload(logo)
       assert render(store_live) =~ "test.png"
 
-      ref = entries |> Map.keys() |> List.first()
+      store_live
+      |> element("[phx-click=\"cancel-entry\"]")
+      |> render_click()
 
-      refute render_click(store_live, :"cancel-entry", %{ref: ref}) =~ "test.png"
+      refute render(store_live) =~ "test.png"
     end
 
     test "logo upload", %{conn: conn, store: store} do
@@ -170,7 +176,10 @@ defmodule Tq2Web.Shop.StoreLiveTest do
       logo = logo_input(store_live)
 
       assert render_upload(logo, "test.png") =~ "100%"
-      assert render_submit(store_live, :save, %{store: %{"name" => store.name}}) =~ "test.png"
+
+      assert store_live
+             |> element("form")
+             |> render_submit(%{store: %{"name" => store.name}}) =~ "test.png"
 
       store = Tq2.Shops.get_store!(store.slug)
 

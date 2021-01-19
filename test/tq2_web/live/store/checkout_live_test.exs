@@ -109,10 +109,22 @@ defmodule Tq2Web.Store.CheckoutLiveTest do
       line = List.first(cart.lines)
 
       assert html =~ "#{line.quantity}"
-      assert render(checkout_live) =~ "#{line.quantity}"
 
-      assert checkout_live
-             |> render_click(:increase, %{id: line.id}) =~ "#{line.quantity + 1}"
+      assert has_element?(
+               checkout_live,
+               "[data-quantity=\"#{line.id}\"]",
+               to_string(line.quantity)
+             )
+
+      checkout_live
+      |> element("[phx-click=\"increase\"]")
+      |> render_click()
+
+      assert has_element?(
+               checkout_live,
+               "[data-quantity=\"#{line.id}\"]",
+               to_string(line.quantity + 1)
+             )
     end
 
     test "decrease event", %{conn: conn, cart: cart, store: store} do
@@ -121,16 +133,38 @@ defmodule Tq2Web.Store.CheckoutLiveTest do
       line = List.first(cart.lines)
 
       assert html =~ "#{line.quantity}"
-      assert render(checkout_live) =~ "#{line.quantity}"
 
-      assert checkout_live
-             |> render_click(:increase, %{id: line.id}) =~ "#{line.quantity + 1}"
+      assert has_element?(
+               checkout_live,
+               "[data-quantity=\"#{line.id}\"]",
+               to_string(line.quantity)
+             )
 
-      assert checkout_live
-             |> render_click(:decrease, %{id: line.id}) =~ "#{line.quantity - 1}"
+      checkout_live
+      |> element("[phx-click=\"increase\"]")
+      |> render_click()
 
-      assert checkout_live
-             |> render_click(:decrease, %{id: line.id}) =~ "Your cart is empty."
+      assert has_element?(
+               checkout_live,
+               "[data-quantity=\"#{line.id}\"]",
+               to_string(line.quantity + 1)
+             )
+
+      checkout_live
+      |> element("[phx-click=\"decrease\"]")
+      |> render_click()
+
+      assert has_element?(
+               checkout_live,
+               "[data-quantity=\"#{line.id}\"]",
+               to_string(line.quantity)
+             )
+
+      checkout_live
+      |> element("[phx-click=\"decrease\"]")
+      |> render_click()
+
+      assert render(checkout_live) =~ "Your cart is empty."
     end
   end
 end

@@ -11,7 +11,7 @@
             <tr id="line-<%= line.id %>">
               <td class="text-nowrap">
                 <a href="#" class="h4 text-dark font-weight-bold" phx-click="decrease" phx-value-id="<%= line.id %>">-</a>
-                <span class="mx-2"><%= line.quantity %></span>
+                <span class="mx-2" data-quantity="<%= line.id %>"><%= line.quantity %></span>
                 <a href="#" class="h4 text-dark font-weight-bold" phx-click="increase" phx-value-id="<%= line.id %>">+</a>
               </td>
               <td>
