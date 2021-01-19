@@ -25,7 +25,7 @@ defmodule Tq2.Transactions.Cart do
     has_many :lines, Line
     has_many :payments, Payment
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @price_types ~w(promotional regular)

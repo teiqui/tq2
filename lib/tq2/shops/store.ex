@@ -25,7 +25,7 @@ defmodule Tq2.Shops.Store do
 
     belongs_to :account, Account
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @cast_attrs [:name, :description, :slug, :published, :lock_version]

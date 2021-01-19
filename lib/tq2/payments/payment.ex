@@ -18,7 +18,7 @@ defmodule Tq2.Payments.Payment do
     belongs_to :cart, Cart
     has_one :order, through: [:cart, :order]
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @cast_attrs [

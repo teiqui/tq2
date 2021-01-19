@@ -9,7 +9,7 @@ defmodule Tq2.Shops.Location do
     field :latitude, :decimal
     field :longitude, :decimal
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @doc false

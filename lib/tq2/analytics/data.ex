@@ -8,7 +8,7 @@ defmodule Tq2.Analytics.Data do
   embedded_schema do
     field :ip, :string
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @doc false

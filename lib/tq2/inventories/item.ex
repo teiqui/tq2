@@ -29,7 +29,7 @@ defmodule Tq2.Inventories.Item do
     belongs_to :account, Account
     belongs_to :category, Category
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @cast_attrs [

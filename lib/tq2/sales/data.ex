@@ -9,7 +9,7 @@ defmodule Tq2.Sales.Data do
     field :paid, :boolean
     field :notes, :string
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @doc false

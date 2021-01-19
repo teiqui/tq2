@@ -28,7 +28,7 @@ defmodule Tq2.Sales.Order do
     has_many :children, through: [:originator_ties, :order]
     has_many :parents, through: [:ties, :originator]
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @statuses ~w(pending processing completed canceled)

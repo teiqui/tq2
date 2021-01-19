@@ -19,7 +19,7 @@ defmodule Tq2.Accounts.User do
 
     has_many :memberships, Membership
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @cast_attrs [:name, :lastname, :email, :password, :lock_version]

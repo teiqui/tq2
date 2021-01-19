@@ -11,7 +11,7 @@ defmodule Tq2.Shares.Token do
 
     belongs_to :customer, Customer
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @doc false

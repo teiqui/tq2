@@ -9,7 +9,7 @@ defmodule Tq2.Webhooks.MercadoPago do
     field :name, :string, default: "mercado_pago"
     field :payload, :map
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @doc false

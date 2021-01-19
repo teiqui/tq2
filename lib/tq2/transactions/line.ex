@@ -16,7 +16,7 @@ defmodule Tq2.Transactions.Line do
     belongs_to :item, Item
     belongs_to :cart, Cart
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @doc false

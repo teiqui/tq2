@@ -13,7 +13,7 @@ defmodule Tq2.Accounts.Membership do
     belongs_to :account, Account
     belongs_to :user, User
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @doc false

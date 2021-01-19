@@ -9,7 +9,7 @@ defmodule Tq2.Sales.Tie do
     belongs_to :order, Order
     belongs_to :originator, Order
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @doc false

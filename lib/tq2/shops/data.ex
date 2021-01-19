@@ -13,7 +13,7 @@ defmodule Tq2.Shops.Data do
     field :facebook, TrimmedString
     field :instagram, TrimmedString
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @doc false

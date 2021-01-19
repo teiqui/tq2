@@ -9,7 +9,7 @@ defmodule Tq2.Transactions.Data do
     field :handing, :string
     field :payment, :string
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @handing_types ~w(pickup delivery)

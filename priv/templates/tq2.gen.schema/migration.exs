@@ -8,7 +8,7 @@ defmodule <%= inspect schema.repo %>.Migrations.Create<%= Macro.camelize(schema.
 <% end %><%= for {_, i, _, s} <- schema.assocs do %>      add <%= inspect(i) %>, references(<%= inspect(s) %>, on_delete: :nothing<%= if schema.binary_id do %>, type: :binary_id<% end %>)
 <% end %>      add :lock_version, :integer, default: 0, null: false
 
-      timestamps()
+      timestamps type: :utc_datetime
     end
 <%= for index <- schema.indexes do %>
     <%= index %><% end %>

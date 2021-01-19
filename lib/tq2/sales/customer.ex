@@ -16,7 +16,7 @@ defmodule Tq2.Sales.Customer do
 
     has_many :tokens, Token
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @doc false

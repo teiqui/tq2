@@ -18,7 +18,7 @@ defmodule Tq2.Apps.MercadoPago do
 
     belongs_to :account, Account
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @statuses ~w(paused active)

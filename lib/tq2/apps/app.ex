@@ -17,6 +17,6 @@ defmodule Tq2.Apps.App do
 
     belongs_to :account, Account
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 end

@@ -17,7 +17,7 @@ defmodule Tq2.Accounts.Account do
     has_many :memberships, Membership
     has_one :license, License
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @statuses ~w(green active suspended locked)

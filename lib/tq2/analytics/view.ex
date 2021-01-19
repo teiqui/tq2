@@ -10,7 +10,7 @@ defmodule Tq2.Analytics.View do
 
     belongs_to :visit, Visit
 
-    timestamps updated_at: false
+    timestamps updated_at: false, type: :utc_datetime
   end
 
   @doc false

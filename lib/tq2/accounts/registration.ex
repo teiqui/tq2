@@ -20,7 +20,7 @@ defmodule Tq2.Accounts.Registration do
 
     belongs_to :account, Account
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @doc false

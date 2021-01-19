@@ -22,7 +22,7 @@ defmodule Tq2.Shops.Configuration do
     field :delivery_time_limit, :string
     field :pay_on_delivery, :boolean, default: false
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @cast_attrs [

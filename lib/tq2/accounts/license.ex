@@ -17,7 +17,7 @@ defmodule Tq2.Accounts.License do
 
     belongs_to :account, Account
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @cast_attrs [:status, :customer_id, :subscription_id, :paid_until, :lock_version]

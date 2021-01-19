@@ -16,7 +16,7 @@ defmodule Tq2.Inventories.Category do
 
     has_many :items, Item
 
-    timestamps()
+    timestamps type: :utc_datetime
   end
 
   @doc false
