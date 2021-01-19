@@ -88,7 +88,7 @@ defmodule Tq2Web.ItemControllerTest do
     test "lists no items", %{conn: conn} do
       conn = get(conn, Routes.item_path(conn, :index))
 
-      assert html_response(conn, 200) =~ "you have no items"
+      assert html_response(conn, 200) =~ "You have no items yet"
     end
   end
 

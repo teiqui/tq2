@@ -1,16 +1,24 @@
-<div class="jumbotron">
-  <h1>
-    <%= dgettext("items", "Looks like you have no items.") %>
+<div class="text-center mt-4">
+  <h1 class="h4 text-info mb-1">
+    <%= dgettext("items", "You have no items yet") %>
   </h1>
 
-  <p class="lead">
-    <%= dgettext("items", "Let's create one...") %>
+  <h2 class="h4 text-info">
+    <%= dgettext("items", "Add one!") %>
+  </h2>
+
+  <div class="text-info my-5">
+    <svg class="bi" width="86" height="86" fill="currentColor">
+      <use xlink:href="<%= Routes.static_path(@conn, "/images/bootstrap-icons.svg#box-seam") %>"/>
+    </svg>
+  </div>
+
+  <p class="mb-3">
+    <%= link_to_new_item @conn %>
   </p>
 
-  <p class="text-right">
+  <p class="mb-0">
     <%= link dgettext("items", "Import items"), to: Routes.import_path(@conn, :index),
-                                                class: "mr-3 font-weight-semi-bold" %>
-    <%= link dgettext("items", "New item"), to: Routes.item_path(@conn, :new),
-                                            class: "btn btn-primary rounded-pill font-weight-semi-bold" %>
+                                                class: "font-weight-semi-bold" %>
   </p>
 </div>

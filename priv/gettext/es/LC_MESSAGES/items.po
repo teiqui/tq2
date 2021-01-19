@@ -77,21 +77,13 @@ msgstr "Artículo actualizado correctamente."
 msgid "Items"
 msgstr "Artículos"
 
-#: lib/tq2_web/templates/item/empty.html.eex:7
-msgid "Let's create one..."
-msgstr "Vamos, crea uno..."
-
-#: lib/tq2_web/templates/item/empty.html.eex:3
-msgid "Looks like you have no items."
-msgstr "Parece que no hay ningún artículo."
-
 #: lib/tq2_web/templates/item/_form.html.eex:9
 #: lib/tq2_web/templates/item/index.html.eex:9
 msgid "Name"
 msgstr "Nombre"
 
-#: lib/tq2_web/templates/item/empty.html.eex:13
-#: lib/tq2_web/templates/item/index.html.eex:41 lib/tq2_web/templates/item/new.html.eex:4
+#: lib/tq2_web/templates/item/index.html.eex:41
+#: lib/tq2_web/templates/item/new.html.eex:4
 msgid "New item"
 msgstr "Nuevo artículo"
 
@@ -175,7 +167,7 @@ msgstr "Importando artículos, por favor espere..."
 msgid "Skip import"
 msgstr "Omitir importación"
 
-#: lib/tq2_web/templates/item/empty.html.eex:11
+#: lib/tq2_web/templates/item/empty.html.eex:21
 #: lib/tq2_web/templates/item/index.html.eex:39
 msgid "Import items"
 msgstr "Importar artículos"
@@ -183,3 +175,15 @@ msgstr "Importar artículos"
 #: lib/tq2_web/views/item_view.ex:127
 msgid "This price is the secret sauce to attract new customers, it's recommended to be about 40% off the regular price."
 msgstr "Este precio es la salsa secreta para atraer nuevos clientes, se recomienda cerca del 40% de descuento sobre el precio normal."
+
+#: lib/tq2_web/views/item_view.ex:141
+msgid "Add item"
+msgstr "Agregar artículo"
+
+#: lib/tq2_web/templates/item/empty.html.eex:7
+msgid "Add one!"
+msgstr "¡Agrega uno!"
+
+#: lib/tq2_web/templates/item/empty.html.eex:3
+msgid "You have no items yet"
+msgstr "Aún no tienes artículos"

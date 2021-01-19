@@ -136,4 +136,14 @@ defmodule Tq2Web.ItemView do
       input_html: [hint: hint]
     )
   end
+
+  defp link_to_new_item(conn) do
+    text = dgettext("items", "Add item")
+
+    link("+ #{text}",
+      to: Routes.item_path(conn, :new),
+      class:
+        "btn btn-outline-primary btn-lg border border-primary rounded-pill font-weight-semi-bold"
+    )
+  end
 end
