@@ -12,6 +12,7 @@
     <%= for category <- @categories do %>
       <%= live_component @socket, CategoryComponent, store: @store, category: category, id: category.id %>
     <% end %>
+  </div>
 <% else %>
   <div id="items" class="row no-gutters row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-4 row-cols-xl-6" phx-update="append">
     <%= for item <- @items do %>

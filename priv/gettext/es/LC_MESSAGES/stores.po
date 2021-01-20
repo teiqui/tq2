@@ -189,7 +189,7 @@ msgstr "Buscar..."
 
 #: lib/tq2_web/live/store/counter_live.ex:165
 msgid "Show all"
-msgstr "Ver todo"
+msgstr "Ver todas"
 
 #: lib/tq2_web/live/store/order_live.html.leex:55
 #: lib/tq2_web/live/store/team_live.html.leex:57

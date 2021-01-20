@@ -164,7 +164,7 @@ defmodule Tq2Web.Store.CounterLive do
     live_patch(
       dgettext("stores", "Show all"),
       to: Routes.counter_path(socket, :index, store),
-      class: "text-decoration-none float-right mt-3",
+      class: "text-decoration-none text-center d-block",
       id: "show_all",
       phx_hook: "ScrollToTop"
     )
