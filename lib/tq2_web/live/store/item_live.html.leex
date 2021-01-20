@@ -41,18 +41,18 @@
   </div>
 
   <div class="row mt-3 mb-3">
-    <div class="col-lg-6">
-      <p class="mb-2 d-none d-lg-block">&nbsp;</p>
-
-      <%= regular_price_button @cart, @item %>
-    </div>
-
-    <div class="col-lg-6">
+    <div class="col-lg-6 order-lg-2 mb-3">
       <p class="text-primary text-center font-weight-bold mb-2 mt-3 mt-lg-0">
         <%= dgettext("items", "Promotional price") %>
       </p>
 
       <%= promotional_price_button @socket, @cart, @item %>
+    </div>
+
+    <div class="col-lg-6 order-lg-1">
+      <p class="mb-2 d-none d-lg-block">&nbsp;</p>
+
+      <%= regular_price_button @cart, @item %>
     </div>
   </div>
 </div>
