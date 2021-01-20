@@ -122,10 +122,18 @@ defmodule Tq2Web.Store.CustomerLive do
     end
   end
 
-  defp submit_customer(cart) do
-    text = cart_total(cart)
+  defp submit_customer(socket, cart) do
+    content = ~E"""
+      <%= cart_total(cart) %>
 
-    submit(text,
+      <span class="float-right ml-n3">
+        <svg class="bi" width="16" height="16" fill="currentColor">
+          <use xlink:href="<%= Routes.static_path(socket, "/images/bootstrap-icons.svg#arrow-right") %>"/>
+        </svg>
+      </span>
+    """
+
+    submit(content,
       class: "btn btn-lg btn-block btn-primary",
       phx_disable_with: dgettext("customers", "Saving...")
     )

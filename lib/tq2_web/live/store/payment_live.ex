@@ -70,10 +70,18 @@ defmodule Tq2Web.Store.PaymentLive do
     assign(socket, cart: cart)
   end
 
-  defp submit_payment(cart) do
-    text = cart_total(cart)
+  defp submit_payment(socket, cart) do
+    content = ~E"""
+      <%= cart_total(cart) %>
 
-    submit(text,
+      <span class="float-right ml-n3">
+        <svg class="bi" width="16" height="16" fill="currentColor">
+          <use xlink:href="<%= Routes.static_path(socket, "/images/bootstrap-icons.svg#arrow-right") %>"/>
+        </svg>
+      </span>
+    """
+
+    submit(content,
       class: "btn btn-lg btn-block btn-primary",
       disabled: !(cart.data && cart.data.payment),
       phx_disable_with: dgettext("payments", "Saving...")
