@@ -89,8 +89,8 @@ defmodule Tq2Web.Order.OrderEditLiveTest do
 
       {:error, {:redirect, %{to: path}}} =
         order_live
-        |> element("#order-form")
-        |> render_submit(%{order: %{status: "completed"}})
+        |> form("#order-form", %{order: %{status: "completed"}})
+        |> render_submit()
 
       assert Routes.order_path(conn, :show, order) == path
     end
@@ -102,7 +102,7 @@ defmodule Tq2Web.Order.OrderEditLiveTest do
       assert html =~ "Update"
 
       order_live
-      |> element("#order-form")
+      |> form("#order-form")
       |> render_submit(%{order: %{status: "unknown"}})
 
       assert has_element?(order_live, "[phx-feedback-for=\"order-form_status\"]", "is invalid")
@@ -117,7 +117,7 @@ defmodule Tq2Web.Order.OrderEditLiveTest do
 
       content =
         order_live
-        |> element("#payments-component form")
+        |> form("#payments-component form")
         |> render_submit()
 
       refute content =~ "Create payment"
@@ -130,8 +130,8 @@ defmodule Tq2Web.Order.OrderEditLiveTest do
 
       {:error, {:redirect, %{to: path}}} =
         order_live
-        |> element("#order-form")
-        |> render_submit(%{order: %{status: "completed"}})
+        |> form("#order-form", %{order: %{status: "completed"}})
+        |> render_submit()
 
       assert Routes.order_path(conn, :show, order) == path
     end

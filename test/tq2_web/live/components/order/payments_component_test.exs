@@ -81,8 +81,8 @@ defmodule Tq2Web.Order.PaymentsComponentTest do
 
       content =
         payment_live
-        |> element("#payments-component form")
-        |> render_change(%{payment: %{amount: pending, kind: "cash"}})
+        |> form("#payments-component form", %{payment: %{amount: pending, kind: "cash"}})
+        |> render_change()
 
       assert content =~ "Create payment"
     end
@@ -97,13 +97,13 @@ defmodule Tq2Web.Order.PaymentsComponentTest do
 
       content =
         payment_live
-        |> element("#payments-component form")
-        |> render_submit(%{
+        |> form("#payments-component form", %{
           payment: %{
             amount: Money.to_string(pending),
             kind: "cash"
           }
         })
+        |> render_submit()
 
       refute content =~ "Create payment"
     end
@@ -122,13 +122,13 @@ defmodule Tq2Web.Order.PaymentsComponentTest do
         |> Money.multiply(0.5)
 
       payment_live
-      |> element("#payments-component form")
-      |> render_submit(%{
+      |> form("#payments-component form", %{
         payment: %{
           amount: Money.to_string(amount),
           kind: "cash"
         }
       })
+      |> render_submit()
 
       assert has_element?(payment_live, "#payments .card")
 
@@ -143,13 +143,13 @@ defmodule Tq2Web.Order.PaymentsComponentTest do
       # Pay other half
       content =
         payment_live
-        |> element("#payments-component form")
-        |> render_submit(%{
+        |> form("#payments-component form", %{
           payment: %{
             amount: Money.to_string(amount),
             kind: "cash"
           }
         })
+        |> render_submit()
 
       refute content =~ "Create payment"
     end
@@ -169,13 +169,13 @@ defmodule Tq2Web.Order.PaymentsComponentTest do
       amount = total |> Money.multiply(0.5)
 
       payment_live
-      |> element("#payments-component form")
-      |> render_submit(%{
+      |> form("#payments-component form", %{
         payment: %{
           amount: Money.to_string(amount),
           kind: "cash"
         }
       })
+      |> render_submit()
 
       assert has_element?(payment_live, "#payments .card")
 

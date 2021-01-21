@@ -33,13 +33,13 @@ defmodule Tq2Web.Registration.EmailLiveTest do
       {:ok, email_live, _html} = live(conn, path)
 
       assert email_live
-             |> element("form")
-             |> render_submit(%{
+             |> form("form", %{
                registration: %{
-                 "email" => "some@email.com",
-                 "email_confirmation" => "some@email.com"
+                 email: "some@email.com",
+                 email_confirmation: "some@email.com"
                }
-             }) ==
+             })
+             |> render_submit() ==
                {:error,
                 {:live_redirect,
                  %{kind: :push, to: Routes.registration_password_path(conn, :index, registration)}}}
@@ -50,13 +50,13 @@ defmodule Tq2Web.Registration.EmailLiveTest do
       {:ok, email_live, _html} = live(conn, path)
 
       assert email_live
-             |> element("form")
-             |> render_submit(%{
+             |> form("form", %{
                registration: %{
-                 "email" => "some@email.com",
-                 "email_confirmation" => "wrong@email.com"
+                 email: "some@email.com",
+                 email_confirmation: "wrong@email.com"
                }
-             }) =~ "does not match confirmation"
+             })
+             |> render_submit() =~ "does not match confirmation"
     end
   end
 end

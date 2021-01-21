@@ -35,13 +35,13 @@ defmodule Tq2Web.Registration.PasswordLiveTest do
       {:ok, password_live, _html} = live(conn, path)
 
       password_live
-      |> element("form")
-      |> render_submit(%{
+      |> form("form", %{
         registration: %{
-          "password" => "123456",
-          "password_confirmation" => "123456"
+          password: "123456",
+          password_confirmation: "123456"
         }
       })
+      |> render_submit()
 
       assert_redirect(password_live, Routes.registration_path(conn, :show, registration))
     end
@@ -51,13 +51,13 @@ defmodule Tq2Web.Registration.PasswordLiveTest do
       {:ok, password_live, _html} = live(conn, path)
 
       assert password_live
-             |> element("form")
-             |> render_submit(%{
+             |> form("form", %{
                registration: %{
-                 "password" => "123456",
-                 "password_confirmation" => "654321"
+                 password: "123456",
+                 password_confirmation: "654321"
                }
-             }) =~ "does not match confirmation"
+             })
+             |> render_submit() =~ "does not match confirmation"
     end
   end
 end

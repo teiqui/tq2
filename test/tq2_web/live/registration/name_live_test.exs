@@ -18,14 +18,14 @@ defmodule Tq2Web.Registration.NameLiveTest do
 
       response =
         name_live
-        |> element("form")
-        |> render_submit(%{
+        |> form("form", %{
           registration: %{
-            "name" => "some name",
-            "type" => "grocery",
-            "terms_of_service" => "true"
+            name: "some name",
+            type: "grocery",
+            terms_of_service: "true"
           }
         })
+        |> render_submit()
 
       assert {:error, {:live_redirect, %{kind: :push, to: to}}} = response
 

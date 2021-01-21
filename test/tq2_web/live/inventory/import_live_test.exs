@@ -52,12 +52,8 @@ defmodule Tq2Web.Inventory.ImportLiveTest do
       pid = import_live.pid
 
       assert import_live
-             |> element("form")
-             |> render_submit(%{
-               item: %{
-                 "title" => "Quesos y Fiambres"
-               }
-             }) =~ "class=\"progress-bar\""
+             |> form("form", %{item: %{title: "Quesos y Fiambres"}})
+             |> render_submit() =~ "class=\"progress-bar\""
 
       assert_receive {:trace, ^pid, :receive, {:batch_import_finished, _result}}, 20_000
       assert render(import_live) =~ "4 items imported!"

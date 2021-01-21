@@ -126,8 +126,8 @@ defmodule Tq2Web.Store.CustomerLiveTest do
       assert render(customer_live) =~ "#person-circle"
 
       assert customer_live
-             |> element("form")
-             |> render_submit(%{}) ==
+             |> form("form", %{})
+             |> render_submit() ==
                {:error,
                 {:live_redirect, %{kind: :push, to: Routes.payment_path(conn, :index, store)}}}
     end
@@ -139,15 +139,15 @@ defmodule Tq2Web.Store.CustomerLiveTest do
       refute render(customer_live) =~ "#person-circle"
 
       assert customer_live
-             |> element("form")
-             |> render_submit(%{
+             |> form("form", %{
                customer: %{
-                 "name" => "some name",
-                 "email" => "some@email.com",
-                 "phone" => "555-5555",
-                 "address" => "some address"
+                 name: "some name",
+                 email: "some@email.com",
+                 phone: "555-5555",
+                 address: "some address"
                }
-             }) ==
+             })
+             |> render_submit() ==
                {:error,
                 {:live_redirect, %{kind: :push, to: Routes.payment_path(conn, :index, store)}}}
 
@@ -161,9 +161,8 @@ defmodule Tq2Web.Store.CustomerLiveTest do
       refute render(customer_live) =~ "#person-circle"
 
       assert customer_live
-             |> element("form")
-             |> render_change(%{customer: %{"email" => "invalid@email"}}) =~
-               "phx-feedback-for=\"customer_email\">has invalid format"
+             |> form("form", %{customer: %{email: "invalid@email"}})
+             |> render_change() =~ "phx-feedback-for=\"customer_email\">has invalid format"
 
       refute render(customer_live) =~ "#person-circle"
     end
@@ -187,8 +186,8 @@ defmodule Tq2Web.Store.CustomerLiveTest do
       refute render(customer_live) =~ "#person-circle"
 
       assert customer_live
-             |> element("form")
-             |> render_change(%{customer: %{"email" => customer.email}}) ==
+             |> form("form", %{customer: %{email: customer.email}})
+             |> render_change() ==
                {:error,
                 {:live_redirect, %{kind: :push, to: Routes.customer_path(conn, :index, store)}}}
 

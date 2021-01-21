@@ -99,7 +99,7 @@ defmodule Tq2Web.Store.CounterLiveTest do
       content =
         store_live
         |> element("#footer")
-        |> render_hook(:"load-more")
+        |> render_hook("load-more")
 
       assert content =~ List.last(items).name
       refute has_element?(store_live, "#footer")
@@ -172,16 +172,16 @@ defmodule Tq2Web.Store.CounterLiveTest do
 
       {:ok, store_live, content} =
         store_live
-        |> element("form")
-        |> render_submit(%{"search" => "coke"})
+        |> form("form", %{search: "coke"})
+        |> render_submit()
         |> follow_redirect(conn)
 
       assert content =~ "Coke"
 
       {:ok, _, content} =
         store_live
-        |> element("form")
-        |> render_submit(%{"search" => "choco"})
+        |> form("form", %{search: "choco"})
+        |> render_submit()
         |> follow_redirect(conn)
 
       assert content =~ "Chocolate"
@@ -227,13 +227,13 @@ defmodule Tq2Web.Store.CounterLiveTest do
       content =
         store_live
         |> element("#footer")
-        |> render_hook(:"load-more")
+        |> render_hook("load-more")
 
       assert content =~ "Other candy"
 
       store_live
-      |> element("form")
-      |> render_submit(%{"search" => "other"})
+      |> form("form", %{search: "other"})
+      |> render_submit()
       |> follow_redirect(conn)
 
       assert content =~ "Other candy"

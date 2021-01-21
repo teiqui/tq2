@@ -172,8 +172,8 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       assert has_element?(payment_live, ".btn[disabled]")
 
       payment_live
-      |> element("form")
-      |> render_change(%{"kind" => "cash"})
+      |> form("form", %{kind: "cash"})
+      |> render_change()
 
       refute has_element?(payment_live, ".btn[disabled]")
       assert has_element?(payment_live, ".collapse.show", "Your order must be paid")
@@ -188,8 +188,8 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       assert has_element?(payment_live, ".btn[disabled]")
 
       assert payment_live
-             |> element("form")
-             |> render_change(%{"kind" => "mercado_pago"})
+             |> form("form", %{kind: "mercado_pago"})
+             |> render_change()
 
       refute has_element?(payment_live, ".btn[disabled]")
       assert has_element?(payment_live, ".collapse.show", "Pay with MercadoPago")
@@ -202,13 +202,13 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       assert has_element?(payment_live, ".btn[disabled]")
 
       payment_live
-      |> element("form")
-      |> render_change(%{"kind" => "cash"})
+      |> form("form", %{kind: "cash"})
+      |> render_change()
 
       response =
         payment_live
-        |> element("form")
-        |> render_submit(%{})
+        |> form("form", %{})
+        |> render_submit()
 
       assert {:error, {:live_redirect, %{kind: :push, to: to}}} = response
 
@@ -225,13 +225,13 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       assert has_element?(payment_live, ".btn[disabled]")
 
       payment_live
-      |> element("form")
-      |> render_change(%{"kind" => "cash"})
+      |> form("form", %{kind: "cash"})
+      |> render_change()
 
       response =
         payment_live
-        |> element("form")
-        |> render_submit(%{})
+        |> form("form", %{})
+        |> render_submit()
 
       assert {:error, {:live_redirect, %{kind: :push, to: to}}} = response
 
@@ -256,8 +256,8 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       assert has_element?(payment_live, ".btn[disabled]")
 
       payment_live
-      |> element("form")
-      |> render_change(%{"kind" => "mercado_pago"})
+      |> form("form", %{kind: "mercado_pago"})
+      |> render_change()
 
       payment = %{
         "id" => 123,
@@ -268,8 +268,8 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       with_mock HTTPoison, mock_post_with(payment) do
         response =
           payment_live
-          |> element("form")
-          |> render_submit(%{})
+          |> form("form", %{})
+          |> render_submit()
 
         assert {:error, {:redirect, %{to: to}}} = response
         assert "https://mp.com/123" == to
@@ -285,8 +285,8 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       assert has_element?(payment_live, ".btn[disabled]")
 
       payment_live
-      |> element("form")
-      |> render_change(%{"kind" => "mercado_pago"})
+      |> form("form", %{kind: "mercado_pago"})
+      |> render_change()
 
       payment = %{
         "message" => "Invalid credentials"
@@ -294,8 +294,8 @@ defmodule Tq2Web.Store.PaymentLiveTest do
 
       with_mock HTTPoison, mock_post_with(payment) do
         payment_live
-        |> element("form")
-        |> render_submit(%{})
+        |> form("form", %{})
+        |> render_submit()
 
         assert has_element?(payment_live, ".collapse.show", "Pay with MercadoPago")
       end
@@ -323,13 +323,13 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       assert has_element?(payment_live, ".btn[disabled]")
 
       payment_live
-      |> element("form")
-      |> render_change(%{"kind" => "mercado_pago"})
+      |> form("form", %{kind: "mercado_pago"})
+      |> render_change()
 
       response =
         payment_live
-        |> element("form")
-        |> render_submit(%{})
+        |> form("form", %{})
+        |> render_submit()
 
       assert {:error, {:redirect, %{to: to}}} = response
       assert "https://mp.com/123" == to

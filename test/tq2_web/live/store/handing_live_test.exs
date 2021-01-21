@@ -110,8 +110,8 @@ defmodule Tq2Web.Store.HandingLiveTest do
       assert has_element?(handing_live, ".btn.btn-block.disabled")
 
       assert handing_live
-             |> element("form")
-             |> render_change(%{"kind" => "pickup"})
+             |> form("form", %{kind: "pickup"})
+             |> render_change()
 
       refute has_element?(handing_live, ".btn.btn-block.disabled")
     end

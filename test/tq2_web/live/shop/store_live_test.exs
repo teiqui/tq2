@@ -120,8 +120,8 @@ defmodule Tq2Web.Shop.StoreLiveTest do
       assert store.published
 
       store_live
-      |> element("form")
-      |> render_change(%{store: %{"published" => "false"}})
+      |> form("form", %{store: %{published: "false"}})
+      |> render_change()
 
       store = Tq2.Shops.get_store!(store.account)
 
@@ -136,8 +136,8 @@ defmodule Tq2Web.Shop.StoreLiveTest do
       assert content =~ store.name
 
       assert store_live
-             |> element("form")
-             |> render_submit(%{store: %{"name" => "New name"}}) =~ "New name"
+             |> form("form", %{store: %{name: "New name"}})
+             |> render_submit() =~ "New name"
 
       store = Tq2.Shops.get_store!(store.slug)
 
@@ -178,8 +178,8 @@ defmodule Tq2Web.Shop.StoreLiveTest do
       assert render_upload(logo, "test.png") =~ "100%"
 
       assert store_live
-             |> element("form")
-             |> render_submit(%{store: %{"name" => store.name}}) =~ "test.png"
+             |> form("form", %{store: %{name: store.name}})
+             |> render_submit() =~ "test.png"
 
       store = Tq2.Shops.get_store!(store.slug)
 
