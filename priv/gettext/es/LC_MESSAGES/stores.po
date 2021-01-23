@@ -315,7 +315,7 @@ msgstr "Agregue al menos un envío"
 
 #: lib/tq2_web/live/shop/store_live.html.leex:118
 msgid "Describe the areas where you can delivery, and the conditions."
-msgstr "Describe las áreas donde puede hacer envíos, y las condiciones."
+msgstr "Describe las áreas donde puedes hacer envíos, y las condiciones."
 
 #: lib/tq2_web/live/shop/store_live.html.leex:121
 msgid "Shipping"
