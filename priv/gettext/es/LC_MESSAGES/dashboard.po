@@ -11,7 +11,7 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/live/dashboard/main_live.ex:78
+#: lib/tq2_web/live/dashboard/main_live.ex:84
 msgid "* In relation to the previous day."
 msgstr "* En relación al día anterior"
 
@@ -20,7 +20,7 @@ msgid "All channels"
 msgstr "Todos los canales"
 
 #: lib/tq2_web/live/dashboard/main_live.html.leex:45
-#: lib/tq2_web/templates/layout/_menu.html.eex:107
+#: lib/tq2_web/templates/layout/_menu.html.eex:113
 msgid "Dashboard"
 msgstr "Panel"
 
@@ -61,11 +61,11 @@ msgstr "Visitas a la tienda"
 msgid "Teiqui price"
 msgstr "Precio Teiqui"
 
-#: lib/tq2_web/live/dashboard/main_live.ex:40
+#: lib/tq2_web/live/dashboard/main_live.ex:46
 msgid "There are no visits yet."
 msgstr "Aún no hay visitas."
 
-#: lib/tq2_web/live/dashboard/main_live.ex:48
+#: lib/tq2_web/live/dashboard/main_live.ex:54
 msgid "There is not enough data."
 msgstr "No existen suficientes datos."
 
@@ -77,3 +77,20 @@ msgstr "Hoy"
 #: lib/tq2_web/live/dashboard/main_live.html.leex:16
 msgid "You have no orders yet."
 msgstr "Aún no tienes ventas."
+
+#: lib/tq2_web/live/components/dashboard/items_tour_component.html.leex:9
+#: lib/tq2_web/live/components/dashboard/tour_component.html.leex:9
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: lib/tq2_web/live/components/dashboard/tour_component.html.leex:15
+msgid "Continue"
+msgstr "Continuar"
+
+#: lib/tq2_web/live/components/dashboard/items_tour_component.html.leex:5
+msgid "Inside More you'll find sections to setup your store, see orders, etc. To continue, click on Items."
+msgstr "En Más, encontrarás las secciones para configurar tu tienda, ver pedidos, etc. Para continuar haz clic en Artículos."
+
+#: lib/tq2_web/live/components/dashboard/tour_component.html.leex:5
+msgid "On the main dashboard you'll find information about your store, performance and orders."
+msgstr "En tu panel principal encontrarás información sobre tu tienda, rendimiento y pedidos."

@@ -83,6 +83,7 @@ defmodule Tq2Web.Router do
       session: @session_extras.registration
 
     get "/registrations/:uuid", RegistrationController, :show
+    live "/tour", Registration.TourLive, :index
     live "/welcome", Registration.WelcomeLive, :index
 
     # Accounts

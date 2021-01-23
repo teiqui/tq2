@@ -22,12 +22,12 @@ defmodule Tq2Web.ItemController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"item" => item_params}, session) do
+  def create(conn, %{"item" => item_params} = params, session) do
     case Inventories.create_item(session, item_params) do
       {:ok, item} ->
         conn
         |> put_flash(:info, dgettext("items", "Item created successfully."))
-        |> redirect(to: Routes.item_path(conn, :show, item))
+        |> redirect(to: after_create_path(conn, params, item))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -74,5 +74,13 @@ defmodule Tq2Web.ItemController do
 
   defp render_index(conn, page) do
     render(conn, "index.html", items: page.entries, page: page)
+  end
+
+  defp after_create_path(conn, %{"tour" => _}, _item) do
+    Routes.item_path(conn, :index, tour: "item_created")
+  end
+
+  defp after_create_path(conn, _params, item) do
+    Routes.item_path(conn, :show, item)
   end
 end

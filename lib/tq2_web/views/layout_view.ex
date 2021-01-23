@@ -1,6 +1,8 @@
 defmodule Tq2Web.LayoutView do
   use Tq2Web, :view
 
+  alias Tq2.Accounts.Session
+
   def locale do
     Tq2Web.Gettext
     |> Gettext.get_locale()
@@ -51,6 +53,22 @@ defmodule Tq2Web.LayoutView do
     """
 
     link(content, link_opts)
+  end
+
+  defp menu(conn, %Session{account: account, user: user}) do
+    render("_menu.html", conn: conn, account: account, user: user)
+  end
+
+  defp items_link_content(conn) do
+    ~E"""
+      <%= dgettext("items", "Items") %>
+
+      <span class="tour-pointer d-block text-info-dark">
+        <svg class="bi" width="24" height="24" fill="currentColor">
+          <use xlink:href="<%= Routes.static_path(conn, "/images/bootstrap-icons.svg#caret-up-fill") %>"/>
+        </svg>
+      </span>
+    """
   end
 
   defp hotjar_script do

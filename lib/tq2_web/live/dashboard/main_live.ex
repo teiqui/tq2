@@ -3,6 +3,7 @@ defmodule Tq2Web.Dashboard.MainLive do
 
   alias Tq2.{Accounts, Analytics, Sales, Shops}
   alias Tq2Web.Store.ShareComponent
+  alias Tq2Web.Dashboard.{ItemsTourComponent, TourComponent}
 
   @impl true
   def mount(_params, %{"account_id" => account_id, "user_id" => user_id}, socket) do
@@ -34,6 +35,11 @@ defmodule Tq2Web.Dashboard.MainLive do
       |> redirect(to: Routes.root_path(socket, :index))
 
     {:ok, socket}
+  end
+
+  @impl true
+  def handle_params(params, _uri, socket) do
+    {:noreply, assign(socket, tour: params["tour"])}
   end
 
   defp current_visits({0, _}) do

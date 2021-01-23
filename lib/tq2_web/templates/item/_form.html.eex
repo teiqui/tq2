@@ -14,11 +14,23 @@
   <%= input f, :image, dgettext("items", "Image") %>
   <%= input f, :price, dgettext("items", "Price") %>
   <%= promotional_price_input(f) %>
+
+  <span class="tour-pointer d-block text-info-dark">
+    <svg class="bi" width="24" height="24" fill="currentColor">
+      <use xlink:href="<%= Routes.static_path(@conn, "/images/bootstrap-icons.svg#caret-up-fill") %>"/>
+    </svg>
+  </span>
+
   <%= input f, :cost, dgettext("items", "Cost") %>
 
   <%= lock_version_input f, assigns[:item] %>
 
-  <div class="text-right">
-    <%= submit_button assigns[:item] %>
-  </div>
+  <%= if @conn.params["tour"] do %>
+    <%= render "_tour_new_item.html", conn: @conn %>
+    <%= render "_tour_new_item_promotional_price.html", conn: @conn %>
+  <% else %>
+    <div class="text-right">
+      <%= submit_button assigns[:item] %>
+    </div>
+  <% end %>
 <% end %>

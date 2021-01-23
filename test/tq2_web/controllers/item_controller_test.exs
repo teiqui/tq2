@@ -111,6 +111,13 @@ defmodule Tq2Web.ItemControllerTest do
     end
 
     @tag login_as: "test@user.com"
+    test "redirects to index when data is valid and on tour", %{conn: conn} do
+      conn = post conn, Routes.item_path(conn, :create, tour: "test"), item: @create_attrs
+
+      assert redirected_to(conn) == Routes.item_path(conn, :index, tour: "item_created")
+    end
+
+    @tag login_as: "test@user.com"
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post conn, Routes.item_path(conn, :create), item: @invalid_attrs
 

@@ -11,23 +11,23 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:42
+#: lib/tq2_web/templates/layout/_menu.html.eex:48
 msgid "Are you sure?"
 msgstr "¿Está seguro?"
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:46
+#: lib/tq2_web/templates/layout/_menu.html.eex:52
 msgid "Hello %{name}"
 msgstr "Hola, %{name}"
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:29
+#: lib/tq2_web/templates/layout/_menu.html.eex:35
 msgid "More"
 msgstr "Más"
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:23
-#: lib/tq2_web/templates/layout/_menu.html.eex:98
+#: lib/tq2_web/templates/layout/_menu.html.eex:29
+#: lib/tq2_web/templates/layout/_menu.html.eex:104
 msgid "Payments"
 msgstr "Pagos"
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:141
+#: lib/tq2_web/templates/layout/_menu.html.eex:147
 msgid "Settings"
 msgstr "Ajustes"

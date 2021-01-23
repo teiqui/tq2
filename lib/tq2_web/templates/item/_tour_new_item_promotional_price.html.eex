@@ -1,0 +1,15 @@
+<footer class="tour-footer tour-hidden-until-targeted text-light bg-info-dark p-4">
+  <p class="lead font-weight-semi-bold mb-5">
+    <%= dgettext("items", "Teiqui price must be lower than regular. To get it, one customer should attract others to also buy using his link.") %>
+  </p>
+
+  <p class="text-nowrap mb-0">
+    <%= link dgettext("items", "Cancel"), to: Routes.item_path(@conn, :new),
+                                          class: "btn btn-outline-light btn-lg border border-light rounded-pill mr-3 px-4" %>
+
+    <%= img_tag Routes.static_path(@conn, "/images/favicon_white.svg"), width: "25", height: "25", alt: gettext("Teiqui") %>
+
+    <%= submit dgettext("items", "Continue"),
+               class: "btn btn-light btn-lg text-primary font-weight-bold rounded-pill ml-3 px-4" %>
+  </p>
+</footer>

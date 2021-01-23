@@ -16,7 +16,7 @@ msgid "Come on!"
 msgstr "¡Vamos!"
 
 #: lib/tq2_web/live/registration/email_live.ex:43
-#: lib/tq2_web/live/registration/name_live.ex:56
+#: lib/tq2_web/live/registration/name_live.ex:56 lib/tq2_web/live/registration/tour_live.html.leex:24
 msgid "Continue"
 msgstr "Continuar"
 
@@ -171,3 +171,15 @@ msgstr "Acepto los %{link}"
 #: lib/tq2_web/live/registration/name_live.ex:64
 msgid "terms of service"
 msgstr "términos y condiciones"
+
+#: lib/tq2_web/live/registration/tour_live.html.leex:20
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: lib/tq2_web/live/registration/tour_live.html.leex:9
+msgid "Welcome %{name}!"
+msgstr "¡Hola %{name}!"
+
+#: lib/tq2_web/live/registration/tour_live.html.leex:13
+msgid "Would you like to take a brief tour to know Teiqui main features?"
+msgstr "¿Quisieras realizar un breve tour para conocer las funciones principales de Teiqui?"

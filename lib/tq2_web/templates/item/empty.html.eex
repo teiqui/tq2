@@ -17,8 +17,14 @@
     <%= link_to_new_item @conn %>
   </p>
 
-  <p class="mb-0">
-    <%= link dgettext("items", "Import items"), to: Routes.import_path(@conn, :index),
-                                                class: "font-weight-semi-bold" %>
-  </p>
+  <%= unless @conn.params["tour"] do %>
+    <p class="mb-0">
+      <%= link dgettext("items", "Import items"), to: Routes.import_path(@conn, :index),
+                                                  class: "font-weight-semi-bold" %>
+    </p>
+  <% end %>
 </div>
+
+<%= if @conn.params["tour"] do %>
+  <%= render "_tour_empty.html", conn: @conn %>
+<% end %>

@@ -14,10 +14,16 @@
                              icon_class: "mb-1" %>
       </div>
       <div class="col">
-        <%= main_item @conn, text: dgettext("items", "Items"),
+        <%= main_item @conn, text: items_link_content(@conn),
                              to: Routes.item_path(@conn, :index),
                              icon: "box-seam",
-                             icon_class: "mb-1" %>
+                             icon_class: "mb-1",
+                             opts: [
+                               data: [
+                                 tour_step: "items",
+                                 tour_url: Routes.item_path(@conn, :index, tour: "new_item")
+                               ]
+                             ] %>
       </div>
       <div class="col">
         <%= main_item @conn, text: dgettext("menu", "Payments"),

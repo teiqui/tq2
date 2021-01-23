@@ -41,3 +41,7 @@
   <%= link dgettext("items", "New item"), to: Routes.item_path(@conn, :new),
                                           class: "btn btn-primary rounded-pill font-weight-semi-bold" %>
 </div>
+
+<%= if @conn.params["tour"] do %>
+  <%= render "_tour_index.html", conn: @conn %>
+<% end %>

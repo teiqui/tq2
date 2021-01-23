@@ -1,4 +1,4 @@
-<div class="row vh-100 justify-content-center bg-primary fixed-top">
+<div class="row vh-100 justify-content-center bg-primary fixed-top overlay pb-5">
   <div class="col-lg-4 col-md-6 col-sm-8 text-center text-white">
     <div class="pb-4 mt-5 text-center">
       <%= img_tag Routes.static_path(@socket, "/images/logo_white.svg"), width: "101", height: "26", alt: gettext("Teiqui") %>
@@ -18,7 +18,7 @@
             <%= dgettext("registrations", "Welcome!") %>
           </h1>
 
-          <h2 class="h4 mt-3 mb-5 pb-5">
+          <h2 class="h4 mt-3 mb-5 pb-3">
             <%= dgettext("registrations", "Thank you for choosing us. Our team will be happy to help you growth.") %>
           </h2>
 
@@ -32,7 +32,7 @@
             <%= dgettext("registrations", "Online store") %>
           </h1>
 
-          <h2 class="h4 mt-3 mb-5 pb-5">
+          <h2 class="h4 mt-3 mb-5 pb-3">
             <%= dgettext("registrations", "Upload your items, choose delivery options, payment methods y get orders online.") %>
           </h2>
 
@@ -46,7 +46,7 @@
             <%= dgettext("registrations", "Teiqui price") %>
           </h1>
 
-          <h2 class="h4 mt-3 mb-5 pb-5">
+          <h2 class="h4 mt-3 mb-5 pb-3">
             <%= dgettext("registrations", "Enable discounts in your items with Teiqui price and get more than one order for every customer.") %>
           </h2>
 
@@ -60,7 +60,7 @@
             <%= dgettext("registrations", "Teiqui sellers") %>
           </h1>
 
-          <h2 class="h4 mt-3 mb-5 pb-5">
+          <h2 class="h4 mt-3 mb-5 pb-3">
             <%= dgettext("registrations", "Your customers will become your sellers using group shopping, thus bringing new buyers.") %>
           </h2>
 
@@ -71,8 +71,8 @@
       </div>
     </div>
 
-    <p class="text-center font-weight-bold mt-5 mb-3">
-      <%= live_redirect to: Routes.import_path(@socket, :index), class: "text-reset" do %>
+    <p class="text-center font-weight-bold mt-4 mb-5">
+      <%= live_redirect to: Routes.tour_path(@socket, :index), class: "text-reset" do %>
         <%= dgettext("registrations", "Start using the app") %>
 
         <span class="ml-2">

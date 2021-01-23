@@ -1,0 +1,19 @@
+<div class="py-5 my-5"></div>
+<div class="py-5 my-5"></div>
+<footer class="tour-footer overlay text-light bg-info-dark p-4">
+  <p class="lead font-weight-semi-bold mb-5">
+    <%= dgettext("dashboard", "On the main dashboard you'll find information about your store, performance and orders.") %>
+  </p>
+
+  <p class="text-nowrap mb-0">
+    <%= live_patch dgettext("dashboard", "Cancel"),
+                   to: Routes.dashboard_path(@socket, :index),
+                   class: "btn btn-outline-light btn-lg border border-light rounded-pill mr-3 px-4" %>
+
+    <%= img_tag Routes.static_path(@socket, "/images/favicon_white.svg"), width: "25", height: "25", alt: gettext("Teiqui") %>
+
+    <%= live_patch dgettext("dashboard", "Continue"),
+                   to: Routes.dashboard_path(@socket, :index, tour: "items"),
+                   class: "btn btn-light btn-lg text-primary font-weight-bold rounded-pill ml-3 px-4" %>
+  </p>
+</footer>

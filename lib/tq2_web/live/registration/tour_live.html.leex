@@ -1,0 +1,27 @@
+<div class="row vh-100 justify-content-center bg-info-dark fixed-top overlay pt-5 px-3">
+  <div class="col-lg-4 col-md-6 col-sm-8 text-center text-white mt-5 pt-5">
+    <div class="text-center mt-5 pt-5">
+      <%= img_tag Routes.static_path(@socket, "/images/favicon.svg"), width: "38", height: "38", alt: gettext("Teiqui") %>
+    </div>
+
+    <div class="text-center mt-5">
+      <h1 class="h4 font-weight-semi-bold mb-0">
+        <%= dgettext("registrations", "Welcome %{name}!", name: @account.name) %>
+      </h1>
+
+      <h2 class="h4">
+        <%= dgettext("registrations", "Would you like to take a brief tour to know Teiqui main features?") %>
+      </h2>
+    </div>
+  </div>
+</div>
+
+<div class="text-center fixed-bottom overlay mb-4">
+  <%= live_redirect dgettext("registrations", "Cancel"),
+                    to: Routes.dashboard_path(@socket, :index),
+                    class: "btn btn-outline-light btn-lg border border-light rounded-pill mr-4 px-4" %>
+
+  <%= live_redirect dgettext("registrations", "Continue"),
+                    to: Routes.dashboard_path(@socket, :index, tour: "dashboard"),
+                    class: "btn btn-light btn-lg text-primary font-weight-bold rounded-pill px-4" %>
+</div>

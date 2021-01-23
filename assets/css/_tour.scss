@@ -1,0 +1,60 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "variables";
+
+.tour-hidden-until-targeted {
+  display: none;
+}
+
+.tour-footer {
+  @extend .fixed-bottom;
+}
+
+.tour-pointer {
+  display: none !important;
+}
+
+.tour-target {
+  position: relative;
+
+  .tour-pointer {
+    position: absolute;
+    width: 100%;
+    display: block !important;
+    animation: tour-pointer 0.75s linear infinite;
+  }
+}
+
+.tour-target:target + .tour-pointer {
+  display: block !important;
+  animation: tour-pointer 0.75s linear infinite;
+}
+
+.tour-target:target ~ .tour-footer {
+  display: none;
+}
+
+.tour-target:target ~ .tour-footer.tour-hidden-until-targeted {
+  display: block;
+}
+
+@keyframes tour-pointer {
+  0% {
+    padding-top: 0;
+  }
+
+  50% {
+    padding-top: 1em;
+    margin-bottom: -1em;
+  }
+
+  100% {
+    padding-top: 0;
+  }
+}
+
+@media screen and (max-height: 600px) {
+  .tour-footer {
+    display: none;
+  }
+}

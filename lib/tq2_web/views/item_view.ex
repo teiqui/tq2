@@ -115,6 +115,14 @@ defmodule Tq2Web.ItemView do
     )
   end
 
+  defp new_item_action(%{params: %{"tour" => step}} = conn) do
+    Routes.item_path(conn, :create, tour: step) <> "#promotional-price"
+  end
+
+  defp new_item_action(conn) do
+    Routes.item_path(conn, :create)
+  end
+
   defp submit_label(nil), do: dgettext("items", "Create")
   defp submit_label(_), do: dgettext("items", "Update")
 
@@ -133,17 +141,49 @@ defmodule Tq2Web.ItemView do
       form,
       :promotional_price,
       dgettext("items", "Promotional price"),
+      wrapper_html: [id: "promotional-price", class: "tour-target"],
       input_html: [hint: hint]
     )
   end
 
   defp link_to_new_item(conn) do
+    content = link_to_new_item_content(conn)
+    path = link_to_new_item_path(conn)
+
+    link(content, to: path, class: link_to_new_item_classes(conn))
+  end
+
+  defp link_to_new_item_path(%{params: %{"tour" => _}} = conn) do
+    Routes.item_path(conn, :new, tour: "new_item")
+  end
+
+  defp link_to_new_item_path(conn) do
+    Routes.item_path(conn, :new)
+  end
+
+  defp link_to_new_item_content(%{params: %{"tour" => _}} = conn) do
+    ~E"""
+      + <%= dgettext("items", "Add item") %>
+
+      <span class="tour-pointer d-block text-info-dark ml-n3 mt-1">
+        <svg class="bi" width="24" height="24" fill="currentColor">
+          <use xlink:href="<%= Routes.static_path(conn, "/images/bootstrap-icons.svg#caret-up-fill") %>"/>
+        </svg>
+      </span>
+    """
+  end
+
+  defp link_to_new_item_content(_conn) do
     text = dgettext("items", "Add item")
 
-    link("+ #{text}",
-      to: Routes.item_path(conn, :new),
-      class:
-        "btn btn-outline-primary btn-lg border border-primary rounded-pill font-weight-semi-bold"
-    )
+    "+ #{text}"
+  end
+
+  defp link_to_new_item_classes(%{params: %{"tour" => _}}) do
+    "btn btn-outline-primary btn-lg border border-primary rounded-pill font-weight-semi-bold tour-target"
+  end
+
+  defp link_to_new_item_classes(_conn) do
+    "btn btn-outline-primary btn-lg border border-primary rounded-pill font-weight-semi-bold"
   end
 end

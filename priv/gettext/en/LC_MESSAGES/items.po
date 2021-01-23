@@ -16,7 +16,7 @@ msgid "Are you sure?"
 msgstr ""
 
 #: lib/tq2_web/templates/item/edit.html.eex:14
-#: lib/tq2_web/templates/item/new.html.eex:14 lib/tq2_web/templates/item/show.html.eex:45
+#: lib/tq2_web/templates/item/new.html.eex:11 lib/tq2_web/templates/item/show.html.eex:45
 msgid "Back"
 msgstr ""
 
@@ -25,12 +25,12 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
-#: lib/tq2_web/templates/item/_form.html.eex:17
+#: lib/tq2_web/templates/item/_form.html.eex:24
 #: lib/tq2_web/templates/item/show.html.eex:36
 msgid "Cost"
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:118
+#: lib/tq2_web/views/item_view.ex:126
 msgid "Create"
 msgstr ""
 
@@ -72,8 +72,8 @@ msgid "Item updated successfully."
 msgstr ""
 
 #: lib/tq2_web/templates/item/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:17 lib/tq2_web/templates/layout/_menu.html.eex:117
-#: lib/tq2_web/templates/layout/_menu.html.eex:122
+#: lib/tq2_web/templates/layout/_menu.html.eex:123 lib/tq2_web/templates/layout/_menu.html.eex:128
+#: lib/tq2_web/views/layout_view.ex:64
 msgid "Items"
 msgstr ""
 
@@ -83,7 +83,7 @@ msgid "Name"
 msgstr ""
 
 #: lib/tq2_web/templates/item/index.html.eex:41
-#: lib/tq2_web/templates/item/new.html.eex:4
+#: lib/tq2_web/templates/item/new.html.eex:3
 msgid "New item"
 msgstr ""
 
@@ -101,8 +101,8 @@ msgstr ""
 msgid "Price"
 msgstr ""
 
-#: lib/tq2_web/live/store/item_live.html.leex:52
-#: lib/tq2_web/templates/item/show.html.eex:32 lib/tq2_web/views/item_view.ex:135
+#: lib/tq2_web/live/store/item_live.html.leex:46
+#: lib/tq2_web/templates/item/show.html.eex:32 lib/tq2_web/views/item_view.ex:143
 msgid "Promotional price"
 msgstr ""
 
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Sku"
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:119
+#: lib/tq2_web/views/item_view.ex:127
 msgid "Update"
 msgstr ""
 
@@ -167,16 +167,16 @@ msgstr ""
 msgid "Skip import"
 msgstr ""
 
-#: lib/tq2_web/templates/item/empty.html.eex:21
+#: lib/tq2_web/templates/item/empty.html.eex:22
 #: lib/tq2_web/templates/item/index.html.eex:39
 msgid "Import items"
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:127
+#: lib/tq2_web/views/item_view.ex:135
 msgid "This price is the secret sauce to attract new customers, it's recommended to be about 40% off the regular price."
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:141
+#: lib/tq2_web/views/item_view.ex:166 lib/tq2_web/views/item_view.ex:177
 msgid "Add item"
 msgstr ""
 
@@ -186,4 +186,31 @@ msgstr ""
 
 #: lib/tq2_web/templates/item/empty.html.eex:3
 msgid "You have no items yet"
+msgstr ""
+
+#: lib/tq2_web/templates/item/_tour_empty.html.eex:9
+#: lib/tq2_web/templates/item/_tour_new_item.html.eex:9 lib/tq2_web/templates/item/_tour_new_item_promotional_price.html.eex:7
+msgid "Cancel"
+msgstr ""
+
+#: lib/tq2_web/templates/item/_tour_index.html.eex:5
+msgid "Congratulations! You have created your first article. Share your store, start getting orders and let the customers become sellers."
+msgstr ""
+
+#: lib/tq2_web/templates/item/_tour_new_item.html.eex:14
+#: lib/tq2_web/templates/item/_tour_new_item_promotional_price.html.eex:12
+msgid "Continue"
+msgstr ""
+
+#: lib/tq2_web/templates/item/_tour_index.html.eex:9
+msgid "Finish"
+msgstr ""
+
+#: lib/tq2_web/templates/item/_tour_new_item_promotional_price.html.eex:3
+msgid "Teiqui price must be lower than regular. To get it, one customer should attract others to also buy using his link."
+msgstr ""
+
+#: lib/tq2_web/templates/item/_tour_empty.html.eex:5
+#: lib/tq2_web/templates/item/_tour_new_item.html.eex:5
+msgid "We'll add your first item, remember that you can import them from a spreadsheet. Additionally, you can view step by step instructions on the Help section."
 msgstr ""
