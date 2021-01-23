@@ -209,10 +209,10 @@ msgstr ""
 msgid "Teiqui price must be lower than regular. To get it, one customer should attract others to also buy using his link."
 msgstr ""
 
-#: lib/tq2_web/templates/item/_tour_empty.html.eex:5
-msgid "We'll add your first item, remember that you can import them from a spreadsheet. Additionally, you can view step by step instructions on the Help section."
-msgstr ""
-
 #: lib/tq2_web/templates/item/_tour_new_item.html.eex:5
 msgid "Complete with info about the item you want to add. Later you can edit this if needed."
+msgstr ""
+
+#: lib/tq2_web/templates/item/_tour_empty.html.eex:5
+msgid "We'll add your first item, remember that you can import them from a spreadsheet."
 msgstr ""

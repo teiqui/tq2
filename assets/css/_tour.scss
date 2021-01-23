@@ -18,8 +18,10 @@
   position: relative;
 
   .tour-pointer {
-    position: absolute;
+    position: fixed;
     width: 100%;
+    left: 0;
+    right: 0;
     display: block !important;
     animation: tour-pointer 0.75s linear infinite;
   }

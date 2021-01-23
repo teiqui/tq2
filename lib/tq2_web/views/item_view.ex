@@ -165,7 +165,7 @@ defmodule Tq2Web.ItemView do
     ~E"""
       + <%= dgettext("items", "Add item") %>
 
-      <span class="tour-pointer d-block text-info-dark ml-n3 mt-1">
+      <span class="tour-pointer d-block text-info-dark mt-1">
         <svg class="bi" width="24" height="24" fill="currentColor">
           <use xlink:href="<%= Routes.static_path(conn, "/images/bootstrap-icons.svg#caret-up-fill") %>"/>
         </svg>
