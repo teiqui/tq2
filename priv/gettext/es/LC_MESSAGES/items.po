@@ -211,6 +211,9 @@ msgid "Teiqui price must be lower than regular. To get it, one customer should a
 msgstr "El Precio Teiqui debe ser menor al precio común. Para obtenerlo, un cliente deberá conseguir que otros compren utilizando su enlace."
 
 #: lib/tq2_web/templates/item/_tour_empty.html.eex:5
-#: lib/tq2_web/templates/item/_tour_new_item.html.eex:5
 msgid "We'll add your first item, remember that you can import them from a spreadsheet. Additionally, you can view step by step instructions on the Help section."
 msgstr "Vamos a agregar tu primer artículo, recuerda que puedes importar una planilla con tus productos. Puedes ver el paso a paso en la sección Ayuda."
+
+#: lib/tq2_web/templates/item/_tour_new_item.html.eex:5
+msgid "Complete with info about the item you want to add. Later you can edit this if needed."
+msgstr "Completa los datos del artículo que deseas cargar. Luego podrás editarlo de ser necesario."

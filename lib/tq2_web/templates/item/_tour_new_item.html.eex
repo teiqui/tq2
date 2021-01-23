@@ -2,7 +2,7 @@
 <div class="py-5 my-5"></div>
 <footer class="tour-footer text-light bg-info-dark p-4">
   <p class="lead font-weight-semi-bold mb-5">
-    <%= dgettext("items", "We'll add your first item, remember that you can import them from a spreadsheet. Additionally, you can view step by step instructions on the Help section.") %>
+    <%= dgettext("items", "Complete with info about the item you want to add. Later you can edit this if needed.") %>
   </p>
 
   <p class="text-nowrap mb-0">
