@@ -150,6 +150,48 @@ defmodule Tq2Web.InputHelpersTest do
         ""
       end)
     end
+
+    test "without label", %{conn: conn} do
+      form_for(conn, "/", [as: :test], fn form ->
+        input =
+          form
+          |> input(:name, false)
+          |> input_to_string()
+
+        assert input =~ "<input"
+        refute input =~ "label"
+        ""
+      end)
+    end
+
+    test "with prepended string", %{conn: conn} do
+      form_for(conn, "/", [as: :test], fn form ->
+        input =
+          form
+          |> input(:name, nil, input_html: [prepend: "-PREP-"])
+          |> input_to_string()
+
+        assert input =~ "<input"
+        assert input =~ "input-group-prepend"
+        assert input =~ "input-group-text\">-PREP-"
+        ""
+      end)
+    end
+
+    test "with prepended string and hint", %{conn: conn} do
+      form_for(conn, "/", [as: :test], fn form ->
+        input =
+          form
+          |> input(:name, nil, input_html: [prepend: "-PREP-", hint: "-HINT-"])
+          |> input_to_string()
+
+        assert input =~ "<input"
+        assert input =~ "input-group-prepend"
+        assert input =~ "input-group-text\">-PREP-"
+        assert input =~ "-HINT-</small"
+        ""
+      end)
+    end
   end
 
   defp input_to_string(input) do

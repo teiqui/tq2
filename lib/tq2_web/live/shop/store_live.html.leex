@@ -111,12 +111,35 @@
       <%= link_to_main @socket %>
 
       <div class="mt-5">
-        <%= form_for @changeset, "#", [phx_submit: "save"], fn f -> %>
+        <%= form_for @changeset, "#", [phx_submit: "save", phx_change: "validate"], fn f -> %>
           <%= inputs_for f, :configuration, fn cf -> %>
             <%= input cf, :delivery, dgettext("stores", "Delivery") %>
             <%= input cf, :pay_on_delivery, dgettext("stores", "Pay on delivery") %>
-            <%= input cf, :delivery_area, dgettext("stores", "Delivery area"), using: :textarea %>
-            <%= input cf, :delivery_time_limit, dgettext("stores", "Delivery time limit") %>
+            <%= input cf, :delivery_area, dgettext("stores", "Delivery area"), using: :textarea, input_html: [phx_debounce: 500, hint: dgettext("stores", "Describe the areas where you can delivery, and the conditions.")] %>
+            <%= input cf, :delivery_time_limit, dgettext("stores", "Delivery time limit"), input_html: [phx_debounce: 500, hint: dgettext("stores", "Time in which the delivery will be made, for e.g. '3 hours', 'Next day'.")] %>
+
+            <h4 class="mt-5 text-info"><%= dgettext("stores", "Shipping") %></h4>
+
+            <%= show_shippings_error(cf) %>
+
+            <div class="py-2"></div>
+            <%= inputs_for cf, :shippings, [class: "mt-3"], fn sf -> %>
+              <div class="border border-info rounded mt-3 mb-1">
+                <%= icon_link(@socket, "x-circle", to: "#", phx_click: "delete-shipping", phx_value_id: id_for_shipping_field(sf), class: "float-right text-info mr-2 mt-2") %>
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <%= input sf, :name, false, input_html: [placeholder: dgettext("stores", "Shipping name"), phx_debounce: 500, class: "mt-3 mt-md-2 mx-2"] %>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="mt-2 ml-2">
+                    <%= input sf, :price, false, input_html: [placeholder: dgettext("stores", "Shipping price"), phx_debounce: 500, prepend: "$"] %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+
+            <%= link(dgettext("stores", "+ Add shipping"), to: "#", class: "text-decoration-none text-info float-right mt-3", phx_click: "add-shipping") %>
           <% end %>
 
           <%= lock_version_input f, @store %>

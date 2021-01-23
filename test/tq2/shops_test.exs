@@ -30,7 +30,8 @@ defmodule Tq2.ShopsTest do
         delivery: true,
         delivery_area: "some delivery area",
         delivery_time_limit: "some time limit",
-        pay_on_delivery: true
+        pay_on_delivery: true,
+        shippings: %{"0" => %{"name" => "Anywhere", "price" => "10.00"}}
       },
       data: %{
         phone: "555-5555",
@@ -168,6 +169,12 @@ defmodule Tq2.ShopsTest do
       store = fixture(session, :store)
 
       assert %Ecto.Changeset{} = Shops.change_store(session.account, store)
+    end
+
+    test "change_store/3 returns a store changeset", %{session: session} do
+      store = fixture(session, :store)
+
+      assert %Ecto.Changeset{} = Shops.change_store(session.account, store, %{name: "Other name"})
     end
   end
 end

@@ -11,7 +11,7 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/live/shop/store_live.html.leex:138
+#: lib/tq2_web/live/shop/store_live.html.leex:161
 msgid "Address"
 msgstr ""
 
@@ -23,8 +23,9 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: lib/tq2_web/live/shop/store_live.html.leex:23
-#: lib/tq2_web/live/shop/store_live.html.leex:116 lib/tq2_web/live/store/handing_live.html.leex:59
+#: lib/tq2/shops/configuration.ex:67
+#: lib/tq2_web/live/shop/store_live.html.leex:23 lib/tq2_web/live/shop/store_live.html.leex:116
+#: lib/tq2_web/live/store/handing_live.html.leex:59
 msgid "Delivery"
 msgstr ""
 
@@ -70,7 +71,7 @@ msgstr ""
 msgid "Location information"
 msgstr ""
 
-#: lib/tq2_web/live/shop/store_live.ex:209
+#: lib/tq2_web/live/shop/store_live.ex:242
 msgid "Logo"
 msgstr ""
 
@@ -102,12 +103,13 @@ msgstr ""
 msgid "Phone"
 msgstr ""
 
-#: lib/tq2_web/live/shop/store_live.html.leex:24
-#: lib/tq2_web/live/shop/store_live.html.leex:137 lib/tq2_web/live/store/handing_live.html.leex:24
+#: lib/tq2/shops/configuration.ex:63
+#: lib/tq2_web/live/shop/store_live.html.leex:24 lib/tq2_web/live/shop/store_live.html.leex:160
+#: lib/tq2_web/live/store/handing_live.html.leex:24
 msgid "Pickup"
 msgstr ""
 
-#: lib/tq2_web/live/shop/store_live.html.leex:139
+#: lib/tq2_web/live/shop/store_live.html.leex:162
 #: lib/tq2_web/live/store/handing_live.html.leex:33
 msgid "Pickup time limit"
 msgstr ""
@@ -124,7 +126,7 @@ msgstr ""
 msgid "Require phone"
 msgstr ""
 
-#: lib/tq2_web/live/shop/store_live.html.leex:156
+#: lib/tq2_web/live/shop/store_live.html.leex:179
 msgid "Slug"
 msgstr ""
 
@@ -132,7 +134,7 @@ msgstr ""
 msgid "Store created successfully."
 msgstr ""
 
-#: lib/tq2_web/live/shop/store_live.ex:70
+#: lib/tq2_web/live/shop/store_live.ex:112
 msgid "Store updated successfully."
 msgstr ""
 
@@ -217,7 +219,7 @@ msgstr ""
 msgid "Great! Your are buying with %{name}"
 msgstr ""
 
-#: lib/tq2_web/live/shop/store_live.ex:134
+#: lib/tq2_web/live/shop/store_live.ex:177
 msgid "This is part of the store address, you can only use letters, underscores and numbers, don't use spaces!"
 msgstr ""
 
@@ -258,11 +260,11 @@ msgstr ""
 msgid "Advanced"
 msgstr ""
 
-#: lib/tq2_web/live/shop/store_live.ex:114
+#: lib/tq2_web/live/shop/store_live.ex:157
 msgid "Back"
 msgstr ""
 
-#: lib/tq2_web/live/shop/store_live.ex:126
+#: lib/tq2_web/live/shop/store_live.ex:169
 msgid "Save"
 msgstr ""
 
@@ -270,7 +272,7 @@ msgstr ""
 msgid "Share your store link!"
 msgstr ""
 
-#: lib/tq2_web/live/shop/store_live.ex:129
+#: lib/tq2_web/live/shop/store_live.ex:172
 msgid "Saving..."
 msgstr ""
 
@@ -301,4 +303,32 @@ msgstr ""
 
 #: lib/tq2_web/live/store/handing_live.html.leex:81
 msgid "Review order"
+msgstr ""
+
+#: lib/tq2_web/live/shop/store_live.html.leex:142
+msgid "+ Add shipping"
+msgstr ""
+
+#: lib/tq2/shops/configuration.ex:71
+msgid "Add at least one shipping"
+msgstr ""
+
+#: lib/tq2_web/live/shop/store_live.html.leex:118
+msgid "Describe the areas where you can delivery, and the conditions."
+msgstr ""
+
+#: lib/tq2_web/live/shop/store_live.html.leex:121
+msgid "Shipping"
+msgstr ""
+
+#: lib/tq2_web/live/shop/store_live.html.leex:131
+msgid "Shipping name"
+msgstr ""
+
+#: lib/tq2_web/live/shop/store_live.html.leex:135
+msgid "Shipping price"
+msgstr ""
+
+#: lib/tq2_web/live/shop/store_live.html.leex:119
+msgid "Time in which the delivery will be made, for e.g. '3 hours', 'Next day'."
 msgstr ""
