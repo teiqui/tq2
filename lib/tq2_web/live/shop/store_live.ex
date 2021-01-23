@@ -1,6 +1,8 @@
 defmodule Tq2Web.Shop.StoreLive do
   use Tq2Web, :live_view
 
+  import Tq2.Utils.Urls, only: [store_uri: 0]
+
   alias Tq2.{Accounts, Shops}
   alias Tq2.Shops.Store
 
@@ -8,18 +10,18 @@ defmodule Tq2Web.Shop.StoreLive do
   def mount(%{"section" => section}, %{"account_id" => account_id, "user_id" => user_id}, socket) do
     session = Accounts.get_current_session(account_id, user_id)
     store = Shops.get_store!(session.account)
-    changeset = Shops.change_store(session.account, store)
 
     socket =
       socket
       |> allow_upload(:logo, accept: ~w(.jpg .jpeg .gif .png .webp))
       |> assign(
-        account_id: account_id,
-        user_id: user_id,
-        store: store,
+        changes: %{},
         section: section,
-        changeset: changeset
+        session: session,
+        store: store
       )
+      |> build_default_shipping()
+      |> add_changeset()
 
     {:ok, socket}
   end
@@ -42,7 +44,9 @@ defmodule Tq2Web.Shop.StoreLive do
   end
 
   @impl true
-  def handle_event("validate", _params, socket) do
+  def handle_event("validate", %{"store" => changes}, socket) do
+    socket = socket |> assign(changes: changes)
+
     {:noreply, socket}
   end
 
@@ -53,22 +57,61 @@ defmodule Tq2Web.Shop.StoreLive do
 
   @impl true
   def handle_event(
+        "add-shipping",
+        _params,
+        %{assigns: %{store: store, changes: changes}} = socket
+      ) do
+    shippings =
+      changes
+      |> current_shippings(store)
+      |> Map.merge(new_shipping())
+
+    socket =
+      socket
+      |> add_changes_with_shippings(shippings)
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event(
+        "delete-shipping",
+        %{"id" => id},
+        %{assigns: %{store: store, changes: changes}} = socket
+      ) do
+    shippings = current_shippings(changes, store)
+
+    shippings =
+      case Enum.find(shippings, fn {i, s} -> id in [s[:id], s["id"], i] end) do
+        nil -> shippings
+        {k, _} -> Map.delete(shippings, k)
+      end
+
+    socket =
+      socket
+      |> add_changes_with_shippings(shippings)
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event(
         "save",
         %{"store" => store_params},
-        %{assigns: %{account_id: account_id, user_id: user_id}} = socket
+        %{assigns: %{session: session, store: store}} = socket
       ) do
-    session = Accounts.get_current_session(account_id, user_id)
-    store = Shops.get_store!(session.account)
-    store_params = store_params |> put_logo_on_params(socket, :logo)
+    store_params =
+      store_params
+      |> put_logo_on_params(socket, :logo)
+      |> handle_shipping_params(socket)
 
     case Shops.update_store(session, store, store_params) do
       {:ok, store} ->
-        changeset = Shops.change_store(session.account, store)
-
         socket =
           socket
           |> put_flash(:info, dgettext("stores", "Store updated successfully."))
-          |> assign(store: store, changeset: changeset)
+          |> assign(store: store, changes: %{})
+          |> add_changeset()
 
         {:noreply, socket}
 
@@ -167,16 +210,6 @@ defmodule Tq2Web.Shop.StoreLive do
     )
   end
 
-  defp store_uri do
-    scheme = if Tq2Web.Endpoint.config(:https), do: "https", else: "http"
-    url_config = Tq2Web.Endpoint.config(:url)
-
-    %URI{
-      scheme: scheme,
-      host: Enum.join([Application.get_env(:tq2, :store_subdomain), url_config[:host]], ".")
-    }
-  end
-
   defp put_logo_on_params(params, socket, upload) do
     logo =
       consume_uploaded_entries(socket, upload, fn meta, entry ->
@@ -251,5 +284,106 @@ defmodule Tq2Web.Shop.StoreLive do
 
   defp translate_errors(form, field) do
     Enum.map(Keyword.get_values(form.errors, field), &Tq2Web.ErrorHelpers.translate_error/1)
+  end
+
+  defp current_shippings(%{"configuration" => %{"shippings" => shippings}}, _store) do
+    shippings || %{}
+  end
+
+  defp current_shippings(_changes, %{configuration: %{shippings: shippings}}) do
+    (shippings || [])
+    |> Enum.with_index()
+    |> Map.new(fn {s, i} -> {"#{i}", Map.from_struct(s)} end)
+  end
+
+  defp current_shippings(_changes, _store), do: %{}
+
+  defp add_changeset(
+         %{assigns: %{changes: changes, session: %{account: account}, store: store}} = socket
+       ) do
+    changeset = Shops.change_store(account, store, changes)
+
+    socket |> assign(:changeset, changeset)
+  end
+
+  defp handle_shipping_params(%{"configuration" => configuration} = params, %{
+         assigns: %{section: "delivery"}
+       }) do
+    config =
+      case configuration do
+        %{"delivery" => "true"} ->
+          # Add new shipping to get validated
+          Map.put_new(configuration, "shippings", new_shipping())
+
+        _ ->
+          # Delete all shippings just in case
+          Map.put_new(configuration, "shippings", %{})
+      end
+
+    Map.put(params, "configuration", config)
+  end
+
+  defp handle_shipping_params(params, _socket), do: params
+
+  defp build_default_shipping(
+         %{assigns: %{section: "delivery", store: %{configuration: configuration}}} = socket
+       ) do
+    changes =
+      case configuration do
+        %{shippings: [_ | _]} ->
+          %{}
+
+        nil ->
+          %{"configuration" => %{"shippings" => new_shipping()}}
+
+        config ->
+          config =
+            config
+            |> Map.from_struct()
+            |> Map.new(fn {k, v} -> {"#{k}", v} end)
+            |> Map.merge(%{"shippings" => new_shipping()})
+
+          %{"configuration" => config}
+      end
+
+    socket |> assign(changes: changes)
+  end
+
+  defp build_default_shipping(socket), do: socket
+
+  defp new_shipping do
+    %{"#{:os.system_time()}" => %{id: Ecto.UUID.generate()}}
+  end
+
+  defp id_for_shipping_field(sf) do
+    sf.data.id || sf.params["id"] || sf.index
+  end
+
+  defp show_shippings_error(%{source: %{errors: [{:shippings, {msg, []}} | _]}}) do
+    content_tag(:p, msg, class: "text-danger")
+  end
+
+  defp show_shippings_error(_), do: nil
+
+  defp add_changes_with_shippings(
+         %{assigns: %{changes: changes, store: store}} = socket,
+         shippings
+       ) do
+    config =
+      case changes["configuration"] do
+        nil ->
+          ((store.configuration && Map.from_struct(store.configuration)) || %{})
+          |> Map.put(:shippings, shippings)
+          |> Map.new(fn {k, v} -> {to_string(k), v} end)
+
+        conf ->
+          Map.put(conf, "shippings", shippings)
+      end
+
+    changes = changes |> Map.put("configuration", config)
+
+    socket
+    |> assign(changes: changes)
+    |> add_changeset()
   end
 end

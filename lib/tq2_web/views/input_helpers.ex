@@ -9,9 +9,16 @@ defmodule Tq2Web.InputHelpers do
     input_opts = input_opts(type, form, field, opts)
 
     content_tag :div, wrapper_opts(opts) do
-      label = label(form, field, label || humanize(field), label_opts)
-      input = input_tag(type, form, field, input_opts)
+      label =
+        if label == false do
+          ""
+        else
+          label(form, field, label || humanize(field), label_opts)
+        end
+
       error = Tq2Web.ErrorHelpers.error_tag(form, field)
+
+      input = input_tag(type, form, field, input_opts ++ [with_errors: !!error])
 
       group(type, label, input, error || "")
     end
@@ -129,12 +136,40 @@ defmodule Tq2Web.InputHelpers do
     apply(Phoenix.HTML.Form, type, [form, field, options, input_opts])
   end
 
-  defp input_tag(type, form, field, input_opts) do
-    content = apply(Phoenix.HTML.Form, type, [form, field, input_opts])
+  defp input_tag(:checkbox = type, form, field, input_opts) do
+    apply(Phoenix.HTML.Form, type, [form, field, input_opts])
+  end
 
-    case input_opts[:hint] do
-      nil -> content
-      text -> [content, hint_tag(text)]
+  defp input_tag(type, form, field, input_opts) do
+    case input_opts[:prepend] do
+      nil ->
+        content = apply(Phoenix.HTML.Form, type, [form, field, input_opts])
+
+        case input_opts[:hint] do
+          nil -> content
+          text -> [content, hint_tag(text)]
+        end
+
+      _prepend ->
+        input_with_prepend(type, form, field, input_opts)
+    end
+  end
+
+  defp input_with_prepend(type, form, field, input_opts) do
+    invalid_class = if input_opts[:with_errors], do: "is-invalid"
+
+    content_tag(:div, class: "input-group #{invalid_class}") do
+      prepend_group =
+        content_tag(:div, class: "input-group-prepend") do
+          content_tag(:span, input_opts[:prepend], class: "input-group-text")
+        end
+
+      input = apply(Phoenix.HTML.Form, type, [form, field, input_opts])
+
+      case input_opts[:hint] do
+        nil -> [prepend_group, input]
+        text -> [prepend_group, input, hint_tag(text)]
+      end
     end
   end
 

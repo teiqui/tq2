@@ -19,7 +19,8 @@ defmodule Tq2Web.Shop.StoreLiveTest do
       delivery: true,
       delivery_area: "some delivery area",
       delivery_time_limit: "some time limit",
-      pay_on_delivery: true
+      pay_on_delivery: true,
+      shippings: %{"0" => %{"name" => "Anywhere", "price" => "10.00"}}
     },
     data: %{
       phone: "555-5555",
@@ -39,7 +40,7 @@ defmodule Tq2Web.Shop.StoreLiveTest do
 
     {:ok, store} = Tq2.Shops.create_store(session, @create_attrs)
 
-    %{store: %{store | account: session.account}}
+    %{session: session, store: %{store | account: session.account}}
   end
 
   describe "unauthorized access" do
@@ -184,6 +185,112 @@ defmodule Tq2Web.Shop.StoreLiveTest do
       store = Tq2.Shops.get_store!(store.slug)
 
       assert %{file_name: "test.png"} = store.logo
+    end
+
+    test "created shipping", %{conn: conn, store: _store} do
+      path = Routes.store_path(conn, :index, "delivery")
+      {:ok, store_live, _html} = live(conn, path)
+      content = render(store_live)
+
+      assert content =~ "Anywhere"
+      assert content =~ "10.00"
+      assert content =~ "prepend=\"$\""
+      assert content =~ "+ Add shipping"
+      assert content =~ "phx-click=\"delete-shipping\""
+    end
+
+    test "default shipping", %{conn: conn, session: session, store: store} do
+      config =
+        store.configuration
+        |> Map.from_struct()
+        |> Map.put(:shippings, [])
+        |> Map.put(:delivery, false)
+
+      {:ok, _store} = Tq2.Shops.update_store(session, store, %{configuration: config})
+
+      path = Routes.store_path(conn, :index, "delivery")
+      {:ok, store_live, _html} = live(conn, path)
+      content = render(store_live)
+
+      refute content =~ "Anywhere"
+      refute content =~ "10.0"
+      assert content =~ "prepend=\"$\""
+      assert content =~ "+ Add shipping"
+      assert content =~ "phx-click=\"delete-shipping\""
+    end
+
+    test "delete shippings and see error anyway", %{conn: conn, store: store} do
+      path = Routes.store_path(conn, :index, "delivery")
+      {:ok, store_live, _html} = live(conn, path)
+
+      s = store.configuration.shippings |> List.first()
+
+      content =
+        store_live
+        |> element("[phx-click=\"delete-shipping\"][phx-value-id=\"#{s.id}\"]")
+        |> render_click()
+
+      assert content =~ "+ Add shipping"
+      refute content =~ "phx-click=\"delete-shipping\""
+
+      store_live
+      |> form("form")
+      |> render_submit()
+
+      store_live
+      |> has_element?(
+        "[phx-feedback-for=\"store_configuration_shippings_0_name\"]",
+        "can't be blank"
+      )
+    end
+
+    test "add new shipping", %{conn: conn, store: store} do
+      path = Routes.store_path(conn, :index, "delivery")
+      {:ok, store_live, _html} = live(conn, path)
+
+      store_live
+      |> element("[phx-click=\"add-shipping\"]")
+      |> render_click()
+
+      config = store.configuration |> Map.from_struct()
+
+      shipping =
+        config[:shippings]
+        |> List.first()
+        |> Map.from_struct()
+
+      shippings = %{
+        "0" => %{
+          id: shipping.id,
+          name: shipping.name,
+          price: Money.to_string(shipping.price)
+        },
+        "1" => %{name: "Near", price: "1.0"}
+      }
+
+      content =
+        store_live
+        |> form("form", store: %{configuration: %{shippings: shippings}})
+        |> render_submit()
+
+      assert content =~ "Near"
+      assert content =~ "value=\"1.00\""
+
+      store = Tq2.Shops.get_store!(store.account)
+
+      assert Enum.any?(store.configuration.shippings, fn s -> s.name == "Near" end)
+
+      # Delete persisted shipping
+      store_live
+      |> element("[phx-click=\"delete-shipping\"][phx-value-id=\"#{shipping.id}\"]")
+      |> render_click()
+
+      store_live |> element("form") |> render_submit()
+
+      store = Tq2.Shops.get_store!(store.account)
+
+      assert Enum.count(store.configuration.shippings) == 1
+      assert Enum.find(store.configuration.shippings, fn s -> s.name == "Near" end)
     end
   end
 

@@ -1,4 +1,6 @@
 defmodule Tq2.Utils.Schema do
+  import Tq2Web.Gettext, only: [dgettext: 3]
+
   import Ecto.Changeset,
     only: [
       add_error: 3,
@@ -29,7 +31,7 @@ defmodule Tq2.Utils.Schema do
         add_error(
           changeset,
           hd(fields),
-          Gettext.dgettext(Tq2Web.Gettext, "errors", "must be at least one enabled: %{fields}",
+          dgettext("errors", "must have at least one enabled: %{fields}",
             fields: translated_fields
           )
         )
@@ -54,8 +56,7 @@ defmodule Tq2.Utils.Schema do
 
   defp validate_number_with_value(changeset, field, %Money{}, %Money{} = value) do
     msg =
-      Gettext.dgettext(
-        Tq2Web.Gettext,
+      dgettext(
         "errors",
         "must be less than %{number}",
         number: Money.to_decimal(value)
@@ -65,4 +66,19 @@ defmodule Tq2.Utils.Schema do
   end
 
   defp validate_number_with_value(changeset, _, _, _), do: changeset
+
+  def validate_at_least_one_embed_if_active(changeset, embed_field, field_condition, message_fn) do
+    case get_field(changeset, field_condition) do
+      true ->
+        embed_values = get_field(changeset, embed_field) || []
+
+        case Enum.count(embed_values) > 0 do
+          true -> changeset
+          _ -> add_error(changeset, embed_field, message_fn.())
+        end
+
+      _ ->
+        changeset
+    end
+  end
 end

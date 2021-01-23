@@ -5,6 +5,8 @@ defmodule Tq2.Utils.TrimmedString do
 
   def cast(nil), do: {:ok, nil}
 
+  def cast(""), do: {:ok, nil}
+
   def cast(binary) when is_binary(binary), do: {:ok, String.trim(binary)}
 
   def cast(other), do: Ecto.Type.cast(:string, other)

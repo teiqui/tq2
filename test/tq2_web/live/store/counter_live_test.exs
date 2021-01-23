@@ -23,7 +23,8 @@ defmodule Tq2Web.Store.CounterLiveTest do
       delivery: true,
       delivery_area: "some delivery area",
       delivery_time_limit: "some time limit",
-      pay_on_delivery: true
+      pay_on_delivery: true,
+      shippings: %{"0" => %{"name" => "Anywhere", "price" => "10.00"}}
     },
     data: %{
       phone: "555-5555",

@@ -37,7 +37,7 @@ defmodule Tq2.Shops.Store do
     |> cast(attrs, @cast_attrs)
     |> cast_attachments(attrs, [:logo])
     |> cast_embed(:data)
-    |> cast_embed(:configuration)
+    |> cast_embed(:configuration, with: {Configuration, :changeset, [account]})
     |> cast_embed(:location)
     |> put_account(account)
     |> validate_required([:uuid, :name, :slug, :published])

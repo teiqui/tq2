@@ -113,7 +113,7 @@ defmodule Tq2.Shops do
       %Ecto.Changeset{source: %Store{}}
 
   """
-  def change_store(%Account{} = account, %Store{} = store) do
-    Store.changeset(account, store, %{})
+  def change_store(%Account{} = account, %Store{} = store, attrs \\ %{}) do
+    Store.changeset(account, store, attrs)
   end
 end
