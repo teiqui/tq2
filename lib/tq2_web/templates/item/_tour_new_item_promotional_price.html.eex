@@ -1,4 +1,4 @@
-<footer class="tour-footer tour-hidden-until-targeted text-light bg-info-dark p-4">
+<footer class="tour-footer tour-hidden-until-targeted text-light text-md-center bg-info-dark p-4">
   <p class="lead font-weight-semi-bold mb-5">
     <%= dgettext("items", "Teiqui price must be lower than regular. To get it, one customer should attract others to also buy using his link.") %>
   </p>
