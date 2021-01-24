@@ -80,6 +80,17 @@ defmodule Tq2Web.ItemControllerTest do
 
       assert response =~ "Items"
       assert response =~ item.name
+      refute response =~ "Congratulations! You have created your first article."
+    end
+
+    @tag login_as: "test@user.com"
+    test "lists all items and shows tour message", %{conn: conn, item: item} do
+      conn = get(conn, Routes.item_path(conn, :index, tour: "item_created"))
+      response = html_response(conn, 200)
+
+      assert response =~ "Items"
+      assert response =~ item.name
+      assert response =~ "Congratulations! You have created your first article."
     end
   end
 
@@ -87,8 +98,17 @@ defmodule Tq2Web.ItemControllerTest do
     @tag login_as: "test@user.com"
     test "lists no items", %{conn: conn} do
       conn = get(conn, Routes.item_path(conn, :index))
+      response = html_response(conn, 200)
 
-      assert html_response(conn, 200) =~ "You have no items yet"
+      assert response =~ "You have no items yet"
+      refute response =~ "We&#39;ll add your first item"
+    end
+
+    @tag login_as: "test@user.com"
+    test "lists no items and has tour message", %{conn: conn} do
+      conn = get(conn, Routes.item_path(conn, :index, tour: "new_item"))
+
+      assert html_response(conn, 200) =~ "We&#39;ll add your first item"
     end
   end
 
@@ -96,8 +116,20 @@ defmodule Tq2Web.ItemControllerTest do
     @tag login_as: "test@user.com"
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.item_path(conn, :new))
+      response = html_response(conn, 200)
 
-      assert html_response(conn, 200) =~ "Create"
+      assert response =~ "Create"
+      refute response =~ "Complete with info about the item"
+      refute response =~ "Teiqui price must be lower than regular"
+    end
+
+    @tag login_as: "test@user.com"
+    test "renders form with tour message", %{conn: conn} do
+      conn = get(conn, Routes.item_path(conn, :new, tour: "new_item"))
+      response = html_response(conn, 200)
+
+      assert response =~ "Complete with info about the item"
+      assert response =~ "Teiqui price must be lower than regular"
     end
   end
 

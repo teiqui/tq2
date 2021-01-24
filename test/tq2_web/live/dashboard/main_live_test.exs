@@ -42,6 +42,7 @@ defmodule Tq2Web.Dashboard.MainLiveTest do
       assert html =~ "Dashboard"
       assert content =~ "Dashboard"
       assert content =~ "You have no orders yet"
+      refute content =~ "On the main dashboard you&apos;ll find"
     end
 
     test "with order", %{conn: conn, session: session} do
@@ -57,6 +58,21 @@ defmodule Tq2Web.Dashboard.MainLiveTest do
       assert content =~ "Dashboard"
       refute content =~ "You have no orders yet"
       assert content =~ Tq2.Transactions.Cart.total(order.cart) |> Money.to_string(symbol: true)
+    end
+
+    test "should show tour components", %{conn: conn} do
+      path = Routes.dashboard_path(conn, :index, tour: "dashboard")
+      {:ok, main_live, html} = live(conn, path)
+      content = render(main_live)
+
+      assert html =~ "On the main dashboard you&apos;ll find"
+      assert content =~ "On the main dashboard you&apos;ll find"
+      refute content =~ "Inside More you&apos;ll find sections"
+
+      path = Routes.dashboard_path(conn, :index, tour: "items")
+
+      assert main_live
+             |> render_patch(path) =~ "Inside More you&apos;ll find sections"
     end
   end
 end
