@@ -17,7 +17,6 @@ defmodule Tq2Web.AppView do
 
   def link_to_edit(conn, app) do
     icon_link(
-      conn,
       "pencil",
       text: dgettext("apps", "Edit"),
       to: Routes.app_path(conn, :edit, app)
@@ -72,11 +71,10 @@ defmodule Tq2Web.AppView do
 
   def build_app(_), do: nil
 
-  def mp_link_to_commissions(conn, account) do
+  def mp_link_to_commissions(account) do
     url = MPClient.commission_url_for(account.country)
 
     icon_link(
-      conn,
       "percent",
       text: dgettext("apps", "Commissions"),
       to: url,

@@ -70,14 +70,12 @@ defmodule Tq2Web.Store.PaymentLive do
     assign(socket, cart: cart)
   end
 
-  defp submit_payment(socket, cart) do
+  defp submit_payment(cart) do
     content = ~E"""
       <%= cart_total(cart) %>
 
-      <span class="float-right ml-n3">
-        <svg class="bi" width="16" height="16" fill="currentColor">
-          <use xlink:href="<%= Routes.static_path(socket, "/images/bootstrap-icons.svg#arrow-right") %>"/>
-        </svg>
+      <span class="h4 float-right ml-n3 mb-0">
+        <i class="bi-arrow-right"></i>
       </span>
     """
 
@@ -112,21 +110,20 @@ defmodule Tq2Web.Store.PaymentLive do
     main_methods ++ app_names
   end
 
-  defp payment_method_description(_, "cash", _) do
+  defp payment_method_description("cash", _) do
     dgettext("payments", "Your order must be paid on delivery.")
   end
 
-  defp payment_method_description(_, "mercado_pago", _) do
+  defp payment_method_description("mercado_pago", _) do
     dgettext("payments", "Pay with MercadoPago.")
   end
 
-  defp payment_method_description(socket, "wire_transfer", app) do
+  defp payment_method_description("wire_transfer", app) do
     number =
       content_tag(:p) do
         [
           app.data["account_number"],
           link_to_clipboard(
-            socket,
             icon: "files",
             text: app.data["account_number"],
             class: "ml-2"

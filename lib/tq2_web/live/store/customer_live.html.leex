@@ -6,10 +6,8 @@
       <%= form_for @changeset, "#", [phx_submit: "save", phx_change: "validate"], fn f -> %>
         <%= if @customer do %>
           <div class="media">
-            <div class="text-info">
-              <svg class="bi" width="32" height="32" fill="currentColor">
-                <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#person-circle") %>"/>
-              </svg>
+            <div class="display-4 text-info mt-n1">
+              <i class="bi-person-circle"></i>
             </div>
 
             <div class="media-body ml-3">
@@ -48,7 +46,7 @@
 
         <nav class="fixed-bottom mb-1">
           <div class="container-fluid py-1 py-lg-2">
-            <%= submit_customer @socket, @cart %>
+            <%= submit_customer @cart %>
           </div>
         </nav>
       <% end %>

@@ -14,23 +14,23 @@ defmodule Tq2Web.LinkHelpersTest do
       {:ok, %{conn: conn}}
     end
 
-    test "with default options", %{conn: conn} do
+    test "with default options" do
       link =
-        conn
-        |> icon_link("test", to: "#test")
+        "test"
+        |> icon_link(to: "#test")
         |> safe_to_string
 
-      assert link =~ "bootstrap-icons.svg#test"
+      assert link =~ "bi-test"
       assert link =~ "href=\"#test\""
     end
 
-    test "to clipboard", %{conn: conn} do
+    test "to clipboard" do
       link =
-        conn
-        |> link_to_clipboard(icon: "files", text: "123-text")
+        [icon: "files", text: "123-text"]
+        |> link_to_clipboard()
         |> safe_to_string
 
-      assert link =~ "bootstrap-icons.svg#files"
+      assert link =~ "bi-files"
       assert link =~ "data-text=\"123-text\""
     end
   end

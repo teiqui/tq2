@@ -66,12 +66,12 @@
     </div>
 
     <%= if Enum.any?(@order.cart.payments) do %>
-      <h3 class="h6">
+      <h3 class="h6 mt-4">
         <%= dgettext("orders", "Payments") %>
       </h3>
 
       <div class="table-responsive">
-        <table class="table table-hover my-3">
+        <table class="table table-hover small my-3">
           <thead>
             <th><%= dgettext("payments", "Kind") %></th>
             <th><%= dgettext("payments", "Amount") %></th>
@@ -82,7 +82,7 @@
             <tr>
               <td>
                 <%= payment_kind(payment.kind) %>
-                <%= pending_payment_alert(@conn, payment) %>
+                <%= pending_payment_alert(payment) %>
               </td>
               <td><%= format_money payment.amount %></td>
               <td><%= localize_datetime payment.inserted_at %></td>

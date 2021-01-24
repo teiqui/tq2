@@ -31,7 +31,7 @@ defmodule Tq2Web.Store.OrderLive do
     "btn btn-primary rounded-pill py-2 px-4"
   end
 
-  defp show_payment_info(socket, %{cart: %{data: %{payment: "wire_transfer"}}}, account) do
+  defp show_payment_info(%{cart: %{data: %{payment: "wire_transfer"}}}, account) do
     app = Tq2.Apps.get_app(account, "wire_transfer")
 
     title =
@@ -44,7 +44,6 @@ defmodule Tq2Web.Store.OrderLive do
         [
           app.data.account_number,
           link_to_clipboard(
-            socket,
             icon: "files",
             text: app.data.account_number,
             class: "ml-2"
@@ -61,5 +60,5 @@ defmodule Tq2Web.Store.OrderLive do
     ]
   end
 
-  defp show_payment_info(_socket, _order, _account), do: nil
+  defp show_payment_info(_order, _account), do: nil
 end

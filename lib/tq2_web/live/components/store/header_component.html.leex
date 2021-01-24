@@ -26,9 +26,7 @@
                                                   token: @token,
                                                   class: share_classes(),
                                                   align_right: true do %>
-        <svg class="bi" width="12" height="12" fill="currentColor">
-          <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#share-fill") %>"/>
-        </svg>
+        <i class="bi-share-fill"></i>
       <% end %>
     </div>
 
@@ -46,7 +44,7 @@
             <%= dgettext("stores", "Categories") %>
           </span>
 
-          <%= chevron_direction(@socket, @show_categories) %>
+          <%= chevron_direction(@show_categories) %>
         </a>
       </div>
     </nav>

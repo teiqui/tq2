@@ -11,7 +11,6 @@ defmodule Tq2Web.ItemView do
 
   def link_to_show(conn, item) do
     icon_link(
-      conn,
       "eye-fill",
       title: dgettext("items", "Show"),
       to: Routes.item_path(conn, :show, item),
@@ -21,7 +20,6 @@ defmodule Tq2Web.ItemView do
 
   def link_to_edit(conn, item) do
     icon_link(
-      conn,
       "pencil-fill",
       title: dgettext("items", "Edit"),
       to: Routes.item_path(conn, :edit, item),
@@ -31,7 +29,6 @@ defmodule Tq2Web.ItemView do
 
   def link_to_delete(conn, item) do
     icon_link(
-      conn,
       "trash2-fill",
       title: dgettext("items", "Delete"),
       to: Routes.item_path(conn, :delete, item),
@@ -161,14 +158,12 @@ defmodule Tq2Web.ItemView do
     Routes.item_path(conn, :new)
   end
 
-  defp link_to_new_item_content(%{params: %{"tour" => _}} = conn) do
+  defp link_to_new_item_content(%{params: %{"tour" => _}}) do
     ~E"""
       + <%= dgettext("items", "Add item") %>
 
-      <span class="tour-pointer d-block text-info-dark mt-1">
-        <svg class="bi" width="24" height="24" fill="currentColor">
-          <use xlink:href="<%= Routes.static_path(conn, "/images/bootstrap-icons.svg#caret-up-fill") %>"/>
-        </svg>
+      <span class="tour-pointer d-block h1 text-info-dark mt-1 mb-0">
+        <i class="bi-caret-up-fill"></i>
       </span>
     """
   end

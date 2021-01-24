@@ -28,15 +28,17 @@
 
   <div class="d-flex align-items-center justify-content-end">
     <button type="button" class="btn btn-link mr-1" phx-click="decrease" <%= if @quantity == 1, do: "disabled" %>>
-      <svg class="bi" width="25" height="25" fill="currentColor">
-        <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#dash-circle") %>"/>
-      </svg>
+      <span class="h1 mb-0">
+        <i class="bi-dash-circle"></i>
+      </span>
     </button>
-    <div class="text-dark h5 mt-2" data-quantity="<%= @quantity %>"><%= @quantity %></div>
+
+    <div class="text-dark h5 mt-2 pt-1" data-quantity="<%= @quantity %>"><%= @quantity %></div>
+
     <button type="button" class="btn btn-link ml-1 mr-n3" phx-click="increase">
-      <svg class="bi" width="25" height="25" fill="currentColor">
-        <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#plus-circle") %>"/>
-      </svg>
+      <span class="h1 mb-0">
+        <i class="bi-plus-circle"></i>
+      </span>
     </button>
   </div>
 

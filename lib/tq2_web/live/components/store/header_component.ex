@@ -54,16 +54,11 @@ defmodule Tq2Web.Store.HeaderComponent do
     "btn btn-sm btn-light text-primary rounded-circle h-28-px w-28-px p-1 mt-n1"
   end
 
-  defp chevron_direction(conn, true), do: icon_tag(conn, "chevron-up")
-  defp chevron_direction(conn, _), do: icon_tag(conn, "chevron-down")
+  defp chevron_direction(true), do: icon_tag("chevron-up")
+  defp chevron_direction(_), do: icon_tag("chevron-down")
 
-  defp icon_tag(conn, icon) do
-    options = [class: "bi", width: "14", height: "14", fill: "currentColor"]
-    icon_path = Routes.static_path(conn, "/images/bootstrap-icons.svg##{icon}")
-
-    content_tag(:svg, options) do
-      raw("<use xlink:href=\"#{icon_path}\"/>")
-    end
+  defp icon_tag(icon) do
+    content_tag(:i, nil, class: "bi-#{icon}")
   end
 
   defp search_input(assigns) do
@@ -74,7 +69,7 @@ defmodule Tq2Web.Store.HeaderComponent do
       <div class="input-group ml-n2">
         <div class="input-group-prepend">
           <button type="submit" class="btn btn-outline-primary px-2">
-            <%= icon_tag(@socket, "search") %>
+            <%= icon_tag("search") %>
           </button>
         </div>
         <input type="text"

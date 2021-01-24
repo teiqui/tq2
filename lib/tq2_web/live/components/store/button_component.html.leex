@@ -10,9 +10,7 @@
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false">
-              <svg class="bi" width="12" height="12" fill="currentColor">
-                <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#three-dots-vertical") %>"/>
-              </svg>
+              <i class="bi-three-dots-vertical"></i>
             </button>
             <div class="dropdown-menu text-center" aria-labelledby="store-options">
               <%= live_redirect dgettext("stores", "Checkout"), to: Routes.checkout_path(@socket, :index, @store),
@@ -25,10 +23,8 @@
           <%= live_redirect to: @to, class: "btn btn-lg btn-block btn-primary #{unless @enabled, do: " disabled"}" do %>
             <%= cart_total(@cart) %>
 
-            <span class="float-right ml-n3">
-              <svg class="bi" width="16" height="16" fill="currentColor">
-                <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#arrow-right") %>"/>
-              </svg>
+            <span class="h4 float-right ml-n3 mb-0">
+              <i class="bi-arrow-right"></i>
             </span>
           <% end %>
         </div>
@@ -39,9 +35,7 @@
                                                       token: @token,
                                                       class: "btn btn-secondary rounded-circle text-primary",
                                                       align_right: true do %>
-            <svg class="bi" width="12" height="12" fill="currentColor">
-              <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#share-fill") %>"/>
-            </svg>
+            <i class="bi-share-fill"></i>
           <% end %>
         </div>
       </div>

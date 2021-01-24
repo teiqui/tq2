@@ -72,8 +72,7 @@ module.exports = (env, options) => {
       new MiniCssExtractPlugin({filename: 'css/app.css'}),
       new CopyWebpackPlugin({
         patterns: [
-          {from: 'static/'},
-          {from: 'node_modules/bootstrap-icons/bootstrap-icons.svg', to: 'images/'}
+          {from: 'static/'}
         ]
       })
     ],

@@ -20,7 +20,6 @@ defmodule Tq2Web.AccountView do
 
   def link_to_show(conn, account) do
     icon_link(
-      conn,
       "eye-fill",
       title: dgettext("accounts", "Show"),
       to: Routes.account_path(conn, :show, account),
@@ -30,7 +29,6 @@ defmodule Tq2Web.AccountView do
 
   def link_to_edit(conn, account) do
     icon_link(
-      conn,
       "pencil-fill",
       title: dgettext("accounts", "Edit"),
       to: Routes.account_path(conn, :edit, account),
@@ -40,7 +38,6 @@ defmodule Tq2Web.AccountView do
 
   def link_to_delete(conn, account) do
     icon_link(
-      conn,
       "trash2-fill",
       title: dgettext("accounts", "Delete"),
       to: Routes.account_path(conn, :delete, account),

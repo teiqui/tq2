@@ -18,13 +18,11 @@
             <%= dgettext("registrations", "Welcome!") %>
           </h1>
 
-          <h2 class="h4 mt-3 mb-5 pb-3">
+          <h2 class="h4 mt-3 mb-4 pb-3">
             <%= dgettext("registrations", "Thank you for choosing us. Our team will be happy to help you growth.") %>
           </h2>
 
-          <svg class="bi" width="100" height="100" fill="currentColor">
-            <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#egg") %>"/>
-          </svg>
+          <i class="bi-egg icon-xl"></i>
         </div>
 
         <div class="carousel-item">
@@ -32,13 +30,11 @@
             <%= dgettext("registrations", "Online store") %>
           </h1>
 
-          <h2 class="h4 mt-3 mb-5 pb-3">
+          <h2 class="h4 mt-3 mb-4 pb-3">
             <%= dgettext("registrations", "Upload your items, choose delivery options, payment methods y get orders online.") %>
           </h2>
 
-          <svg class="bi" width="100" height="100" fill="currentColor">
-            <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#shop") %>"/>
-          </svg>
+          <i class="bi-shop icon-xl"></i>
         </div>
 
         <div class="carousel-item">
@@ -46,13 +42,11 @@
             <%= dgettext("registrations", "Teiqui price") %>
           </h1>
 
-          <h2 class="h4 mt-3 mb-5 pb-3">
+          <h2 class="h4 mt-3 mb-4 pb-3">
             <%= dgettext("registrations", "Enable discounts in your items with Teiqui price and get more than one order for every customer.") %>
           </h2>
 
-          <svg class="bi" width="100" height="100" fill="currentColor">
-            <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#tags") %>"/>
-          </svg>
+          <i class="bi-tags icon-xl"></i>
         </div>
 
         <div class="carousel-item">
@@ -60,13 +54,11 @@
             <%= dgettext("registrations", "Teiqui sellers") %>
           </h1>
 
-          <h2 class="h4 mt-3 mb-5 pb-3">
+          <h2 class="h4 mt-3 mb-4 pb-3">
             <%= dgettext("registrations", "Your customers will become your sellers using group shopping, thus bringing new buyers.") %>
           </h2>
 
-          <svg class="bi" width="100" height="100" fill="currentColor">
-            <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#people") %>"/>
-          </svg>
+          <i class="bi-people icon-xl"></i>
         </div>
       </div>
     </div>
@@ -75,10 +67,8 @@
       <%= live_redirect to: Routes.tour_path(@socket, :index), class: "text-reset" do %>
         <%= dgettext("registrations", "Start using the app") %>
 
-        <span class="ml-2">
-          <svg class="bi" width="24" height="24" fill="currentColor">
-            <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#arrow-right") %>"/>
-          </svg>
+        <span class="h5 ml-2 mb-0">
+          <i class="bi-arrow-right"></i>
         </span>
       <% end %>
     </p>

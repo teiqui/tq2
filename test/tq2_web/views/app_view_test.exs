@@ -28,7 +28,7 @@ defmodule Tq2Web.AppViewTest do
 
     assert content =~ app.name
     assert content =~ "href"
-    assert content =~ "svg#pencil"
+    assert content =~ "bi-pencil"
   end
 
   test "link to delete", %{conn: conn} do
@@ -84,15 +84,15 @@ defmodule Tq2Web.AppViewTest do
     refute AppView.build_app("unknwon")
   end
 
-  test "mp link to commissions", %{conn: conn} do
+  test "mp link to commissions" do
     content =
-      conn
-      |> AppView.mp_link_to_commissions(default_account())
+      default_account()
+      |> AppView.mp_link_to_commissions()
       |> safe_to_string()
 
     assert content =~ "<a"
     assert content =~ "Commissions"
-    assert content =~ "svg#percent"
+    assert content =~ "bi-percent"
   end
 
   test "mp link to install", %{conn: conn} do

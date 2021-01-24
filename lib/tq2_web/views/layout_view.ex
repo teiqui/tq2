@@ -24,14 +24,14 @@ defmodule Tq2Web.LayoutView do
     "mt-4 mb-5 pt-5 #{bg_color}"
   end
 
-  defp main_item(conn, opts) do
+  defp main_item(opts) do
     {text, opts} = Keyword.pop(opts, :text)
     {to, opts} = Keyword.pop(opts, :to)
     {icon, opts} = Keyword.pop(opts, :icon)
     {class, opts} = Keyword.pop(opts, :class, "text-light")
     {text_class, opts} = Keyword.pop(opts, :text_class)
     {icon_class, opts} = Keyword.pop(opts, :icon_class)
-    {icon_size, opts} = Keyword.pop(opts, :icon_size, 25)
+    {icon_size, opts} = Keyword.pop(opts, :icon_size, "h2")
 
     link_opts =
       opts
@@ -41,9 +41,7 @@ defmodule Tq2Web.LayoutView do
     content = ~E"""
       <div class="mt-1 text-center">
         <span class="d-block btn-menu mx-auto <%= icon_class %>">
-          <svg class="bi" width="<%= icon_size %> " height="<%= icon_size %>" fill="currentColor">
-            <use xlink:href="<%= Routes.static_path(conn, "/images/bootstrap-icons.svg##{icon}") %>"/>
-          </svg>
+          <i class="bi-<%= icon %> <%= icon_size %>"></i>
         </span>
 
         <span class="d-block <%= text_class %>">
@@ -59,14 +57,12 @@ defmodule Tq2Web.LayoutView do
     render("_menu.html", conn: conn, account: account, user: user)
   end
 
-  defp items_link_content(conn) do
+  defp items_link_content do
     ~E"""
       <%= dgettext("items", "Items") %>
 
-      <span class="tour-pointer d-block text-info-dark">
-        <svg class="bi" width="24" height="24" fill="currentColor">
-          <use xlink:href="<%= Routes.static_path(conn, "/images/bootstrap-icons.svg#caret-up-fill") %>"/>
-        </svg>
+      <span class="tour-pointer d-block text-info-dark h1 mb-0 mt-n2">
+        <i class="bi-caret-up-fill"></i>
       </span>
     """
   end

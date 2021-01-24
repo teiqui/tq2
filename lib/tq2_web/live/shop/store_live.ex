@@ -134,10 +134,8 @@ defmodule Tq2Web.Shop.StoreLive do
     content = ~E"""
       <%= caption %>
 
-      <span class="text-primary float-right">
-        <svg class="bi" width="12" height="12" fill="currentColor">
-          <use xlink:href="<%= Routes.static_path(socket, "/images/bootstrap-icons.svg#chevron-right") %>"/>
-        </svg>
+      <span class="h6 text-primary float-right mb-0">
+        <i class="bi-chevron-right"></i>
       </span>
     """
 
@@ -148,10 +146,8 @@ defmodule Tq2Web.Shop.StoreLive do
     path = Routes.store_path(socket, :index, "main")
 
     content = ~E"""
-      <span class="text-primary mr-2">
-        <svg class="bi" width="12" height="12" fill="currentColor">
-          <use xlink:href="<%= Routes.static_path(socket, "/images/bootstrap-icons.svg#chevron-left") %>"/>
-        </svg>
+      <span class="h5 text-primary mr-2 mb-0 mt-n2">
+        <i class="bi-chevron-left"></i>
       </span>
 
       <%= dgettext("stores", "Back") %>

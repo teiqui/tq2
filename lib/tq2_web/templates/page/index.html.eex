@@ -116,12 +116,10 @@
         </div>
       </div>
 
-      <div class="row mt-5">
+      <div class="row mt-4">
         <div class="col-4 text-center">
-          <div class="text-muted mb-3">
-            <svg class="bi" width="64" height="64" fill="currentColor">
-              <use xlink:href="<%= Routes.static_path(@conn, "/images/bootstrap-icons.svg#shop") %>"/>
-            </svg>
+          <div class="text-muted display-1 mb-3">
+            <i class="bi-shop"></i>
           </div>
 
           <h5 class="h5 text-primary mb-1">
@@ -134,10 +132,8 @@
         </div>
 
         <div class="col-4 text-center">
-          <div class="text-muted mb-3">
-            <svg class="bi" width="64" height="64" fill="currentColor">
-              <use xlink:href="<%= Routes.static_path(@conn, "/images/bootstrap-icons.svg#share") %>"/>
-            </svg>
+          <div class="text-muted display-1 mb-3">
+            <i class="bi-share"></i>
           </div>
 
           <h5 class="h5 text-primary mb-1">
@@ -150,10 +146,8 @@
         </div>
 
         <div class="col-4 text-center">
-          <div class="text-muted mb-3">
-            <svg class="bi" width="64" height="64" fill="currentColor">
-              <use xlink:href="<%= Routes.static_path(@conn, "/images/bootstrap-icons.svg#basket") %>"/>
-            </svg>
+          <div class="text-muted display-1 mb-3">
+            <i class="bi-basket"></i>
           </div>
 
           <h5 class="h5 text-primary mb-1">

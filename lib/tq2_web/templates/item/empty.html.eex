@@ -7,10 +7,8 @@
     <%= dgettext("items", "Add one!") %>
   </h2>
 
-  <div class="text-info my-5">
-    <svg class="bi" width="86" height="86" fill="currentColor">
-      <use xlink:href="<%= Routes.static_path(@conn, "/images/bootstrap-icons.svg#box-seam") %>"/>
-    </svg>
+  <div class="text-info mt-3 mb-5">
+    <i class="bi-box-seam icon-xl"></i>
   </div>
 
   <p class="mb-3">

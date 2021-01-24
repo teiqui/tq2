@@ -2,41 +2,41 @@
   <div class="container-fluid pt-2">
     <div class="row row-cols-5 no-gutters">
       <div class="col">
-        <%= main_item @conn, text: dgettext("stores", "Store"),
-                             to: Routes.store_path(@conn, :index, "main"),
-                             icon: "shop",
-                             icon_class: "mb-1" %>
+        <%= main_item text: dgettext("stores", "Store"),
+                      to: Routes.store_path(@conn, :index, "main"),
+                      icon: "shop",
+                      icon_class: "mb-1" %>
       </div>
       <div class="col">
-        <%= main_item @conn, text: dgettext("orders", "Orders"),
-                             to: Routes.order_path(@conn, :index),
-                             icon: "receipt-cutoff",
-                             icon_class: "mb-1" %>
+        <%= main_item text: dgettext("orders", "Orders"),
+                      to: Routes.order_path(@conn, :index),
+                      icon: "receipt-cutoff",
+                      icon_class: "mb-1" %>
       </div>
       <div class="col">
-        <%= main_item @conn, text: items_link_content(@conn),
-                             to: Routes.item_path(@conn, :index),
-                             icon: "box-seam",
-                             icon_class: "mb-1",
-                             opts: [
-                               data: [
-                                 tour_step: "items",
-                                 tour_url: Routes.item_path(@conn, :index, tour: "new_item")
-                               ]
-                             ] %>
+        <%= main_item text: items_link_content(),
+                      to: Routes.item_path(@conn, :index),
+                      icon: "box-seam",
+                      icon_class: "mb-1",
+                      opts: [
+                        data: [
+                          tour_step: "items",
+                          tour_url: Routes.item_path(@conn, :index, tour: "new_item")
+                        ]
+                      ] %>
       </div>
       <div class="col">
-        <%= main_item @conn, text: dgettext("menu", "Payments"),
-                             to: Routes.app_path(@conn, :index),
-                             icon: "credit-card-2-back",
-                             icon_class: "mb-1" %>
+        <%= main_item text: dgettext("menu", "Payments"),
+                      to: Routes.app_path(@conn, :index),
+                      icon: "credit-card-2-back",
+                      icon_class: "mb-1" %>
       </div>
       <div class="col">
-        <%= main_item @conn, text: dgettext("menu", "More"),
-                             to: "#menu",
-                             icon: "plus",
-                             icon_class: "mb-1",
-                             opts: [data_toggle: "collapse"] %>
+        <%= main_item text: dgettext("menu", "More"),
+                      to: "#menu",
+                      icon: "plus",
+                      icon_class: "mb-1",
+                      opts: [data_toggle: "collapse"] %>
       </div>
     </div>
   </div>
@@ -44,7 +44,7 @@
 
 <nav class="navbar navbar-dark h5 font-weight-bold fixed-top bg-primary py-1">
   <div class="container-fluid">
-    <%= icon_link @conn, "door-open", to: Routes.session_path(@conn, :delete), class: "navbar-text", method: :delete, data: [
+    <%= icon_link "door-open", to: Routes.session_path(@conn, :delete), class: "navbar-text", method: :delete, data: [
       confirm: dgettext("menu", "Are you sure?")
     ] %>
 
@@ -52,10 +52,8 @@
       <%= dgettext("menu", "Hello %{name}", name: String.slice(@account.name, 0..30)) %>
     </a>
 
-    <span class="navbar-text ml-auto">
-      <svg class="bi" width="16" height="16" fill="currentColor">
-        <use xlink:href="<%= Routes.static_path(@conn, "/images/bootstrap-icons.svg#bell") %>"/>
-      </svg>
+    <span class="h5 navbar-text ml-auto">
+      <i class="bi-bell"></i>
     </span>
   </div>
 </nav>
@@ -83,39 +81,39 @@
 
     <div class="d-flex">
       <div class="mr-4">
-        <%= main_item @conn, text: dgettext("stores", "Store"),
-                             to: Routes.store_path(@conn, :index, "main"),
-                             icon: "shop",
-                             icon_class: "btn-menu-lg text-primary border-primary",
-                             text_class: "text-dark mt-2",
-                             icon_size: 30 %>
+        <%= main_item text: dgettext("stores", "Store"),
+                      to: Routes.store_path(@conn, :index, "main"),
+                      icon: "shop",
+                      icon_class: "btn-menu-lg text-primary border-primary",
+                      text_class: "text-dark mt-2",
+                      icon_size: "display-4" %>
       </div>
 
       <div class="mr-4">
-        <%= main_item @conn, text: dgettext("orders", "Orders"),
-                             to: Routes.order_path(@conn, :index),
-                             icon: "receipt-cutoff",
-                             icon_class: "btn-menu-lg text-primary border-primary",
-                             text_class: "text-dark mt-2",
-                             icon_size: 30 %>
+        <%= main_item text: dgettext("orders", "Orders"),
+                      to: Routes.order_path(@conn, :index),
+                      icon: "receipt-cutoff",
+                      icon_class: "btn-menu-lg text-primary border-primary",
+                      text_class: "text-dark mt-2",
+                      icon_size: "display-4" %>
       </div>
 
       <div class="mr-4">
-        <%= main_item @conn, text: dgettext("menu", "Payments"),
-                             to: Routes.app_path(@conn, :index),
-                             icon: "credit-card-2-back",
-                             icon_class: "btn-menu-lg text-primary border-primary",
-                             text_class: "text-dark mt-2",
-                             icon_size: 30 %>
+        <%= main_item text: dgettext("menu", "Payments"),
+                      to: Routes.app_path(@conn, :index),
+                      icon: "credit-card-2-back",
+                      icon_class: "btn-menu-lg text-primary border-primary",
+                      text_class: "text-dark mt-2",
+                      icon_size: "display-4" %>
       </div>
 
       <div class="mr-4">
-        <%= main_item @conn, text: dgettext("dashboard", "Dashboard"),
-                             to: Routes.dashboard_path(@conn, :index),
-                             icon: "bar-chart-line",
-                             icon_class: "btn-menu-lg text-primary border-primary",
-                             text_class: "text-dark mt-2",
-                             icon_size: 30 %>
+        <%= main_item text: dgettext("dashboard", "Dashboard"),
+                      to: Routes.dashboard_path(@conn, :index),
+                      icon: "bar-chart-line",
+                      icon_class: "btn-menu-lg text-primary border-primary",
+                      text_class: "text-dark mt-2",
+                      icon_size: "display-4" %>
       </div>
     </div>
 
@@ -125,21 +123,21 @@
 
     <div class="d-flex">
       <div class="mr-4">
-        <%= main_item @conn, text: dgettext("items", "Items"),
-                             to: Routes.item_path(@conn, :index),
-                             icon: "box-seam",
-                             icon_class: "btn-menu-lg text-info border-info",
-                             text_class: "text-dark mt-2",
-                             icon_size: 30 %>
+        <%= main_item text: dgettext("items", "Items"),
+                      to: Routes.item_path(@conn, :index),
+                      icon: "box-seam",
+                      icon_class: "btn-menu-lg text-info border-info",
+                      text_class: "text-dark mt-2",
+                      icon_size: "display-4" %>
       </div>
 
       <div class="mr-4">
-        <%= main_item @conn, text: dgettext("categories", "Categories"),
-                             to: Routes.category_path(@conn, :index),
-                             icon: "layout-wtf",
-                             icon_class: "btn-menu-lg text-info border-info",
-                             text_class: "text-dark mt-2",
-                             icon_size: 30 %>
+        <%= main_item text: dgettext("categories", "Categories"),
+                      to: Routes.category_path(@conn, :index),
+                      icon: "layout-wtf",
+                      icon_class: "btn-menu-lg text-info border-info",
+                      text_class: "text-dark mt-2",
+                      icon_size: "display-4" %>
       </div>
     </div>
 
@@ -149,31 +147,31 @@
 
     <div class="d-flex">
       <div class="mr-4">
-        <%= main_item @conn, text: dgettext("users", "Users"),
-                             to: Routes.user_path(@conn, :index),
-                             icon: "person-badge",
-                             icon_class: "btn-menu-lg text-dark border-dark",
-                             text_class: "text-dark mt-2",
-                             icon_size: 30 %>
+        <%= main_item text: dgettext("users", "Users"),
+                      to: Routes.user_path(@conn, :index),
+                      icon: "person-badge",
+                      icon_class: "btn-menu-lg text-dark border-dark",
+                      text_class: "text-dark mt-2",
+                      icon_size: "display-4" %>
       </div>
 
       <div class="mr-4">
-        <%= main_item @conn, text: dgettext("licenses", "Licenses"),
-                             to: Routes.license_path(@conn, :index),
-                             icon: "gear",
-                             icon_class: "btn-menu-lg text-dark border-dark",
-                             text_class: "text-dark mt-2",
-                             icon_size: 30 %>
+        <%= main_item text: dgettext("licenses", "Licenses"),
+                      to: Routes.license_path(@conn, :index),
+                      icon: "gear",
+                      icon_class: "btn-menu-lg text-dark border-dark",
+                      text_class: "text-dark mt-2",
+                      icon_size: "display-4" %>
       </div>
 
       <%= if @user.role == "admin" do %>
         <div class="mr-4">
-          <%= main_item @conn, text: dgettext("accounts", "Accounts"),
-                               to: Routes.account_path(@conn, :index),
-                               icon: "building",
-                               icon_class: "btn-menu-lg text-dark border-dark",
-                               text_class: "text-dark mt-2",
-                               icon_size: 30 %>
+          <%= main_item text: dgettext("accounts", "Accounts"),
+                        to: Routes.account_path(@conn, :index),
+                        icon: "building",
+                        icon_class: "btn-menu-lg text-dark border-dark",
+                        text_class: "text-dark mt-2",
+                        icon_size: "display-4" %>
         </div>
       <% end %>
     </div>

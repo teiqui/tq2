@@ -14,10 +14,8 @@
                    <%= if @cart.data && @cart.data.handing == "pickup", do: "checked" %>>
             <label class="custom-control-label" for="pickup">
               <span class="ml-2 d-block">
-                <span class="float-left text-primary ml-n4">
-                  <svg class="bi" width="16" height="16" fill="currentColor">
-                    <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#shop") %>"/>
-                  </svg>
+                <span class="h5 float-left text-primary ml-n4 mb-0">
+                  <i class="bi-shop"></i>
                 </span>
 
                 <span class="font-weight-semi-bold">
@@ -49,10 +47,8 @@
                    <%= if @cart.data && @cart.data.handing == "delivery", do: "checked" %>>
             <label class="custom-control-label" for="delivery">
               <span class="ml-2 d-block">
-                <span class="float-left text-primary ml-n4">
-                  <svg class="bi" width="16" height="16" fill="currentColor">
-                    <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#truck") %>"/>
-                  </svg>
+                <span class="h5 float-left text-primary ml-n4 mb-0">
+                  <i class="bi-truck"></i>
                 </span>
 
                 <span class="font-weight-semi-bold">

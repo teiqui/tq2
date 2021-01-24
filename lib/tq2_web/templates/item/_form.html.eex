@@ -16,9 +16,7 @@
   <%= promotional_price_input(f) %>
 
   <span class="tour-pointer d-block text-info-dark">
-    <svg class="bi" width="24" height="24" fill="currentColor">
-      <use xlink:href="<%= Routes.static_path(@conn, "/images/bootstrap-icons.svg#caret-up-fill") %>"/>
-    </svg>
+    <i class="bi-caret-up-fill h1 mb-0"></i>
   </span>
 
   <%= input f, :cost, dgettext("items", "Cost") %>

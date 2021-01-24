@@ -31,7 +31,7 @@
             <div id="<%= kind %>-details"
                  class="collapse<%= if cart_payment_kind?(@cart, kind), do: " show" %>">
               <div class="card-body">
-                <%= payment_method_description @socket, kind, app %>
+                <%= payment_method_description kind, app %>
               </div>
             </div>
           <% end %>
@@ -40,7 +40,7 @@
 
       <nav class="fixed-bottom mb-1">
         <div class="container-fluid py-1 py-lg-2">
-          <%= submit_payment @socket, @cart %>
+          <%= submit_payment @cart %>
         </div>
       </nav>
     </form>

@@ -8,14 +8,12 @@
       <%= dgettext("registrations", "Let's keep going!") %>
     </h1>
 
-    <h2 class="h5 mb-5">
+    <h2 class="h5 mb-4">
       <%= dgettext("registrations", "We are almost there") %>
     </h2>
 
     <span class="text-primary mb-5">
-      <svg class="bi" width="64" height="64" fill="currentColor">
-        <use xlink:href="<%= Routes.static_path(@socket, "/images/bootstrap-icons.svg#envelope-open") %>"/>
-      </svg>
+      <i class="bi-envelope-open icon-xl"></i>
     </span>
 
     <%= form_for @changeset, "#", [phx_submit: "save", class: "mt-5 mb-4 px-3 text-left"], fn f -> %>

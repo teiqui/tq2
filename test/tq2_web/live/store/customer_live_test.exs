@@ -122,9 +122,9 @@ defmodule Tq2Web.Store.CustomerLiveTest do
 
       {:ok, customer_live, html} = live(conn, path)
 
-      assert html =~ "#person-circle"
+      assert html =~ "bi-person-circle"
       assert html =~ customer.phone
-      assert render(customer_live) =~ "#person-circle"
+      assert render(customer_live) =~ "bi-person-circle"
 
       assert customer_live
              |> form("form", %{})
@@ -137,7 +137,7 @@ defmodule Tq2Web.Store.CustomerLiveTest do
       path = Routes.customer_path(conn, :index, store)
       {:ok, customer_live, _html} = live(conn, path)
 
-      refute render(customer_live) =~ "#person-circle"
+      refute render(customer_live) =~ "bi-person-circle"
 
       assert customer_live
              |> form("form", %{
@@ -159,13 +159,13 @@ defmodule Tq2Web.Store.CustomerLiveTest do
       path = Routes.customer_path(conn, :index, store)
       {:ok, customer_live, _html} = live(conn, path)
 
-      refute render(customer_live) =~ "#person-circle"
+      refute render(customer_live) =~ "bi-person-circle"
 
       assert customer_live
              |> form("form", %{customer: %{email: "invalid@email"}})
              |> render_change() =~ "phx-feedback-for=\"customer_email\">has invalid format"
 
-      refute render(customer_live) =~ "#person-circle"
+      refute render(customer_live) =~ "bi-person-circle"
     end
 
     test "validate event with existing customer associates token", %{
@@ -184,7 +184,7 @@ defmodule Tq2Web.Store.CustomerLiveTest do
           "address" => "some address"
         })
 
-      refute render(customer_live) =~ "#person-circle"
+      refute render(customer_live) =~ "bi-person-circle"
 
       assert customer_live
              |> form("form", %{customer: %{email: customer.email}})

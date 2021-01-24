@@ -4,7 +4,6 @@ defmodule Tq2Web.UserView do
 
   def link_to_show(conn, user) do
     icon_link(
-      conn,
       "eye-fill",
       title: dgettext("users", "Show"),
       to: Routes.user_path(conn, :show, user),
@@ -14,7 +13,6 @@ defmodule Tq2Web.UserView do
 
   def link_to_edit(conn, user) do
     icon_link(
-      conn,
       "pencil-fill",
       title: dgettext("users", "Edit"),
       to: Routes.user_path(conn, :edit, user),
@@ -28,7 +26,6 @@ defmodule Tq2Web.UserView do
 
   def link_to_delete(conn, user) do
     icon_link(
-      conn,
       "trash2-fill",
       title: dgettext("users", "Delete"),
       to: Routes.user_path(conn, :delete, user),
