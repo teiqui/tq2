@@ -157,10 +157,6 @@ msgstr "Tienda"
 msgid "Loading..."
 msgstr "Cargando..."
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:10
-msgid "Online store"
-msgstr "Tienda en línea"
-
 #: lib/tq2_web/live/components/store/share_component.html.leex:31
 msgid "Copy store link"
 msgstr "Copiar enlace de tienda"

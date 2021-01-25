@@ -6,10 +6,6 @@
       </div>
 
       <div>
-        <h2 class="h6 mb-0">
-          <%= dgettext("stores", "Online store") %>
-        </h2>
-
         <h1 class="h5 font-weight-bold mb-1">
           <%= live_redirect to: Routes.counter_path(@socket, :index, @store), class: "text-reset text-decoration-none" do %>
             <%= @store.name %>
