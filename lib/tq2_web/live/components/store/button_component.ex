@@ -2,7 +2,7 @@ defmodule Tq2Web.Store.ButtonComponent do
   use Tq2Web, :live_component
 
   alias Tq2.Transactions.Cart
-  alias Tq2Web.Store.ShareComponent
+  alias Tq2Web.Store.{OptionsComponent, ShareComponent}
 
   def cart_total(%Cart{} = cart) do
     cart

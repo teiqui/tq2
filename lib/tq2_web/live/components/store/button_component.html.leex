@@ -3,20 +3,7 @@
     <div class="container-fluid pb-1 pt-2">
       <div class="d-flex">
         <div class="mr-2">
-          <div class="dropup">
-            <button type="button"
-                    id="store-options"
-                    class="btn btn-secondary rounded-circle"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">
-              <i class="bi-three-dots-vertical"></i>
-            </button>
-            <div class="dropdown-menu text-center" aria-labelledby="store-options">
-              <%= live_redirect dgettext("stores", "Checkout"), to: Routes.checkout_path(@socket, :index, @store),
-                                                                class: "dropdown-item" %>
-            </div>
-          </div>
+          <%= live_component @socket, OptionsComponent, store: @store %>
         </div>
 
         <div class="flex-fill">

@@ -1,0 +1,15 @@
+<div class="dropup">
+  <button type="button"
+          id="store-options"
+          class="btn btn-secondary rounded-circle"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false">
+    <i class="bi-three-dots-vertical"></i>
+  </button>
+
+  <div class="dropdown-menu text-center" aria-labelledby="store-options">
+    <%= live_redirect dgettext("stores", "Checkout"), to: Routes.checkout_path(@socket, :index, @store),
+                                                      class: "dropdown-item" %>
+  </div>
+</div>
