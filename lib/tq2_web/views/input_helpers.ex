@@ -24,6 +24,20 @@ defmodule Tq2Web.InputHelpers do
     end
   end
 
+  def radio_input(form, field, value, opts \\ [], do: block) do
+    content_tag(:div, class: "custom-control custom-radio #{opts[:container_class]}") do
+      input_opts = [class: "custom-control-input #{opts[:input_class]}"]
+      input = radio_button(form, field, value, input_opts)
+
+      label =
+        label(for: input_id(form, field, value), class: "custom-control-label") do
+          block
+        end
+
+      [input, label]
+    end
+  end
+
   defp group(:checkbox, label, input, error) do
     content_tag :div, class: "custom-control custom-switch" do
       [input, label, error]

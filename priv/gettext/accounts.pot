@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 
 #: lib/tq2_web/templates/account/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:171
+#: lib/tq2_web/templates/layout/_menu.html.eex:169
 msgid "Accounts"
 msgstr ""
 
@@ -19,7 +19,7 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:48
+#: lib/tq2_web/views/account_view.ex:45
 msgid "Are you sure?"
 msgstr ""
 
@@ -45,15 +45,15 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:89
+#: lib/tq2_web/views/account_view.ex:86
 msgid "Create"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:45
+#: lib/tq2_web/views/account_view.ex:42
 msgid "Delete"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:35
+#: lib/tq2_web/views/account_view.ex:33
 msgid "Edit"
 msgstr ""
 
@@ -95,7 +95,7 @@ msgstr ""
 msgid "Peru"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:25
+#: lib/tq2_web/views/account_view.ex:24
 msgid "Show"
 msgstr ""
 
@@ -113,7 +113,7 @@ msgstr ""
 msgid "Time zone"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:90
+#: lib/tq2_web/views/account_view.ex:87
 msgid "Update"
 msgstr ""
 

@@ -1,6 +1,8 @@
 defmodule Tq2Web.Store.CheckoutLive do
   use Tq2Web, :live_view
 
+  import Tq2Web.Utils, only: [format_money: 1]
+
   alias Tq2.{Analytics, Transactions}
   alias Tq2.Transactions.{Cart, Line}
   alias Tq2Web.Store.{ButtonComponent, HeaderComponent}
@@ -19,8 +21,10 @@ defmodule Tq2Web.Store.CheckoutLive do
         referred: !!visit.referral_customer
       )
       |> load_cart(token)
+      |> load_shipping()
 
-    {:ok, socket, temporary_assigns: [cart: nil, items: [], referral_customer: nil]}
+    {:ok, socket,
+     temporary_assigns: [cart: nil, items: [], referral_customer: nil, shipping: nil]}
   end
 
   @impl true
@@ -34,7 +38,12 @@ defmodule Tq2Web.Store.CheckoutLive do
 
     cart = cart |> update_quantity(line, line.quantity + 1)
 
-    {:noreply, assign(socket, cart: cart)}
+    socket =
+      socket
+      |> assign(:cart, cart)
+      |> load_shipping()
+
+    {:noreply, socket}
   end
 
   @impl true
@@ -48,7 +57,12 @@ defmodule Tq2Web.Store.CheckoutLive do
 
     cart = cart |> decrease_quantity(line)
 
-    {:noreply, assign(socket, cart: cart)}
+    socket =
+      socket
+      |> assign(:cart, cart)
+      |> load_shipping()
+
+    {:noreply, socket}
   end
 
   defp update_quantity(cart, line, new_quantity) do
@@ -81,10 +95,6 @@ defmodule Tq2Web.Store.CheckoutLive do
     cart = Transactions.get_cart(account, token)
 
     assign(socket, cart: cart)
-  end
-
-  defp format_money(%Money{} = money) do
-    Money.to_string(money, symbol: true)
   end
 
   defp line_total(socket, cart, line) do
@@ -157,5 +167,9 @@ defmodule Tq2Web.Store.CheckoutLive do
     socket
     |> Routes.static_path("/images/favicon.svg")
     |> img_tag(height: 11, width: 11, alt: "Teiqui", class: "mt-n1")
+  end
+
+  defp load_shipping(%{assigns: %{cart: cart}} = socket) do
+    socket |> assign(:shipping, Cart.shipping(cart))
   end
 end

@@ -1,6 +1,8 @@
 defmodule Tq2Web.Store.HandingLive do
   use Tq2Web, :live_view
 
+  import Tq2Web.Utils, only: [format_money: 1]
+
   alias Tq2.Transactions
   alias Tq2Web.Store.{ButtonComponent, HeaderComponent}
 
@@ -10,6 +12,7 @@ defmodule Tq2Web.Store.HandingLive do
       socket
       |> assign(store: store, token: token, visit_id: visit_id)
       |> load_cart(token)
+      |> add_changeset()
 
     {:ok, socket, temporary_assigns: [cart: nil]}
   end
@@ -17,18 +20,29 @@ defmodule Tq2Web.Store.HandingLive do
   @impl true
   def handle_event(
         "save",
-        %{"kind" => kind},
-        %{assigns: %{store: %{account: account}, token: token}} = socket
+        %{"cart" => %{"data" => %{"handing" => handing} = params}},
+        %{assigns: %{store: store, token: token}} = socket
       ) do
-    cart = Transactions.get_cart(account, token)
-    data = (cart.data || %Tq2.Transactions.Data{}) |> Map.from_struct()
+    cart = Transactions.get_cart(store.account, token)
+    shipping = shipping_from_params(store, params)
 
-    case Transactions.update_cart(account, cart, %{data: %{data | handing: kind}}) do
+    data =
+      cart.data
+      |> Transactions.Data.from_struct()
+      |> Map.merge(%{handing: handing, shipping: shipping})
+
+    case Transactions.update_cart(store.account, cart, %{data: data}) do
       {:ok, cart} ->
-        {:noreply, assign(socket, cart: cart)}
+        socket =
+          socket
+          |> assign(cart: cart)
+          |> add_changeset()
 
-      {:error, %Ecto.Changeset{}} ->
-        # TODO: handle this case properly
+        {:noreply, socket}
+
+      {:error, changeset} ->
+        socket = socket |> assign(cart: cart, changeset: changeset)
+
         {:noreply, socket}
     end
   end
@@ -38,4 +52,24 @@ defmodule Tq2Web.Store.HandingLive do
 
     assign(socket, cart: cart)
   end
+
+  defp delivery?(%{params: %{"handing" => "delivery"}}), do: true
+  defp delivery?(%{data: %{handing: "delivery"}}), do: true
+  defp delivery?(_data_form), do: false
+
+  defp add_changeset(%{assigns: %{cart: cart, store: %{account: account}}} = socket) do
+    changeset = account |> Transactions.change_handing_cart(cart)
+
+    socket |> assign(changeset: changeset)
+  end
+
+  defp shipping_from_params(
+         %{configuration: %{shippings: shippings}},
+         %{"handing" => "delivery", "shipping" => %{"id" => id}}
+       )
+       when id not in ["", nil] do
+    shippings |> Enum.find(&(&1.id == id)) |> Map.from_struct()
+  end
+
+  defp shipping_from_params(_store, _params), do: nil
 end

@@ -11,12 +11,12 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/live/store/order_live.html.leex:72
+#: lib/tq2_web/live/store/order_live.html.leex:68
 msgid "Thank you for your purchase!"
 msgstr "¡Gracias por tu compra!"
 
 #: lib/tq2_web/live/order/order_edit_live.html.leex:26
-#: lib/tq2_web/templates/order/show.html.eex:99
+#: lib/tq2_web/templates/order/show.html.eex:108
 msgid "Back"
 msgstr "Volver al listado"
 
@@ -43,7 +43,7 @@ msgstr "Envío a domicilio"
 msgid "Delivery type"
 msgstr "Tipo de entrega"
 
-#: lib/tq2_web/views/order_view.ex:44
+#: lib/tq2_web/views/order_view.ex:42
 msgid "Edit"
 msgstr "Editar"
 
@@ -69,8 +69,8 @@ msgstr "Pedido"
 msgid "Order updated successfully."
 msgstr "Pedido actualizado correctamente."
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:98
-#: lib/tq2_web/templates/layout/_menu.html.eex:11 lib/tq2_web/templates/layout/_menu.html.eex:95
+#: lib/tq2_web/live/dashboard/main_live.html.leex:96
+#: lib/tq2_web/templates/layout/_menu.html.eex:11 lib/tq2_web/templates/layout/_menu.html.eex:93
 #: lib/tq2_web/templates/order/index.html.eex:2
 msgid "Orders"
 msgstr "Pedidos"
@@ -89,7 +89,7 @@ msgstr "Retiro en tienda"
 msgid "Processing"
 msgstr "Procesando"
 
-#: lib/tq2_web/views/order_view.ex:34
+#: lib/tq2_web/views/order_view.ex:33
 msgid "Show"
 msgstr "Mostrar"
 
@@ -107,16 +107,16 @@ msgid "Notes"
 msgstr "Notas"
 
 #: lib/tq2_web/live/components/order/payments_component.html.leex:3
-#: lib/tq2_web/templates/order/show.html.eex:70
+#: lib/tq2_web/templates/order/show.html.eex:79
 msgid "Payments"
 msgstr "Pagos"
 
-#: lib/tq2_web/live/store/checkout_live.html.leex:31
-#: lib/tq2_web/templates/email/expired_promotion.html.eex:31 lib/tq2_web/templates/email/expired_promotion.text.eex:11
-#: lib/tq2_web/templates/email/order_confirmation.html.eex:32 lib/tq2_web/templates/email/order_confirmation.text.eex:12
-#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:30 lib/tq2_web/templates/email/owner_order_confirmation.text.eex:10
-#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:32 lib/tq2_web/templates/email/promotion_confirmation.text.eex:12
-#: lib/tq2_web/templates/order/show.html.eex:57
+#: lib/tq2_web/live/store/checkout_live.html.leex:39
+#: lib/tq2_web/templates/email/expired_promotion.html.eex:39 lib/tq2_web/templates/email/expired_promotion.text.eex:15
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:40 lib/tq2_web/templates/email/order_confirmation.text.eex:16
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:38 lib/tq2_web/templates/email/owner_order_confirmation.text.eex:14
+#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:40 lib/tq2_web/templates/email/promotion_confirmation.text.eex:16
+#: lib/tq2_web/templates/order/show.html.eex:66
 msgid "Total"
 msgstr "Total"
 
@@ -124,7 +124,7 @@ msgstr "Total"
 msgid "Here you'll see all orders, at this time there is none. For starters, share the online store link with your customers!"
 msgstr "Aquí verás todos los pedidos, en éste momento no hay ninguno. Para empezar ¡Comparte el vínculo de la tienda en linea con tus clientes!"
 
-#: lib/tq2_web/live/store/order_live.html.leex:76
+#: lib/tq2_web/live/store/order_live.html.leex:72
 msgid "Order #%{number}"
 msgstr "Pedido #%{number}"
 

@@ -39,13 +39,13 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.html.leex:22
-#: lib/tq2_web/live/registration/name_live.html.leex:23
+#: lib/tq2_web/live/registration/name_live.html.leex:20
+#: lib/tq2_web/live/registration/name_live.html.leex:21
 msgid "Store name"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.html.leex:25
-#: lib/tq2_web/live/registration/name_live.html.leex:26
+#: lib/tq2_web/live/registration/name_live.html.leex:23
+#: lib/tq2_web/live/registration/name_live.html.leex:24
 msgid "Store type"
 msgstr ""
 
@@ -73,16 +73,16 @@ msgstr ""
 msgid "Technology"
 msgstr ""
 
-#: lib/tq2_web/live/registration/email_live.html.leex:22
+#: lib/tq2_web/live/registration/email_live.html.leex:20
 msgid "Email"
 msgstr ""
 
-#: lib/tq2_web/live/registration/email_live.html.leex:25
-#: lib/tq2_web/live/registration/email_live.html.leex:26
+#: lib/tq2_web/live/registration/email_live.html.leex:23
+#: lib/tq2_web/live/registration/email_live.html.leex:24
 msgid "Email confirmation"
 msgstr ""
 
-#: lib/tq2_web/live/registration/email_live.html.leex:23
+#: lib/tq2_web/live/registration/email_live.html.leex:21
 msgid "Enter your email"
 msgstr ""
 
@@ -98,7 +98,7 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: lib/tq2_web/live/registration/password_live.html.leex:23
+#: lib/tq2_web/live/registration/password_live.html.leex:21
 msgid "Enter your password"
 msgstr ""
 
@@ -106,12 +106,12 @@ msgstr ""
 msgid "Finally"
 msgstr ""
 
-#: lib/tq2_web/live/registration/password_live.html.leex:22
+#: lib/tq2_web/live/registration/password_live.html.leex:20
 msgid "Password"
 msgstr ""
 
-#: lib/tq2_web/live/registration/password_live.html.leex:25
-#: lib/tq2_web/live/registration/password_live.html.leex:26
+#: lib/tq2_web/live/registration/password_live.html.leex:23
+#: lib/tq2_web/live/registration/password_live.html.leex:24
 msgid "Password confirmation"
 msgstr ""
 
@@ -127,23 +127,23 @@ msgstr ""
 msgid "Saving..."
 msgstr ""
 
-#: lib/tq2_web/live/registration/welcome_live.html.leex:50
+#: lib/tq2_web/live/registration/welcome_live.html.leex:46
 msgid "Enable discounts in your items with Teiqui price and get more than one order for every customer."
 msgstr ""
 
-#: lib/tq2_web/live/registration/welcome_live.html.leex:32
+#: lib/tq2_web/live/registration/welcome_live.html.leex:30
 msgid "Online store"
 msgstr ""
 
-#: lib/tq2_web/live/registration/welcome_live.html.leex:76
+#: lib/tq2_web/live/registration/welcome_live.html.leex:68
 msgid "Start using the app"
 msgstr ""
 
-#: lib/tq2_web/live/registration/welcome_live.html.leex:46
+#: lib/tq2_web/live/registration/welcome_live.html.leex:42
 msgid "Teiqui price"
 msgstr ""
 
-#: lib/tq2_web/live/registration/welcome_live.html.leex:60
+#: lib/tq2_web/live/registration/welcome_live.html.leex:54
 msgid "Teiqui sellers"
 msgstr ""
 
@@ -151,7 +151,7 @@ msgstr ""
 msgid "Thank you for choosing us. Our team will be happy to help you growth."
 msgstr ""
 
-#: lib/tq2_web/live/registration/welcome_live.html.leex:36
+#: lib/tq2_web/live/registration/welcome_live.html.leex:34
 msgid "Upload your items, choose delivery options, payment methods y get orders online."
 msgstr ""
 
@@ -159,11 +159,11 @@ msgstr ""
 msgid "Welcome!"
 msgstr ""
 
-#: lib/tq2_web/live/registration/welcome_live.html.leex:64
+#: lib/tq2_web/live/registration/welcome_live.html.leex:58
 msgid "Your customers will become your sellers using group shopping, thus bringing new buyers."
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.html.leex:29
+#: lib/tq2_web/live/registration/name_live.html.leex:27
 msgid "I agree to the %{link}"
 msgstr ""
 

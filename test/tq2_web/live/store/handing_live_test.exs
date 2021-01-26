@@ -111,10 +111,31 @@ defmodule Tq2Web.Store.HandingLiveTest do
       assert has_element?(handing_live, ".btn.btn-block.disabled")
 
       assert handing_live
-             |> form("form", %{kind: "pickup"})
+             |> form("form", cart: %{data: %{handing: "pickup"}})
              |> render_change()
 
       refute has_element?(handing_live, ".btn.btn-block.disabled")
+    end
+
+    test "save event with delivery", %{conn: conn, cart: _cart, store: store} do
+      path = Routes.handing_path(conn, :index, store)
+      {:ok, handing_live, _html} = live(conn, path)
+
+      assert has_element?(handing_live, ".btn.btn-block.disabled")
+
+      assert handing_live
+             |> form("form", cart: %{data: %{handing: "delivery"}})
+             |> render_change()
+
+      assert has_element?(handing_live, ".btn.btn-block.disabled")
+
+      shipping = store.configuration.shippings |> List.first()
+
+      assert handing_live
+             |> form("form", cart: %{data: %{handing: "delivery", shipping: %{id: shipping.id}}})
+             |> render_change()
+
+      assert has_element?(handing_live, ".btn.btn-block.btn-primary", "$10.90")
     end
   end
 end

@@ -36,6 +36,20 @@ defmodule Tq2.Transactions.Cart do
     |> cast(attrs, [:token, :price_type, :customer_id, :visit_id])
     |> cast_embed(:data)
     |> put_account(account)
+    |> validate()
+  end
+
+  @doc false
+  def handing_changeset(%Cart{} = cart, attrs, %Account{} = account) do
+    cart
+    |> cast(attrs, [:token, :price_type, :customer_id, :visit_id])
+    |> cast_embed(:data, required: true)
+    |> put_account(account)
+    |> validate()
+  end
+
+  defp validate(%Ecto.Changeset{} = changeset) do
+    changeset
     |> validate_required([:token, :price_type])
     |> validate_length(:token, max: 255)
     |> validate_inclusion(:price_type, @price_types)
@@ -84,6 +98,12 @@ defmodule Tq2.Transactions.Cart do
     |> Enum.reduce(fn amount, total -> Money.add(amount, total) end)
   end
 
+  def total(%Cart{data: %{handing: "delivery", shipping: %{price: price}}} = cart) do
+    %{cart | data: %{}}
+    |> total()
+    |> Money.add(price)
+  end
+
   def total(%Cart{} = cart) do
     cart.lines
     |> Enum.map(&line_total(cart, &1))
@@ -105,6 +125,9 @@ defmodule Tq2.Transactions.Cart do
   def currency(%Cart{lines: lines}) do
     lines |> List.first() |> Map.get(:price) |> Map.get(:currency) |> Atom.to_string()
   end
+
+  def shipping(%Cart{data: %{shipping: shipping}}), do: shipping
+  def shipping(%Cart{}), do: nil
 
   defp put_account(%Ecto.Changeset{} = changeset, %Account{} = account) do
     changeset |> change(account_id: account.id)

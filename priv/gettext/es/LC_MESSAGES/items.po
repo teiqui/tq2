@@ -11,7 +11,7 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/views/item_view.ex:39
+#: lib/tq2_web/views/item_view.ex:36
 msgid "Are you sure?"
 msgstr "¿Está seguro de eliminar el artículo?"
 
@@ -25,16 +25,16 @@ msgstr "Listado de artículos"
 msgid "Category"
 msgstr "Categoría"
 
-#: lib/tq2_web/templates/item/_form.html.eex:24
+#: lib/tq2_web/templates/item/_form.html.eex:22
 #: lib/tq2_web/templates/item/show.html.eex:36
 msgid "Cost"
 msgstr "Costo"
 
-#: lib/tq2_web/views/item_view.ex:126
+#: lib/tq2_web/views/item_view.ex:123
 msgid "Create"
 msgstr "Crear artículo"
 
-#: lib/tq2_web/views/item_view.ex:36
+#: lib/tq2_web/views/item_view.ex:33
 msgid "Delete"
 msgstr "Eliminar artículo"
 
@@ -43,7 +43,7 @@ msgstr "Eliminar artículo"
 msgid "Description"
 msgstr "Descripción"
 
-#: lib/tq2_web/views/item_view.ex:26
+#: lib/tq2_web/views/item_view.ex:24
 msgid "Edit"
 msgstr "Editar artículo"
 
@@ -72,8 +72,8 @@ msgid "Item updated successfully."
 msgstr "Artículo actualizado correctamente."
 
 #: lib/tq2_web/templates/item/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:123 lib/tq2_web/templates/layout/_menu.html.eex:128
-#: lib/tq2_web/views/layout_view.ex:64
+#: lib/tq2_web/templates/layout/_menu.html.eex:121 lib/tq2_web/templates/layout/_menu.html.eex:126
+#: lib/tq2_web/views/layout_view.ex:62
 msgid "Items"
 msgstr "Artículos"
 
@@ -88,7 +88,7 @@ msgid "New item"
 msgstr "Nuevo artículo"
 
 #: lib/tq2_web/templates/item/_form.html.eex:12
-#: lib/tq2_web/views/item_view.ex:72
+#: lib/tq2_web/views/item_view.ex:69
 msgid "None"
 msgstr "Ninguna"
 
@@ -101,12 +101,12 @@ msgstr "Ups, parece que algo no salió bien. Por favor, revisa los errores."
 msgid "Price"
 msgstr "Precio"
 
-#: lib/tq2_web/live/store/item_live.html.leex:46
-#: lib/tq2_web/templates/item/show.html.eex:32 lib/tq2_web/views/item_view.ex:143
+#: lib/tq2_web/live/store/item_live.html.leex:48
+#: lib/tq2_web/templates/item/show.html.eex:32 lib/tq2_web/views/item_view.ex:140
 msgid "Promotional price"
 msgstr "Precio Teiqui"
 
-#: lib/tq2_web/views/item_view.ex:16
+#: lib/tq2_web/views/item_view.ex:15
 msgid "Show"
 msgstr "Ver artículo"
 
@@ -115,7 +115,7 @@ msgstr "Ver artículo"
 msgid "Sku"
 msgstr "Código de artículo"
 
-#: lib/tq2_web/views/item_view.ex:127
+#: lib/tq2_web/views/item_view.ex:124
 msgid "Update"
 msgstr "Actualizar artículo"
 
@@ -128,13 +128,13 @@ msgstr "Visibilidad"
 msgid "Visible"
 msgstr "Visible"
 
-#: lib/tq2_web/live/inventory/import_live.html.leex:18
+#: lib/tq2_web/live/inventory/import_live.html.leex:16
 msgid "One item imported!"
 msgid_plural "%{count} items imported!"
 msgstr[0] "¡Se importó un artículo!"
 msgstr[1] "¡Se importaron %{count} artículos!"
 
-#: lib/tq2_web/live/inventory/import_live.html.leex:21
+#: lib/tq2_web/live/inventory/import_live.html.leex:19
 msgid "Go to item list"
 msgstr "Ver el listado de artículos"
 
@@ -154,29 +154,29 @@ msgstr "Importando..."
 msgid "Select store type..."
 msgstr "Seleccione un tipo de tienda..."
 
-#: lib/tq2_web/live/inventory/import_live.html.leex:26
-#: lib/tq2_web/live/inventory/import_live.html.leex:29
+#: lib/tq2_web/live/inventory/import_live.html.leex:24
+#: lib/tq2_web/live/inventory/import_live.html.leex:27
 msgid "Store type"
 msgstr "Tipo de tienda"
 
-#: lib/tq2_web/live/inventory/import_live.html.leex:45
+#: lib/tq2_web/live/inventory/import_live.html.leex:43
 msgid "Importing items, please wait..."
 msgstr "Importando artículos, por favor espere..."
 
-#: lib/tq2_web/live/inventory/import_live.html.leex:38
+#: lib/tq2_web/live/inventory/import_live.html.leex:36
 msgid "Skip import"
 msgstr "Omitir importación"
 
-#: lib/tq2_web/templates/item/empty.html.eex:22
+#: lib/tq2_web/templates/item/empty.html.eex:20
 #: lib/tq2_web/templates/item/index.html.eex:39
 msgid "Import items"
 msgstr "Importar artículos"
 
-#: lib/tq2_web/views/item_view.ex:135
+#: lib/tq2_web/views/item_view.ex:132
 msgid "This price is the secret sauce to attract new customers, it's recommended to be about 40% off the regular price."
 msgstr "Este precio es la salsa secreta para atraer nuevos clientes, se recomienda cerca del 40% de descuento sobre el precio normal."
 
-#: lib/tq2_web/views/item_view.ex:166 lib/tq2_web/views/item_view.ex:177
+#: lib/tq2_web/views/item_view.ex:163 lib/tq2_web/views/item_view.ex:172
 msgid "Add item"
 msgstr "Agregar artículo"
 

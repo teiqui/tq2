@@ -167,5 +167,28 @@ defmodule Tq2Web.Store.CheckoutLiveTest do
 
       assert render(checkout_live) =~ "Your cart is empty."
     end
+
+    test "render shipping and right cart total", %{conn: conn, cart: cart, store: store} do
+      shipping = store.configuration.shippings |> List.first() |> Map.from_struct()
+
+      data =
+        cart.data
+        |> Tq2.Transactions.Data.from_struct()
+        |> Map.merge(%{handing: "delivery", shipping: shipping})
+
+      {:ok, _cart} = Tq2.Transactions.update_cart(store.account, cart, %{data: data})
+
+      path = Routes.checkout_path(conn, :index, store)
+      {:ok, checkout_live, html} = live(conn, path)
+
+      assert html =~ "Teiqui price"
+      assert html =~ "Shipping"
+      assert html =~ "Anywhere"
+      assert html =~ "$10.00"
+      assert html =~ "Regular price: $11.00"
+      assert render(checkout_live) =~ "Teiqui price"
+      assert has_element?(checkout_live, ".btn.btn-block")
+      assert has_element?(checkout_live, "tfoot tr td div.text-primary", "$10.90")
+    end
   end
 end

@@ -23,10 +23,10 @@ msgid "More"
 msgstr ""
 
 #: lib/tq2_web/templates/layout/_menu.html.eex:29
-#: lib/tq2_web/templates/layout/_menu.html.eex:104
+#: lib/tq2_web/templates/layout/_menu.html.eex:102
 msgid "Payments"
 msgstr ""
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:147
+#: lib/tq2_web/templates/layout/_menu.html.eex:145
 msgid "Settings"
 msgstr ""

@@ -1,24 +1,15 @@
 defmodule Tq2Web.Store.ButtonComponent do
   use Tq2Web, :live_component
 
+  import Tq2Web.Utils, only: [format_money: 1]
+
   alias Tq2.Transactions.Cart
   alias Tq2Web.Store.{OptionsComponent, ShareComponent}
 
   def cart_total(%Cart{} = cart) do
-    cart
-    |> amounts()
-    |> Enum.reduce(fn price, total -> Money.add(price, total) end)
-    |> Money.to_string(symbol: true)
+    cart |> Cart.total() |> format_money()
   end
 
   defp show_button?(%{lines: []}), do: false
   defp show_button?(_), do: true
-
-  defp amounts(%Cart{price_type: "promotional", lines: lines}) do
-    Enum.map(lines, &Money.multiply(&1.promotional_price, &1.quantity))
-  end
-
-  defp amounts(%Cart{price_type: "regular", lines: lines}) do
-    Enum.map(lines, &Money.multiply(&1.price, &1.quantity))
-  end
 end

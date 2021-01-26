@@ -15,37 +15,37 @@ msgstr ""
 msgid "* In relation to the previous day."
 msgstr "* En relación al día anterior"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:50
+#: lib/tq2_web/live/dashboard/main_live.html.leex:48
 msgid "All channels"
 msgstr "Todos los canales"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:45
-#: lib/tq2_web/templates/layout/_menu.html.eex:113
+#: lib/tq2_web/live/dashboard/main_live.html.leex:43
+#: lib/tq2_web/templates/layout/_menu.html.eex:111
 msgid "Dashboard"
 msgstr "Panel"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:120
+#: lib/tq2_web/live/dashboard/main_live.html.leex:118
 msgid "Finished"
 msgstr "Finalizados"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:103
+#: lib/tq2_web/live/dashboard/main_live.html.leex:101
 msgid "Go to orders"
 msgstr "Ver pedidos"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:112
+#: lib/tq2_web/live/dashboard/main_live.html.leex:110
 msgid "Pending"
 msgstr "Pendientes"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:85
+#: lib/tq2_web/live/dashboard/main_live.html.leex:83
 msgid "Performance"
 msgstr "Rendimiento"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:76
+#: lib/tq2_web/live/dashboard/main_live.html.leex:74
 msgid "Regular"
 msgstr "Normales"
 
 #: lib/tq2_web/live/dashboard/main_live.html.leex:8
-#: lib/tq2_web/live/dashboard/main_live.html.leex:62
+#: lib/tq2_web/live/dashboard/main_live.html.leex:60
 msgid "Sales"
 msgstr "Ventas"
 
@@ -53,11 +53,11 @@ msgstr "Ventas"
 msgid "Share your store."
 msgstr "Comparte tu tienda."
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:54
+#: lib/tq2_web/live/dashboard/main_live.html.leex:52
 msgid "Store visits"
 msgstr "Visitas a la tienda"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:68
+#: lib/tq2_web/live/dashboard/main_live.html.leex:66
 msgid "Teiqui price"
 msgstr "Precio Teiqui"
 
@@ -70,7 +70,7 @@ msgid "There is not enough data."
 msgstr "No existen suficientes datos."
 
 #: lib/tq2_web/live/dashboard/main_live.html.leex:4
-#: lib/tq2_web/live/dashboard/main_live.html.leex:41
+#: lib/tq2_web/live/dashboard/main_live.html.leex:39
 msgid "Today"
 msgstr "Hoy"
 

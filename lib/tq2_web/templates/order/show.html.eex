@@ -49,6 +49,15 @@
               <td><%= line_total @order.cart, line %></td>
             </tr>
           <% end %>
+
+          <%= if @shipping do %>
+            <tr>
+              <td><%= @shipping.name %> (<%= dgettext("stores", "Shipping") %>)</td>
+              <td></td>
+              <td class="d-none d-md-table-cell d-print-table-cell text-nowrap">
+              <td><%= format_money @shipping.price %></td>
+            </tr>
+          <% end %>
         </tbody>
 
         <tfoot>

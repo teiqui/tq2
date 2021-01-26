@@ -45,6 +45,13 @@ defmodule Tq2.Utils.Schema do
     end
   end
 
+  def validate_required_if_field_has_value(changeset, field, conditional_field, conditional_value) do
+    case get_field(changeset, conditional_field) == conditional_value do
+      true -> validate_required(changeset, [field])
+      _ -> changeset
+    end
+  end
+
   def validate_less_than_money_field(changeset, field, conditional_field) do
     validate_number_with_value(
       changeset,
