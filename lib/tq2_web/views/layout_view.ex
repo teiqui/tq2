@@ -31,7 +31,6 @@ defmodule Tq2Web.LayoutView do
     {class, opts} = Keyword.pop(opts, :class, "text-light")
     {text_class, opts} = Keyword.pop(opts, :text_class)
     {icon_class, opts} = Keyword.pop(opts, :icon_class)
-    {icon_size, opts} = Keyword.pop(opts, :icon_size, "h2")
 
     link_opts =
       opts
@@ -41,7 +40,7 @@ defmodule Tq2Web.LayoutView do
     content = ~E"""
       <div class="mt-1 text-center">
         <span class="d-block btn-menu mx-auto <%= icon_class %>">
-          <i class="bi-<%= icon %> <%= icon_size %>"></i>
+          <i class="bi-<%= icon %>"></i>
         </span>
 
         <span class="d-block <%= text_class %>">
