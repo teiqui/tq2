@@ -6,6 +6,7 @@ defmodule Tq2Web.OrderView do
   import Tq2Web.LinkHelpers, only: [icon_link: 2]
 
   alias Tq2.Payments.Payment
+  alias Tq2.Sales.Order
   alias Tq2.Transactions.Cart
 
   @statuses %{
@@ -53,6 +54,14 @@ defmodule Tq2Web.OrderView do
 
   defp status(status), do: invert(@statuses)[status]
 
+  defp type(%Order{cart: %{price_type: "promotional"}}) do
+    dgettext("orders", "Teiqui")
+  end
+
+  defp type(_order) do
+    dgettext("orders", "Regular")
+  end
+
   defp cart_handing(type), do: @cart_handing[type]
 
   defp line_price(%Cart{price_type: "promotional"}, line) do
@@ -78,4 +87,52 @@ defmodule Tq2Web.OrderView do
   end
 
   defp pending_payment_alert(_), do: nil
+
+  defp show_promotion_alert?(%Cart{price_type: "promotional"}), do: true
+  defp show_promotion_alert?(_cart), do: false
+
+  defp promotion_alert_class(%Order{parents: [], children: []} = order) do
+    case DateTime.utc_now() |> DateTime.compare(order.promotion_expires_at) do
+      :gt -> "danger"
+      _ -> "warning"
+    end
+  end
+
+  defp promotion_alert_class(%Order{} = _order) do
+    "success"
+  end
+
+  defp promotion_alert_text(%Order{parents: [], children: []} = order) do
+    case DateTime.utc_now() |> DateTime.compare(order.promotion_expires_at) do
+      :gt ->
+        dgettext(
+          "orders",
+          "This order has promotional price, but the time to join has expired (the limit was %{date})",
+          date: localize_datetime(order.promotion_expires_at)
+        )
+
+      _ ->
+        dgettext(
+          "orders",
+          "This order has promotional price, but none other has joined yet, time expires at <strong>%{date}</strong>",
+          date: localize_datetime(order.promotion_expires_at)
+        )
+    end
+  end
+
+  defp promotion_alert_text(%Order{parents: [], children: children}) do
+    dngettext(
+      "orders",
+      "This order has promotional price, and the customer has brought another one, so both gets the discount!",
+      "This order has promotional price, and the customer has brought %{count} more, so all of them gets the discount!",
+      Enum.count(children)
+    )
+  end
+
+  defp promotion_alert_text(%Order{}) do
+    dgettext(
+      "orders",
+      "This order has promotional price, and the customer join another, so both gets the discount!"
+    )
+  end
 end

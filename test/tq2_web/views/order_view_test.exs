@@ -56,6 +56,7 @@ defmodule Tq2Web.OrderViewTest do
     assert String.contains?(content, "$1.80")
     assert String.contains?(content, "MercadoPago")
     assert String.contains?(content, "exclamation-triangle")
+    assert String.contains?(content, "Child")
   end
 
   @tag login_as: "test@user.com"
@@ -94,7 +95,14 @@ defmodule Tq2Web.OrderViewTest do
             inserted_at: Timex.now()
           }
         ]
-      }
+      },
+      children: [
+        %Order{
+          id: 2,
+          customer: %Customer{name: "Child"}
+        }
+      ],
+      parents: []
     }
   end
 end

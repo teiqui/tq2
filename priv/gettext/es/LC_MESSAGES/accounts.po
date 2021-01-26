@@ -12,7 +12,7 @@ msgstr ""
 "Plural-Forms: nplurals=2\n"
 
 #: lib/tq2_web/templates/account/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:169
+#: lib/tq2_web/templates/layout/_menu.html.eex:161
 msgid "Accounts"
 msgstr "Cuentas"
 

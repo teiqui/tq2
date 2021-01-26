@@ -72,8 +72,8 @@ msgid "Item updated successfully."
 msgstr "Artículo actualizado correctamente."
 
 #: lib/tq2_web/templates/item/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:121 lib/tq2_web/templates/layout/_menu.html.eex:126
-#: lib/tq2_web/views/layout_view.ex:62
+#: lib/tq2_web/templates/layout/_menu.html.eex:117 lib/tq2_web/templates/layout/_menu.html.eex:122
+#: lib/tq2_web/views/layout_view.ex:61
 msgid "Items"
 msgstr "Artículos"
 

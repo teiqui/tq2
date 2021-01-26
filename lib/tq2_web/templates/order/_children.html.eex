@@ -1,0 +1,12 @@
+<p class="font-weight-bold mb-2">
+  <%= dgettext("orders", "Attracted orders") %>
+</p>
+
+<ul>
+  <%= for child <- @children do %>
+    <li>
+      <%= link dgettext("orders", "Order #%{number} (%{customer})", number: child.id, customer: child.customer.name),
+               to: Routes.order_path(@conn, :show, child) %>
+    </li>
+  <% end %>
+</ul>

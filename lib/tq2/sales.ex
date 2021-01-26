@@ -230,11 +230,13 @@ defmodule Tq2.Sales do
     |> join(:left, [o, c], p in assoc(c, :payments))
     |> join(:left, [o], parents in assoc(o, :parents))
     |> join(:left, [o], children in assoc(o, :children))
-    |> preload([o, c, customer, l, p, parents, children],
+    |> join(:left, [o, c, customer, l, p, parents], p_c in assoc(parents, :customer))
+    |> join(:left, [o, c, customer, l, p, parents, children], c_c in assoc(children, :customer))
+    |> preload([o, c, customer, l, p, parents, children, p_c, c_c],
       cart: {c, lines: l, payments: p},
       customer: customer,
-      parents: parents,
-      children: children
+      parents: {parents, customer: p_c},
+      children: {children, customer: c_c}
     )
     |> Repo.get!(id)
   end

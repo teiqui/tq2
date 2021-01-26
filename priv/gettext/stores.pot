@@ -317,7 +317,7 @@ msgstr ""
 #: lib/tq2_web/templates/email/expired_promotion.text.eex:12 lib/tq2_web/templates/email/order_confirmation.html.eex:30
 #: lib/tq2_web/templates/email/order_confirmation.text.eex:13 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:28
 #: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:11 lib/tq2_web/templates/email/promotion_confirmation.html.eex:30
-#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:13 lib/tq2_web/templates/order/show.html.eex:55
+#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:13 lib/tq2_web/templates/order/show.html.eex:71
 msgid "Shipping"
 msgstr ""
 
