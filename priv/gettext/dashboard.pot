@@ -14,37 +14,37 @@ msgstr ""
 msgid "* In relation to the previous day."
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:50
+#: lib/tq2_web/live/dashboard/main_live.html.leex:48
 msgid "All channels"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:45
-#: lib/tq2_web/templates/layout/_menu.html.eex:113
+#: lib/tq2_web/live/dashboard/main_live.html.leex:43
+#: lib/tq2_web/templates/layout/_menu.html.eex:111
 msgid "Dashboard"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:120
+#: lib/tq2_web/live/dashboard/main_live.html.leex:118
 msgid "Finished"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:103
+#: lib/tq2_web/live/dashboard/main_live.html.leex:101
 msgid "Go to orders"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:112
+#: lib/tq2_web/live/dashboard/main_live.html.leex:110
 msgid "Pending"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:85
+#: lib/tq2_web/live/dashboard/main_live.html.leex:83
 msgid "Performance"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:76
+#: lib/tq2_web/live/dashboard/main_live.html.leex:74
 msgid "Regular"
 msgstr ""
 
 #: lib/tq2_web/live/dashboard/main_live.html.leex:8
-#: lib/tq2_web/live/dashboard/main_live.html.leex:62
+#: lib/tq2_web/live/dashboard/main_live.html.leex:60
 msgid "Sales"
 msgstr ""
 
@@ -52,11 +52,11 @@ msgstr ""
 msgid "Share your store."
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:54
+#: lib/tq2_web/live/dashboard/main_live.html.leex:52
 msgid "Store visits"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:68
+#: lib/tq2_web/live/dashboard/main_live.html.leex:66
 msgid "Teiqui price"
 msgstr ""
 
@@ -69,7 +69,7 @@ msgid "There is not enough data."
 msgstr ""
 
 #: lib/tq2_web/live/dashboard/main_live.html.leex:4
-#: lib/tq2_web/live/dashboard/main_live.html.leex:41
+#: lib/tq2_web/live/dashboard/main_live.html.leex:39
 msgid "Today"
 msgstr ""
 

@@ -11,7 +11,7 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/views/category_view.ex:32
+#: lib/tq2_web/views/category_view.ex:29
 msgid "Are you sure?"
 msgstr ""
 
@@ -21,7 +21,7 @@ msgid "Back"
 msgstr ""
 
 #: lib/tq2_web/templates/category/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:137
+#: lib/tq2_web/templates/layout/_menu.html.eex:135
 msgid "Categories"
 msgstr ""
 
@@ -41,15 +41,15 @@ msgstr ""
 msgid "Category updated successfully."
 msgstr ""
 
-#: lib/tq2_web/views/category_view.ex:49
+#: lib/tq2_web/views/category_view.ex:46
 msgid "Create"
 msgstr ""
 
-#: lib/tq2_web/views/category_view.ex:29
+#: lib/tq2_web/views/category_view.ex:26
 msgid "Delete"
 msgstr ""
 
-#: lib/tq2_web/views/category_view.ex:19
+#: lib/tq2_web/views/category_view.ex:17
 msgid "Edit"
 msgstr ""
 
@@ -79,10 +79,10 @@ msgstr ""
 msgid "Oops, something went wrong! Please check the errors below."
 msgstr ""
 
-#: lib/tq2_web/views/category_view.ex:9
+#: lib/tq2_web/views/category_view.ex:8
 msgid "Show"
 msgstr ""
 
-#: lib/tq2_web/views/category_view.ex:50
+#: lib/tq2_web/views/category_view.ex:47
 msgid "Update"
 msgstr ""

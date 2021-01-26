@@ -78,8 +78,21 @@ defmodule Tq2.Transactions do
       %Ecto.Changeset{source: %Cart{}}
 
   """
-  def change_cart(%Account{} = account, %Cart{} = cart) do
-    Cart.changeset(cart, %{}, account)
+  def change_cart(%Account{} = account, %Cart{} = cart, attrs \\ %{}) do
+    Cart.changeset(cart, attrs, account)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking cart changes for handing.
+
+  ## Examples
+
+      iex> change_handing_cart(%Account{}, cart)
+      %Ecto.Changeset{source: %Cart{}}
+
+  """
+  def change_handing_cart(%Account{} = account, %Cart{} = cart, attrs \\ %{}) do
+    Cart.handing_changeset(cart, attrs, account)
   end
 
   alias Tq2.Transactions.Line

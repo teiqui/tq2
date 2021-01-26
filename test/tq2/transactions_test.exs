@@ -68,6 +68,22 @@ defmodule Tq2.TransactionsTest do
 
       assert %Ecto.Changeset{} = Transactions.change_cart(account, cart)
     end
+
+    test "change_handing_cart/2 returns a cart changeset" do
+      account = account()
+      cart = fixture(account, :cart)
+
+      assert %Ecto.Changeset{valid?: false} = Transactions.change_handing_cart(account, cart)
+    end
+
+    test "change_handing_cart/3 returns a valid cart changeset" do
+      account = account()
+      cart = fixture(account, :cart)
+      attrs = %{data: %{handing: "pickup"}}
+
+      assert %Ecto.Changeset{valid?: true} =
+               Transactions.change_handing_cart(account, cart, attrs)
+    end
   end
 
   describe "lines" do

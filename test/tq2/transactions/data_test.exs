@@ -36,5 +36,32 @@ defmodule Tq2.Transactions.DataTest do
       assert "is invalid" in errors_on(changeset).handing
       assert "is invalid" in errors_on(changeset).payment
     end
+
+    test "changeset require shipping with delivery" do
+      attrs =
+        @valid_attrs
+        |> Map.put(:handing, "delivery")
+        |> Map.put(:shipping, nil)
+
+      changeset = Data.changeset(%Data{}, attrs)
+
+      assert "can't be blank" in errors_on(changeset).shipping
+    end
+
+    test "from_struct/1 returns a valid non-struct map" do
+      map = Map.from_struct(%Data{})
+
+      assert ^map = Data.from_struct(nil)
+      assert ^map = Data.from_struct(%Data{})
+
+      shipping = %Tq2.Shops.Shipping{
+        name: "Anywhere",
+        price: %Money{amount: 1000, currency: :ARS}
+      }
+
+      map = Map.put(map, :shipping, Map.from_struct(shipping))
+
+      assert ^map = Data.from_struct(%Data{shipping: shipping})
+    end
   end
 end

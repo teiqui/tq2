@@ -27,7 +27,7 @@ msgstr ""
 msgid "Successfully authorized"
 msgstr ""
 
-#: lib/tq2/gateways/mercado_pago.ex:279 lib/tq2/gateways/mercado_pago.ex:280
+#: lib/tq2/gateways/mercado_pago.ex:270
 msgid "Pending amount of order #%{id}"
 msgstr ""
 
@@ -39,10 +39,10 @@ msgstr ""
 msgid "Invalid credentials: '%{error}'"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:144
+#: lib/tq2_web/views/app_view.ex:142
 msgid "To use MercadoPago you have to create an application following the next %{link} and then copy the production Access Token in the field below."
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:136
+#: lib/tq2_web/views/app_view.ex:134
 msgid "link"
 msgstr ""

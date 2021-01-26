@@ -20,4 +20,8 @@ defmodule Tq2Web.Utils do
 
     formatted
   end
+
+  def format_money(%Money{} = money) do
+    Money.to_string(money, symbol: true)
+  end
 end

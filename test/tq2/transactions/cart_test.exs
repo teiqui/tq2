@@ -51,6 +51,26 @@ defmodule Tq2.Transactions.CartTest do
       assert "is invalid" in errors_on(changeset).price_type
     end
 
+    test "total for promotinal price with shipping" do
+      visit = create_visit()
+
+      attrs =
+        @valid_attrs
+        |> Map.merge(%{
+          visit_id: visit.id,
+          data: %{
+            handing: "delivery",
+            shipping: %{name: "Anywhere", price: %Money{amount: 1000, currency: :ARS}}
+          }
+        })
+
+      {:ok, cart} = default_account() |> Tq2.Transactions.create_cart(attrs)
+
+      cart = create_line(cart)
+
+      assert Money.new(1270, "ARS") == Cart.total(cart)
+    end
+
     test "total for promotinal price" do
       visit = create_visit()
 
@@ -179,6 +199,18 @@ defmodule Tq2.Transactions.CartTest do
       cart = create_line(cart)
 
       assert Cart.currency(cart) == "ARS"
+    end
+
+    test "shipping/1 returns valid shipping" do
+      shipping = %{name: "Anywhere", price: %Money{amount: 1000, currency: :ARS}}
+
+      assert shipping == Cart.shipping(%Cart{data: %{shipping: shipping}})
+    end
+
+    test "shipping/1 returns nil" do
+      refute Cart.shipping(%Cart{data: %{shipping: nil}})
+      refute Cart.shipping(%Cart{data: %{}})
+      refute Cart.shipping(%Cart{})
     end
   end
 

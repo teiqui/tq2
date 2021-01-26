@@ -27,7 +27,7 @@ msgstr "Autorización inválida"
 msgid "Successfully authorized"
 msgstr "Autorizado correctamente"
 
-#: lib/tq2/gateways/mercado_pago.ex:279 lib/tq2/gateways/mercado_pago.ex:280
+#: lib/tq2/gateways/mercado_pago.ex:270
 msgid "Pending amount of order #%{id}"
 msgstr "Monto pendiente orden #%{id}"
 
@@ -39,10 +39,10 @@ msgstr "Access Token"
 msgid "Invalid credentials: '%{error}'"
 msgstr "Credencial no valida: '%{error}'"
 
-#: lib/tq2_web/views/app_view.ex:144
+#: lib/tq2_web/views/app_view.ex:142
 msgid "To use MercadoPago you have to create an application following the next %{link} and then copy the production Access Token in the field below."
 msgstr "Para utilizar MercadoPago deberás crear una aplicación siguiendo el siguiente %{link} y luego copiar el Access Token de producción en el campo debajo."
 
-#: lib/tq2_web/views/app_view.ex:136
+#: lib/tq2_web/views/app_view.ex:134
 msgid "link"
 msgstr "enlace"

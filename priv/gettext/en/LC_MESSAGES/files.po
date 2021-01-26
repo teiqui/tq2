@@ -12,6 +12,6 @@ msgstr ""
 "Plural-Forms: nplurals=2\n"
 
 #: lib/tq2_web/live/shop/store_live.html.leex:38
-#: lib/tq2_web/views/input_helpers.ex:76
+#: lib/tq2_web/views/input_helpers.ex:90
 msgid "Browse"
 msgstr ""

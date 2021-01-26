@@ -22,6 +22,14 @@
               </td>
             </tr>
           <% end %>
+
+          <%= if @shipping do %>
+            <tr>
+              <td class="text-nowrap"><%= dgettext("stores", "Shipping") %></td>
+              <td><%= @shipping.name %></td>
+              <td class="text-right"><%= format_money @shipping.price %></td>
+            </tr>
+          <% end %>
         </tbody>
 
         <tfoot>
@@ -84,5 +92,5 @@
 <%= live_component @socket, ButtonComponent, store: @store,
                                              cart: @cart,
                                              token: @token,
-                                             to: Routes.handing_path(@socket, :index, @store),
+                                             to: Routes.customer_path(@socket, :index, @store),
                                              enabled: true %>

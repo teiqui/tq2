@@ -7,6 +7,7 @@ defmodule Tq2Web.Store.PaymentLive do
   alias Tq2.Gateways.MercadoPago, as: MPClient
   alias Tq2.Gateways.MercadoPago.Credential, as: MPCredential
   alias Tq2.Payments
+  alias Tq2.Payments.Payment
   alias Tq2.Transactions.Cart
   alias Tq2.{Apps, Transactions}
   alias Tq2Web.Store.HeaderComponent
@@ -31,7 +32,7 @@ defmodule Tq2Web.Store.PaymentLive do
         %{assigns: %{store: %{account: account}, token: token}} = socket
       ) do
     cart = Transactions.get_cart(account, token)
-    data = (cart.data || %Tq2.Transactions.Data{}) |> Map.from_struct()
+    data = Tq2.Transactions.Data.from_struct(cart.data)
 
     case Transactions.update_cart(account, cart, %{data: %{data | payment: kind}}) do
       {:ok, cart} ->
@@ -89,7 +90,7 @@ defmodule Tq2Web.Store.PaymentLive do
   defp create_mp_payment(socket, store, cart) do
     cart
     |> create_mp_preference(store)
-    |> create_pending_payment(cart)
+    |> handle_pending_payment(cart)
     |> response_from_payment(socket)
   end
 
@@ -171,11 +172,15 @@ defmodule Tq2Web.Store.PaymentLive do
     |> MPClient.create_cart_preference(cart, store)
   end
 
-  defp mp_cart_preference(payment, _, _), do: payment.gateway_data
+  defp mp_cart_preference(payment, _, _), do: payment
 
-  defp create_pending_payment(%{"message" => error}, _), do: error
+  defp handle_pending_payment(%{"message" => error}, _), do: error
 
-  defp create_pending_payment(mp_preference, cart) do
+  defp handle_pending_payment(%Payment{} = payment, _cart) do
+    {:ok, payment}
+  end
+
+  defp handle_pending_payment(mp_preference, cart) do
     attrs = %{
       status: "pending",
       kind: "mercado_pago",

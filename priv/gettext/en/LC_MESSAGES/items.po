@@ -11,7 +11,7 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/views/item_view.ex:39
+#: lib/tq2_web/views/item_view.ex:36
 msgid "Are you sure?"
 msgstr ""
 
@@ -25,16 +25,16 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
-#: lib/tq2_web/templates/item/_form.html.eex:24
+#: lib/tq2_web/templates/item/_form.html.eex:22
 #: lib/tq2_web/templates/item/show.html.eex:36
 msgid "Cost"
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:126
+#: lib/tq2_web/views/item_view.ex:123
 msgid "Create"
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:36
+#: lib/tq2_web/views/item_view.ex:33
 msgid "Delete"
 msgstr ""
 
@@ -43,7 +43,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:26
+#: lib/tq2_web/views/item_view.ex:24
 msgid "Edit"
 msgstr ""
 
@@ -72,8 +72,8 @@ msgid "Item updated successfully."
 msgstr ""
 
 #: lib/tq2_web/templates/item/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:123 lib/tq2_web/templates/layout/_menu.html.eex:128
-#: lib/tq2_web/views/layout_view.ex:64
+#: lib/tq2_web/templates/layout/_menu.html.eex:121 lib/tq2_web/templates/layout/_menu.html.eex:126
+#: lib/tq2_web/views/layout_view.ex:62
 msgid "Items"
 msgstr ""
 
@@ -88,7 +88,7 @@ msgid "New item"
 msgstr ""
 
 #: lib/tq2_web/templates/item/_form.html.eex:12
-#: lib/tq2_web/views/item_view.ex:72
+#: lib/tq2_web/views/item_view.ex:69
 msgid "None"
 msgstr ""
 
@@ -101,12 +101,12 @@ msgstr ""
 msgid "Price"
 msgstr ""
 
-#: lib/tq2_web/live/store/item_live.html.leex:46
-#: lib/tq2_web/templates/item/show.html.eex:32 lib/tq2_web/views/item_view.ex:143
+#: lib/tq2_web/live/store/item_live.html.leex:48
+#: lib/tq2_web/templates/item/show.html.eex:32 lib/tq2_web/views/item_view.ex:140
 msgid "Promotional price"
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:16
+#: lib/tq2_web/views/item_view.ex:15
 msgid "Show"
 msgstr ""
 
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Sku"
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:127
+#: lib/tq2_web/views/item_view.ex:124
 msgid "Update"
 msgstr ""
 
@@ -128,13 +128,13 @@ msgstr ""
 msgid "Visible"
 msgstr ""
 
-#: lib/tq2_web/live/inventory/import_live.html.leex:18
+#: lib/tq2_web/live/inventory/import_live.html.leex:16
 msgid "One item imported!"
 msgid_plural "%{count} items imported!"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/tq2_web/live/inventory/import_live.html.leex:21
+#: lib/tq2_web/live/inventory/import_live.html.leex:19
 msgid "Go to item list"
 msgstr ""
 
@@ -154,29 +154,29 @@ msgstr ""
 msgid "Select store type..."
 msgstr ""
 
-#: lib/tq2_web/live/inventory/import_live.html.leex:26
-#: lib/tq2_web/live/inventory/import_live.html.leex:29
+#: lib/tq2_web/live/inventory/import_live.html.leex:24
+#: lib/tq2_web/live/inventory/import_live.html.leex:27
 msgid "Store type"
 msgstr ""
 
-#: lib/tq2_web/live/inventory/import_live.html.leex:45
+#: lib/tq2_web/live/inventory/import_live.html.leex:43
 msgid "Importing items, please wait..."
 msgstr ""
 
-#: lib/tq2_web/live/inventory/import_live.html.leex:38
+#: lib/tq2_web/live/inventory/import_live.html.leex:36
 msgid "Skip import"
 msgstr ""
 
-#: lib/tq2_web/templates/item/empty.html.eex:22
+#: lib/tq2_web/templates/item/empty.html.eex:20
 #: lib/tq2_web/templates/item/index.html.eex:39
 msgid "Import items"
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:135
+#: lib/tq2_web/views/item_view.ex:132
 msgid "This price is the secret sauce to attract new customers, it's recommended to be about 40% off the regular price."
 msgstr ""
 
-#: lib/tq2_web/views/item_view.ex:166 lib/tq2_web/views/item_view.ex:177
+#: lib/tq2_web/views/item_view.ex:163 lib/tq2_web/views/item_view.ex:172
 msgid "Add item"
 msgstr ""
 

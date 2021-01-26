@@ -39,7 +39,7 @@ defmodule Tq2.Gateways.MercadoPago do
 
     preference = %{
       external_reference: cart_external_reference(cart),
-      items: Enum.map(cart.lines, &to_mercado_pago_item(&1, cart)),
+      items: items_for_cart(cart),
       payer: %{
         name: cart.customer.name,
         email: cart.customer.email
@@ -253,35 +253,63 @@ defmodule Tq2.Gateways.MercadoPago do
   end
 
   defp mp_item_map(%Line{} = line, %Money{} = price) do
-    unit_price =
-      price
-      |> Money.to_decimal()
-      |> Decimal.to_float()
+    title = normalize_string(line.name)
 
     %{
       id: line.id,
-      title: line.name,
-      description: line.name,
+      title: title,
+      description: title,
       currency_id: price.currency,
-      unit_price: unit_price,
+      unit_price: money_to_float(price),
       quantity: line.quantity
     }
   end
 
   defp pending_payment_items(order, pending_amount) do
-    amount =
-      pending_amount
-      |> Money.to_decimal()
-      |> Decimal.to_float()
+    title =
+      dgettext("mercado_pago", "Pending amount of order #%{id}", id: order.id)
+      |> normalize_string()
 
     [
       %{
-        title: dgettext("mercado_pago", "Pending amount of order #%{id}", id: order.id),
-        description: dgettext("mercado_pago", "Pending amount of order #%{id}", id: order.id),
+        title: title,
+        description: title,
         currency_id: pending_amount.currency,
-        unit_price: amount,
+        unit_price: money_to_float(pending_amount),
         quantity: 1
       }
     ]
+  end
+
+  defp items_for_cart(%{data: %{handing: "delivery", shipping: %{price: price}}} = cart) do
+    title = dgettext("stores", "Shipping") |> normalize_string()
+
+    delivery = [
+      %{
+        title: title,
+        description: title,
+        currency_id: price.currency,
+        unit_price: money_to_float(price),
+        quantity: 1
+      }
+    ]
+
+    %{cart | data: %{}}
+    |> items_for_cart()
+    |> Kernel.++(delivery)
+  end
+
+  defp items_for_cart(cart) do
+    Enum.map(cart.lines, &to_mercado_pago_item(&1, cart))
+  end
+
+  defp money_to_float(%Money{} = money) do
+    money |> Money.to_decimal() |> Decimal.to_float()
+  end
+
+  defp normalize_string(value) do
+    value
+    |> String.normalize(:nfd)
+    |> String.replace(~r/[^a-zA-Z0-9#-_\s]/u, "")
   end
 end

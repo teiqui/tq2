@@ -8,7 +8,7 @@ defmodule Tq2Web.Store.OrderLiveTest do
     token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
     price_type: "promotional",
     visit_id: nil,
-    data: %{}
+    data: %{handing: "pickup"}
   }
 
   setup %{conn: conn} do

@@ -3,49 +3,33 @@
 <div class="row justify-content-center">
   <div class="col-md-8">
     <div class="card card-body">
-      <form id="handing" phx-change="save">
-        <%= if @store.configuration && @store.configuration.pickup do %>
-          <div class="custom-control custom-radio mt-3">
-            <input type="radio"
-                   id="pickup"
-                   name="kind"
-                   class="custom-control-input"
-                   value="pickup"
-                   <%= if @cart.data && @cart.data.handing == "pickup", do: "checked" %>>
-            <label class="custom-control-label" for="pickup">
-              <span class="ml-2 d-block">
-                <span class="h5 float-left text-primary ml-n4 mb-0">
-                  <i class="bi-shop"></i>
-                </span>
-
-                <span class="font-weight-semi-bold">
-                  <%= dgettext("stores", "Pickup") %>
-                </span>
-
-                <span class="text-muted d-block">
-                  <%= @store.configuration.address %>
-                </span>
-
-                <%= if @store.configuration.pickup_time_limit do %>
-                  <span class="text-muted d-block">
-                    <%= dgettext("stores", "Pickup time limit") %>:
-                    <%= @store.configuration.pickup_time_limit %>
-                  </span>
-                <% end %>
+      <%= form_for @changeset, "#", [phx_change: "save"], fn f -> %>
+        <%= inputs_for f, :data, fn df -> %>
+          <%= radio_input(df, :handing, "pickup", container_class: "mt-3") do %>
+            <span class="ml-2 d-block">
+              <span class="h5 float-left text-primary ml-n4 mb-0">
+                <i class="bi-shop"></i>
               </span>
-            </label>
-          </div>
-        <% end %>
 
-        <%= if @store.configuration && @store.configuration.delivery do %>
-          <div class="custom-control custom-radio mt-3">
-            <input type="radio"
-                   id="delivery"
-                   name="kind"
-                   class="custom-control-input"
-                   value="delivery"
-                   <%= if @cart.data && @cart.data.handing == "delivery", do: "checked" %>>
-            <label class="custom-control-label" for="delivery">
+              <span class="font-weight-semi-bold">
+                <%= dgettext("stores", "Pickup") %>
+              </span>
+
+              <span class="text-muted d-block">
+                <%= @store.configuration.address %>
+              </span>
+
+              <%= if @store.configuration.pickup_time_limit do %>
+                <span class="text-muted d-block">
+                  <%= dgettext("stores", "Pickup time limit") %>:
+                  <%= @store.configuration.pickup_time_limit %>
+                </span>
+              <% end %>
+            </span>
+          <% end %>
+
+          <%= if @store.configuration && @store.configuration.delivery do %>
+            <%= radio_input(df, :handing, "delivery", container_class: "mt-3") do %>
               <span class="ml-2 d-block">
                 <span class="h5 float-left text-primary ml-n4 mb-0">
                   <i class="bi-truck"></i>
@@ -55,32 +39,39 @@
                   <%= dgettext("stores", "Delivery") %>
                 </span>
 
-
                 <span class="text-muted d-block">
                   <%= text_to_html @store.configuration.delivery_area, wrapper_tag: :span, attributes: [class: "d-block"] %>
                 </span>
-
-                <%= if @store.configuration.delivery_time_limit do %>
-                  <span class="text-muted d-block">
-                    <%= dgettext("stores", "Delivery time limit") %>
-                    <%= @store.configuration.delivery_time_limit %>
-                  </span>
-                <% end %>
               </span>
-            </label>
-          </div>
-        <% end %>
-      </form>
-    </div>
 
-    <p class="mt-4 text-right">
-      <%= live_redirect dgettext("stores", "Review order"), to: Routes.checkout_path(@socket, :index, @store) %>
-    </p>
+              <%= if delivery?(df) && Enum.any?(@store.configuration.shippings || []) do %>
+                <%= inputs_for df, :shipping, fn sf -> %>
+                  <%= for s <- @store.configuration.shippings do %>
+                    <%= radio_input(sf, :id, s.id, container_class: "mt-1") do %>
+                      <span class="ml-n3">
+                        <%= s.name %> (<%= format_money s.price %>)
+                      </span>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% end %>
+
+              <%= if @store.configuration.delivery_time_limit do %>
+                <span class="text-muted d-block mt-1">
+                  <%= dgettext("stores", "Delivery time limit") %>
+                  <%= @store.configuration.delivery_time_limit %>
+                </span>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
 
 <%= live_component @socket, ButtonComponent, store: @store,
                                              cart: @cart,
                                              token: @token,
-                                             enabled: @cart.data && @cart.data.handing,
-                                             to: Routes.customer_path(@socket, :index, @store) %>
+                                             enabled: @changeset.valid?,
+                                             to: Routes.checkout_path(@socket, :index, @store) %>

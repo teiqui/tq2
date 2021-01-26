@@ -12,7 +12,8 @@ defmodule Tq2Web.Store.PaymentLiveTest do
     token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
     price_type: "promotional",
     visit_id: nil,
-    customer_id: nil
+    customer_id: nil,
+    data: %{handing: "pickup"}
   }
 
   @referral_token "N68iU2uIe4SDO1W50JVauF2PJESWoDxlHTl1RSbr3Z4="

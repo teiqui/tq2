@@ -43,7 +43,11 @@ defmodule Tq2Web.OrderViewTest do
 
   @tag login_as: "test@user.com"
   test "renders show.html", %{conn: conn} do
-    content = render_to_string(OrderView, "show.html", conn: conn, order: order())
+    order = order()
+    shipping = Cart.shipping(order.cart)
+
+    content =
+      render_to_string(OrderView, "show.html", conn: conn, order: order, shipping: shipping)
 
     assert String.contains?(content, "Order #1")
     assert String.contains?(content, "Pending")

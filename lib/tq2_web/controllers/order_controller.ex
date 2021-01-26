@@ -2,6 +2,7 @@ defmodule Tq2Web.OrderController do
   use Tq2Web, :controller
 
   alias Tq2.Sales
+  alias Tq2.Transactions.Cart
 
   plug :authenticate
 
@@ -17,8 +18,9 @@ defmodule Tq2Web.OrderController do
 
   def show(conn, %{"id" => id}, session) do
     order = Sales.get_order!(session.account, id)
+    shipping = Cart.shipping(order.cart)
 
-    render(conn, "show.html", order: order)
+    render(conn, "show.html", order: order, shipping: shipping)
   end
 
   defp render_index(conn, %{total_entries: 0}), do: render(conn, "empty.html")
