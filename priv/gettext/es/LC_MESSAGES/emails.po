@@ -161,4 +161,4 @@ msgstr "Su licencia ha expirado, por favor visite el siguiente enlace y complete
 
 #: lib/tq2_web/templates/email/license_near_to_expire.text.eex:3
 msgid "Your license is near to expire, please visit the following URL and complete your subscription:"
-msgstr "Su licencia está por expirar, por favor visite el siguiente enlace y complete su suscripción:"
+msgstr "Su licencia está por expirar, por favor visite la siguiente dirección y complete su suscripción:"
