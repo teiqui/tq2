@@ -1,5 +1,5 @@
 defmodule Tq2.Gateways.Stripe do
-  import Tq2.Utils.Urls, only: [app_uri: 0]
+  import Tq2.Utils.Urls, only: [app_uri: 0, store_uri: 0]
 
   alias Tq2.Accounts
   alias Tq2.Accounts.{Account, License}
@@ -41,7 +41,8 @@ defmodule Tq2.Gateways.Stripe do
       metadata: %{
         account_id: account.id,
         country: account.country,
-        time_zone: account.time_zone
+        time_zone: account.time_zone,
+        store: store_url(account)
       }
     }
 
@@ -206,5 +207,12 @@ defmodule Tq2.Gateways.Stripe do
       d when d > 0 -> d
       _ -> nil
     end
+  end
+
+  defp store_url(%Account{} = account) do
+    store = Tq2.Shops.get_store!(account)
+
+    store_uri()
+    |> Tq2Web.Router.Helpers.counter_url(:index, store)
   end
 end

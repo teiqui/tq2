@@ -3,7 +3,7 @@ defmodule Tq2.Gateways.StripeTest do
 
   import Mock
 
-  import Tq2.Fixtures, only: [create_session: 1, user_fixture: 1]
+  import Tq2.Fixtures, only: [create_session: 1, user_fixture: 1, default_store: 0]
 
   alias Tq2.Gateways.Stripe, as: StripeClient
 
@@ -15,6 +15,8 @@ defmodule Tq2.Gateways.StripeTest do
     setup [:create_session, :create_owner]
 
     test "create_customer/1 returns updated license", %{session: %{account: %{license: license}}} do
+      default_store()
+
       refute license.customer_id
 
       mock = [create: fn _attrs -> {:ok, @default_customer} end]
@@ -29,6 +31,8 @@ defmodule Tq2.Gateways.StripeTest do
     test "create_customer/1 with error returns same license", %{
       session: %{account: %{license: license}}
     } do
+      default_store()
+
       refute license.customer_id
 
       mock = [create: fn _attrs -> {:error, "error"} end]

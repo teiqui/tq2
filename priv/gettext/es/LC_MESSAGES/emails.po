@@ -104,7 +104,9 @@ msgid "here"
 msgstr "aquí"
 
 #: lib/tq2_web/templates/email/expired_promotion.html.eex:1
-#: lib/tq2_web/templates/email/expired_promotion.text.eex:1 lib/tq2_web/templates/email/order_confirmation.html.eex:1
+#: lib/tq2_web/templates/email/expired_promotion.text.eex:1 lib/tq2_web/templates/email/license_expired.html.eex:1
+#: lib/tq2_web/templates/email/license_expired.text.eex:1 lib/tq2_web/templates/email/license_near_to_expire.html.eex:2
+#: lib/tq2_web/templates/email/license_near_to_expire.text.eex:1 lib/tq2_web/templates/email/order_confirmation.html.eex:1
 #: lib/tq2_web/templates/email/order_confirmation.text.eex:1 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:1
 #: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:1 lib/tq2_web/templates/email/promotion_confirmation.html.eex:1
 #: lib/tq2_web/templates/email/promotion_confirmation.text.eex:1
@@ -138,3 +140,25 @@ msgstr "El tiempo de promoción terminó, desafortunadamente nadie con tu enlace
 #: lib/tq2_web/templates/email/expired_promotion.text.eex:5
 msgid "These are the final order details:"
 msgstr "Estos son los detalles finales de tu pedido"
+
+#: lib/tq2_web/templates/email/license_expired.html.eex:12
+#: lib/tq2_web/templates/email/license_expired.text.eex:7 lib/tq2_web/templates/email/license_near_to_expire.html.eex:14
+#: lib/tq2_web/templates/email/license_near_to_expire.text.eex:7
+msgid "In case you have any trouble, reply to this email."
+msgstr "En caso de tener algún problema, responda a este email."
+
+#: lib/tq2/notifications/email.ex:78
+msgid "License expired"
+msgstr "Licencia expirada"
+
+#: lib/tq2/notifications/email.ex:69
+msgid "License near to expire"
+msgstr "Su licencia está por expirar"
+
+#: lib/tq2_web/templates/email/license_expired.text.eex:3
+msgid "Your license has expired, please visit the following URL and complete your subscription:"
+msgstr "Su licencia ha expirado, por favor visite el siguiente enlace y complete su suscripción:"
+
+#: lib/tq2_web/templates/email/license_near_to_expire.text.eex:3
+msgid "Your license is near to expire, please visit the following URL and complete your subscription:"
+msgstr "Su licencia está por expirar, por favor visite el siguiente enlace y complete su suscripción:"

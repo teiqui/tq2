@@ -199,7 +199,7 @@ msgid "Share"
 msgstr ""
 
 #: lib/tq2_web/live/components/store/team_component.ex:30
-#: lib/tq2_web/live/store/team_live.ex:111
+#: lib/tq2_web/live/store/team_live.ex:114
 msgid "Join"
 msgstr ""
 
@@ -248,7 +248,7 @@ msgstr ""
 msgid "Teiqui price"
 msgstr ""
 
-#: lib/tq2/accounts.ex:577
+#: lib/tq2/accounts.ex:578
 msgid "No limit"
 msgstr ""
 
@@ -297,7 +297,7 @@ msgstr ""
 msgid "Add some items!"
 msgstr ""
 
-#: lib/tq2_web/live/store/handing_live.html.leex:81
+#: lib/tq2_web/live/store/handing_live.html.leex:77
 msgid "Review order"
 msgstr ""
 

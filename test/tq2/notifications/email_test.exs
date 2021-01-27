@@ -98,6 +98,30 @@ defmodule Tq2.Notifications.EmailTest do
     assert Email.expired_promotion(order) == nil
   end
 
+  test "expired license" do
+    user = user()
+    email = Email.license_expired(user)
+
+    assert email.to == user.email
+    assert email.subject == "License expired"
+    assert email.html_body =~ user.name
+    assert email.html_body =~ "/license"
+    assert email.text_body =~ user.name
+    assert email.text_body =~ "/license"
+  end
+
+  test "license near to expire" do
+    user = user()
+    email = Email.license_near_to_expire(user)
+
+    assert email.to == user.email
+    assert email.subject == "License near to expire"
+    assert email.html_body =~ user.name
+    assert email.html_body =~ "/license"
+    assert email.text_body =~ user.name
+    assert email.text_body =~ "/license"
+  end
+
   defp user do
     %User{
       name: "John",

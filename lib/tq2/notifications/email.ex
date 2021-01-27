@@ -65,6 +65,24 @@ defmodule Tq2.Notifications.Email do
     |> render(:expired_promotion, order: order, customer: customer, shipping: shipping)
   end
 
+  def license_near_to_expire(%User{} = user) do
+    subject = dgettext("emails", "License near to expire")
+
+    base_email()
+    |> to(user.email)
+    |> subject(subject)
+    |> render(:license_near_to_expire, user: user)
+  end
+
+  def license_expired(%User{} = user) do
+    subject = dgettext("emails", "License expired")
+
+    base_email()
+    |> to(user.email)
+    |> subject(subject)
+    |> render(:license_expired, user: user)
+  end
+
   defp base_email() do
     address = System.get_env("EMAIL_ADDRESS", "support@teiqui.com")
 

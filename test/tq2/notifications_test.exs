@@ -84,6 +84,22 @@ defmodule Tq2.NotificationsTest do
     assert_no_emails_delivered()
   end
 
+  test "license expired" do
+    user = user()
+
+    Notifications.send_license_expired(user)
+
+    assert_delivered_email(Email.license_expired(user))
+  end
+
+  test "license near to expire" do
+    user = user()
+
+    Notifications.send_license_near_to_expire(user)
+
+    assert_delivered_email(Email.license_near_to_expire(user))
+  end
+
   defp user do
     %User{
       name: "John",
