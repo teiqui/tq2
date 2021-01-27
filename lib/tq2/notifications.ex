@@ -27,6 +27,18 @@ defmodule Tq2.Notifications do
     |> deliver_later()
   end
 
+  def send_license_expired(%User{} = user) do
+    user
+    |> Email.license_expired()
+    |> deliver_later()
+  end
+
+  def send_license_near_to_expire(%User{} = user) do
+    user
+    |> Email.license_near_to_expire()
+    |> deliver_later()
+  end
+
   defp deliver_later(nil), do: nil
   defp deliver_later(email), do: Mailer.deliver_later(email)
 end

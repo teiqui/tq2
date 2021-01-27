@@ -374,7 +374,7 @@ defmodule Tq2.Accounts do
     |> Map.put(:account, account)
   end
 
-  def get_license!([{field, value}]) when field in [:customer_id, :subscription_id] do
+  def get_license!([{field, value}]) when field in [:id, :customer_id, :subscription_id] do
     License
     |> join(:left, [l], a in assoc(l, :account))
     |> preload([l, a], account: a)
@@ -510,6 +510,7 @@ defmodule Tq2.Accounts do
     |> Registration.password_changeset(attrs)
     |> Repo.update()
     |> put_country_data(attrs)
+    |> after_create_account_jobs()
   end
 
   @doc """
@@ -606,5 +607,32 @@ defmodule Tq2.Accounts do
 
   defp registration_account_changeset(registration, %{account: %Account{} = account}) do
     Registration.account_changeset(registration, %{account_id: account.id})
+  end
+
+  defp after_create_account_jobs({:ok, %{account: %{license: license}}} = result) do
+    enqueue_license_near_to_expire_notification(license)
+    enqueue_lock_license(license)
+
+    result
+  end
+
+  defp after_create_account_jobs(result), do: result
+
+  defp enqueue_license_near_to_expire_notification(license) do
+    exec_at = license.paid_until |> Timex.shift(days: -2)
+
+    Exq.enqueue_at(Exq, "default", exec_at, Tq2.Workers.LicenseJob, [
+      "notify_near_to_expire",
+      license.id
+    ])
+  end
+
+  defp enqueue_lock_license(license) do
+    exec_at =
+      license.paid_until
+      |> Timex.to_datetime()
+      |> Timex.end_of_day()
+
+    Exq.enqueue_at(Exq, "default", exec_at, Tq2.Workers.LicenseJob, ["lock", license.id])
   end
 end

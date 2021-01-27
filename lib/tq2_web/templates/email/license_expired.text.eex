@@ -1,0 +1,7 @@
+<%= dgettext("emails", "Hello %{name}!", name: @user.name) %>
+
+<%= dgettext("emails", "Your license has expired, please visit the following URL and complete your subscription:") %>
+
+<%= Routes.license_url(base_uri(), :index) %>
+
+<%= dgettext("emails", "In case you have any trouble, reply to this email.") %>
