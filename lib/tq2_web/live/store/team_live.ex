@@ -50,7 +50,10 @@ defmodule Tq2Web.Store.TeamLive do
     end
   end
 
-  defp avatar(%Tq2.Sales.Customer{name: name}) do
+  defp avatar(%Tq2.Sales.Customer{id: id, name: name}) do
+    index = rem(id, 4)
+    {color, _} = ~w(73b8bb 457b9d f8c647 cc0000) |> List.pop_at(index)
+
     initial =
       name
       |> String.replace(~r/\W+/, "")
@@ -68,14 +71,14 @@ defmodule Tq2Web.Store.TeamLive do
            aria-label="<%= name %>">
         <g>
           <title><%= name %></title>
-          <ellipse cx="30" cy="30" rx="30" ry="30" fill="#c4c4c4"></ellipse>
+          <ellipse cx="30" cy="30" rx="30" ry="30" fill="#<%= color %>"></ellipse>
           <text class="h1 font-weight-semi-bold"
                 x="50%"
                 y="50%"
                 text-anchor="middle"
                 alignment-baseline="middle"
                 dominant-baseline="middle"
-                fill="#838383"
+                fill="#ffffff"
                 dy=".1em">
             <%= initial || "T" %>
           </text>
