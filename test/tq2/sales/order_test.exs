@@ -34,6 +34,16 @@ defmodule Tq2.Sales.OrderTest do
 
       assert "is invalid" in errors_on(changeset).status
     end
+
+    test "changeset check paid order on completion" do
+      attrs =
+        @valid_attrs
+        |> Map.put(:status, "completed")
+
+      changeset = default_account() |> Order.changeset(%Order{}, attrs)
+
+      assert "To complete an order must be fully paid." in errors_on(changeset).status
+    end
   end
 
   defp default_account do

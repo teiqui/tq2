@@ -211,11 +211,19 @@ defmodule Tq2.SalesTest do
     test "orders_sale_amount/2 returns the amounts of sales for the period", %{session: session} do
       assert Sales.orders_sale_amount(session.account) == Money.new(0, :ARS)
 
-      _order = fixture(session, :order, %{status: "completed"})
+      order = fixture(session, :order, %{status: "pending", data: %{paid: true}})
+      {:ok, _} = session |> Sales.update_order(order, %{status: "completed"})
 
       assert Sales.orders_sale_amount(session.account) == Money.new(3780, :ARS)
 
-      _order = fixture(session, :order, %{status: "completed", cart: %{price_type: "regular"}})
+      order =
+        fixture(session, :order, %{
+          status: "pending",
+          cart: %{price_type: "regular"},
+          data: %{paid: true}
+        })
+
+      {:ok, _} = session |> Sales.update_order(order, %{status: "completed"})
 
       # 3780 (first order promotional total) + 4200 (second order regular total) = 7980
       assert Sales.orders_sale_amount(session.account) == Money.new(7980, :ARS)
@@ -307,6 +315,7 @@ defmodule Tq2.SalesTest do
         @valid_order_attrs
         |> Map.delete(:cart)
         |> Map.put(:cart_id, cart.id)
+        |> Map.put(:data, %{paid: true})
 
       assert {:ok, %Order{} = order_1} = Sales.create_order(session.account, attrs)
 

@@ -20,6 +20,7 @@ defmodule Tq2Web.Order.OrderEditLive do
       socket
       |> assign(session: session)
       |> load_order(id)
+      |> add_changeset()
 
     {:ok, socket}
   end
@@ -47,9 +48,12 @@ defmodule Tq2Web.Order.OrderEditLive do
         %{assigns: %{cart: cart, order: old_order}} = socket
       ) do
     cart = %{cart | payments: payments}
-    order = %{old_order | cart: cart, lock_version: order.lock_version, status: order.status}
+    order = %{order | cart: cart, customer: old_order.customer}
 
-    socket = socket |> assign(order: order)
+    socket =
+      socket
+      |> assign(order: order)
+      |> add_changeset()
 
     {:noreply, socket}
   end
@@ -57,9 +61,14 @@ defmodule Tq2Web.Order.OrderEditLive do
   defp load_order(%{assigns: %{session: %{account: account}}} = socket, id) do
     order = Sales.get_order!(account, id)
     cart = %{order.cart | account: account}
+
+    socket |> assign(cart: cart, order: order)
+  end
+
+  defp add_changeset(%{assigns: %{order: order, session: %{account: account}}} = socket) do
     changeset = account |> Sales.change_order(order)
 
-    socket |> assign(cart: cart, changeset: changeset, order: order)
+    socket |> assign(:changeset, changeset)
   end
 
   defp statuses, do: @statuses
