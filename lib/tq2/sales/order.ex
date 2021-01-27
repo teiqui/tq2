@@ -2,6 +2,7 @@ defmodule Tq2.Sales.Order do
   use Ecto.Schema
 
   import Ecto.Changeset
+  import Tq2Web.Gettext, only: [dgettext: 2]
 
   alias Tq2.Accounts.Account
   alias Tq2.Repo
@@ -46,6 +47,7 @@ defmodule Tq2.Sales.Order do
     |> optimistic_lock(:lock_version)
     |> assoc_constraint(:cart)
     |> assoc_constraint(:account)
+    |> validate_paid_on_completion()
   end
 
   @doc false
@@ -105,4 +107,22 @@ defmodule Tq2.Sales.Order do
   defp put_account(%Ecto.Changeset{} = changeset, %Account{} = account) do
     changeset |> change(account_id: account.id)
   end
+
+  defp validate_paid_on_completion(
+         %Ecto.Changeset{changes: %{status: "completed"}, data: %{data: data}} = changeset
+       ) do
+    case data && data.paid do
+      true ->
+        changeset
+
+      _ ->
+        add_error(
+          changeset,
+          :status,
+          dgettext("orders", "To complete an order must be fully paid.")
+        )
+    end
+  end
+
+  defp validate_paid_on_completion(changeset), do: changeset
 end

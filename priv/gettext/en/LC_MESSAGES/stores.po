@@ -199,7 +199,7 @@ msgid "Share"
 msgstr ""
 
 #: lib/tq2_web/live/components/store/team_component.ex:30
-#: lib/tq2_web/live/store/team_live.ex:111
+#: lib/tq2_web/live/store/team_live.ex:114
 msgid "Join"
 msgstr ""
 

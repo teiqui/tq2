@@ -189,3 +189,7 @@ msgstr ""
 #: lib/tq2_web/views/order_view.ex:132
 msgid "This order has promotional price, and the customer join another, so both gets the discount!"
 msgstr ""
+
+#: lib/tq2/sales/order.ex:126
+msgid "To complete an order must be fully paid."
+msgstr ""

@@ -48,6 +48,7 @@ defmodule Tq2Web.Dashboard.MainLiveTest do
     test "with order", %{conn: conn, session: session} do
       %{order: order} = create_order(nil)
 
+      {:ok, order} = Tq2.Sales.update_order(session, order, %{data: %{paid: true}})
       {:ok, _} = Tq2.Sales.update_order(session, order, %{status: "completed"})
 
       path = Routes.dashboard_path(conn, :index)
