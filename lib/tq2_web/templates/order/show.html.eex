@@ -4,8 +4,8 @@
   </h2>
 
   <%= if show_promotion_alert? @order.cart do %>
-    <div class="alert alert-<%= promotion_alert_class @order %>">
-      <%= raw promotion_alert_text @order %>
+    <div class="alert alert-<%= promotion_alert_class @order %> font-weight-bold">
+      <%= promotion_alert_text @order %>
     </div>
   <% end %>
 

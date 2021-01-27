@@ -107,14 +107,13 @@ defmodule Tq2Web.OrderView do
       :gt ->
         dgettext(
           "orders",
-          "This order has promotional price, but the time to join has expired (the limit was %{date})",
-          date: localize_datetime(order.promotion_expires_at)
+          "This order has promotional price, but the time to join it has expired. The customer should pay the regular price"
         )
 
       _ ->
         dgettext(
           "orders",
-          "This order has promotional price, but none other has joined yet, time expires at <strong>%{date}</strong>",
+          "This order has promotional price, but none other has joined yet. Time expires at %{date}",
           date: localize_datetime(order.promotion_expires_at)
         )
     end
@@ -123,8 +122,8 @@ defmodule Tq2Web.OrderView do
   defp promotion_alert_text(%Order{parents: [], children: children}) do
     dngettext(
       "orders",
-      "This order has promotional price, and the customer has brought another one, so both gets the discount!",
-      "This order has promotional price, and the customer has brought %{count} more, so all of them gets the discount!",
+      "This order has promotional price, and the customer has brought another one. Congratulations! You've just sell double",
+      "This order has promotional price, and the customer has brought %{count} more. Congratulations! You've just more than double",
       Enum.count(children)
     )
   end

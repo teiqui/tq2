@@ -156,24 +156,6 @@ msgstr "Pedidos relacionados"
 msgid "Brought by"
 msgstr "Originado por"
 
-#: lib/tq2_web/views/order_view.ex:133
-msgid "This order has promotional price, and the customer join another, so both gets the discount!"
-msgstr "Este pedido tiene precio promocional y el cliente se unió a otro ¡Ambos obtienen el descuento!"
-
-#: lib/tq2_web/views/order_view.ex:115
-msgid "This order has promotional price, but none other has joined yet, time expires at <strong>%{date}</strong>"
-msgstr "Este pedido tiene precio promocional, pero todavía no ha conseguido generar otro, la promoción expira el <strong>%{date}</strong>"
-
-#: lib/tq2_web/views/order_view.ex:108
-msgid "This order has promotional price, but the time to join has expired (the limit was %{date})"
-msgstr "Este pedido tiene precio promocional, pero el tiempo para que alguien se una ha expirado (la fecha límite era %{date})"
-
-#: lib/tq2_web/views/order_view.ex:124
-msgid "This order has promotional price, and the customer has brought another one, so both gets the discount!"
-msgid_plural "This order has promotional price, and the customer has brought %{count} more, so all of them gets the discount!"
-msgstr[0] "El pedido tiene precio promocional y el cliente ha conseguido que otro compre ¡Ambos obtienen el descuento!"
-msgstr[1] "El pedido tiene precio promocional y el cliente ha conseguido que otros %{count} compren ¡Todos obtienen el descuento!"
-
 #: lib/tq2_web/templates/order/_children.html.eex:8
 #: lib/tq2_web/templates/order/_parents.html.eex:8
 msgid "Order #%{number} (%{customer})"
@@ -190,3 +172,21 @@ msgstr "Teiqui"
 #: lib/tq2_web/templates/order/show.html.eex:13
 msgid "Type"
 msgstr "Tipo de compra"
+
+#: lib/tq2_web/views/order_view.ex:123
+msgid "This order has promotional price, and the customer has brought another one. Congratulations! You've just sell double"
+msgid_plural "This order has promotional price, and the customer has brought %{count} more. Congratulations! You've just more than double"
+msgstr[0] "Este pedido tiene precio promocional y un cliente se unió con éxito ¡Felicitaciones! Has vendido doble."
+msgstr[1] "Este pedido tiene precio promocional y %{count} clientes se unieron con éxito ¡Felicitaciones! Has vendido más del doble."
+
+#: lib/tq2_web/views/order_view.ex:114
+msgid "This order has promotional price, but none other has joined yet. Time expires at %{date}"
+msgstr "Este pedido tiene precio promocional pero todavía no tiene ningún asociado. La promoción expira el %{date}"
+
+#: lib/tq2_web/views/order_view.ex:108
+msgid "This order has promotional price, but the time to join it has expired. The customer should pay the regular price"
+msgstr "Este pedido tenía pedido promocional pero el tiempo para que alguien se una ha expirado. El cliente deberá abonar el precio regular"
+
+#: lib/tq2_web/views/order_view.ex:132
+msgid "This order has promotional price, and the customer join another, so both gets the discount!"
+msgstr "Este pedido tiene precio promocional y el cliente se ha unido a otro ¡Felicitaciones! Has vendido doble."
