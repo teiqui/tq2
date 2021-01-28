@@ -38,11 +38,11 @@
         </div>
       </div>
 
-      <nav class="fixed-bottom mb-1">
-        <div class="container-fluid py-1 py-lg-2">
-          <%= submit_payment @cart %>
-        </div>
-      </nav>
+      <%= live_component @socket, ButtonComponent, store: @store,
+                                                   cart: @cart,
+                                                   token: @token,
+                                                   disable_with: dgettext("payments", "Saving..."),
+                                                   enabled: !!(@cart.data && @cart.data.payment) %>
     </form>
   </div>
 </div>

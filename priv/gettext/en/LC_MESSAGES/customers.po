@@ -28,7 +28,7 @@ msgid "Phone"
 msgstr ""
 
 #: lib/tq2_web/live/registration/name_live.ex:58
-#: lib/tq2_web/live/store/customer_live.ex:136
+#: lib/tq2_web/live/store/customer_live.html.leex:50
 msgid "Saving..."
 msgstr ""
 

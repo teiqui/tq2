@@ -2,7 +2,6 @@ defmodule Tq2Web.Store.PaymentLive do
   use Tq2Web, :live_view
 
   import Tq2Web.PaymentLiveUtils, only: [create_order: 3, check_for_paid_cart: 1]
-  import Tq2Web.Store.ButtonComponent, only: [cart_total: 1]
 
   alias Tq2.Gateways.MercadoPago, as: MPClient
   alias Tq2.Gateways.MercadoPago.Credential, as: MPCredential
@@ -10,7 +9,7 @@ defmodule Tq2Web.Store.PaymentLive do
   alias Tq2.Payments.Payment
   alias Tq2.Transactions.Cart
   alias Tq2.{Apps, Transactions}
-  alias Tq2Web.Store.HeaderComponent
+  alias Tq2Web.Store.{ButtonComponent, HeaderComponent}
 
   @impl true
   def mount(_, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do
@@ -69,22 +68,6 @@ defmodule Tq2Web.Store.PaymentLive do
     cart = Transactions.get_cart(account, token)
 
     assign(socket, cart: cart)
-  end
-
-  defp submit_payment(cart) do
-    content = ~E"""
-      <%= cart_total(cart) %>
-
-      <span class="h4 float-right ml-n3 mb-0">
-        <i class="bi-arrow-right"></i>
-      </span>
-    """
-
-    submit(content,
-      class: "btn btn-lg btn-block btn-primary",
-      disabled: !(cart.data && cart.data.payment),
-      phx_disable_with: dgettext("payments", "Saving...")
-    )
   end
 
   defp create_mp_payment(socket, store, cart) do

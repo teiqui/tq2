@@ -51,7 +51,7 @@ defmodule Tq2Web.Store.HeaderComponent do
   end
 
   defp share_classes do
-    "btn btn-sm btn-light text-primary rounded-circle h-28-px w-28-px p-1 mt-n1"
+    "btn btn-light btn-sm-rounded text-primary mt-n1"
   end
 
   defp chevron_direction(true), do: icon_tag("chevron-up")

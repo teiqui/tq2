@@ -1,11 +1,9 @@
 defmodule Tq2Web.Store.CustomerLive do
   use Tq2Web, :live_view
 
-  import Tq2Web.Store.ButtonComponent, only: [cart_total: 1]
-
   alias Tq2.{Sales, Transactions}
   alias Tq2.Sales.Customer
-  alias Tq2Web.Store.HeaderComponent
+  alias Tq2Web.Store.{ButtonComponent, HeaderComponent}
 
   @impl true
   def mount(_, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do
@@ -120,20 +118,5 @@ defmodule Tq2Web.Store.CustomerLive do
       {:error, %Ecto.Changeset{}} ->
         socket
     end
-  end
-
-  defp submit_customer(cart) do
-    content = ~E"""
-      <%= cart_total(cart) %>
-
-      <span class="h4 float-right ml-n3 mb-0">
-        <i class="bi-arrow-right"></i>
-      </span>
-    """
-
-    submit(content,
-      class: "btn btn-lg btn-block btn-primary",
-      phx_disable_with: dgettext("customers", "Saving...")
-    )
   end
 end

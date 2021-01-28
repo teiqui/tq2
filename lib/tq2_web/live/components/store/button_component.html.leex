@@ -1,5 +1,5 @@
 <%= if show_button?(@cart) do %>
-  <nav class="fixed-bottom bg-light pb-1">
+  <nav class="fixed-bottom bg-white pb-1">
     <div class="container-fluid pb-1 pt-2">
       <div class="d-flex">
         <div class="mr-2">
@@ -7,10 +7,10 @@
         </div>
 
         <div class="flex-fill">
-          <%= live_redirect to: @to, class: "btn btn-lg btn-block btn-primary #{unless @enabled, do: " disabled"}" do %>
+          <%= button_wrapper assigns do %>
             <%= cart_total(@cart) %>
 
-            <span class="h4 float-right ml-n3 mb-0">
+            <span class="float-right ml-n3 mb-0">
               <i class="bi-arrow-right"></i>
             </span>
           <% end %>
@@ -20,7 +20,7 @@
           <%= live_component @socket, ShareComponent, id: :button,
                                                       store: @store,
                                                       token: @token,
-                                                      class: "btn btn-secondary rounded-circle text-primary",
+                                                      class: "btn btn-primary btn-lg py-2",
                                                       align_right: true do %>
             <i class="bi-share-fill"></i>
           <% end %>

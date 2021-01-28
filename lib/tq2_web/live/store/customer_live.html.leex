@@ -3,7 +3,7 @@
 <div class="row justify-content-center">
   <div class="col-md-8">
     <div class="card card-body">
-      <%= form_for @changeset, "#", [phx_submit: "save", phx_change: "validate"], fn f -> %>
+      <%= f = form_for @changeset, "#", [phx_submit: "save", phx_change: "validate"] %>
         <%= if @customer do %>
           <div class="media">
             <div class="display-4 text-info mt-n1">
@@ -44,12 +44,12 @@
           <%= input f, :address, dgettext("customers", "Address"), using: :textarea, input_html: [phx_debounce: "blur"] %>
         <% end %>
 
-        <nav class="fixed-bottom mb-1">
-          <div class="container-fluid py-1 py-lg-2">
-            <%= submit_customer @cart %>
-          </div>
-        </nav>
-      <% end %>
+        <%= live_component @socket, ButtonComponent, store: @store,
+                                                     cart: @cart,
+                                                     token: @token,
+                                                     disable_with: dgettext("customers", "Saving..."),
+                                                     enabled: @changeset.valid? %>
+      </form>
     </div>
   </div>
 </div>
