@@ -154,6 +154,14 @@ msgstr ""
 msgid "License near to expire"
 msgstr ""
 
+#: lib/tq2_web/templates/email/license_expired.html.eex:4
+msgid "Your license has expired, please go to the next link and complete your subscription:"
+msgstr ""
+
+#: lib/tq2_web/templates/email/license_near_to_expire.html.eex:6
+msgid "Your license is near to expire, please go to the next link and complete your subscription:"
+msgstr ""
+
 #: lib/tq2_web/templates/email/license_expired.text.eex:3
 msgid "Your license has expired, please visit the following URL and complete your subscription:"
 msgstr ""
