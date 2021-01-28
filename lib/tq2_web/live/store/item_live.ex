@@ -25,7 +25,7 @@ defmodule Tq2Web.Store.ItemLive do
       )
       |> load_cart(token)
 
-    {:ok, socket, temporary_assigns: [item: nil, referral_customer: nil]}
+    {:ok, socket, temporary_assigns: [referral_customer: nil]}
   end
 
   @impl true
@@ -158,20 +158,25 @@ defmodule Tq2Web.Store.ItemLive do
     )
   end
 
-  defp regular_price_button(%Cart{referred: false, lines: []} = cart, item) do
-    regular_price_button(cart, item, false)
+  defp regular_price_button(%Cart{referred: false, lines: []} = cart, item, quantity) do
+    regular_price_button(cart, item, quantity, false)
   end
 
-  defp regular_price_button(%Cart{price_type: "regular"} = cart, item) do
-    regular_price_button(cart, item, false)
+  defp regular_price_button(%Cart{price_type: "regular"} = cart, item, quantity) do
+    regular_price_button(cart, item, quantity, false)
   end
 
-  defp regular_price_button(cart, item) do
-    regular_price_button(cart, item, true)
+  defp regular_price_button(cart, item, quantity) do
+    regular_price_button(cart, item, quantity, true)
   end
 
-  defp regular_price_button(_cart, %Item{id: id, price: price}, disabled) do
-    content_tag(:button, money(price),
+  defp regular_price_button(_cart, %Item{id: id, price: price}, quantity, disabled) do
+    price_text =
+      price
+      |> Money.multiply(quantity)
+      |> money()
+
+    content_tag(:button, price_text,
       type: "button",
       class:
         "btn btn-outline-primary btn-lg btn-block rounded-pill px-3 border border-primary mr-3",
@@ -182,26 +187,32 @@ defmodule Tq2Web.Store.ItemLive do
     )
   end
 
-  defp promotional_price_button(socket, %Cart{referred: false, lines: []} = cart, item) do
-    promotional_price_button(socket, cart, item, false)
+  defp promotional_price_button(socket, %Cart{referred: false, lines: []} = cart, item, quantity) do
+    promotional_price_button(socket, cart, item, quantity, false)
   end
 
-  defp promotional_price_button(socket, %Cart{price_type: "promotional"} = cart, item) do
-    promotional_price_button(socket, cart, item, false)
+  defp promotional_price_button(socket, %Cart{price_type: "promotional"} = cart, item, quantity) do
+    promotional_price_button(socket, cart, item, quantity, false)
   end
 
-  defp promotional_price_button(socket, cart, item) do
-    promotional_price_button(socket, cart, item, true)
+  defp promotional_price_button(socket, cart, item, quantity) do
+    promotional_price_button(socket, cart, item, quantity, true)
   end
 
-  defp promotional_price_button(socket, _cart, %Item{id: id, promotional_price: price}, disabled) do
+  defp promotional_price_button(
+         socket,
+         _cart,
+         %Item{id: id, promotional_price: price},
+         quantity,
+         disabled
+       ) do
     content = ~E"""
     <img src="<%= Routes.static_path(socket, "/images/favicon_white.svg") %>"
          class="mt-n1"
          height="16"
          width="16"
          alt="Teiqui">
-    <%= money price %>
+    <%= money Money.multiply(price, quantity) %>
     """
 
     content_tag(:button, content,

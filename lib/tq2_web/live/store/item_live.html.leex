@@ -26,20 +26,22 @@
     </p>
   <% end %>
 
-  <div class="d-flex align-items-center justify-content-end">
-    <button type="button" class="btn btn-link mr-1" phx-click="decrease" <%= if @quantity == 1, do: "disabled" %>>
-      <span class="h1 mb-0">
-        <i class="bi-dash-circle"></i>
-      </span>
-    </button>
+  <div class="d-flex justify-content-end">
+    <div class="d-flex align-items-center border border-primary rounded-pill">
+      <button type="button" class="btn btn-link text-primary p-1 mr-1 mt-n1" phx-click="decrease" <%= if @quantity == 1, do: "disabled" %>>
+        <span class="h1 m-0">
+          <i class="bi-dash"></i>
+        </span>
+      </button>
 
-    <div class="text-dark h5 mt-2 pt-1" data-quantity="<%= @quantity %>"><%= @quantity %></div>
+      <div class="text-dark h5 m-0 px-2" data-quantity="<%= @quantity %>"><%= @quantity %></div>
 
-    <button type="button" class="btn btn-link ml-1 mr-n3" phx-click="increase">
-      <span class="h1 mb-0">
-        <i class="bi-plus-circle"></i>
-      </span>
-    </button>
+      <button type="button" class="btn btn-link text-primary p-1 ml-1 mt-n1" phx-click="increase">
+        <span class="h1 m-0">
+          <i class="bi-plus"></i>
+        </span>
+      </button>
+    </div>
   </div>
 
   <div class="row mt-3 mb-3">
@@ -48,13 +50,13 @@
         <%= dgettext("items", "Promotional price") %>
       </p>
 
-      <%= promotional_price_button @socket, @cart, @item %>
+      <%= promotional_price_button @socket, @cart, @item, @quantity %>
     </div>
 
     <div class="col-lg-6 order-lg-1">
       <p class="mb-2 d-none d-lg-block">&nbsp;</p>
 
-      <%= regular_price_button @cart, @item %>
+      <%= regular_price_button @cart, @item, @quantity %>
     </div>
   </div>
 </div>
