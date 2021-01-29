@@ -37,6 +37,10 @@
   }
 }
 
+.d-block-when-target:target {
+  display: block !important;
+}
+
 .icon-xl {
   font-size: 86px;
 }

@@ -5,27 +5,11 @@ defmodule Tq2Web.PageView do
 
   import Tq2.Utils.Urls, only: [app_uri: 0]
 
-  defp teiqui_price_img_tag(conn) do
-    path = Routes.static_path(conn, "/images/page/teiqui_price.jpg")
-    path_2x = Routes.static_path(conn, "/images/page/teiqui_price_2x.jpg")
-
-    img_tag(path,
-      srcset: %{path => "1x", path_2x => "2x"},
-      width: "257",
-      height: "444",
-      loading: "lazy",
-      class: "img-fluid",
-      alt: dgettext("page", "Teiqui price")
-    )
-  end
-
   defp app_img_tag(conn) do
-    path = Routes.static_path(conn, "/images/page/app.jpg")
-    path_2x = Routes.static_path(conn, "/images/page/app_2x.jpg")
+    path = Routes.static_path(conn, "/images/page/app.svg")
 
     img_tag(path,
       width: "290",
-      srcset: %{path => "1x", path_2x => "2x"},
       height: "603",
       loading: "lazy",
       class: "img-fluid",
@@ -41,6 +25,15 @@ defmodule Tq2Web.PageView do
 
   defp localized_yearly_price(country) do
     price = License.price_for(country, :yearly)
+
+    "#{price.currency} #{Money.to_string(price, symbol: true)}"
+  end
+
+  defp localized_save_price(country) do
+    price =
+      country
+      |> License.price_for()
+      |> Money.multiply(2)
 
     "#{price.currency} #{Money.to_string(price, symbol: true)}"
   end
