@@ -2,47 +2,17 @@ defmodule Tq2Web.Store.TeamLiveTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
-  import Tq2.Fixtures, only: [create_session: 0]
-
-  @create_attrs %{
-    name: "some name",
-    description: "some description",
-    slug: "some_slug",
-    published: true,
-    logo: %Plug.Upload{
-      content_type: "image/png",
-      filename: "test.png",
-      path: Path.absname("test/support/fixtures/files/test.png")
-    },
-    configuration: %{
-      require_email: true,
-      require_phone: true,
-      pickup: true,
-      pickup_time_limit: "some time limit",
-      address: "some address",
-      delivery: true,
-      delivery_area: "some delivery area",
-      delivery_time_limit: "some time limit",
-      pay_on_delivery: true,
-      shippings: %{"0" => %{"name" => "Anywhere", "price" => "10.00"}}
-    },
-    data: %{
-      phone: "555-5555",
-      email: "some@email.com",
-      whatsapp: "some whatsapp",
-      facebook: "some facebook",
-      instagram: "some instagram"
-    },
-    location: %{
-      latitude: "12",
-      longitude: "123"
-    }
-  }
+  import Tq2.Fixtures, only: [create_session: 0, default_store: 1]
 
   def store_fixture(_) do
-    session = create_session()
-
-    {:ok, store} = Tq2.Shops.create_store(session, @create_attrs)
+    store =
+      default_store(%{
+        logo: %Plug.Upload{
+          content_type: "image/png",
+          filename: "test.png",
+          path: Path.absname("test/support/fixtures/files/test.png")
+        }
+      })
 
     %{store: store}
   end

@@ -1,6 +1,8 @@
 defmodule Tq2.Notifications.EmailTest do
-  use ExUnit.Case
+  use Tq2.DataCase
   use Bamboo.Test
+
+  import Tq2.Fixtures, only: [default_store: 1, default_account: 0, user_fixture: 2]
 
   alias Tq2.Accounts.User
   alias Tq2.Notifications.Email
@@ -23,6 +25,7 @@ defmodule Tq2.Notifications.EmailTest do
     email = Email.new_order(order, customer)
 
     assert email.to == customer.email
+    assert email.headers["Reply-To"] == "some name <store@some_slug.com>"
     assert email.html_body =~ customer.name
     assert email.html_body =~ "##{order.id}"
     assert email.text_body =~ customer.name
@@ -59,6 +62,7 @@ defmodule Tq2.Notifications.EmailTest do
     email = Email.promotion_confirmation(order)
 
     assert email.to == order.customer.email
+    assert email.headers["Reply-To"] == "some name <store@some_slug.com>"
     assert email.html_body =~ order.customer.name
     assert email.html_body =~ "##{order.id}"
     assert email.text_body =~ order.customer.name
@@ -81,6 +85,7 @@ defmodule Tq2.Notifications.EmailTest do
     email = Email.expired_promotion(order)
 
     assert email.to == order.customer.email
+    assert email.headers["Reply-To"] == "some name <store@some_slug.com>"
     assert email.subject =~ "Promotional price expired"
     assert email.html_body =~ order.customer.name
     assert email.html_body =~ "##{order.id}"
@@ -96,6 +101,40 @@ defmodule Tq2.Notifications.EmailTest do
     order = %{order() | customer: %{customer() | email: nil}}
 
     assert Email.expired_promotion(order) == nil
+  end
+
+  test "customer emails without store email and owner, reply to default email" do
+    store_without_email()
+
+    order = order()
+    customer = customer()
+    email = Email.new_order(order, customer)
+
+    default_email = System.get_env("EMAIL_ADDRESS", "support@teiqui.com")
+
+    assert email.to == customer.email
+    assert email.headers["Reply-To"] == default_email
+    assert email.html_body =~ customer.name
+    assert email.html_body =~ "##{order.id}"
+    assert email.text_body =~ customer.name
+    assert email.text_body =~ "##{order.id}"
+  end
+
+  test "customer emails without store email, reply to owner email" do
+    store_without_email()
+
+    user_fixture(nil, %{email: "owner@some_slug.com"})
+
+    order = order()
+    customer = customer()
+    email = Email.new_order(order, customer)
+
+    assert email.to == customer.email
+    assert email.headers["Reply-To"] == "some name <owner@some_slug.com>"
+    assert email.html_body =~ customer.name
+    assert email.html_body =~ "##{order.id}"
+    assert email.text_body =~ customer.name
+    assert email.text_body =~ "##{order.id}"
   end
 
   test "expired license" do
@@ -142,6 +181,7 @@ defmodule Tq2.Notifications.EmailTest do
   defp order do
     %Order{
       id: 1,
+      account_id: default_account().id,
       status: "pending",
       promotion_expires_at: DateTime.utc_now() |> DateTime.to_iso8601(),
       inserted_at: Timex.now(),
@@ -166,5 +206,12 @@ defmodule Tq2.Notifications.EmailTest do
         ]
       }
     }
+  end
+
+  defp store_without_email do
+    store = default_store(%{})
+    data = store.data |> Map.from_struct() |> Map.put(:email, nil)
+
+    default_store(%{data: data})
   end
 end

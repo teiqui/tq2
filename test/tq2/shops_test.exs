@@ -1,7 +1,7 @@
 defmodule Tq2.ShopsTest do
   use Tq2.DataCase
 
-  import Tq2.Fixtures, only: [create_session: 1]
+  import Tq2.Fixtures, only: [create_session: 1, default_store: 1, default_store: 0]
 
   alias Tq2.Accounts
   alias Tq2.Shops
@@ -14,7 +14,7 @@ defmodule Tq2.ShopsTest do
     @valid_attrs %{
       name: "some name",
       description: "some description",
-      slug: "some_slug",
+      slug: "other_slug",
       published: true,
       logo: %Plug.Upload{
         content_type: "image/png",
@@ -64,16 +64,8 @@ defmodule Tq2.ShopsTest do
       logo: nil
     }
 
-    defp fixture(session, :store, attrs \\ %{}) do
-      store_attrs = Enum.into(attrs, @valid_attrs)
-
-      {:ok, store} = Shops.create_store(session, store_attrs)
-
-      store
-    end
-
     test "get_store!/1 returns the store for given account", %{session: session} do
-      store = fixture(session, :store)
+      store = default_store()
 
       assert Shops.get_store!(session.account).id == store.id
     end
@@ -81,21 +73,19 @@ defmodule Tq2.ShopsTest do
     test "get_store!/1 returns the store for given account even if not published", %{
       session: session
     } do
-      store = fixture(session, :store, %{published: false})
+      store = default_store(%{published: false})
 
       assert Shops.get_store!(session.account).id == store.id
     end
 
-    test "get_store!/1 returns the store for given slug", %{session: session} do
-      store = fixture(session, :store)
+    test "get_store!/1 returns the store for given slug" do
+      store = default_store()
 
       assert Shops.get_store!(store.slug).id == store.id
     end
 
-    test "get_store!/1 raises not found when the store for given slug is not published", %{
-      session: session
-    } do
-      store = fixture(session, :store, %{published: false})
+    test "get_store!/1 raises not found when the store for given slug is not published" do
+      store = default_store(%{published: false})
 
       assert_raise Ecto.NoResultsError, fn ->
         Shops.get_store!(store.slug)
@@ -103,7 +93,7 @@ defmodule Tq2.ShopsTest do
     end
 
     test "get_store/1 returns the store for given account", %{session: session} do
-      store = fixture(session, :store)
+      store = default_store()
 
       assert Shops.get_store(session.account).id == store.id
     end
@@ -111,7 +101,7 @@ defmodule Tq2.ShopsTest do
     test "get_store!/1 raises not found when the store for given slug is locked", %{
       session: session
     } do
-      store = fixture(session, :store)
+      store = default_store()
 
       paid_until = Date.utc_today() |> Timex.shift(days: -15)
 
@@ -127,6 +117,9 @@ defmodule Tq2.ShopsTest do
     end
 
     test "create_store/2 with valid data creates a store", %{session: session} do
+      # delete default store
+      {:ok, _} = default_store() |> Tq2.Repo.delete()
+
       assert {:ok, %Store{} = store} = Shops.create_store(session, @valid_attrs)
       assert store.name == @valid_attrs.name
       assert store.description == @valid_attrs.description
@@ -148,7 +141,7 @@ defmodule Tq2.ShopsTest do
     end
 
     test "update_store/3 with valid data updates the store", %{session: session} do
-      store = fixture(session, :store)
+      store = default_store()
 
       assert {:ok, store} = Shops.update_store(session, store, @update_attrs)
       assert %Store{} = store
@@ -159,20 +152,20 @@ defmodule Tq2.ShopsTest do
     end
 
     test "update_store/3 with invalid data returns error changeset", %{session: session} do
-      store = fixture(session, :store)
+      store = default_store()
 
       assert {:error, %Ecto.Changeset{}} = Shops.update_store(session, store, @invalid_attrs)
       assert store.id == Shops.get_store!(session.account).id
     end
 
     test "change_store/2 returns a store changeset", %{session: session} do
-      store = fixture(session, :store)
+      store = default_store()
 
       assert %Ecto.Changeset{} = Shops.change_store(session.account, store)
     end
 
     test "change_store/3 returns a store changeset", %{session: session} do
-      store = fixture(session, :store)
+      store = default_store()
 
       assert %Ecto.Changeset{} = Shops.change_store(session.account, store, %{name: "Other name"})
     end

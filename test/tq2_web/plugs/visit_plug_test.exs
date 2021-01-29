@@ -1,6 +1,8 @@
 defmodule Tq2Web.VisitPlugTest do
   use Tq2Web.ConnCase
 
+  import Tq2.Fixtures, only: [default_store: 1]
+
   setup %{conn: conn} do
     conn =
       %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
@@ -95,19 +97,6 @@ defmodule Tq2Web.VisitPlugTest do
   end
 
   defp store(slug \\ "some_slug") do
-    account = Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
-    session = %Tq2.Accounts.Session{account: account}
-
-    store_attrs = %{
-      name: "some name",
-      description: "some description",
-      slug: slug,
-      published: true,
-      account_id: "1"
-    }
-
-    {:ok, store} = Tq2.Shops.create_store(session, store_attrs)
-
-    store
+    default_store(%{slug: slug})
   end
 end

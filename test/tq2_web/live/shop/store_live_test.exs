@@ -2,45 +2,10 @@ defmodule Tq2Web.Shop.StoreLiveTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
-  import Tq2.Fixtures, only: [create_session: 0, user_fixture: 2]
-
-  @create_attrs %{
-    name: "some name",
-    description: "some description",
-    slug: "some_slug",
-    published: true,
-    logo: nil,
-    configuration: %{
-      require_email: true,
-      require_phone: true,
-      pickup: true,
-      pickup_time_limit: "some time limit",
-      address: "some address",
-      delivery: true,
-      delivery_area: "some delivery area",
-      delivery_time_limit: "some time limit",
-      pay_on_delivery: true,
-      shippings: %{"0" => %{"name" => "Anywhere", "price" => "10.00"}}
-    },
-    data: %{
-      phone: "555-5555",
-      email: "some@email.com",
-      whatsapp: "some whatsapp",
-      facebook: "some facebook",
-      instagram: "some instagram"
-    },
-    location: %{
-      latitude: "12",
-      longitude: "123"
-    }
-  }
+  import Tq2.Fixtures, only: [create_session: 0, user_fixture: 2, default_store: 0]
 
   def store_fixture(_) do
-    session = create_session()
-
-    {:ok, store} = Tq2.Shops.create_store(session, @create_attrs)
-
-    %{session: session, store: %{store | account: session.account}}
+    %{store: default_store()}
   end
 
   describe "unauthorized access" do
@@ -69,7 +34,7 @@ defmodule Tq2Web.Shop.StoreLiveTest do
         conn
         |> Plug.Test.init_test_session(account_id: session.account.id, user_id: session.user.id)
 
-      {:ok, %{conn: conn}}
+      {:ok, %{conn: conn, session: session}}
     end
 
     test "disconnected and connected render", %{conn: conn} do

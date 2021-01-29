@@ -30,6 +30,8 @@ defmodule Tq2.Shops.Data do
   end
 
   defp downcase(%Ecto.Changeset{} = changeset, field) do
-    update_change(changeset, field, &String.downcase/1)
+    update_change(changeset, field, fn value ->
+      if value, do: String.downcase(value)
+    end)
   end
 end

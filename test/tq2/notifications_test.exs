@@ -1,6 +1,8 @@
 defmodule Tq2.NotificationsTest do
-  use ExUnit.Case
+  use Tq2.DataCase
   use Bamboo.Test
+
+  import Tq2.Fixtures, only: [default_account: 0]
 
   alias Tq2.Accounts.User
   alias Tq2.Notifications
@@ -120,6 +122,7 @@ defmodule Tq2.NotificationsTest do
   defp order do
     %Order{
       id: 1,
+      account_id: default_account().id,
       status: "pending",
       promotion_expires_at: DateTime.utc_now() |> DateTime.to_iso8601(),
       inserted_at: Timex.now(),
