@@ -168,8 +168,8 @@
   </div>
 
   <div id="what-is-it" class="bg-white d-none d-block-when-target">
-    <div class="container py-5">
-      <h3 class="display-4 text-primary font-weight-bold mb-5">
+    <div class="container py-5 px-4">
+      <h3 class="h1 text-primary font-weight-bold mb-5">
         <%= dgettext("page", "How Teiqui price works?") %>
       </h3>
 
@@ -180,7 +180,7 @@
               1
             </h4>
 
-            <p class="flex-fill h4 pt-2 mt-1 ml-4 mb-0">
+            <p class="flex-fill h4 pt-2 mt-lg-1 mt-n1 ml-4 mb-0">
               <%= raw dgettext("page", "Setup an <strong class=\"font-weight-bold\">attractive discount</strong> for your items.") %>
             </p>
           </div>
@@ -190,7 +190,7 @@
               2
             </h4>
 
-            <p class="flex-fill h4 pt-2 mt-1 ml-4 mb-0">
+            <p class="flex-fill h4 pt-2 mt-lg-1 mt-n1 ml-4 mb-0">
               <%= raw dgettext("page", "People will <strong class=\"font-weight-bold\">share your store</strong> to get the Teiqui price.") %>
             </p>
           </div>
@@ -200,7 +200,7 @@
               3
             </h4>
 
-            <p class="flex-fill h4 pt-2 mt-1 ml-4 mb-0">
+            <p class="flex-fill h4 pt-2 mt-lg-1 mt-n1 ml-4 mb-0">
               <%= raw dgettext("page", "If <strong class=\"font-weight-bold\">your customer get someone else to buy</strong> in less than 24 hours, both parties gets the Teiqui price.") %>
             </p>
           </div>
@@ -227,7 +227,7 @@
   </div>
 
   <div id="teiqui-price" class="bg-primary text-white">
-    <div class="container py-5">
+    <div class="container py-5 px-4">
       <h3 class="h1 font-weight-bold mb-5">
         <%= dgettext("page", "A tool") %>
         <br>
