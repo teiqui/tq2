@@ -109,6 +109,7 @@ defmodule Tq2.Notifications.Email do
     case store.data && store.data.email do
       nil ->
         owner = Tq2.Accounts.get_owner(account)
+
         owner && owner.email && "#{store.name} <#{owner.email}>"
 
       email ->
