@@ -26,6 +26,7 @@ defmodule Tq2.Notifications.Email do
     base_email()
     |> to(customer.email)
     |> subject(subject)
+    |> reply_to(order.account_id)
     |> render(:order_confirmation, order: order, customer: customer, shipping: shipping)
   end
 
@@ -50,6 +51,7 @@ defmodule Tq2.Notifications.Email do
     base_email()
     |> to(customer.email)
     |> subject(subject)
+    |> reply_to(order.account_id)
     |> render(:promotion_confirmation, order: order, customer: customer, shipping: shipping)
   end
 
@@ -62,6 +64,7 @@ defmodule Tq2.Notifications.Email do
     base_email()
     |> to(customer.email)
     |> subject(subject)
+    |> reply_to(order.account_id)
     |> render(:expired_promotion, order: order, customer: customer, shipping: shipping)
   end
 
@@ -84,10 +87,33 @@ defmodule Tq2.Notifications.Email do
   end
 
   defp base_email() do
-    address = System.get_env("EMAIL_ADDRESS", "support@teiqui.com")
-
     new_email()
-    |> from({gettext("Teiqui 🔔"), address})
+    |> from({gettext("Teiqui 🔔"), default_email()})
     |> put_layout({Tq2Web.LayoutView, :email})
+  end
+
+  defp default_email do
+    System.get_env("EMAIL_ADDRESS", "support@teiqui.com")
+  end
+
+  defp reply_to(email, account_id) do
+    reply_to = email_for(account_id) || default_email()
+
+    email |> put_header("Reply-To", reply_to)
+  end
+
+  defp email_for(account_id) do
+    account = Tq2.Accounts.get_account!(account_id)
+    store = Tq2.Shops.get_store!(account)
+
+    case store.data && store.data.email do
+      nil ->
+        owner = Tq2.Accounts.get_owner(account)
+
+        owner && owner.email && "#{store.name} <#{owner.email}>"
+
+      email ->
+        "#{store.name} <#{email}>"
+    end
   end
 end

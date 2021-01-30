@@ -15,12 +15,18 @@ defmodule Tq2.Fixtures do
     }
   end
 
-  def user_fixture(%Session{} = session, attrs \\ %{}) do
+  def user_fixture(session, attrs \\ %{})
+
+  def user_fixture(%Session{} = session, attrs) do
     user_attrs = Enum.into(attrs, user_valid_attrs())
 
     {:ok, user} = Accounts.create_user(session, user_attrs)
 
     %{user | password: nil}
+  end
+
+  def user_fixture(nil, attrs) do
+    create_session() |> user_fixture(attrs)
   end
 
   def default_account do
@@ -147,16 +153,15 @@ defmodule Tq2.Fixtures do
   def default_store do
     session = create_session()
 
-    store_attrs = %{
-      name: "some name",
-      description: "some description",
-      slug: "some_slug",
-      published: true,
-      account_id: session.account.id
-    }
+    Tq2.Shops.get_store!(session.account)
+  end
 
-    {:ok, store} = Tq2.Shops.create_store(session, store_attrs)
+  def default_store(attrs) do
+    session = create_session()
+    store = Tq2.Shops.get_store!(session.account)
 
-    %{store | account: session.account}
+    {:ok, store} = session |> Tq2.Shops.update_store(store, attrs)
+
+    store
   end
 end

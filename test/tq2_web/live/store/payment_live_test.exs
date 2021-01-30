@@ -3,7 +3,7 @@ defmodule Tq2Web.Store.PaymentLiveTest do
 
   import Mock
   import Phoenix.LiveViewTest
-  import Tq2.Fixtures, only: [app_mercado_pago_fixture: 0, create_session: 0]
+  import Tq2.Fixtures, only: [app_mercado_pago_fixture: 0, default_store: 0]
 
   alias Tq2.Transactions.Cart
   alias Tq2.Payments
@@ -42,16 +42,7 @@ defmodule Tq2Web.Store.PaymentLiveTest do
   end
 
   def store_fixture(_) do
-    session = create_session()
-
-    {:ok, store} =
-      Tq2.Shops.create_store(session, %{
-        name: "Test store",
-        slug: "test_store",
-        configuration: %{pickup: true, pickup_time_limit: "3hs"}
-      })
-
-    %{store: %{store | account: session.account}}
+    %{store: default_store()}
   end
 
   def cart_fixture(%{conn: conn, store: store}) do

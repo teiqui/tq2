@@ -7,7 +7,7 @@ defmodule Tq2.Shops.StoreTest do
     @valid_attrs %{
       name: "some name",
       description: "some description",
-      slug: "some_slug",
+      slug: "other_slug",
       published: true,
       logo: %Plug.Upload{
         content_type: "image/png",

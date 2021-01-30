@@ -9,7 +9,7 @@ defmodule Tq2.Shops.StoreRepoTest do
     @valid_attrs %{
       name: "some name",
       description: "some description",
-      slug: "some_slug",
+      slug: "other_slug",
       published: true,
       account_id: "1"
     }
