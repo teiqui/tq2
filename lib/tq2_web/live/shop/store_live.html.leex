@@ -72,7 +72,13 @@
           <% end %>
 
           <%= inputs_for f, :data, fn df -> %>
-            <%= input df, :whatsapp, dgettext("stores", "WhatsApp") %>
+            <%= input df, :phone, dgettext("stores", "Phone"),
+              using: :telephone_input,
+              input_html: [value: input_phone_number(assigns, df, :phone)] %>
+
+            <%= input df, :whatsapp, dgettext("stores", "WhatsApp"),
+              using: :telephone_input,
+              input_html: [value: input_phone_number(assigns, df, :whatsapp)] %>
           <% end %>
 
           <%= lock_version_input f, @store %>

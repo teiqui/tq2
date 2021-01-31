@@ -2,6 +2,7 @@ defmodule Tq2Web.Router do
   use Tq2Web, :router
 
   @session_extras %{
+    current_session: {Tq2Web.SessionPlug, :session_extras, [:current_session]},
     registration: {Tq2Web.SessionPlug, :session_extras, [:registration]},
     store: {Tq2Web.SessionPlug, :session_extras, [:store]}
   }
@@ -104,7 +105,7 @@ defmodule Tq2Web.Router do
     live "/import", Inventory.ImportLive, :index
 
     # Shops
-    live "/store/edit/:section", Shop.StoreLive, :index
+    live "/store/edit/:section", Shop.StoreLive, :index, session: @session_extras.current_session
 
     # Sales
     resources "/orders", OrderController, only: [:index, :show]

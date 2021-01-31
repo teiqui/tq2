@@ -1,6 +1,8 @@
 defmodule Tq2.Utils.Schema do
   import Tq2Web.Gettext, only: [dgettext: 3]
 
+  import Tq2.Utils.CountryCurrency, only: [valid_phone?: 2]
+
   import Ecto.Changeset,
     only: [
       add_error: 3,
@@ -86,6 +88,19 @@ defmodule Tq2.Utils.Schema do
 
       _ ->
         changeset
+    end
+  end
+
+  def validate_phone_number(changeset, field, country \\ nil) do
+    case get_field(changeset, field) do
+      v when v in [nil, ""] ->
+        changeset
+
+      v ->
+        case valid_phone?(v, country) do
+          true -> changeset
+          _ -> add_error(changeset, field, "is invalid")
+        end
     end
   end
 end
