@@ -25,7 +25,7 @@ defmodule Tq2.Utils.Urls do
   end
 
   defp scheme do
-    if Tq2Web.Endpoint.config(:https) do
+    if Application.get_env(:tq2, :env) == :prod do
       "https"
     else
       "http"

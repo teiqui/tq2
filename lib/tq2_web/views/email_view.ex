@@ -4,7 +4,7 @@ defmodule Tq2Web.EmailView do
   alias Tq2.Transactions.Cart
 
   defp base_uri do
-    scheme = if Tq2Web.Endpoint.config(:https), do: "https", else: "http"
+    scheme = if Application.get_env(:tq2, :env) == :prod, do: "https", else: "http"
     url_config = Tq2Web.Endpoint.config(:url)
 
     %URI{
