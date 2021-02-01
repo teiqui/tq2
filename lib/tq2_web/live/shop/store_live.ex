@@ -2,13 +2,13 @@ defmodule Tq2Web.Shop.StoreLive do
   use Tq2Web, :live_view
 
   import Tq2.Utils.Urls, only: [store_uri: 0]
+  import Tq2.Utils.CountryCurrency, only: [phone_prefix_for_country: 1]
 
-  alias Tq2.{Accounts, Shops}
+  alias Tq2.Shops
   alias Tq2.Shops.Store
 
   @impl true
-  def mount(%{"section" => section}, %{"account_id" => account_id, "user_id" => user_id}, socket) do
-    session = Accounts.get_current_session(account_id, user_id)
+  def mount(%{"section" => section}, %{"current_session" => %{} = session}, socket) do
     store = Shops.get_store!(session.account)
 
     socket =
@@ -381,5 +381,12 @@ defmodule Tq2Web.Shop.StoreLive do
     socket
     |> assign(changes: changes)
     |> add_changeset()
+  end
+
+  def input_phone_number(%{session: %{account: %{country: country}}}, form, field) do
+    case input_value(form, field) do
+      v when v in [nil, ""] -> phone_prefix_for_country(country)
+      v -> v
+    end
   end
 end

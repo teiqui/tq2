@@ -149,7 +149,7 @@ defmodule Tq2Web.Store.ButtonComponentTest do
       data: %Tq2.Shops.Data{
         phone: "555-5555",
         email: "some@email.com",
-        whatsapp: "some whatsapp",
+        whatsapp: "+549555-5555",
         facebook: "some facebook",
         instagram: "some instagram"
       },

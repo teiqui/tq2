@@ -525,4 +525,21 @@ defmodule Tq2.Utils.CountryCurrency do
       _ -> nil
     end
   end
+
+  def phone_prefix_for_country(nil), do: nil
+
+  def phone_prefix_for_country(country) do
+    case ExPhoneNumber.Metadata.get_country_code_for_region_code(country) do
+      0 -> nil
+      prefix -> "+#{prefix}"
+    end
+  end
+
+  def phone_prefix_for_ip(ip) do
+    ip |> guess_country_from_ip() |> phone_prefix_for_country()
+  end
+
+  def valid_phone?(number, country \\ nil) do
+    ExPhoneNumber.is_possible_number?(number, country)
+  end
 end

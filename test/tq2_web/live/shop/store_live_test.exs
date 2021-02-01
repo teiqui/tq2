@@ -2,10 +2,11 @@ defmodule Tq2Web.Shop.StoreLiveTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
-  import Tq2.Fixtures, only: [create_session: 0, user_fixture: 2, default_store: 0]
+
+  import Tq2.Fixtures, only: [default_store: 1, init_test_session: 1]
 
   def store_fixture(_) do
-    %{store: default_store()}
+    %{store: default_store(%{})}
   end
 
   describe "unauthorized access" do
@@ -22,20 +23,7 @@ defmodule Tq2Web.Shop.StoreLiveTest do
   end
 
   describe "render" do
-    setup [:store_fixture]
-
-    setup %{conn: conn} do
-      session = create_session()
-      user = user_fixture(session, %{})
-
-      session = %{session | user: user}
-
-      conn =
-        conn
-        |> Plug.Test.init_test_session(account_id: session.account.id, user_id: session.user.id)
-
-      {:ok, %{conn: conn, session: session}}
-    end
+    setup [:init_test_session, :store_fixture]
 
     test "disconnected and connected render", %{conn: conn} do
       path = Routes.store_path(conn, :index, "main")
@@ -92,6 +80,26 @@ defmodule Tq2Web.Shop.StoreLiveTest do
       store = Tq2.Shops.get_store!(store.account)
 
       refute store.published
+    end
+
+    test "phone prefix render", %{conn: conn, store: store} do
+      data =
+        store.data
+        |> Map.from_struct()
+        |> Map.merge(%{phone: nil, whatsapp: nil})
+
+      default_store(%{data: data})
+
+      path = Routes.store_path(conn, :index, "general")
+      {:ok, store_live, _html} = live(conn, path)
+
+      assert store_live
+             |> element("[name=\"store[data][phone]\"]")
+             |> render() =~ "value=\"+54\""
+
+      assert store_live
+             |> element("[name=\"store[data][whatsapp]\"]")
+             |> render() =~ "value=\"+54\""
     end
 
     test "save event", %{conn: conn, store: store} do

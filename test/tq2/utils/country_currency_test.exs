@@ -39,4 +39,21 @@ defmodule Tq2.Utils.CountryCurrencyTest do
       assert CountryCurrency.time_zone_or_country_default("", "unknown") == tz
     end
   end
+
+  describe "phones" do
+    test "phone_prefix_for_country/1 returns nil for unknwon country code" do
+      refute CountryCurrency.phone_prefix_for_country("unkown")
+      refute CountryCurrency.phone_prefix_for_country("")
+      refute CountryCurrency.phone_prefix_for_country(nil)
+    end
+
+    test "phone_prefix_for_country/1 returns correct prefix for country code" do
+      assert "+54" == CountryCurrency.phone_prefix_for_country("AR")
+      assert "+54" == CountryCurrency.phone_prefix_for_country("ar")
+
+      assert "+1" == CountryCurrency.phone_prefix_for_country("US")
+
+      assert "+52" == CountryCurrency.phone_prefix_for_country("MX")
+    end
+  end
 end

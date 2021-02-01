@@ -71,7 +71,8 @@ defmodule Tq2.MixProject do
       {:elixir_google_spreadsheets, ">= 0.1.17"},
       {:csv, ">= 2.4.1"},
       {:geolix_adapter_mmdb2, ">= 0.6.0"},
-      {:stripity_stripe, ">= 2.9.0"}
+      {:stripity_stripe, ">= 2.9.0"},
+      {:ex_phone_number, ">= 0.2.1"}
     ]
   end
 

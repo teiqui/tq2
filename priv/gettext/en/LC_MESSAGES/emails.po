@@ -68,7 +68,7 @@ msgstr ""
 msgid "Go to the app and see more information about this, visit the following direction:"
 msgstr ""
 
-#: lib/tq2/notifications/email.ex:23 lib/tq2/notifications/email.ex:33
+#: lib/tq2/notifications/email.ex:23 lib/tq2/notifications/email.ex:34
 msgid "New order"
 msgstr ""
 
@@ -118,7 +118,7 @@ msgstr ""
 msgid "Just to recapitulate, this is what you ask for:"
 msgstr ""
 
-#: lib/tq2/notifications/email.ex:47
+#: lib/tq2/notifications/email.ex:48
 msgid "Promotion confirmed"
 msgstr ""
 
@@ -127,7 +127,7 @@ msgstr ""
 msgid "We have received an order from the link you shared, so it's all set for the discounted price"
 msgstr ""
 
-#: lib/tq2/notifications/email.ex:59
+#: lib/tq2/notifications/email.ex:61
 msgid "Promotional price expired"
 msgstr ""
 
@@ -147,11 +147,11 @@ msgstr ""
 msgid "In case you have any trouble, reply to this email."
 msgstr ""
 
-#: lib/tq2/notifications/email.ex:78
+#: lib/tq2/notifications/email.ex:81
 msgid "License expired"
 msgstr ""
 
-#: lib/tq2/notifications/email.ex:69
+#: lib/tq2/notifications/email.ex:72
 msgid "License near to expire"
 msgstr ""
 

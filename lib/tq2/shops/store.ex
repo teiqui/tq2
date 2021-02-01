@@ -36,7 +36,7 @@ defmodule Tq2.Shops.Store do
     |> put_uuid()
     |> cast(attrs, @cast_attrs)
     |> cast_attachments(attrs, [:logo])
-    |> cast_embed(:data)
+    |> cast_embed(:data, with: {Data, :changeset, [account]})
     |> cast_embed(:configuration, with: {Configuration, :changeset, [account]})
     |> cast_embed(:location)
     |> put_account(account)

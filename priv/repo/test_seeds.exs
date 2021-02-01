@@ -25,7 +25,7 @@ if account, do: {:ok, _} = Tq2.Accounts.delete_account(account)
       data: %{
         phone: "555-5555",
         email: "store@some_slug.com",
-        whatsapp: "some whatsapp",
+        whatsapp: "+549555-5555",
         facebook: "some facebook",
         instagram: "some instagram"
       },
