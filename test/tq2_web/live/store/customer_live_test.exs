@@ -2,6 +2,7 @@ defmodule Tq2Web.Store.CustomerLiveTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
+  import Tq2.Fixtures, only: [default_store: 1]
 
   @create_attrs %{
     token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
@@ -33,28 +34,7 @@ defmodule Tq2Web.Store.CustomerLiveTest do
   end
 
   def store_fixture(_) do
-    account = Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
-    session = %Tq2.Accounts.Session{account: account}
-
-    {:ok, store} =
-      Tq2.Shops.create_store(session, %{
-        name: "Test store",
-        slug: "test_store",
-        configuration: %{
-          require_email: true,
-          require_phone: true,
-          pickup: true,
-          pickup_time_limit: "some time limit",
-          address: "some address",
-          delivery: true,
-          delivery_area: "some delivery area",
-          delivery_time_limit: "some time limit",
-          pay_on_delivery: true,
-          shippings: %{"0" => %{"name" => "Anywhere", "price" => "10.00"}}
-        }
-      })
-
-    %{store: %{store | account: account}}
+    %{store: default_store(%{})}
   end
 
   def cart_fixture(%{conn: conn, store: store}) do
@@ -195,6 +175,39 @@ defmodule Tq2Web.Store.CustomerLiveTest do
       customer = Tq2.Repo.preload(customer, :tokens)
 
       assert Enum.count(customer.tokens) == 1
+    end
+
+    test "validate event with new customer and store requires", %{conn: conn, store: store} do
+      requires_for_store(store)
+
+      path = Routes.customer_path(conn, :index, store)
+      {:ok, customer_live, _html} = live(conn, path)
+
+      refute render(customer_live) =~ "bi-person-circle"
+
+      content =
+        customer_live
+        |> form("form", %{customer: %{name: "some name"}})
+        |> render_change()
+
+      assert content =~ "phx-feedback-for=\"customer_address\">can&apos;t be blank"
+      assert content =~ "phx-feedback-for=\"customer_email\">can&apos;t be blank"
+      assert content =~ "phx-feedback-for=\"customer_phone\">can&apos;t be blank"
+
+      refute render(customer_live) =~ "bi-person-circle"
+    end
+
+    defp requires_for_store(%{configuration: config}) do
+      config =
+        config
+        |> Tq2.Shops.Configuration.from_struct()
+        |> Map.merge(%{
+          require_email: true,
+          require_phone: true,
+          require_address: true
+        })
+
+      default_store(%{configuration: config})
     end
   end
 end

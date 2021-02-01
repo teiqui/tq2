@@ -5,6 +5,7 @@ defmodule Tq2.Sales.Customer do
 
   alias Tq2.Sales.Customer
   alias Tq2.Shares.Token
+  alias Tq2.Shops.Store
   alias Tq2.Utils.TrimmedString
 
   schema "customers" do
@@ -20,7 +21,7 @@ defmodule Tq2.Sales.Customer do
   end
 
   @doc false
-  def changeset(%Customer{} = customer, attrs) do
+  def changeset(%Customer{} = customer, attrs, store \\ nil) do
     attrs = canonize(attrs)
 
     customer
@@ -36,6 +37,9 @@ defmodule Tq2.Sales.Customer do
     |> unique_constraint(:email)
     |> unique_constraint(:phone)
     |> optimistic_lock(:lock_version)
+    |> validate_store_required(:email, store)
+    |> validate_store_required(:phone, store)
+    |> validate_store_required(:address, store)
   end
 
   @doc false
@@ -63,4 +67,20 @@ defmodule Tq2.Sales.Customer do
     |> Map.replace(:email, canonized_email(attrs[:email]))
     |> Map.replace(:phone, canonized_phone(attrs[:phone]))
   end
+
+  defp validate_store_required(changeset, :email, %Store{configuration: %{require_email: true}}) do
+    changeset |> validate_required([:email])
+  end
+
+  defp validate_store_required(changeset, :phone, %Store{configuration: %{require_phone: true}}) do
+    changeset |> validate_required([:phone])
+  end
+
+  defp validate_store_required(changeset, :address, %Store{
+         configuration: %{require_address: true}
+       }) do
+    changeset |> validate_required([:address])
+  end
+
+  defp validate_store_required(changeset, _field, _store), do: changeset
 end

@@ -76,9 +76,9 @@ defmodule Tq2.Sales do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_customer(attrs) do
+  def create_customer(attrs, store \\ nil) do
     %Customer{}
-    |> Customer.changeset(attrs)
+    |> Customer.changeset(attrs, store)
     |> Repo.insert()
   end
 
@@ -91,8 +91,8 @@ defmodule Tq2.Sales do
       %Ecto.Changeset{source: %Customer{}}
 
   """
-  def change_customer(%Customer{} = customer, attrs \\ %{}) do
-    Customer.changeset(customer, attrs)
+  def change_customer(%Customer{} = customer, attrs \\ %{}, store \\ nil) do
+    Customer.changeset(customer, attrs, store)
   end
 
   alias Tq2.Sales.Order

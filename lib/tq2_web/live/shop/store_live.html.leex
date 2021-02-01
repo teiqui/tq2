@@ -181,7 +181,17 @@
 
       <div class="mt-5">
         <%= form_for @changeset, "#", [phx_submit: "save"], fn f -> %>
-          <%= input f, :slug, dgettext("stores", "Slug"), input_html: [autofocus: true, hint: store_slug_hint()] %>
+          <%= input f, :slug, dgettext("stores", "Slug"), input_html: [autofocus: true, hint: store_slug_hint(), prepend: full_store_domain()] %>
+
+          <div class="mt-4">
+            <%= inputs_for f, :configuration, fn cf -> %>
+              <%= input cf, :require_email, dgettext("stores", "Require email"), input_html: [hint: dgettext("stores", "Require customer email for every order.")] %>
+              <div class="py-1"> </div>
+              <%= input cf, :require_phone, dgettext("stores", "Require phone"), input_html: [hint: dgettext("stores", "Require customer phone for every order.")] %>
+              <div class="py-1"> </div>
+              <%= input cf, :require_address, dgettext("stores", "Require address"), input_html: [hint: dgettext("stores", "Require customer address for every order.")] %>
+            <% end %>
+          </div>
 
           <%= lock_version_input f, @store %>
 

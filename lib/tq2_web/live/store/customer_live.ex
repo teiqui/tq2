@@ -7,13 +7,12 @@ defmodule Tq2Web.Store.CustomerLive do
 
   @impl true
   def mount(_, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do
-    changeset = get_customer_changeset(token)
-
     socket =
       socket
-      |> assign(store: store, token: token, visit_id: visit_id, changeset: changeset)
+      |> assign(store: store, token: token, visit_id: visit_id)
       |> load_customer(token)
       |> load_cart(token)
+      |> put_changeset()
 
     {:ok, socket, temporary_assigns: [cart: nil, changeset: nil, customer: nil]}
   end
@@ -64,7 +63,7 @@ defmodule Tq2Web.Store.CustomerLive do
       nil ->
         changeset =
           %Customer{}
-          |> Sales.change_customer(customer_params)
+          |> Sales.change_customer(customer_params, store)
           |> Map.put(:action, :insert)
 
         socket =
@@ -90,14 +89,10 @@ defmodule Tq2Web.Store.CustomerLive do
     assign(socket, customer: customer)
   end
 
-  defp get_customer_changeset(token) do
-    case Sales.get_customer(token) do
-      %Customer{} = customer ->
-        Sales.change_customer(customer)
+  defp put_changeset(%{assigns: %{customer: customer}} = socket) do
+    changeset = Sales.change_customer(customer || %Customer{})
 
-      nil ->
-        Sales.change_customer(%Customer{})
-    end
+    socket |> assign(:changeset, changeset)
   end
 
   defp customer(%{"email" => email, "phone" => phone} = params, _token) do

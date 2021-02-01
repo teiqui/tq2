@@ -383,6 +383,10 @@ defmodule Tq2Web.Shop.StoreLive do
     |> add_changeset()
   end
 
+  defp full_store_domain do
+    store_uri() |> Routes.root_url(:index)
+  end
+
   def input_phone_number(%{session: %{account: %{country: country}}}, form, field) do
     case input_value(form, field) do
       v when v in [nil, ""] -> phone_prefix_for_country(country)
