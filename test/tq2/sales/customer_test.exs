@@ -1,8 +1,11 @@
 defmodule Tq2.Sales.CustomerTest do
   use Tq2.DataCase, async: true
 
+  import Tq2.Fixtures, only: [default_store: 1]
+
   describe "customer" do
     alias Tq2.Sales.Customer
+    alias Tq2.Shops.Configuration
 
     @valid_attrs %{
       name: "some name",
@@ -60,6 +63,60 @@ defmodule Tq2.Sales.CustomerTest do
       assert "123456" == Customer.canonized_phone(" 1 x 2 345^6 ")
       assert "" == Customer.canonized_phone("")
       assert nil == Customer.canonized_phone(nil)
+    end
+
+    test "store required email" do
+      store = store_with(:email)
+
+      changeset = Customer.changeset(%Customer{}, %{}, store)
+
+      assert "can't be blank" in errors_on(changeset).email
+    end
+
+    test "store required phone" do
+      store = store_with(:phone)
+
+      changeset = Customer.changeset(%Customer{}, %{}, store)
+
+      assert "can't be blank" in errors_on(changeset).phone
+    end
+
+    test "store required address" do
+      store = store_with(:address)
+
+      changeset = Customer.changeset(%Customer{}, %{}, store)
+
+      assert "can't be blank" in errors_on(changeset).address
+    end
+
+    defp store_with(:email) do
+      config =
+        store_config()
+        |> Map.put(:require_phone, true)
+
+      default_store(%{configuration: config})
+    end
+
+    defp store_with(:phone) do
+      config =
+        store_config()
+        |> Map.put(:require_phone, true)
+
+      default_store(%{configuration: config})
+    end
+
+    defp store_with(:address) do
+      config =
+        store_config()
+        |> Map.put(:require_address, true)
+
+      default_store(%{configuration: config})
+    end
+
+    defp store_config do
+      store = default_store(%{})
+
+      store.configuration |> Configuration.from_struct()
     end
   end
 end

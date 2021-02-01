@@ -5,6 +5,8 @@ defmodule Tq2Web.Shop.StoreLiveTest do
 
   import Tq2.Fixtures, only: [default_store: 1, init_test_session: 1]
 
+  import Tq2.Utils.Urls, only: [store_uri: 0]
+
   def store_fixture(_) do
     %{store: default_store(%{})}
   end
@@ -264,6 +266,16 @@ defmodule Tq2Web.Shop.StoreLiveTest do
 
       assert Enum.count(store.configuration.shippings) == 1
       assert Enum.find(store.configuration.shippings, fn s -> s.name == "Near" end)
+    end
+
+    test "render full store url prepended to slug", %{conn: conn} do
+      path = Routes.store_path(conn, :index, "advanced")
+      {:ok, store_live, _html} = live(conn, path)
+      content = render(store_live)
+
+      uri = store_uri()
+
+      assert content =~ "class=\"input-group-text\">#{uri.scheme}://#{uri.host}/<"
     end
   end
 

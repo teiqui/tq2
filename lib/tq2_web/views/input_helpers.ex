@@ -38,6 +38,12 @@ defmodule Tq2Web.InputHelpers do
     end
   end
 
+  defp group(:checkbox, label, [input | hint], error) do
+    content_tag :div, class: "custom-control custom-switch" do
+      [input, label, hint, error]
+    end
+  end
+
   defp group(:checkbox, label, input, error) do
     content_tag :div, class: "custom-control custom-switch" do
       [input, label, error]
@@ -151,18 +157,17 @@ defmodule Tq2Web.InputHelpers do
   end
 
   defp input_tag(:checkbox = type, form, field, input_opts) do
-    apply(Phoenix.HTML.Form, type, [form, field, input_opts])
+    Phoenix.HTML.Form
+    |> apply(type, [form, field, input_opts])
+    |> input_with_hint(input_opts)
   end
 
   defp input_tag(type, form, field, input_opts) do
     case input_opts[:prepend] do
       nil ->
-        content = apply(Phoenix.HTML.Form, type, [form, field, input_opts])
-
-        case input_opts[:hint] do
-          nil -> content
-          text -> [content, hint_tag(text)]
-        end
+        Phoenix.HTML.Form
+        |> apply(type, [form, field, input_opts])
+        |> input_with_hint(input_opts)
 
       _prepend ->
         input_with_prepend(type, form, field, input_opts)
@@ -172,22 +177,29 @@ defmodule Tq2Web.InputHelpers do
   defp input_with_prepend(type, form, field, input_opts) do
     invalid_class = if input_opts[:with_errors], do: "is-invalid"
 
-    content_tag(:div, class: "input-group #{invalid_class}") do
-      prepend_group =
-        content_tag(:div, class: "input-group-prepend") do
-          content_tag(:span, input_opts[:prepend], class: "input-group-text")
-        end
+    input_group =
+      content_tag(:div, class: "input-group #{invalid_class}") do
+        prepend_group =
+          content_tag(:div, class: "input-group-prepend") do
+            content_tag(:span, input_opts[:prepend], class: "input-group-text")
+          end
 
-      input = apply(Phoenix.HTML.Form, type, [form, field, input_opts])
+        input = apply(Phoenix.HTML.Form, type, [form, field, input_opts])
 
-      case input_opts[:hint] do
-        nil -> [prepend_group, input]
-        text -> [prepend_group, input, hint_tag(text)]
+        [prepend_group, input]
       end
-    end
+
+    input_group |> input_with_hint(input_opts)
   end
 
   defp hint_tag(text) do
     content_tag(:small, text, class: "form-text text-muted")
+  end
+
+  defp input_with_hint(input, input_opts) do
+    case input_opts[:hint] do
+      nil -> input
+      text -> [input, hint_tag(text)]
+    end
   end
 end

@@ -118,11 +118,11 @@ msgstr "Plazo de retiro"
 msgid "Published"
 msgstr "Publicar"
 
-#: lib/tq2_web/templates/store/_form.html.eex:74
+#: lib/tq2_web/live/shop/store_live.html.leex:183
 msgid "Require email"
 msgstr "Requerir correo"
 
-#: lib/tq2_web/templates/store/_form.html.eex:75
+#: lib/tq2_web/live/shop/store_live.html.leex:185
 msgid "Require phone"
 msgstr "Requerir teléfono"
 
@@ -305,7 +305,7 @@ msgstr "Revisar pedido"
 msgid "+ Add shipping"
 msgstr "+ Agregar envío"
 
-#: lib/tq2/shops/configuration.ex:71
+#: lib/tq2/shops/configuration.ex:73
 msgid "Add at least one shipping"
 msgstr "Agregue al menos un envío"
 
@@ -337,3 +337,19 @@ msgstr "Tiempo en el cual hará la entrega, por ej. '3 horas', 'Al siguiente dí
 #: lib/tq2_web/live/shop/store_live.html.leex:127
 msgid "Shippings"
 msgstr "Envíos"
+
+#: lib/tq2_web/live/shop/store_live.html.leex:187
+msgid "Require address"
+msgstr "Requerir dirección"
+
+#: lib/tq2_web/live/shop/store_live.html.leex:187
+msgid "Require customer address for every order."
+msgstr "Requerir la dirección del cliente en cada pedido."
+
+#: lib/tq2_web/live/shop/store_live.html.leex:183
+msgid "Require customer email for every order."
+msgstr "Requerir el correo del cliente en cada pedido."
+
+#: lib/tq2_web/live/shop/store_live.html.leex:185
+msgid "Require customer phone for every order."
+msgstr "Requerir el teléfono del cliente en cada pedido."

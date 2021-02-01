@@ -17,6 +17,7 @@ defmodule Tq2.Shops.StoreTest do
       configuration: %{
         require_email: true,
         require_phone: true,
+        require_address: true,
         pickup: true,
         pickup_time_limit: "some time limit",
         address: "some address",
@@ -48,6 +49,7 @@ defmodule Tq2.Shops.StoreTest do
       configuration: %{
         require_email: nil,
         require_phone: nil,
+        require_address: nil,
         pickup: nil,
         pickup_time_limit: nil,
         address: nil,

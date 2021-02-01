@@ -16,6 +16,7 @@ defmodule Tq2.Shops.Configuration do
   embedded_schema do
     field :require_email, :boolean, default: false
     field :require_phone, :boolean, default: false
+    field :require_address, :boolean, default: false
     field :pickup, :boolean, default: false
     field :pickup_time_limit, :string
     field :address, :string
@@ -32,6 +33,7 @@ defmodule Tq2.Shops.Configuration do
   @cast_attrs [
     :require_email,
     :require_phone,
+    :require_address,
     :pickup,
     :pickup_time_limit,
     :address,
@@ -69,5 +71,19 @@ defmodule Tq2.Shops.Configuration do
 
   def at_least_one_shipping_translation do
     dgettext("stores", "Add at least one shipping")
+  end
+
+  def from_struct(nil), do: Map.from_struct(%Configuration{})
+
+  def from_struct(%Configuration{shippings: [_ | _] = shippings} = config) do
+    s = shippings |> Enum.map(&Map.from_struct(&1))
+
+    config
+    |> Map.from_struct()
+    |> Map.put(:shippings, s)
+  end
+
+  def from_struct(%Configuration{} = config) do
+    Map.from_struct(config)
   end
 end

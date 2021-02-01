@@ -22,8 +22,8 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: lib/tq2/shops/configuration.ex:67
-#: lib/tq2_web/live/shop/store_live.html.leex:23 lib/tq2_web/live/shop/store_live.html.leex:122
+#: lib/tq2/shops/configuration.ex:69
+#: lib/tq2_web/live/shop/store_live.html.leex:23 lib/tq2_web/live/shop/store_live.html.leex:116
 #: lib/tq2_web/live/store/handing_live.html.leex:39
 msgid "Delivery"
 msgstr ""
@@ -117,11 +117,11 @@ msgstr ""
 msgid "Published"
 msgstr ""
 
-#: lib/tq2_web/templates/store/_form.html.eex:74
+#: lib/tq2_web/live/shop/store_live.html.leex:183
 msgid "Require email"
 msgstr ""
 
-#: lib/tq2_web/templates/store/_form.html.eex:75
+#: lib/tq2_web/live/shop/store_live.html.leex:185
 msgid "Require phone"
 msgstr ""
 
@@ -304,7 +304,7 @@ msgstr ""
 msgid "+ Add shipping"
 msgstr ""
 
-#: lib/tq2/shops/configuration.ex:71
+#: lib/tq2/shops/configuration.ex:73
 msgid "Add at least one shipping"
 msgstr ""
 
@@ -335,4 +335,20 @@ msgstr ""
 
 #: lib/tq2_web/live/shop/store_live.html.leex:127
 msgid "Shippings"
+msgstr ""
+
+#: lib/tq2_web/live/shop/store_live.html.leex:187
+msgid "Require address"
+msgstr ""
+
+#: lib/tq2_web/live/shop/store_live.html.leex:187
+msgid "Require customer address for every order."
+msgstr ""
+
+#: lib/tq2_web/live/shop/store_live.html.leex:183
+msgid "Require customer email for every order."
+msgstr ""
+
+#: lib/tq2_web/live/shop/store_live.html.leex:185
+msgid "Require customer phone for every order."
 msgstr ""
