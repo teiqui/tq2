@@ -12,7 +12,8 @@ defmodule Tq2Web.Endpoint do
     store: :cookie,
     key: "_tq2_key",
     signing_salt: "zvi3Sf0e",
-    same_site: "lax"
+    same_site: "lax",
+    max_age: 60 * 60 * 24 * 365
   ]
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
