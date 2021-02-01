@@ -8,6 +8,11 @@
                                                                        alt: gettext("Teiqui") %>
     <% end %>
 
+
+    <div class="d-inline d-lg-none navbar-nav ml-auto mr-3">
+      <%= link dgettext("page", "Login"), to: Routes.session_url(app_uri(), :new), class: "nav-link font-weight-semi-bold" %>
+    </div>
+
     <button class="navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -19,7 +24,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="menu-content">
-      <ul class="navbar-nav mr-auto font-weight-bold">
+      <ul class="navbar-nav mr-auto font-weight-semi-bold">
         <li class="nav-item">
           <a class="nav-link" href="#app">
             <%= dgettext("page", "App") %>
@@ -44,7 +49,7 @@
       </ul>
 
       <%= link dgettext("page", "Free trial"), to: Routes.registration_url(app_uri(), :index),
-                                               class: "btn btn-light btn-sm text-primary shadow font-weight-bold px-4" %>
+                                               class: "btn btn-light btn-sm text-primary shadow-sm font-weight-semi-bold px-4" %>
     </div>
   </div>
 </nav>
@@ -54,15 +59,15 @@
     <div class="container mt-5">
       <div class="row">
         <div class="col-md-8 col-lg-6 col-xl-5 px-4">
-          <h1 class="display-4 font-weight-bold">
-            <%= dgettext("page", "Double your sells.") %>
+          <h1 class="display-4 font-weight-bolder">
+            <%= dgettext("page", "Double your sells") %>
           </h1>
           <h2 class="h5 font-weight-semi-bold mt-3">
             <%= dgettext("page", "Make your store in just a few clicks. Your customer will bring more customers with Teiqui price.") %>
           </h2>
 
           <%= link dgettext("page", "What is it?"), to: "#what-is-it",
-                                                    class: "btn btn-light btn-lg text-primary font-weight-bold px-4 mt-3 mb-4" %>
+                                                    class: "btn btn-light btn-lg text-primary font-weight-semi-bold px-4 mt-3 mb-4" %>
         </div>
         <div class="col">
           <%= img_tag Routes.static_path(@conn, "/images/page/banner.svg"), width: "740",
@@ -82,7 +87,7 @@
           <i class="bi-share-fill"></i>
         </div>
         <div class="col-md-8 col-lg-9 px-4 mb-3">
-          <h3 class="h1 font-weight-bold">
+          <h3 class="h1 font-weight-bolder">
             <%= dgettext("page", "If the deal is a good one, people share. For that reason Teiqui price boosts your sales.") %>
           </h3>
         </div>
@@ -97,7 +102,7 @@
           <%= app_img_tag @conn %>
         </div>
         <div class="col-md-7 col-lg-8 col-xl-9 px-4">
-          <h3 class="h1 text-primary font-weight-bold mt-5">
+          <h3 class="h1 text-primary font-weight-bolder mt-5">
             <%= dgettext("page", "Teiqui price to sell more") %>
           </h3>
 
@@ -109,12 +114,12 @@
             <div class="col-md-6">
               <p class="mb-3 mt-4">
                 <%= link dgettext("page", "Free trial"), to: Routes.registration_url(app_uri(), :index),
-                                                         class: "btn btn-primary btn-lg btn-block shadow px-4" %>
+                                                         class: "btn btn-primary btn-lg btn-block shadow-sm px-4" %>
               </p>
 
               <p class="mb-2">
                 <%= link dgettext("page", "How it works?"), to: "#what-is-it",
-                                                            class: "btn btn-white btn-lg btn-block border border-primary text-primary font-weight-bold px-4" %>
+                                                            class: "btn btn-white btn-lg btn-block border border-primary text-primary font-weight-semi-bold px-4" %>
               </p>
             </div>
           </div>
@@ -123,43 +128,43 @@
 
       <div class="row mt-4">
         <div class="col-4 text-center">
-          <div class="text-muted display-1 mb-3">
+          <div class="text-muted display-3 mb-3">
             <i class="bi-shop"></i>
           </div>
 
-          <h5 class="h5 text-primary mb-1">
+          <h5 class="h6 text-primary mb-1">
             <%= dgettext("page", "Make") %>
           </h5>
 
-          <h5 class="h5 text-dark">
+          <h5 class="h6 text-dark">
             <%= dgettext("page", "your store") %>
           </h5>
         </div>
 
         <div class="col-4 text-center">
-          <div class="text-muted display-1 mb-3">
+          <div class="text-muted display-3 mb-3">
             <i class="bi-share"></i>
           </div>
 
-          <h5 class="h5 text-primary mb-1">
+          <h5 class="h6 text-primary mb-1">
             <%= dgettext("page", "Share") %>
           </h5>
 
-          <h5 class="h5 text-dark">
+          <h5 class="h6 text-dark">
             <%= dgettext("page", "via WhatsApp") %>
           </h5>
         </div>
 
         <div class="col-4 text-center">
-          <div class="text-muted display-1 mb-3">
+          <div class="text-muted display-3 mb-3">
             <i class="bi-basket"></i>
           </div>
 
-          <h5 class="h5 text-primary mb-1">
+          <h5 class="h6 text-primary mb-1">
             <%= dgettext("page", "Sell") %>
           </h5>
 
-          <h5 class="h5 text-dark">
+          <h5 class="h6 text-dark">
             <%= dgettext("page", "double with Teiqui price") %>
           </h5>
         </div>
@@ -169,66 +174,60 @@
 
   <div id="what-is-it" class="bg-white d-none d-block-when-target">
     <div class="container py-5 px-4">
-      <h3 class="h1 text-primary font-weight-bold mb-5">
+      <h3 class="h1 text-primary font-weight-bolder mb-5">
         <%= dgettext("page", "How Teiqui price works?") %>
       </h3>
 
-      <div class="row">
-        <div class="col-lg-8">
-          <div class="d-flex mb-4">
-            <h4 class="display-4 text-primary font-weight-bold mb-0">
-              1
-            </h4>
+      <div class="d-flex mb-4">
+        <h4 class="display-4 text-primary font-weight-bolder mb-0">
+          1
+        </h4>
 
-            <p class="flex-fill h4 pt-2 mt-lg-1 mt-n1 ml-4 mb-0">
-              <%= raw dgettext("page", "Setup an <strong class=\"font-weight-bold\">attractive discount</strong> for your items.") %>
-            </p>
-          </div>
+        <p class="flex-fill h4 pt-2 mt-lg-1 mt-n1 ml-4 mb-0">
+          <%= raw dgettext("page", "Setup an <strong class=\"font-weight-bolder\">attractive discount</strong> for your items.") %>
+        </p>
+      </div>
 
-          <div class="d-flex mb-4">
-            <h4 class="display-4 text-primary font-weight-bold mb-0">
-              2
-            </h4>
+      <div class="d-flex mb-4">
+        <h4 class="display-4 text-primary font-weight-bolder mb-0">
+          2
+        </h4>
 
-            <p class="flex-fill h4 pt-2 mt-lg-1 mt-n1 ml-4 mb-0">
-              <%= raw dgettext("page", "People will <strong class=\"font-weight-bold\">share your store</strong> to get the Teiqui price.") %>
-            </p>
-          </div>
+        <p class="flex-fill h4 pt-2 mt-lg-1 mt-n1 ml-4 mb-0">
+          <%= raw dgettext("page", "People will <strong class=\"font-weight-bolder\">share your store</strong> to get the Teiqui price.") %>
+        </p>
+      </div>
 
-          <div class="d-flex mb-4">
-            <h4 class="display-4 text-primary font-weight-bold mb-0">
-              3
-            </h4>
+      <div class="d-flex mb-4">
+        <h4 class="display-4 text-primary font-weight-bolder mb-0">
+          3
+        </h4>
 
-            <p class="flex-fill h4 pt-2 mt-lg-1 mt-n1 ml-4 mb-0">
-              <%= raw dgettext("page", "If <strong class=\"font-weight-bold\">your customer get someone else to buy</strong> in less than 24 hours, both parties gets the Teiqui price.") %>
-            </p>
-          </div>
-        </div>
+        <p class="flex-fill h4 pt-2 mt-lg-1 mt-n1 ml-4 mb-0">
+          <%= raw dgettext("page", "If <strong class=\"font-weight-bolder\">your customer get someone else to buy</strong> in less than 24 hours, both parties gets the Teiqui price.") %>
+        </p>
+      </div>
 
-        <div class="col-lg-4">
-          <div class="card card-body border border-primary mt-lg-5 mt-3">
-            <p class="h1 text-center text-primary mb-3">
-              <i class="bi-exclamation-triangle"></i>
-            </p>
+      <div class="d-flex mb-4">
+        <h4 class="h1 text-primary font-weight-bolder mb-0">
+          <i class="bi-exclamation-triangle"></i>
+        </h4>
 
-            <p class="mb-0">
-              <%= dgettext("page", "IMPORTANT: if the 24 hour period expires and there is no other person joining, your customer pays the regular price.") %>
-            </p>
-          </div>
-        </div>
+        <p class="flex-fill h5 pt-2 mt-lg-1 mt-n1 ml-4 mb-0">
+          <%= dgettext("page", "IMPORTANT: if the 24 hour period expires and there is no other person joining, your customer pays the regular price.") %>
+        </p>
       </div>
 
       <p class="mb-0 my-5 ml-lg-5 text-center text-lg-left">
         <%= link dgettext("page", "Free 14 days trial"), to: Routes.registration_url(app_uri(), :index),
-                                                         class: "btn btn-primary btn-lg shadow font-weight-bold px-4" %>
+                                                         class: "btn btn-primary btn-lg shadow-sm font-weight-semi-bold px-4" %>
       </p>
     </div>
   </div>
 
   <div id="teiqui-price" class="bg-primary text-white">
     <div class="container py-5 px-4">
-      <h3 class="h1 font-weight-bold mb-5">
+      <h3 class="h1 font-weight-bolder mb-5">
         <%= dgettext("page", "A tool") %>
         <br>
         <%= dgettext("page", "to sell double") %>
@@ -315,7 +314,7 @@
 
       <p class="mb-0 my-5 ml-lg-5 text-center text-lg-left">
         <%= link dgettext("page", "Free 14 days trial"), to: Routes.registration_url(app_uri(), :index),
-                                                         class: "btn btn-light btn-lg text-primary shadow font-weight-bold px-4" %>
+                                                         class: "btn btn-light btn-lg text-primary shadow-sm font-weight-semi-bold px-4" %>
       </p>
     </div>
   </div>
@@ -324,8 +323,8 @@
     <div class="container py-5">
       <div class="row">
         <div class="col-md-7 col-lg-7 px-4">
-          <h3 class="h1 font-weight-bold">
-            <%= dgettext("page", "Choose the plan that feet your needs.") %>
+          <h3 class="h1 font-weight-bolder">
+            <%= dgettext("page", "Choose the plan that feet your needs") %>
           </h3>
 
         </div>
@@ -333,11 +332,11 @@
 
       <div class="row mt-5">
         <div class="col-lg-4 text-center mb-4 border-right">
-          <h4 class="h4 text-primary font-weight-bold">
+          <h4 class="h4 text-primary font-weight-bolder">
             <%= dgettext("page", "Free") %>
           </h4>
 
-          <h5 class="h4 text-info font-weight-bold mb-1">
+          <h5 class="h4 text-info font-weight-bolder mb-1">
             <%= dgettext("page", "Test it 14 days") %>
           </h5>
 
@@ -354,15 +353,15 @@
           </ul>
 
           <%= link dgettext("page", "Free trial"), to: Routes.registration_url(app_uri(), :index),
-                                                   class: "btn btn-outline-primary text-primary border border-primary font-weight-bold py-2 px-3" %>
+                                                   class: "btn btn-outline-primary text-primary border border-primary font-weight-semi-bold py-2 px-3" %>
         </div>
 
         <div class="col-lg-4 text-center mb-4 border-right">
-          <h4 class="h4 text-primary font-weight-bold">
+          <h4 class="h4 text-primary font-weight-bolder">
             <%= dgettext("page", "Monthly") %>
           </h4>
 
-          <h5 class="h4 text-info font-weight-bold mb-n1">
+          <h5 class="h4 text-info font-weight-bolder mb-n1">
             <%= localized_monthly_price(@country) %>
           </h5>
 
@@ -381,15 +380,15 @@
           </ul>
 
           <%= link dgettext("page", "Free trial"), to: Routes.registration_url(app_uri(), :index),
-                                                   class: "btn btn-outline-primary text-primary border border-primary font-weight-bold py-2 px-3" %>
+                                                   class: "btn btn-outline-primary text-primary border border-primary font-weight-semi-bold py-2 px-3" %>
         </div>
 
         <div class="col-lg-4 text-center mb-4">
-          <h4 class="h4 text-primary font-weight-bold">
+          <h4 class="h4 text-primary font-weight-bolder">
             <%= dgettext("page", "Annually") %>
           </h4>
 
-          <h5 class="h4 text-info font-weight-bold mb-1">
+          <h5 class="h4 text-info font-weight-bolder mb-1">
             <%= localized_yearly_price(@country) %>
           </h5>
 
@@ -408,7 +407,7 @@
           </ul>
 
           <%= link dgettext("page", "Free trial"), to: Routes.registration_url(app_uri(), :index),
-                                                   class: "btn btn-outline-primary text-primary border border-primary font-weight-bold py-2 px-3" %>
+                                                   class: "btn btn-outline-primary text-primary border border-primary font-weight-semi-bold py-2 px-3" %>
         </div>
       </div>
     </div>

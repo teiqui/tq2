@@ -25,12 +25,12 @@ msgid "App"
 msgstr "Aplicación"
 
 #: lib/tq2_web/templates/page/index.html.eex:328
-msgid "Choose the plan that feet your needs."
-msgstr "Elige el plan que más te convenga."
+msgid "Choose the plan that feet your needs"
+msgstr "Elige el plan que más te convenga"
 
 #: lib/tq2_web/templates/page/index.html.eex:58
-msgid "Double your sells."
-msgstr "Vende el doble."
+msgid "Double your sells"
+msgstr "Vende el doble"
 
 #: lib/tq2_web/templates/page/index.html.eex:115
 msgid "Download the app"
@@ -172,8 +172,8 @@ msgid "IMPORTANT: if the 24 hour period expires and there is no other person joi
 msgstr "IMPORTANTE: Si se cumplen las 24h y no hay otra persona, tu cliente paga el precio normal."
 
 #: lib/tq2_web/templates/page/index.html.eex:204
-msgid "If <strong class=\"font-weight-bold\">your customer get someone else to buy</strong> in less than 24 hours, both parties gets the Teiqui price."
-msgstr "Si <strong class=\"font-weight-bold\">tu cliente consigue que alguien más compre</strong> en menos de 24h, ambas partes pagan Precio Teiqui."
+msgid "If <strong class=\"font-weight-bolder\">your customer get someone else to buy</strong> in less than 24 hours, both parties gets the Teiqui price."
+msgstr "Si <strong class=\"font-weight-bolder\">tu cliente consigue que alguien más compre</strong> en menos de 24h, ambas partes pagan Precio Teiqui."
 
 #: lib/tq2_web/templates/page/index.html.eex:86
 msgid "If the deal is a good one, people share. For that reason Teiqui price boosts your sales."
@@ -196,8 +196,8 @@ msgid "Next"
 msgstr "Siguiente"
 
 #: lib/tq2_web/templates/page/index.html.eex:194
-msgid "People will <strong class=\"font-weight-bold\">share your store</strong> to get the Teiqui price."
-msgstr "Las personas <strong class=\"font-weight-bold\">compartirán tu tienda</strong> para acceder al Precio Teiqui."
+msgid "People will <strong class=\"font-weight-bolder\">share your store</strong> to get the Teiqui price."
+msgstr "Las personas <strong class=\"font-weight-bolder\">compartirán tu tienda</strong> para acceder al Precio Teiqui."
 
 #: lib/tq2_web/templates/page/index.html.eex:305
 msgid "Previous"
@@ -208,8 +208,8 @@ msgid "Save %{amount}"
 msgstr "Ahorra %{amount}"
 
 #: lib/tq2_web/templates/page/index.html.eex:184
-msgid "Setup an <strong class=\"font-weight-bold\">attractive discount</strong> for your items."
-msgstr "Configura un <strong class=\"font-weight-bold\">descuento atractivo</strong> para tus artículos."
+msgid "Setup an <strong class=\"font-weight-bolder\">attractive discount</strong> for your items."
+msgstr "Configura un <strong class=\"font-weight-bolder\">descuento atractivo</strong> para tus artículos."
 
 #: lib/tq2_web/templates/page/index.html.eex:101
 msgid "Teiqui price to sell more"

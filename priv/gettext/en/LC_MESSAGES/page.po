@@ -25,11 +25,11 @@ msgid "App"
 msgstr ""
 
 #: lib/tq2_web/templates/page/index.html.eex:328
-msgid "Choose the plan that feet your needs."
+msgid "Choose the plan that feet your needs"
 msgstr ""
 
 #: lib/tq2_web/templates/page/index.html.eex:58
-msgid "Double your sells."
+msgid "Double your sells"
 msgstr ""
 
 #: lib/tq2_web/templates/page/index.html.eex:115
@@ -172,7 +172,7 @@ msgid "IMPORTANT: if the 24 hour period expires and there is no other person joi
 msgstr ""
 
 #: lib/tq2_web/templates/page/index.html.eex:204
-msgid "If <strong class=\"font-weight-bold\">your customer get someone else to buy</strong> in less than 24 hours, both parties gets the Teiqui price."
+msgid "If <strong class=\"font-weight-bolder\">your customer get someone else to buy</strong> in less than 24 hours, both parties gets the Teiqui price."
 msgstr ""
 
 #: lib/tq2_web/templates/page/index.html.eex:86
@@ -196,7 +196,7 @@ msgid "Next"
 msgstr ""
 
 #: lib/tq2_web/templates/page/index.html.eex:194
-msgid "People will <strong class=\"font-weight-bold\">share your store</strong> to get the Teiqui price."
+msgid "People will <strong class=\"font-weight-bolder\">share your store</strong> to get the Teiqui price."
 msgstr ""
 
 #: lib/tq2_web/templates/page/index.html.eex:305
@@ -208,7 +208,7 @@ msgid "Save %{amount}"
 msgstr ""
 
 #: lib/tq2_web/templates/page/index.html.eex:184
-msgid "Setup an <strong class=\"font-weight-bold\">attractive discount</strong> for your items."
+msgid "Setup an <strong class=\"font-weight-bolder\">attractive discount</strong> for your items."
 msgstr ""
 
 #: lib/tq2_web/templates/page/index.html.eex:101

@@ -21,3 +21,11 @@
   src: url('/fonts/mulish/Mulish-Bold.ttf');
   src: local('Mulish Bold'), local('Mulish-Bold'), url('/fonts/mulish/Mulish-Bold.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: 'Mulish';
+  font-weight: 900;
+  font-style: normal;
+  src: url('/fonts/mulish/Mulish-Black.ttf');
+  src: local('Mulish Black'), local('Mulish-Black'), url('/fonts/mulish/Mulish-Black.ttf') format('truetype');
+}
