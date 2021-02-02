@@ -313,6 +313,33 @@ defmodule Tq2.Sales do
   end
 
   @doc """
+  Gets the most recent order for customer with the given token.
+
+  Returns nil if none is available.
+
+  ## Examples
+
+      iex> get_latest_order(%Account{}, "some token")
+      %Order{}
+
+      iex> get_latest_order(%Account{}, "other token")
+      nil
+
+  """
+  def get_latest_order(account, token) do
+    Order
+    |> where(account_id: ^account.id)
+    |> join(:left, [o], c in assoc(o, :cart))
+    |> join(:left, [o], customer in assoc(o, :customer))
+    |> join(:left, [o, c, customer], t in assoc(customer, :tokens))
+    |> where([o, c, customer, t], t.value == ^token)
+    |> preload([o, c, customer], cart: {c, customer: customer}, customer: customer)
+    |> order_by(asc: :inserted_at)
+    |> last()
+    |> Repo.one()
+  end
+
+  @doc """
   Creates a order.
 
   ## Examples

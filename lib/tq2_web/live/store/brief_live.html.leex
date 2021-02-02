@@ -1,0 +1,185 @@
+<%= live_component @socket, HeaderComponent, id: :header,
+                                             store: @store,
+                                             token: @token,
+                                             visit_id: @visit_id %>
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="d-flex pl-2 pr-1 mb-3">
+      <div class="h4 text-primary mr-3 mt-n1">
+        <i class="bi-basket"></i>
+      </div>
+
+      <div class="flex-fill font-weight-bold">
+        <%= dgettext("stores", "Cart") %>
+      </div>
+
+      <div>
+        <%= live_redirect dgettext("stores", "Edit"), to: Routes.checkout_path(@socket, :index, @store) %>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-sm table-borderless mb-0">
+        <tbody>
+          <%= for line <- Enum.sort(@cart.lines, &(&1.id < &2.id)) do %>
+            <tr id="line-<%= line.id %>">
+              <td>
+                <span class="mx-2"><%= line.quantity %></span>
+              </td>
+              <td>
+                <%= line.name %>
+              </td>
+              <td class="text-right">
+                <%= line_total @cart, line %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+
+        <tfoot>
+          <tr>
+            <td></td>
+            <td>
+              <strong><%= dgettext("orders", "Total") %></strong>
+            </td>
+            <td class="text-right">
+              <strong><%= cart_total @cart %></strong>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <p class="text-right text-muted small mb-0 mr-1">
+      <%= cart_total_hint @cart %>
+    </p>
+
+    <hr class="my-4">
+
+    <div class="d-flex pl-2 pr-1 mb-3">
+      <div class="h4 text-primary mr-3 mt-n1">
+        <i class="bi-shop"></i>
+      </div>
+
+      <div class="flex-fill">
+        <p class="font-weight-bold mb-2">
+          <%= dgettext("stores", "Handing") %>
+        </p>
+
+        <%= if @cart.data.handing == "pickup" do %>
+          <p class="mb-0">
+            <%= dgettext("stores", "Pickup") %>
+          </p>
+
+          <%= if @store.configuration.address do %>
+            <p class="text-muted mb-0">
+              <%= @store.configuration.address %>
+            </p>
+          <% end %>
+
+          <%= if @store.configuration.pickup_time_limit do %>
+            <p class="text-muted mb-0">
+              <%= dgettext("stores", "Pickup time limit") %>:
+              <%= @store.configuration.pickup_time_limit %>
+            </p>
+          <% end %>
+        <% else %>
+          <p class="mb-0">
+            <%= dgettext("stores", "Delivery") %>
+          </p>
+
+          <%= if @cart.data.shipping do %>
+            <p class="mb-0">
+              <%= @cart.data.shipping.name %> (<%= format_money @cart.data.shipping.price %>)
+            </p>
+          <% end %>
+
+          <p class="text-muted mb-0">
+            <%= text_to_html @store.configuration.delivery_area, wrapper_tag: :span, attributes: [class: "d-block"] %>
+          </p>
+
+          <%= if @store.configuration.delivery_time_limit do %>
+            <p class="text-muted mb-0">
+              <%= dgettext("stores", "Delivery time limit") %>
+              <%= @store.configuration.delivery_time_limit %>
+            </p>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div>
+        <%= live_redirect dgettext("stores", "Edit"), to: Routes.handing_path(@socket, :index, @store) %>
+      </div>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="d-flex pl-2 pr-1 mb-3">
+      <div class="h4 text-primary mr-3 mt-n1">
+        <i class="bi-person"></i>
+      </div>
+
+      <div class="flex-fill">
+        <p class="font-weight-bold mb-2">
+          <%= dgettext("stores", "Data") %>
+        </p>
+
+        <p class="mb-0">
+          <%= @cart.customer.name %>
+        </p>
+
+        <%= if @cart.customer.email do %>
+          <p class="mb-0">
+            <%= @cart.customer.email %>
+          </p>
+        <% end %>
+
+        <%= if @cart.customer.address do %>
+          <p class="mb-0">
+            <%= @cart.customer.address %>
+          </p>
+        <% end %>
+
+        <%= if @cart.customer.phone do %>
+          <p class="mb-0">
+            <%= @cart.customer.phone %>
+          </p>
+        <% end %>
+      </div>
+
+      <div>
+        <%= live_redirect dgettext("stores", "Edit"), to: Routes.customer_path(@socket, :index, @store) %>
+      </div>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="d-flex pl-2 pr-1 mb-3">
+      <div class="h4 text-primary mr-3 mt-n1">
+        <i class="bi-wallet"></i>
+      </div>
+
+      <div class="flex-fill">
+        <p class="font-weight-bold mb-2">
+          <%= dgettext("stores", "Payment") %>
+        </p>
+
+        <p class="mb-0">
+          <%= payment @cart.data.payment %>
+        </p>
+      </div>
+
+      <div>
+        <%= live_redirect dgettext("stores", "Edit"), to: Routes.payment_path(@socket, :index, @store) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form phx-submit="save">
+  <%= live_component @socket, ButtonComponent, store: @store,
+                                              cart: @cart,
+                                              token: @token,
+                                              disable_with: dgettext("stores", "Creating order..."),
+                                              enabled: true %>
+</form>

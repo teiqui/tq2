@@ -14,6 +14,8 @@ defmodule Tq2.TransactionsTest do
   }
 
   describe "carts" do
+    import Tq2.Fixtures, only: [default_store: 0]
+
     alias Tq2.Transactions.Cart
 
     test "get_cart/2 returns the cart with given token" do
@@ -83,6 +85,25 @@ defmodule Tq2.TransactionsTest do
 
       assert %Ecto.Changeset{valid?: true} =
                Transactions.change_handing_cart(account, cart, attrs)
+    end
+
+    test "fill_cart/3 copy data from one cart to another" do
+      store = default_store()
+      shipping = List.first(store.configuration.shippings)
+      cart = fixture(store.account, :cart)
+
+      other =
+        fixture(store.account, :cart, %{
+          data: %{handing: "delivery", payment: "cash", shipping: Map.from_struct(shipping)}
+        })
+
+      refute cart.data
+
+      assert %Cart{data: %{copied: true}} = cart = Transactions.fill_cart(store, cart, other)
+
+      assert cart.data.handing == "delivery"
+      assert cart.data.payment == "cash"
+      assert cart.data.shipping.id == shipping.id
     end
   end
 

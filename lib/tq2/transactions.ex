@@ -28,8 +28,9 @@ defmodule Tq2.Transactions do
     |> where(account_id: ^account.id, token: ^token)
     |> join(:left, [c], l in assoc(c, :lines))
     |> join(:left, [c], o in assoc(c, :order))
+    |> join(:left, [c], customer in assoc(c, :customer))
     |> where([c, l, o], is_nil(o.id))
-    |> preload([c, l], lines: l)
+    |> preload([c, l, o, customer], customer: customer, lines: l)
     |> Repo.one()
   end
 
@@ -93,6 +94,46 @@ defmodule Tq2.Transactions do
   """
   def change_handing_cart(%Account{} = account, %Cart{} = cart, attrs \\ %{}) do
     Cart.handing_changeset(cart, attrs, account)
+  end
+
+  @doc """
+  Returns true if data from other cart can be copied to the first one.
+
+  ## Examples
+
+      iex> can_be_copied?(%Store{}, cart, other)
+      true
+
+      iex> can_be_copied?(%Store{}, cart, other)
+      false
+
+  """
+  defdelegate can_be_copied?(store, cart, other), to: Cart
+
+  @doc """
+  Copy cart data and customer from one cart to another. If it succeeds, returns
+  data with copied = true, and false otherwise
+
+  ## Examples
+
+      iex> fill_cart(%Store{}, cart, other)
+      %Cart{data: %{copied: true}}
+
+      iex> fill_cart(%Store{}, cart, other)
+      %Cart{data: %{copied: false}}
+
+  """
+  def fill_cart(store, cart, previuos_cart) do
+    data = Cart.extract_data(store, cart, previuos_cart)
+    attrs = %{customer_id: previuos_cart.customer_id, data: data}
+
+    case update_cart(store.account, cart, attrs) do
+      {:ok, cart} ->
+        %{cart | customer: previuos_cart.customer}
+
+      {:error, _changeset} ->
+        cart
+    end
   end
 
   alias Tq2.Transactions.Line

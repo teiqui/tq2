@@ -326,6 +326,39 @@ defmodule Tq2.SalesTest do
       refute Sales.get_not_referred_pending_order(order_1.id)
     end
 
+    test "get_latest_order/2 returns the most recent order for a customer", %{session: session} do
+      {:ok, cart} = create_cart(session)
+      token = cart.customer.tokens |> List.first()
+
+      attrs =
+        @valid_order_attrs
+        |> Map.delete(:cart)
+        |> Map.put(:cart_id, cart.id)
+
+      refute Sales.get_latest_order(session.account, token.value)
+
+      {:ok, %Order{} = order} = Sales.create_order(session.account, attrs)
+
+      assert Sales.get_latest_order(session.account, token.value).id == order.id
+
+      {:ok, cart} = create_cart(session, %{}, cart.customer)
+
+      attrs =
+        @valid_order_attrs
+        |> Map.delete(:cart)
+        |> Map.put(:cart_id, cart.id)
+
+      {:ok, %Order{} = newer_order} = Sales.create_order(session.account, attrs)
+
+      new_date = Timex.now() |> Timex.shift(minutes: 1) |> DateTime.truncate(:second)
+
+      newer_order
+      |> Ecto.Changeset.change(%{inserted_at: new_date})
+      |> Repo.update!()
+
+      assert Sales.get_latest_order(session.account, token.value).id == newer_order.id
+    end
+
     test "create_order/2 with valid data creates a order", %{session: session} do
       visit = fixture(session, :visit)
       attrs = Map.put(@valid_order_attrs, :cart, %{@valid_order_attrs.cart | visit_id: visit.id})
@@ -409,19 +442,24 @@ defmodule Tq2.SalesTest do
     })
   end
 
-  defp create_cart(session, attrs \\ %{}) do
+  defp create_cart(session, attrs \\ %{}, customer \\ nil) do
     visit = fixture(session, :visit)
+    customer_token = :crypto.strong_rand_bytes(64) |> Base.url_encode64()
 
     {:ok, customer} =
-      Sales.create_customer(%{
-        name: "some name #{:random.uniform(999_999_999)}",
-        email: "some#{:random.uniform(999_999_999)}@email.com",
-        phone: "#{:random.uniform(999_999_999)}",
-        address: "some address",
-        tokens: [
-          %{value: :crypto.strong_rand_bytes(64) |> Base.url_encode64()}
-        ]
-      })
+      case customer do
+        nil ->
+          Sales.create_customer(%{
+            name: "some name #{:random.uniform(999_999_999)}",
+            email: "some#{:random.uniform(999_999_999)}@email.com",
+            phone: "#{:random.uniform(999_999_999)}",
+            address: "some address",
+            tokens: [%{value: customer_token}]
+          })
+
+        customer ->
+          {:ok, customer}
+      end
 
     cart_attrs =
       Map.merge(
@@ -456,6 +494,6 @@ defmodule Tq2.SalesTest do
         item: item
       })
 
-    {:ok, cart}
+    {:ok, %{cart | customer: %{customer | tokens: [%Tq2.Shares.Token{value: customer_token}]}}}
   end
 end

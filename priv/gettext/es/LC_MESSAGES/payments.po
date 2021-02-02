@@ -12,11 +12,11 @@ msgstr ""
 "Plural-Forms: nplurals=2\n"
 
 #: lib/tq2_web/live/components/order/payment_form_component.ex:6
-#: lib/tq2_web/live/store/payment_live.ex:83 lib/tq2_web/views/order_view.ex:25
+#: lib/tq2_web/live/store/brief_live.ex:113 lib/tq2_web/live/store/payment_live.ex:71 lib/tq2_web/views/order_view.ex:25
 msgid "Cash"
 msgstr "Efectivo"
 
-#: lib/tq2_web/live/store/payment_live.ex:98
+#: lib/tq2_web/live/store/payment_live.ex:86
 msgid "Your order must be paid on delivery."
 msgstr "Su pedido deberá ser abonado a contra entrega."
 
@@ -24,7 +24,7 @@ msgstr "Su pedido deberá ser abonado a contra entrega."
 msgid "Saving..."
 msgstr "Guardando..."
 
-#: lib/tq2_web/live/store/payment_live.ex:102
+#: lib/tq2_web/live/store/payment_live.ex:90
 msgid "Pay with MercadoPago."
 msgstr "Pagar con MercadoPago."
 
@@ -32,12 +32,14 @@ msgstr "Pagar con MercadoPago."
 msgid "Pay with a wire transfer."
 msgstr "Pagar con transferencia bancaria."
 
-#: lib/tq2_web/live/store/payment_live.ex:136 lib/tq2_web/views/order_view.ex:26
+#: lib/tq2_web/live/store/brief_live.ex:117
+#: lib/tq2_web/live/store/payment_live.ex:124 lib/tq2_web/views/order_view.ex:26
 msgid "MercadoPago"
 msgstr "MercadoPago"
 
 #: lib/tq2_web/live/components/order/payment_form_component.ex:7
-#: lib/tq2_web/live/store/order_live.ex:57 lib/tq2_web/live/store/payment_live.ex:140 lib/tq2_web/views/order_view.ex:27
+#: lib/tq2_web/live/store/brief_live.ex:121 lib/tq2_web/live/store/order_live.ex:57
+#: lib/tq2_web/live/store/payment_live.ex:128 lib/tq2_web/views/order_view.ex:27
 msgid "Wire transfer"
 msgstr "Transferencia bancaria"
 

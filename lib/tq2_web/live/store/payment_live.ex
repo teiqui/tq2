@@ -1,13 +1,9 @@
 defmodule Tq2Web.Store.PaymentLive do
   use Tq2Web, :live_view
 
-  import Tq2Web.PaymentLiveUtils, only: [create_order: 3, check_for_paid_cart: 1]
+  import Tq2Web.PaymentLiveUtils,
+    only: [create_order: 3, create_mp_payment: 3, check_for_paid_cart: 1]
 
-  alias Tq2.Gateways.MercadoPago, as: MPClient
-  alias Tq2.Gateways.MercadoPago.Credential, as: MPCredential
-  alias Tq2.Payments
-  alias Tq2.Payments.Payment
-  alias Tq2.Transactions.Cart
   alias Tq2.{Apps, Transactions}
   alias Tq2Web.Store.{ButtonComponent, HeaderComponent}
 
@@ -68,13 +64,6 @@ defmodule Tq2Web.Store.PaymentLive do
     cart = Transactions.get_cart(account, token)
 
     assign(socket, cart: cart)
-  end
-
-  defp create_mp_payment(socket, store, cart) do
-    cart
-    |> create_mp_preference(store)
-    |> handle_pending_payment(cart)
-    |> response_from_payment(socket)
   end
 
   defp available_payment_methods(store) do
@@ -138,57 +127,5 @@ defmodule Tq2Web.Store.PaymentLive do
 
   defp translate_name("wire_transfer") do
     dgettext("payments", "Wire transfer")
-  end
-
-  defp create_mp_preference(cart, store) do
-    cart = Tq2.Repo.preload(cart, :payments)
-
-    cart.payments
-    |> Enum.find(&(&1.status == "pending" && &1.kind == "mercado_pago" && &1.gateway_data))
-    |> mp_cart_preference(cart, store)
-  end
-
-  defp mp_cart_preference(nil, cart, store) do
-    store.account
-    |> Apps.get_app("mercado_pago")
-    |> MPCredential.for_app()
-    |> MPClient.create_cart_preference(cart, store)
-  end
-
-  defp mp_cart_preference(payment, _, _), do: payment
-
-  defp handle_pending_payment(%{"message" => error}, _), do: error
-
-  defp handle_pending_payment(%Payment{} = payment, _cart) do
-    {:ok, payment}
-  end
-
-  defp handle_pending_payment(mp_preference, cart) do
-    attrs = %{
-      status: "pending",
-      kind: "mercado_pago",
-      amount: Cart.total(cart),
-      external_id: mp_preference["external_reference"],
-      gateway_data: mp_preference
-    }
-
-    cart |> Payments.create_payment(attrs)
-  end
-
-  defp response_from_payment({:error, _payment_cs}, socket) do
-    # TODO: handle this case properly
-    socket
-  end
-
-  defp response_from_payment({:ok, payment}, socket) do
-    socket =
-      socket
-      |> redirect(external: payment.gateway_data["init_point"])
-
-    socket
-  end
-
-  defp response_from_payment(error_msg, socket) do
-    socket |> assign(:alert, error_msg)
   end
 end

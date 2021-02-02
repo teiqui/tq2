@@ -59,6 +59,7 @@ defmodule Tq2Web.Router do
     live "/:slug/order/:id", Store.OrderLive, :index, session: @session_extras.store
     live "/:slug/team", Store.TeamLive, :index, session: @session_extras.store
     live "/:slug/checkout", Store.CheckoutLive, :index, session: @session_extras.store
+    live "/:slug/brief", Store.BriefLive, :index, session: @session_extras.store
   end
 
   scope "/", Tq2Web do

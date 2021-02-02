@@ -1,7 +1,7 @@
 defmodule Tq2.Transactions.CartTest do
   use Tq2.DataCase, async: true
 
-  import Tq2.Fixtures, only: [default_account: 0, create_session: 0]
+  import Tq2.Fixtures, only: [default_account: 0, default_store: 0, create_session: 0]
 
   describe "cart" do
     alias Tq2.Transactions.Cart
@@ -211,6 +211,53 @@ defmodule Tq2.Transactions.CartTest do
       refute Cart.shipping(%Cart{data: %{shipping: nil}})
       refute Cart.shipping(%Cart{data: %{}})
       refute Cart.shipping(%Cart{})
+    end
+
+    test "can_be_copied?/3 returns true when previous cart has _current_ information" do
+      store = default_store()
+      cart = %Cart{data: %Tq2.Transactions.Data{}}
+      other = %Cart{data: %Tq2.Transactions.Data{}}
+
+      assert Cart.can_be_copied?(store, cart, other)
+
+      cart = %{cart | data: nil}
+
+      assert Cart.can_be_copied?(store, cart, other)
+    end
+
+    test "can_be_copied?/3 checks shipping" do
+      store = default_store()
+      cart = %Cart{data: %Tq2.Transactions.Data{}}
+
+      other = %Cart{
+        data: %Tq2.Transactions.Data{
+          shipping: List.first(store.configuration.shippings)
+        }
+      }
+
+      assert Cart.can_be_copied?(store, cart, other)
+
+      other = %{other | data: %Tq2.Transactions.Data{shipping: %Tq2.Shops.Shipping{id: "old"}}}
+
+      refute Cart.can_be_copied?(store, cart, other)
+    end
+
+    test "extract_data/3 returns data map" do
+      store = default_store()
+      shipping = store.configuration.shippings |> List.first() |> Map.from_struct()
+      cart = %Cart{data: %Tq2.Transactions.Data{id: "original"}}
+
+      other = %Cart{
+        data: %Tq2.Transactions.Data{
+          id: "other",
+          handing: "delivery",
+          payment: "cash",
+          shipping: shipping
+        }
+      }
+
+      assert %{id: "original", handing: "delivery", payment: "cash", shipping: ^shipping} =
+               Cart.extract_data(store, cart, other)
     end
   end
 

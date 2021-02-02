@@ -129,6 +129,44 @@ defmodule Tq2.Transactions.Cart do
   def shipping(%Cart{data: %{shipping: shipping}}), do: shipping
   def shipping(%Cart{}), do: nil
 
+  def can_be_copied?(store, %Cart{data: nil} = cart, other) do
+    can_be_copied?(store, %{cart | data: %{copied: false}}, other)
+  end
+
+  def can_be_copied?(store, %Cart{data: %{copied: false}}, other) do
+    case other.data && other.data.shipping do
+      nil ->
+        true
+
+      shipping ->
+        !!Enum.find(store.configuration.shippings, &(&1.id == shipping.id))
+    end
+  end
+
+  def can_be_copied?(_store, _cart, _other), do: false
+
+  def extract_data(store, %Cart{data: data}, %Cart{data: previous_data}) do
+    shipping = extract_shipping(store, previous_data)
+
+    %{
+      id: data && data.id,
+      handing: previous_data.handing,
+      payment: previous_data.payment,
+      copied: true,
+      shipping: shipping
+    }
+  end
+
+  defp extract_shipping(_store, nil), do: nil
+  defp extract_shipping(_store, %{shipping: nil}), do: nil
+
+  defp extract_shipping(store, %{shipping: shipping}) do
+    case Enum.find(store.configuration.shippings, &(&1.id == shipping.id)) do
+      nil -> nil
+      shipping -> Map.from_struct(shipping)
+    end
+  end
+
   defp put_account(%Ecto.Changeset{} = changeset, %Account{} = account) do
     changeset |> change(account_id: account.id)
   end
