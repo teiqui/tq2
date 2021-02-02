@@ -45,7 +45,7 @@ defmodule Tq2Web.Shop.StoreLive do
 
   @impl true
   def handle_event("validate", %{"store" => changes}, socket) do
-    socket = socket |> assign(changes: changes)
+    socket = socket |> assign(changes: changes) |> add_changeset()
 
     {:noreply, socket}
   end
