@@ -5,45 +5,47 @@
 <div class="row justify-content-center">
   <div class="col-md-8">
     <%= if Enum.any?(@cart.lines) do %>
-      <table class="table">
-        <tbody class="border-top-0">
-          <%= for line <- Enum.sort(@cart.lines, &(&1.id < &2.id)) do %>
-            <tr id="line-<%= line.id %>">
-              <td class="text-nowrap">
-                <a href="#" class="h4 text-dark font-weight-bold" phx-click="decrease" phx-value-id="<%= line.id %>">-</a>
-                <span class="mx-2" data-quantity="<%= line.id %>"><%= line.quantity %></span>
-                <a href="#" class="h4 text-dark font-weight-bold" phx-click="increase" phx-value-id="<%= line.id %>">+</a>
-              </td>
+      <div class="table-responsive">
+        <table class="table">
+          <tbody class="border-top-0">
+            <%= for line <- Enum.sort(@cart.lines, &(&1.id < &2.id)) do %>
+              <tr id="line-<%= line.id %>">
+                <td class="text-nowrap">
+                  <a href="#" class="h4 text-dark font-weight-bold" phx-click="decrease" phx-value-id="<%= line.id %>">-</a>
+                  <span class="mx-2" data-quantity="<%= line.id %>"><%= line.quantity %></span>
+                  <a href="#" class="h4 text-dark font-weight-bold" phx-click="increase" phx-value-id="<%= line.id %>">+</a>
+                </td>
+                <td>
+                  <%= line.name %>
+                </td>
+                <td class="text-right">
+                  <%= line_total @socket, @cart, line %>
+                </td>
+              </tr>
+            <% end %>
+
+            <%= if @shipping do %>
+              <tr>
+                <td class="text-nowrap"><%= dgettext("stores", "Shipping") %></td>
+                <td><%= @shipping.name %></td>
+                <td class="text-right"><%= format_money @shipping.price %></td>
+              </tr>
+            <% end %>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <td></td>
               <td>
-                <%= line.name %>
+                <%= dgettext("orders", "Total") %>
               </td>
               <td class="text-right">
-                <%= line_total @socket, @cart, line %>
+                <%= cart_total @socket, @cart %>
               </td>
             </tr>
-          <% end %>
-
-          <%= if @shipping do %>
-            <tr>
-              <td class="text-nowrap"><%= dgettext("stores", "Shipping") %></td>
-              <td><%= @shipping.name %></td>
-              <td class="text-right"><%= format_money @shipping.price %></td>
-            </tr>
-          <% end %>
-        </tbody>
-
-        <tfoot>
-          <tr>
-            <td></td>
-            <td>
-              <%= dgettext("orders", "Total") %>
-            </td>
-            <td class="text-right">
-              <%= cart_total @socket, @cart %>
-            </td>
-          </tr>
-        </tfoot>
-      </table>
+          </tfoot>
+        </table>
+      </div>
 
       <%= if @cart.price_type == "promotional" do %>
         <h2 class="h6 text-primary font-weight-bold ml-3 mt-5">
