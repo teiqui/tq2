@@ -619,7 +619,10 @@ defmodule Tq2.Accounts do
   defp after_create_account_jobs(result), do: result
 
   defp enqueue_license_near_to_expire_notification(license) do
-    exec_at = license.paid_until |> Timex.shift(days: -2)
+    exec_at =
+      license.paid_until
+      |> Timex.to_datetime()
+      |> Timex.shift(days: -2)
 
     Exq.enqueue_at(Exq, "default", exec_at, Tq2.Workers.LicenseJob, [
       "notify_near_to_expire",
