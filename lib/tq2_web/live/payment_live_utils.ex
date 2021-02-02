@@ -28,6 +28,8 @@ defmodule Tq2Web.PaymentLiveUtils do
     end
   end
 
+  def check_for_paid_cart(%{assigns: %{cart: nil}} = socket), do: socket
+
   def check_for_paid_cart(%{assigns: %{cart: cart}} = socket) do
     case Cart.paid?(cart) do
       true -> get_or_create_order(socket, cart)

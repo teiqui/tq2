@@ -44,11 +44,11 @@ defmodule Tq2Web.Store.CounterLive do
   end
 
   @impl true
-  def handle_event("load-more", _, %{assigns: %{token: token}} = socket) do
+  def handle_event("load-more", _, socket) do
     socket =
       socket
       |> update(:page, &(&1 + 1))
-      |> load_cart(token)
+      |> load_cart()
       |> load_items()
 
     {:noreply, socket}
@@ -58,24 +58,24 @@ defmodule Tq2Web.Store.CounterLive do
   def handle_event(
         "toggle-categories",
         _,
-        %{assigns: %{show_categories: false, token: token}} = socket
+        %{assigns: %{show_categories: false}} = socket
       ) do
     socket =
       socket
       |> toggle_show_categories()
-      |> load_cart(token)
+      |> load_cart()
       |> load_categories()
 
     {:noreply, socket}
   end
 
   @impl true
-  def handle_event("toggle-categories", _, %{assigns: %{token: token}} = socket) do
+  def handle_event("toggle-categories", _, socket) do
     socket =
       socket
       |> toggle_show_categories()
       |> assign(page: 1)
-      |> load_cart(token)
+      |> load_cart()
       |> load_items()
 
     {:noreply, socket}
@@ -95,7 +95,9 @@ defmodule Tq2Web.Store.CounterLive do
     {:noreply, socket}
   end
 
-  defp load_cart(%{assigns: %{referred: referred, store: %{account: account}}} = socket, token) do
+  defp load_cart(
+         %{assigns: %{referred: referred, store: %{account: account}, token: token}} = socket
+       ) do
     cart = Transactions.get_cart(account, token) || %Cart{referred: referred, lines: []}
 
     assign(socket, cart: cart)
@@ -146,7 +148,7 @@ defmodule Tq2Web.Store.CounterLive do
     assign(socket, show_categories: false)
   end
 
-  defp load_defaults(%{assigns: %{token: token}} = socket) do
+  defp load_defaults(socket) do
     default_options = %{
       page: 1,
       page_size: page_size(),
@@ -157,7 +159,7 @@ defmodule Tq2Web.Store.CounterLive do
 
     socket
     |> assign(default_options)
-    |> load_cart(token)
+    |> load_cart()
   end
 
   def link_show_all(socket, store) do

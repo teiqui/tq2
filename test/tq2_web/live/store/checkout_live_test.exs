@@ -190,5 +190,15 @@ defmodule Tq2Web.Store.CheckoutLiveTest do
       assert has_element?(checkout_live, ".btn.btn-block")
       assert has_element?(checkout_live, "tfoot tr td div.text-primary", "$10.90")
     end
+
+    test "redirect to counter without cart", %{conn: conn, cart: cart, store: store} do
+      cart |> Ecto.Changeset.change(%{token: "1"}) |> Tq2.Repo.update!()
+
+      path = Routes.checkout_path(conn, :index, store)
+
+      {:error, {:live_redirect, %{to: to}}} = live(conn, path)
+
+      assert to == Routes.counter_path(conn, :index, store)
+    end
   end
 end
