@@ -29,7 +29,7 @@
         <%= live_component @socket, ShareComponent, id: :order,
                                                     store: @store,
                                                     token: @token,
-                                                    class: share_classes(),
+                                                    class: "btn btn-primary py-2 px-4",
                                                     align_right: false do %>
           <%= dgettext("stores", "Share") %>
         <% end %>

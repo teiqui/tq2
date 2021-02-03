@@ -15,6 +15,13 @@ tbody.border-top-0 {
   text-transform: none;
 }
 
+.btn-lg {
+  i {
+    vertical-align: text-top;
+    line-height: 1.2;
+  }
+}
+
 .card {
   box-shadow: none;
   border: 1px solid $gray-200;

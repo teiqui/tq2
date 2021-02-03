@@ -95,4 +95,6 @@
                                              cart: @cart,
                                              token: @token,
                                              to: Routes.customer_path(@socket, :index, @store),
-                                             enabled: true %>
+                                             enabled: true do %>
+  <%= dgettext("stores", "Buy now") %>
+<% end %>

@@ -8,10 +8,14 @@
 
         <div class="flex-fill">
           <%= button_wrapper assigns do %>
-            <%= cart_total(@cart) %>
+            <span class="d-flex">
+              <span class="mr-n3">
+                <i class="bi-cart3"></i>
+              </span>
 
-            <span class="float-right ml-n3 mb-0">
-              <i class="bi-arrow-right"></i>
+              <span class="flex-fill">
+                <%= render_block(@inner_block) %>
+              </span>
             </span>
           <% end %>
         </div>

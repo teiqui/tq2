@@ -127,7 +127,7 @@ defmodule Tq2Web.Store.HandingLiveTest do
              |> form("form", cart: %{data: %{handing: "delivery"}})
              |> render_change()
 
-      assert has_element?(handing_live, ".btn.btn-block.disabled")
+      assert has_element?(handing_live, ".btn.btn-block.disabled", "Continue")
 
       shipping = store.configuration.shippings |> List.first()
 
@@ -135,7 +135,7 @@ defmodule Tq2Web.Store.HandingLiveTest do
              |> form("form", cart: %{data: %{handing: "delivery", shipping: %{id: shipping.id}}})
              |> render_change()
 
-      assert has_element?(handing_live, ".btn.btn-block.btn-primary", "$10.90")
+      assert has_element?(handing_live, ".btn.btn-block.btn-primary", "Continue")
     end
   end
 end

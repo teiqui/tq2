@@ -19,7 +19,8 @@ defmodule Tq2Web.Store.ButtonComponentTest do
           store: store,
           token: @token,
           to: "#",
-          enabled: true
+          enabled: true,
+          inner_block: fn _, _ -> "Test content" end
         )
 
       assert content == ""
@@ -52,10 +53,11 @@ defmodule Tq2Web.Store.ButtonComponentTest do
           store: store,
           token: @token,
           to: "/test_path",
-          enabled: true
+          enabled: true,
+          inner_block: fn _, _ -> "Test content" end
         )
 
-      assert content =~ Money.to_string(Money.new(310, :ARS), symbol: true)
+      assert content =~ "Test content"
       assert content =~ "/test_path"
       refute content =~ "disabled"
     end
@@ -80,38 +82,13 @@ defmodule Tq2Web.Store.ButtonComponentTest do
           store: store,
           token: @token,
           to: "/test_path",
-          enabled: false
+          enabled: false,
+          inner_block: fn _, _ -> "Test content" end
         )
 
-      assert content =~ Money.to_string(Money.new(100, :ARS), symbol: true)
+      assert content =~ "Test content"
       assert content =~ "/test_path"
       assert content =~ "disabled"
-    end
-  end
-
-  describe "public functions" do
-    test "cart total" do
-      lines = [
-        %Line{
-          name: "some name",
-          quantity: 1,
-          price: Money.new(100, :ARS),
-          promotional_price: Money.new(90, :ARS),
-          cost: Money.new(80, :ARS)
-        },
-        %Line{
-          name: "some name",
-          quantity: 2,
-          price: Money.new(120, :ARS),
-          promotional_price: Money.new(110, :ARS),
-          cost: Money.new(100, :ARS)
-        }
-      ]
-
-      cart = %{cart() | lines: lines}
-
-      assert Money.to_string(Money.new(310, :ARS), symbol: true) ==
-               ButtonComponent.cart_total(cart)
     end
   end
 

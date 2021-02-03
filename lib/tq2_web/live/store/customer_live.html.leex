@@ -48,7 +48,9 @@
                                                      cart: @cart,
                                                      token: @token,
                                                      disable_with: dgettext("customers", "Saving..."),
-                                                     enabled: @changeset.valid? %>
+                                                     enabled: @changeset.valid? do %>
+          <%= dgettext("stores", "Continue") %>
+        <% end %>
       </form>
     </div>
   </div>

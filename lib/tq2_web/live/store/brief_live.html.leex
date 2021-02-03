@@ -6,7 +6,7 @@
   <div class="col-md-8">
     <div class="d-flex pl-2 pr-1 mb-3">
       <div class="h4 text-primary mr-3 mt-n1">
-        <i class="bi-basket"></i>
+        <i class="bi-cart3"></i>
       </div>
 
       <div class="flex-fill font-weight-bold">
@@ -58,7 +58,7 @@
 
     <div class="d-flex pl-2 pr-1 mb-3">
       <div class="h4 text-primary mr-3 mt-n1">
-        <i class="bi-shop"></i>
+        <i class="bi-truck"></i>
       </div>
 
       <div class="flex-fill">
@@ -178,8 +178,10 @@
 
 <form phx-submit="save">
   <%= live_component @socket, ButtonComponent, store: @store,
-                                              cart: @cart,
-                                              token: @token,
-                                              disable_with: dgettext("stores", "Creating order..."),
-                                              enabled: true %>
+                                               cart: @cart,
+                                               token: @token,
+                                               disable_with: dgettext("stores", "Creating order..."),
+                                               enabled: true do %>
+    <%= dgettext("stores", "Place order") %>
+  <% end %>
 </form>

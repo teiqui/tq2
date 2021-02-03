@@ -42,7 +42,9 @@
                                                    cart: @cart,
                                                    token: @token,
                                                    disable_with: dgettext("payments", "Saving..."),
-                                                   enabled: !!(@cart.data && @cart.data.payment) %>
+                                                   enabled: !!(@cart.data && @cart.data.payment) do %>
+        <%= dgettext("stores", "Place order") %>
+      <% end %>
     </form>
   </div>
 </div>

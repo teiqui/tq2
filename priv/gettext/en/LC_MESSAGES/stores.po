@@ -364,11 +364,11 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: lib/tq2_web/live/store/brief_live.ex:109
+#: lib/tq2_web/live/store/brief_live.ex:111
 msgid "You could have saved %{amount}"
 msgstr ""
 
-#: lib/tq2_web/live/store/brief_live.ex:101
+#: lib/tq2_web/live/store/brief_live.ex:103
 msgid "You saved %{amount}"
 msgstr ""
 
@@ -386,4 +386,22 @@ msgstr ""
 
 #: lib/tq2_web/live/store/brief_live.html.leex:164
 msgid "Payment"
+msgstr ""
+
+#: lib/tq2_web/live/store/checkout_live.html.leex:99
+msgid "Buy now"
+msgstr ""
+
+#: lib/tq2_web/live/store/counter_live.html.leex:39
+msgid "Check order"
+msgstr ""
+
+#: lib/tq2_web/live/store/customer_live.html.leex:52
+#: lib/tq2_web/live/store/handing_live.html.leex:78
+msgid "Continue"
+msgstr ""
+
+#: lib/tq2_web/live/store/brief_live.html.leex:185
+#: lib/tq2_web/live/store/payment_live.html.leex:46
+msgid "Place order"
 msgstr ""

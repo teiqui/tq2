@@ -27,10 +27,6 @@ defmodule Tq2Web.Store.OrderLive do
     assign(socket, order: order, cart: order.cart)
   end
 
-  defp share_classes do
-    "btn btn-primary rounded-pill py-2 px-4"
-  end
-
   defp show_payment_info(%{cart: %{data: %{payment: "wire_transfer"}}}, account) do
     app = Tq2.Apps.get_app(account, "wire_transfer")
 

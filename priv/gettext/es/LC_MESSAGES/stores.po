@@ -364,11 +364,11 @@ msgstr "Carrito"
 msgid "Edit"
 msgstr "Editar"
 
-#: lib/tq2_web/live/store/brief_live.ex:109
+#: lib/tq2_web/live/store/brief_live.ex:111
 msgid "You could have saved %{amount}"
 msgstr "Podrías ahorrar %{amount}"
 
-#: lib/tq2_web/live/store/brief_live.ex:101
+#: lib/tq2_web/live/store/brief_live.ex:103
 msgid "You saved %{amount}"
 msgstr "Ahorraste %{amount}"
 
@@ -387,3 +387,21 @@ msgstr "Tipo de entrega"
 #: lib/tq2_web/live/store/brief_live.html.leex:164
 msgid "Payment"
 msgstr "Medio de pago"
+
+#: lib/tq2_web/live/store/checkout_live.html.leex:99
+msgid "Buy now"
+msgstr "Comprar ahora"
+
+#: lib/tq2_web/live/store/counter_live.html.leex:39
+msgid "Check order"
+msgstr "Revisar pedido"
+
+#: lib/tq2_web/live/store/customer_live.html.leex:52
+#: lib/tq2_web/live/store/handing_live.html.leex:78
+msgid "Continue"
+msgstr "Continuar"
+
+#: lib/tq2_web/live/store/brief_live.html.leex:185
+#: lib/tq2_web/live/store/payment_live.html.leex:46
+msgid "Place order"
+msgstr "Finalizar compra"

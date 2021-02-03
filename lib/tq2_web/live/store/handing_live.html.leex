@@ -74,4 +74,6 @@
                                              cart: @cart,
                                              token: @token,
                                              enabled: @changeset.valid?,
-                                             to: Routes.checkout_path(@socket, :index, @store) %>
+                                             to: Routes.checkout_path(@socket, :index, @store) do %>
+  <%= dgettext("stores", "Continue") %>
+<% end %>
