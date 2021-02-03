@@ -527,11 +527,13 @@ defmodule Tq2.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def access_registration(%Registration{} = registration) do
+  def access_registration(%Registration{accessed_at: nil} = registration) do
     registration
     |> Ecto.Changeset.change(%{accessed_at: DateTime.utc_now() |> DateTime.truncate(:second)})
     |> Repo.update()
   end
+
+  def access_registration(registration), do: {:ok, registration}
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking registration changes.

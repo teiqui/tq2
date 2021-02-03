@@ -37,10 +37,27 @@ defmodule Tq2Web.RegistrationControllerTest do
       assert redirected_to(conn) == Routes.welcome_path(conn, :index)
     end
 
+    test "assigns current user when registration has been recently accessed", %{conn: conn} do
+      registration = fixture(:registration)
+      user = Accounts.get_user(email: registration.email)
+      {:ok, registration} = Accounts.access_registration(registration)
+      conn = get(conn, Routes.registration_path(conn, :show, registration))
+
+      assert user.id == get_session(conn, :user_id)
+      assert registration.account_id == get_session(conn, :account_id)
+      assert redirected_to(conn) == Routes.welcome_path(conn, :index)
+    end
+
     test "redirect to root when registration has been accessed", %{conn: conn} do
       registration = fixture(:registration)
 
       {:ok, registration} = Accounts.access_registration(registration)
+
+      three_minutes_ago = Timex.now() |> Timex.shift(minutes: -3) |> DateTime.truncate(:second)
+
+      registration
+      |> Ecto.Changeset.change(%{accessed_at: three_minutes_ago})
+      |> Tq2.Repo.update!()
 
       assert_raise Ecto.NoResultsError, fn ->
         get(conn, Routes.registration_path(conn, :show, registration))
