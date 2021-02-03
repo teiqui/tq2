@@ -144,7 +144,7 @@ msgstr ""
 msgid "Thank you! Your and %{name} made a purchase together and now are saving."
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.ex:39
+#: lib/tq2_web/live/store/order_live.ex:35
 msgid "Don't forget to make the payment!"
 msgstr ""
 

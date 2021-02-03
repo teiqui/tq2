@@ -19,8 +19,8 @@
     "popper.js": "^1.16.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
+    "@babel/core": "^7.12.13",
+    "@babel/preset-env": "^7.12.13",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "copy-webpack-plugin": "^7.0.0",
@@ -32,7 +32,7 @@
     "sass": "^1.32.6",
     "sass-loader": "^10.1.1",
     "terser-webpack-plugin": "^5.1.1",
-    "webpack": "5.19.0",
-    "webpack-cli": "^4.4.0"
+    "webpack": "5.20.1",
+    "webpack-cli": "^4.5.0"
   }
 }

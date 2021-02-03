@@ -185,7 +185,7 @@ msgstr ""
 msgid "Search..."
 msgstr ""
 
-#: lib/tq2_web/live/store/counter_live.ex:165
+#: lib/tq2_web/live/store/counter_live.ex:167
 msgid "Show all"
 msgstr ""
 
