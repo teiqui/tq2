@@ -40,7 +40,8 @@
         <% else %>
           <%= input f, :name, dgettext("customers", "Name"), input_html: [autofocus: true, phx_debounce: "blur"] %>
           <%= input f, :email, dgettext("customers", "Email"), input_html: [phx_debounce: "blur"] %>
-          <%= input f, :phone, dgettext("customers", "Phone"), input_html: [phx_debounce: "blur"] %>
+          <%= input f, :phone, dgettext("customers", "Phone"),
+            input_html: [phx_debounce: "blur", value: input_phone_number(assigns, f, :phone)] %>
           <%= input f, :address, dgettext("customers", "Address"), using: :textarea, input_html: [phx_debounce: "blur"] %>
         <% end %>
 

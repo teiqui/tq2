@@ -60,7 +60,7 @@ defmodule Tq2.Sales.CustomerTest do
     end
 
     test "canonize phone" do
-      assert "123456" == Customer.canonized_phone(" 1 x 2 345^6 ")
+      assert "+123456" == Customer.canonized_phone("+ 1 x 2 345^6 ")
       assert "" == Customer.canonized_phone("")
       assert nil == Customer.canonized_phone(nil)
     end
@@ -87,6 +87,18 @@ defmodule Tq2.Sales.CustomerTest do
       changeset = Customer.changeset(%Customer{}, %{}, store)
 
       assert "can't be blank" in errors_on(changeset).address
+    end
+
+    test "validate phone number" do
+      store = default_store(%{})
+
+      changeset = Customer.changeset(%Customer{}, %{phone: "+54555-5555"}, store)
+
+      refute errors_on(changeset)[:phone]
+
+      changeset = Customer.changeset(%Customer{}, %{phone: "321"}, store)
+
+      assert "is invalid" in errors_on(changeset).phone
     end
 
     defp store_with(:email) do

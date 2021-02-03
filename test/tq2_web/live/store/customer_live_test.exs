@@ -135,6 +135,30 @@ defmodule Tq2Web.Store.CustomerLiveTest do
       assert Tq2.Transactions.get_cart(store.account, cart.token).customer_id
     end
 
+    test "save event with new customer except phone prefix", %{conn: conn, store: store} do
+      conn = %{conn | remote_ip: {200, 1, 116, 66}}
+
+      path = Routes.customer_path(conn, :index, store)
+      {:ok, customer_live, _html} = live(conn, path)
+
+      assert customer_live
+             |> form("form", %{
+               customer: %{
+                 name: "some name",
+                 email: "some@email.com",
+                 phone: "+54",
+                 address: "some address"
+               }
+             })
+             |> render_submit() ==
+               {:error,
+                {:live_redirect, %{kind: :push, to: Routes.payment_path(conn, :index, store)}}}
+
+      customer = Tq2.Sales.get_customer(email: "some@email.com")
+
+      refute customer.phone
+    end
+
     test "validate event with new customer", %{conn: conn, cart: _cart, store: store} do
       path = Routes.customer_path(conn, :index, store)
       {:ok, customer_live, _html} = live(conn, path)
@@ -193,6 +217,26 @@ defmodule Tq2Web.Store.CustomerLiveTest do
       assert content =~ "phx-feedback-for=\"customer_address\">can&apos;t be blank"
       assert content =~ "phx-feedback-for=\"customer_email\">can&apos;t be blank"
       assert content =~ "phx-feedback-for=\"customer_phone\">can&apos;t be blank"
+
+      refute render(customer_live) =~ "bi-person-circle"
+    end
+
+    test "render phone prefix and validate", %{conn: conn, store: store} do
+      conn = %{conn | remote_ip: {200, 1, 116, 66}}
+
+      path = Routes.customer_path(conn, :index, store)
+      {:ok, customer_live, _html} = live(conn, path)
+
+      assert customer_live
+             |> element("[name=\"customer[phone]\"]")
+             |> render() =~ "value=\"+54\""
+
+      content =
+        customer_live
+        |> form("form", %{customer: %{name: "some name", phone: "+543"}})
+        |> render_change()
+
+      assert content =~ "phx-feedback-for=\"customer_phone\">is invalid"
 
       refute render(customer_live) =~ "bi-person-circle"
     end

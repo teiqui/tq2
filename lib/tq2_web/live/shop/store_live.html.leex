@@ -73,7 +73,6 @@
 
           <%= inputs_for f, :data, fn df -> %>
             <%= input df, :phone, dgettext("stores", "Phone"),
-              using: :telephone_input,
               input_html: [value: input_phone_number(assigns, df, :phone)] %>
 
             <%= input df, :whatsapp, dgettext("stores", "WhatsApp"),
