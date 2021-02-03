@@ -459,6 +459,26 @@ defmodule Tq2.AccountsTest do
       assert Accounts.get_registration!(registration.uuid).id == registration.id
     end
 
+    test "get_registration!/1 returns the registration with given id only for 2 minutes" do
+      registration = registration_fixture()
+
+      one_minute_ago = Timex.now() |> Timex.shift(minutes: -1) |> DateTime.truncate(:second)
+
+      registration |> Ecto.Changeset.change(%{accessed_at: one_minute_ago}) |> Tq2.Repo.update!()
+
+      assert Accounts.get_registration!(registration.uuid).id == registration.id
+
+      three_minutes_ago = Timex.now() |> Timex.shift(minutes: -3) |> DateTime.truncate(:second)
+
+      registration
+      |> Ecto.Changeset.change(%{accessed_at: three_minutes_ago})
+      |> Tq2.Repo.update!()
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Accounts.get_registration!(registration.uuid)
+      end
+    end
+
     test "create_registration/1 with valid data creates a registration" do
       assert {:ok, %Registration{} = registration} = Accounts.create_registration(@valid_attrs)
 

@@ -446,8 +446,10 @@ defmodule Tq2.Accounts do
 
   """
   def get_registration!(uuid) do
+    two_minutes_ago = Timex.now() |> Timex.shift(minutes: -2)
+
     Registration
-    |> where([r], is_nil(r.accessed_at))
+    |> where([r], is_nil(r.accessed_at) or r.accessed_at > ^two_minutes_ago)
     |> join(:left, [r], a in assoc(r, :account))
     |> preload([r, a], account: a)
     |> Repo.get_by!(uuid: uuid)
