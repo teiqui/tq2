@@ -26,7 +26,6 @@ config :tq2, Tq2Web.Endpoint,
       "--mode",
       "development",
       "--color",
-      "--watch",
       cd: Path.expand("../assets", __DIR__)
     ]
   ]
