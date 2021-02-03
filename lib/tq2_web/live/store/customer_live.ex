@@ -1,14 +1,20 @@
 defmodule Tq2Web.Store.CustomerLive do
   use Tq2Web, :live_view
 
+  import Tq2.Utils.CountryCurrency, only: [phone_prefix_for_ip: 1]
+
   alias Tq2.{Sales, Transactions}
   alias Tq2.Sales.Customer
   alias Tq2Web.Store.{ButtonComponent, HeaderComponent}
 
   @impl true
-  def mount(_, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do
+  def mount(
+        _,
+        %{"remote_ip" => ip, "store" => store, "token" => token, "visit_id" => visit_id},
+        socket
+      ) do
     socket
-    |> assign(store: store, token: token, visit_id: visit_id)
+    |> assign(ip: ip, store: store, token: token, visit_id: visit_id)
     |> load_customer(token)
     |> load_cart()
     |> put_changeset()
@@ -21,7 +27,10 @@ defmodule Tq2Web.Store.CustomerLive do
         %{"customer" => customer_params},
         %{assigns: %{store: store, token: token}} = socket
       ) do
-    customer_params = customer_params |> Map.put("tokens", [%{"value" => token}])
+    customer_params =
+      customer_params
+      |> Map.put("tokens", [%{"value" => token}])
+      |> clean_phone_prefix(socket)
 
     case customer(customer_params, token) do
       {:ok, customer} ->
@@ -59,9 +68,11 @@ defmodule Tq2Web.Store.CustomerLive do
         {:noreply, socket}
 
       nil ->
+        params = customer_params |> clean_phone_prefix(socket)
+
         changeset =
           %Customer{}
-          |> Sales.change_customer(customer_params, store)
+          |> Sales.change_customer(params, store)
           |> Map.put(:action, :insert)
 
         socket =
@@ -123,5 +134,18 @@ defmodule Tq2Web.Store.CustomerLive do
       {:error, %Ecto.Changeset{}} ->
         socket
     end
+  end
+
+  def input_phone_number(%{ip: ip}, form, field) do
+    case input_value(form, field) do
+      v when v in [nil, ""] -> phone_prefix_for_ip(ip)
+      v -> v
+    end
+  end
+
+  defp clean_phone_prefix(%{"phone" => value} = params, %{assigns: %{ip: ip}}) do
+    prefix = phone_prefix_for_ip(ip)
+
+    if value == prefix, do: %{params | "phone" => nil}, else: params
   end
 end

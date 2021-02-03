@@ -104,6 +104,36 @@ defmodule Tq2Web.Shop.StoreLiveTest do
              |> render() =~ "value=\"+54\""
     end
 
+    test "clean phone prefix on save", %{conn: conn, store: store} do
+      data =
+        store.data
+        |> Map.from_struct()
+        |> Map.merge(%{phone: nil, whatsapp: nil})
+
+      default_store(%{data: data})
+
+      path = Routes.store_path(conn, :index, "general")
+      {:ok, store_live, _html} = live(conn, path)
+
+      assert store_live
+             |> element("[name=\"store[data][phone]\"]")
+             |> render() =~ "value=\"+54\""
+
+      assert store_live
+             |> element("[name=\"store[data][whatsapp]\"]")
+             |> render() =~ "value=\"+54\""
+
+      store_live
+      |> form("form", store: %{data: %{phone: "+54", whatsapp: "+54"}})
+      |> render_submit()
+
+      # reload store
+      store = default_store(%{})
+
+      refute store.data.phone
+      refute store.data.whatsapp
+    end
+
     test "save event", %{conn: conn, store: store} do
       path = Routes.store_path(conn, :index, "general")
       {:ok, store_live, _html} = live(conn, path)

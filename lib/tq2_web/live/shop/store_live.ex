@@ -104,6 +104,7 @@ defmodule Tq2Web.Shop.StoreLive do
       store_params
       |> put_logo_on_params(socket, :logo)
       |> handle_shipping_params(socket)
+      |> clean_phone_prefix(socket)
 
     case Shops.update_store(session, store, store_params) do
       {:ok, store} ->
@@ -392,5 +393,22 @@ defmodule Tq2Web.Shop.StoreLive do
       v when v in [nil, ""] -> phone_prefix_for_country(country)
       v -> v
     end
+  end
+
+  defp clean_phone_prefix(%{"data" => data} = params, %{
+         assigns: %{session: %{account: %{country: country}}}
+       }) do
+    prefix = country |> phone_prefix_for_country()
+
+    data = clean_same_value(data, "phone", prefix)
+    data = clean_same_value(data, "whatsapp", prefix)
+
+    %{params | "data" => data}
+  end
+
+  defp clean_phone_prefix(params, _socket), do: params
+
+  defp clean_same_value(data, key, value) do
+    if data[key] == value, do: %{data | key => nil}, else: data
   end
 end

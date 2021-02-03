@@ -70,6 +70,7 @@ defmodule Tq2Web.InputHelpers do
         "image" => :file_input,
         "logo" => :file_input,
         "password" => :password_input,
+        "phone" => :telephone_input,
         "search" => :search_input,
         "url" => :url_input
       })

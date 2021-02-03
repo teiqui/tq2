@@ -30,8 +30,8 @@ defmodule Tq2Web.SessionPlug do
     |> halt()
   end
 
-  def session_extras(%{assigns: %{store: store}}, :store) do
-    %{"store" => store}
+  def session_extras(%{assigns: %{store: store}, remote_ip: ip}, :store) do
+    %{"remote_ip" => ip, "store" => store}
   end
 
   def session_extras(%{remote_ip: ip}, :registration) do

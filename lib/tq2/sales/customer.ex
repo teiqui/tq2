@@ -2,6 +2,7 @@ defmodule Tq2.Sales.Customer do
   use Ecto.Schema
 
   import Ecto.Changeset
+  import Tq2.Utils.Schema, only: [validate_phone_number: 3]
 
   alias Tq2.Sales.Customer
   alias Tq2.Shares.Token
@@ -40,6 +41,7 @@ defmodule Tq2.Sales.Customer do
     |> validate_store_required(:email, store)
     |> validate_store_required(:phone, store)
     |> validate_store_required(:address, store)
+    |> validate_phone(store)
   end
 
   @doc false
@@ -53,7 +55,7 @@ defmodule Tq2.Sales.Customer do
   def canonized_phone(nil), do: nil
 
   def canonized_phone(phone) do
-    phone |> String.replace(~r/\D/, "")
+    phone |> String.replace(~r/[^0-9\+\-]/, "")
   end
 
   defp canonize(%{"name" => _} = attrs) do
@@ -83,4 +85,10 @@ defmodule Tq2.Sales.Customer do
   end
 
   defp validate_store_required(changeset, _field, _store), do: changeset
+
+  defp validate_phone(changeset, %Store{account: %{country: country}}) do
+    changeset |> validate_phone_number(:phone, country)
+  end
+
+  defp validate_phone(changeset, _store), do: changeset
 end
