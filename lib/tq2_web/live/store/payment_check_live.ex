@@ -12,30 +12,40 @@ defmodule Tq2Web.Store.PaymentCheckLive do
 
   @impl true
   def mount(_, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do
-    cart = Transactions.get_cart(store.account, token)
-
-    socket =
-      socket
-      |> assign(store: store, cart: cart, token: token, visit_id: visit_id)
-      |> check_payments()
-
-    self() |> Process.send_after({:timer}, 5000)
-
-    {:ok, socket}
+    socket
+    |> assign(store: store, token: token, visit_id: visit_id)
+    |> load_cart()
+    |> check_payments()
+    |> finish_mount()
   end
 
   @impl true
   def handle_info({:timer}, socket) do
     socket = socket |> check_payments()
 
-    self() |> Process.send_after({:timer}, 5000)
-
     {:noreply, socket}
   end
 
-  defp check_payments(socket) do
-    store = socket.assigns.store
-    cart = Tq2.Repo.preload(socket.assigns.cart, :payments)
+  defp finish_mount(%{assigns: %{cart: nil, store: store}} = socket) do
+    socket =
+      socket
+      |> push_redirect(to: Routes.counter_path(socket, :index, store))
+
+    {:ok, socket}
+  end
+
+  defp finish_mount(socket), do: {:ok, socket}
+
+  defp load_cart(%{assigns: %{store: %{account: account}, token: token}} = socket) do
+    cart = Transactions.get_cart(account, token)
+
+    assign(socket, cart: cart)
+  end
+
+  defp check_payments(%{assigns: %{cart: nil}} = socket), do: socket
+
+  defp check_payments(%{assigns: %{cart: cart, store: store}} = socket) do
+    cart = Tq2.Repo.preload(cart, :payments)
 
     case cart.payments do
       [] ->
@@ -45,6 +55,8 @@ defmodule Tq2Web.Store.PaymentCheckLive do
         check_pending_payments(payments, store.account)
 
         cart = Tq2.Repo.preload(cart, :payments, force: true)
+
+        self() |> Process.send_after({:timer}, 5000)
 
         socket
         |> assign(cart: cart)

@@ -8,13 +8,11 @@ defmodule Tq2Web.Store.HandingLive do
 
   @impl true
   def mount(_, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do
-    socket =
-      socket
-      |> assign(store: store, token: token, visit_id: visit_id)
-      |> load_cart(token)
-      |> add_changeset()
-
-    {:ok, socket, temporary_assigns: [cart: nil]}
+    socket
+    |> assign(store: store, token: token, visit_id: visit_id)
+    |> load_cart()
+    |> put_changeset()
+    |> finish_mount()
   end
 
   @impl true
@@ -36,7 +34,7 @@ defmodule Tq2Web.Store.HandingLive do
         socket =
           socket
           |> assign(cart: cart)
-          |> add_changeset()
+          |> put_changeset()
 
         {:noreply, socket}
 
@@ -47,7 +45,19 @@ defmodule Tq2Web.Store.HandingLive do
     end
   end
 
-  defp load_cart(%{assigns: %{store: %{account: account}}} = socket, token) do
+  defp finish_mount(%{assigns: %{cart: nil, store: store}} = socket) do
+    socket =
+      socket
+      |> push_redirect(to: Routes.counter_path(socket, :index, store))
+
+    {:ok, socket}
+  end
+
+  defp finish_mount(socket) do
+    {:ok, socket, temporary_assigns: [cart: nil]}
+  end
+
+  defp load_cart(%{assigns: %{store: %{account: account}, token: token}} = socket) do
     cart = Transactions.get_cart(account, token)
 
     assign(socket, cart: cart)
@@ -57,7 +67,9 @@ defmodule Tq2Web.Store.HandingLive do
   defp delivery?(%{data: %{handing: "delivery"}}), do: true
   defp delivery?(_data_form), do: false
 
-  defp add_changeset(%{assigns: %{cart: cart, store: %{account: account}}} = socket) do
+  defp put_changeset(%{assigns: %{cart: nil}} = socket), do: socket
+
+  defp put_changeset(%{assigns: %{cart: cart, store: %{account: account}}} = socket) do
     changeset = account |> Transactions.change_handing_cart(cart)
 
     socket |> assign(changeset: changeset)

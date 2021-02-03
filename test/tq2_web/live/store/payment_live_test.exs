@@ -343,6 +343,16 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       assert Routes.order_path(conn, :index, store, order_id) == to
     end
 
+    test "redirect to counter without cart", %{conn: conn, cart: cart, store: store} do
+      cart |> Ecto.Changeset.change(%{token: "1"}) |> Tq2.Repo.update!()
+
+      path = Routes.checkout_path(conn, :index, store)
+
+      {:error, {:live_redirect, %{to: to}}} = live(conn, path)
+
+      assert to == Routes.counter_path(conn, :index, store)
+    end
+
     defp mock_post_with(%{} = body, code \\ 201) do
       json_body = body |> Jason.encode!()
 

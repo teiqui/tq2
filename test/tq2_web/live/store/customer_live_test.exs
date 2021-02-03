@@ -197,6 +197,16 @@ defmodule Tq2Web.Store.CustomerLiveTest do
       refute render(customer_live) =~ "bi-person-circle"
     end
 
+    test "redirect to counter without cart", %{conn: conn, cart: cart, store: store} do
+      cart |> Ecto.Changeset.change(%{token: "1"}) |> Tq2.Repo.update!()
+
+      path = Routes.checkout_path(conn, :index, store)
+
+      {:error, {:live_redirect, %{to: to}}} = live(conn, path)
+
+      assert to == Routes.counter_path(conn, :index, store)
+    end
+
     defp requires_for_store(%{configuration: config}) do
       config =
         config

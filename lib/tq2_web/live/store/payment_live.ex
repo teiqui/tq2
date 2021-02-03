@@ -9,15 +9,11 @@ defmodule Tq2Web.Store.PaymentLive do
 
   @impl true
   def mount(_, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do
-    payment_methods = available_payment_methods(store)
-
-    socket =
-      socket
-      |> assign(store: store, token: token, visit_id: visit_id, payment_methods: payment_methods)
-      |> load_cart(token)
-      |> check_for_paid_cart()
-
-    {:ok, socket, temporary_assigns: [cart: nil]}
+    socket
+    |> assign(store: store, token: token, visit_id: visit_id)
+    |> load_cart()
+    |> check_for_paid_cart()
+    |> finish_mount()
   end
 
   @impl true
@@ -60,7 +56,21 @@ defmodule Tq2Web.Store.PaymentLive do
     end
   end
 
-  defp load_cart(%{assigns: %{store: %{account: account}}} = socket, token) do
+  defp finish_mount(%{assigns: %{cart: nil, store: store}} = socket) do
+    socket =
+      socket
+      |> push_redirect(to: Routes.counter_path(socket, :index, store))
+
+    {:ok, socket}
+  end
+
+  defp finish_mount(%{assigns: %{store: store}} = socket) do
+    socket = socket |> assign(:payment_methods, available_payment_methods(store))
+
+    {:ok, socket, temporary_assigns: [cart: nil]}
+  end
+
+  defp load_cart(%{assigns: %{store: %{account: account}, token: token}} = socket) do
     cart = Transactions.get_cart(account, token)
 
     assign(socket, cart: cart)

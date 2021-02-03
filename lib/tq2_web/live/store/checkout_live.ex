@@ -11,20 +11,16 @@ defmodule Tq2Web.Store.CheckoutLive do
   def mount(_, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do
     visit = Analytics.get_visit!(visit_id)
 
-    socket =
-      socket
-      |> assign(
-        store: store,
-        token: token,
-        visit_id: visit_id,
-        referral_customer: visit.referral_customer,
-        referred: !!visit.referral_customer
-      )
-      |> load_cart(token)
-      |> load_shipping()
-
-    {:ok, socket,
-     temporary_assigns: [cart: nil, items: [], referral_customer: nil, shipping: nil]}
+    socket
+    |> assign(
+      store: store,
+      token: token,
+      visit_id: visit_id,
+      referral_customer: visit.referral_customer,
+      referred: !!visit.referral_customer
+    )
+    |> load_cart()
+    |> finish_mount()
   end
 
   @impl true
@@ -65,6 +61,21 @@ defmodule Tq2Web.Store.CheckoutLive do
     {:noreply, socket}
   end
 
+  defp finish_mount(%{assigns: %{cart: nil, store: store}} = socket) do
+    socket =
+      socket
+      |> push_redirect(to: Routes.counter_path(socket, :index, store))
+
+    {:ok, socket}
+  end
+
+  defp finish_mount(socket) do
+    socket = socket |> load_shipping()
+
+    {:ok, socket,
+     temporary_assigns: [cart: nil, items: [], referral_customer: nil, shipping: nil]}
+  end
+
   defp update_quantity(cart, line, new_quantity) do
     case Transactions.update_line(cart, %{line | cart: cart}, %{quantity: new_quantity}) do
       {:ok, line} ->
@@ -91,7 +102,7 @@ defmodule Tq2Web.Store.CheckoutLive do
     cart |> update_quantity(line, line.quantity - 1)
   end
 
-  defp load_cart(%{assigns: %{store: %{account: account}}} = socket, token) do
+  defp load_cart(%{assigns: %{store: %{account: account}, token: token}} = socket) do
     cart = Transactions.get_cart(account, token)
 
     assign(socket, cart: cart)
