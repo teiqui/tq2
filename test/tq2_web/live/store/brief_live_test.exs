@@ -142,5 +142,15 @@ defmodule Tq2Web.Store.BriefLiveTest do
 
       assert Routes.order_path(conn, :index, store, order_id) == to
     end
+
+    test "redirect to counter without cart", %{conn: conn, cart: cart, store: store} do
+      cart |> Ecto.Changeset.change(%{token: "1"}) |> Tq2.Repo.update!()
+
+      path = Routes.brief_path(conn, :index, store)
+
+      {:error, {:live_redirect, %{to: to}}} = live(conn, path)
+
+      assert to == Routes.counter_path(conn, :index, store)
+    end
   end
 end
