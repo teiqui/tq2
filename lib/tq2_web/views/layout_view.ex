@@ -85,9 +85,9 @@ defmodule Tq2Web.LayoutView do
     end
   end
 
-  defp google_analytics_script do
+  defp google_analytics_script(conn) do
     if Application.get_env(:tq2, :env) == :prod do
-      key = "UA-163313653-2"
+      key = google_analytics_key(conn)
 
       ~E"""
         <script async src="https://www.googletagmanager.com/gtag/js?id=<%= key %>"></script>
@@ -104,6 +104,18 @@ defmodule Tq2Web.LayoutView do
         </script>
       """
     end
+  end
+
+  defp google_analytics_key(%Plug.Conn{host: host}) do
+    subdomain = host |> String.split(".") |> List.first()
+
+    keys = %{
+      Application.get_env(:tq2, :app_subdomain) => "UA-163313653-1",
+      Application.get_env(:tq2, :web_subdomain) => "UA-163313653-2",
+      Application.get_env(:tq2, :store_subdomain) => "UA-163313653-3"
+    }
+
+    Map.get(keys, subdomain, "UA-163313653-1")
   end
 
   defp facebook_pixel_script do

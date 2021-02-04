@@ -16,7 +16,7 @@
     <script defer phx-track-static src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
 
     <%= hotjar_script() %>
-    <%= google_analytics_script() %>
+    <%= google_analytics_script(@conn) %>
     <%= facebook_pixel_script() %>
   </head>
 
