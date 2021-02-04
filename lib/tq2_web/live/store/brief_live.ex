@@ -45,6 +45,14 @@ defmodule Tq2Web.Store.BriefLive do
     {:ok, socket}
   end
 
+  defp finish_mount(%{assigns: %{cart: %{lines: []}, store: store}} = socket) do
+    socket =
+      socket
+      |> push_redirect(to: Routes.counter_path(socket, :index, store))
+
+    {:ok, socket}
+  end
+
   defp finish_mount(socket) do
     socket = socket |> load_previous_order()
 
