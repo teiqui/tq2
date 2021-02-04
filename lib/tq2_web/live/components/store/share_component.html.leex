@@ -26,7 +26,7 @@
     <a id="<%= @id %>-store-copy-to-clipboard"
        class="dropdown-item d-none"
        href="#"
-       data-text="<%= Routes.counter_url(base_uri(), :index, @store, referral: @token, utm_source: "clipboard") %>"
+       data-text="<%= Routes.counter_url(store_uri(), :index, @store, referral: @token, utm_source: "clipboard") %>"
        phx-hook="CopyToClipboard">
       <%= dgettext("stores", "Copy store link") %>
     </a>
@@ -35,7 +35,7 @@
        href="#"
        data-title="<%= @store.name %>"
        data-text="<%= dgettext("stores", "Hey, check our store!") %>"
-       data-url="<%= Routes.counter_url(base_uri(), :index, @store, referral: @token, utm_source: "other_app") %>"
+       data-url="<%= Routes.counter_url(store_uri(), :index, @store, referral: @token, utm_source: "other_app") %>"
        phx-hook="Share">
       <%= dgettext("stores", "Share in another app") %>
     </a>
