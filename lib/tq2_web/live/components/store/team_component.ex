@@ -30,13 +30,7 @@ defmodule Tq2Web.Store.TeamComponent do
     live_redirect(dgettext("stores", "Join"), to: path, class: classes)
   end
 
-  defp image_path(nil) do
-    # For some weird reason :random.uniform/1 does not work here
-    index = System.os_time(:second) |> Integer.mod(2)
-
-    "/images/avatars/avatar_#{index + 1}.svg"
-  end
-
+  defp image_path(nil), do: "/images/avatars/avatar_set.svg"
   defp image_path(_), do: "/images/avatars/avatar_join.svg"
 
   defp first_name(%Tq2.Sales.Customer{name: name}) do

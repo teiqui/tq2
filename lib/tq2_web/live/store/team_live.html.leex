@@ -26,7 +26,7 @@
       <div id="orders" phx-update="append">
         <%= for order <- @orders do %>
           <div id="order-<%= order.id %>" class="media mb-4">
-            <%= avatar order.customer %>
+            <%= avatar @socket, order.customer %>
 
             <div class="media-body">
               <div class="d-flex">

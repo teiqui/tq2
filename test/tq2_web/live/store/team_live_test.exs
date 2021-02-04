@@ -44,15 +44,15 @@ defmodule Tq2Web.Store.TeamLiveTest do
 
       assert html =~ store.name
       assert content =~ store.name
-      assert content =~ List.first(orders).customer.name
-      refute content =~ List.last(orders).customer.name
+      assert content =~ "order-#{List.first(orders).id}"
+      refute content =~ "order-#{List.last(orders).id}"
 
       content =
         store_live
         |> element("#footer")
         |> render_hook(:"load-more")
 
-      assert content =~ List.last(orders).customer.name
+      assert content =~ "order-#{List.last(orders).id}"
       refute has_element?(store_live, "#footer")
     end
   end

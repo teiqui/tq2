@@ -50,41 +50,28 @@ defmodule Tq2Web.Store.TeamLive do
     end
   end
 
-  defp avatar(%Tq2.Sales.Customer{id: id, name: name}) do
-    index = rem(id, 4)
-    {color, _} = ~w(73b8bb 457b9d f8c647 cc0000) |> List.pop_at(index)
+  defp avatar(socket, %Tq2.Sales.Customer{id: id} = customer) do
+    color_index = rem(id, 5)
+    avatar_index = avatar_index(id)
+    {color, _} = ~w(457b9d f8c647 cc0000 73b8bb 6980a2) |> List.pop_at(color_index)
 
-    initial =
-      name
-      |> String.replace(~r/\W+/, "")
-      |> String.upcase()
-      |> String.first()
+    socket
+    |> Routes.static_path("/images/avatars/avatar_#{avatar_index}.svg")
+    |> img_tag(
+      height: 60,
+      width: 60,
+      alt: first_name(customer),
+      style: "background-color: ##{color};",
+      class: "rounded-circle mr-3"
+    )
+  end
 
-    ~E"""
-      <svg class="mr-3"
-           viewBox="0 0 60 60"
-           width="60"
-           height="60"
-           xmlns="http://www.w3.org/2000/svg"
-           focusable="false"
-           role="img"
-           aria-label="<%= name %>">
-        <g>
-          <title><%= name %></title>
-          <ellipse cx="30" cy="30" rx="30" ry="30" fill="#<%= color %>"></ellipse>
-          <text class="h1 font-weight-semi-bold"
-                x="50%"
-                y="50%"
-                text-anchor="middle"
-                alignment-baseline="middle"
-                dominant-baseline="middle"
-                fill="#ffffff"
-                dy=".1em">
-            <%= initial || "T" %>
-          </text>
-        </g>
-      </svg>
-    """
+  defp avatar_index(id) do
+    id
+    |> rem(15)
+    |> Kernel.+(1)
+    |> Integer.to_string()
+    |> String.pad_leading(2, "0")
   end
 
   defp first_name(%Tq2.Sales.Customer{name: name}) do
