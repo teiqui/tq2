@@ -153,7 +153,7 @@ defmodule Tq2Web.Store.BriefLiveTest do
       assert to == Routes.counter_path(conn, :index, store)
     end
 
-    test "redirect to counter without lines", %{conn: conn, cart: cart, store: store} do
+    test "redirect to counter on empty cart", %{conn: conn, cart: cart, store: store} do
       cart.lines |> Enum.map(&Tq2.Repo.delete!(&1))
 
       path = Routes.brief_path(conn, :index, store)
