@@ -110,8 +110,8 @@ defmodule Tq2Web.LayoutView do
     subdomain = host |> String.split(".") |> List.first()
 
     keys = %{
-      Application.get_env(:tq2, :app_subdomain) => "UA-163313653-1",
-      Application.get_env(:tq2, :web_subdomain) => "UA-163313653-2",
+      Application.get_env(:tq2, :web_subdomain) => "UA-163313653-1",
+      Application.get_env(:tq2, :app_subdomain) => "UA-163313653-2",
       Application.get_env(:tq2, :store_subdomain) => "UA-163313653-3"
     }
 
