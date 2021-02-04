@@ -11,7 +11,7 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/live/store/customer_live.html.leex:44
+#: lib/tq2_web/live/store/customer_live.html.leex:45
 msgid "Address"
 msgstr ""
 
@@ -28,7 +28,7 @@ msgid "Phone"
 msgstr ""
 
 #: lib/tq2_web/live/registration/name_live.ex:58
-#: lib/tq2_web/live/store/customer_live.html.leex:50
+#: lib/tq2_web/live/store/customer_live.html.leex:51
 msgid "Saving..."
 msgstr ""
 

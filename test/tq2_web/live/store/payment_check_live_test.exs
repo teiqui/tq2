@@ -13,7 +13,10 @@ defmodule Tq2Web.Store.PaymentCheckLiveTest do
     token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
     price_type: "promotional",
     customer_id: nil,
-    visit_id: nil
+    visit_id: nil,
+    data: %{
+      handing: "pickup"
+    }
   }
 
   setup %{conn: conn} do

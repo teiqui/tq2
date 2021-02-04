@@ -18,11 +18,11 @@
       }
 
       #teiqui-email a {
-        color: #3992c3;
+        color: #f04350;
       }
 
       #teiqui-email a:hover {
-        color: #156fa0;
+        color: #cc0000;
       }
 
       #teiqui-email footer a {
@@ -100,6 +100,10 @@
         margin-bottom: 0 !important;
       }
 
+      #teiqui-email .mt-3 {
+        margin-top: 1em !important;
+      }
+
       #teiqui-email .pr-1 {
         padding-right: 0.5em !important;
       }
@@ -116,20 +120,16 @@
         text-align: center !important;
       }
 
-      #teiqui-email .text-complementary {
-        color: #f48c06;
-      }
-
       #teiqui-email .text-danger {
-        color: #c74444;
+        color: #cc0000;
       }
 
       #teiqui-email .text-primary {
-        color: #5a59aa;
+        color: #f04350;
       }
 
       #teiqui-email .text-primary:hover {
-        color: #5a59aa;
+        color: #f04350;
       }
 
       #teiqui-email .text-right {
@@ -137,7 +137,7 @@
       }
 
       #teiqui-email .text-success {
-        color: #5baa59;
+        color: #73b8bb;
       }
 
       #teiqui-email .text-uppercase {

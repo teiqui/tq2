@@ -3,17 +3,28 @@
 <%= dgettext("emails", "Congratulations!") %>
 <%= dgettext("emails", "You have a new order, this is it:") %>
 
+<%= @order.customer.name %>
+
 <%= for line <- @order.cart.lines do %>
   * <%= line.quantity %> x <%= line.name %> | <%= line_price @order.cart, line %> | <%= line_total @order.cart, line %>
 <% end %>
 
 <%= if @shipping do %>
   * <%= dgettext("stores", "Shipping") %> | <%= @shipping.name %> | <%= format_money @shipping.price %>
+    <%= if @order.customer.address, do: @order.customer.address %>
 <% end %>
 
 <%= dgettext("orders", "Total") %>: <%= cart_total @order.cart %>
 
 <%= dgettext("emails", "For reference, the order is #%{number}", number: @order.id) %>
+<%= if @order.cart.data.handing == "pickup" do %>
+<%= dgettext("emails", "and it will be picked up from your store.") %>
+<% else %>
+<%= dgettext("emails", "and it should be delivered.") %>
+<% end %>
 
 <%= dgettext("emails", "Go to the app and see more information about this, visit the following direction:") %>
-<%= Routes.order_url(base_uri(), :show, @order) %>
+<%= Routes.order_url(app_uri(), :show, @order) %>
+
+<%= dgettext("emails", "Teiqui team") %>
+<%= Routes.root_url(web_uri(), :index) %>

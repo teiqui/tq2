@@ -120,9 +120,12 @@ defmodule Tq2.NotificationsTest do
   end
 
   defp order do
+    account = default_account()
+
     %Order{
       id: 1,
-      account_id: default_account().id,
+      account_id: account.id,
+      account: account,
       status: "pending",
       promotion_expires_at: DateTime.utc_now() |> DateTime.to_iso8601(),
       inserted_at: Timex.now(),

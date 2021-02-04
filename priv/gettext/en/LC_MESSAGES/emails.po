@@ -48,23 +48,21 @@ msgstr ""
 msgid "Congratulations!"
 msgstr ""
 
-#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:48
-#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:16
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:19
 msgid "For reference, the order is #%{number}"
 msgstr ""
 
 #: lib/tq2_web/templates/email/expired_promotion.html.eex:49
-#: lib/tq2_web/templates/email/expired_promotion.text.eex:17 lib/tq2_web/templates/email/order_confirmation.html.eex:50
-#: lib/tq2_web/templates/email/order_confirmation.text.eex:18 lib/tq2_web/templates/email/promotion_confirmation.html.eex:50
-#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:18
+#: lib/tq2_web/templates/email/expired_promotion.text.eex:17 lib/tq2_web/templates/email/order_confirmation.text.eex:18
+#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:50 lib/tq2_web/templates/email/promotion_confirmation.text.eex:18
 msgid "For reference, your order is #%{number}"
 msgstr ""
 
-#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:52
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:82
 msgid "Go to the app and see more information about this "
 msgstr ""
 
-#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:18
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:26
 msgid "Go to the app and see more information about this, visit the following direction:"
 msgstr ""
 
@@ -88,7 +86,7 @@ msgid "We have receive your order"
 msgstr ""
 
 #: lib/tq2_web/templates/email/expired_promotion.html.eex:53
-#: lib/tq2_web/templates/email/expired_promotion.text.eex:19 lib/tq2_web/templates/email/order_confirmation.html.eex:54
+#: lib/tq2_web/templates/email/expired_promotion.text.eex:19 lib/tq2_web/templates/email/order_confirmation.html.eex:71
 #: lib/tq2_web/templates/email/order_confirmation.text.eex:20 lib/tq2_web/templates/email/promotion_confirmation.html.eex:54
 #: lib/tq2_web/templates/email/promotion_confirmation.text.eex:20
 msgid "We'll keep you informed about it."
@@ -99,7 +97,7 @@ msgstr ""
 msgid "You have a new order, this is it:"
 msgstr ""
 
-#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:53
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:83
 msgid "here"
 msgstr ""
 
@@ -169,4 +167,38 @@ msgstr ""
 
 #: lib/tq2_web/templates/email/license_near_to_expire.text.eex:3
 msgid "Your license is near to expire, please visit the following URL and complete your subscription:"
+msgstr ""
+
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:18
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:16
+msgid "<span class=\"font-weight-normal\">Order</span> #%{number}"
+msgstr ""
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:72
+msgid "For reference, the order is <strong>#%{number}</strong>"
+msgstr ""
+
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:67
+msgid "For reference, your order is <strong>#%{number}</strong>"
+msgstr ""
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:88
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:29
+msgid "Teiqui team"
+msgstr ""
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:77
+msgid "and it should be <strong>delivered</strong>."
+msgstr ""
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:23
+msgid "and it should be delivered."
+msgstr ""
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:21
+msgid "and it will be picked up from your store."
+msgstr ""
+
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:75
+msgid "and <strong>it will be picked up from your store</strong>."
 msgstr ""

@@ -7,10 +7,29 @@
 
 <table>
   <thead>
-    <th><%= dgettext("lines", "Name") %></th>
-    <th><%= dgettext("lines", "Quantity") %></th>
-    <th><%= dgettext("lines", "Price") %></th>
-    <th><%= dgettext("lines", "Total") %></th>
+    <tr>
+      <th class="text-center" colspan="4">
+        <%= @order.customer.name %>
+
+        <br>
+
+        <%= raw dgettext("emails", "<span class=\"font-weight-normal\">Order</span> #%{number}", number: @order.id) %> -
+
+        <%= if @order.cart.data.handing == "pickup" do %>
+          <%= dgettext("stores", "Pickup") %>
+        <% else %>
+          <%= dgettext("stores", "Delivery") %>
+        <% end %>
+      </th>
+    </tr>
+    <tr>
+      <th colspan="2">
+        <%= order_date @order %>
+      </th>
+      <th class="text-right" colspan="2">
+        <%= order_time @order %>
+      </th>
+    </tr>
   </thead>
 
   <tbody>
@@ -18,16 +37,21 @@
       <tr>
         <td><%= line.name %></td>
         <td><%= line.quantity %></td>
-        <td><%= line_price @order.cart, line %></td>
-        <td><%= line_total @order.cart, line %></td>
+        <td class="text-right"><%= line_price @order.cart, line %></td>
+        <td class="text-right"><%= line_total @order.cart, line %></td>
       </tr>
     <% end %>
 
     <%= if @shipping do %>
       <tr>
-        <td><%= dgettext("stores", "Shipping") %></td>
-        <td><%= @shipping.name %></td>
-        <td><%= format_money @shipping.price %></td>
+        <td></td>
+        <td class="text-right">
+          <%= dgettext("stores", "Shipping") %> - <%= @shipping.name %>
+          <br>
+          <%= if @order.customer.address, do: @order.customer.address %>
+        </td>
+        <td></td>
+        <td class="text-right"><%= format_money @shipping.price %></td>
       </tr>
     <% end %>
   </tbody>
@@ -37,18 +61,30 @@
       <td colspan="3">
         <strong><%= dgettext("orders", "Total") %></strong>
       </td>
-      <td>
+      <td class="text-right">
         <strong><%= cart_total @order.cart %></strong>
       </td>
     </tr>
   </tfoot>
 </table>
 
-<p>
-  <%= dgettext("emails", "For reference, the order is #%{number}", number: @order.id) %>
+<p class="mt-3">
+  <%= raw dgettext("emails", "For reference, the order is <strong>#%{number}</strong>", number: @order.id) %>
+
+  <%= if @order.cart.data.handing == "pickup" do %>
+    <%= raw dgettext("emails", "and <strong>it will be picked up from your store</strong>.") %>
+  <% else %>
+    <%= raw dgettext("emails", "and it should be <strong>delivered</strong>.") %>
+  <% end %>
 </p>
 
 <p>
   <%= dgettext("emails", "Go to the app and see more information about this ") %>
-  <%= link dgettext("emails", "here"), to: Routes.order_url(base_uri(), :show, @order) %>.
+  <%= link dgettext("emails", "here"), to: Routes.order_url(app_uri(), :show, @order) %>.
+</p>
+
+<p>
+  <strong>
+    <%= link dgettext("emails", "Teiqui team"), to: Routes.root_url(web_uri(), :index) %>
+  </strong>
 </p>

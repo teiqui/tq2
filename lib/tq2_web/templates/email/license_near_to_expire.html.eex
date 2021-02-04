@@ -7,7 +7,7 @@
 </p>
 
 <p>
-  <%= link(dgettext("licenses", "Licenses"), to: Routes.license_url(base_uri(), :index), target: "_blank") %>
+  <%= link(dgettext("licenses", "Licenses"), to: Routes.license_url(app_uri(), :index), target: "_blank") %>
 </p>
 
 <p>

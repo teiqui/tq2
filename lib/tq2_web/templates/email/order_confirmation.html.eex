@@ -9,10 +9,26 @@
 
 <table>
   <thead>
-    <th><%= dgettext("lines", "Name") %></th>
-    <th><%= dgettext("lines", "Quantity") %></th>
-    <th><%= dgettext("lines", "Price") %></th>
-    <th><%= dgettext("lines", "Total") %></th>
+    <tr>
+      <th class="text-center" colspan="4">
+        <%= @order.customer.name %>
+
+        <br>
+
+        <%= raw dgettext("emails", "<span class=\"font-weight-normal\">Order</span> #%{number}", number: @order.id) %> -
+
+        <%= if @order.cart.data.handing == "pickup" do %>
+          <%= dgettext("stores", "Pickup") %>
+        <% else %>
+          <%= dgettext("stores", "Delivery") %>
+        <% end %>
+      </th>
+    </tr>
+    <tr>
+      <th class="text-right" colspan="4">
+        <%= order_date @order %>
+      </th>
+    </tr>
   </thead>
 
   <tbody>
@@ -20,16 +36,17 @@
       <tr>
         <td><%= line.name %></td>
         <td><%= line.quantity %></td>
-        <td><%= line_price @order.cart, line %></td>
-        <td><%= line_total @order.cart, line %></td>
+        <td class="text-right"><%= line_price @order.cart, line %></td>
+        <td class="text-right"><%= line_total @order.cart, line %></td>
       </tr>
     <% end %>
 
     <%= if @shipping do %>
       <tr>
-        <td><%= dgettext("stores", "Shipping") %></td>
-        <td><%= @shipping.name %></td>
-        <td><%= format_money @shipping.price %></td>
+        <td></td>
+        <td class="text-right"><%= dgettext("stores", "Shipping") %> - <%= @shipping.name %></td>
+        <td></td>
+        <td class="text-right"><%= format_money @shipping.price %></td>
       </tr>
     <% end %>
   </tbody>
@@ -39,7 +56,7 @@
       <td colspan="3">
         <strong><%= dgettext("orders", "Total") %></strong>
       </td>
-      <td>
+      <td class="text-right">
         <strong><%= cart_total @order.cart %></strong>
       </td>
     </tr>
@@ -47,7 +64,7 @@
 </table>
 
 <p>
-  <%= dgettext("emails", "For reference, your order is #%{number}", number: @order.id) %>
+  <%= raw dgettext("emails", "For reference, your order is <strong>#%{number}</strong>", number: @order.id) %>
 </p>
 
 <p>
