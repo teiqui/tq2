@@ -152,12 +152,15 @@ defmodule Tq2Web.InputHelpers do
   end
 
   defp input_tag(:select = type, form, field, input_opts) do
+    {_with_errors, input_opts} = Keyword.pop(input_opts, :with_errors)
     {options, input_opts} = Keyword.pop(input_opts, :collection)
 
     apply(Phoenix.HTML.Form, type, [form, field, options, input_opts])
   end
 
   defp input_tag(:checkbox = type, form, field, input_opts) do
+    {_with_errors, input_opts} = Keyword.pop(input_opts, :with_errors)
+
     Phoenix.HTML.Form
     |> apply(type, [form, field, input_opts])
     |> input_with_hint(input_opts)
@@ -166,6 +169,8 @@ defmodule Tq2Web.InputHelpers do
   defp input_tag(type, form, field, input_opts) do
     case input_opts[:prepend] do
       nil ->
+        {_with_errors, input_opts} = Keyword.pop(input_opts, :with_errors)
+
         Phoenix.HTML.Form
         |> apply(type, [form, field, input_opts])
         |> input_with_hint(input_opts)
@@ -176,13 +181,15 @@ defmodule Tq2Web.InputHelpers do
   end
 
   defp input_with_prepend(type, form, field, input_opts) do
-    invalid_class = if input_opts[:with_errors], do: "is-invalid"
+    {with_errors, input_opts} = Keyword.pop(input_opts, :with_errors)
+    {prepend, input_opts} = Keyword.pop(input_opts, :prepend)
+    invalid_class = if with_errors, do: "is-invalid"
 
     input_group =
       content_tag(:div, class: "input-group #{invalid_class}") do
         prepend_group =
           content_tag(:div, class: "input-group-prepend") do
-            content_tag(:span, input_opts[:prepend], class: "input-group-text")
+            content_tag(:span, prepend, class: "input-group-text")
           end
 
         input = apply(Phoenix.HTML.Form, type, [form, field, input_opts])

@@ -199,9 +199,9 @@ defmodule Tq2Web.Shop.StoreLiveTest do
 
       assert content =~ "Anywhere"
       assert content =~ "10.00"
-      assert content =~ "prepend=\"$\""
       assert content =~ "+ Add shipping"
       assert content =~ "phx-click=\"delete-shipping\""
+      assert has_element?(store_live, "span.input-group-text", "$")
     end
 
     test "default shipping", %{conn: conn, session: session, store: store} do
@@ -219,9 +219,9 @@ defmodule Tq2Web.Shop.StoreLiveTest do
 
       refute content =~ "Anywhere"
       refute content =~ "10.0"
-      assert content =~ "prepend=\"$\""
       assert content =~ "+ Add shipping"
       assert content =~ "phx-click=\"delete-shipping\""
+      assert has_element?(store_live, "span.input-group-text", "$")
     end
 
     test "delete shippings and see error anyway", %{conn: conn, store: store} do
@@ -301,11 +301,10 @@ defmodule Tq2Web.Shop.StoreLiveTest do
     test "render full store url prepended to slug", %{conn: conn} do
       path = Routes.store_path(conn, :index, "advanced")
       {:ok, store_live, _html} = live(conn, path)
-      content = render(store_live)
 
       uri = store_uri()
 
-      assert content =~ "class=\"input-group-text\">#{uri.scheme}://#{uri.host}/<"
+      assert has_element?(store_live, ".input-group-text", "#{uri.scheme}://#{uri.host}")
     end
   end
 
