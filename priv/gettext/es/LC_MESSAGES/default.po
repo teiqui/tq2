@@ -25,7 +25,8 @@ msgstr "¡Hasta pronto!"
 #: lib/tq2_web/templates/legal/index.html.eex:8 lib/tq2_web/templates/legal/index.html.eex:686
 #: lib/tq2_web/templates/page/index.html.eex:8 lib/tq2_web/templates/page/index.html.eex:423
 #: lib/tq2_web/templates/password/edit.html.eex:5 lib/tq2_web/templates/password/new.html.eex:5
-#: lib/tq2_web/templates/session/new.html.eex:4
+#: lib/tq2_web/templates/session/new.html.eex:4 lib/tq2_web/views/layout_view.ex:35 lib/tq2_web/views/layout_view.ex:36
+#: lib/tq2_web/views/layout_view.ex:42 lib/tq2_web/views/layout_view.ex:198 lib/tq2_web/views/layout_view.ex:202
 msgid "Teiqui"
 msgstr "Teiqui"
 
@@ -36,3 +37,7 @@ msgstr "¡Bienvenido!"
 #: lib/tq2/notifications/email.ex:91
 msgid "Teiqui 🔔"
 msgstr "Teiqui 🔔"
+
+#: lib/tq2_web/views/layout_view.ex:37
+msgid "Teiqui - Online store"
+msgstr "Teiqui - Tienda en linea"

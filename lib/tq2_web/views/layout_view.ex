@@ -1,12 +1,50 @@
 defmodule Tq2Web.LayoutView do
   use Tq2Web, :view
 
+  import Tq2.Utils.Urls, only: [store_uri: 0]
+
   alias Tq2.Accounts.Session
+  alias Tq2.Inventories.Item
+  alias Tq2.Shops.Store
 
   def locale do
     Tq2Web.Gettext
     |> Gettext.get_locale()
     |> String.replace(~r/_\w+/, "")
+  end
+
+  def meta_og_tags(%{store: %Store{}} = assigns) do
+    ~L"""
+      <meta property="og:title" content="<%= store_title(assigns) %>">
+      <meta property="og:site_name" content="<%= store_name(assigns) %>">
+      <meta property="og:description" content="<%= og_store_description(assigns) %>">
+      <meta property="og:type" content="website">
+      <meta property="og:url" content="<%= og_store_url(assigns) %>">
+      <meta property="og:image" content="<%= og_store_image_url(assigns) %>">
+      <meta property="og:image:secure_url" content="<%= og_store_image_url(assigns) %>">
+      <meta property="og:image:alt" content="<%= store_title(assigns) %>">
+      <meta property="og:image:width" content="512">
+      <meta property="og:image:height" content="512">
+      <meta property="og:locale" content="<%= locale() %>">
+      <meta property="og:updated_time" content="<%= System.os_time(:second) %>">
+    """
+  end
+
+  def meta_og_tags(assigns) do
+    ~L"""
+      <meta property="og:title" content="<%= gettext("Teiqui") %>">
+      <meta property="og:site_name" content="<%= gettext("Teiqui") %>">
+      <meta property="og:description" content="<%= gettext("Teiqui - Online store") %>">
+      <meta property="og:type" content="website">
+      <meta property="og:url" content="<%= teiqui_url(@conn) %>">
+      <meta property="og:image" content="<%= og_teiqui_image_url(@conn) %>">
+      <meta property="og:image:secure_url" content="<%= og_teiqui_image_url(@conn) %>">
+      <meta property="og:image:alt" content="<%= gettext("Teiqui") %>">
+      <meta property="og:image:width" content="512">
+      <meta property="og:image:height" content="512">
+      <meta property="og:locale" content="<%= locale() %>">
+      <meta property="og:updated_time" content="<%= System.os_time(:second) %>">
+    """
   end
 
   defp body_classes(_conn, nil) do
@@ -154,5 +192,67 @@ defmodule Tq2Web.LayoutView do
         </noscript>
       """
     end
+  end
+
+  defp store_name(%{store: %Store{name: name}}) do
+    [gettext("Teiqui"), name] |> Enum.join(" | ")
+  end
+
+  defp store_title(%{item: %Item{name: item_name}, store: %Store{name: name}}) do
+    [gettext("Teiqui"), name, item_name]
+    |> Enum.reject(fn v -> is_nil(v) or v == "" end)
+    |> Enum.join(" | ")
+    |> String.slice(0..59)
+  end
+
+  defp store_title(assigns) do
+    assigns
+    |> store_name()
+    |> String.slice(0..59)
+  end
+
+  defp og_store_description(%{item: %Item{name: name, description: description}}) do
+    [name, description]
+    |> Enum.reject(fn v -> is_nil(v) or v == "" end)
+    |> Enum.join(" | ")
+    |> String.slice(0..159)
+  end
+
+  defp og_store_description(%{store: %Store{description: description}}) do
+    (description || "")
+    |> String.trim()
+    |> String.slice(0..159)
+  end
+
+  defp og_store_url(%{item: %Item{} = item, store: %Store{} = store}) do
+    store_uri() |> Routes.item_url(:index, store, item)
+  end
+
+  defp og_store_url(%{store: %Store{} = store}) do
+    store_uri() |> Routes.counter_url(:index, store)
+  end
+
+  defp og_store_image_url(%{item: %Item{image: nil}} = assigns) do
+    %{assigns | item: nil} |> og_store_image_url()
+  end
+
+  defp og_store_image_url(%{item: %Item{image: image} = item}) do
+    Tq2.ImageUploader.url({image, item}, :og)
+  end
+
+  defp og_store_image_url(%{conn: conn, store: %Store{logo: nil}}) do
+    conn |> Tq2Web.Router.Helpers.static_url("/images/og_store.jpg")
+  end
+
+  defp og_store_image_url(%{store: %Store{logo: logo} = store}) do
+    Tq2.ImageUploader.url({logo, store}, :og)
+  end
+
+  defp og_teiqui_image_url(conn) do
+    conn |> Tq2Web.Router.Helpers.static_url("/images/og_teiqui.jpg")
+  end
+
+  defp teiqui_url(conn) do
+    conn |> Routes.root_url(:index)
   end
 end

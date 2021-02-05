@@ -101,15 +101,7 @@ defmodule Tq2.Fixtures do
         data: %{handing: "pickup"}
       })
 
-    {:ok, item} =
-      Tq2.Inventories.create_item(session, %{
-        sku: "some sku",
-        name: "some name",
-        visibility: "visible",
-        price: Money.new(100, :ARS),
-        promotional_price: Money.new(90, :ARS),
-        cost: Money.new(80, :ARS)
-      })
+    item = create_item()
 
     {:ok, line} =
       Tq2.Transactions.create_line(cart, %{
@@ -163,5 +155,24 @@ defmodule Tq2.Fixtures do
     {:ok, store} = session |> Tq2.Shops.update_store(store, attrs)
 
     store
+  end
+
+  def create_item(attrs \\ %{}) do
+    attrs =
+      Map.merge(
+        attrs,
+        %{
+          sku: "some sku",
+          name: "some name",
+          visibility: "visible",
+          price: Money.new(100, :ARS),
+          promotional_price: Money.new(90, :ARS),
+          cost: Money.new(80, :ARS)
+        }
+      )
+
+    {:ok, item} = Tq2.Inventories.create_item(create_session(), attrs)
+
+    item
   end
 end
