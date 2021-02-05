@@ -103,7 +103,7 @@ defmodule Tq2Web.Store.CustomerLiveTest do
       {:ok, customer_live, html} = live(conn, path)
 
       assert html =~ "bi-person-circle"
-      assert html =~ customer.phone
+      assert html =~ customer.email
       assert render(customer_live) =~ "bi-person-circle"
 
       assert customer_live
@@ -136,6 +136,12 @@ defmodule Tq2Web.Store.CustomerLiveTest do
     end
 
     test "save event with new customer except phone prefix", %{conn: conn, store: store} do
+      requires_for_store(store, %{
+        require_email: true,
+        require_phone: false,
+        require_address: true
+      })
+
       conn = %{conn | remote_ip: {200, 1, 116, 66}}
 
       path = Routes.customer_path(conn, :index, store)
@@ -202,23 +208,177 @@ defmodule Tq2Web.Store.CustomerLiveTest do
     end
 
     test "validate event with new customer and store requires", %{conn: conn, store: store} do
-      requires_for_store(store)
+      requires_for_store(store, %{require_email: true, require_phone: true, require_address: true})
 
       path = Routes.customer_path(conn, :index, store)
       {:ok, customer_live, _html} = live(conn, path)
 
       refute render(customer_live) =~ "bi-person-circle"
 
-      content =
-        customer_live
-        |> form("form", %{customer: %{name: "some name"}})
-        |> render_change()
+      customer_live
+      |> form("form", %{customer: %{name: "some name"}})
+      |> render_change()
 
-      assert content =~ "phx-feedback-for=\"customer_address\">can&apos;t be blank"
-      assert content =~ "phx-feedback-for=\"customer_email\">can&apos;t be blank"
-      assert content =~ "phx-feedback-for=\"customer_phone\">can&apos;t be blank"
+      assert has_element?(
+               customer_live,
+               "[phx-feedback-for=\"customer_address\"]",
+               "can't be blank"
+             )
+
+      assert has_element?(
+               customer_live,
+               "[phx-feedback-for=\"customer_email\"]",
+               "can't be blank"
+             )
+
+      assert has_element?(
+               customer_live,
+               "[phx-feedback-for=\"customer_phone\"]",
+               "can't be blank"
+             )
 
       refute render(customer_live) =~ "bi-person-circle"
+    end
+
+    test "reset event", %{conn: conn, store: store, cart: cart} do
+      path = Routes.customer_path(conn, :index, store)
+
+      {:ok, customer} =
+        Tq2.Sales.create_customer(%{
+          "name" => "some name",
+          "email" => "some@email.com",
+          "phone" => "555-5555",
+          "address" => "some address",
+          "tokens" => [%{"value" => cart.token}]
+        })
+
+      {:ok, customer_live, html} = live(conn, path)
+
+      assert html =~ "Change my data"
+      assert html =~ customer.email
+      assert render(customer_live) =~ "Change my data"
+      refute has_element?(customer_live, "input[name=\"customer[name]\"]")
+
+      content =
+        customer_live
+        |> element("a[phx-click=\"reset\"]")
+        |> render_click()
+
+      refute content =~ customer.email
+      refute content =~ "Change my data"
+      assert has_element?(customer_live, "input[name=\"customer[name]\"]")
+
+      response =
+        customer_live
+        |> form("form", %{
+          customer: %{
+            name: "some other name",
+            email: "some_other@email.com",
+            phone: "555-7777",
+            address: "some other address"
+          }
+        })
+        |> render_submit()
+
+      assert {:error, {:redirect, %{to: to}}} = response
+      assert to =~ Routes.token_path(conn, :show, store, "")
+      refute to =~ cart.token
+      refute Tq2.Transactions.get_cart(store.account, cart.token)
+    end
+
+    test "edit and save events", %{conn: conn, store: store, cart: cart} do
+      path = Routes.customer_path(conn, :index, store)
+
+      {:ok, customer} =
+        Tq2.Sales.create_customer(%{
+          "name" => "some name",
+          "email" => "some@email.com",
+          "phone" => "555-5555",
+          "address" => "some address",
+          "tokens" => [%{"value" => cart.token}]
+        })
+
+      {:ok, customer_live, html} = live(conn, path)
+
+      assert html =~ "Change my data"
+      assert html =~ customer.email
+      assert render(customer_live) =~ "Change my data"
+      refute has_element?(customer_live, "input[name=\"customer[name]\"]")
+
+      content =
+        customer_live
+        |> element("a[phx-click=\"edit\"]")
+        |> render_click()
+
+      refute content =~ "Change my data"
+      assert content =~ customer.email
+      assert has_element?(customer_live, "input[name=\"customer[name]\"]")
+
+      assert customer_live
+             |> form("form", %{
+               customer: %{
+                 name: "some updated name",
+                 email: "some_updated@email.com",
+                 phone: "555-7777",
+                 address: "some updated address"
+               }
+             })
+             |> render_submit() ==
+               {:error,
+                {:live_redirect, %{kind: :push, to: Routes.payment_path(conn, :index, store)}}}
+
+      assert Tq2.Sales.get_customer!(customer.id).email == "some_updated@email.com"
+    end
+
+    test "edit and validate events", %{conn: conn, store: store, cart: cart} do
+      path = Routes.customer_path(conn, :index, store)
+
+      {:ok, customer} =
+        Tq2.Sales.create_customer(%{
+          "name" => "some name",
+          "email" => "some@email.com",
+          "phone" => "555-5555",
+          "address" => "some address",
+          "tokens" => [%{"value" => cart.token}]
+        })
+
+      {:ok, customer_live, html} = live(conn, path)
+
+      assert html =~ "Change my data"
+      assert html =~ customer.email
+      assert render(customer_live) =~ "Change my data"
+      refute has_element?(customer_live, "input[name=\"customer[name]\"]")
+
+      content =
+        customer_live
+        |> element("a[phx-click=\"edit\"]")
+        |> render_click()
+
+      refute content =~ "Change my data"
+      assert content =~ customer.email
+      assert has_element?(customer_live, "input[name=\"customer[name]\"]")
+
+      customer_live
+      |> form("form", %{
+        customer: %{
+          name: "",
+          email: "invalid",
+          phone: "invalid"
+        }
+      })
+      |> render_change()
+
+      assert has_element?(
+               customer_live,
+               "[phx-feedback-for=\"customer_email\"]",
+               "has invalid format"
+             )
+
+      assert has_element?(
+               customer_live,
+               "[phx-feedback-for=\"customer_phone\"]",
+               "can't be blank"
+             )
     end
 
     test "render phone prefix and validate", %{conn: conn, store: store} do
@@ -231,12 +391,11 @@ defmodule Tq2Web.Store.CustomerLiveTest do
              |> element("[name=\"customer[phone]\"]")
              |> render() =~ "value=\"+54\""
 
-      content =
-        customer_live
-        |> form("form", %{customer: %{name: "some name", phone: "+543"}})
-        |> render_change()
+      customer_live
+      |> form("form", %{customer: %{name: "some name", phone: "+543"}})
+      |> render_change()
 
-      assert content =~ "phx-feedback-for=\"customer_phone\">is invalid"
+      assert has_element?(customer_live, "[phx-feedback-for=\"customer_phone\"]", "is invalid")
 
       refute render(customer_live) =~ "bi-person-circle"
     end
@@ -251,15 +410,11 @@ defmodule Tq2Web.Store.CustomerLiveTest do
       assert to == Routes.counter_path(conn, :index, store)
     end
 
-    defp requires_for_store(%{configuration: config}) do
+    defp requires_for_store(%{configuration: config}, new_config) do
       config =
         config
         |> Tq2.Shops.Configuration.from_struct()
-        |> Map.merge(%{
-          require_email: true,
-          require_phone: true,
-          require_address: true
-        })
+        |> Map.merge(new_config)
 
       default_store(%{configuration: config})
     end

@@ -28,6 +28,20 @@ defmodule Tq2.Sales.Customer do
     customer
     |> cast(attrs, [:name, :email, :phone, :address, :lock_version])
     |> cast_assoc(:tokens)
+    |> validate(store)
+  end
+
+  @doc false
+  def update_changeset(%Customer{} = customer, attrs, store \\ nil) do
+    attrs = canonize(attrs)
+
+    customer
+    |> cast(attrs, [:name, :email, :phone, :address, :lock_version])
+    |> validate(store)
+  end
+
+  defp validate(%Ecto.Changeset{} = changeset, store) do
+    changeset
     |> validate_required([:name])
     |> validate_length(:name, max: 255)
     |> validate_length(:email, max: 255)
@@ -56,6 +70,11 @@ defmodule Tq2.Sales.Customer do
 
   def canonized_phone(phone) do
     phone |> String.replace(~r/[^0-9\+\-]/, "")
+  end
+
+  @doc false
+  def random_token do
+    :crypto.strong_rand_bytes(32) |> Base.url_encode64()
   end
 
   defp canonize(%{"name" => _} = attrs) do

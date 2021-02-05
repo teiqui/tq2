@@ -202,9 +202,9 @@ defmodule Tq2.AccountsTest do
 
     test "create_user/2 with valid data creates a user", %{session: session} do
       assert {:ok, %User{} = user} = Accounts.create_user(session, @valid_attrs)
-      assert user.email == "some@email.com"
-      assert user.lastname == "some lastname"
-      assert user.name == "some name"
+      assert user.name == @valid_attrs.name
+      assert user.lastname == @valid_attrs.lastname
+      assert user.email == @valid_attrs.email
     end
 
     test "create_user/2 with invalid data returns error changeset", %{session: session} do
@@ -214,9 +214,9 @@ defmodule Tq2.AccountsTest do
     test "update_user/3 with valid data updates the user", %{session: session} do
       user = user_fixture(session)
       assert {:ok, %User{} = user} = Accounts.update_user(session, user, @update_attrs)
-      assert user.email == "new@email.com"
-      assert user.lastname == "some updated lastname"
-      assert user.name == "some updated name"
+      assert user.name == @update_attrs.name
+      assert user.lastname == @update_attrs.lastname
+      assert user.email == @update_attrs.email
     end
 
     test "update_user/3 with invalid data returns error changeset", %{session: session} do

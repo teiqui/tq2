@@ -65,6 +65,11 @@ defmodule Tq2.Sales.CustomerTest do
       assert nil == Customer.canonized_phone(nil)
     end
 
+    test "random token" do
+      assert Customer.random_token() |> String.length() > 0
+      refute Customer.random_token() == Customer.random_token()
+    end
+
     test "store required email" do
       store = store_with(:email)
 

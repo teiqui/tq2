@@ -60,6 +60,8 @@ defmodule Tq2Web.Router do
     live "/:slug/team", Store.TeamLive, :index, session: @session_extras.store
     live "/:slug/checkout", Store.CheckoutLive, :index, session: @session_extras.store
     live "/:slug/brief", Store.BriefLive, :index, session: @session_extras.store
+
+    get "/:slug/tokens/:token", TokenController, :show
   end
 
   scope "/", Tq2Web do

@@ -75,7 +75,7 @@ defmodule Tq2Web.Store.TeamLiveTest do
 
   defp create_order do
     session = create_session()
-    referral_token = :crypto.strong_rand_bytes(32) |> Base.url_encode64()
+    referral_token = Tq2.Sales.Customer.random_token()
     rand = :random.uniform(999_999_999)
     customer = create_customer(%{tokens: [%{value: referral_token}]})
 

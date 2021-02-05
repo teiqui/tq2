@@ -5,6 +5,7 @@ defmodule Tq2.Sales do
 
   import Ecto.Query, warn: false
 
+  alias Ecto.Multi
   alias Tq2.{Repo, Trail}
   alias Tq2.Sales.Customer
   alias Tq2.Accounts.{Account, Session}
@@ -80,6 +81,54 @@ defmodule Tq2.Sales do
     %Customer{}
     |> Customer.changeset(attrs, store)
     |> Repo.insert()
+  end
+
+  @doc """
+  Creates a customer and assigns new token to his cart.
+
+  ## Examples
+
+      iex> create_customer(%{field: value}, %Store{}, "123", "234")
+      {:ok, %Customer{}}
+
+      iex> create_customer(%{field: bad_value}, %Store{}, "123", "333")
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_customer(attrs, %Tq2.Shops.Store{} = store, token, old_token) do
+    cart = Tq2.Transactions.get_cart(store.account, old_token)
+
+    result =
+      Multi.new()
+      |> Multi.insert(:customer, Customer.changeset(%Customer{}, attrs, store))
+      |> Multi.update(:cart, Tq2.Transactions.change_cart(store.account, cart, %{token: token}))
+      |> Repo.transaction()
+
+    case result do
+      {:ok, %{customer: customer}} ->
+        {:ok, customer}
+
+      {:error, :customer, changeset, _} ->
+        {:error, changeset}
+    end
+  end
+
+  @doc """
+  Updates a customer.
+
+  ## Examples
+
+      iex> update_customer(customer, %{field: new_value})
+      {:ok, %Customer{}}
+
+      iex> update_customer(customer, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_customer(%Customer{} = customer, attrs, store \\ nil) do
+    customer
+    |> Customer.update_changeset(attrs, store)
+    |> Repo.update()
   end
 
   @doc """

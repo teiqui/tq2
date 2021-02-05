@@ -167,7 +167,7 @@ msgstr ""
 msgid "Hey, check our store!"
 msgstr ""
 
-#: lib/tq2_web/live/components/store/share_component.ex:21
+#: lib/tq2_web/live/components/store/share_component.ex:14
 msgid "Hey, check our store!\n\n%{url}"
 msgstr ""
 
@@ -201,7 +201,7 @@ msgid "Share"
 msgstr ""
 
 #: lib/tq2_web/live/components/store/team_component.ex:30
-#: lib/tq2_web/live/store/team_live.ex:114
+#: lib/tq2_web/live/store/team_live.ex:101
 msgid "Join"
 msgstr ""
 
@@ -366,11 +366,11 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: lib/tq2_web/live/store/brief_live.ex:111
+#: lib/tq2_web/live/store/brief_live.ex:119
 msgid "You could have saved %{amount}"
 msgstr ""
 
-#: lib/tq2_web/live/store/brief_live.ex:103
+#: lib/tq2_web/live/store/brief_live.ex:111
 msgid "You saved %{amount}"
 msgstr ""
 
@@ -398,7 +398,7 @@ msgstr ""
 msgid "Check order"
 msgstr ""
 
-#: lib/tq2_web/live/store/customer_live.html.leex:53
+#: lib/tq2_web/live/store/customer_live.html.leex:55
 #: lib/tq2_web/live/store/handing_live.html.leex:78
 msgid "Continue"
 msgstr ""
@@ -406,4 +406,12 @@ msgstr ""
 #: lib/tq2_web/live/store/brief_live.html.leex:185
 #: lib/tq2_web/live/store/payment_live.html.leex:46
 msgid "Place order"
+msgstr ""
+
+#: lib/tq2_web/live/store/customer_live.html.leex:37
+msgid "Change my data"
+msgstr ""
+
+#: lib/tq2_web/live/store/customer_live.html.leex:38
+msgid "It's not me"
 msgstr ""

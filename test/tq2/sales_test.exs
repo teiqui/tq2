@@ -1,6 +1,8 @@
 defmodule Tq2.SalesTest do
   use Tq2.DataCase
 
+  import Tq2.Fixtures, only: [create_session: 0, default_account: 0, default_store: 0]
+
   alias Tq2.{Analytics, Sales}
 
   @valid_customer_attrs %{
@@ -8,6 +10,12 @@ defmodule Tq2.SalesTest do
     email: "some@EMAIL.com",
     phone: "555-5555",
     address: "some address"
+  }
+  @valid_customer_update_attrs %{
+    name: "some updated name",
+    email: "some_updated@EMAIL.com",
+    phone: "555-7777",
+    address: "some updated address"
   }
   @invalid_customer_attrs %{
     name: nil,
@@ -144,6 +152,53 @@ defmodule Tq2.SalesTest do
       assert {:error, %Ecto.Changeset{}} = Sales.create_customer(@invalid_customer_attrs)
     end
 
+    test "create_customer/4 with valid data creates a customer and updates cart token" do
+      token = Customer.random_token()
+      store = default_store()
+      session = create_session()
+      {:ok, cart} = create_cart(session)
+
+      assert {:ok, %Customer{} = customer} =
+               Sales.create_customer(@valid_customer_attrs, store, token, cart.token)
+
+      assert customer.name == @valid_customer_attrs.name
+      assert customer.email == Customer.canonized_email(@valid_customer_attrs.email)
+      assert customer.phone == Customer.canonized_phone(@valid_customer_attrs.phone)
+      assert customer.address == @valid_customer_attrs.address
+      assert Tq2.Transactions.get_cart(session.account, token)
+    end
+
+    test "create_customer/4 with invalid data returns error changeset" do
+      token = Customer.random_token()
+      store = default_store()
+      session = create_session()
+      {:ok, cart} = create_cart(session)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Sales.create_customer(@invalid_customer_attrs, store, token, cart.token)
+    end
+
+    test "update_customer/2 with valid data updates the customer" do
+      customer = fixture(nil, :customer)
+
+      assert {:ok, %Customer{} = customer} =
+               Sales.update_customer(customer, @valid_customer_update_attrs)
+
+      assert customer.name == @valid_customer_update_attrs.name
+      assert customer.email == Customer.canonized_email(@valid_customer_update_attrs.email)
+      assert customer.phone == Customer.canonized_phone(@valid_customer_update_attrs.phone)
+      assert customer.address == @valid_customer_update_attrs.address
+    end
+
+    test "update_customer/2 with invalid data returns error changeset" do
+      customer = fixture(nil, :customer)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Sales.update_customer(customer, @invalid_customer_attrs)
+
+      assert customer.email == Sales.get_customer!(customer.id).email
+    end
+
     test "change_customer/1 returns a customer changeset" do
       customer = fixture(nil, :customer)
 
@@ -160,7 +215,7 @@ defmodule Tq2.SalesTest do
     alias Tq2.Notifications.Email
 
     defp create_session(_) do
-      account = Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
+      account = default_account()
 
       {:ok, session: %Tq2.Accounts.Session{account: account}}
     end
@@ -444,7 +499,7 @@ defmodule Tq2.SalesTest do
 
   defp create_cart(session, attrs \\ %{}, customer \\ nil) do
     visit = fixture(session, :visit)
-    customer_token = :crypto.strong_rand_bytes(64) |> Base.url_encode64()
+    customer_token = Tq2.Sales.Customer.random_token()
 
     {:ok, customer} =
       case customer do

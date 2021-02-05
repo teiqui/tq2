@@ -9,7 +9,7 @@ defmodule Tq2Web.TokenPlug do
   end
 
   defp create_token(conn) do
-    token = :crypto.strong_rand_bytes(32) |> Base.url_encode64()
+    token = Tq2.Sales.Customer.random_token()
 
     put_session(conn, :token, token)
   end

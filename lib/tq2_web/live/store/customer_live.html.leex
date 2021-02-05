@@ -4,7 +4,7 @@
   <div class="col-md-8">
     <div class="card card-body">
       <%= f = form_for @changeset, "#", [phx_submit: "save", phx_change: "validate"] %>
-        <%= if @customer do %>
+        <%= if @customer && @changeset.action == nil do %>
           <div class="media">
             <div class="display-4 text-info mt-n1">
               <i class="bi-person-circle"></i>
@@ -32,11 +32,13 @@
                   <%= @customer.phone %>
                 </p>
               <% end %>
+
+              <p class="mb-0 mt-3">
+                <%= link dgettext("stores", "Change my data"), to: "#", phx_click: "edit" %>
+                <%= link dgettext("stores", "It's not me"), to: "#", class: "float-right", phx_click: "reset" %>
+              </p>
             </div>
           </div>
-
-          <%= hidden_input f, :email %>
-          <%= hidden_input f, :phone %>
         <% else %>
           <%= input f, :name, dgettext("customers", "Name"), input_html: [autofocus: true, phx_debounce: "blur"] %>
           <%= input f, :email, dgettext("customers", "Email"), input_html: [phx_debounce: "blur"] %>

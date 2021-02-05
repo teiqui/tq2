@@ -14,32 +14,28 @@ defmodule Tq2Web.Store.CustomerLive do
         socket
       ) do
     socket
-    |> assign(ip: ip, store: store, token: token, visit_id: visit_id)
-    |> load_customer(token)
+    |> assign(ip: ip, store: store, token: token, visit_id: visit_id, old_token: nil)
+    |> load_customer()
     |> load_cart()
     |> put_changeset()
     |> finish_mount()
   end
 
   @impl true
-  def handle_event(
-        "save",
-        %{"customer" => customer_params},
-        %{assigns: %{store: store, token: token}} = socket
-      ) do
+  def handle_event("save", %{"customer" => customer_params}, %{assigns: %{token: token}} = socket) do
     customer_params =
       customer_params
       |> Map.put("tokens", [%{"value" => token}])
       |> clean_phone_prefix(socket)
 
-    case customer(customer_params, token) do
+    case save_customer(socket, customer_params) do
       {:ok, customer} ->
         socket =
           socket
           |> load_cart()
           |> assign(:customer, customer)
           |> associate()
-          |> push_redirect(to: Routes.payment_path(socket, :index, store))
+          |> redirect()
 
         {:noreply, socket}
 
@@ -49,10 +45,21 @@ defmodule Tq2Web.Store.CustomerLive do
   end
 
   @impl true
+  def handle_event("save", _params, %{assigns: %{store: store, customer: _customer}} = socket) do
+    socket =
+      socket
+      |> load_cart()
+      |> associate()
+      |> push_redirect(to: Routes.payment_path(socket, :index, store))
+
+    {:noreply, socket}
+  end
+
+  @impl true
   def handle_event(
         "validate",
         %{"customer" => customer_params},
-        %{assigns: %{token: token, store: store}} = socket
+        %{assigns: %{token: token, store: store, customer: nil}} = socket
       ) do
     email = customer_params["email"]
     phone = customer_params["phone"]
@@ -84,6 +91,42 @@ defmodule Tq2Web.Store.CustomerLive do
     end
   end
 
+  @impl true
+  def handle_event(
+        "validate",
+        %{"customer" => customer_params},
+        %{assigns: %{customer: customer, store: store}} = socket
+      ) do
+    changeset =
+      customer
+      |> Sales.change_customer(customer_params, store)
+      |> Map.put(:action, :update)
+
+    {:noreply, assign(socket, changeset: changeset)}
+  end
+
+  @impl true
+  def handle_event("reset", _params, %{assigns: %{token: old_token}} = socket) do
+    token = Customer.random_token()
+    changeset = %Customer{} |> Sales.change_customer()
+
+    socket =
+      socket
+      |> assign(customer: nil, changeset: changeset, token: token, old_token: old_token)
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("edit", _params, %{assigns: %{customer: customer}} = socket) do
+    changeset =
+      customer
+      |> Sales.change_customer()
+      |> Map.put(:action, :update)
+
+    {:noreply, assign(socket, :changeset, changeset)}
+  end
+
   defp finish_mount(%{assigns: %{cart: nil, store: store}} = socket) do
     socket =
       socket
@@ -93,7 +136,7 @@ defmodule Tq2Web.Store.CustomerLive do
   end
 
   defp finish_mount(socket) do
-    {:ok, socket, temporary_assigns: [cart: nil, changeset: nil, customer: nil]}
+    {:ok, socket, temporary_assigns: [cart: nil, changeset: nil]}
   end
 
   defp load_cart(%{assigns: %{store: %{account: account}, token: token}} = socket) do
@@ -102,9 +145,9 @@ defmodule Tq2Web.Store.CustomerLive do
     assign(socket, cart: cart)
   end
 
-  defp load_customer(%{assigns: %{customer: _}} = socket, _token), do: socket
+  defp load_customer(%{assigns: %{customer: _}} = socket), do: socket
 
-  defp load_customer(socket, token) do
+  defp load_customer(%{assigns: %{token: token}} = socket) do
     customer = Sales.get_customer(token)
 
     assign(socket, customer: customer)
@@ -116,14 +159,19 @@ defmodule Tq2Web.Store.CustomerLive do
     socket |> assign(:changeset, changeset)
   end
 
-  defp customer(%{"email" => email, "phone" => phone} = params, _token) do
-    case Sales.get_customer(email: email, phone: phone) do
-      %Customer{} = customer ->
-        {:ok, customer}
+  defp save_customer(%{assigns: %{customer: nil, old_token: nil, store: store}}, params) do
+    Sales.create_customer(params, store)
+  end
 
-      nil ->
-        Sales.create_customer(params)
-    end
+  defp save_customer(
+         %{assigns: %{customer: nil, token: token, old_token: old_token, store: store}},
+         params
+       ) do
+    Sales.create_customer(params, store, token, old_token)
+  end
+
+  defp save_customer(%{assigns: %{customer: customer, store: store}}, params) do
+    Sales.update_customer(customer, params, store)
   end
 
   defp associate(%{assigns: %{store: store, customer: customer, cart: cart}} = socket) do
@@ -147,5 +195,13 @@ defmodule Tq2Web.Store.CustomerLive do
     prefix = phone_prefix_for_ip(ip)
 
     if value == prefix, do: %{params | "phone" => nil}, else: params
+  end
+
+  defp redirect(%{assigns: %{store: store, old_token: nil}} = socket) do
+    push_redirect(socket, to: Routes.payment_path(socket, :index, store))
+  end
+
+  defp redirect(%{assigns: %{store: store, token: token}} = socket) do
+    redirect(socket, to: Routes.token_path(socket, :show, store, token))
   end
 end
