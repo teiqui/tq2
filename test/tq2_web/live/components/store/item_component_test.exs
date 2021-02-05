@@ -60,6 +60,25 @@ defmodule Tq2Web.Store.ItemComponentTest do
       refute content =~ "<svg"
       refute content =~ "#{price}</del>"
     end
+
+    test "render buttons with params" do
+      item = item()
+      cart = cart()
+      store = store()
+
+      content =
+        render_component(ItemComponent,
+          store: store,
+          cart: cart,
+          item: item,
+          id: item.id,
+          search_params: %{search: "Query", category: 1}
+        )
+
+      assert content =~ item.name
+      assert content =~ "<img"
+      assert content =~ "href=\"/some_slug/items/1?category=1&amp;search=Query\""
+    end
   end
 
   defp item do

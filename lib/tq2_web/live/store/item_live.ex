@@ -29,10 +29,15 @@ defmodule Tq2Web.Store.ItemLive do
   end
 
   @impl true
-  def handle_params(%{"id" => id}, _uri, %{assigns: %{store: store}} = socket) do
+  def handle_params(%{"id" => id} = params, _uri, %{assigns: %{store: store}} = socket) do
     item = Inventories.get_item!(store.account, id)
 
-    {:noreply, assign(socket, item: item, item_id: item.id)}
+    socket =
+      socket
+      |> assign(item: item, item_id: item.id)
+      |> put_search_params(params)
+
+    {:noreply, socket}
   end
 
   @impl true
@@ -61,7 +66,8 @@ defmodule Tq2Web.Store.ItemLive do
             store: store,
             token: token,
             quantity: quantity,
-            visit_id: visit_id
+            visit_id: visit_id,
+            search_params: search_params
           }
         } = socket
       ) do
@@ -75,7 +81,7 @@ defmodule Tq2Web.Store.ItemLive do
     socket =
       socket
       |> assign(cart: cart)
-      |> push_redirect(to: Routes.counter_path(socket, :index, store))
+      |> push_redirect(to: Routes.counter_path(socket, :index, store, search_params))
 
     {:noreply, socket}
   end
@@ -222,5 +228,14 @@ defmodule Tq2Web.Store.ItemLive do
       phx_value_id: id,
       phx_value_type: "promotional"
     )
+  end
+
+  defp put_search_params(socket, params) do
+    search_params =
+      params
+      |> Map.take(["category", "search"])
+      |> Enum.reject(fn {_, v} -> is_nil(v) or v == "" end)
+
+    assign(socket, :search_params, search_params)
   end
 end

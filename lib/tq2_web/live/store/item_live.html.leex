@@ -5,7 +5,7 @@
                                              referral_customer: @referral_customer %>
 
 <div class="text-right mb-2 mt-n3">
-  <%= live_redirect to: Routes.counter_path(@socket, :index, @store),
+  <%= live_redirect to: Routes.counter_path(@socket, :index, @store, assigns[:search_params]),
                     class: "h1 text-dark font-weight-bold text-decoration-none" do %>
     &times;
   <% end %>

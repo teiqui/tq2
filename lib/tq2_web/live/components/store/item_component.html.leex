@@ -1,4 +1,4 @@
-<%= live_redirect to: path(@socket, @store, @item), class: "col text-decoration-none", id: "item-#{@item.id}" do %>
+<%= live_redirect to: path(@socket, @store, @item, assigns[:search_params]), class: "col text-decoration-none", id: "item-#{@item.id}" do %>
   <div class="card mx-2 my-3 position-relative">
     <div class="embed-responsive embed-responsive-1by1">
       <%= image @item %>
