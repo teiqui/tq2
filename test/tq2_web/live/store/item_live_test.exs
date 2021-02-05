@@ -2,6 +2,7 @@ defmodule Tq2Web.Store.ItemLiveTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
+  import Tq2.Fixtures, only: [create_session: 0, default_store: 0]
 
   @create_attrs %{
     sku: "some sku",
@@ -19,25 +20,13 @@ defmodule Tq2Web.Store.ItemLiveTest do
   }
 
   def item_fixture(_) do
-    account = Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
-    session = %Tq2.Accounts.Session{account: account}
-
-    {:ok, item} = Tq2.Inventories.create_item(session, @create_attrs)
+    {:ok, item} = create_session() |> Tq2.Inventories.create_item(@create_attrs)
 
     %{item: item}
   end
 
   def store_fixture(_) do
-    account = Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
-    session = %Tq2.Accounts.Session{account: account}
-
-    {:ok, store} =
-      Tq2.Shops.create_store(session, %{
-        name: "Test store",
-        slug: "test_store"
-      })
-
-    %{store: store}
+    %{store: default_store()}
   end
 
   setup %{conn: conn} do
@@ -96,6 +85,23 @@ defmodule Tq2Web.Store.ItemLiveTest do
       |> render_click() =~ "data-quantity=\"1\""
 
       assert has_element?(item_live, "[phx-click=\"decrease\"][disabled]")
+    end
+
+    test "back with search params", %{conn: conn, item: item, store: store} do
+      path = Routes.item_path(conn, :index, store, item, %{search: "Query", category: 1})
+      {:ok, item_live, _html} = live(conn, path)
+
+      assert item_live
+             |> element(
+               "[data-phx-link=\"redirect\"][href=\"/some_slug?category=1&amp;search=Query\"]"
+             )
+
+      assert {:error, {:live_redirect, %{kind: :push, to: counter_path}}} =
+               item_live
+               |> element("[phx-click=\"add\"][phx-value-type=\"promotional\"]")
+               |> render_click()
+
+      assert counter_path == "/some_slug?category=1&search=Query"
     end
   end
 end
