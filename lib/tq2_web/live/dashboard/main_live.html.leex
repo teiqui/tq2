@@ -1,5 +1,7 @@
 <div id="dashboard" class="row justify-content-center mt-n2 mb-n3" phx-hook="BodyBackground" data-bg-class="bg-primary">
   <div class="col-md-8">
+    <%= unpublished_store_alert @store %>
+
     <p class="small text-light float-right mt-3 mr-3 pt-1">
       <%= dgettext("dashboard", "Today") %>
     </p>

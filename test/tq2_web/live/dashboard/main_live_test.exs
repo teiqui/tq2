@@ -4,7 +4,7 @@ defmodule Tq2Web.Dashboard.MainLiveTest do
   import Phoenix.LiveViewTest
 
   import Tq2.Fixtures,
-    only: [create_session: 0, default_store: 0, create_order: 1, user_fixture: 2]
+    only: [create_session: 0, default_store: 1, create_order: 1, user_fixture: 2]
 
   describe "unauthorized access" do
     test "requires user authentication on all actions", %{conn: conn} do
@@ -23,7 +23,6 @@ defmodule Tq2Web.Dashboard.MainLiveTest do
     setup %{conn: conn} do
       session = create_session()
       user = user_fixture(session, %{})
-      _store = default_store()
 
       session = %{session | user: user}
 
@@ -43,6 +42,7 @@ defmodule Tq2Web.Dashboard.MainLiveTest do
       assert content =~ "Dashboard"
       assert content =~ "You have no orders yet"
       refute content =~ "On the main dashboard you&apos;ll find"
+      refute content =~ unpublished_store_warning()
     end
 
     test "with order", %{conn: conn, session: session} do
@@ -74,6 +74,21 @@ defmodule Tq2Web.Dashboard.MainLiveTest do
 
       assert main_live
              |> render_patch(path) =~ "Inside More you&apos;ll find sections"
+    end
+
+    test "should show unpublished warning", %{conn: conn} do
+      default_store(%{published: false})
+
+      path = Routes.dashboard_path(conn, :index)
+      {:ok, main_live, html} = live(conn, path)
+      content = render(main_live)
+
+      assert html =~ unpublished_store_warning()
+      assert content =~ unpublished_store_warning()
+    end
+
+    defp unpublished_store_warning do
+      "Your store is disabled. <u><a class=\"text-reset\" href=\"/store/edit/main\">Activate it</a></u> and start receiving orders!"
     end
   end
 end

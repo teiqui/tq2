@@ -1,5 +1,6 @@
 defmodule Tq2Web.Dashboard.MainLive do
   use Tq2Web, :live_view
+  import Tq2.Utils.Urls, only: [app_uri: 0]
 
   alias Tq2.{Accounts, Analytics, Sales, Shops}
   alias Tq2Web.Store.ShareComponent
@@ -98,4 +99,38 @@ defmodule Tq2Web.Dashboard.MainLive do
     |> Enum.map(fn {_s, _pt, count} -> count end)
     |> Enum.sum()
   end
+
+  defp unpublished_store_alert(%Tq2.Shops.Store{published: false}) do
+    link =
+      content_tag(:u) do
+        url = app_uri() |> Routes.store_path(:index, :main)
+
+        link(
+          dgettext("dashboard", "Activate it"),
+          to: url,
+          class: "text-reset"
+        )
+      end
+      |> safe_to_string()
+
+    text =
+      dgettext(
+        "dashboard",
+        "Your store is disabled. %{link} and start receiving orders!",
+        link: link
+      )
+
+    ~E"""
+    <div class="card card-body mt-2 bg-info border-info text-white">
+      <div class="media my-n3 mx-n2">
+        <span class="h1 mr-3 my-auto">
+          <i class="bi-exclamation-circle"></i>
+        </span>
+        <div class="media-body pt-2 h5"><%= raw text %></div>
+      </div>
+    </div>
+    """
+  end
+
+  defp unpublished_store_alert(_store), do: nil
 end
