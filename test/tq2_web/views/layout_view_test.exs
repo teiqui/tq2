@@ -38,8 +38,8 @@ defmodule Tq2Web.LayoutViewTest do
     assert store_tags =~ "og:description\" content=\"some description\""
     assert store_tags =~ "og:type\" content=\"website\""
     assert store_tags =~ "og:url\" content=\"#{store_url}\""
-    assert store_tags =~ "og:image\" content=\"/images/"
-    assert store_tags =~ "og:image:secure_url\" content=\"/images/"
+    assert store_tags =~ "og:image\" content=\"/logos/"
+    assert store_tags =~ "og:image:secure_url\" content=\"/logos/"
     assert store_tags =~ "og:image:alt\" content=\"Teiqui | some name\""
   end
 

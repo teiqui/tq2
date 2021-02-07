@@ -245,7 +245,7 @@ defmodule Tq2Web.LayoutView do
   end
 
   defp og_store_image_url(%{store: %Store{logo: logo} = store}) do
-    Tq2.ImageUploader.url({logo, store}, :og)
+    Tq2.LogoUploader.url({logo, store}, :og)
   end
 
   defp og_teiqui_image_url(conn) do
