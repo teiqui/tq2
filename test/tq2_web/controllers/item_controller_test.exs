@@ -84,6 +84,16 @@ defmodule Tq2Web.ItemControllerTest do
     end
 
     @tag login_as: "test@user.com"
+    test "search item", %{conn: conn, item: item} do
+      conn = get(conn, Routes.item_path(conn, :index, search: item.name))
+      response = html_response(conn, 200)
+
+      assert response =~ "Items"
+      assert response =~ item.name
+      assert response =~ "value=\"#{item.name}\""
+    end
+
+    @tag login_as: "test@user.com"
     test "lists all items and shows tour message", %{conn: conn, item: item} do
       conn = get(conn, Routes.item_path(conn, :index, tour: "item_created"))
       response = html_response(conn, 200)

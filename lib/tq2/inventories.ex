@@ -225,6 +225,7 @@ defmodule Tq2.Inventories do
   def list_items(account, params) do
     account
     |> list_items_query()
+    |> filter_items_by_params(params)
     |> Repo.paginate(params)
   end
 
@@ -397,24 +398,28 @@ defmodule Tq2.Inventories do
   end
 
   defp search_items(item_scope, query) do
-    query = String.trim(query)
+    case String.trim(query) do
+      "" ->
+        item_scope
 
-    where(
-      item_scope,
-      [i],
-      fragment(
-        """
-        (
-          (immutable_unaccent(?) % ANY(STRING_TO_ARRAY(immutable_unaccent(?), ' '))) OR
-          (immutable_unaccent(?) %>> ANY(STRING_TO_ARRAY(immutable_unaccent(?), ' ')))
+      query ->
+        where(
+          item_scope,
+          [i],
+          fragment(
+            """
+              (
+                (immutable_unaccent(?) % ANY(STRING_TO_ARRAY(immutable_unaccent(?), ' '))) OR
+                (immutable_unaccent(?) %>> ANY(STRING_TO_ARRAY(immutable_unaccent(?), ' ')))
+              )
+            """,
+            i.name,
+            ^query,
+            i.name,
+            ^query
+          )
         )
-        """,
-        i.name,
-        ^query,
-        i.name,
-        ^query
-      )
-    )
+    end
   end
 
   defp filter_items_by_params(items_scope, %{search: query} = params) when is_binary(query) do

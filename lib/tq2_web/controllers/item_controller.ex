@@ -11,9 +11,10 @@ defmodule Tq2Web.ItemController do
   end
 
   def index(conn, params, session) do
+    params = params |> permitted_params()
     page = Inventories.list_items(session.account, params)
 
-    render_index(conn, page)
+    render_index(conn, page, search: params[:search])
   end
 
   def new(conn, _params, session) do
@@ -70,10 +71,11 @@ defmodule Tq2Web.ItemController do
     |> redirect(to: Routes.item_path(conn, :index))
   end
 
-  defp render_index(conn, %{total_entries: 0}), do: render(conn, "empty.html")
+  defp render_index(conn, %{total_entries: 0}, search: nil), do: render(conn, "empty.html")
 
-  defp render_index(conn, page) do
-    render(conn, "index.html", items: page.entries, page: page)
+  defp render_index(conn, page, assigns) do
+    assigns = assigns ++ [items: page.entries, page: page]
+    render(conn, "index.html", assigns)
   end
 
   defp after_create_path(conn, %{"tour" => _}, _item) do
@@ -82,5 +84,11 @@ defmodule Tq2Web.ItemController do
 
   defp after_create_path(conn, _params, item) do
     Routes.item_path(conn, :show, item)
+  end
+
+  defp permitted_params(params) do
+    params
+    |> Map.take(["page", "search"])
+    |> Map.new(fn {k, v} -> {String.to_atom(k), v} end)
   end
 end
