@@ -73,7 +73,7 @@ msgstr "Artículo actualizado correctamente."
 
 #: lib/tq2_web/templates/item/index.html.eex:2
 #: lib/tq2_web/templates/layout/_menu.html.eex:117 lib/tq2_web/templates/layout/_menu.html.eex:122
-#: lib/tq2_web/views/layout_view.ex:61
+#: lib/tq2_web/views/layout_view.ex:99
 msgid "Items"
 msgstr "Artículos"
 

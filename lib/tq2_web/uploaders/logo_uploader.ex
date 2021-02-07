@@ -1,12 +1,12 @@
 defmodule Tq2.LogoUploader do
   use Waffle.Definition
   use Waffle.Ecto.Definition
+  use Tq2.Uploaders.Utils, output_extension: :png
 
-  @versions [:original, :thumb, :thumb_2x]
+  @acl :public_read
   @extension_whitelist ~w(.jpg .jpeg .gif .png .webp)
-
-  def acl(:thumb, _), do: :public_read
-  def acl(:thumb_2x, _), do: :public_read
+  @output_extension :png
+  @versions [:original, :thumb, :thumb_2x, :og]
 
   def validate({file, _}) do
     file_extension = file.file_name |> Path.extname() |> String.downcase()
@@ -15,11 +15,17 @@ defmodule Tq2.LogoUploader do
   end
 
   def transform(:thumb, _) do
-    {:convert, "-thumbnail 70x70^ -gravity center -extent 70x70 -format png", :png}
+    {:convert, "-thumbnail 70x70^ -gravity center -extent 70x70 -format png", @output_extension}
   end
 
   def transform(:thumb_2x, _) do
-    {:convert, "-thumbnail 140x140^ -gravity center -extent 140x140 -format png", :png}
+    {:convert, "-thumbnail 140x140^ -gravity center -extent 140x140 -format png",
+     @output_extension}
+  end
+
+  def transform(:og, _) do
+    {:convert, "-thumbnail 512x512^ -gravity center -extent 512x512 -format png",
+     @output_extension}
   end
 
   def filename(version, _) do

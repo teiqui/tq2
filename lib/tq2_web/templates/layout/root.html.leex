@@ -3,6 +3,7 @@
   <head>
     <%= csrf_meta_tag() %>
     <%= live_title_tag assigns[:page_title] || gettext("Teiqui"), suffix: " · #{gettext("Teiqui")}" %>
+    <%= meta_og_tags assigns %>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
