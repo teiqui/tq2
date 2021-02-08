@@ -81,7 +81,7 @@ defmodule Tq2Web.Store.HeaderComponent do
         <input type="text"
                name="search"
                value="<%= @search %>"
-               class="form-control shadow-none text-primary"
+               class="form-control shadow-none"
                placeholder="<%= dgettext("stores", "Search...") %>"
                autocomplete="off"
                id="search-input">
