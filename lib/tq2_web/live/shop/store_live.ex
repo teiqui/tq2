@@ -207,22 +207,28 @@ defmodule Tq2Web.Shop.StoreLive do
     )
   end
 
+  defp put_logo_on_params(nil, params, _upload) do
+    params
+  end
+
+  defp put_logo_on_params(%Plug.Upload{} = logo, params, upload) do
+    Map.put(params, to_string(upload), logo)
+  end
+
   defp put_logo_on_params(params, socket, upload) do
-    logo =
-      consume_uploaded_entries(socket, upload, fn meta, entry ->
-        path = "#{meta.path}-#{upload}"
+    consume_uploaded_entries(socket, upload, fn meta, entry ->
+      path = "#{meta.path}-#{upload}"
 
-        File.cp!(meta.path, path)
+      File.cp!(meta.path, path)
 
-        %Plug.Upload{
-          content_type: entry.client_type,
-          filename: entry.client_name,
-          path: path
-        }
-      end)
-      |> List.first()
-
-    params |> Map.put(to_string(upload), logo)
+      %Plug.Upload{
+        content_type: entry.client_type,
+        filename: entry.client_name,
+        path: path
+      }
+    end)
+    |> List.first()
+    |> put_logo_on_params(params, upload)
   end
 
   defp logo_input_class(form, field, upload) do

@@ -34,9 +34,10 @@
           <%= input f, :name, dgettext("stores", "Name"), input_html: [autofocus: true] %>
 
           <div class="custom-file my-3" phx-drop-target="<%= @uploads.logo.ref %>">
-            <%= live_file_input @uploads.logo, class: logo_input_class(f, :logo, @uploads.logo),
-                                               data_browse: dgettext("files", "Browse") %>
-            <%= content_tag :label, logo_label(@uploads.logo), class: "custom-file-label", for: @uploads.logo.ref %>
+            <%= live_file_input @uploads.logo, class: logo_input_class(f, :logo, @uploads.logo) %>
+            <%= content_tag :label, logo_label(@uploads.logo), class: "custom-file-label",
+                                                               for: @uploads.logo.ref,
+                                                               data_browse: dgettext("files", "Browse") %>
             <%= logo_errors_tag f, :logo, @uploads.logo %>
           </div>
 
