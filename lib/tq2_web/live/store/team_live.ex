@@ -51,9 +51,9 @@ defmodule Tq2Web.Store.TeamLive do
   end
 
   defp avatar(socket, %Tq2.Sales.Customer{id: id} = customer) do
-    color_index = rem(id, 5)
+    color_index = rem(id, 7)
     avatar_index = avatar_index(id)
-    {color, _} = ~w(457b9d f8c647 cc0000 73b8bb 6980a2) |> List.pop_at(color_index)
+    {color, _} = ~w(457b9d f8c647 cc0000 73b8bb 6980a2 40916c f07167) |> List.pop_at(color_index)
 
     socket
     |> Routes.static_path("/images/avatars/avatar_#{avatar_index}.svg")
