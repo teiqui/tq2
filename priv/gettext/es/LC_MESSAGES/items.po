@@ -16,12 +16,13 @@ msgid "Are you sure?"
 msgstr "¿Está seguro de eliminar el artículo?"
 
 #: lib/tq2_web/templates/item/edit.html.eex:14
-#: lib/tq2_web/templates/item/new.html.eex:11 lib/tq2_web/templates/item/show.html.eex:45
+#: lib/tq2_web/templates/item/empty_search.html.eex:10 lib/tq2_web/templates/item/new.html.eex:11
+#: lib/tq2_web/templates/item/show.html.eex:45
 msgid "Back"
 msgstr "Listado de artículos"
 
 #: lib/tq2_web/templates/item/_form.html.eex:11
-#: lib/tq2_web/templates/item/index.html.eex:10 lib/tq2_web/templates/item/show.html.eex:20
+#: lib/tq2_web/templates/item/index.html.eex:8 lib/tq2_web/templates/item/show.html.eex:20
 msgid "Category"
 msgstr "Categoría"
 
@@ -59,30 +60,30 @@ msgstr "Oculto"
 msgid "Image"
 msgstr "Imagen"
 
-#: lib/tq2_web/controllers/item_controller.ex:29
+#: lib/tq2_web/controllers/item_controller.ex:30
 msgid "Item created successfully."
 msgstr "Artículo creado correctamente."
 
-#: lib/tq2_web/controllers/item_controller.ex:69
+#: lib/tq2_web/controllers/item_controller.ex:70
 msgid "Item deleted successfully."
 msgstr "Artículo eliminado correctamente."
 
-#: lib/tq2_web/controllers/item_controller.ex:56
+#: lib/tq2_web/controllers/item_controller.ex:57
 msgid "Item updated successfully."
 msgstr "Artículo actualizado correctamente."
 
-#: lib/tq2_web/templates/item/index.html.eex:2
+#: lib/tq2_web/templates/item/_search.html.eex:4
 #: lib/tq2_web/templates/layout/_menu.html.eex:117 lib/tq2_web/templates/layout/_menu.html.eex:122
 #: lib/tq2_web/views/layout_view.ex:99
 msgid "Items"
 msgstr "Artículos"
 
 #: lib/tq2_web/templates/item/_form.html.eex:9
-#: lib/tq2_web/templates/item/index.html.eex:9
+#: lib/tq2_web/templates/item/index.html.eex:7
 msgid "Name"
 msgstr "Nombre"
 
-#: lib/tq2_web/templates/item/index.html.eex:41
+#: lib/tq2_web/templates/item/index.html.eex:39
 #: lib/tq2_web/templates/item/new.html.eex:3
 msgid "New item"
 msgstr "Nuevo artículo"
@@ -120,7 +121,7 @@ msgid "Update"
 msgstr "Actualizar artículo"
 
 #: lib/tq2_web/templates/item/_form.html.eex:13
-#: lib/tq2_web/templates/item/index.html.eex:11 lib/tq2_web/templates/item/show.html.eex:24
+#: lib/tq2_web/templates/item/index.html.eex:9 lib/tq2_web/templates/item/show.html.eex:24
 msgid "Visibility"
 msgstr "Visibilidad"
 
@@ -168,7 +169,7 @@ msgid "Skip import"
 msgstr "Omitir importación"
 
 #: lib/tq2_web/templates/item/empty.html.eex:20
-#: lib/tq2_web/templates/item/index.html.eex:39
+#: lib/tq2_web/templates/item/index.html.eex:37
 msgid "Import items"
 msgstr "Importar artículos"
 
@@ -217,3 +218,7 @@ msgstr "Completa los datos del artículo que deseas cargar. Luego podrás editar
 #: lib/tq2_web/templates/item/_tour_empty.html.eex:5
 msgid "We'll add your first item, remember that you can import them from a spreadsheet."
 msgstr "Vamos a agregar tu primer artículo, recuerda que puedes importar una planilla con tus productos."
+
+#: lib/tq2_web/templates/item/empty_search.html.eex:5
+msgid "There is no match for term <strong>%{term}</strong>"
+msgstr "No se encontraron coincidencias para <strong>%{term}</strong>"

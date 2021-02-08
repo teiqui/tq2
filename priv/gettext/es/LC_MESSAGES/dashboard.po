@@ -99,6 +99,6 @@ msgstr "En tu panel principal encontrarás información sobre tu tienda, rendimi
 msgid "Activate it"
 msgstr "Activala"
 
-#: lib/tq2_web/live/dashboard/main_live.ex:115
+#: lib/tq2_web/live/dashboard/main_live.ex:117
 msgid "Your store is disabled. %{link} and start receiving orders!"
 msgstr "Tu tienda se encuentra desactivada. ¡%{link} y comienza a recibir pedidos!"

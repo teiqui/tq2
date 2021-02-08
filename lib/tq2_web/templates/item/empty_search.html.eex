@@ -1,0 +1,11 @@
+<%= render "_search.html", assigns %>
+
+<div class="text-center mt-4">
+  <p class="h5 text-info mb-4">
+    <%= raw dgettext("items", "There is no match for term <strong>%{term}</strong>", term: term(@search)) %>
+  </p>
+</div>
+
+<p class="mb-0 text-center">
+  <%= link dgettext("items", "Back"), to: Routes.item_path(@conn, :index) %>
+</p>

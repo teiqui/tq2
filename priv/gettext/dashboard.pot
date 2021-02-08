@@ -98,6 +98,6 @@ msgstr ""
 msgid "Activate it"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.ex:115
+#: lib/tq2_web/live/dashboard/main_live.ex:117
 msgid "Your store is disabled. %{link} and start receiving orders!"
 msgstr ""

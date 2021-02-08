@@ -73,6 +73,10 @@ defmodule Tq2Web.ItemController do
 
   defp render_index(conn, %{total_entries: 0}, search: nil), do: render(conn, "empty.html")
 
+  defp render_index(conn, %{total_entries: 0}, assigns) do
+    render(conn, "empty_search.html", assigns)
+  end
+
   defp render_index(conn, page, assigns) do
     assigns = assigns ++ [items: page.entries, page: page]
     render(conn, "index.html", assigns)

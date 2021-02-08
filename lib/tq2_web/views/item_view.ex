@@ -195,7 +195,7 @@ defmodule Tq2Web.ItemView do
         <input type="text"
                name="search"
                value="<%= @search %>"
-               class="form-control shadow-none text-primary"
+               class="form-control shadow-none"
                placeholder="<%= dgettext("stores", "Search...") %>"
                autocomplete="off"
                id="search-input">
@@ -207,5 +207,11 @@ defmodule Tq2Web.ItemView do
       </div>
     </form>
     """
+  end
+
+  defp term(search) do
+    search
+    |> html_escape()
+    |> safe_to_string()
   end
 end

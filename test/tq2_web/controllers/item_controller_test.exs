@@ -122,6 +122,17 @@ defmodule Tq2Web.ItemControllerTest do
     end
   end
 
+  describe "empty search" do
+    @tag login_as: "test@user.com"
+    test "lists no items", %{conn: conn} do
+      conn = get(conn, Routes.item_path(conn, :index, search: "empty_search_test"))
+      response = html_response(conn, 200)
+
+      assert response =~ "There is no match for"
+      assert response =~ "empty_search_test"
+    end
+  end
+
   describe "new item" do
     @tag login_as: "test@user.com"
     test "renders form", %{conn: conn} do
