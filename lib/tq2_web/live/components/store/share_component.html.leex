@@ -8,18 +8,23 @@
       <%= dgettext("stores", "Share on:") %>
     </span>
 
-    <%= link to: whatsapp_share_url(@store, @token),
-             title: dgettext("stores", "WhatsApp"),
-             class: "dropdown-item",
-             target: "_blank" do %>
-      <%= dgettext("stores", "WhatsApp") %>
-    <% end %>
-    <%= link to: facebook_share_url(@store, @token),
-             title: dgettext("stores", "Facebook"),
-             class:  "dropdown-item",
-             target: "_blank" do %>
-      <%= dgettext("stores", "Facebook") %>
-    <% end %>
+    <div class="mx-4">
+      <%= link icon_tag("whatsapp"),
+               to: whatsapp_share_url(@store, @token),
+               title: dgettext("stores", "WhatsApp"),
+               class: "text-info h3 mr-3",
+               target: "_blank" %>
+      <%= link icon_tag("facebook"),
+               to: facebook_share_url(@store, @token),
+               title: dgettext("stores", "Facebook"),
+               class:  "text-info h3 mr-3",
+               target: "_blank" %>
+      <%= link icon_tag("telegram"),
+               to: telegram_share_url(@store, @token),
+               title: dgettext("stores", "Telegram"),
+               class:  "text-info h3 mr-3",
+               target: "_blank" %>
+    </div>
 
     <span class="d-block dropdown-divider"></span>
 

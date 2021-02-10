@@ -51,8 +51,8 @@ msgstr "Editar tienda"
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: lib/tq2_web/live/components/store/share_component.html.leex:18
-#: lib/tq2_web/live/components/store/share_component.html.leex:21 lib/tq2_web/live/shop/store_live.html.leex:103
+#: lib/tq2_web/live/components/store/share_component.html.leex:17
+#: lib/tq2_web/live/shop/store_live.html.leex:103
 msgid "Facebook"
 msgstr "Facebook"
 
@@ -144,8 +144,8 @@ msgstr "Tienda actualizada correctamente."
 msgid "Update"
 msgstr "Actualizar tienda"
 
-#: lib/tq2_web/live/components/store/share_component.html.leex:12
-#: lib/tq2_web/live/components/store/share_component.html.leex:15 lib/tq2_web/live/shop/store_live.html.leex:79
+#: lib/tq2_web/live/components/store/share_component.html.leex:13
+#: lib/tq2_web/live/shop/store_live.html.leex:79
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
@@ -159,11 +159,11 @@ msgstr "Tienda"
 msgid "Loading..."
 msgstr "Cargando..."
 
-#: lib/tq2_web/live/components/store/share_component.html.leex:31
+#: lib/tq2_web/live/components/store/share_component.html.leex:33
 msgid "Copy store link"
 msgstr "Copiar enlace de tienda"
 
-#: lib/tq2_web/live/components/store/share_component.html.leex:37
+#: lib/tq2_web/live/components/store/share_component.html.leex:39
 msgid "Hey, check our store!"
 msgstr "¡Hola! Conoce nuestra tienda"
 
@@ -171,7 +171,7 @@ msgstr "¡Hola! Conoce nuestra tienda"
 msgid "Hey, check our store!\n\n%{url}"
 msgstr "¡Hola! Conoce nuestra tienda\n\n%{url}"
 
-#: lib/tq2_web/live/components/store/share_component.html.leex:40
+#: lib/tq2_web/live/components/store/share_component.html.leex:42
 msgid "Share in another app"
 msgstr "Compartir en otra aplicación"
 
@@ -421,3 +421,7 @@ msgstr "No soy yo"
 #: lib/tq2_web/live/components/store/header_component.html.leex:70
 msgid "Enjoy the discount making other people buy in the store or by joining to other customer."
 msgstr "Disfruta del descuento haciendo que otra persona compre en la tienda o uniéndote a otro cliente."
+
+#: lib/tq2_web/live/components/store/share_component.html.leex:21
+msgid "Telegram"
+msgstr "Telegram"
