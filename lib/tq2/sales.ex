@@ -66,6 +66,26 @@ defmodule Tq2.Sales do
   end
 
   @doc """
+  Check if customer exists by token.
+
+  Returns true if Customer exists.
+
+  ## Examples
+
+      iex> customer_exists?("some_token")
+      true
+
+      iex> customer_exists?("invalid_token")
+      false
+  """
+  def customer_exists?(token) when is_binary(token) do
+    Customer
+    |> join(:inner, [c], t in assoc(c, :tokens))
+    |> where([c, t], t.value == ^token)
+    |> Repo.exists?()
+  end
+
+  @doc """
   Creates a customer.
 
   ## Examples

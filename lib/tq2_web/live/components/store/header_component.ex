@@ -20,6 +20,12 @@ defmodule Tq2Web.Store.HeaderComponent do
     {:ok, socket}
   end
 
+  def handle_event("dismiss", %{"id" => "teiqui-price-info"}, socket) do
+    socket = socket |> assign(:show_teiqui_price_info, false)
+
+    {:noreply, socket}
+  end
+
   defp image(socket, %Store{logo: nil} = store) do
     path = Routes.static_path(socket, "/images/store_default_logo.svg")
 
@@ -82,6 +88,12 @@ defmodule Tq2Web.Store.HeaderComponent do
       </div>
     </form>
     """
+  end
+
+  defp teiqui_logo_img_tag(socket) do
+    socket
+    |> Routes.static_path("/images/favicon_white.svg")
+    |> img_tag(height: 20, width: 20, alt: "Teiqui", class: "bg-primary rounded-circle")
   end
 
   defp categories_title(%{show_categories: true}) do
