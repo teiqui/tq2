@@ -63,11 +63,11 @@
             <%= dgettext("page", "Double your sells") %>
           </h1>
           <h2 class="h5 font-weight-semi-bold mt-3">
-            <%= dgettext("page", "Make your store in just a few clicks. Your customer will bring more customers with Teiqui price.") %>
+            <%= dgettext("page", "Make your store in just a few clicks and double your sells with Teiqui price") %>
           </h2>
 
-          <%= link dgettext("page", "What is it?"), to: "#what-is-it",
-                                                    class: "btn btn-light btn-lg text-primary font-weight-semi-bold px-4 mt-3 mb-4" %>
+          <%= link dgettext("page", "Free trial"), to: Routes.registration_url(app_uri(), :index),
+                                                   class: "btn btn-light btn-lg text-primary font-weight-semi-bold px-4 mt-3 mb-4" %>
         </div>
         <div class="col">
           <%= img_tag Routes.static_path(@conn, "/images/page/banner.svg"), width: "740",

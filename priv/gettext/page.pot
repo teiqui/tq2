@@ -40,9 +40,9 @@ msgid "Free"
 msgstr ""
 
 #: lib/tq2_web/templates/legal/index.html.eex:34
-#: lib/tq2_web/templates/page/index.html.eex:51 lib/tq2_web/templates/page/index.html.eex:116
-#: lib/tq2_web/templates/page/index.html.eex:355 lib/tq2_web/templates/page/index.html.eex:382
-#: lib/tq2_web/templates/page/index.html.eex:409
+#: lib/tq2_web/templates/page/index.html.eex:51 lib/tq2_web/templates/page/index.html.eex:69
+#: lib/tq2_web/templates/page/index.html.eex:116 lib/tq2_web/templates/page/index.html.eex:355
+#: lib/tq2_web/templates/page/index.html.eex:382 lib/tq2_web/templates/page/index.html.eex:409
 msgid "Free trial"
 msgstr ""
 
@@ -187,7 +187,7 @@ msgid "In less than 24 hours they should get you a new order."
 msgstr ""
 
 #: lib/tq2_web/templates/page/index.html.eex:66
-msgid "Make your store in just a few clicks. Your customer will bring more customers with Teiqui price."
+msgid "Make your store in just a few clicks and double your sells with Teiqui price"
 msgstr ""
 
 #: lib/tq2_web/templates/page/index.html.eex:309
