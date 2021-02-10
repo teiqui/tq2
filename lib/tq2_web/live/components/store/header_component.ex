@@ -83,4 +83,16 @@ defmodule Tq2Web.Store.HeaderComponent do
     </form>
     """
   end
+
+  defp categories_title(%{show_categories: true}) do
+    dgettext("stores", "Categories")
+  end
+
+  defp categories_title(%{category: nil}) do
+    dgettext("stores", "Categories")
+  end
+
+  defp categories_title(%{category: category}) do
+    category.name
+  end
 end

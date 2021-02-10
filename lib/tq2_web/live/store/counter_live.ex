@@ -36,7 +36,8 @@ defmodule Tq2Web.Store.CounterLive do
     socket =
       socket
       |> load_defaults()
-      |> assign(category_id: category_id, search: query)
+      |> assign(search: query)
+      |> load_category(category_id)
       |> load_items()
       |> hide_categories()
 
@@ -113,9 +114,9 @@ defmodule Tq2Web.Store.CounterLive do
     attrs = %{page: page, page_size: page_size}
 
     attrs =
-      case assigns[:category_id] do
-        id when is_number(id) -> Map.put(attrs, :category_id, id)
-        _ -> attrs
+      case assigns[:category] do
+        nil -> attrs
+        category -> Map.put(attrs, :category_id, category.id)
       end
 
     attrs =
@@ -154,7 +155,7 @@ defmodule Tq2Web.Store.CounterLive do
       page_size: page_size(),
       show_categories: false,
       categories: nil,
-      category_id: nil
+      category: nil
     }
 
     socket
@@ -176,9 +177,17 @@ defmodule Tq2Web.Store.CounterLive do
     Enum.reject(
       %{
         search: assigns[:search],
-        category: assigns[:category_id]
+        category: if(assigns[:category], do: assigns[:category].id)
       },
       fn {_, v} -> is_nil(v) or v == "" end
     )
+  end
+
+  defp load_category(socket, nil), do: socket
+
+  defp load_category(%{assigns: %{store: %{account: account}}} = socket, id) do
+    category = Tq2.Inventories.get_category!(account, id)
+
+    socket |> assign(:category, category)
   end
 end
