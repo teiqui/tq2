@@ -2,15 +2,16 @@
                                              store: @store,
                                              token: @token,
                                              visit_id: @visit_id,
+                                             category: @category,
                                              show_categories: @show_categories,
                                              search: assigns[:search] %>
 
 <%= if @show_categories do %>
-  <%= if @category_id, do: link_show_all(@socket, @store) %>
+  <%= if @category, do: link_show_all(@socket, @store) %>
 
   <div id="categories" class="row no-gutters row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-4 row-cols-xl-6">
     <%= for category <- @categories do %>
-      <%= live_component @socket, CategoryComponent, store: @store, category: category, id: category.id %>
+      <%= live_component @socket, CategoryComponent, store: @store, category: category, id: category.id, selected: category.id == (@category && @category.id) %>
     <% end %>
   </div>
 <% else %>

@@ -81,6 +81,7 @@ defmodule Tq2Web.Store.CounterLiveTest do
       {:ok, store_live, html} = live(conn, path)
 
       assert html =~ "chevron-down"
+      assert html =~ "Categories"
 
       content =
         store_live
@@ -92,6 +93,7 @@ defmodule Tq2Web.Store.CounterLiveTest do
       assert content =~ with_image.category.name
       assert content =~ without_image.category.name
       assert content =~ "chevron-up"
+      assert content =~ "Categories"
 
       img =
         store_live
@@ -118,16 +120,21 @@ defmodule Tq2Web.Store.CounterLiveTest do
 
     test "change category then clean", %{conn: conn, store: store, items: items} do
       item = List.last(items)
-      path = Routes.counter_path(conn, :index, store, category: item.category_id)
+      category = item.category
+      path = Routes.counter_path(conn, :index, store, category: category.id)
 
       {:ok, store_live, content} = live(conn, path)
 
       assert content =~ item.name
+      assert content =~ category.name
+      refute content =~ "Categories"
       refute content =~ "#footer"
 
       store_live
       |> element("#toggle-categories")
       |> render_click()
+
+      assert store_live |> has_element?("#category-#{category.id} .bg-success")
 
       content =
         store_live

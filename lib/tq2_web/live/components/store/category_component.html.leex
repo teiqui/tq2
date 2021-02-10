@@ -1,7 +1,7 @@
 <%= live_patch to: Routes.counter_path(@socket, :index, @store, category: @id),
                class: "col text-decoration-none",
                id: "category-#{@id}", phx_hook: "ScrollToTop" do %>
-  <div class="card mx-2 my-3 position-relative bg-info">
+  <div class="card mx-2 my-3 position-relative bg-<%= if @selected, do: "success", else: "info" %>">
     <div class="card-body text-center p-2">
       <%= image_for @category %>
 
