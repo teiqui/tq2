@@ -35,7 +35,7 @@ msgid "Delivery area"
 msgstr ""
 
 #: lib/tq2_web/live/shop/store_live.html.leex:125
-#: lib/tq2_web/live/store/brief_live.html.leex:103 lib/tq2_web/live/store/handing_live.html.leex:61
+#: lib/tq2_web/live/store/brief_live.html.leex:103 lib/tq2_web/live/store/handing_live.html.leex:49
 msgid "Delivery time limit"
 msgstr ""
 
@@ -154,7 +154,7 @@ msgstr ""
 msgid "Store"
 msgstr ""
 
-#: lib/tq2_web/live/store/counter_live.html.leex:27
+#: lib/tq2_web/live/store/counter_live.html.leex:29
 #: lib/tq2_web/live/store/team_live.html.leex:74
 msgid "Loading..."
 msgstr ""
@@ -179,16 +179,17 @@ msgstr ""
 msgid "Share on:"
 msgstr ""
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:40
+#: lib/tq2_web/live/components/store/header_component.ex:100
+#: lib/tq2_web/live/components/store/header_component.ex:104
 msgid "Categories"
 msgstr ""
 
-#: lib/tq2_web/live/components/store/header_component.ex:79
+#: lib/tq2_web/live/components/store/header_component.ex:85
 #: lib/tq2_web/views/item_view.ex:199
 msgid "Search..."
 msgstr ""
 
-#: lib/tq2_web/live/store/counter_live.ex:167
+#: lib/tq2_web/live/store/counter_live.ex:169
 msgid "Show all"
 msgstr ""
 
@@ -246,8 +247,8 @@ msgstr ""
 msgid "Share my purchase"
 msgstr ""
 
-#: lib/tq2_web/live/store/checkout_live.html.leex:54
-#: lib/tq2_web/live/store/team_live.html.leex:14
+#: lib/tq2_web/live/components/store/header_component.html.leex:55
+#: lib/tq2_web/live/store/checkout_live.html.leex:54 lib/tq2_web/live/store/team_live.html.leex:14
 msgid "Teiqui price"
 msgstr ""
 
@@ -395,7 +396,7 @@ msgstr ""
 msgid "Buy now"
 msgstr ""
 
-#: lib/tq2_web/live/store/counter_live.html.leex:39
+#: lib/tq2_web/live/store/counter_live.html.leex:41
 msgid "Check order"
 msgstr ""
 
@@ -417,6 +418,6 @@ msgstr ""
 msgid "It's not me"
 msgstr ""
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:66
+#: lib/tq2_web/live/components/store/header_component.html.leex:70
 msgid "Enjoy the discount making other people buy in the store or by joining to other customer."
 msgstr ""

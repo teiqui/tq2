@@ -44,23 +44,23 @@
                 </span>
               </span>
 
-              <%= if delivery?(df) && Enum.any?(@store.configuration.shippings || []) do %>
-                <%= inputs_for df, :shipping, fn sf -> %>
-                  <%= for s <- @store.configuration.shippings do %>
-                    <%= radio_input(sf, :id, s.id, container_class: "my-3 ml-2") do %>
-                      <span class="ml-n3">
-                        <%= s.name %> (<%= format_money s.price %>)
-                      </span>
-                    <% end %>
-                  <% end %>
-                <% end %>
-              <% end %>
-
               <%= if @store.configuration.delivery_time_limit do %>
                 <span class="text-muted d-block ml-2">
                   <%= dgettext("stores", "Delivery time limit") %>
                   <%= @store.configuration.delivery_time_limit %>
                 </span>
+              <% end %>
+            <% end %>
+
+            <%= if delivery?(df) && Enum.any?(@store.configuration.shippings || []) do %>
+              <%= inputs_for df, :shipping, fn sf -> %>
+                <%= for s <- @store.configuration.shippings do %>
+                  <%= radio_input(sf, :id, s.id, container_class: "mt-3 ml-5") do %>
+                    <span class="ml-n3">
+                      <%= s.name %> (<%= format_money s.price %>)
+                    </span>
+                  <% end %>
+                <% end %>
               <% end %>
             <% end %>
           <% end %>
