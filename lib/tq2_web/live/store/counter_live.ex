@@ -1,7 +1,7 @@
 defmodule Tq2Web.Store.CounterLive do
   use Tq2Web, :live_view
 
-  alias Tq2.{Analytics, Inventories, Transactions}
+  alias Tq2.{Analytics, Inventories, Sales, Transactions}
   alias Tq2.Transactions.Cart
   alias Tq2Web.Store.{ButtonComponent, CategoryComponent, HeaderComponent, ItemComponent}
 
@@ -18,6 +18,7 @@ defmodule Tq2Web.Store.CounterLive do
         referral_customer: visit.referral_customer,
         referred: !!visit.referral_customer
       )
+      |> put_teiqui_price_info()
 
     {:ok, socket,
      temporary_assigns: [cart: nil, items: [], categories: nil, referral_customer: nil]}
@@ -181,6 +182,12 @@ defmodule Tq2Web.Store.CounterLive do
       },
       fn {_, v} -> is_nil(v) or v == "" end
     )
+  end
+
+  defp put_teiqui_price_info(%{assigns: %{token: token}} = socket) do
+    show? = !Sales.customer_exists?(token)
+
+    socket |> assign(:show_teiqui_price_info, show?)
   end
 
   defp load_category(socket, nil), do: socket

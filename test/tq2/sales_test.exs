@@ -140,6 +140,22 @@ defmodule Tq2.SalesTest do
       assert Sales.get_customer(email: "invalid@email.com", phone: "non existing 123") == nil
     end
 
+    test "customer_exists?/1 returns nonexistence" do
+      refute Sales.customer_exists?("123")
+    end
+
+    test "customer_exists?/1 returns existence" do
+      customer = fixture(nil, :customer)
+
+      {:ok, token} =
+        Tq2.Shares.create_token(%{
+          value: "hItfgIBvse62B_oZPgu6Ppp3qORvjbVCPEi9E-Poz2U=",
+          customer_id: customer.id
+        })
+
+      assert Sales.customer_exists?(token.value)
+    end
+
     test "create_customer/1 with valid data creates a customer" do
       assert {:ok, %Customer{} = customer} = Sales.create_customer(@valid_customer_attrs)
       assert customer.name == @valid_customer_attrs.name

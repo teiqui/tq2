@@ -45,11 +45,36 @@
       </div>
     </nav>
   <% end %>
+
+  <%= if assigns[:show_teiqui_price_info] do %>
+    <nav class="navbar navbar-light bg-primary text-white py-1 mb-1 mt-2">
+      <div class="align-self-center mr-3 mt-1">
+        <%= teiqui_logo_img_tag(@socket) %>
+      </div>
+      <div class="align-self-center flex-fill mt-1 font-weight-bolder">
+        <%= dgettext("stores", "Teiqui price") %>
+      </div>
+      <div class="align-self-center mt-1">
+        <a href="#" class="h3" phx-click="dismiss" phx-value-id="teiqui-price-info" phx-target="<%= @myself %>">
+          <%= icon_tag("x") %>
+        </a>
+      </div>
+    </nav>
+
+    <nav class="navbar navbar-light bg-white text-dark py-2 mb-n2">
+      <div class="align-self-center mx-4 mt-1 mb-2">
+        <%= dgettext("stores", "Enjoy the discount making other people buy in the store or by joining to other customer.") %>
+      </div>
+    </nav>
+  <% end %>
 </nav>
 
 <div class="py-5"></div>
-<div class="py-4"></div>
+<div class="py-3"></div>
 
 <%= if Map.has_key?(assigns, :show_categories) do %>
   <div class="py-4"></div>
+<% end %>
+<%= if assigns[:show_teiqui_price_info] do %>
+  <div class="py-5 py-md-5 mb-4 mb-md-0"></div>
 <% end %>

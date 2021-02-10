@@ -97,14 +97,14 @@ msgstr "Esta cuenta de MercadoPago ya está en uso"
 msgid "must have at least one enabled: %{fields}"
 msgstr "Uno de los campos debe estar habilitado: %{fields}"
 
-#: lib/tq2_web/live/shop/store_live.ex:271
+#: lib/tq2_web/live/shop/store_live.ex:277
 msgid "Too large, maximum is %{size}"
 msgstr "Es demasiado grande, el tamaño máximo permitido es %{size}"
 
-#: lib/tq2_web/live/shop/store_live.ex:279
+#: lib/tq2_web/live/shop/store_live.ex:285
 msgid "You have selected an unacceptable file type"
 msgstr "El tipo de archivo seleccionado no está permitido"
 
-#: lib/tq2_web/live/shop/store_live.ex:275
+#: lib/tq2_web/live/shop/store_live.ex:281
 msgid "You have selected too many files, maximum is %{count}"
 msgstr "Has seleccionado demasiados archivos, el máximo es %{count}"

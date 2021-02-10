@@ -2,7 +2,7 @@ defmodule Tq2Web.Store.CounterLiveTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
-  import Tq2.Fixtures, only: [create_session: 0, default_store: 1]
+  import Tq2.Fixtures, only: [create_customer: 0, create_session: 0, default_store: 1]
 
   def store_fixture(_) do
     store =
@@ -216,6 +216,40 @@ defmodule Tq2Web.Store.CounterLiveTest do
 
       assert content =~ "Other candy"
       refute content =~ "#footer"
+    end
+
+    test "render teiqui price info and then close", %{conn: conn, store: store} do
+      path = Routes.counter_path(conn, :index, store)
+      {:ok, store_live, html} = live(conn, path)
+      content = render(store_live)
+
+      assert html =~ "Enjoy the discount making other"
+      assert content =~ "Enjoy the discount making other"
+
+      content =
+        store_live
+        |> element("[phx-click=\"dismiss\"][phx-value-id=\"teiqui-price-info\"]")
+        |> render_click()
+
+      refute content =~ "Enjoy the discount making other"
+    end
+
+    test "should not render teiqui price info with customer", %{conn: conn, store: store} do
+      customer = create_customer()
+
+      {:ok, token} =
+        Tq2.Shares.create_token(%{
+          value: "hItfgIBvse62B_oZPgu6Ppp3qORvjbVCPEi9E-Poz2U=",
+          customer_id: customer.id
+        })
+
+      conn = conn |> Plug.Test.init_test_session(token: token.value)
+      path = Routes.counter_path(conn, :index, store)
+      {:ok, store_live, html} = live(conn, path)
+      content = render(store_live)
+
+      refute html =~ "Enjoy the discount making other"
+      refute content =~ "Enjoy the discount making other"
     end
   end
 

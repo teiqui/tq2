@@ -21,6 +21,23 @@ defmodule Tq2Web.Store.HeaderComponentTest do
         )
 
       assert content =~ store.name
+      refute content =~ "Enjoy the discount making other"
+    end
+
+    test "render teiqui price info" do
+      store = store()
+      visit = visit()
+
+      content =
+        render_component(HeaderComponent,
+          id: :header,
+          store: store,
+          token: @token,
+          visit_id: visit.id,
+          show_teiqui_price_info: true
+        )
+
+      assert content =~ "Enjoy the discount making other"
     end
   end
 
