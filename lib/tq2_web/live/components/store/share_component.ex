@@ -26,4 +26,21 @@ defmodule Tq2Web.Store.ShareComponent do
       query: URI.encode_query(%{u: url})
     })
   end
+
+  defp telegram_share_url(store, token) do
+    url =
+      store_uri()
+      |> Routes.counter_url(:index, store, referral: token, utm_source: "telegram")
+
+    URI.to_string(%URI{
+      host: "telegram.me",
+      scheme: "https",
+      path: "/share/url",
+      query: URI.encode_query(%{url: url})
+    })
+  end
+
+  defp icon_tag(icon) do
+    content_tag(:i, "", class: "bi-#{icon}")
+  end
 end
