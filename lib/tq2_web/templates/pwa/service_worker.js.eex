@@ -1,0 +1,55 @@
++function () {
+  const cacheVersion = 'v0'
+  const cacheName    = `${cacheVersion}:sw-cache-`
+
+  self.addEventListener('install', async event => {
+    event.waitUntil(
+      caches.open(cacheName).then(cache => {
+        return cache.addAll([
+          '<%= Routes.static_path(@conn, "/js/app.js") %>',
+          '<%= Routes.static_path(@conn, "/js/app.css") %>',
+          '<%= Routes.pwa_path(@conn, :offline) %>'
+        ])
+      })
+    )
+  })
+
+  self.addEventListener('activate', event => {
+    event.waitUntil(
+      caches.keys().then(cacheNames => {
+        return Promise.all(
+          cacheNames.filter(name =>
+            name.indexOf(cacheVersion) !== 0
+          ).map(name =>
+            caches.delete(name)
+          )
+        )
+      })
+    )
+  })
+
+  self.addEventListener('fetch', event => {
+    event.respondWith(
+      fetch(event.request).catch(() => {
+        return caches.match(event.request).then(response => {
+          if (response) {
+            return response
+          }
+
+          const serveOffline = event.request.mode === 'navigate' || (
+            event.request.method === 'GET' &&
+            event.request.headers.get('accept').includes('text/html')
+          )
+
+          if (serveOffline) {
+            return caches.match('<%= Routes.pwa_path(@conn, :offline) %>')
+          }
+        })
+      })
+    )
+  })
+
+  self.addEventListener('push', event => {
+    // TODO: implement
+  })
+}()

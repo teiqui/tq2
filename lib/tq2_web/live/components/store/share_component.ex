@@ -41,6 +41,6 @@ defmodule Tq2Web.Store.ShareComponent do
   end
 
   defp icon_tag(icon) do
-    content_tag(:i, "", class: "bi-#{icon}")
+    content_tag(:i, nil, class: "bi-#{icon}")
   end
 end

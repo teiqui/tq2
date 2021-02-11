@@ -1,0 +1,28 @@
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new translations manually only if they're dynamic
+## translations that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here as no
+## effect: edit them in PO (.po) files instead.
+msgid ""
+msgstr ""
+
+#: lib/tq2_web/templates/pwa/offline.html.eex:7
+msgid "No connection"
+msgstr ""
+
+#: lib/tq2_web/templates/pwa/offline.html.eex:14
+msgid "Retry"
+msgstr ""
+
+#: lib/tq2_web/templates/layout/root.html.leex:11
+#: lib/tq2_web/views/pwa_view.ex:8
+msgid "Teiqui, online store that doubles your sales"
+msgstr ""
+
+#: lib/tq2_web/templates/pwa/offline.html.eex:11
+msgid "You must be connected to the Internet to continue"
+msgstr ""

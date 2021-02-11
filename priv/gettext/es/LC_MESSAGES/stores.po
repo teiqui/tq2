@@ -51,7 +51,7 @@ msgstr "Editar tienda"
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: lib/tq2_web/live/components/store/share_component.html.leex:17
+#: lib/tq2_web/live/components/store/share_component.html.leex:19
 #: lib/tq2_web/live/shop/store_live.html.leex:103
 msgid "Facebook"
 msgstr "Facebook"
@@ -144,7 +144,7 @@ msgstr "Tienda actualizada correctamente."
 msgid "Update"
 msgstr "Actualizar tienda"
 
-#: lib/tq2_web/live/components/store/share_component.html.leex:13
+#: lib/tq2_web/live/components/store/share_component.html.leex:14
 #: lib/tq2_web/live/shop/store_live.html.leex:79
 msgid "WhatsApp"
 msgstr "WhatsApp"
@@ -159,11 +159,11 @@ msgstr "Tienda"
 msgid "Loading..."
 msgstr "Cargando..."
 
-#: lib/tq2_web/live/components/store/share_component.html.leex:33
+#: lib/tq2_web/live/components/store/share_component.html.leex:36
 msgid "Copy store link"
 msgstr "Copiar enlace de tienda"
 
-#: lib/tq2_web/live/components/store/share_component.html.leex:39
+#: lib/tq2_web/live/components/store/share_component.html.leex:42
 msgid "Hey, check our store!"
 msgstr "¡Hola! Conoce nuestra tienda"
 
@@ -171,7 +171,7 @@ msgstr "¡Hola! Conoce nuestra tienda"
 msgid "Hey, check our store!\n\n%{url}"
 msgstr "¡Hola! Conoce nuestra tienda\n\n%{url}"
 
-#: lib/tq2_web/live/components/store/share_component.html.leex:42
+#: lib/tq2_web/live/components/store/share_component.html.leex:45
 msgid "Share in another app"
 msgstr "Compartir en otra aplicación"
 
@@ -422,6 +422,6 @@ msgstr "No soy yo"
 msgid "Enjoy the discount making other people buy in the store or by joining to other customer."
 msgstr "Disfruta del descuento haciendo que otra persona compre en la tienda o uniéndote a otro cliente."
 
-#: lib/tq2_web/live/components/store/share_component.html.leex:21
+#: lib/tq2_web/live/components/store/share_component.html.leex:24
 msgid "Telegram"
 msgstr "Telegram"

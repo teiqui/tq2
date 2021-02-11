@@ -7,10 +7,13 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f04350">
+    <meta name="description" content="<%= dgettext("pwa", "Teiqui, online store that doubles your sales") %>">
 
     <link rel="icon" type="image/svg+xml" href="<%= Routes.static_path(@conn, "/images/favicon.svg") %>" sizes="any">
     <link rel="icon" type="image/png" href="<%= Routes.static_path(@conn, "/images/favicon.png") %>" sizes="64x64">
     <link rel="apple-touch-icon" href="<%= Routes.static_path(@conn, "/images/apple-touch-icon.png") %>" sizes="152x152">
+    <link rel="manifest" href="<%= Routes.pwa_path(@conn, :manifest) %>">
 
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>">
 
@@ -21,8 +24,8 @@
     <%= facebook_pixel_script() %>
   </head>
 
-  <body class="<%= body_classes @conn, @current_session %>" data-spy="scroll" data-target="#main-menu" data-offset="50">
-    <%= if @current_session do %>
+  <body class="<%= body_classes @conn, assigns[:current_session] %>" data-spy="scroll" data-target="#main-menu" data-offset="50">
+    <%= if assigns[:current_session] do %>
       <div class="mt-5 pt-5">
         <%= @inner_content %>
       </div>

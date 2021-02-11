@@ -36,6 +36,13 @@ defmodule Tq2Web.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :put_cache_control_headers
+  end
+
+  pipeline :pwa do
+    plug :accepts, ["html", "json", "js"]
+    plug :put_secure_browser_headers
+    plug :put_cache_control_headers
   end
 
   scope "/", Tq2Web, host: Application.get_env(:tq2, :web_host) do
@@ -62,6 +69,14 @@ defmodule Tq2Web.Router do
     live "/:slug/brief", Store.BriefLive, :index, session: @session_extras.store
 
     get "/:slug/tokens/:token", TokenController, :show
+  end
+
+  scope "/", Tq2Web do
+    pipe_through :pwa
+
+    get "/service-worker.js", PwaController, :service_worker
+    get "/manifest.json", PwaController, :manifest
+    get "/offline.html", PwaController, :offline
   end
 
   scope "/", Tq2Web do
