@@ -13,6 +13,12 @@ defmodule Tq2Web.LayoutView do
     |> String.replace(~r/_\w+/, "")
   end
 
+  def app_subdomain(%Plug.Conn{host: host}) do
+    app_subdomain = Application.get_env(:tq2, :app_subdomain)
+
+    String.starts_with?(host, app_subdomain)
+  end
+
   def meta_og_tags(%{store: %Store{}} = assigns) do
     ~L"""
       <meta property="og:title" content="<%= store_title(assigns) %>">

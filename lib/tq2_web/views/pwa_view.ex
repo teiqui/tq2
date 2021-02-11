@@ -6,24 +6,24 @@ defmodule Tq2Web.PwaView do
       name: gettext("Teiqui"),
       short_name: gettext("Teiqui"),
       description: dgettext("pwa", "Teiqui, online store that doubles your sales"),
-      icons: [
-        %{
-          src: Routes.static_path(conn, "/images/logo_192.png"),
-          type: "image/png",
-          sizes: "192x192",
-          purpose: "any maskable"
-        },
-        %{
-          src: Routes.static_path(conn, "/images/logo_512.png"),
-          type: "image/png",
-          sizes: "512x512"
-        }
-      ],
       display: "fullscreen",
       start_url: Routes.session_url(conn, :new),
       scope: Routes.root_path(conn, :index),
-      background_color: "#f04350",
-      theme_color: "#f04350"
+      background_color: "#f5f5f5",
+      theme_color: "#f04350",
+      icons: icons(conn)
     }
+  end
+
+  defp icons(conn) do
+    ~w(48 72 96 144 168 192 512)
+    |> Enum.map(fn size ->
+      %{
+        src: Routes.static_path(conn, "/images/icons/#{size}.png"),
+        type: "image/png",
+        sizes: "#{size}x#{size}",
+        purpose: "any maskable"
+      }
+    end)
   end
 end

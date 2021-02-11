@@ -13,11 +13,13 @@
     <link rel="icon" type="image/svg+xml" href="<%= Routes.static_path(@conn, "/images/favicon.svg") %>" sizes="any">
     <link rel="icon" type="image/png" href="<%= Routes.static_path(@conn, "/images/favicon.png") %>" sizes="64x64">
     <link rel="apple-touch-icon" href="<%= Routes.static_path(@conn, "/images/apple-touch-icon.png") %>" sizes="152x152">
-    <link rel="manifest" href="<%= Routes.pwa_path(@conn, :manifest) %>">
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" phx-track-static>
 
-    <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>">
+    <%= if app_subdomain(@conn) do %>
+      <link rel="manifest" href="<%= Routes.pwa_path(@conn, :manifest) %>">
+    <% end %>
 
-    <script defer phx-track-static src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+    <script src="<%= Routes.static_path(@conn, "/js/app.js") %>" defer phx-track-static></script>
 
     <%= hotjar_script() %>
     <%= google_analytics_script(@conn) %>
