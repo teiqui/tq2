@@ -29,8 +29,8 @@ defmodule Tq2Web.LayoutView do
       <meta property="og:image" content="<%= og_store_image_url(assigns) %>">
       <meta property="og:image:secure_url" content="<%= og_store_image_url(assigns) %>">
       <meta property="og:image:alt" content="<%= store_title(assigns) %>">
-      <meta property="og:image:width" content="512">
-      <meta property="og:image:height" content="512">
+      <meta property="og:image:width" content="480">
+      <meta property="og:image:height" content="480">
       <meta property="og:locale" content="<%= locale() %>">
       <meta property="og:updated_time" content="<%= System.os_time(:second) %>">
     """
@@ -46,8 +46,8 @@ defmodule Tq2Web.LayoutView do
       <meta property="og:image" content="<%= og_teiqui_image_url(@conn) %>">
       <meta property="og:image:secure_url" content="<%= og_teiqui_image_url(@conn) %>">
       <meta property="og:image:alt" content="<%= gettext("Teiqui") %>">
-      <meta property="og:image:width" content="512">
-      <meta property="og:image:height" content="512">
+      <meta property="og:image:width" content="480">
+      <meta property="og:image:height" content="480">
       <meta property="og:locale" content="<%= locale() %>">
       <meta property="og:updated_time" content="<%= System.os_time(:second) %>">
     """

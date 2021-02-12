@@ -24,7 +24,7 @@ defmodule Tq2.LogoUploader do
   end
 
   def transform(:og, _) do
-    {:convert, "-thumbnail 512x512^ -gravity center -extent 512x512 -format png",
+    {:convert, "-thumbnail 480x480^ -gravity center -extent 480x480 -format png",
      @output_extension}
   end
 
