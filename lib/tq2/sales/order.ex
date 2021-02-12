@@ -109,6 +109,14 @@ defmodule Tq2.Sales.Order do
   end
 
   defp validate_paid_on_completion(
+         %Ecto.Changeset{
+           changes: %{status: "completed", data: %Ecto.Changeset{changes: %{paid: true}}}
+         } = changeset
+       ) do
+    changeset
+  end
+
+  defp validate_paid_on_completion(
          %Ecto.Changeset{changes: %{status: "completed"}, data: %{data: data}} = changeset
        ) do
     case data && data.paid do

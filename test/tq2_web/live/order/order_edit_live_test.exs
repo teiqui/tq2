@@ -86,6 +86,7 @@ defmodule Tq2Web.Order.OrderEditLiveTest do
       {:ok, order_live, html} = live(conn, path)
 
       assert html =~ "Update"
+      assert order_live |> has_element?("[name=\"cart[price_type]\"]:disabled")
 
       {:error, {:redirect, %{to: path}}} =
         order_live
@@ -148,6 +149,43 @@ defmodule Tq2Web.Order.OrderEditLiveTest do
       {:error, {:redirect, %{to: path}}} =
         order_live
         |> form("#order-form", %{order: %{status: "completed"}})
+        |> render_submit()
+
+      assert Routes.order_path(conn, :show, order) == path
+    end
+
+    test "save promotional price change and complete order", %{
+      conn: conn,
+      order: order,
+      session: %{account: account}
+    } do
+      {:ok, cart} = account |> Tq2.Transactions.update_cart(order.cart, %{price_type: "regular"})
+
+      path = Routes.order_edit_path(conn, :index, order)
+      {:ok, order_live, html} = live(conn, path)
+
+      assert html =~ "Create payment"
+
+      amount =
+        %{cart | price_type: "promotional"}
+        |> Tq2.Transactions.Cart.pending_amount()
+        |> Money.to_string()
+
+      content =
+        order_live
+        |> form("#payments-component form", payment: %{amount: amount, kind: "cash"})
+        |> render_submit()
+
+      assert content =~ "Create payment"
+      assert has_element?(order_live, "#payments .card")
+      assert order_live |> has_element?("[name=\"cart[price_type]\"]:not(:disabled)")
+
+      {:error, {:redirect, %{to: path}}} =
+        order_live
+        |> form("#order-form", %{
+          cart: %{price_type: "promotional"},
+          order: %{status: "completed"}
+        })
         |> render_submit()
 
       assert Routes.order_path(conn, :show, order) == path

@@ -2,6 +2,7 @@ defmodule Tq2Web.Store.CheckoutLive do
   use Tq2Web, :live_view
 
   import Tq2Web.Utils, only: [format_money: 1]
+  import Tq2Web.Utils.Cart, only: [cart_total: 2, line_total: 3, teiqui_logo_img_tag: 1]
 
   alias Tq2.{Analytics, Transactions}
   alias Tq2.Transactions.{Cart, Line}
@@ -108,76 +109,10 @@ defmodule Tq2Web.Store.CheckoutLive do
     assign(socket, cart: cart)
   end
 
-  defp line_total(socket, cart, line) do
-    regular_total =
-      %{cart | price_type: "regular"}
-      |> Cart.line_total(line)
-      |> format_money()
-
-    promotional_total =
-      %{cart | price_type: "promotional"}
-      |> Cart.line_total(line)
-      |> format_money()
-
-    wrap_line_total(socket, cart, regular_total, promotional_total)
-  end
-
-  defp wrap_line_total(socket, %Cart{price_type: "promotional"}, regular_total, promotional_total) do
-    ~E"""
-      <del class="d-block">
-        <%= regular_total %>
-      </del>
-      <div class="text-primary text-nowrap font-weight-bold">
-        <%= teiqui_logo_img_tag(socket) %>
-        <%= promotional_total %>
-      </div>
-    """
-  end
-
-  defp wrap_line_total(socket, _cart, regular_total, promotional_total) do
-    ~E"""
-      <div>
-        <%= regular_total %>
-      </div>
-      <del class="d-block text-primary text-nowrap font-weight-bold">
-        <%= teiqui_logo_img_tag(socket) %>
-        <%= promotional_total %>
-      </del>
-    """
-  end
-
   defp regular_cart_total(%Cart{} = cart) do
     %{cart | price_type: "regular"}
     |> Cart.total()
     |> format_money()
-  end
-
-  defp cart_total(socket, %Cart{} = cart) do
-    total =
-      cart
-      |> Cart.total()
-      |> format_money()
-
-    wrap_cart_total(socket, cart, total)
-  end
-
-  defp wrap_cart_total(socket, %Cart{price_type: "promotional"}, total) do
-    ~E"""
-      <div class="text-primary text-nowrap font-weight-bold">
-        <%= teiqui_logo_img_tag(socket) %>
-        <%= total %>
-      </div>
-    """
-  end
-
-  defp wrap_cart_total(_socket, _cart, total) do
-    content_tag(:div, total)
-  end
-
-  defp teiqui_logo_img_tag(socket) do
-    socket
-    |> Routes.static_path("/images/favicon.svg")
-    |> img_tag(height: 11, width: 11, alt: "Teiqui", class: "mt-n1")
   end
 
   defp load_shipping(%{assigns: %{cart: cart}} = socket) do

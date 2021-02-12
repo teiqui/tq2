@@ -2,8 +2,9 @@ defmodule Tq2Web.OrderView do
   use Tq2Web, :view
   use Scrivener.HTML
 
-  import Tq2Web.Utils, only: [localize_datetime: 1, invert: 1]
   import Tq2Web.LinkHelpers, only: [icon_link: 2]
+  import Tq2Web.Utils, only: [localize_datetime: 1, invert: 1]
+  import Tq2Web.Utils.Cart, only: [line_total: 3, cart_total: 2]
 
   alias Tq2.Payments.Payment
   alias Tq2.Sales.Order
@@ -72,24 +73,23 @@ defmodule Tq2Web.OrderView do
     format_money(line.price)
   end
 
-  defp line_total(cart, line) do
-    Cart.line_total(cart, line) |> format_money()
-  end
-
-  defp cart_total(%Cart{} = cart) do
-    cart
-    |> Cart.total()
-    |> format_money()
-  end
-
   defp pending_payment_alert(%Payment{status: "pending"}) do
     content_tag(:i, nil, class: "bi-exclamation-triangle")
   end
 
   defp pending_payment_alert(_), do: nil
 
-  defp show_promotion_alert?(%Cart{price_type: "promotional"}), do: true
-  defp show_promotion_alert?(_cart), do: false
+  defp show_promotion_alert?(%Order{
+         cart: %Cart{price_type: "promotional"},
+         promotion_expires_at: expires_at
+       }) do
+    case DateTime.utc_now() |> DateTime.compare(expires_at) do
+      :gt -> false
+      _ -> true
+    end
+  end
+
+  defp show_promotion_alert?(_order), do: false
 
   defp promotion_alert_class(%Order{parents: [], children: []} = order) do
     case DateTime.utc_now() |> DateTime.compare(order.promotion_expires_at) do

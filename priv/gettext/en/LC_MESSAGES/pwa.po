@@ -20,7 +20,7 @@ msgid "Retry"
 msgstr ""
 
 #: lib/tq2_web/templates/layout/root.html.leex:11
-#: lib/tq2_web/views/pwa_view.ex:8
+#: lib/tq2_web/views/pwa_view.ex:10
 msgid "Teiqui, online store that doubles your sales"
 msgstr ""
 
