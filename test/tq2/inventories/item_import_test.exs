@@ -34,9 +34,6 @@ defmodule Tq2.Inventories.ItemImportTest do
 
       item = Tq2.Repo.preload(item, :category)
 
-      require IEx
-      IEx.pry()
-
       assert item.name == "Water bottle"
       assert item.price == Money.new(10000, "ARS")
       assert item.promotional_price == Money.new(7000, "ARS")
