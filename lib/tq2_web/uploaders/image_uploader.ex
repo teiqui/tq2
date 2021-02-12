@@ -34,6 +34,11 @@ defmodule Tq2.ImageUploader do
      @output_extension}
   end
 
+  def transform(:og, _) do
+    {:convert, "-thumbnail 480x480^ -gravity center -extent 480x480 -format png",
+     @output_extension}
+  end
+
   def filename(version, _) do
     version
   end
