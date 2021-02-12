@@ -1,13 +1,15 @@
 defmodule Tq2Web.PwaView do
   use Tq2Web, :view
 
+  import Tq2.Utils.Urls, only: [app_uri: 0]
+
   def render("manifest.json", %{conn: conn}) do
     %{
       name: gettext("Teiqui"),
       short_name: gettext("Teiqui"),
       description: dgettext("pwa", "Teiqui, online store that doubles your sales"),
       display: "fullscreen",
-      start_url: Routes.session_url(conn, :new),
+      start_url: Routes.session_url(app_uri(), :new),
       scope: Routes.root_path(conn, :index),
       background_color: "#f5f5f5",
       theme_color: "#f04350",
