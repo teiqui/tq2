@@ -25,9 +25,9 @@ msgstr ""
 #: lib/tq2_web/templates/legal/index.html.eex:8 lib/tq2_web/templates/legal/index.html.eex:686
 #: lib/tq2_web/templates/page/index.html.eex:8 lib/tq2_web/templates/page/index.html.eex:423
 #: lib/tq2_web/templates/password/edit.html.eex:5 lib/tq2_web/templates/password/new.html.eex:5
-#: lib/tq2_web/templates/session/new.html.eex:4 lib/tq2_web/views/layout_view.ex:35 lib/tq2_web/views/layout_view.ex:36
-#: lib/tq2_web/views/layout_view.ex:42 lib/tq2_web/views/layout_view.ex:198 lib/tq2_web/views/layout_view.ex:202
-#: lib/tq2_web/views/pwa_view.ex:6 lib/tq2_web/views/pwa_view.ex:7
+#: lib/tq2_web/templates/session/new.html.eex:4 lib/tq2_web/views/layout_view.ex:41 lib/tq2_web/views/layout_view.ex:42
+#: lib/tq2_web/views/layout_view.ex:48 lib/tq2_web/views/layout_view.ex:204 lib/tq2_web/views/layout_view.ex:208
+#: lib/tq2_web/views/pwa_view.ex:8 lib/tq2_web/views/pwa_view.ex:9
 msgid "Teiqui"
 msgstr ""
 
@@ -39,6 +39,6 @@ msgstr ""
 msgid "Teiqui 🔔"
 msgstr ""
 
-#: lib/tq2_web/views/layout_view.ex:37
+#: lib/tq2_web/views/layout_view.ex:43
 msgid "Teiqui - Online store"
 msgstr ""

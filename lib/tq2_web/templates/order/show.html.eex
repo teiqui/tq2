@@ -3,7 +3,7 @@
     <%= dgettext("orders", "Order") %> #<%= @order.id %>
   </h2>
 
-  <%= if show_promotion_alert? @order.cart do %>
+  <%= if show_promotion_alert? @order do %>
     <div class="alert alert-<%= promotion_alert_class @order %> font-weight-bold">
       <%= promotion_alert_text @order %>
     </div>
@@ -62,7 +62,7 @@
             <td><%= line.name %></td>
             <td><%= line.quantity %></td>
             <td class="d-none d-md-table-cell d-print-table-cell text-nowrap"><%= line_price @order.cart, line %></td>
-            <td><%= line_total @order.cart, line %></td>
+            <td><%= line_total @conn, @order.cart, line %></td>
           </tr>
         <% end %>
 
@@ -83,7 +83,7 @@
           </td>
           <td class="d-none d-md-table-cell d-print-table-cell text-nowrap"></td>
           <td>
-            <strong><%= cart_total @order.cart %></strong>
+            <strong><%= cart_total @conn, @order.cart %></strong>
           </td>
         </tr>
       </tfoot>

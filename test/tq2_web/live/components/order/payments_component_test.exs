@@ -4,13 +4,15 @@ defmodule Tq2Web.Order.PaymentsComponentTest do
   import Phoenix.LiveViewTest
   import Tq2.Fixtures, only: [create_customer: 0, init_test_session: 1]
 
+  alias Tq2.Sales
   alias Tq2.Transactions.Cart
 
   @valid_attrs %{
     cart_id: 1,
     visit_id: 1,
     promotion_expires_at: Timex.now() |> Timex.shift(days: 1),
-    status: "pending"
+    status: "pending",
+    data: %{notes: ""}
   }
 
   def order_fixture(%{session: session}) do
@@ -190,6 +192,39 @@ defmodule Tq2Web.Order.PaymentsComponentTest do
                payment_live,
                "form [name=\"payment[amount]\"][value=\"#{Money.to_string(total)}\"]"
              )
+    end
+
+    test "pay order and then delete it", %{
+      conn: conn,
+      order: %{cart: cart} = order,
+      session: %{account: account}
+    } do
+      path = Routes.order_edit_path(conn, :index, order)
+      {:ok, payment_live, html} = live(conn, path)
+
+      assert html =~ "Create payment"
+      refute has_element?(payment_live, "#payments .card")
+      refute order.data.paid
+
+      amount = cart |> Cart.pending_amount() |> Money.to_string()
+
+      payment_live
+      |> form("#payments-component form", %{
+        payment: %{
+          amount: amount,
+          kind: "cash"
+        }
+      })
+      |> render_submit()
+
+      assert has_element?(payment_live, "#payments .card")
+      assert Sales.get_order!(account, order.id).data.paid
+
+      payment_live
+      |> element("#payments [phx-click=\"delete\"]")
+      |> render_click()
+
+      refute Sales.get_order!(account, order.id).data.paid
     end
   end
 end

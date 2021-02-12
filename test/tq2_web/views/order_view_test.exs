@@ -60,6 +60,18 @@ defmodule Tq2Web.OrderViewTest do
   end
 
   @tag login_as: "test@user.com"
+  test "renders show.html without price alert", %{conn: conn} do
+    expires_at = DateTime.utc_now() |> Timex.shift(days: -10)
+    order = %{order() | promotion_expires_at: expires_at}
+    shipping = Cart.shipping(order.cart)
+
+    content =
+      render_to_string(OrderView, "show.html", conn: conn, order: order, shipping: shipping)
+
+    refute String.contains?(content, "alert alert-")
+  end
+
+  @tag login_as: "test@user.com"
   test "link to show", %{conn: conn} do
     order = order()
 
@@ -73,7 +85,7 @@ defmodule Tq2Web.OrderViewTest do
     %Order{
       id: 1,
       status: "pending",
-      promotion_expires_at: DateTime.utc_now() |> DateTime.to_iso8601(),
+      promotion_expires_at: DateTime.utc_now(),
       inserted_at: Timex.now(),
       customer: %Customer{name: "Sample"},
       cart: %Cart{

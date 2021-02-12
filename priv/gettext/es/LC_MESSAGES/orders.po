@@ -15,18 +15,18 @@ msgstr ""
 msgid "Thank you for your purchase!"
 msgstr "¡Gracias por tu compra!"
 
-#: lib/tq2_web/live/order/order_edit_live.html.leex:26
+#: lib/tq2_web/live/order/order_edit_live.html.leex:49
 #: lib/tq2_web/templates/order/show.html.eex:123
 msgid "Back"
 msgstr "Volver al listado"
 
-#: lib/tq2_web/live/order/order_edit_live.ex:12
-#: lib/tq2_web/views/order_view.ex:16
+#: lib/tq2_web/live/order/order_edit_live.ex:14
+#: lib/tq2_web/views/order_view.ex:17
 msgid "Canceled"
 msgstr "Cancelado"
 
-#: lib/tq2_web/live/order/order_edit_live.ex:11
-#: lib/tq2_web/views/order_view.ex:15
+#: lib/tq2_web/live/order/order_edit_live.ex:13
+#: lib/tq2_web/views/order_view.ex:16
 msgid "Completed"
 msgstr "Completo"
 
@@ -34,7 +34,7 @@ msgstr "Completo"
 msgid "Customer"
 msgstr "Cliente"
 
-#: lib/tq2_web/views/order_view.ex:21
+#: lib/tq2_web/views/order_view.ex:22
 msgid "Delivery"
 msgstr "Envío a domicilio"
 
@@ -43,7 +43,7 @@ msgstr "Envío a domicilio"
 msgid "Delivery type"
 msgstr "Tipo de entrega"
 
-#: lib/tq2_web/views/order_view.ex:43
+#: lib/tq2_web/views/order_view.ex:44
 msgid "Edit"
 msgstr "Editar"
 
@@ -65,7 +65,7 @@ msgstr "Ups, parece que algo no salió bien. Por favor, revisa los errores."
 msgid "Order"
 msgstr "Pedido"
 
-#: lib/tq2_web/live/order/order_edit_live.ex:89
+#: lib/tq2_web/live/order/order_edit_live.ex:94
 msgid "Order updated successfully."
 msgstr "Pedido actualizado correctamente."
 
@@ -75,30 +75,30 @@ msgstr "Pedido actualizado correctamente."
 msgid "Orders"
 msgstr "Pedidos"
 
-#: lib/tq2_web/live/order/order_edit_live.ex:9
-#: lib/tq2_web/views/order_view.ex:13
+#: lib/tq2_web/live/order/order_edit_live.ex:11
+#: lib/tq2_web/views/order_view.ex:14
 msgid "Pending"
 msgstr "Pendiente"
 
-#: lib/tq2_web/views/order_view.ex:20
+#: lib/tq2_web/views/order_view.ex:21
 msgid "Pickup"
 msgstr "Retiro en tienda"
 
-#: lib/tq2_web/live/order/order_edit_live.ex:10
-#: lib/tq2_web/views/order_view.ex:14
+#: lib/tq2_web/live/order/order_edit_live.ex:12
+#: lib/tq2_web/views/order_view.ex:15
 msgid "Processing"
 msgstr "Procesando"
 
-#: lib/tq2_web/views/order_view.ex:34
+#: lib/tq2_web/views/order_view.ex:35
 msgid "Show"
 msgstr "Mostrar"
 
-#: lib/tq2_web/live/order/order_edit_live.html.leex:15
+#: lib/tq2_web/live/order/order_edit_live.html.leex:38
 #: lib/tq2_web/templates/order/index.html.eex:10 lib/tq2_web/templates/order/show.html.eex:18
 msgid "Status"
 msgstr "Estado"
 
-#: lib/tq2_web/live/order/order_edit_live.ex:77
+#: lib/tq2_web/live/order/order_edit_live.ex:80
 msgid "Update"
 msgstr "Actualizar"
 
@@ -161,11 +161,11 @@ msgstr "Originado por"
 msgid "Order #%{number} (%{customer})"
 msgstr "Pedido #%{number} (%{customer})"
 
-#: lib/tq2_web/views/order_view.ex:62
+#: lib/tq2_web/views/order_view.ex:63
 msgid "Regular"
 msgstr "Normal"
 
-#: lib/tq2_web/views/order_view.ex:58
+#: lib/tq2_web/views/order_view.ex:59
 msgid "Teiqui"
 msgstr "Teiqui"
 
@@ -191,6 +191,18 @@ msgstr "Este pedido tenía pedido promocional pero el tiempo para que alguien se
 msgid "This order has promotional price, and the customer join another, so both gets the discount!"
 msgstr "Este pedido tiene precio promocional y el cliente se ha unido a otro ¡Felicitaciones! Has vendido doble."
 
-#: lib/tq2/sales/order.ex:122
+#: lib/tq2/sales/order.ex:130
 msgid "To complete an order must be fully paid."
 msgstr "Para completar un pedido debe estar completamente pago."
+
+#: lib/tq2_web/live/order/order_edit_live.html.leex:15
+msgid "Price"
+msgstr "Precio"
+
+#: lib/tq2_web/live/order/order_edit_live.ex:103
+msgid "Regular price (%{price})"
+msgstr "Precio regular (%{price})"
+
+#: lib/tq2_web/live/order/order_edit_live.ex:107
+msgid "Teiqui price (%{price})"
+msgstr "Precio Teiqui (%{price})"

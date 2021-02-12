@@ -98,6 +98,7 @@ defmodule Tq2Web.Order.PaymentsComponent do
         payments
         |> Enum.reject(&(&1.id == payment.id))
         |> assign_payments(socket)
+        |> update_order_paid()
 
       {:error, _changeset} ->
         # TODO: handle this case properly
@@ -107,15 +108,20 @@ defmodule Tq2Web.Order.PaymentsComponent do
 
   defp create_payment_response(
          {:ok, payment},
-         %{assigns: %{cart: cart, payments: payments}} = socket
+         %{assigns: %{cart: cart, order: order, payments: payments}} = socket
        ) do
     payments = payments ++ [payment]
     socket = assign_payments(payments, socket)
 
     socket =
       case Cart.paid_in_full?(payments, cart) do
-        true -> pay_order(socket)
-        _ -> socket
+        true ->
+          update_order_paid(socket)
+
+        _ ->
+          order |> refresh_order(payments)
+
+          socket
       end
 
     {:noreply, socket}
@@ -135,16 +141,20 @@ defmodule Tq2Web.Order.PaymentsComponent do
     assign(socket, payments: payments, changeset: changeset)
   end
 
-  defp pay_order(%{assigns: %{order: order, payments: payments, session: session}} = socket) do
+  defp update_order_paid(
+         %{assigns: %{order: order, payments: payments, session: session}} = socket
+       ) do
+    paid? = payments |> Cart.paid_in_full?(order.cart)
+
     data =
       case order.data do
-        nil -> %{paid: true}
-        data -> data |> Map.from_struct() |> Map.put(:paid, true)
+        nil -> %{paid: paid?}
+        data -> data |> Map.from_struct() |> Map.put(:paid, paid?)
       end
 
     case Sales.update_order(session, order, %{data: data}) do
       {:ok, order} ->
-        send(self(), {:refresh_order, %{order: order, payments: payments}})
+        order |> refresh_order(payments)
 
         socket
 
@@ -152,5 +162,9 @@ defmodule Tq2Web.Order.PaymentsComponent do
       {:error, _changeset} ->
         socket
     end
+  end
+
+  defp refresh_order(order, payments) do
+    send(self(), {:refresh_order, %{order: order, payments: payments}})
   end
 end
