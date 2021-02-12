@@ -17,12 +17,12 @@
     <%= for type <- ["promotional", "regular"] do %>
       <div class="custom-control custom-radio ml-4 mt-2">
         <input type="radio"
-         id="<%= type %>"
-         name="cart[price_type]"
-         class="custom-control-input"
-         value="<%= type %>"
-         <%= if @order.cart.price_type == "promotional", do: "disabled" %>
-         <%= if type == @order.cart.price_type, do: "checked" %>>
+               id="<%= type %>"
+               name="cart[price_type]"
+               class="custom-control-input"
+               value="<%= type %>"
+               <%= if @order.cart.price_type == "promotional", do: "disabled" %>
+               <%= if type == @order.cart.price_type, do: "checked" %>>
         <label class="custom-control-label" for="<%= type %>">
           <span class="ml-2 d-block">
             <span class="font-weight-semi-bold">
