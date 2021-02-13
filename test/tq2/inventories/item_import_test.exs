@@ -19,7 +19,6 @@ defmodule Tq2.Inventories.ItemImportTest do
           "100",
           "70",
           "50",
-          # "https://www.veadigital.com.ar/VeaComprasArchivos/Archivos/235807.jpg"
           "https://supermercadosvea.com.ar/caba/wp-content/uploads/sites/2/2021/02/Secundario_BSAS-NEA-1080x463-1.jpg"
         ]
       ]
