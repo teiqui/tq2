@@ -72,7 +72,12 @@ module.exports = (env, options) => {
       new MiniCssExtractPlugin({filename: 'css/app.css'}),
       new CopyWebpackPlugin({
         patterns: [
-          {from: 'static/'}
+          {
+            from: 'static/',
+            globOptions: {
+              dot: true
+            }
+          }
         ]
       })
     ],
