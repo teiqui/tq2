@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.teiqui.app.twa",
+      "sha256_cert_fingerprints": [
+        "0B:9B:5D:81:35:41:10:0F:4E:2D:AA:45:A4:11:C9:3B:72:09:92:B8:8E:75:9F:F5:FC:79:C4:C9:5B:FF:DC:CE"
+      ]
+    }
+  }
+]
