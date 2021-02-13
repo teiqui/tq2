@@ -25,7 +25,7 @@ msgstr "Crear tienda"
 
 #: lib/tq2/shops/configuration.ex:69
 #: lib/tq2_web/live/shop/store_live.html.leex:23 lib/tq2_web/live/shop/store_live.html.leex:122
-#: lib/tq2_web/live/store/brief_live.html.leex:88 lib/tq2_web/live/store/handing_live.html.leex:39
+#: lib/tq2_web/live/store/brief_live.html.leex:94 lib/tq2_web/live/store/handing_live.html.leex:41
 #: lib/tq2_web/templates/email/order_confirmation.html.eex:23 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:21
 msgid "Delivery"
 msgstr "Envío a domicilio"
@@ -35,7 +35,7 @@ msgid "Delivery area"
 msgstr "Área de entrega"
 
 #: lib/tq2_web/live/shop/store_live.html.leex:125
-#: lib/tq2_web/live/store/brief_live.html.leex:103 lib/tq2_web/live/store/handing_live.html.leex:49
+#: lib/tq2_web/live/store/brief_live.html.leex:109 lib/tq2_web/live/store/handing_live.html.leex:51
 msgid "Delivery time limit"
 msgstr "Plazo de entrega"
 
@@ -106,13 +106,13 @@ msgstr "Teléfono"
 
 #: lib/tq2/shops/configuration.ex:65
 #: lib/tq2_web/live/shop/store_live.html.leex:24 lib/tq2_web/live/shop/store_live.html.leex:165
-#: lib/tq2_web/live/store/brief_live.html.leex:71 lib/tq2_web/live/store/handing_live.html.leex:15
+#: lib/tq2_web/live/store/brief_live.html.leex:77 lib/tq2_web/live/store/handing_live.html.leex:17
 #: lib/tq2_web/templates/email/order_confirmation.html.eex:21 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:19
 msgid "Pickup"
 msgstr "Retiro en tienda"
 
 #: lib/tq2_web/live/shop/store_live.html.leex:167
-#: lib/tq2_web/live/store/brief_live.html.leex:82 lib/tq2_web/live/store/handing_live.html.leex:24
+#: lib/tq2_web/live/store/brief_live.html.leex:88 lib/tq2_web/live/store/handing_live.html.leex:26
 msgid "Pickup time limit"
 msgstr "Plazo de retiro"
 
@@ -248,7 +248,7 @@ msgid "Share my purchase"
 msgstr "Compartir mi compra"
 
 #: lib/tq2_web/live/components/store/header_component.html.leex:55
-#: lib/tq2_web/live/store/checkout_live.html.leex:54 lib/tq2_web/live/store/team_live.html.leex:14
+#: lib/tq2_web/live/store/checkout_live.html.leex:57 lib/tq2_web/live/store/team_live.html.leex:14
 msgid "Teiqui price"
 msgstr "Precio Teiqui"
 
@@ -276,8 +276,8 @@ msgstr "¡Difunde el link de tu tienda!"
 msgid "Saving..."
 msgstr "Guardando..."
 
-#: lib/tq2_web/live/store/checkout_live.html.leex:69
-#: lib/tq2_web/live/store/checkout_live.html.leex:87
+#: lib/tq2_web/live/store/checkout_live.html.leex:72
+#: lib/tq2_web/live/store/checkout_live.html.leex:90
 msgid "Back to store"
 msgstr "Volver a la tienda"
 
@@ -285,19 +285,19 @@ msgstr "Volver a la tienda"
 msgid "Checkout"
 msgstr "Editar compra"
 
-#: lib/tq2_web/live/store/checkout_live.html.leex:63
+#: lib/tq2_web/live/store/checkout_live.html.leex:66
 msgid "Regular price: %{total}"
 msgstr "Precio normal: %{total}"
 
-#: lib/tq2_web/live/store/checkout_live.html.leex:60
+#: lib/tq2_web/live/store/checkout_live.html.leex:63
 msgid "Share the store link and get at least one person to buy in less than 24 hours. You can also join an existing order."
 msgstr "Comparte el enlace de la tienda y logra que al menos una persona más realice una compra en 24h. También puedes unirte a una compra existente."
 
-#: lib/tq2_web/live/store/checkout_live.html.leex:79
+#: lib/tq2_web/live/store/checkout_live.html.leex:82
 msgid "Your cart is empty."
 msgstr "Tu carrito está vacío."
 
-#: lib/tq2_web/live/store/checkout_live.html.leex:82
+#: lib/tq2_web/live/store/checkout_live.html.leex:85
 msgid "Add some items!"
 msgstr "¡Agrega artículos!"
 
@@ -318,7 +318,7 @@ msgid "Describe the areas where you can delivery, and the conditions."
 msgstr "Describe las áreas donde puedes hacer envíos, y las condiciones."
 
 #: lib/tq2/gateways/mercado_pago.ex:285
-#: lib/tq2_web/live/store/checkout_live.html.leex:29 lib/tq2_web/templates/email/expired_promotion.html.eex:29
+#: lib/tq2_web/live/store/checkout_live.html.leex:32 lib/tq2_web/templates/email/expired_promotion.html.eex:29
 #: lib/tq2_web/templates/email/expired_promotion.text.eex:12 lib/tq2_web/templates/email/order_confirmation.html.eex:47
 #: lib/tq2_web/templates/email/order_confirmation.text.eex:13 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:49
 #: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:13 lib/tq2_web/templates/email/promotion_confirmation.html.eex:30
@@ -358,13 +358,14 @@ msgstr "Requerir el correo del cliente en cada pedido."
 msgid "Require customer phone for every order."
 msgstr "Requerir el teléfono del cliente en cada pedido."
 
-#: lib/tq2_web/live/store/brief_live.html.leex:13
+#: lib/tq2_web/live/components/store/progress_component.ex:6
+#: lib/tq2_web/live/store/brief_live.html.leex:19
 msgid "Cart"
 msgstr "Carrito"
 
-#: lib/tq2_web/live/store/brief_live.html.leex:17
-#: lib/tq2_web/live/store/brief_live.html.leex:111 lib/tq2_web/live/store/brief_live.html.leex:151
-#: lib/tq2_web/live/store/brief_live.html.leex:173
+#: lib/tq2_web/live/store/brief_live.html.leex:23
+#: lib/tq2_web/live/store/brief_live.html.leex:117 lib/tq2_web/live/store/brief_live.html.leex:157
+#: lib/tq2_web/live/store/brief_live.html.leex:179
 msgid "Edit"
 msgstr "Editar"
 
@@ -376,23 +377,24 @@ msgstr "Podrías ahorrar %{amount}"
 msgid "You saved %{amount}"
 msgstr "Ahorraste %{amount}"
 
-#: lib/tq2_web/live/store/brief_live.html.leex:183
+#: lib/tq2_web/live/store/brief_live.html.leex:189
 msgid "Creating order..."
 msgstr "Creando pedido..."
 
-#: lib/tq2_web/live/store/brief_live.html.leex:124
+#: lib/tq2_web/live/store/brief_live.html.leex:130
 msgid "Data"
 msgstr "Datos"
 
-#: lib/tq2_web/live/store/brief_live.html.leex:66
+#: lib/tq2_web/live/components/store/progress_component.ex:5
+#: lib/tq2_web/live/store/brief_live.html.leex:72
 msgid "Handing"
 msgstr "Tipo de entrega"
 
-#: lib/tq2_web/live/store/brief_live.html.leex:164
+#: lib/tq2_web/live/store/brief_live.html.leex:170
 msgid "Payment"
 msgstr "Medio de pago"
 
-#: lib/tq2_web/live/store/checkout_live.html.leex:99
+#: lib/tq2_web/live/store/checkout_live.html.leex:102
 msgid "Buy now"
 msgstr "Comprar ahora"
 
@@ -400,21 +402,21 @@ msgstr "Comprar ahora"
 msgid "Check order"
 msgstr "Revisar pedido"
 
-#: lib/tq2_web/live/store/customer_live.html.leex:55
-#: lib/tq2_web/live/store/handing_live.html.leex:78
+#: lib/tq2_web/live/store/customer_live.html.leex:57
+#: lib/tq2_web/live/store/handing_live.html.leex:80
 msgid "Continue"
 msgstr "Continuar"
 
-#: lib/tq2_web/live/store/brief_live.html.leex:185
-#: lib/tq2_web/live/store/payment_live.html.leex:46
+#: lib/tq2_web/live/store/brief_live.html.leex:191
+#: lib/tq2_web/live/store/payment_live.html.leex:48
 msgid "Place order"
 msgstr "Finalizar compra"
 
-#: lib/tq2_web/live/store/customer_live.html.leex:37
+#: lib/tq2_web/live/store/customer_live.html.leex:39
 msgid "Change my data"
 msgstr "Cambiar mis datos"
 
-#: lib/tq2_web/live/store/customer_live.html.leex:38
+#: lib/tq2_web/live/store/customer_live.html.leex:40
 msgid "It's not me"
 msgstr "No soy yo"
 
@@ -425,3 +427,19 @@ msgstr "Disfruta del descuento haciendo que otra persona compre en la tienda o u
 #: lib/tq2_web/live/components/store/share_component.html.leex:24
 msgid "Telegram"
 msgstr "Telegram"
+
+#: lib/tq2_web/live/components/store/progress_component.ex:8
+msgid "Payment methods"
+msgstr "Medios de pago"
+
+#: lib/tq2_web/live/components/store/progress_component.ex:7
+msgid "My data"
+msgstr "Mis datos"
+
+#: lib/tq2_web/live/store/brief_live.html.leex:8
+msgid "Purchase summary"
+msgstr "Resumen de compra"
+
+#: lib/tq2_web/live/components/store/progress_component.ex:14
+msgid "Step %{current} of %{total}"
+msgstr "Paso %{current} de %{total}"

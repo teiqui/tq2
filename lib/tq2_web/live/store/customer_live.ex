@@ -5,7 +5,7 @@ defmodule Tq2Web.Store.CustomerLive do
 
   alias Tq2.{Sales, Transactions}
   alias Tq2.Sales.Customer
-  alias Tq2Web.Store.{ButtonComponent, HeaderComponent}
+  alias Tq2Web.Store.{ButtonComponent, HeaderComponent, ProgressComponent}
 
   @impl true
   def mount(

@@ -2,6 +2,8 @@
 
 <div class="row justify-content-center">
   <div class="col-md-8">
+    <%= live_component @socket, ProgressComponent, step: :customer, id: :progress_component %>
+
     <div class="card card-body">
       <%= f = form_for @changeset, "#", [phx_submit: "save", phx_change: "validate"] %>
         <%= if @customer && @changeset.action == nil do %>

@@ -2,9 +2,12 @@
                                              store: @store,
                                              token: @token,
                                              visit_id: @visit_id %>
+
 <div class="row justify-content-center">
   <div class="col-md-8">
     <%= if Enum.any?(@cart.lines) do %>
+      <%= live_component @socket, ProgressComponent, step: :checkout, id: :progress_component %>
+
       <div class="table-responsive">
         <table class="table">
           <tbody class="border-top-0">

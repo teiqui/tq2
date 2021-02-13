@@ -2,6 +2,8 @@
 
 <div class="row justify-content-center">
   <div class="col-md-8">
+    <%= live_component @socket, ProgressComponent, step: :handing, id: :progress_component %>
+
     <div class="card card-body">
       <%= form_for @changeset, "#", [phx_change: "save"], fn f -> %>
         <%= inputs_for f, :data, fn df -> %>
