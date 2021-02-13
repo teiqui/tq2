@@ -5,7 +5,7 @@ defmodule Tq2Web.Store.PaymentLive do
     only: [create_order: 3, create_mp_payment: 3, check_for_paid_cart: 1]
 
   alias Tq2.{Apps, Transactions}
-  alias Tq2Web.Store.{ButtonComponent, HeaderComponent}
+  alias Tq2Web.Store.{ButtonComponent, HeaderComponent, ProgressComponent}
 
   @impl true
   def mount(_, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do

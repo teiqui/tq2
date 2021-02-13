@@ -20,7 +20,7 @@ msgstr "Efectivo"
 msgid "Your order must be paid on delivery."
 msgstr "Su pedido deberá ser abonado a contra entrega."
 
-#: lib/tq2_web/live/store/payment_live.html.leex:44
+#: lib/tq2_web/live/store/payment_live.html.leex:46
 msgid "Saving..."
 msgstr "Guardando..."
 

@@ -2,6 +2,8 @@
 
 <div class="row justify-content-center">
   <div class="col-md-8">
+    <%= live_component @socket, ProgressComponent, step: :payment, id: :progress_component %>
+
     <form id="payment" phx-submit="save" phx-change="update">
       <div class="accordion">
         <div class="card">

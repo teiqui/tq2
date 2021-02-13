@@ -11,24 +11,24 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/live/store/customer_live.html.leex:47
+#: lib/tq2_web/live/store/customer_live.html.leex:49
 msgid "Address"
 msgstr ""
 
-#: lib/tq2_web/live/store/customer_live.html.leex:44
+#: lib/tq2_web/live/store/customer_live.html.leex:46
 msgid "Email"
 msgstr ""
 
-#: lib/tq2_web/live/store/customer_live.html.leex:43
+#: lib/tq2_web/live/store/customer_live.html.leex:45
 msgid "Name"
 msgstr ""
 
-#: lib/tq2_web/live/store/customer_live.html.leex:45
+#: lib/tq2_web/live/store/customer_live.html.leex:47
 msgid "Phone"
 msgstr ""
 
 #: lib/tq2_web/live/registration/name_live.ex:58
-#: lib/tq2_web/live/store/customer_live.html.leex:53
+#: lib/tq2_web/live/store/customer_live.html.leex:55
 msgid "Saving..."
 msgstr ""
 
