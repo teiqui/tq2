@@ -54,7 +54,7 @@ defmodule Tq2.Accounts do
   ## Examples
 
       iex> get_account_stats(%Account{})
-      [orders_count: 20, carts_count: 10]
+      [orders_count: 10, carts_count: 20]
   """
   def get_account_stats(%Account{} = account) do
     Account
