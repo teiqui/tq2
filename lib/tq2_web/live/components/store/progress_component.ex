@@ -20,7 +20,7 @@ defmodule Tq2Web.Store.ProgressComponent do
         <span class="align-self-center"><%= step_info %></span>
       </div>
       <div class="progress rounded-pill mb-3">
-        <div class="progress-bar bg-secondary text-center" role="progressbar" style="width: <%= percentage %>%;">
+        <div class="progress-bar bg-success text-center" role="progressbar" style="width: <%= percentage %>%;">
         </div>
       </div>
     """
