@@ -252,7 +252,7 @@ msgstr "Compartir mi compra"
 msgid "Teiqui price"
 msgstr "Precio Teiqui"
 
-#: lib/tq2/accounts.ex:582
+#: lib/tq2/accounts.ex:622
 msgid "No limit"
 msgstr "Sin límite"
 

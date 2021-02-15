@@ -31,12 +31,12 @@ defmodule Tq2Web.EmailView do
   defp order_date(%Order{inserted_at: inserted_at, account: %{time_zone: time_zone}}) do
     inserted_at
     |> Timex.to_datetime(time_zone)
-    |> Timex.format!(dgettext("times", "{M}/{D}/{YY}"))
+    |> Timex.format!(dgettext("times", "%m/%d/%y"), :strftime)
   end
 
   defp order_time(%Order{inserted_at: inserted_at, account: %{time_zone: time_zone}}) do
     inserted_at
     |> Timex.to_datetime(time_zone)
-    |> Timex.format!(dgettext("times", "{h24}:{m}h"))
+    |> Timex.format!(dgettext("times", "%H:%Mh"), :strftime)
   end
 end

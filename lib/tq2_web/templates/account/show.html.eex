@@ -1,24 +1,34 @@
-<div class="card my-3">
-  <div class="card-header">
-    <h2 class="h5"><%= @account.name %></h2>
-  </div>
-  <div class="card-body">
-    <p class="mb-1">
-      <strong><%= dgettext("accounts", "Status") %></strong>:
-      <%= status @account %>
-    </p>
-    <p class="mb-1">
-      <strong><%= dgettext("accounts", "Country") %></strong>:
-      <%= country @account %>
-    </p>
-    <p class="mb-1">
-      <strong><%= dgettext("accounts", "Time zone") %></strong>:
-      <%= @account.time_zone %>
-    </p>
-  </div>
-</div>
+<h2 class="h5 text-primary mb-4"><%= @account.name %></h2>
 
-<div>
-  <%= link_to_edit @conn, @account %> |
+<p class="mb-1">
+  <strong><%= dgettext("accounts", "Status") %></strong>:
+  <%= status @account %>
+</p>
+<p class="mb-1">
+  <strong><%= dgettext("accounts", "Country") %></strong>:
+  <%= country @account %>
+</p>
+<p class="mb-1">
+  <strong><%= dgettext("accounts", "Time zone") %></strong>:
+  <%= @account.time_zone %>
+</p>
+<p class="mb-1">
+  <strong><%= dgettext("accounts", "Store") %></strong>:
+  <%= link store_url(@account), to: store_url(@account), target: "_blank" %>
+</p>
+<p class="mb-1">
+  <strong><%= dgettext("accounts", "Orders count") %></strong>:
+  <span class="badge badge-info">
+    <%= @stats[:orders_count] %>
+  </span>
+</p>
+<p class="mb-1">
+  <strong><%= dgettext("accounts", "Carts count") %></strong>:
+  <span class="badge badge-info">
+    <%= @stats[:carts_count] %>
+  </span>
+</p>
+
+<div class="my-4">
   <%= link dgettext("accounts", "Back"), to: Routes.account_path(@conn, :index) %>
 </div>

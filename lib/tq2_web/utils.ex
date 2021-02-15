@@ -8,7 +8,7 @@ defmodule Tq2Web.Utils do
   def localize_date(date) do
     {:ok, formatted} =
       date
-      |> Timex.format(dgettext("times", "{M}/{D}/{YYYY}"))
+      |> Timex.format(dgettext("times", "%m/%d/%y"), :strftime)
 
     formatted
   end
@@ -16,7 +16,7 @@ defmodule Tq2Web.Utils do
   def localize_datetime(date) do
     {:ok, formatted} =
       date
-      |> Timex.format(dgettext("times", "{M}/{D}/{YYYY} {h24}:{m}:{s}"))
+      |> Timex.format(dgettext("times", "%m/%d/%y %H:%M:%S"), :strftime)
 
     formatted
   end

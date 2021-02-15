@@ -17,7 +17,7 @@ defmodule Tq2Web.Account.LicenseLiveTest do
 
       assert html =~ "License"
       assert html =~ "Trial"
-      assert html =~ Timex.format!(license.paid_until, "{M}/{D}/{YYYY}")
+      assert html =~ Timex.format!(license.paid_until, "%m/%d/%y", :strftime)
       assert html =~ "Monthly pay"
       assert html =~ "Yearly pay"
     end

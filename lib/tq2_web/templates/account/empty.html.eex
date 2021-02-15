@@ -1,14 +1,5 @@
 <div class="jumbotron">
   <h1>
-    <%= dgettext("accounts", "Looks like you have no accounts.") %>
+    <%= dgettext("accounts", "There are no accounts yet") %>
   </h1>
-
-  <p class="lead">
-    <%= dgettext("accounts", "Let's create one...") %>
-  </p>
-
-  <p class="text-right">
-    <%= link dgettext("accounts", "New account"), to: Routes.account_path(@conn, :new),
-                                                  class: "btn btn-primary rounded-pill font-weight-semi-bold" %>
-  </p>
 </div>

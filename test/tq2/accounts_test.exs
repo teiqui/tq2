@@ -1,7 +1,7 @@
 defmodule Tq2.AccountsTest do
   use Tq2.DataCase
 
-  import Tq2.Fixtures, only: [create_session: 1]
+  import Tq2.Fixtures, only: [create_order: 1, create_session: 1, default_account: 0]
 
   alias Tq2.Accounts
   alias Tq2.Accounts.Account
@@ -40,9 +40,56 @@ defmodule Tq2.AccountsTest do
              ]
     end
 
+    test "list_accounts/1 returns accounts when they match filters" do
+      account = account_fixture()
+      default_account = Tq2.Repo.get_by!(Account, name: "test_account")
+      expected = [default_account.id, account.id]
+      params = %{"inserted_from" => Timex.now() |> Timex.beginning_of_day()}
+
+      assert Enum.sort(Enum.map(Accounts.list_accounts(params).entries, & &1.id)) == expected
+
+      params = %{"inserted_to" => Timex.now() |> Timex.end_of_day()}
+
+      assert Enum.sort(Enum.map(Accounts.list_accounts(params).entries, & &1.id)) == expected
+
+      params = %{
+        "inserted_from" => Timex.now() |> Timex.beginning_of_day(),
+        "inserted_to" => Timex.now() |> Timex.end_of_day()
+      }
+
+      assert Enum.sort(Enum.map(Accounts.list_accounts(params).entries, & &1.id)) == expected
+
+      params = %{
+        "inserted_from" => Timex.now() |> Timex.shift(days: 1) |> Timex.beginning_of_day()
+      }
+
+      assert Accounts.list_accounts(params).entries == []
+
+      params = %{"inserted_to" => Timex.now() |> Timex.shift(days: -1) |> Timex.end_of_day()}
+
+      assert Accounts.list_accounts(params).entries == []
+
+      params = %{
+        "inserted_from" => Timex.now() |> Timex.shift(days: -1) |> Timex.beginning_of_day(),
+        "inserted_to" => Timex.now() |> Timex.shift(days: -1) |> Timex.end_of_day()
+      }
+
+      assert Accounts.list_accounts(params).entries == []
+    end
+
     test "get_account!/1 returns the account with given id" do
       account = account_fixture()
       assert Accounts.get_account!(account.id).id == account.id
+    end
+
+    test "get_account_stats/1 returns account stats counts" do
+      account = default_account()
+
+      assert Accounts.get_account_stats(account) == [orders_count: 0, carts_count: 0]
+
+      create_order(nil)
+
+      assert Accounts.get_account_stats(account) == [orders_count: 1, carts_count: 1]
     end
 
     test "create_account/1 with valid data creates a account and license" do

@@ -10,13 +10,6 @@ defmodule Tq2Web.AccountControllerTest do
     status: "active",
     time_zone: "America/Argentina/Mendoza"
   }
-  @update_attrs %{
-    country: "mx",
-    name: "some updated name",
-    status: "green",
-    time_zone: "America/Argentina/Cordoba"
-  }
-  @invalid_attrs %{country: nil, name: nil, status: nil, time_zone: nil}
 
   def fixture(:account) do
     {:ok, account} = Accounts.create_account(@create_attrs)
@@ -29,12 +22,7 @@ defmodule Tq2Web.AccountControllerTest do
       Enum.each(
         [
           get(conn, Routes.account_path(conn, :index)),
-          get(conn, Routes.account_path(conn, :new)),
-          post(conn, Routes.account_path(conn, :create, %{})),
-          get(conn, Routes.account_path(conn, :show, "123")),
-          get(conn, Routes.account_path(conn, :edit, "123")),
-          put(conn, Routes.account_path(conn, :update, "123", %{})),
-          delete(conn, Routes.account_path(conn, :delete, "123"))
+          get(conn, Routes.account_path(conn, :show, "123"))
         ],
         fn conn ->
           assert html_response(conn, 302)
@@ -53,7 +41,7 @@ defmodule Tq2Web.AccountControllerTest do
 
       conn = get(conn, Routes.account_path(conn, :index))
 
-      assert html_response(conn, 200) =~ "Looks like you have no accounts"
+      assert html_response(conn, 200) =~ "There are no accounts yet"
     end
   end
 
@@ -65,72 +53,6 @@ defmodule Tq2Web.AccountControllerTest do
       conn = get(conn, Routes.account_path(conn, :index))
 
       assert html_response(conn, 200) =~ "Accounts"
-    end
-  end
-
-  describe "new account" do
-    @tag login_as: "test@user.com", login_role: "admin"
-    test "renders form", %{conn: conn} do
-      conn = get(conn, Routes.account_path(conn, :new))
-
-      assert html_response(conn, 200) =~ "Create"
-    end
-  end
-
-  describe "create account" do
-    @tag login_as: "test@user.com", login_role: "admin"
-    test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.account_path(conn, :create), account: @create_attrs)
-
-      assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.account_path(conn, :show, id)
-    end
-
-    @tag login_as: "test@user.com", login_role: "admin"
-    test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.account_path(conn, :create), account: @invalid_attrs)
-
-      assert html_response(conn, 200) =~ "Create"
-    end
-  end
-
-  describe "edit account" do
-    setup [:create_account]
-
-    @tag login_as: "test@user.com", login_role: "admin"
-    test "renders form for editing chosen account", %{conn: conn, account: account} do
-      conn = get(conn, Routes.account_path(conn, :edit, account))
-
-      assert html_response(conn, 200) =~ "Update"
-    end
-  end
-
-  describe "update account" do
-    setup [:create_account]
-
-    @tag login_as: "test@user.com", login_role: "admin"
-    test "redirects when data is valid", %{conn: conn, account: account} do
-      conn = put(conn, Routes.account_path(conn, :update, account), account: @update_attrs)
-
-      assert redirected_to(conn) == Routes.account_path(conn, :show, account)
-    end
-
-    @tag login_as: "test@user.com", login_role: "admin"
-    test "renders errors when data is invalid", %{conn: conn, account: account} do
-      conn = put(conn, Routes.account_path(conn, :update, account), account: @invalid_attrs)
-
-      assert html_response(conn, 200) =~ "Update"
-    end
-  end
-
-  describe "delete account" do
-    setup [:create_account]
-
-    @tag login_as: "test@user.com", login_role: "admin"
-    test "deletes chosen account", %{conn: conn, account: account} do
-      conn = delete(conn, Routes.account_path(conn, :delete, account))
-
-      assert redirected_to(conn) == Routes.account_path(conn, :index)
     end
   end
 

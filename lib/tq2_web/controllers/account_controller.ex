@@ -2,74 +2,55 @@ defmodule Tq2Web.AccountController do
   use Tq2Web, :controller
 
   alias Tq2.Accounts
-  alias Tq2.Accounts.Account
 
   plug :authenticate
   plug :authorize, as: :admin
 
   def index(conn, params) do
-    page = Accounts.list_accounts(params)
+    page =
+      params
+      |> parse_params()
+      |> Accounts.list_accounts()
 
-    render_index(conn, page)
-  end
-
-  def new(conn, _params) do
-    changeset = Accounts.change_account(%Account{})
-
-    render(conn, "new.html", changeset: changeset)
-  end
-
-  def create(conn, %{"account" => account_params}) do
-    case Accounts.create_account(account_params) do
-      {:ok, account} ->
-        conn
-        |> put_flash(:info, dgettext("accounts", "Account created successfully."))
-        |> redirect(to: Routes.account_path(conn, :show, account))
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
-    end
+    render_index(conn, params, page)
   end
 
   def show(conn, %{"id" => id}) do
     account = Accounts.get_account!(id)
+    stats = Accounts.get_account_stats(account)
 
-    render(conn, "show.html", account: account)
+    render(conn, "show.html", account: account, stats: stats)
   end
 
-  def edit(conn, %{"id" => id}) do
-    account = Accounts.get_account!(id)
-    changeset = Accounts.change_account(account)
+  defp render_index(conn, _params, %{total_entries: 0}), do: render(conn, "empty.html")
 
-    render(conn, "edit.html", account: account, changeset: changeset)
+  defp render_index(conn, params, page) do
+    render(conn, "index.html", accounts: page.entries, page: page, params: params)
   end
 
-  def update(conn, %{"id" => id, "account" => account_params}) do
-    account = Accounts.get_account!(id)
-
-    case Accounts.update_account(account, account_params) do
-      {:ok, account} ->
-        conn
-        |> put_flash(:info, dgettext("accounts", "Account updated successfully."))
-        |> redirect(to: Routes.account_path(conn, :show, account))
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", account: account, changeset: changeset)
-    end
+  defp parse_params(%{"inserted_from" => from, "inserted_to" => to}) do
+    %{"inserted_from" => parse_date(from, :beginning), "inserted_to" => parse_date(to, :end)}
+    |> Enum.filter(fn {_, v} -> v end)
+    |> Enum.into(%{})
   end
 
-  def delete(conn, %{"id" => id}) do
-    account = Accounts.get_account!(id)
-    {:ok, _account} = Accounts.delete_account(account)
+  defp parse_params(params), do: params
 
-    conn
-    |> put_flash(:info, dgettext("accounts", "Account deleted successfully."))
-    |> redirect(to: Routes.account_path(conn, :index))
+  defp parse_date("", _time), do: nil
+
+  defp parse_date(date, :beginning) do
+    date
+    |> parse_date()
+    |> Timex.beginning_of_day()
   end
 
-  defp render_index(conn, %{total_entries: 0}), do: render(conn, "empty.html")
+  defp parse_date(date, :end) do
+    date
+    |> parse_date()
+    |> Timex.end_of_day()
+  end
 
-  defp render_index(conn, page) do
-    render(conn, "index.html", accounts: page.entries, page: page)
+  defp parse_date(date) do
+    Timex.parse!(date, "{YYYY}-{0M}-{D}")
   end
 end

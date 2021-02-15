@@ -2,6 +2,11 @@ defmodule Tq2Web.AccountView do
   use Tq2Web, :view
   use Scrivener.HTML
 
+  import Tq2.Utils.Urls, only: [store_uri: 0]
+  import Tq2Web.Utils, only: [localize_date: 1]
+
+  alias Tq2.Accounts.Account
+
   # Done so we avoid dngettext and we can get "merge" magic
   @countries %{
     dgettext("accounts", "Argentina") => "ar",
@@ -27,26 +32,6 @@ defmodule Tq2Web.AccountView do
     )
   end
 
-  def link_to_edit(conn, account) do
-    icon_link(
-      "pencil-fill",
-      title: dgettext("accounts", "Edit"),
-      to: Routes.account_path(conn, :edit, account),
-      class: "ml-2"
-    )
-  end
-
-  def link_to_delete(conn, account) do
-    icon_link(
-      "trash2-fill",
-      title: dgettext("accounts", "Delete"),
-      to: Routes.account_path(conn, :delete, account),
-      method: :delete,
-      data: [confirm: dgettext("accounts", "Are you sure?")],
-      class: "ml-2 text-danger"
-    )
-  end
-
   def status(account) do
     statuses = invert(@statuses)
 
@@ -59,34 +44,17 @@ defmodule Tq2Web.AccountView do
     countries[account.country]
   end
 
-  def statuses do
-    @statuses
-  end
-
-  def countries do
-    @countries
-  end
-
-  def time_zones do
-    Tzdata.zone_lists_grouped()[:southamerica]
-  end
-
-  def lock_version_input(_, nil), do: nil
-
-  def lock_version_input(form, account) do
-    hidden_input(form, :lock_version, value: account.lock_version)
-  end
-
-  def submit_button(account) do
-    account
-    |> submit_label()
-    |> submit(class: "btn btn-primary rounded-pill font-weight-semi-bold")
-  end
-
-  defp submit_label(nil), do: dgettext("accounts", "Create")
-  defp submit_label(_), do: dgettext("accounts", "Update")
-
   defp invert(map) when is_map(map) do
     for {k, v} <- map, into: %{}, do: {v, k}
+  end
+
+  defp filtered?(params) do
+    params
+    |> Enum.reject(fn {_, v} -> is_nil(v) || v == "" end)
+    |> Enum.any?()
+  end
+
+  defp store_url(%Account{store: store}) do
+    store_uri() |> Routes.counter_url(:index, store)
   end
 end

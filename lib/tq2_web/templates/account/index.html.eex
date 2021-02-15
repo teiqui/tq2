@@ -1,14 +1,56 @@
-<h1 class="h3">
+<h1 class="h3 text-primary">
   <%= dgettext("accounts", "Accounts") %>
+  <%= link to: "#", class: "text-warning", data: [toggle: "collapse", target: "#filter-form"] do %>
+    <i class="bi-funnel"></i>
+  <% end %>
 </h1>
 
-<div class="card my-3 table-responsive">
+<div class="row">
+  <div class="col">
+    <form id="filter-form" class="collapse<%= if filtered?(@params), do: " show" %>">
+      <div class="form-row align-items-center">
+        <div class="col-lg-4 mb-2 mb-lg-0">
+          <input type="date"
+                 class="form-control form-control-sm mr-4"
+                 name="inserted_from"
+                 value="<%= @params["inserted_from"] %>">
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-0">
+          <input type="date"
+                 class="form-control form-control-sm mr-4"
+                 name="inserted_to"
+                 value="<%= @params["inserted_to"] %>">
+        </div>
+        <div class="col-lg-4 mb-2 mb-lg-0">
+          <button type="submit" class="btn btn-sm btn-secondary">
+            <%= dgettext("accounts", "Filter") %>
+          </button>
+
+          <span class="mx-2">
+            <%= dgettext("accounts", "or") %>
+          </span>
+
+          <%= link dgettext("accounts", "Clear"), to: Routes.account_path(@conn, :index) %>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col">
+    <p class="mb-2 text-right">
+      <%= raw dngettext("accounts", "Account: <span class=\"badge badge-info\">one</span>",
+                                    "Accounts: <span class=\"badge badge-info\">%{count}</span>", @page.total_entries) %>
+    </p>
+  </div>
+</div>
+
+<div class="table-responsive my-3">
   <table class="table table-hover">
     <thead>
       <tr>
         <th><%= dgettext("accounts", "Name") %></th>
         <th class="d-none d-sm-table-cell"><%= dgettext("accounts", "Status") %></th>
         <th class="d-none d-md-table-cell"><%= dgettext("accounts", "Country") %></th>
+        <th class="d-none d-lg-table-cell"><%= dgettext("accounts", "Inserted at") %></th>
 
         <th></th>
       </tr>
@@ -20,11 +62,10 @@
           <td><%= account.name %></td>
           <td class="d-none d-sm-table-cell"><%= status account %></td>
           <td class="d-none d-md-table-cell"><%= country account %></td>
+          <td class="d-none d-lg-table-cell"><%= localize_date account.inserted_at %></td>
 
           <td class="text-right text-nowrap">
             <span><%= link_to_show @conn, account %></span>
-            <span><%= link_to_edit @conn, account %></span>
-            <span><%= link_to_delete @conn, account %></span>
           </td>
         </tr>
       <% end %>
@@ -34,9 +75,4 @@
 
 <div class="d-flex justify-content-center justify-content-lg-end mb-n3">
   <%= pagination_links @conn, @page, distance: 1 %>
-</div>
-
-<div class="mt-3 text-right">
-  <%= link dgettext("accounts", "New account"), to: Routes.account_path(@conn, :new),
-                                                class: "btn btn-primary rounded-pill font-weight-semi-bold" %>
 </div>

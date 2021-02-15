@@ -11,18 +11,14 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/utils.ex:11
-msgid "{M}/{D}/{YYYY}"
-msgstr "{D}/{M}/{YYYY}"
+#: lib/tq2_web/utils.ex:11 lib/tq2_web/views/email_view.ex:34
+msgid "%m/%d/%y"
+msgstr "%d/%m/%y"
 
 #: lib/tq2_web/utils.ex:19
-msgid "{M}/{D}/{YYYY} {h24}:{m}:{s}"
-msgstr "{D}/{M}/{YYYY} {h24}:{m}:{s}"
-
-#: lib/tq2_web/views/email_view.ex:34
-msgid "{M}/{D}/{YY}"
-msgstr "{D}/{M}/{YY}"
+msgid "%m/%d/%y %H:%M:%S"
+msgstr "%d/%m/%y %H:%M:%S"
 
 #: lib/tq2_web/views/email_view.ex:40
-msgid "{h24}:{m}h"
-msgstr "{h24}:{m}h"
+msgid "%H:%Mh"
+msgstr "%H:%Mh"

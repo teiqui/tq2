@@ -21,7 +21,10 @@ defmodule Tq2.Accounts do
 
   """
   def list_accounts(params) do
-    Repo.paginate(Account, params)
+    Account
+    |> filter_accounts_by_params(params)
+    |> order_by(desc: :inserted_at)
+    |> Repo.paginate(params)
   end
 
   @doc """
@@ -38,7 +41,29 @@ defmodule Tq2.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_account!(id), do: Repo.get!(Account, id)
+  def get_account!(id) do
+    Account
+    |> join(:left, [a], s in assoc(a, :store))
+    |> preload([a, s], store: s)
+    |> Repo.get!(id)
+  end
+
+  @doc """
+  Gets a stats from account.
+
+  ## Examples
+
+      iex> get_account_stats(%Account{})
+      [orders_count: 20, carts_count: 10]
+  """
+  def get_account_stats(%Account{} = account) do
+    Account
+    |> join(:left, [a], o in assoc(a, :orders))
+    |> join(:left, [a], c in assoc(a, :carts))
+    |> group_by([a], a.id)
+    |> select([a, o, c], orders_count: count(o.id, :distinct), carts_count: count(c.id, :distinct))
+    |> Repo.get!(account.id)
+  end
 
   @doc """
   Creates a account.
@@ -105,6 +130,22 @@ defmodule Tq2.Accounts do
   """
   def change_account(%Account{} = account, attrs \\ %{}) do
     Account.changeset(account, attrs)
+  end
+
+  defp filter_accounts_by_params(query, %{"inserted_from" => from, "inserted_to" => to}) do
+    query |> where([a], a.inserted_at >= ^from and a.inserted_at <= ^to)
+  end
+
+  defp filter_accounts_by_params(query, %{"inserted_from" => from}) do
+    query |> where([a], a.inserted_at >= ^from)
+  end
+
+  defp filter_accounts_by_params(query, %{"inserted_to" => to}) do
+    query |> where([a], a.inserted_at <= ^to)
+  end
+
+  defp filter_accounts_by_params(query, _params) do
+    query
   end
 
   alias Tq2.Accounts.{Membership, Session, User}
