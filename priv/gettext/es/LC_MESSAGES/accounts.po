@@ -24,7 +24,7 @@ msgstr "Activa"
 msgid "Argentina"
 msgstr "Argentina"
 
-#: lib/tq2_web/templates/account/show.html.eex:29
+#: lib/tq2_web/templates/account/show.html.eex:33
 msgid "Back"
 msgstr "Listado de cuentas"
 
@@ -88,7 +88,7 @@ msgid_plural "Accounts: <span class=\"badge badge-info\">%{count}</span>"
 msgstr[0] "Cuenta: <span class=\"badge badge-info\">una</span>"
 msgstr[1] "Cuentas: <span class=\"badge badge-info\">%{count}</span>"
 
-#: lib/tq2_web/templates/account/show.html.eex:24
+#: lib/tq2_web/templates/account/show.html.eex:26
 msgid "Carts count"
 msgstr "Cantidad de carritos"
 

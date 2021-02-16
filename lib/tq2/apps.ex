@@ -67,18 +67,18 @@ defmodule Tq2.Apps do
     |> Repo.get_by(account_id: account.id, name: "wire_transfer")
   end
 
-  # @doc """
-  # Creates an app.
+  @doc """
+  Creates an app.
 
-  # ## Examples
+  ## Examples
 
-  #     iex> create_app(%Session{}, %{field: "value"})
-  #     {:ok, %MercadoPago{}}
+      iex> create_app(%Session{}, %{field: "value"})
+      {:ok, %MercadoPago{}}
 
-  #     iex> create_app(%Session{}, %{field: "bad_value"})
-  #     {:error, %Ecto.Changeset{}}
+      iex> create_app(%Session{}, %{field: "bad_value"})
+      {:error, %Ecto.Changeset{}}
 
-  # """
+  """
   def create_app(%Session{account: account, user: user}, %{"name" => app_name} = attrs)
       when app_name in @app_names do
     module = @app_modules[app_name]

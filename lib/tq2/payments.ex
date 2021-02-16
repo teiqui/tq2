@@ -36,6 +36,22 @@ defmodule Tq2.Payments do
   end
 
   @doc """
+  Get a pending payment by kind and cart token
+
+  ## Examples
+
+      iex> get_pending_payment_for_cart_and_kind(%Cart{}, "mercado_pago")
+      %Payment{}
+
+      iex> get_pending_payment_for_cart_and_kind(%Cart{}, "kind")
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_pending_payment_for_cart_and_kind(%Cart{id: id}, kind) do
+    Payment |> Repo.get_by(cart_id: id, status: "pending", kind: kind)
+  end
+
+  @doc """
   Creates a payment.
 
   ## Examples
@@ -98,18 +114,21 @@ defmodule Tq2.Payments do
   end
 
   @doc """
-  Updates a payment.
+  Updates a payment from an external_id.
 
   ## Examples
 
-      iex> update_payment(%{field: "new_value"}, %Account{})
+      iex> update_payment_by_external_id(%{external_id: "new_value"}, %Account{})
       {:ok, %Payment{}}
 
-      iex> update_payment(%{field: "bad_value"}, %Account{})
+      iex> update_payment_by_external_id(%{external_id: 123}, %Account{})
       nil
 
   """
-  def update_payment(%{external_id: external_id} = ext_payment, %Account{} = account)
+  def update_payment_by_external_id(
+        %{external_id: external_id} = ext_payment,
+        %Account{} = account
+      )
       when is_binary(external_id) do
     payment = account |> get_payment!(external_id)
     cart = %{payment.cart | account: account}
@@ -120,7 +139,25 @@ defmodule Tq2.Payments do
     |> commit_payment_and_order_transaction()
   end
 
-  def update_payment(_attrs, %Account{}), do: nil
+  def update_payment_by_external_id(_attrs, %Account{}), do: nil
+
+  @doc """
+  Updates a payment from an external_id.
+
+  ## Examples
+
+      iex> update_payment(%Cart{}, %Payment{}, %{field: new_value})
+      {:ok, %Payment{}}
+
+      iex> update_payment(%Cart{}, %Payment{}, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_payment(%Cart{} = cart, %Payment{} = payment, attrs) do
+    cart
+    |> change_payment(payment, attrs)
+    |> Trail.update(meta: %{account_id: cart.account_id})
+  end
 
   @doc """
   Deletes a payment.

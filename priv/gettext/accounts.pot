@@ -23,7 +23,7 @@ msgstr ""
 msgid "Argentina"
 msgstr ""
 
-#: lib/tq2_web/templates/account/show.html.eex:29
+#: lib/tq2_web/templates/account/show.html.eex:33
 msgid "Back"
 msgstr ""
 
@@ -87,7 +87,7 @@ msgid_plural "Accounts: <span class=\"badge badge-info\">%{count}</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/tq2_web/templates/account/show.html.eex:24
+#: lib/tq2_web/templates/account/show.html.eex:26
 msgid "Carts count"
 msgstr ""
 

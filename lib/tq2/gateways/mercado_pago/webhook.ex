@@ -26,6 +26,6 @@ defmodule Tq2.Gateways.MercadoPago.Webhook do
     |> MPCredential.for_app()
     |> MPClient.get_payment(id)
     |> MPClient.response_to_payment()
-    |> Payments.update_payment(app.account)
+    |> Payments.update_payment_by_external_id(app.account)
   end
 end

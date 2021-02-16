@@ -7,6 +7,10 @@ defmodule Tq2Web.Router do
     store: {Tq2Web.SessionPlug, :session_extras, [:store]}
   }
 
+  pipeline :csrf do
+    plug :protect_from_forgery
+  end
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -14,7 +18,6 @@ defmodule Tq2Web.Router do
     plug :fetch_current_session
     plug :check_locked_license
     plug :put_root_layout, {Tq2Web.LayoutView, :root}
-    plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :put_cache_control_headers
 
@@ -54,8 +57,7 @@ defmodule Tq2Web.Router do
   end
 
   scope "/", Tq2Web, host: "#{Application.get_env(:tq2, :store_subdomain)}." do
-    pipe_through :browser
-    pipe_through :store
+    pipe_through [:browser, :csrf, :store]
 
     live "/:slug", Store.CounterLive, :index, session: @session_extras.store
     live "/:slug/items/:id", Store.ItemLive, :index, session: @session_extras.store
@@ -71,6 +73,12 @@ defmodule Tq2Web.Router do
     get "/:slug/tokens/:token", TokenController, :show
   end
 
+  scope "/", Tq2Web, host: "#{Application.get_env(:tq2, :store_subdomain)}." do
+    pipe_through [:browser, :store]
+
+    post "/:slug/payment/transbank", Store.PaymentController, :transbank, as: :transbank_payment
+  end
+
   scope "/", Tq2Web do
     pipe_through :pwa
 
@@ -80,7 +88,7 @@ defmodule Tq2Web.Router do
   end
 
   scope "/", Tq2Web do
-    pipe_through :browser
+    pipe_through [:browser, :csrf]
 
     get "/", RootController, :index
     get "/healthy", HealthController, :index
