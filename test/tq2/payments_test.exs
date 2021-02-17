@@ -113,7 +113,9 @@ defmodule Tq2.PaymentsTest do
                |> Payments.create_payment(@invalid_attrs)
     end
 
-    test "update_payment/2 with valid data update payment create order", %{session: session} do
+    test "update_payment_by_external_id/2 with valid data update payment create order", %{
+      session: session
+    } do
       assert {:ok, %Payment{} = original_payment} =
                session
                |> cart_fixture()
@@ -124,7 +126,7 @@ defmodule Tq2.PaymentsTest do
       refute original_payment.order
 
       assert {:ok, payment} =
-               Payments.update_payment(
+               Payments.update_payment_by_external_id(
                  %{
                    external_id: @mp_attrs.external_id,
                    status: "paid"
@@ -137,7 +139,9 @@ defmodule Tq2.PaymentsTest do
       assert payment.order.data.paid
     end
 
-    test "update_payment/2 with valid data update payment with order", %{session: session} do
+    test "update_payment_by_external_id/2 with valid data update payment with order", %{
+      session: session
+    } do
       cart = session |> cart_fixture()
 
       assert {:ok, %Payment{} = original_payment} = cart |> Payments.create_payment(@mp_attrs)
@@ -150,7 +154,7 @@ defmodule Tq2.PaymentsTest do
       refute original_payment.order.data.paid
 
       assert {:ok, payment} =
-               Payments.update_payment(
+               Payments.update_payment_by_external_id(
                  %{
                    external_id: @mp_attrs.external_id,
                    status: "paid"
@@ -161,6 +165,55 @@ defmodule Tq2.PaymentsTest do
       assert payment.status == "paid"
       assert payment.order.id == original_payment.order.id
       assert payment.order.data.paid
+    end
+
+    test "get_pending_payment_for_cart_and_kind/2 returns nil for unknown payment", %{
+      session: session
+    } do
+      cart = session |> cart_fixture()
+
+      refute Payments.get_pending_payment_for_cart_and_kind(cart, "cash")
+    end
+
+    test "get_pending_payment_for_cart_and_kind/2 returns payment for kind", %{session: session} do
+      cart = session |> cart_fixture()
+
+      attrs =
+        @valid_attrs
+        |> Map.put(:status, "pending")
+        |> Map.put(:kind, "transbank")
+
+      {:ok, payment} = cart |> Payments.create_payment(attrs)
+
+      assert Payments.get_pending_payment_for_cart_and_kind(cart, "transbank").id == payment.id
+    end
+
+    test "get_pending_payment_for_cart_and_kind/2 returns nil for paid payment", %{
+      session: session
+    } do
+      cart = session |> cart_fixture()
+
+      {:ok, _payment} = cart |> Payments.create_payment(@valid_attrs)
+
+      refute Payments.get_pending_payment_for_cart_and_kind(cart, "cash")
+    end
+
+    test "update_payment/2 returns updated payment", %{
+      session: session
+    } do
+      cart = session |> cart_fixture()
+
+      {:ok, payment} = cart |> Payments.create_payment(@valid_attrs)
+
+      assert {:ok, payment} =
+               cart
+               |> Payments.update_payment(
+                 payment,
+                 %{status: "pending", gateway_data: %{"key" => "value"}}
+               )
+
+      assert payment.status == "pending"
+      assert payment.gateway_data == %{"key" => "value"}
     end
   end
 end

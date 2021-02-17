@@ -30,7 +30,7 @@ defmodule Tq2.Payments.Payment do
     :lock_version
   ]
   @statuses ~w(pending paid)
-  @kinds ~w(cash mercado_pago other wire_transfer)
+  @kinds ~w(cash mercado_pago other transbank wire_transfer)
   @money_attrs [:amount, "amount"]
 
   @doc false

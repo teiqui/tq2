@@ -80,8 +80,22 @@ defmodule Tq2.Fixtures do
   end
 
   def create_order(_ \\ nil) do
-    session = create_session()
+    cart = create_cart()
 
+    {:ok, order} =
+      Tq2.Sales.create_order(
+        default_account(),
+        %{
+          cart_id: cart.id,
+          promotion_expires_at: Timex.now() |> Timex.shift(days: 1),
+          status: "pending"
+        }
+      )
+
+    %{order: %{order | cart: cart}}
+  end
+
+  def create_visit do
     {:ok, visit} =
       Tq2.Analytics.create_visit(%{
         slug: "test",
@@ -93,11 +107,15 @@ defmodule Tq2.Fixtures do
         }
       })
 
+    visit
+  end
+
+  def create_cart do
     {:ok, cart} =
-      Tq2.Transactions.create_cart(session.account, %{
+      Tq2.Transactions.create_cart(default_account(), %{
         token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoo=",
         customer_id: create_customer().id,
-        visit_id: visit.id,
+        visit_id: create_visit().id,
         data: %{handing: "pickup"}
       })
 
@@ -113,19 +131,7 @@ defmodule Tq2.Fixtures do
         item: item
       })
 
-    cart = %{cart | lines: [line]}
-
-    {:ok, order} =
-      Tq2.Sales.create_order(
-        session.account,
-        %{
-          cart_id: cart.id,
-          promotion_expires_at: Timex.now() |> Timex.shift(days: 1),
-          status: "pending"
-        }
-      )
-
-    %{order: %{order | cart: cart}}
+    %{cart | lines: [line]}
   end
 
   def app_mercado_pago_fixture(_ \\ nil) do

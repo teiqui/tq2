@@ -76,6 +76,6 @@ defmodule Tq2Web.Store.PaymentCheckLive do
     |> MPCredential.for_app()
     |> MPClient.get_payment(payment.gateway_data["id"])
     |> MPClient.response_to_payment()
-    |> Payments.update_payment(account)
+    |> Payments.update_payment_by_external_id(account)
   end
 end
