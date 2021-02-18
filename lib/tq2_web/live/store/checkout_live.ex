@@ -118,4 +118,16 @@ defmodule Tq2Web.Store.CheckoutLive do
   defp load_shipping(%{assigns: %{cart: cart}} = socket) do
     socket |> assign(:shipping, Cart.shipping(cart))
   end
+
+  defp next_path(socket, %Cart{data: nil}, store) do
+    Routes.handing_path(socket, :index, store)
+  end
+
+  defp next_path(socket, %Cart{data: %{handing: nil}}, store) do
+    Routes.handing_path(socket, :index, store)
+  end
+
+  defp next_path(socket, _cart, store) do
+    Routes.customer_path(socket, :index, store)
+  end
 end

@@ -191,6 +191,33 @@ defmodule Tq2Web.Store.CheckoutLiveTest do
       assert has_element?(checkout_live, "tfoot tr td div.text-primary", "$10.90")
     end
 
+    test "render with handing link when no handing", %{conn: conn, cart: cart, store: store} do
+      path = Routes.checkout_path(conn, :index, store)
+      handing_path = Routes.handing_path(conn, :index, store)
+      customer_path = Routes.customer_path(conn, :index, store)
+      {:ok, checkout_live, html} = live(conn, path)
+
+      assert html =~ handing_path
+      assert render(checkout_live) =~ handing_path
+      refute html =~ customer_path
+      refute render(checkout_live) =~ customer_path
+      refute html =~ "Step"
+
+      data =
+        cart.data
+        |> Tq2.Transactions.Data.from_struct()
+        |> Map.merge(%{handing: "pickup"})
+
+      {:ok, _cart} = Tq2.Transactions.update_cart(store.account, cart, %{data: data})
+      {:ok, checkout_live, html} = live(conn, path)
+
+      refute html =~ handing_path
+      refute render(checkout_live) =~ handing_path
+      assert html =~ customer_path
+      assert render(checkout_live) =~ customer_path
+      assert html =~ "Step"
+    end
+
     test "redirect to counter without cart", %{conn: conn, cart: cart, store: store} do
       cart |> Ecto.Changeset.change(%{token: "1"}) |> Tq2.Repo.update!()
 

@@ -6,7 +6,9 @@
 <div class="row justify-content-center">
   <div class="col-md-8">
     <%= if Enum.any?(@cart.lines) do %>
-      <%= live_component @socket, ProgressComponent, step: :checkout, id: :progress_component %>
+      <%= if @cart.data do %>
+        <%= live_component @socket, ProgressComponent, step: :checkout, id: :progress_component %>
+      <% end %>
 
       <div class="table-responsive">
         <table class="table">
@@ -97,7 +99,7 @@
 <%= live_component @socket, ButtonComponent, store: @store,
                                              cart: @cart,
                                              token: @token,
-                                             to: Routes.customer_path(@socket, :index, @store),
+                                             to: next_path(@socket, @cart, @store),
                                              enabled: true do %>
   <%= dgettext("stores", "Buy now") %>
 <% end %>
