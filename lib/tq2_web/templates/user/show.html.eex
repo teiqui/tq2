@@ -5,7 +5,7 @@
   <div class="card-body">
     <p class="mb-1">
       <strong><%= dgettext("users", "Email") %></strong>:
-      <%= link @user.email, to: "mailto:#{@user.email}" %>
+      <%= link @user.email, to: {:mailto, @user.email} %>
     </p>
   </div>
 </div>

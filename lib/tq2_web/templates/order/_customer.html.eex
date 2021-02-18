@@ -10,7 +10,7 @@
 
     <%= if @customer.email do %>
       <p class="mb-0 small">
-        <%= link @customer.email, to: "mailto:#{@customer.email}", class: "text-reset" %>
+        <%= link @customer.email, to: {:mailto, @customer.email}, class: "text-reset" %>
       </p>
     <% end %>
 

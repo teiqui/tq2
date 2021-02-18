@@ -428,7 +428,7 @@
           </p>
           <p class="mb-1">
             <%= dgettext("page", "Write to") %>
-            <%= link "info@teiqui.com", to: "mailto:info@teiqui.com", class: "text-reset" %>
+            <%= link "info@teiqui.com", to: {:mailto, "info@teiqui.com"}, class: "text-reset" %>
           </p>
         </div>
       </div>

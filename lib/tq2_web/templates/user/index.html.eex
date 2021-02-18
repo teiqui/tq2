@@ -19,7 +19,7 @@
         <tr>
           <td><%= user.name %></td>
           <td><%= user.lastname %></td>
-          <td class="d-none d-lg-table-cell"><%= link user.email, to: "mailto:#{user.email}" %></td>
+          <td class="d-none d-lg-table-cell"><%= link user.email, to: {:mailto, user.email} %></td>
 
           <td class="text-right text-nowrap">
             <span><%= link_to_show @conn, user %></span>
