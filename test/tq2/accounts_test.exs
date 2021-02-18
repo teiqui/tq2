@@ -463,24 +463,10 @@ defmodule Tq2.AccountsTest do
     alias Tq2.Accounts.Registration
 
     @valid_attrs %{
-      name: "some name",
-      type: "grocery",
-      email: "some@email.com",
-      terms_of_service: true
-    }
-    @update_attrs %{
-      name: "some updated name",
-      type: "greengrocery",
-      email: "some_updated@email.com",
-      email_confirmation: "some_updated@email.com"
-    }
-    @finish_attrs %{
-      "name" => "some updated name",
-      "type" => "greengrocery",
-      "email" => "some_updated@email.com",
-      "email_confirmation" => "some_updated@email.com",
+      "name" => "some name",
+      "type" => "grocery",
+      "email" => "some@email.com",
       "password" => "123456",
-      "password_confirmation" => "123456",
       "country" => "ar",
       "time_zone" => "America/Argentina/Buenos_Aires"
     }
@@ -488,14 +474,13 @@ defmodule Tq2.AccountsTest do
       name: nil,
       type: nil,
       email: nil,
-      password: nil,
-      terms_of_service: false
+      password: nil
     }
 
     defp registration_fixture(attrs \\ %{}) do
       registration_attrs = Enum.into(attrs, @valid_attrs)
 
-      {:ok, registration} = Accounts.create_registration(registration_attrs)
+      {:ok, %{registration: registration}} = Accounts.create_registration(registration_attrs)
 
       registration
     end
@@ -526,66 +511,32 @@ defmodule Tq2.AccountsTest do
       end
     end
 
-    test "create_registration/1 with valid data creates a registration" do
-      assert {:ok, %Registration{} = registration} = Accounts.create_registration(@valid_attrs)
-
-      assert registration.name == @valid_attrs.name
-      assert registration.type == @valid_attrs.type
-      assert registration.email == @valid_attrs.email
-    end
-
-    test "create_registration/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Accounts.create_registration(@invalid_attrs)
-    end
-
-    test "update_registration/2 with valid data updates the registration" do
-      registration = registration_fixture()
-
-      assert {:ok, registration} = Accounts.update_registration(registration, @update_attrs)
-
-      assert %Registration{} = registration
-      assert registration.name == @update_attrs.name
-      assert registration.type == @update_attrs.type
-      assert registration.email == @update_attrs.email
-    end
-
-    test "update_registration/2 with invalid data returns error changeset" do
-      registration = registration_fixture()
-
-      assert {:error, %Ecto.Changeset{}} =
-               Accounts.update_registration(registration, @invalid_attrs)
-
-      assert registration.id == Accounts.get_registration!(registration.uuid).id
-    end
-
-    test "finish_registration/2 with valid data creates account and user" do
-      registration = registration_fixture()
-
+    test "create_registration/1 with valid data creates account and user" do
       assert {:ok, %{account: account, store: store, user: user, registration: registration}} =
-               Accounts.finish_registration(registration, @finish_attrs)
+               Accounts.create_registration(@valid_attrs)
 
       assert %Registration{} = registration
-      assert registration.name == @finish_attrs["name"]
-      assert registration.type == @finish_attrs["type"]
-      assert registration.email == @finish_attrs["email"]
+      assert registration.name == @valid_attrs["name"]
+      assert registration.type == @valid_attrs["type"]
+      assert registration.email == @valid_attrs["email"]
       assert registration.account_id == account.id
-      assert account.name == registration.name
-      assert store.name == registration.name
-      assert store.slug == Tq2.Shops.Store.slugified(registration.name)
-      assert user.email == registration.email
+      assert account.name == @valid_attrs["name"]
+      assert store.name == @valid_attrs["name"]
+      assert store.slug == Tq2.Shops.Store.slugified(@valid_attrs["name"])
+      assert user.email == @valid_attrs["email"]
     end
 
-    test "finish_registration/2 with repeated name creates account, user and store" do
+    test "create_registration/1 with repeated name creates account, user and store" do
       {:ok, session: session} = create_session(%{})
 
       {:ok, _} =
         Tq2.Shops.create_store(
           session,
           %{
-            name: @update_attrs.name,
-            description: @update_attrs.name,
+            name: @valid_attrs["name"],
+            description: @valid_attrs["name"],
             published: true,
-            slug: Tq2.Shops.Store.slugified(@update_attrs.name),
+            slug: Tq2.Shops.Store.slugified(@valid_attrs["name"]),
             data: %{},
             location: %{},
             configuration: %{
@@ -595,29 +546,22 @@ defmodule Tq2.AccountsTest do
           }
         )
 
-      registration = registration_fixture()
-
       assert {:ok, %{account: account, user: user, registration: registration, store: store}} =
-               Accounts.finish_registration(registration, @finish_attrs)
+               Accounts.create_registration(@valid_attrs)
 
       assert %Registration{} = registration
-      assert registration.name == @finish_attrs["name"]
-      assert registration.type == @finish_attrs["type"]
-      assert registration.email == @finish_attrs["email"]
+      assert registration.name == @valid_attrs["name"]
+      assert registration.type == @valid_attrs["type"]
+      assert registration.email == @valid_attrs["email"]
       assert registration.account_id == account.id
-      assert account.name == registration.name
-      assert user.email == registration.email
-      assert store.name == registration.name
-      refute store.slug == Tq2.Shops.Store.slugified(@update_attrs.name)
+      assert account.name == @valid_attrs["name"]
+      assert user.email == @valid_attrs["email"]
+      assert store.name == @valid_attrs["name"]
+      refute store.slug == Tq2.Shops.Store.slugified(@valid_attrs["name"])
     end
 
-    test "finish_registration/2 with invalid data returns error changeset" do
-      registration = registration_fixture()
-
-      assert {:error, %Ecto.Changeset{}} =
-               Accounts.finish_registration(registration, @invalid_attrs)
-
-      assert registration.id == Accounts.get_registration!(registration.uuid).id
+    test "create_registration/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_registration(@invalid_attrs)
     end
 
     test "access_registration/1 mark the registration as accessed" do

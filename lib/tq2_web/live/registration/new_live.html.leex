@@ -1,0 +1,101 @@
+<div class="row justify-content-center">
+  <div class="col-lg-4 col-md-6 col-sm-8 text-center">
+    <div class="pb-4 mt-4 text-center">
+      <%= img_tag Routes.static_path(@socket, "/images/logo.svg"), width: "101", height: "26", alt: gettext("Teiqui") %>
+    </div>
+
+    <span class="text-primary">
+      <i class="bi-shop icon-xl"></i>
+    </span>
+
+    <h1 class="h5 text-primary mt-4">
+      <%= dgettext("registrations", "Create your Teiqui online store") %>
+    </h1>
+
+    <h2 class="h5 mb-4">
+      <%= dgettext("registrations", "Free 14 days trial") %>
+    </h2>
+
+
+    <%= form_for @changeset, "#", [phx_submit: "save", class: "mt-5 mb-4 px-3 text-left"], fn f -> %>
+      <%= input f, :name, dgettext("registrations", "Store name"),
+                          wrapper_html: [class: "mb-4"],
+                          input_html: [
+                            autofocus: true,
+                            class: "form-control-sm",
+                            placeholder: dgettext("registrations", "Your store")
+                          ] %>
+      <%= input f, :type, dgettext("registrations", "Store type"),
+                          wrapper_html: [class: "mb-4"],
+                          input_html: [class: "form-control-sm p-0", prompt: dgettext("registrations", "Store type")],
+                          collection: types() %>
+      <%= input f, :email, dgettext("registrations", "Email"),
+                           wrapper_html: [class: "mb-4"],
+                           input_html: [class: "form-control-sm", placeholder: dgettext("registrations", "Your email")] %>
+      <%= input f, :password, dgettext("registrations", "Password"),
+                              wrapper_html: [class: "mb-4"],
+                              input_html: [class: "form-control-sm", placeholder: dgettext("registrations", "Your password")] %>
+
+      <%= hidden_input f, :time_zone, phx_hook: "TimeZone" %>
+
+      <div class="text-center">
+        <%= submit_registration() %>
+      </div>
+    <% end %>
+
+    <p class="mt-3 px-4">
+      <%= raw dgettext("registrations",
+                       "In creating my store declare that I accept the %{link} of Teiqui.", link: terms_of_service_link()) %>
+    </p>
+
+    <p class="text-center font-weight-semi-bold mt-3 mb-5">
+      <span class="text-black-50">
+        <%= dgettext("sessions", "I already have an account.") %>
+      </span>
+      <%= link dgettext("sessions", "Sign in"), to: Routes.session_path(@socket, :new) %>
+    </p>
+
+    <hr>
+
+    <div class="text-left mx-4 mt-5">
+      <h3 class="h6 text-info">
+        <%= dgettext("registrations", "Free 14 days trial") %>
+      </h3>
+
+      <p class="mb-3">
+        <%= dgettext("registrations", "When you register, you will start the free trial of Teiqui and you must bear in mind the following:") %>
+      </p>
+
+      <ul class="list-unstyled">
+        <li>
+          <span class="text-primary mr-1">
+            <i class="bi-check"></i>
+          </span>
+          <%= dgettext("registrations", "We will not ask for your card details until the trial period expires.") %>
+        </li>
+
+        <li>
+          <span class="text-primary mr-1">
+            <i class="bi-check"></i>
+          </span>
+          <%= dgettext("registrations", "You are not required to continue after the trial period.") %>
+        </li>
+
+        <li>
+          <span class="text-primary mr-1">
+            <i class="bi-check"></i>
+          </span>
+          <%= dgettext("registrations", "Prices are available by region on our website and in the License section of the app.") %>
+        </li>
+      </ul>
+
+      <p class="mb-0">
+        <%= dgettext("registrations", "Need help? Write to us") %>
+      </p>
+
+      <p class="mb-3">
+        <%= link "info@teiqui.com", to: {:mailto, "info@teiqui.com"} %>
+      </p>
+    </div>
+  </div>
+</div>

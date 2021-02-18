@@ -8,26 +8,14 @@ defmodule Tq2.Accounts.RegistrationTest do
       name: "some name",
       type: "grocery",
       email: "some@email.com",
-      terms_of_service: true
-    }
-    @invalid_attrs %{
-      name: nil,
-      type: nil,
-      email: nil,
-      terms_of_service: false
+      password: "123456"
     }
 
-    @valid_update_attrs %{
-      name: "some updated name",
-      type: "grocery",
-      email: "some_updated@email.com",
-      email_confirmation: " some_UPDATED@email.com "
-    }
-    @invalid_update_attrs %{
-      name: nil,
+    @invalid_attrs %{
+      name: "",
       type: nil,
-      email: "some@email.com",
-      email_confirmation: "other@email.com"
+      email: nil,
+      password: nil
     }
 
     test "changeset with valid attributes" do
@@ -38,30 +26,6 @@ defmodule Tq2.Accounts.RegistrationTest do
 
     test "changeset with invalid attributes" do
       changeset = Registration.changeset(%Registration{}, @invalid_attrs)
-
-      refute changeset.valid?
-    end
-
-    test "create_changeset with valid attributes" do
-      changeset = Registration.create_changeset(%Registration{}, @valid_attrs)
-
-      assert changeset.valid?
-    end
-
-    test "create_changeset with invalid attributes" do
-      changeset = Registration.create_changeset(%Registration{}, @invalid_attrs)
-
-      refute changeset.valid?
-    end
-
-    test "update changeset with valid attributes" do
-      changeset = Registration.update_changeset(%Registration{}, @valid_update_attrs)
-
-      assert changeset.valid?
-    end
-
-    test "update changeset with invalid attributes" do
-      changeset = Registration.update_changeset(%Registration{}, @invalid_update_attrs)
 
       refute changeset.valid?
     end
@@ -80,39 +44,8 @@ defmodule Tq2.Accounts.RegistrationTest do
       assert "should be at most 255 character(s)" in errors_on(changeset).email
     end
 
-    test "create changeset requires terms of service acceptance" do
-      attrs =
-        @valid_attrs
-        |> Map.put(:terms_of_service, false)
-
-      changeset = Registration.create_changeset(%Registration{}, attrs)
-
-      assert "must be accepted" in errors_on(changeset).terms_of_service
-    end
-
-    test "update changeset requires valid email confirmation" do
-      attrs =
-        @valid_update_attrs
-        |> Map.put(:email_confirmation, "wrong@email.com")
-
-      changeset = Registration.update_changeset(%Registration{}, attrs)
-
-      assert "does not match confirmation" in errors_on(changeset).email_confirmation
-    end
-
-    test "password changeset requires valid password confirmation" do
-      attrs =
-        @valid_update_attrs
-        |> Map.put(:password, "123456")
-        |> Map.put(:password_confirmation, "654321")
-
-      changeset = Registration.password_changeset(%Registration{}, attrs)
-
-      assert "does not match confirmation" in errors_on(changeset).password_confirmation
-    end
-
     test "account changeset requires account id" do
-      changeset = Registration.account_changeset(%Registration{}, @valid_update_attrs)
+      changeset = Registration.account_changeset(%Registration{}, @valid_attrs)
 
       assert "can't be blank" in errors_on(changeset).account_id
     end

@@ -510,48 +510,8 @@ defmodule Tq2.Accounts do
   """
   def create_registration(attrs) do
     %Registration{}
-    |> Registration.create_changeset(attrs)
+    |> Registration.changeset(attrs)
     |> Repo.insert()
-  end
-
-  @doc """
-  Updates a registration.
-
-  ## Examples
-
-      iex> update_registration(registration, %{name: "new_value"})
-      {:ok, %Registration{}}
-
-      iex> update_registration(registration, %{name: "bad_value"})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_registration(%Registration{} = registration, attrs) do
-    registration
-    |> Registration.update_changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Finish the registration, creates account and initial user.
-
-  ## Examples
-
-      iex> finish_registration(registration, %{name: "new_value"})
-      {:ok, %{
-        registration: %Registration{},
-        user: %User{},
-        account: %Account{}
-      }}
-
-      iex> finish_registration(registration, %{name: "bad_value"})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def finish_registration(%Registration{} = registration, attrs) do
-    registration
-    |> Registration.password_changeset(attrs)
-    |> Repo.update()
     |> put_country_data(attrs)
     |> after_create_account_jobs()
   end

@@ -101,12 +101,8 @@ defmodule Tq2Web.Router do
     )
 
     # Registration
-    live "/registrations/new", Registration.NameLive, :index, as: "registration"
-
-    live "/registrations/:uuid/email", Registration.EmailLive, :index, as: "registration_email"
-
-    live "/registrations/:uuid/password", Registration.PasswordLive, :index,
-      as: "registration_password",
+    live "/registrations/new", Registration.NewLive, :index,
+      as: "registration",
       session: @session_extras.registration
 
     get "/registrations/:uuid", RegistrationController, :show

@@ -10,121 +10,65 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.html.leex:8
-msgid "Come on!"
-msgstr ""
-
-#: lib/tq2_web/live/registration/email_live.ex:43
-#: lib/tq2_web/live/registration/name_live.ex:56 lib/tq2_web/live/registration/tour_live.html.leex:24
+#: lib/tq2_web/live/registration/tour_live.html.leex:24
 msgid "Continue"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.html.leex:12
-msgid "Let's create your account"
-msgstr ""
-
-#: lib/tq2_web/live/registration/name_live.ex:41
+#: lib/tq2_web/live/registration/new_live.ex:56
 msgid "Butcher shop"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:43
+#: lib/tq2_web/live/registration/new_live.ex:58
 msgid "Green grocery"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:42
+#: lib/tq2_web/live/registration/new_live.ex:57
 msgid "Grocery"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:50
+#: lib/tq2_web/live/registration/new_live.ex:65
 msgid "Other"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.html.leex:20
-#: lib/tq2_web/live/registration/name_live.html.leex:21
+#: lib/tq2_web/live/registration/new_live.html.leex:21
 msgid "Store name"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.html.leex:23
-#: lib/tq2_web/live/registration/name_live.html.leex:24
+#: lib/tq2_web/live/registration/new_live.html.leex:28
+#: lib/tq2_web/live/registration/new_live.html.leex:30
 msgid "Store type"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:47
+#: lib/tq2_web/live/registration/new_live.ex:62
 msgid "Bakery"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:48
+#: lib/tq2_web/live/registration/new_live.ex:63
 msgid "Bookshop / Stationery"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:44
+#: lib/tq2_web/live/registration/new_live.ex:59
 msgid "Cleaning"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:45
+#: lib/tq2_web/live/registration/new_live.ex:60
 msgid "Deli"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:46
+#: lib/tq2_web/live/registration/new_live.ex:61
 msgid "Food / Restaurant"
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.ex:49
+#: lib/tq2_web/live/registration/new_live.ex:64
 msgid "Technology"
 msgstr ""
 
-#: lib/tq2_web/live/registration/email_live.html.leex:20
+#: lib/tq2_web/live/registration/new_live.html.leex:32
 msgid "Email"
 msgstr ""
 
-#: lib/tq2_web/live/registration/email_live.html.leex:23
-#: lib/tq2_web/live/registration/email_live.html.leex:24
-msgid "Email confirmation"
-msgstr ""
-
-#: lib/tq2_web/live/registration/email_live.html.leex:21
-msgid "Enter your email"
-msgstr ""
-
-#: lib/tq2_web/live/registration/email_live.html.leex:8
-msgid "Let's keep going!"
-msgstr ""
-
-#: lib/tq2_web/live/registration/email_live.html.leex:12
-msgid "We are almost there"
-msgstr ""
-
-#: lib/tq2_web/live/registration/password_live.ex:57
-msgid "Create"
-msgstr ""
-
-#: lib/tq2_web/live/registration/password_live.html.leex:21
-msgid "Enter your password"
-msgstr ""
-
-#: lib/tq2_web/live/registration/password_live.html.leex:12
-msgid "Finally"
-msgstr ""
-
-#: lib/tq2_web/live/registration/password_live.html.leex:20
+#: lib/tq2_web/live/registration/new_live.html.leex:35
 msgid "Password"
-msgstr ""
-
-#: lib/tq2_web/live/registration/password_live.html.leex:23
-#: lib/tq2_web/live/registration/password_live.html.leex:24
-msgid "Password confirmation"
-msgstr ""
-
-#: lib/tq2_web/live/registration/password_live.html.leex:8
-msgid "Yes!"
-msgstr ""
-
-#: lib/tq2_web/live/registration/password_live.ex:59
-msgid "Creating..."
-msgstr ""
-
-#: lib/tq2_web/live/registration/email_live.ex:45
-msgid "Saving..."
 msgstr ""
 
 #: lib/tq2_web/live/registration/welcome_live.html.leex:46
@@ -163,11 +107,7 @@ msgstr ""
 msgid "Your customers will become your sellers using group shopping, thus bringing new buyers."
 msgstr ""
 
-#: lib/tq2_web/live/registration/name_live.html.leex:27
-msgid "I agree to the %{link}"
-msgstr ""
-
-#: lib/tq2_web/live/registration/name_live.ex:64
+#: lib/tq2_web/live/registration/new_live.ex:79
 msgid "terms of service"
 msgstr ""
 
@@ -181,4 +121,57 @@ msgstr ""
 
 #: lib/tq2_web/live/registration/tour_live.html.leex:13
 msgid "Would you like to take a brief tour to know Teiqui main features?"
+msgstr ""
+
+#: lib/tq2_web/live/registration/new_live.ex:71
+msgid "Create store"
+msgstr ""
+
+#: lib/tq2_web/live/registration/new_live.html.leex:12
+msgid "Create your Teiqui online store"
+msgstr ""
+
+#: lib/tq2_web/live/registration/new_live.ex:73
+msgid "Creating..."
+msgstr ""
+
+#: lib/tq2_web/live/registration/new_live.html.leex:16
+#: lib/tq2_web/live/registration/new_live.html.leex:62
+msgid "Free 14 days trial"
+msgstr ""
+
+#: lib/tq2_web/live/registration/new_live.html.leex:47
+msgid "In creating my store declare that I accept the %{link} of Teiqui."
+msgstr ""
+
+#: lib/tq2_web/live/registration/new_live.html.leex:93
+msgid "Need help? Write to us"
+msgstr ""
+
+#: lib/tq2_web/live/registration/new_live.html.leex:88
+msgid "Prices are available by region on our website and in the License section of the app."
+msgstr ""
+
+#: lib/tq2_web/live/registration/new_live.html.leex:74
+msgid "We will not ask for your card details until the trial period expires."
+msgstr ""
+
+#: lib/tq2_web/live/registration/new_live.html.leex:66
+msgid "When you register, you will start the free trial of Teiqui and you must bear in mind the following:"
+msgstr ""
+
+#: lib/tq2_web/live/registration/new_live.html.leex:81
+msgid "You are not required to continue after the trial period."
+msgstr ""
+
+#: lib/tq2_web/live/registration/new_live.html.leex:34
+msgid "Your email"
+msgstr ""
+
+#: lib/tq2_web/live/registration/new_live.html.leex:37
+msgid "Your password"
+msgstr ""
+
+#: lib/tq2_web/live/registration/new_live.html.leex:26
+msgid "Your store"
 msgstr ""

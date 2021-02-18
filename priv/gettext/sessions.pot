@@ -51,13 +51,11 @@ msgstr ""
 msgid "You must be logged in."
 msgstr ""
 
-#: lib/tq2_web/live/registration/email_live.html.leex:36
-#: lib/tq2_web/live/registration/name_live.html.leex:36
+#: lib/tq2_web/live/registration/new_live.html.leex:53
 msgid "I already have an account."
 msgstr ""
 
-#: lib/tq2_web/live/registration/email_live.html.leex:38
-#: lib/tq2_web/live/registration/name_live.html.leex:38
+#: lib/tq2_web/live/registration/new_live.html.leex:55
 msgid "Sign in"
 msgstr ""
 

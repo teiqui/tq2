@@ -1,4 +1,4 @@
-defmodule Tq2Web.Registration.NameLive do
+defmodule Tq2Web.Registration.NewLive do
   use Tq2Web, :live_view
 
   import Tq2.Utils.Urls, only: [web_uri: 0]
@@ -7,24 +7,44 @@ defmodule Tq2Web.Registration.NameLive do
   alias Tq2.Accounts.Registration
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(_params, %{"remote_ip" => ip}, socket) do
     changeset = %Registration{} |> Accounts.change_registration()
 
     socket =
       socket
       |> assign(:changeset, changeset)
+      |> assign_country(ip)
 
     {:ok, socket, temporary_assigns: [changeset: nil]}
   end
 
   @impl true
-  def handle_event("save", %{"registration" => registration_params}, socket) do
-    case Accounts.create_registration(registration_params) do
-      {:ok, registration} ->
+  def handle_event(
+        "save",
+        %{"registration" => registration_params},
+        %{assigns: %{country: country}} = socket
+      ) do
+    params = registration_params |> Map.put("country", country)
+
+    case Accounts.create_registration(params) do
+      {:ok, %{registration: registration}} ->
         socket =
           socket
-          |> push_redirect(to: Routes.registration_email_path(socket, :index, registration))
+          |> redirect(to: Routes.registration_path(socket, :show, registration))
 
+        {:noreply, socket}
+
+      # Ecto.Multi error
+      {:error, :registration, changeset, _changes} ->
+        socket =
+          socket
+          |> assign(:changeset, changeset)
+
+        {:noreply, socket}
+
+      # Other Ecto.Multi error
+      {:error, _other, _changeset, _changes} ->
+        # TODO: handle this case properly
         {:noreply, socket}
 
       {:error, changeset} ->
@@ -53,9 +73,9 @@ defmodule Tq2Web.Registration.NameLive do
 
   defp submit_registration do
     submit(
-      dgettext("registrations", "Continue"),
-      class: "btn btn-lg btn-outline-primary border border-primary rounded-pill px-4 mt-4",
-      phx_disable_with: dgettext("customers", "Saving...")
+      dgettext("registrations", "Create store"),
+      class: "btn btn-lg btn-primary rounded-pill px-4 mt-4",
+      phx_disable_with: dgettext("registrations", "Creating...")
     )
   end
 
@@ -66,5 +86,15 @@ defmodule Tq2Web.Registration.NameLive do
         target: "_blank"
       )
     )
+  end
+
+  defp assign_country(socket, ip) do
+    code =
+      case Geolix.lookup(ip) do
+        %{default: %{country: %{iso_code: code}}} -> String.downcase(code)
+        _ -> "ar"
+      end
+
+    socket |> assign(country: code)
   end
 end

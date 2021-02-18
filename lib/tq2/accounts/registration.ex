@@ -14,7 +14,6 @@ defmodule Tq2.Accounts.Registration do
     field :name, TrimmedString
     field :type, TrimmedString
     field :email, TrimmedString
-    field :terms_of_service, :boolean, default: false
     field :accessed_at, :utc_datetime
     field :password, :string, virtual: true
 
@@ -28,37 +27,17 @@ defmodule Tq2.Accounts.Registration do
     attrs = canonize(attrs)
 
     registration
-    |> cast(attrs, [:name, :type, :email, :password, :terms_of_service])
-    |> validate_required([:name, :type])
+    |> cast(attrs, [:name, :type, :email, :password])
+    |> validate_required([:name, :type, :email, :password])
     |> validate_length(:name, max: 255)
     |> validate_length(:type, max: 255)
     |> validate_length(:email, max: 255)
+    |> validate_length(:password, min: 6, max: 100)
     |> validate_format(:email, ~r/.+@.+\..+/)
     |> unsafe_validate_unique(:email, Repo)
     |> unique_constraint(:uuid)
     |> unique_constraint(:email)
     |> assoc_constraint(:account)
-  end
-
-  def create_changeset(%Registration{} = registration, attrs) do
-    registration
-    |> changeset(attrs)
-    |> validate_acceptance(:terms_of_service)
-  end
-
-  def update_changeset(%Registration{} = registration, attrs) do
-    registration
-    |> changeset(attrs)
-    |> validate_required([:email])
-    |> validate_confirmation(:email, required: true)
-  end
-
-  def password_changeset(%Registration{} = registration, attrs) do
-    registration
-    |> changeset(attrs)
-    |> validate_required([:password])
-    |> validate_confirmation(:password, required: true)
-    |> validate_length(:password, min: 6, max: 100)
   end
 
   def account_changeset(%Registration{} = registration, attrs) do

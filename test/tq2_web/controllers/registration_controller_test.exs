@@ -4,24 +4,17 @@ defmodule Tq2Web.RegistrationControllerTest do
   alias Tq2.Accounts
 
   @valid_attrs %{
-    name: "some updated name",
-    type: "grocery",
-    email: "some_updated@email.com",
-    email_confirmation: " some_UPDATED@email.com ",
-    password: "123456",
-    password_confirmation: "123456",
-    country: "ar",
-    time_zone: "America/Argentina/Buenos_Aires",
-    terms_of_service: true
+    "name" => "some updated name",
+    "type" => "grocery",
+    "email" => "some_updated@email.com",
+    "password" => "123456",
+    "country" => "ar",
+    "time_zone" => "America/Argentina/Buenos_Aires"
   }
 
   defp fixture(:registration) do
-    {:ok, registration} = Accounts.create_registration(@valid_attrs)
-
-    attrs = @valid_attrs |> Map.new(fn {k, v} -> {to_string(k), v} end)
-
-    {:ok, %{account: account, user: _user, registration: registration}} =
-      Accounts.finish_registration(registration, attrs)
+    {:ok, %{account: account, registration: registration}} =
+      Accounts.create_registration(@valid_attrs)
 
     %{registration | account: account}
   end
