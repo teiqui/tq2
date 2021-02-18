@@ -5,7 +5,7 @@ defmodule Tq2Web.VisitPlugTest do
 
   setup %{conn: conn} do
     conn =
-      %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
+      %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.localhost"}
       |> bypass_through(Tq2Web.Router, :browser)
       |> get("/")
 

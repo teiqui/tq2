@@ -170,7 +170,7 @@
           <%= dgettext("stores", "Payment") %>
         </p>
 
-        <p class="mb-0">
+        <p class="mb-0" <%= maybe_put_phx_hook @cart.data.payment %>>
           <%= payment @cart.data.payment %>
         </p>
       </div>

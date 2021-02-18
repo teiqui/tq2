@@ -32,7 +32,7 @@ defmodule Tq2Web.Store.PaymentCheckLiveTest do
       })
 
     conn =
-      %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
+      %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.localhost"}
       |> Plug.Test.init_test_session(
         token: @create_attrs.token,
         visit_id: visit.id,
@@ -108,7 +108,7 @@ defmodule Tq2Web.Store.PaymentCheckLiveTest do
           kind: "mercado_pago",
           status: "pending",
           amount: Cart.total(cart),
-          external_reference: Ecto.UUID.generate(),
+          external_id: Ecto.UUID.generate(),
           gateway_data: %{
             "id" => 123,
             "external_reference" => Ecto.UUID.generate(),
@@ -130,7 +130,7 @@ defmodule Tq2Web.Store.PaymentCheckLiveTest do
           kind: "mercado_pago",
           status: "paid",
           amount: Cart.total(cart),
-          external_reference: Ecto.UUID.generate(),
+          external_id: Ecto.UUID.generate(),
           gateway_data: %{
             "id" => 123,
             "external_reference" => Ecto.UUID.generate(),
@@ -163,7 +163,7 @@ defmodule Tq2Web.Store.PaymentCheckLiveTest do
           kind: "mercado_pago",
           status: "pending",
           amount: Cart.total(cart),
-          external_reference: Ecto.UUID.generate(),
+          external_id: Ecto.UUID.generate(),
           gateway_data: %{
             "id" => 123,
             "external_reference" => Ecto.UUID.generate(),
@@ -197,6 +197,30 @@ defmodule Tq2Web.Store.PaymentCheckLiveTest do
 
       assert Routes.order_path(conn, :index, store, order.id) == to
       assert order.data.paid
+    end
+
+    test "check and redirect to payment with cancelled payment", %{
+      conn: conn,
+      cart: cart,
+      store: store
+    } do
+      app_mercado_pago_fixture()
+
+      {:ok, _payment} =
+        Payments.create_payment(cart, %{
+          kind: "transbank",
+          status: "cancelled",
+          amount: Cart.total(cart),
+          external_id: Ecto.UUID.generate(),
+          gateway_data: %{}
+        })
+
+      path = Routes.payment_check_path(conn, :index, store)
+
+      assert {:error, {:live_redirect, %{flash: flash, to: to}}} = live(conn, path)
+
+      assert is_binary(flash)
+      assert Routes.payment_path(conn, :index, store) == to
     end
 
     test "redirect to counter without cart", %{conn: conn, cart: cart, store: store} do

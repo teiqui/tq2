@@ -186,6 +186,13 @@ defmodule Tq2.Payments do
     |> add_order_update(account, cart, order)
   end
 
+  defp update_payment_with_order(
+         %{changes: %{status: "cancelled"}, data: %{account: account}} = changeset
+       ) do
+    changeset
+    |> Trail.update(meta: %{account_id: account.id})
+  end
+
   defp update_payment_with_order(%{data: payment}), do: {:ok, payment}
 
   defp add_order_update(multi, account, %Cart{} = cart, nil) do
@@ -241,10 +248,12 @@ defmodule Tq2.Payments do
     account |> Sales.change_order(order, %{data: data})
   end
 
-  defp commit_payment_and_order_transaction(multi) do
+  defp commit_payment_and_order_transaction(%Ecto.Multi{} = multi) do
     case Tq2.Repo.transaction(multi) do
       {:ok, %{model: payment, order: order}} -> {:ok, %{payment | order: order}}
       {:error, _operation, failed_value, _changes} -> {:error, failed_value}
     end
   end
+
+  defp commit_payment_and_order_transaction(result), do: result
 end

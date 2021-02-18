@@ -51,5 +51,23 @@ defmodule Tq2Web.OrderControllerTest do
 
       assert response =~ String.capitalize(order.status)
     end
+
+    @tag login_as: "test@user.com"
+    test "show order without cancelled payments", %{conn: conn, order: order} do
+      {:ok, _payment} =
+        Tq2.Payments.create_payment(
+          order.cart,
+          %{
+            amount: Tq2.Transactions.Cart.total(order.cart),
+            kind: "transbank",
+            status: "cancelled"
+          }
+        )
+
+      conn = get(conn, Routes.order_path(conn, :show, order))
+      response = html_response(conn, 200)
+
+      refute response =~ "Transbank"
+    end
   end
 end

@@ -31,7 +31,7 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       })
 
     conn =
-      %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
+      %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.localhost"}
       |> Plug.Test.init_test_session(
         token: @create_attrs.token,
         visit_id: visit.id,
@@ -351,6 +351,16 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       {:error, {:live_redirect, %{to: to}}} = live(conn, path)
 
       assert to == Routes.counter_path(conn, :index, store)
+    end
+
+    test "render hook for transbank", %{conn: conn, store: store} do
+      path = Routes.payment_path(conn, :index, store)
+      {:ok, payment_live, _html} = live(conn, path)
+      content = render(payment_live)
+
+      assert content =~ "cash"
+      assert content =~ "Transbank - OnePay"
+      assert content =~ "phx-hook=\"TransbankModal\""
     end
 
     defp mock_post_with(%{} = body, code \\ 201) do

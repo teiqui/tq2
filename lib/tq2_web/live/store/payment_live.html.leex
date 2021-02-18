@@ -15,6 +15,7 @@
                        name="kind"
                        class="custom-control-input"
                        value="<%= kind %>"
+                       <%= maybe_put_phx_hook kind %>
                        <%= if cart_payment_kind?(@cart, kind), do: "checked" %>>
                 <label class="custom-control-label" for="<%= kind %>">
                   <span class="ml-2 d-block">

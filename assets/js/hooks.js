@@ -7,6 +7,7 @@ import {ScrollToTop} from './hooks/scroll_to_top'
 import {Share} from './hooks/share'
 import {TimeZone} from './hooks/time_zone'
 import {TourLink} from './hooks/tour_link'
+import {TransbankModal} from './hooks/transbank_modal'
 
 export const Hooks = {
   BodyBackground,
@@ -17,5 +18,6 @@ export const Hooks = {
   ScrollToTop,
   Share,
   TimeZone,
-  TourLink
+  TourLink,
+  TransbankModal
 }

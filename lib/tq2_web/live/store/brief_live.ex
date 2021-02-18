@@ -1,7 +1,13 @@
 defmodule Tq2Web.Store.BriefLive do
   use Tq2Web, :live_view
 
-  import Tq2Web.PaymentLiveUtils, only: [create_order: 3, create_mp_payment: 3]
+  import Tq2Web.PaymentLiveUtils,
+    only: [
+      create_mp_payment: 3,
+      create_order: 3,
+      create_tbk_payment: 3
+    ]
+
   import Tq2Web.Utils, only: [format_money: 1]
 
   alias Tq2.{Sales, Transactions}
@@ -27,6 +33,11 @@ defmodule Tq2Web.Store.BriefLive do
     case cart.data.payment do
       "mercado_pago" ->
         socket = socket |> create_mp_payment(store, cart)
+
+        {:noreply, socket}
+
+      "transbank" ->
+        socket = socket |> create_tbk_payment(store, cart)
 
         {:noreply, socket}
 
@@ -130,4 +141,11 @@ defmodule Tq2Web.Store.BriefLive do
   defp payment("wire_transfer") do
     dgettext("payments", "Wire transfer")
   end
+
+  defp payment("transbank") do
+    dgettext("payments", "Transbank - OnePay")
+  end
+
+  defp maybe_put_phx_hook("transbank"), do: "phx-hook=TransbankModal"
+  defp maybe_put_phx_hook(_), do: nil
 end

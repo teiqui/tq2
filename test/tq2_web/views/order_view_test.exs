@@ -47,7 +47,14 @@ defmodule Tq2Web.OrderViewTest do
     shipping = Cart.shipping(order.cart)
 
     content =
-      render_to_string(OrderView, "show.html", conn: conn, order: order, shipping: shipping)
+      render_to_string(
+        OrderView,
+        "show.html",
+        conn: conn,
+        order: order,
+        payments: order.cart.payments,
+        shipping: shipping
+      )
 
     assert String.contains?(content, "Order #1")
     assert String.contains?(content, "Pending")
@@ -66,7 +73,14 @@ defmodule Tq2Web.OrderViewTest do
     shipping = Cart.shipping(order.cart)
 
     content =
-      render_to_string(OrderView, "show.html", conn: conn, order: order, shipping: shipping)
+      render_to_string(
+        OrderView,
+        "show.html",
+        conn: conn,
+        order: order,
+        payments: order.cart.payments,
+        shipping: shipping
+      )
 
     refute String.contains?(content, "alert alert-")
   end

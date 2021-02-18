@@ -38,7 +38,7 @@ defmodule Tq2.Gateways.Transbank do
       channel: channel,
       externalUniqueNumber: cart_external_reference(cart),
       generateOttQrCode: "true",
-      issuedAt: timestamp(),
+      issuedAt: __MODULE__.timestamp(),
       items: items_for_cart(cart),
       itemsQuantity: items_quantity(cart),
       total: total,
@@ -60,7 +60,7 @@ defmodule Tq2.Gateways.Transbank do
       apiKey: app.data.api_key,
       appKey: app_key(),
       externalUniqueNumber: external_id,
-      issuedAt: timestamp(),
+      issuedAt: __MODULE__.timestamp(),
       occ: occ
     }
 
@@ -71,6 +71,41 @@ defmodule Tq2.Gateways.Transbank do
     |> request_post(attrs)
     |> parse_response()
   end
+
+  @doc "Returns a parsed payment map given a MP-payment"
+  def response_to_payment(
+        %{
+          "responseCode" => "OK",
+          "result" => %{
+            "issuedAt" => issued_at
+          }
+        },
+        %{external_id: external_id}
+      ) do
+    paid_at = issued_at |> DateTime.from_unix!()
+
+    %{
+      external_id: external_id,
+      paid_at: paid_at,
+      status: "paid"
+    }
+  end
+
+  def response_to_payment(
+        %{"responseCode" => "INVALID_TRANSACTION", "description" => description},
+        %{external_id: external_id}
+      ) do
+    %{
+      external_id: external_id,
+      status: "cancelled",
+      error: description
+    }
+  end
+
+  def response_to_payment(%{"description" => description}, _payment), do: %{error: description}
+
+  # Public function to skip the System module mock
+  def timestamp, do: System.os_time(:second)
 
   defp items_for_cart(%{data: %{handing: "delivery", shipping: %{price: price}}} = cart) do
     title = dgettext("stores", "Shipping") |> normalize_string()
@@ -117,10 +152,8 @@ defmodule Tq2.Gateways.Transbank do
   end
 
   defp cart_external_reference(%{id: id}) do
-    "tq2-tb-cart-#{id}-#{timestamp()}"
+    "tq2-tb-cart-#{id}-#{__MODULE__.timestamp()}"
   end
-
-  defp timestamp, do: System.os_time(:second)
 
   defp callback_url(store) do
     store_uri() |> Tq2Web.Router.Helpers.payment_check_url(:index, store)

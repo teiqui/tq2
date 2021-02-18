@@ -5,6 +5,7 @@ defmodule Tq2Web.Store.PaymentCheckLive do
 
   alias Tq2.Gateways.MercadoPago, as: MPClient
   alias Tq2.Gateways.MercadoPago.Credential, as: MPCredential
+  alias Tq2.Gateways.Transbank, as: TbkClient
   alias Tq2.Payments
   alias Tq2.Payments.Payment
   alias Tq2.{Apps, Transactions}
@@ -52,7 +53,7 @@ defmodule Tq2Web.Store.PaymentCheckLive do
         socket |> push_redirect(to: Routes.payment_path(socket, :index, store))
 
       payments ->
-        check_pending_payments(payments, store.account)
+        socket = check_pending_payments(payments, store.account, socket)
 
         cart = Tq2.Repo.preload(cart, :payments, force: true)
 
@@ -64,10 +65,12 @@ defmodule Tq2Web.Store.PaymentCheckLive do
     end
   end
 
-  defp check_pending_payments(payments, account) do
+  defp check_pending_payments(payments, account, socket) do
     payments
     |> Enum.filter(&(&1.status == "pending" && &1.external_id))
-    |> Enum.each(&check_payment(&1, account))
+    |> Enum.map(&check_payment(&1, account))
+    |> Enum.find(&is_binary(&1))
+    |> maybe_add_error_flash(socket)
   end
 
   defp check_payment(%Payment{kind: "mercado_pago"} = payment, account) do
@@ -77,5 +80,49 @@ defmodule Tq2Web.Store.PaymentCheckLive do
     |> MPClient.get_payment(payment.gateway_data["id"])
     |> MPClient.response_to_payment()
     |> Payments.update_payment_by_external_id(account)
+
+    nil
   end
+
+  defp check_payment(%Payment{kind: "transbank"} = payment, account) do
+    # TODO: Remove this ones Transbank app is implemented
+    # account
+    # |> Apps.get_app("transbank")
+    response =
+      %{
+        data: %{
+          api_key: "dKVhq1WGt_XapIYirTXNyUKoWTDFfxaEV63-O5jcsdw",
+          shared_secret: "?XW#WOLG##FBAGEAYSNQ5APD#JF@$AYZ"
+        }
+      }
+      |> TbkClient.confirm_preference(payment)
+      |> TbkClient.response_to_payment(payment)
+
+    response
+    |> Payments.update_payment_by_external_id(account)
+    |> process_payment_update()
+    |> maybe_append_error_description(response)
+  end
+
+  defp maybe_append_error_description(nil, %{error: error}), do: error
+
+  defp maybe_append_error_description(errors, %{error: error}) when is_binary(errors) do
+    "#{errors}<br>#{error}"
+  end
+
+  defp maybe_append_error_description(_, _), do: nil
+
+  defp process_payment_update({:ok, _}), do: nil
+
+  defp process_payment_update({:error, %{errors: errors}}) do
+    errors
+    |> Enum.map(fn {_k, error} -> Tq2Web.ErrorHelpers.translate_error(error) end)
+    |> Enum.join("<br>")
+  end
+
+  defp maybe_add_error_flash(error, socket) when is_binary(error) do
+    socket |> put_flash(:error, error)
+  end
+
+  defp maybe_add_error_flash(_, socket), do: socket
 end

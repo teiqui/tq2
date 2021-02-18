@@ -2,7 +2,12 @@ defmodule Tq2Web.Store.PaymentLive do
   use Tq2Web, :live_view
 
   import Tq2Web.PaymentLiveUtils,
-    only: [create_order: 3, create_mp_payment: 3, check_for_paid_cart: 1]
+    only: [
+      check_for_paid_cart: 1,
+      create_mp_payment: 3,
+      create_tbk_payment: 3,
+      create_order: 3
+    ]
 
   alias Tq2.{Apps, Transactions}
   alias Tq2Web.Store.{ButtonComponent, HeaderComponent, ProgressComponent}
@@ -49,6 +54,11 @@ defmodule Tq2Web.Store.PaymentLive do
 
         {:noreply, socket}
 
+      "transbank" ->
+        socket = socket |> create_tbk_payment(store, cart)
+
+        {:noreply, socket}
+
       _ ->
         socket = socket |> create_order(store, cart)
 
@@ -84,6 +94,15 @@ defmodule Tq2Web.Store.PaymentLive do
         []
       end
 
+    # TODO: Remove this ones Transbank app is implemented
+    main_methods =
+      if Application.get_env(:tq2, :env) == :prod do
+        main_methods
+      else
+        main_methods ++
+          [{"transbank", translate_name("transbank"), %Tq2.Apps.App{name: "transbank"}}]
+      end
+
     app_names =
       store.account
       |> Apps.payment_apps()
@@ -117,6 +136,10 @@ defmodule Tq2Web.Store.PaymentLive do
     [content_tag(:p, app.data["description"]), number]
   end
 
+  defp payment_method_description("transbank", _) do
+    dgettext("payments", "Pay with OnePay app.")
+  end
+
   defp static_img(kind, text) do
     img_tag(
       Routes.static_path(Tq2Web.Endpoint, "/images/#{kind}.png"),
@@ -138,4 +161,11 @@ defmodule Tq2Web.Store.PaymentLive do
   defp translate_name("wire_transfer") do
     dgettext("payments", "Wire transfer")
   end
+
+  defp translate_name("transbank") do
+    dgettext("payments", "Transbank - OnePay")
+  end
+
+  defp maybe_put_phx_hook("transbank"), do: "phx-hook=TransbankModal"
+  defp maybe_put_phx_hook(_), do: nil
 end

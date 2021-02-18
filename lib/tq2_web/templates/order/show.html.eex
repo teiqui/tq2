@@ -90,7 +90,7 @@
     </table>
   </div>
 
-  <%= if Enum.any?(@order.cart.payments) do %>
+  <%= if Enum.any?(@payments) do %>
     <h3 class="h6 mt-4">
       <%= dgettext("orders", "Payments") %>
     </h3>
@@ -103,7 +103,7 @@
           <th><%= dgettext("payments", "Inserted at") %></th>
         </thead>
 
-        <%= for payment <- @order.cart.payments do %>
+        <%= for payment <- @payments do %>
           <tr>
             <td>
               <%= payment_kind(payment.kind) %>

@@ -25,8 +25,9 @@ defmodule Tq2Web.OrderView do
   @payment_kinds %{
     "cash" => dgettext("payments", "Cash"),
     "mercado_pago" => dgettext("payments", "MercadoPago"),
-    "wire_transfer" => dgettext("payments", "Wire transfer"),
-    "other" => dgettext("payments", "Other")
+    "other" => dgettext("payments", "Other"),
+    "transbank" => dgettext("payments", "Transbank - Onepay"),
+    "wire_transfer" => dgettext("payments", "Wire transfer")
   }
 
   def link_to_show(conn, order) do
