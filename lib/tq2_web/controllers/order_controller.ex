@@ -18,9 +18,10 @@ defmodule Tq2Web.OrderController do
 
   def show(conn, %{"id" => id}, session) do
     order = Sales.get_order!(session.account, id)
+    payments = order.cart.payments |> Enum.reject(&(&1.status == "cancelled"))
     shipping = Cart.shipping(order.cart)
 
-    render(conn, "show.html", order: order, shipping: shipping)
+    render(conn, "show.html", order: order, payments: payments, shipping: shipping)
   end
 
   defp render_index(conn, %{total_entries: 0}), do: render(conn, "empty.html")

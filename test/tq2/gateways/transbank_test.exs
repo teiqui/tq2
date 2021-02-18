@@ -26,15 +26,15 @@ defmodule Tq2.Gateways.TransbankTest do
             |> Jason.decode!()
             |> Map.get("signature")
 
-          assert signature == "Oylpybusk68Vxg18+6GrY9ryOCOfjZHbU4I24b3fKHY="
+          assert signature == "p2ma+PBjGlTpT+c8VZrlKz5knGmAeaBp60QKrsm38B4="
 
           {:ok, %HTTPoison.Response{body: Jason.encode!(attrs), status_code: 200}}
         end
       ]
 
-      system_mock = [os_time: fn _ -> 1_613_349_864 end]
+      timestamp_mock = [timestamp: fn -> 1_613_349_864 end]
 
-      with_mock System, system_mock do
+      with_mock Transbank, [:passthrough], timestamp_mock do
         with_mock HTTPoison, mock do
           result = Transbank.create_cart_preference(app, cart, store)
 
@@ -80,9 +80,9 @@ defmodule Tq2.Gateways.TransbankTest do
         end
       ]
 
-      system_mock = [os_time: fn _ -> 1_613_349_864 end]
+      timestamp_mock = [timestamp: fn -> 1_613_349_864 end]
 
-      with_mock System, system_mock do
+      with_mock Transbank, [:passthrough], timestamp_mock do
         with_mock HTTPoison, mock do
           result = Transbank.confirm_preference(app, payment)
 
@@ -90,6 +90,41 @@ defmodule Tq2.Gateways.TransbankTest do
           assert result["result"]["occ"] == "3333"
         end
       end
+    end
+
+    test "response_to_payment/2 return error" do
+      result = Transbank.response_to_payment(%{"description" => "Something wrong"}, %{})
+
+      assert %{error: "Something wrong"} == result
+    end
+
+    test "response_to_payment/2 return cancelled payment attrs" do
+      result =
+        Transbank.response_to_payment(
+          %{
+            "responseCode" => "INVALID_TRANSACTION",
+            "description" => "Something wrong"
+          },
+          %{external_id: "123"}
+        )
+
+      assert %{external_id: "123", status: "cancelled", error: "Something wrong"} == result
+    end
+
+    test "response_to_payment/2 return paid payment attrs" do
+      issued_at = System.os_time(:second)
+
+      result =
+        Transbank.response_to_payment(
+          %{
+            "responseCode" => "OK",
+            "result" => %{"issuedAt" => issued_at}
+          },
+          %{external_id: "123"}
+        )
+
+      assert %{external_id: "123", status: "paid", paid_at: DateTime.from_unix!(issued_at)} ==
+               result
     end
   end
 

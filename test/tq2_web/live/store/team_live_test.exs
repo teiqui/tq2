@@ -18,7 +18,7 @@ defmodule Tq2Web.Store.TeamLiveTest do
   end
 
   setup %{conn: conn} do
-    conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
+    conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.localhost"}
 
     {:ok, %{conn: conn}}
   end

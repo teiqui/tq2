@@ -13,8 +13,9 @@ defmodule Tq2Web.RootControllerTest do
       url_config = Tq2Web.Endpoint.config(:url)
       host = Enum.join([Application.get_env(:tq2, :web_subdomain), url_config[:host]], ".")
       conn = %{conn | host: "teiqui.com"} |> get(Routes.root_path(conn, :index))
+      uri = %URI{scheme: "https", host: host, port: Tq2Web.Endpoint.config(:http)[:port]}
 
-      assert redirected_to(conn) == Routes.page_url(%URI{scheme: "https", host: host}, :index)
+      assert redirected_to(conn) == Routes.page_url(uri, :index)
     end
 
     @tag login_as: "test@user.com"

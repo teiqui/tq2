@@ -22,7 +22,7 @@ defmodule Tq2Web.Store.HandingLiveTest do
       })
 
     conn =
-      %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
+      %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.localhost"}
       |> Plug.Test.init_test_session(
         token: @create_attrs.token,
         visit_id: visit.id,

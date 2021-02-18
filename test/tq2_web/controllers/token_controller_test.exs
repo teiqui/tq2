@@ -2,7 +2,7 @@ defmodule Tq2Web.TokenControllerTest do
   use Tq2Web.ConnCase, async: true
 
   setup %{conn: conn} do
-    conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
+    conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.localhost"}
 
     {:ok, %{conn: conn}}
   end

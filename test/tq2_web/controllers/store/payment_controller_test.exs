@@ -5,7 +5,7 @@ defmodule Tq2Web.Store.PaymentControllerTest do
   import Tq2.Fixtures, only: [default_store: 0, create_cart: 0]
 
   setup %{conn: conn} do
-    conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.lvh.me"}
+    conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.localhost"}
 
     {:ok, %{conn: conn, store: default_store()}}
   end
