@@ -15,19 +15,19 @@ msgstr ""
 msgid "Continue"
 msgstr "Continuar"
 
-#: lib/tq2_web/live/registration/new_live.ex:56
+#: lib/tq2_web/live/registration/new_live.ex:61
 msgid "Butcher shop"
 msgstr "Carnicería"
 
-#: lib/tq2_web/live/registration/new_live.ex:58
+#: lib/tq2_web/live/registration/new_live.ex:63
 msgid "Green grocery"
 msgstr "Verdulería"
 
-#: lib/tq2_web/live/registration/new_live.ex:57
+#: lib/tq2_web/live/registration/new_live.ex:62
 msgid "Grocery"
 msgstr "Almacén / Abarrotes"
 
-#: lib/tq2_web/live/registration/new_live.ex:65
+#: lib/tq2_web/live/registration/new_live.ex:70
 msgid "Other"
 msgstr "Otro"
 
@@ -40,27 +40,27 @@ msgstr "Nombre de la tienda"
 msgid "Store type"
 msgstr "Tipo de tienda"
 
-#: lib/tq2_web/live/registration/new_live.ex:62
+#: lib/tq2_web/live/registration/new_live.ex:67
 msgid "Bakery"
 msgstr "Panadería"
 
-#: lib/tq2_web/live/registration/new_live.ex:63
+#: lib/tq2_web/live/registration/new_live.ex:68
 msgid "Bookshop / Stationery"
 msgstr "Librería / Papelería"
 
-#: lib/tq2_web/live/registration/new_live.ex:59
+#: lib/tq2_web/live/registration/new_live.ex:64
 msgid "Cleaning"
 msgstr "Artículos de limpieza"
 
-#: lib/tq2_web/live/registration/new_live.ex:60
+#: lib/tq2_web/live/registration/new_live.ex:65
 msgid "Deli"
 msgstr "Fiambrería"
 
-#: lib/tq2_web/live/registration/new_live.ex:61
+#: lib/tq2_web/live/registration/new_live.ex:66
 msgid "Food / Restaurant"
 msgstr "Comida / Restaurante"
 
-#: lib/tq2_web/live/registration/new_live.ex:64
+#: lib/tq2_web/live/registration/new_live.ex:69
 msgid "Technology"
 msgstr "Tecnología"
 
@@ -108,7 +108,7 @@ msgstr "¡Te damos la bienvenida!"
 msgid "Your customers will become your sellers using group shopping, thus bringing new buyers."
 msgstr "Tus clientes se volverán tus vendedores al compartir la compra y traer nuevos compradores."
 
-#: lib/tq2_web/live/registration/new_live.ex:79
+#: lib/tq2_web/live/registration/new_live.ex:84
 msgid "terms of service"
 msgstr "términos y condiciones"
 
@@ -124,7 +124,7 @@ msgstr "¡Hola %{name}!"
 msgid "Would you like to take a brief tour to know Teiqui main features?"
 msgstr "¿Quisieras realizar un breve tour para conocer las funciones principales de Teiqui?"
 
-#: lib/tq2_web/live/registration/new_live.ex:71
+#: lib/tq2_web/live/registration/new_live.ex:76
 msgid "Create store"
 msgstr "Crear mi tienda"
 
@@ -132,7 +132,7 @@ msgstr "Crear mi tienda"
 msgid "Create your Teiqui online store"
 msgstr "Crea tu tienda Teiqui en línea"
 
-#: lib/tq2_web/live/registration/new_live.ex:73
+#: lib/tq2_web/live/registration/new_live.ex:78
 msgid "Creating..."
 msgstr "Creando..."
 

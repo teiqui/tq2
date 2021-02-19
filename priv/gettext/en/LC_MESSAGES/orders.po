@@ -43,7 +43,7 @@ msgstr ""
 msgid "Delivery type"
 msgstr ""
 
-#: lib/tq2_web/views/order_view.ex:44
+#: lib/tq2_web/views/order_view.ex:45
 msgid "Edit"
 msgstr ""
 
@@ -89,7 +89,7 @@ msgstr ""
 msgid "Processing"
 msgstr ""
 
-#: lib/tq2_web/views/order_view.ex:35
+#: lib/tq2_web/views/order_view.ex:36
 msgid "Show"
 msgstr ""
 
@@ -112,7 +112,7 @@ msgid "Payments"
 msgstr ""
 
 #: lib/tq2_web/live/store/brief_live.html.leex:49
-#: lib/tq2_web/live/store/checkout_live.html.leex:43 lib/tq2_web/templates/email/expired_promotion.html.eex:39
+#: lib/tq2_web/live/store/checkout_live.html.leex:45 lib/tq2_web/templates/email/expired_promotion.html.eex:39
 #: lib/tq2_web/templates/email/expired_promotion.text.eex:15 lib/tq2_web/templates/email/order_confirmation.html.eex:57
 #: lib/tq2_web/templates/email/order_confirmation.text.eex:16 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:62
 #: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:17 lib/tq2_web/templates/email/promotion_confirmation.html.eex:40
@@ -126,10 +126,6 @@ msgstr ""
 
 #: lib/tq2_web/live/store/order_live.html.leex:72
 msgid "Order #%{number}"
-msgstr ""
-
-#: lib/tq2_web/live/store/order_live.html.leex:24
-msgid "Share this store link and if you get someone buying before 24 hours because of it, you get the deal. Otherwise, you should pay the difference. If you wish, you can join an existing order."
 msgstr ""
 
 #: lib/tq2_web/live/store/order_live.html.leex:15
@@ -161,11 +157,11 @@ msgstr ""
 msgid "Order #%{number} (%{customer})"
 msgstr ""
 
-#: lib/tq2_web/views/order_view.ex:63
+#: lib/tq2_web/views/order_view.ex:64
 msgid "Regular"
 msgstr ""
 
-#: lib/tq2_web/views/order_view.ex:59
+#: lib/tq2_web/views/order_view.ex:60
 msgid "Teiqui"
 msgstr ""
 
@@ -173,21 +169,21 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: lib/tq2_web/views/order_view.ex:123
+#: lib/tq2_web/views/order_view.ex:124
 msgid "This order has promotional price, and the customer has brought another one. Congratulations! You've just sell double"
 msgid_plural "This order has promotional price, and the customer has brought %{count} more. Congratulations! You've just more than double"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/tq2_web/views/order_view.ex:114
+#: lib/tq2_web/views/order_view.ex:115
 msgid "This order has promotional price, but none other has joined yet. Time expires at %{date}"
 msgstr ""
 
-#: lib/tq2_web/views/order_view.ex:108
+#: lib/tq2_web/views/order_view.ex:109
 msgid "This order has promotional price, but the time to join it has expired. The customer should pay the regular price"
 msgstr ""
 
-#: lib/tq2_web/views/order_view.ex:132
+#: lib/tq2_web/views/order_view.ex:133
 msgid "This order has promotional price, and the customer join another, so both gets the discount!"
 msgstr ""
 
@@ -205,4 +201,8 @@ msgstr ""
 
 #: lib/tq2_web/live/order/order_edit_live.ex:107
 msgid "Teiqui price (%{price})"
+msgstr ""
+
+#: lib/tq2_web/live/store/order_live.html.leex:24
+msgid "Share your discount. You have 24 hours to get another person to buy, if not, you pay the regular price."
 msgstr ""

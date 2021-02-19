@@ -15,19 +15,19 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:56
+#: lib/tq2_web/live/registration/new_live.ex:61
 msgid "Butcher shop"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:58
+#: lib/tq2_web/live/registration/new_live.ex:63
 msgid "Green grocery"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:57
+#: lib/tq2_web/live/registration/new_live.ex:62
 msgid "Grocery"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:65
+#: lib/tq2_web/live/registration/new_live.ex:70
 msgid "Other"
 msgstr ""
 
@@ -40,27 +40,27 @@ msgstr ""
 msgid "Store type"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:62
+#: lib/tq2_web/live/registration/new_live.ex:67
 msgid "Bakery"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:63
+#: lib/tq2_web/live/registration/new_live.ex:68
 msgid "Bookshop / Stationery"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:59
+#: lib/tq2_web/live/registration/new_live.ex:64
 msgid "Cleaning"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:60
+#: lib/tq2_web/live/registration/new_live.ex:65
 msgid "Deli"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:61
+#: lib/tq2_web/live/registration/new_live.ex:66
 msgid "Food / Restaurant"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:64
+#: lib/tq2_web/live/registration/new_live.ex:69
 msgid "Technology"
 msgstr ""
 
@@ -108,7 +108,7 @@ msgstr ""
 msgid "Your customers will become your sellers using group shopping, thus bringing new buyers."
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:79
+#: lib/tq2_web/live/registration/new_live.ex:84
 msgid "terms of service"
 msgstr ""
 
@@ -124,7 +124,7 @@ msgstr ""
 msgid "Would you like to take a brief tour to know Teiqui main features?"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:71
+#: lib/tq2_web/live/registration/new_live.ex:76
 msgid "Create store"
 msgstr ""
 
@@ -132,7 +132,7 @@ msgstr ""
 msgid "Create your Teiqui online store"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:73
+#: lib/tq2_web/live/registration/new_live.ex:78
 msgid "Creating..."
 msgstr ""
 

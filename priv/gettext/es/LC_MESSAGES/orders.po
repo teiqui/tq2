@@ -43,7 +43,7 @@ msgstr "Envío a domicilio"
 msgid "Delivery type"
 msgstr "Tipo de entrega"
 
-#: lib/tq2_web/views/order_view.ex:44
+#: lib/tq2_web/views/order_view.ex:45
 msgid "Edit"
 msgstr "Editar"
 
@@ -89,7 +89,7 @@ msgstr "Retiro en tienda"
 msgid "Processing"
 msgstr "Procesando"
 
-#: lib/tq2_web/views/order_view.ex:35
+#: lib/tq2_web/views/order_view.ex:36
 msgid "Show"
 msgstr "Mostrar"
 
@@ -112,7 +112,7 @@ msgid "Payments"
 msgstr "Pagos"
 
 #: lib/tq2_web/live/store/brief_live.html.leex:49
-#: lib/tq2_web/live/store/checkout_live.html.leex:43 lib/tq2_web/templates/email/expired_promotion.html.eex:39
+#: lib/tq2_web/live/store/checkout_live.html.leex:45 lib/tq2_web/templates/email/expired_promotion.html.eex:39
 #: lib/tq2_web/templates/email/expired_promotion.text.eex:15 lib/tq2_web/templates/email/order_confirmation.html.eex:57
 #: lib/tq2_web/templates/email/order_confirmation.text.eex:16 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:62
 #: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:17 lib/tq2_web/templates/email/promotion_confirmation.html.eex:40
@@ -127,10 +127,6 @@ msgstr "Aquí verás todos los pedidos, en éste momento no hay ninguno. Para em
 #: lib/tq2_web/live/store/order_live.html.leex:72
 msgid "Order #%{number}"
 msgstr "Pedido #%{number}"
-
-#: lib/tq2_web/live/store/order_live.html.leex:24
-msgid "Share this store link and if you get someone buying before 24 hours because of it, you get the deal. Otherwise, you should pay the difference. If you wish, you can join an existing order."
-msgstr "Comparte el enlace de la tienda, si alguien en menos de 24 horas hace una compra utilizándolo, obtienes el precio con descuento. Si esto no sucede, deberás abonar la diferencia. También puedes unirte a una compra existente."
 
 #: lib/tq2_web/live/store/order_live.html.leex:15
 msgid "You have chosen Teiqui price"
@@ -161,11 +157,11 @@ msgstr "Originado por"
 msgid "Order #%{number} (%{customer})"
 msgstr "Pedido #%{number} (%{customer})"
 
-#: lib/tq2_web/views/order_view.ex:63
+#: lib/tq2_web/views/order_view.ex:64
 msgid "Regular"
 msgstr "Normal"
 
-#: lib/tq2_web/views/order_view.ex:59
+#: lib/tq2_web/views/order_view.ex:60
 msgid "Teiqui"
 msgstr "Teiqui"
 
@@ -173,21 +169,21 @@ msgstr "Teiqui"
 msgid "Type"
 msgstr "Tipo de compra"
 
-#: lib/tq2_web/views/order_view.ex:123
+#: lib/tq2_web/views/order_view.ex:124
 msgid "This order has promotional price, and the customer has brought another one. Congratulations! You've just sell double"
 msgid_plural "This order has promotional price, and the customer has brought %{count} more. Congratulations! You've just more than double"
 msgstr[0] "Este pedido tiene precio promocional y un cliente se unió con éxito ¡Felicitaciones! Has vendido doble."
 msgstr[1] "Este pedido tiene precio promocional y %{count} clientes se unieron con éxito ¡Felicitaciones! Has vendido más del doble."
 
-#: lib/tq2_web/views/order_view.ex:114
+#: lib/tq2_web/views/order_view.ex:115
 msgid "This order has promotional price, but none other has joined yet. Time expires at %{date}"
 msgstr "Este pedido tiene precio promocional pero todavía no tiene ningún asociado. La promoción expira el %{date}"
 
-#: lib/tq2_web/views/order_view.ex:108
+#: lib/tq2_web/views/order_view.ex:109
 msgid "This order has promotional price, but the time to join it has expired. The customer should pay the regular price"
 msgstr "Este pedido tenía pedido promocional pero el tiempo para que alguien se una ha expirado. El cliente deberá abonar el precio regular"
 
-#: lib/tq2_web/views/order_view.ex:132
+#: lib/tq2_web/views/order_view.ex:133
 msgid "This order has promotional price, and the customer join another, so both gets the discount!"
 msgstr "Este pedido tiene precio promocional y el cliente se ha unido a otro ¡Felicitaciones! Has vendido doble."
 
@@ -206,3 +202,7 @@ msgstr "Precio regular (%{price})"
 #: lib/tq2_web/live/order/order_edit_live.ex:107
 msgid "Teiqui price (%{price})"
 msgstr "Precio Teiqui (%{price})"
+
+#: lib/tq2_web/live/store/order_live.html.leex:24
+msgid "Share your discount. You have 24 hours to get another person to buy, if not, you pay the regular price."
+msgstr "Comparte tu descuento. Tienes 24h para conseguir que otra persona compre, sino pagas el precio regular."
