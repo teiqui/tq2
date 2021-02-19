@@ -3,10 +3,16 @@ defmodule Tq2Web.Store.PaymentLiveTest do
 
   import Mock
   import Phoenix.LiveViewTest
-  import Tq2.Fixtures, only: [app_mercado_pago_fixture: 0, default_store: 0]
 
-  alias Tq2.Transactions.Cart
+  import Tq2.Fixtures,
+    only: [
+      app_mercado_pago_fixture: 0,
+      default_store: 0,
+      transbank_app: 0
+    ]
+
   alias Tq2.Payments
+  alias Tq2.Transactions.Cart
 
   @create_attrs %{
     token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
@@ -354,12 +360,14 @@ defmodule Tq2Web.Store.PaymentLiveTest do
     end
 
     test "render hook for transbank", %{conn: conn, store: store} do
+      transbank_app()
+
       path = Routes.payment_path(conn, :index, store)
       {:ok, payment_live, _html} = live(conn, path)
       content = render(payment_live)
 
       assert content =~ "cash"
-      assert content =~ "Transbank - OnePay"
+      assert content =~ "Transbank - Onepay"
       assert content =~ "phx-hook=\"TransbankModal\""
     end
 

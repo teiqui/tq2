@@ -31,15 +31,8 @@ defmodule Tq2Web.Store.PaymentController do
   defp create_preference(nil, _cart, _channel, _store), do: nil
 
   defp create_preference(%Payment{} = payment, cart, channel, store) do
-    # TODO: Remove this ones Transbank app is implemented
-    # cart.account
-    # |> Tq2.Apps.get_app("transbank")
-    %{
-      data: %{
-        api_key: "dKVhq1WGt_XapIYirTXNyUKoWTDFfxaEV63-O5jcsdw",
-        shared_secret: "?XW#WOLG##FBAGEAYSNQ5APD#JF@$AYZ"
-      }
-    }
+    store.account
+    |> Tq2.Apps.get_app("transbank")
     |> Transbank.create_cart_preference(cart, store, channel)
     |> maybe_update_payment(cart, payment)
   end

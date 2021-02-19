@@ -85,16 +85,9 @@ defmodule Tq2Web.Store.PaymentCheckLive do
   end
 
   defp check_payment(%Payment{kind: "transbank"} = payment, account) do
-    # TODO: Remove this ones Transbank app is implemented
-    # account
-    # |> Apps.get_app("transbank")
     response =
-      %{
-        data: %{
-          api_key: "dKVhq1WGt_XapIYirTXNyUKoWTDFfxaEV63-O5jcsdw",
-          shared_secret: "?XW#WOLG##FBAGEAYSNQ5APD#JF@$AYZ"
-        }
-      }
+      account
+      |> Apps.get_app("transbank")
       |> TbkClient.confirm_preference(payment)
       |> TbkClient.response_to_payment(payment)
 

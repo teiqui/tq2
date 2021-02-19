@@ -2,11 +2,12 @@ defmodule Tq2Web.AppController do
   use Tq2Web, :controller
 
   alias Tq2.Apps
-  alias Tq2.Apps.{MercadoPago, WireTransfer}
+  alias Tq2.Apps.{MercadoPago, Transbank, WireTransfer}
 
-  @app_names ~w(mercado_pago wire_transfer)
+  @app_names ~w(mercado_pago transbank wire_transfer)
   @app_structs %{
     "mercado_pago" => %MercadoPago{},
+    "transbank" => %Transbank{},
     "wire_transfer" => %WireTransfer{}
   }
 
@@ -37,6 +38,10 @@ defmodule Tq2Web.AppController do
     conn |> create_app("mercado_pago", app_params, session)
   end
 
+  def create(conn, %{"transbank" => app_params}, session) do
+    conn |> create_app("transbank", app_params, session)
+  end
+
   def create(conn, %{"wire_transfer" => app_params}, session) do
     conn |> create_app("wire_transfer", app_params, session)
   end
@@ -56,6 +61,10 @@ defmodule Tq2Web.AppController do
 
   def update(conn, %{"mercado_pago" => app_params}, session) do
     conn |> update_app("mercado_pago", app_params, session)
+  end
+
+  def update(conn, %{"transbank" => app_params}, session) do
+    conn |> update_app("transbank", app_params, session)
   end
 
   def update(conn, %{"wire_transfer" => app_params}, session) do

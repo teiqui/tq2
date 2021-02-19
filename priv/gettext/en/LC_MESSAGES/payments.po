@@ -16,7 +16,7 @@ msgstr ""
 msgid "Cash"
 msgstr ""
 
-#: lib/tq2_web/live/store/payment_live.ex:116
+#: lib/tq2_web/live/store/payment_live.ex:107
 msgid "Your order must be paid on delivery."
 msgstr ""
 
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Saving..."
 msgstr ""
 
-#: lib/tq2_web/live/store/payment_live.ex:120
+#: lib/tq2_web/live/store/payment_live.ex:111
 msgid "Pay with MercadoPago."
 msgstr ""
 
@@ -33,13 +33,13 @@ msgid "Pay with a wire transfer."
 msgstr ""
 
 #: lib/tq2_web/live/store/brief_live.ex:138
-#: lib/tq2_web/live/store/payment_live.ex:158 lib/tq2_web/views/order_view.ex:27
+#: lib/tq2_web/live/store/payment_live.ex:149 lib/tq2_web/views/order_view.ex:27
 msgid "MercadoPago"
 msgstr ""
 
 #: lib/tq2_web/live/components/order/payment_form_component.ex:7
 #: lib/tq2_web/live/store/brief_live.ex:142 lib/tq2_web/live/store/order_live.ex:53
-#: lib/tq2_web/live/store/payment_live.ex:162 lib/tq2_web/views/order_view.ex:30
+#: lib/tq2_web/live/store/payment_live.ex:153 lib/tq2_web/views/order_view.ex:30
 msgid "Wire transfer"
 msgstr ""
 
@@ -69,11 +69,11 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: lib/tq2_web/live/store/payment_live.ex:140
-msgid "Pay with OnePay app."
+#: lib/tq2_web/live/store/payment_live.ex:131
+msgid "Pay with Onepay app."
 msgstr ""
 
 #: lib/tq2_web/live/store/brief_live.ex:146
-#: lib/tq2_web/live/store/payment_live.ex:166 lib/tq2_web/views/order_view.ex:29
-msgid "Transbank - OnePay"
+#: lib/tq2_web/live/store/payment_live.ex:157 lib/tq2_web/views/order_view.ex:29
+msgid "Transbank - Onepay"
 msgstr ""

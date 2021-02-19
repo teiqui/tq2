@@ -5,10 +5,12 @@ defmodule Tq2Web.AppView do
   import Tq2Web.Utils, only: [invert: 1]
 
   alias Tq2.Apps.MercadoPago, as: MPApp
+  alias Tq2.Apps.Transbank, as: TbkApp
   alias Tq2.Apps.WireTransfer, as: WTApp
 
   alias Tq2.Gateways.MercadoPago, as: MPClient
   alias Tq2.Gateways.MercadoPago.Credential, as: MPCredential
+  alias Tq2.Gateways.Transbank, as: TbkClient
 
   @statuses %{
     dgettext("apps", "Active") => "active",
@@ -52,6 +54,7 @@ defmodule Tq2Web.AppView do
   def app_names(%{country: country}) do
     [
       if(country in MPClient.countries(), do: "mercado_pago"),
+      if(country in TbkClient.countries(), do: "transbank"),
       "wire_transfer"
     ]
     |> Enum.filter(& &1)
@@ -65,14 +68,29 @@ defmodule Tq2Web.AppView do
     %MPApp{}
   end
 
+  def build_app("transbank") do
+    %TbkApp{}
+  end
+
   def build_app("wire_transfer") do
     %WTApp{}
   end
 
   def build_app(_), do: nil
 
-  def mp_link_to_commissions(account) do
+  def link_to_commissions(account, "mercado_pago") do
     url = MPClient.commission_url_for(account.country)
+
+    icon_link(
+      "percent",
+      text: dgettext("apps", "Commissions"),
+      to: url,
+      target: "_blank"
+    )
+  end
+
+  def link_to_commissions(_account, "transbank") do
+    url = TbkClient.commission_url()
 
     icon_link(
       "percent",
@@ -122,6 +140,10 @@ defmodule Tq2Web.AppView do
 
   defp translate_app("mercado_pago") do
     dgettext("apps", "MercadoPago")
+  end
+
+  defp translate_app("transbank") do
+    dgettext("apps", "Transbank - Onepay")
   end
 
   defp translate_app("wire_transfer") do

@@ -1,5 +1,5 @@
 defmodule Tq2.Inventories.ItemImportTest do
-  use Tq2.DataCase
+  use Tq2.DataCase, async: true
 
   import Tq2.Fixtures, only: [create_session: 0]
 

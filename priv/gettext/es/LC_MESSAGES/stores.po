@@ -317,7 +317,7 @@ msgstr "Agregue al menos un envío"
 msgid "Describe the areas where you can delivery, and the conditions."
 msgstr "Describe las áreas donde puedes hacer envíos, y las condiciones."
 
-#: lib/tq2/gateways/mercado_pago.ex:285 lib/tq2/gateways/transbank.ex:111
+#: lib/tq2/gateways/mercado_pago.ex:285 lib/tq2/gateways/transbank.ex:147
 #: lib/tq2_web/live/store/checkout_live.html.leex:34 lib/tq2_web/templates/email/expired_promotion.html.eex:29
 #: lib/tq2_web/templates/email/expired_promotion.text.eex:12 lib/tq2_web/templates/email/order_confirmation.html.eex:47
 #: lib/tq2_web/templates/email/order_confirmation.text.eex:13 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:49
@@ -444,6 +444,6 @@ msgstr "Resumen de compra"
 msgid "Step %{current} of %{total}"
 msgstr "Paso %{current} de %{total}"
 
-#: lib/tq2/gateways/transbank.ex:196
+#: lib/tq2/gateways/transbank.ex:232
 msgid "Invalid transaction"
 msgstr "Transacción invalida"
