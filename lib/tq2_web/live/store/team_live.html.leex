@@ -86,6 +86,10 @@
                                                   align_right: false do %>
         <%= dgettext("stores", "Share my purchase") %>
       <% end %>
+
+      <p class="mt-5">
+        <%= live_redirect dgettext("stores", "Back to store"), to: Routes.counter_path(@socket, :index, @store) %>
+      </p>
     </div>
   </div>
 </div>
