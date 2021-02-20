@@ -110,4 +110,4 @@ msgstr "Aplicación creada correctamente."
 
 #: lib/tq2_web/views/app_view.ex:148
 msgid "Transbank - Onepay"
-msgstr "Tranbank - Onepay"
+msgstr "Transbank - Onepay"
