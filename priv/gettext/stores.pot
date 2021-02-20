@@ -184,7 +184,6 @@ msgid "Categories"
 msgstr ""
 
 #: lib/tq2_web/live/components/store/header_component.ex:85
-#: lib/tq2_web/views/item_view.ex:199
 msgid "Search..."
 msgstr ""
 

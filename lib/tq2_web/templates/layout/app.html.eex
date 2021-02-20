@@ -1,4 +1,8 @@
 <div class="container-fluid">
+  <%= if assigns[:searchable_title] do %>
+    <%= render "_search.html", assigns %>
+  <% end %>
+
   <%= if get_flash(@conn, :info) do %>
     <div class="alert alert-info text-center rounded-pill" role="alert">
       <%= get_flash(@conn, :info) %>

@@ -1,7 +1,7 @@
 <nav class="row bg-white mt-n4 mb-2 py-1 mx-n3">
   <div class="col-7 my-auto">
     <h1 class="h3 text-primary mt-2">
-      <%= dgettext("items", "Items") %>
+      <%= @searchable_title %>
     </h1>
   </div>
   <div class="col-5">
