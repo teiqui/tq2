@@ -111,6 +111,10 @@ config :stripity_stripe,
   hackney_opts: [{:connect_timeout, 2000}, {:recv_timeout, 10000}],
   retries: [max_attempts: 3, base_backoff: 500, max_backoff: 2_000]
 
+config :tq2, :perfit,
+  api_key: System.get_env("PERFIT_API_KEY"),
+  endpoint: System.get_env("PERFIT_ENDPOINT", "https://api.myperfit.com/v2/sofimutante")
+
 # ## Using releases (Elixir v1.9+)
 #
 # If you are doing OTP releases, you need to instruct Phoenix

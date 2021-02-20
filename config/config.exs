@@ -107,6 +107,14 @@ config :stripity_stripe,
   hackney_opts: [{:connect_timeout, 2000}, {:recv_timeout, 10000}],
   retries: [max_attempts: 3, base_backoff: 500, max_backoff: 2_000]
 
+config :tq2, :perfit,
+  api_key: System.get_env("PERFIT_API_KEY", "sofimutante-somekey"),
+  endpoint:
+    System.get_env(
+      "PERFIT_ENDPOINT",
+      "https://private-anon-d532298830-perfitapiv2.apiary-mock.com/v2/sofimutante"
+    )
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

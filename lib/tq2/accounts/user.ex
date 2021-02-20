@@ -6,6 +6,8 @@ defmodule Tq2.Accounts.User do
   alias Tq2.Repo
   alias Tq2.Utils.TrimmedString
 
+  @derive {Jason.Encoder, only: [:id, :name, :lastname, :email, :role, :data, :lock_version]}
+
   schema "users" do
     field :name, TrimmedString
     field :lastname, TrimmedString
@@ -16,6 +18,10 @@ defmodule Tq2.Accounts.User do
     field :password_reset_sent_at, :utc_datetime
     field :role, :string, default: "owner"
     field :lock_version, :integer, default: 0
+
+    embeds_one :data, Data do
+      field :external_id, :integer
+    end
 
     has_many :memberships, Membership
 
@@ -28,6 +34,7 @@ defmodule Tq2.Accounts.User do
   def changeset(%User{} = user, attrs) do
     user
     |> cast(attrs, @cast_attrs)
+    |> cast_embed(:data, with: &data_changeset/2)
     |> validation()
   end
 
@@ -59,6 +66,12 @@ defmodule Tq2.Accounts.User do
     |> validate_length(:password, min: 6, max: 100)
     |> validate_confirmation(:password, required: true)
     |> put_password_hash()
+  end
+
+  @doc false
+  def data_changeset(schema, params) do
+    schema
+    |> cast(params, [:external_id])
   end
 
   defp validation(changeset) do

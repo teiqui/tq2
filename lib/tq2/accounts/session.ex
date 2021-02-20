@@ -2,6 +2,8 @@ defmodule Tq2.Accounts.Session do
   alias Tq2.Accounts
   alias Tq2.Accounts.{Account, User}
 
+  @derive {Jason.Encoder, only: [:account, :user]}
+
   defstruct account: %Account{}, user: %User{}
 
   @doc false

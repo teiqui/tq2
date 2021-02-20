@@ -26,8 +26,22 @@ defmodule Tq2.Accounts.UserTest do
       assert changeset.valid?
     end
 
+    test "changeset with valid data attributes" do
+      attrs = Map.put(@valid_attrs, :data, %{external_id: 1})
+      changeset = User.changeset(%User{}, attrs)
+
+      assert changeset.valid?
+    end
+
     test "changeset with invalid attributes" do
       changeset = User.changeset(%User{}, @invalid_attrs)
+
+      refute changeset.valid?
+    end
+
+    test "changeset with invalid data attributes" do
+      attrs = Map.put(@valid_attrs, :data, %{external_id: "wrong"})
+      changeset = User.changeset(%User{}, attrs)
 
       refute changeset.valid?
     end

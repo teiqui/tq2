@@ -614,7 +614,10 @@ defmodule Tq2.Accounts do
     Registration.account_changeset(registration, %{account_id: account.id})
   end
 
-  defp after_create_account_jobs({:ok, %{account: %{license: license}}} = result) do
+  defp after_create_account_jobs(
+         {:ok, %{user: user, account: %{license: license} = account}} = result
+       ) do
+    enqueue_perfit_contact_creation(%Session{user: user, account: account})
     enqueue_license_near_to_expire_notification(license)
     enqueue_lock_license(license)
 
@@ -623,13 +626,17 @@ defmodule Tq2.Accounts do
 
   defp after_create_account_jobs(result), do: result
 
+  defp enqueue_perfit_contact_creation(session) do
+    Exq.enqueue(Exq, "default", Tq2.Workers.PerfitJob, [session])
+  end
+
   defp enqueue_license_near_to_expire_notification(license) do
     exec_at =
       license.paid_until
       |> Timex.to_datetime()
       |> Timex.shift(days: -2)
 
-    Exq.enqueue_at(Exq, "default", exec_at, Tq2.Workers.LicenseJob, [
+    Exq.enqueue_at(Exq, "default", exec_at, Tq2.Workers.LicensesJob, [
       "notify_near_to_expire",
       license.id
     ])
@@ -641,6 +648,6 @@ defmodule Tq2.Accounts do
       |> Timex.to_datetime()
       |> Timex.end_of_day()
 
-    Exq.enqueue_at(Exq, "default", exec_at, Tq2.Workers.LicenseJob, ["lock", license.id])
+    Exq.enqueue_at(Exq, "default", exec_at, Tq2.Workers.LicensesJob, ["lock", license.id])
   end
 end

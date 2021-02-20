@@ -63,7 +63,7 @@ defmodule Tq2.Workers.LicensesJob do
 
       {:error, _operation, failed_value, changes} ->
         Sentry.capture_message(
-          "[LicenseJob] Can't update license",
+          "[LicensesJob] Can't update license",
           extra: %{
             license_id: license.id,
             errors: inspect(failed_value.errors),

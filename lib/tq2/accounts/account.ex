@@ -10,6 +10,8 @@ defmodule Tq2.Accounts.Account do
   alias Tq2.Transactions.Cart
   alias Tq2.Utils.TrimmedString
 
+  @derive {Jason.Encoder, only: [:id, :country, :name, :status, :time_zone, :lock_version]}
+
   schema "accounts" do
     field :country, :string
     field :name, TrimmedString
