@@ -41,7 +41,6 @@ defmodule Tq2.Apps.TransbankTest do
 
     test "changeset validate embed data" do
       attrs = @valid_attrs |> Map.put(:data, %{})
-
       changeset = default_account() |> Transbank.changeset(%Transbank{}, attrs)
 
       refute changeset.valid?
