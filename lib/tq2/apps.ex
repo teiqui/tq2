@@ -8,12 +8,13 @@ defmodule Tq2.Apps do
   alias Tq2.Repo
   alias Tq2.Trail
   alias Tq2.Accounts.{Account, Session}
-  alias Tq2.Apps.{App, MercadoPago, WireTransfer}
+  alias Tq2.Apps.{App, MercadoPago, Transbank, WireTransfer}
 
-  @payment_names ~w(mercado_pago wire_transfer)
-  @app_names ~w(mercado_pago wire_transfer)
+  @payment_names ~w(mercado_pago transbank wire_transfer)
+  @app_names ~w(mercado_pago transbank wire_transfer)
   @app_modules %{
     "mercado_pago" => MercadoPago,
+    "transbank" => Transbank,
     "wire_transfer" => WireTransfer
   }
 
@@ -62,6 +63,11 @@ defmodule Tq2.Apps do
     |> Repo.get_by(account_id: account.id, name: "mercado_pago")
   end
 
+  def get_app(account, "transbank") do
+    Transbank
+    |> Repo.get_by(account_id: account.id, name: "transbank")
+  end
+
   def get_app(account, "wire_transfer") do
     WireTransfer
     |> Repo.get_by(account_id: account.id, name: "wire_transfer")
@@ -106,6 +112,12 @@ defmodule Tq2.Apps do
     |> Trail.update(originator: user, meta: %{account_id: account.id})
   end
 
+  def update_app(%Session{account: account, user: user}, %Transbank{} = app, attrs) do
+    account
+    |> Transbank.changeset(app, attrs)
+    |> Trail.update(originator: user, meta: %{account_id: account.id})
+  end
+
   def update_app(%Session{account: account, user: user}, %WireTransfer{} = app, attrs) do
     account
     |> WireTransfer.changeset(app, attrs)
@@ -141,6 +153,10 @@ defmodule Tq2.Apps do
 
   def change_app(%Account{} = account, %MercadoPago{} = app, attrs) do
     MercadoPago.changeset(account, app, attrs)
+  end
+
+  def change_app(%Account{} = account, %Transbank{} = app, attrs) do
+    Transbank.changeset(account, app, attrs)
   end
 
   def change_app(%Account{} = account, %WireTransfer{} = app, attrs) do

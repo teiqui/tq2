@@ -6,6 +6,7 @@ defmodule Tq2Web.AppViewTest do
   import Tq2.Fixtures, only: [default_account: 0, app_mercado_pago_fixture: 0]
 
   alias Tq2.Apps.MercadoPago, as: MPApp
+  alias Tq2.Apps.Transbank, as: TbkApp
   alias Tq2.Apps.WireTransfer, as: WTApp
   alias Tq2Web.AppView
 
@@ -65,21 +66,25 @@ defmodule Tq2Web.AppViewTest do
 
   test "app kinds for cards" do
     assert ~w(mercado_pago wire_transfer) == AppView.app_names(%{country: "ar"})
+    assert ~w(mercado_pago transbank wire_transfer) == AppView.app_names(%{country: "cl"})
     assert ~w(wire_transfer) == AppView.app_names(%{country: "unknown"})
   end
 
   test "app from apps by name" do
-    apps = [%MPApp{}, %WTApp{}]
+    apps = [%MPApp{}, %WTApp{}, %TbkApp{}]
 
-    assert %MPApp{} = AppView.app_by_name(apps, "mercado_pago")
     assert %MPApp{} = AppView.app_by_name([], "mercado_pago")
-    assert %WTApp{} = AppView.app_by_name(apps, "wire_transfer")
+    assert %MPApp{} = AppView.app_by_name(apps, "mercado_pago")
+    assert %TbkApp{} = AppView.app_by_name([], "transbank")
+    assert %TbkApp{} = AppView.app_by_name(apps, "transbank")
     assert %WTApp{} = AppView.app_by_name([], "wire_transfer")
+    assert %WTApp{} = AppView.app_by_name(apps, "wire_transfer")
     refute AppView.app_by_name(apps, "unknown")
   end
 
   test "build app" do
     assert %MPApp{} = AppView.build_app("mercado_pago")
+    assert %TbkApp{} = AppView.build_app("transbank")
     assert %WTApp{} = AppView.build_app("wire_transfer")
     refute AppView.build_app("unknwon")
   end
@@ -87,7 +92,7 @@ defmodule Tq2Web.AppViewTest do
   test "mp link to commissions" do
     content =
       default_account()
-      |> AppView.mp_link_to_commissions()
+      |> AppView.link_to_commissions("mercado_pago")
       |> safe_to_string()
 
     assert content =~ "<a"
@@ -113,5 +118,15 @@ defmodule Tq2Web.AppViewTest do
 
     assert content =~ "Install"
     assert content =~ "/apps/new?name=wire_transfer"
+  end
+
+  test "transbank link to install", %{conn: conn} do
+    content =
+      conn
+      |> AppView.link_to_install("transbank")
+      |> safe_to_string()
+
+    assert content =~ "Install"
+    assert content =~ "/apps/new?name=transbank"
   end
 end

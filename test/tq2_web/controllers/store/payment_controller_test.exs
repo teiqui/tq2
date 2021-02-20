@@ -2,7 +2,7 @@ defmodule Tq2Web.Store.PaymentControllerTest do
   use Tq2Web.ConnCase
 
   import Mock
-  import Tq2.Fixtures, only: [default_store: 0, create_cart: 0]
+  import Tq2.Fixtures, only: [default_store: 0, create_cart: 0, transbank_app: 0]
 
   setup %{conn: conn} do
     conn = %{conn | host: "#{Application.get_env(:tq2, :store_subdomain)}.localhost"}
@@ -11,6 +11,8 @@ defmodule Tq2Web.Store.PaymentControllerTest do
   end
 
   describe "transbank without token" do
+    setup [:setup_transbank]
+
     test "respond empty json without token", %{conn: conn, store: store} do
       path = Routes.transbank_payment_path(conn, :transbank, store, %{"channel" => "WEB"})
       conn = post(conn, path)
@@ -21,7 +23,7 @@ defmodule Tq2Web.Store.PaymentControllerTest do
   end
 
   describe "transbank with token" do
-    setup [:setup_cart]
+    setup [:setup_cart, :setup_transbank]
 
     test "respond empty json without payment", %{conn: conn, store: store} do
       path = Routes.transbank_payment_path(conn, :transbank, store, %{"channel" => "WEB"})
@@ -68,5 +70,11 @@ defmodule Tq2Web.Store.PaymentControllerTest do
     conn = conn |> Plug.Test.init_test_session(token: cart.token)
 
     {:ok, %{cart: cart, conn: conn}}
+  end
+
+  defp setup_transbank(_) do
+    transbank_app()
+
+    {:ok, %{}}
   end
 end

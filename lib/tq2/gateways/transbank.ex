@@ -28,6 +28,42 @@ defmodule Tq2.Gateways.Transbank do
     ]
   }
 
+  def countries, do: ["cl"]
+
+  def commission_url do
+    "https://portaltransbank.cl/afiliacion/resources/libs/nueva-oferta-presencial/#seccion-simulador"
+  end
+
+  def check_credentials(api_key, shared_secret) do
+    app = %{data: %{api_key: api_key, shared_secret: shared_secret}}
+
+    item = %{
+      description: "test",
+      quantity: 1,
+      amount: 100
+    }
+
+    attrs = %{
+      apiKey: app.data.api_key,
+      appKey: app_key(),
+      callbackUrl: callback_url("fake"),
+      channel: "WEB",
+      externalUniqueNumber: "#{__MODULE__.timestamp()}",
+      issuedAt: __MODULE__.timestamp(),
+      items: [item],
+      itemsQuantity: 1,
+      total: 100
+    }
+
+    signature = :create_transaction |> sign(attrs, app)
+    attrs = attrs |> Map.put(:signature, signature)
+
+    :create_transaction
+    |> request_post(attrs)
+    |> parse_response()
+    |> check_result()
+  end
+
   def create_cart_preference(app, cart, store, channel \\ "WEB") do
     total = cart |> Cart.total() |> money_to_integer()
 
@@ -223,4 +259,16 @@ defmodule Tq2.Gateways.Transbank do
       "760272c4-9950-4bf3-be16-a6729800231a"
     end
   end
+
+  defp check_result(%{"responseCode" => "OK"}), do: :ok
+
+  defp check_result(%{"responseCode" => "COMMERCE_NOT_FOUND", "description" => msg}) do
+    {:error, :api_key, msg}
+  end
+
+  defp check_result(%{"responseCode" => "INVALID_TRANSACTION_SIGN", "description" => msg}) do
+    {:error, :shared_secret, msg}
+  end
+
+  defp check_result(%{"description" => msg}), do: {:error, :api_key, msg}
 end

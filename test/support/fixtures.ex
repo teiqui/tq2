@@ -1,5 +1,6 @@
 defmodule Tq2.Fixtures do
   import Ecto.Query
+  import Mock
   import Tq2.Support.MercadoPagoHelper, only: [mock_check_credentials: 1]
 
   alias Tq2.Accounts
@@ -180,5 +181,20 @@ defmodule Tq2.Fixtures do
     {:ok, item} = Tq2.Inventories.create_item(create_session(), attrs)
 
     item
+  end
+
+  def transbank_app do
+    mock = [check_credentials: fn _, _ -> :ok end]
+
+    with_mock Tq2.Gateways.Transbank, mock do
+      {:ok, app} =
+        create_session()
+        |> Tq2.Apps.create_app(%{
+          "name" => "transbank",
+          "data" => %{"api_key" => "123-asd", "shared_secret" => "asd"}
+        })
+
+      app
+    end
   end
 end

@@ -26,7 +26,7 @@ defmodule Tq2Web.OrderView do
     "cash" => dgettext("payments", "Cash"),
     "mercado_pago" => dgettext("payments", "MercadoPago"),
     "other" => dgettext("payments", "Other"),
-    "transbank" => dgettext("payments", "Transbank - OnePay"),
+    "transbank" => dgettext("payments", "Transbank - Onepay"),
     "wire_transfer" => dgettext("payments", "Wire transfer")
   }
 

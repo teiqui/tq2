@@ -143,7 +143,7 @@ defmodule Tq2Web.Store.BriefLive do
   end
 
   defp payment("transbank") do
-    dgettext("payments", "Transbank - OnePay")
+    dgettext("payments", "Transbank - Onepay")
   end
 
   defp maybe_put_phx_hook("transbank"), do: "phx-hook=TransbankModal"

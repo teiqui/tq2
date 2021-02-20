@@ -94,15 +94,6 @@ defmodule Tq2Web.Store.PaymentLive do
         []
       end
 
-    # TODO: Remove this ones Transbank app is implemented
-    main_methods =
-      if Application.get_env(:tq2, :env) == :prod do
-        main_methods
-      else
-        main_methods ++
-          [{"transbank", translate_name("transbank"), %Tq2.Apps.App{name: "transbank"}}]
-      end
-
     app_names =
       store.account
       |> Apps.payment_apps()
@@ -137,7 +128,7 @@ defmodule Tq2Web.Store.PaymentLive do
   end
 
   defp payment_method_description("transbank", _) do
-    dgettext("payments", "Pay with OnePay app.")
+    dgettext("payments", "Pay with Onepay app.")
   end
 
   defp static_img(kind, text) do
@@ -163,7 +154,7 @@ defmodule Tq2Web.Store.PaymentLive do
   end
 
   defp translate_name("transbank") do
-    dgettext("payments", "Transbank - OnePay")
+    dgettext("payments", "Transbank - Onepay")
   end
 
   defp maybe_put_phx_hook("transbank"), do: "phx-hook=TransbankModal"

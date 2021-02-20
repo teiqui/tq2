@@ -4,6 +4,7 @@ defmodule Tq2.Gateways.TransbankTest do
   import Mock
   import Tq2.Fixtures, only: [create_cart: 0, default_store: 0]
 
+  alias Tq2.Apps.Transbank, as: TbkApp
   alias Tq2.Gateways.Transbank
 
   describe "transbank" do
@@ -129,7 +130,6 @@ defmodule Tq2.Gateways.TransbankTest do
   end
 
   defp app do
-    # TODO: Change for a real Transbank app
-    %{data: %{api_key: "123", shared_secret: "312"}}
+    %TbkApp{name: "transbank", status: "active", data: %{api_key: "123", shared_secret: "312"}}
   end
 end
