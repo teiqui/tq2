@@ -48,7 +48,7 @@ defmodule Tq2Web.Registration.NewLiveTest do
                  password: ""
                }
              })
-             |> render_submit() =~ "can&apos;t be blank"
+             |> render_submit() =~ "can&#39;t be blank"
     end
   end
 end

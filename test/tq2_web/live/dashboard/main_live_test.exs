@@ -41,7 +41,7 @@ defmodule Tq2Web.Dashboard.MainLiveTest do
       assert html =~ "Dashboard"
       assert content =~ "Dashboard"
       assert content =~ "You have no orders yet"
-      refute content =~ "On the main dashboard you&apos;ll find"
+      refute content =~ "On the main dashboard you&#39;ll find"
       refute content =~ unpublished_store_warning()
     end
 
@@ -66,14 +66,14 @@ defmodule Tq2Web.Dashboard.MainLiveTest do
       {:ok, main_live, html} = live(conn, path)
       content = render(main_live)
 
-      assert html =~ "On the main dashboard you&apos;ll find"
-      assert content =~ "On the main dashboard you&apos;ll find"
-      refute content =~ "Inside More you&apos;ll find sections"
+      assert html =~ "On the main dashboard you&#39;ll find"
+      assert content =~ "On the main dashboard you&#39;ll find"
+      refute content =~ "Inside More you&#39;ll find sections"
 
       path = Routes.dashboard_path(conn, :index, tour: "items")
 
       assert main_live
-             |> render_patch(path) =~ "Inside More you&apos;ll find sections"
+             |> render_patch(path) =~ "Inside More you&#39;ll find sections"
     end
 
     test "should show unpublished warning", %{conn: conn} do
