@@ -6,19 +6,28 @@ defmodule Tq2Web.Store.CounterLive do
   alias Tq2Web.Store.{ButtonComponent, CategoryComponent, HeaderComponent, ItemComponent}
 
   @impl true
-  def mount(_, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do
+  def mount(
+        _,
+        %{
+          "hide_price_info" => hide_price_info,
+          "store" => store,
+          "token" => token,
+          "visit_id" => visit_id
+        },
+        socket
+      ) do
     visit = Analytics.get_visit!(visit_id)
 
     socket =
       socket
       |> assign(
+        referral_customer: visit.referral_customer,
+        referred: !!visit.referral_customer,
         store: store,
         token: token,
-        visit_id: visit_id,
-        referral_customer: visit.referral_customer,
-        referred: !!visit.referral_customer
+        visit_id: visit_id
       )
-      |> put_teiqui_price_info()
+      |> put_teiqui_price_info(hide_price_info)
 
     {:ok, socket,
      temporary_assigns: [cart: nil, items: [], categories: nil, referral_customer: nil]}
@@ -93,6 +102,22 @@ defmodule Tq2Web.Store.CounterLive do
     socket =
       socket
       |> push_redirect(to: Routes.counter_path(socket, :index, store, extras))
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_info({:dismiss_price_info, url}, socket) do
+    socket = socket |> push_event("update-session", %{url: url})
+
+    self() |> Process.send_after({:dismiss_price_info}, 100)
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_info({:dismiss_price_info}, socket) do
+    socket = socket |> assign(:show_teiqui_price_info, false)
 
     {:noreply, socket}
   end
@@ -184,7 +209,11 @@ defmodule Tq2Web.Store.CounterLive do
     )
   end
 
-  defp put_teiqui_price_info(%{assigns: %{token: token}} = socket) do
+  defp put_teiqui_price_info(socket, hide_price) when not is_nil(hide_price) do
+    socket |> assign(:show_teiqui_price_info, !hide_price)
+  end
+
+  defp put_teiqui_price_info(%{assigns: %{token: token}} = socket, _hide_price) do
     show? = !Sales.customer_exists?(token)
 
     socket |> assign(:show_teiqui_price_info, show?)

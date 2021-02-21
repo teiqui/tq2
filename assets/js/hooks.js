@@ -8,6 +8,7 @@ import {Share} from './hooks/share'
 import {TimeZone} from './hooks/time_zone'
 import {TourLink} from './hooks/tour_link'
 import {TransbankModal} from './hooks/transbank_modal'
+import {UpdateSession} from './hooks/update_session'
 
 export const Hooks = {
   BodyBackground,
@@ -19,5 +20,6 @@ export const Hooks = {
   Share,
   TimeZone,
   TourLink,
-  TransbankModal
+  TransbankModal,
+  UpdateSession
 }

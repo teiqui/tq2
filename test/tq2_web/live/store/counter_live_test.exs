@@ -226,10 +226,23 @@ defmodule Tq2Web.Store.CounterLiveTest do
       assert html =~ "Enjoy the discount making other"
       assert content =~ "Enjoy the discount making other"
 
-      content =
-        store_live
-        |> element("[phx-click=\"dismiss\"][phx-value-id=\"teiqui-price-info\"]")
-        |> render_click()
+      store_live
+      |> element("[phx-click=\"dismiss\"][phx-value-id=\"price-info\"]")
+      |> render_click()
+
+      :erlang.trace(store_live.pid, true, [:receive])
+
+      receive do
+        {_, {:push_event, "update-session", _}} -> nil
+      after
+        110 -> assert nil
+      end
+
+      pid = store_live.pid
+
+      assert_receive {:trace, ^pid, :receive, {:dismiss_price_info}}
+
+      content = store_live |> render()
 
       refute content =~ "Enjoy the discount making other"
     end
