@@ -72,8 +72,9 @@ defmodule Tq2Web.ItemController do
     |> redirect(to: Routes.item_path(conn, :index))
   end
 
-  defp render_index(conn, %{total_entries: 0}, [{:search, nil} | _]),
-    do: render(conn, "empty.html")
+  defp render_index(conn, %{total_entries: 0}, [{:search, nil} | _]) do
+    render(conn, "empty.html")
+  end
 
   defp render_index(conn, %{total_entries: 0}, assigns) do
     render(conn, "empty_search.html", assigns)
