@@ -2,6 +2,7 @@ defmodule Tq2Web.Store.HandingLiveTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
+  import Tq2.Fixtures, only: [default_store: 1]
 
   @create_attrs %{
     token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
@@ -29,32 +30,9 @@ defmodule Tq2Web.Store.HandingLiveTest do
         visit_timestamp: System.os_time(:second)
       )
 
-    {:ok, %{conn: conn}}
-  end
+    store = default_store(%{})
 
-  def store_fixture(_) do
-    account = Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
-    session = %Tq2.Accounts.Session{account: account}
-
-    {:ok, store} =
-      Tq2.Shops.create_store(session, %{
-        name: "Test store",
-        slug: "test_store",
-        configuration: %{
-          require_email: true,
-          require_phone: true,
-          pickup: true,
-          pickup_time_limit: "some time limit",
-          address: "some address",
-          delivery: true,
-          delivery_area: "some delivery area",
-          delivery_time_limit: "some time limit",
-          pay_on_delivery: true,
-          shippings: %{"0" => %{"name" => "Anywhere", "price" => "10.00"}}
-        }
-      })
-
-    %{store: %{store | account: account}}
+    {:ok, %{conn: conn, store: store}}
   end
 
   def cart_fixture(%{conn: conn, store: store}) do
@@ -93,7 +71,7 @@ defmodule Tq2Web.Store.HandingLiveTest do
   end
 
   describe "render" do
-    setup [:store_fixture, :cart_fixture]
+    setup [:cart_fixture]
 
     test "disconnected and connected render", %{conn: conn, cart: _cart, store: store} do
       path = Routes.handing_path(conn, :index, store)
@@ -146,6 +124,23 @@ defmodule Tq2Web.Store.HandingLiveTest do
       {:error, {:live_redirect, %{to: to}}} = live(conn, path)
 
       assert to == Routes.counter_path(conn, :index, store)
+    end
+
+    test "render only delivery option", %{conn: conn, store: store} do
+      config =
+        store.configuration
+        |> Tq2.Shops.Configuration.from_struct()
+        |> Map.put(:pickup, false)
+
+      store = default_store(%{configuration: config})
+
+      path = Routes.handing_path(conn, :index, store)
+      {:ok, handing_live, html} = live(conn, path)
+
+      assert html =~ "delivery"
+      assert render(handing_live) =~ "delivery"
+      refute html =~ "pickup"
+      refute render(handing_live) =~ "pickup"
     end
   end
 end
