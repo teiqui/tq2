@@ -13,8 +13,9 @@ defmodule Tq2Web.ItemController do
   def index(conn, params, session) do
     params = params |> permitted_params()
     page = Inventories.list_items(session.account, params)
+    title = dgettext("items", "Items")
 
-    render_index(conn, page, search: params[:search])
+    render_index(conn, page, search: params[:search], searchable_title: title)
   end
 
   def new(conn, _params, session) do
@@ -71,7 +72,9 @@ defmodule Tq2Web.ItemController do
     |> redirect(to: Routes.item_path(conn, :index))
   end
 
-  defp render_index(conn, %{total_entries: 0}, search: nil), do: render(conn, "empty.html")
+  defp render_index(conn, %{total_entries: 0}, [{:search, nil} | _]) do
+    render(conn, "empty.html")
+  end
 
   defp render_index(conn, %{total_entries: 0}, assigns) do
     render(conn, "empty_search.html", assigns)

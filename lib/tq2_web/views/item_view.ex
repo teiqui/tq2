@@ -182,33 +182,6 @@ defmodule Tq2Web.ItemView do
     "btn btn-outline-primary btn-lg border border-primary rounded-pill font-weight-semi-bold"
   end
 
-  defp icon_tag(icon) do
-    content_tag(:i, nil, class: "bi-#{icon}")
-  end
-
-  defp search_input(assigns) do
-    assigns = if assigns[:search], do: assigns, else: Map.put(assigns, :search, "")
-
-    ~L"""
-    <form>
-      <div class="input-group mr-n2">
-        <input type="text"
-               name="search"
-               value="<%= @search %>"
-               class="form-control shadow-none"
-               placeholder="<%= dgettext("stores", "Search...") %>"
-               autocomplete="off"
-               id="search-input">
-        <div class="input-group-append">
-          <button type="submit" class="btn btn-outline-primary px-2">
-            <%= icon_tag("search") %>
-          </button>
-        </div>
-      </div>
-    </form>
-    """
-  end
-
   defp term(search) do
     search
     |> html_escape()

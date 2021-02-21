@@ -16,13 +16,13 @@ msgid "Are you sure?"
 msgstr ""
 
 #: lib/tq2_web/templates/item/edit.html.eex:14
-#: lib/tq2_web/templates/item/empty_search.html.eex:10 lib/tq2_web/templates/item/new.html.eex:11
+#: lib/tq2_web/templates/item/empty_search.html.eex:8 lib/tq2_web/templates/item/new.html.eex:11
 #: lib/tq2_web/templates/item/show.html.eex:45
 msgid "Back"
 msgstr ""
 
 #: lib/tq2_web/templates/item/_form.html.eex:11
-#: lib/tq2_web/templates/item/index.html.eex:8 lib/tq2_web/templates/item/show.html.eex:20
+#: lib/tq2_web/templates/item/index.html.eex:6 lib/tq2_web/templates/item/show.html.eex:20
 msgid "Category"
 msgstr ""
 
@@ -60,30 +60,30 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: lib/tq2_web/controllers/item_controller.ex:30
+#: lib/tq2_web/controllers/item_controller.ex:31
 msgid "Item created successfully."
 msgstr ""
 
-#: lib/tq2_web/controllers/item_controller.ex:70
+#: lib/tq2_web/controllers/item_controller.ex:71
 msgid "Item deleted successfully."
 msgstr ""
 
-#: lib/tq2_web/controllers/item_controller.ex:57
+#: lib/tq2_web/controllers/item_controller.ex:58
 msgid "Item updated successfully."
 msgstr ""
 
-#: lib/tq2_web/templates/item/_search.html.eex:4
+#: lib/tq2_web/controllers/item_controller.ex:16
 #: lib/tq2_web/templates/layout/_menu.html.eex:117 lib/tq2_web/templates/layout/_menu.html.eex:122
 #: lib/tq2_web/views/layout_view.ex:105
 msgid "Items"
 msgstr ""
 
 #: lib/tq2_web/templates/item/_form.html.eex:9
-#: lib/tq2_web/templates/item/index.html.eex:7
+#: lib/tq2_web/templates/item/index.html.eex:5
 msgid "Name"
 msgstr ""
 
-#: lib/tq2_web/templates/item/index.html.eex:39
+#: lib/tq2_web/templates/item/index.html.eex:37
 #: lib/tq2_web/templates/item/new.html.eex:3
 msgid "New item"
 msgstr ""
@@ -121,7 +121,7 @@ msgid "Update"
 msgstr ""
 
 #: lib/tq2_web/templates/item/_form.html.eex:13
-#: lib/tq2_web/templates/item/index.html.eex:9 lib/tq2_web/templates/item/show.html.eex:24
+#: lib/tq2_web/templates/item/index.html.eex:7 lib/tq2_web/templates/item/show.html.eex:24
 msgid "Visibility"
 msgstr ""
 
@@ -169,7 +169,7 @@ msgid "Skip import"
 msgstr ""
 
 #: lib/tq2_web/templates/item/empty.html.eex:20
-#: lib/tq2_web/templates/item/index.html.eex:37
+#: lib/tq2_web/templates/item/index.html.eex:35
 msgid "Import items"
 msgstr ""
 
@@ -219,6 +219,6 @@ msgstr ""
 msgid "We'll add your first item, remember that you can import them from a spreadsheet."
 msgstr ""
 
-#: lib/tq2_web/templates/item/empty_search.html.eex:5
+#: lib/tq2_web/templates/item/empty_search.html.eex:3
 msgid "There is no match for term <strong>%{term}</strong>"
 msgstr ""
