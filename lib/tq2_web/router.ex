@@ -59,6 +59,9 @@ defmodule Tq2Web.Router do
   scope "/", Tq2Web, host: "#{Application.get_env(:tq2, :store_subdomain)}." do
     pipe_through [:browser, :csrf, :store]
 
+    put "/:slug/session/dismiss_price_info", Store.SessionController, :dismiss_price_info,
+      as: :store_dismiss_price_info
+
     live "/:slug", Store.CounterLive, :index, session: @session_extras.store
     live "/:slug/items/:id", Store.ItemLive, :index, session: @session_extras.store
     live "/:slug/handing", Store.HandingLive, :index, session: @session_extras.store
