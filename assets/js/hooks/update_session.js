@@ -1,6 +1,6 @@
 export const UpdateSession = {
   mounted () {
-    this.handleEvent('update-session', (data) => {
+    this.handleEvent('update-session', data => {
       const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
       const headers = {
         'Content-Type': 'application/json',
