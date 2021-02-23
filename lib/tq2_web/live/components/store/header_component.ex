@@ -26,6 +26,20 @@ defmodule Tq2Web.Store.HeaderComponent do
     {:noreply, socket}
   end
 
+  defp nav_classes(%{view: Tq2Web.Store.CounterLive}) do
+    "bg-primary text-white fixed-top py-2"
+  end
+
+  defp nav_classes(_socket) do
+    "bg-primary text-white fixed-top py-2 nav-shrink"
+  end
+
+  defp maybe_shrink_hook(%{view: Tq2Web.Store.CounterLive}) do
+    raw("phx-hook=\"ShrinkOnScroll\"")
+  end
+
+  defp maybe_shrink_hook(_socket), do: nil
+
   defp image(socket, %Store{logo: nil} = store) do
     path = Routes.static_path(socket, "/images/store_default_logo.svg")
 
@@ -74,14 +88,14 @@ defmodule Tq2Web.Store.HeaderComponent do
     <form phx-submit="search">
       <div class="input-group ml-n2">
         <div class="input-group-prepend">
-          <button type="submit" class="btn btn-outline-primary px-2">
+          <button type="submit" class="btn btn-outline-primary px-2 py-0">
             <%= icon_tag("search") %>
           </button>
         </div>
         <input type="text"
                name="search"
                value="<%= @search %>"
-               class="form-control shadow-none"
+               class="form-control shadow-none py-0"
                placeholder="<%= dgettext("stores", "Search...") %>"
                autocomplete="off"
                id="search-input">

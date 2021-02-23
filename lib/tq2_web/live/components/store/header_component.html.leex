@@ -1,23 +1,37 @@
-<nav id="store-header-<%= @id %>" class="bg-primary text-white fixed-top py-2">
+<nav id="store-header-<%= @id %>" class="<%= nav_classes(@socket) %>" <%= maybe_shrink_hook(@socket) %>>
   <div class="container-fluid">
     <div class="d-flex align-items-center">
-      <div class="mr-3">
+      <div class="mr-3 hide-on-shrink">
         <%= image @socket, @store %>
       </div>
 
       <div>
+        <div class="mt-2 show-on-shrink"></div>
         <h1 class="h5 font-weight-bold mb-1">
           <%= live_redirect to: Routes.counter_path(@socket, :index, @store), class: "text-reset text-decoration-none" do %>
             <%= @store.name %>
           <% end %>
         </h1>
 
-        <%= live_component @socket, InformationComponent, store: @store %>
+        <div class="hide-on-shrink">
+          <%= live_component @socket, InformationComponent, store: @store, class: "h4" %>
+        </div>
       </div>
     </div>
 
-    <div class="float-right mt-n4">
+    <div class="float-right mt-n4 hide-on-shrink">
       <%= live_component @socket, ShareComponent, id: :header,
+                                                  store: @store,
+                                                  token: @token,
+                                                  class: share_classes(),
+                                                  align_right: true do %>
+        <i class="bi-share-fill"></i>
+      <% end %>
+    </div>
+
+    <div class="show-on-shrink justify-content-end mt-n3">
+      <%= live_component @socket, InformationComponent, store: @store, class: "h2 mb-0 mt-n1 mt-lg-n2" %>
+      <%= live_component @socket, ShareComponent, id: :header_shrink,
                                                   store: @store,
                                                   token: @token,
                                                   class: share_classes(),
@@ -30,7 +44,7 @@
   </div>
 
   <%= if Map.has_key?(assigns, :show_categories) do %>
-    <nav class="navbar navbar-light bg-white mt-3 mb-n2 py-1">
+    <nav class="navbar navbar-light row bg-white mt-3 mb-n2 py-0 px-4">
       <div class="col-6">
         <%= search_input(assigns) %>
       </div>
@@ -80,7 +94,7 @@
 <div class="py-3"></div>
 
 <%= if Map.has_key?(assigns, :show_categories) do %>
-  <div class="py-4"></div>
+  <div class="py-3"></div>
 <% end %>
 <%= if assigns[:show_teiqui_price_info] do %>
   <div class="py-5 py-md-5 mb-4 mb-md-0"></div>

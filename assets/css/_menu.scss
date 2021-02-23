@@ -1,0 +1,13 @@
+.show-on-shrink {
+  display: none;
+}
+
+.nav-shrink {
+  .hide-on-shrink {
+    display: none;
+  }
+
+  .show-on-shrink {
+    display: flex;
+  }
+}

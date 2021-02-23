@@ -9,7 +9,7 @@ defmodule Tq2Web.Store.InformationComponentTest do
     test "render information with empty cart" do
       store = store()
 
-      content = render_component(InformationComponent, store: store)
+      content = render_component(InformationComponent, store: store, class: "h4")
 
       assert content =~ store.data.whatsapp
     end

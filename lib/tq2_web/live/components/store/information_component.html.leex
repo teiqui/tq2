@@ -1,6 +1,6 @@
 <%= if @store.data && @store.data.facebook do %>
   <%= link to: "https://www.facebook.com/#{@store.data.facebook}",
-           class: "h4 text-reset text-decoration-none mr-3 mb-0",
+           class: "#{@class} text-reset text-decoration-none mr-3 mb-0",
            title: @store.data.facebook,
            target: "_blank" do %>
     <i class="bi-facebook"></i>
@@ -9,7 +9,7 @@
 
 <%= if @store.data && @store.data.instagram do %>
   <%= link to: "https://www.instagram.com/#{@store.data.instagram}",
-           class: "h4 text-reset text-decoration-none mr-3 mb-0",
+           class: "#{@class} text-reset text-decoration-none mr-3 mb-0",
            title: @store.data.instagram,
            target: "_blank" do %>
     <i class="bi-instagram"></i>
@@ -18,7 +18,7 @@
 
 <%= if @store.data && @store.data.whatsapp do %>
   <%= link to: "https://wa.me/#{@store.data.whatsapp}",
-           class: "h4 text-reset text-decoration-none mr-3 mb-0",
+           class: "#{@class} text-reset text-decoration-none mr-3 mb-0",
            title: @store.data.whatsapp,
            target: "_blank" do %>
     <i class="bi-whatsapp"></i>
