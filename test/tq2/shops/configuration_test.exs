@@ -7,27 +7,29 @@ defmodule Tq2.Shops.ConfigurationTest do
     alias Tq2.Shops.Configuration
 
     @valid_attrs %{
-      require_email: true,
-      require_phone: true,
-      pickup: true,
-      pickup_time_limit: "some time limit",
       address: "some address",
       delivery: true,
       delivery_area: "some delivery area",
       delivery_time_limit: "some time limit",
       pay_on_delivery: true,
+      pickup: true,
+      pickup_time_limit: "some time limit",
+      require_address: true,
+      require_email: true,
+      require_phone: true,
       shippings: %{"0" => %{"name" => "Anywhere", "price" => "10.00"}}
     }
     @invalid_attrs %{
-      require_email: nil,
-      require_phone: nil,
-      pickup: nil,
-      pickup_time_limit: String.duplicate("a", 256),
       address: nil,
       delivery: nil,
       delivery_area: nil,
       delivery_time_limit: String.duplicate("a", 256),
-      pay_on_delivery: nil
+      pay_on_delivery: nil,
+      pickup: nil,
+      pickup_time_limit: String.duplicate("a", 256),
+      require_address: nil,
+      require_email: nil,
+      require_phone: nil
     }
 
     setup [:default_account]
@@ -103,6 +105,14 @@ defmodule Tq2.Shops.ConfigurationTest do
       changeset = Configuration.changeset(%Configuration{}, attrs, account)
 
       assert "Add at least one shipping" in errors_on(changeset).shippings
+    end
+
+    test "changeset should put require address with delivery", %{account: account} do
+      attrs = @valid_attrs |> Map.put(:require_address, false)
+
+      changeset = Configuration.changeset(%Configuration{}, attrs, account)
+
+      assert changeset.changes.require_address
     end
   end
 end

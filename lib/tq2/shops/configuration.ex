@@ -48,9 +48,11 @@ defmodule Tq2.Shops.Configuration do
     configuration
     |> cast(attrs, @cast_attrs)
     |> cast_embed(:shippings, with: {Shipping, :changeset, [account]})
+    |> put_require_address_with_delivery()
     |> validate_required_if_present(:pickup_time_limit, :pickup)
     |> validate_required_if_present(:delivery_time_limit, :delivery)
     |> validate_required_if_present(:delivery_area, :delivery)
+    |> validate_required_if_present(:require_address, :delivery)
     |> validate_length(:pickup_time_limit, max: 255)
     |> validate_length(:delivery_time_limit, max: 255)
     |> validate_at_least_one_active([:pickup, :delivery], &translate_field/1)
@@ -86,4 +88,10 @@ defmodule Tq2.Shops.Configuration do
   def from_struct(%Configuration{} = config) do
     Map.from_struct(config)
   end
+
+  defp put_require_address_with_delivery(%Ecto.Changeset{changes: %{delivery: true}} = changeset) do
+    changeset |> change(require_address: true)
+  end
+
+  defp put_require_address_with_delivery(changeset), do: changeset
 end
