@@ -20,8 +20,8 @@ defmodule Tq2Web.Store.HeaderComponent do
     {:ok, socket}
   end
 
-  def handle_event("dismiss", %{"id" => "price-info", "url" => url}, socket) do
-    send(self(), {:dismiss_price_info, url})
+  def handle_event("dismiss", %{"id" => "price-info"}, socket) do
+    socket = socket |> assign(:show_teiqui_price_info, false)
 
     {:noreply, socket}
   end

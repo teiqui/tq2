@@ -106,22 +106,6 @@ defmodule Tq2Web.Store.CounterLive do
     {:noreply, socket}
   end
 
-  @impl true
-  def handle_info({:dismiss_price_info, url}, socket) do
-    socket = socket |> push_event("update-session", %{url: url})
-
-    self() |> Process.send_after({:dismiss_price_info}, 100)
-
-    {:noreply, socket}
-  end
-
-  @impl true
-  def handle_info({:dismiss_price_info}, socket) do
-    socket = socket |> assign(:show_teiqui_price_info, false)
-
-    {:noreply, socket}
-  end
-
   defp load_cart(
          %{assigns: %{referred: referred, store: %{account: account}, token: token}} = socket
        ) do

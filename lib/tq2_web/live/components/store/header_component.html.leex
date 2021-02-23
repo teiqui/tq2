@@ -47,7 +47,10 @@
   <% end %>
 
   <%= if assigns[:show_teiqui_price_info] do %>
-    <nav class="navbar navbar-light bg-primary text-white py-1 mb-1 mt-2" phx-hook="UpdateSession" id="teiqui-price-info">
+    <nav class="navbar navbar-light bg-primary text-white py-1 mb-1 mt-2"
+         phx-hook="UpdateSession"
+         id="teiqui-price-info"
+         data-url="<%= Routes.store_dismiss_price_info_path(@socket, :dismiss_price_info, @store) %>">
       <div class="align-self-center mr-2 mt-1">
         <%= teiqui_logo_img_tag(@socket) %>
       </div>
@@ -59,7 +62,6 @@
                  class: "h3 text-reset font-weight-bold",
                  phx_click: "dismiss",
                  phx_value_id: "price-info",
-                 phx_value_url: Routes.store_dismiss_price_info_path(@socket, :dismiss_price_info, @store),
                  phx_target: @myself do %>
           &times;
         <% end %>
