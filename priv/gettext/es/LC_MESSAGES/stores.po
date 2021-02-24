@@ -23,9 +23,9 @@ msgstr "Información de pago / compra"
 msgid "Create"
 msgstr "Crear tienda"
 
-#: lib/tq2/shops/configuration.ex:69
+#: lib/tq2/shops/configuration.ex:71
 #: lib/tq2_web/live/shop/store_live.html.leex:23 lib/tq2_web/live/shop/store_live.html.leex:122
-#: lib/tq2_web/live/store/brief_live.html.leex:94 lib/tq2_web/live/store/handing_live.html.leex:41
+#: lib/tq2_web/live/store/brief_live.html.leex:94 lib/tq2_web/live/store/handing_live.html.leex:43
 #: lib/tq2_web/templates/email/order_confirmation.html.eex:23 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:21
 msgid "Delivery"
 msgstr "Envío a domicilio"
@@ -35,7 +35,7 @@ msgid "Delivery area"
 msgstr "Área de entrega"
 
 #: lib/tq2_web/live/shop/store_live.html.leex:125
-#: lib/tq2_web/live/store/brief_live.html.leex:109 lib/tq2_web/live/store/handing_live.html.leex:51
+#: lib/tq2_web/live/store/brief_live.html.leex:109 lib/tq2_web/live/store/handing_live.html.leex:53
 msgid "Delivery time limit"
 msgstr "Plazo de entrega"
 
@@ -104,15 +104,15 @@ msgstr "Pago contra entrega"
 msgid "Phone"
 msgstr "Teléfono"
 
-#: lib/tq2/shops/configuration.ex:65
+#: lib/tq2/shops/configuration.ex:67
 #: lib/tq2_web/live/shop/store_live.html.leex:24 lib/tq2_web/live/shop/store_live.html.leex:165
-#: lib/tq2_web/live/store/brief_live.html.leex:77 lib/tq2_web/live/store/handing_live.html.leex:17
+#: lib/tq2_web/live/store/brief_live.html.leex:77 lib/tq2_web/live/store/handing_live.html.leex:18
 #: lib/tq2_web/templates/email/order_confirmation.html.eex:21 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:19
 msgid "Pickup"
 msgstr "Retiro en tienda"
 
 #: lib/tq2_web/live/shop/store_live.html.leex:167
-#: lib/tq2_web/live/store/brief_live.html.leex:88 lib/tq2_web/live/store/handing_live.html.leex:26
+#: lib/tq2_web/live/store/brief_live.html.leex:88 lib/tq2_web/live/store/handing_live.html.leex:27
 msgid "Pickup time limit"
 msgstr "Plazo de retiro"
 
@@ -179,16 +179,16 @@ msgstr "Compartir en otra aplicación"
 msgid "Share on:"
 msgstr "Compartir en:"
 
-#: lib/tq2_web/live/components/store/header_component.ex:100
-#: lib/tq2_web/live/components/store/header_component.ex:104
+#: lib/tq2_web/live/components/store/header_component.ex:130
+#: lib/tq2_web/live/components/store/header_component.ex:134
 msgid "Categories"
 msgstr "Categorías"
 
-#: lib/tq2_web/live/components/store/header_component.ex:85
+#: lib/tq2_web/live/components/store/header_component.ex:115
 msgid "Search..."
 msgstr "Buscar..."
 
-#: lib/tq2_web/live/store/counter_live.ex:169
+#: lib/tq2_web/live/store/counter_live.ex:178
 msgid "Show all"
 msgstr "Ver todas"
 
@@ -198,6 +198,7 @@ msgid "Promotion expired!"
 msgstr "¡La promoción ya expiró!"
 
 #: lib/tq2_web/live/store/order_live.html.leex:34
+#: lib/tq2_web/live/store/order_live.html.leex:75 lib/tq2_web/live/store/order_live.html.leex:87
 msgid "Share"
 msgstr "Compartir"
 
@@ -246,7 +247,7 @@ msgstr "Nadie tiene compras a las que puedas unirte en este momento."
 msgid "Share my purchase"
 msgstr "Compartir mi compra"
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:55
+#: lib/tq2_web/live/components/store/header_component.html.leex:72
 #: lib/tq2_web/live/store/checkout_live.html.leex:59 lib/tq2_web/live/store/team_live.html.leex:14
 msgid "Teiqui price"
 msgstr "Precio Teiqui"
@@ -276,7 +277,8 @@ msgid "Saving..."
 msgstr "Guardando..."
 
 #: lib/tq2_web/live/store/checkout_live.html.leex:74
-#: lib/tq2_web/live/store/checkout_live.html.leex:92 lib/tq2_web/live/store/team_live.html.leex:91
+#: lib/tq2_web/live/store/checkout_live.html.leex:92 lib/tq2_web/live/store/order_live.html.leex:109
+#: lib/tq2_web/live/store/team_live.html.leex:91
 msgid "Back to store"
 msgstr "Volver a la tienda"
 
@@ -308,7 +310,7 @@ msgstr "Revisar pedido"
 msgid "+ Add shipping"
 msgstr "+ Agregar envío"
 
-#: lib/tq2/shops/configuration.ex:73
+#: lib/tq2/shops/configuration.ex:75
 msgid "Add at least one shipping"
 msgstr "Agregue al menos un envío"
 
@@ -402,7 +404,7 @@ msgid "Check order"
 msgstr "Revisar pedido"
 
 #: lib/tq2_web/live/store/customer_live.html.leex:57
-#: lib/tq2_web/live/store/handing_live.html.leex:80
+#: lib/tq2_web/live/store/handing_live.html.leex:82
 msgid "Continue"
 msgstr "Continuar"
 
@@ -419,7 +421,7 @@ msgstr "Cambiar mis datos"
 msgid "It's not me"
 msgstr "No soy yo"
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:70
+#: lib/tq2_web/live/components/store/header_component.html.leex:87
 msgid "Enjoy the discount making other people buy in the store or by joining to other customer."
 msgstr "Disfruta del descuento haciendo que otra persona compre en la tienda o uniéndote a otro cliente."
 
@@ -446,3 +448,11 @@ msgstr "Paso %{current} de %{total}"
 #: lib/tq2/gateways/transbank.ex:232
 msgid "Invalid transaction"
 msgstr "Transacción invalida"
+
+#: lib/tq2_web/live/store/order_live.html.leex:79
+msgid "It only applies if you can get someone else to buy in 24 hours."
+msgstr "Sólo aplica si logras que alguien más compre en 24h."
+
+#: lib/tq2_web/live/store/order_live.html.leex:70
+msgid "You have chosen Teiqui price"
+msgstr "Elegiste precio Teiqui"

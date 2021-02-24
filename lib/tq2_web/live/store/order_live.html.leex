@@ -56,7 +56,40 @@
         </div>
       <% end %>
 
-      <hr class="my-4">
+      <hr class="my-5">
+
+      <div id="teiqui-price-modal" class="modal" tabindex="-1" phx-hook="Modal">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-body text-center pb-5">
+              <a href="#" class="h3 font-weight-semi-bold float-right mb-0 mt-n2 mr-n1" data-dismiss="modal">
+                &times;
+              </a>
+
+              <h1 class="text-primary font-weight-semi-bold mt-4 mb-4">
+                <%= dgettext("stores", "You have chosen Teiqui price") %>
+              </h1>
+
+              <%= img_tag Routes.static_path(@socket, "/images/store_order_modal.svg"), width: 230,
+                                                                                        height: 170,
+                                                                                        alt: dgettext("stores", "Share"),
+                                                                                        class: "img-fluid" %>
+
+              <p class="lead font-weight-semi-bold mt-4 mb-4">
+                <%= dgettext("stores", "It only applies if you can get someone else to buy in 24 hours.") %>
+              </p>
+
+              <%= live_component @socket, ShareComponent, id: :order_modal,
+                                                          store: @store,
+                                                          token: @token,
+                                                          class: "btn btn-lg btn-primary font-weight-semi-bold py-2 px-5",
+                                                          align_right: false do %>
+                <%= dgettext("stores", "Share") %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
 
     <div class="text-center">
@@ -71,6 +104,10 @@
       <h3 class="h4 text-primary">
         <%= dgettext("orders", "Order #%{number}", number: @order.id) %>
       </h3>
+
+      <p class="h6 mt-4 mb-0">
+        <%= live_redirect dgettext("stores", "Back to store"), to: Routes.counter_path(@socket, :index, @store) %>
+      </p>
     </div>
 
     <%= show_payment_info(@order, @store.account) %>

@@ -3,6 +3,7 @@ import {CopyToClipboard} from './hooks/copy_to_clipboard'
 import {Countdown} from './hooks/countdown'
 import {InfiniteScroll} from './hooks/infinite_scroll'
 import {License} from './hooks/license'
+import {Modal} from './hooks/modal'
 import {ScrollToTop} from './hooks/scroll_to_top'
 import {Share} from './hooks/share'
 import {ShrinkOnScroll} from './hooks/shrink_on_scroll'
@@ -17,6 +18,7 @@ export const Hooks = {
   Countdown,
   InfiniteScroll,
   License,
+  Modal,
   ScrollToTop,
   Share,
   ShrinkOnScroll,

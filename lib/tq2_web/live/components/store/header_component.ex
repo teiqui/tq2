@@ -34,6 +34,22 @@ defmodule Tq2Web.Store.HeaderComponent do
     "bg-primary text-white fixed-top py-2 nav-shrink"
   end
 
+  defp bottom_padding_classes(%{view: Tq2Web.Store.CounterLive}) do
+    "py-5"
+  end
+
+  defp bottom_padding_classes(_socket) do
+    "py-4"
+  end
+
+  defp extra_bottom_padding_classes(%{view: Tq2Web.Store.CounterLive}) do
+    "py-3"
+  end
+
+  defp extra_bottom_padding_classes(_socket) do
+    "py-4"
+  end
+
   defp maybe_shrink_hook(%{view: Tq2Web.Store.CounterLive}) do
     raw("phx-hook=\"ShrinkOnScroll\"")
   end

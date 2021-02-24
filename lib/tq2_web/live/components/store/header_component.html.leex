@@ -90,8 +90,8 @@
   <% end %>
 </nav>
 
-<div class="py-5"></div>
-<div class="py-3"></div>
+<div class="<%= bottom_padding_classes(@socket) %>"></div>
+<div class="<%= extra_bottom_padding_classes(@socket) %>"></div>
 
 <%= if Map.has_key?(assigns, :show_categories) do %>
   <div class="py-3"></div>

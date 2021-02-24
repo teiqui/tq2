@@ -11,7 +11,7 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/live/store/order_live.html.leex:68
+#: lib/tq2_web/live/store/order_live.html.leex:101
 msgid "Thank you for your purchase!"
 msgstr ""
 
@@ -124,7 +124,7 @@ msgstr ""
 msgid "Here you'll see all orders, at this time there is none. For starters, share the online store link with your customers!"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:72
+#: lib/tq2_web/live/store/order_live.html.leex:105
 msgid "Order #%{number}"
 msgstr ""
 
