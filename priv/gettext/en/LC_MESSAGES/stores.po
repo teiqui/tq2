@@ -164,11 +164,11 @@ msgid "Copy store link"
 msgstr ""
 
 #: lib/tq2_web/live/components/store/share_component.html.leex:42
-msgid "Hey, check our store!"
+msgid "Hey, check this out!"
 msgstr ""
 
-#: lib/tq2_web/live/components/store/share_component.ex:14
-msgid "Hey, check our store!\n\n%{url}"
+#: lib/tq2_web/live/components/store/share_component.ex:23
+msgid "Hey, check this out!\n\n%{url}"
 msgstr ""
 
 #: lib/tq2_web/live/components/store/share_component.html.leex:45

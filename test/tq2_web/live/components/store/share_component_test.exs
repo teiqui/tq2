@@ -2,13 +2,14 @@ defmodule Tq2Web.Store.ShareComponentTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
+  import Tq2.Utils.Urls, only: [store_uri: 0]
 
   alias Tq2Web.Store.ShareComponent
 
   @token "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c="
 
   describe "render" do
-    test "render share with empty cart" do
+    test "render store share" do
       store = store()
 
       content =
@@ -23,6 +24,27 @@ defmodule Tq2Web.Store.ShareComponentTest do
 
       assert content =~ store.name
       assert content =~ "Test content"
+      assert content =~ Routes.counter_url(store_uri(), :index, store, referral: @token)
+    end
+
+    test "render item share" do
+      store = store()
+      item = item()
+
+      content =
+        render_component(ShareComponent,
+          id: :test,
+          class: "test",
+          store: store,
+          item: item,
+          token: @token,
+          align_right: false,
+          inner_block: fn _, _ -> "Test content" end
+        )
+
+      assert content =~ "Test content"
+      assert content =~ Routes.item_url(store_uri(), :index, store, item, referral: @token)
+      refute content =~ Routes.counter_url(store_uri(), :index, store, referral: @token)
     end
   end
 
@@ -58,6 +80,27 @@ defmodule Tq2Web.Store.ShareComponentTest do
       location: %Tq2.Shops.Location{
         latitude: "12",
         longitude: "123"
+      }
+    }
+  end
+
+  defp item do
+    %Tq2.Inventories.Item{
+      id: "1",
+      sku: "123",
+      name: "Chocolate",
+      description: "Very good",
+      visibility: "visible",
+      price: Money.new(100, :ARS),
+      promotional_price: Money.new(90, :ARS),
+      cost: Money.new(80, :ARS),
+      image: "test.png",
+      account_id: "1",
+      category_id: "1",
+      category: %Tq2.Inventories.Category{
+        id: "1",
+        name: "Candy",
+        ordinal: "0"
       }
     }
   end

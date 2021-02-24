@@ -5,7 +5,7 @@ defmodule Tq2Web.Store.ItemLive do
   alias Tq2.{Analytics, Inventories, Transactions}
   alias Tq2.Inventories.Item
   alias Tq2.Transactions.Cart
-  alias Tq2Web.Store.HeaderComponent
+  alias Tq2Web.Store.{HeaderComponent, ShareComponent}
 
   import Tq2Web.ItemView, only: [money: 1]
 

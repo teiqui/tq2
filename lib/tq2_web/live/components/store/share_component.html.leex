@@ -10,17 +10,17 @@
 
     <div class="mx-4">
       <%= link icon_tag("whatsapp"),
-               to: whatsapp_share_url(@store, @token),
+               to: whatsapp_share_url(@store, @token, assigns[:item]),
                title: dgettext("stores", "WhatsApp"),
                class: "text-info h3 mr-3",
                target: "_blank" %>
       <%= link icon_tag("facebook"),
-               to: facebook_share_url(@store, @token),
+               to: facebook_share_url(@store, @token, assigns[:item]),
                title: dgettext("stores", "Facebook"),
                class:  "text-info h3 mr-3",
                target: "_blank" %>
       <%= link icon_tag("telegram"),
-               to: telegram_share_url(@store, @token),
+               to: telegram_share_url(@store, @token, assigns[:item]),
                title: dgettext("stores", "Telegram"),
                class:  "text-info h3 mr-3",
                target: "_blank" %>
@@ -31,7 +31,7 @@
     <a id="<%= @id %>-store-copy-to-clipboard"
        class="dropdown-item d-none"
        href="#"
-       data-text="<%= Routes.counter_url(store_uri(), :index, @store, referral: @token, utm_source: "clipboard") %>"
+       data-text="<%= clipboard_share_url(@store, @token, assigns[:item]) %>"
        phx-hook="CopyToClipboard">
       <%= dgettext("stores", "Copy store link") %>
     </a>
@@ -39,8 +39,8 @@
        class="dropdown-item d-none"
        href="#"
        data-title="<%= @store.name %>"
-       data-text="<%= dgettext("stores", "Hey, check our store!") %>"
-       data-url="<%= Routes.counter_url(store_uri(), :index, @store, referral: @token, utm_source: "other_app") %>"
+       data-text="<%= dgettext("stores", "Hey, check this out!") %>"
+       data-url="<%= other_app_share_url(@store, @token, assigns[:item]) %>"
        phx-hook="Share">
       <%= dgettext("stores", "Share in another app") %>
     </a>

@@ -24,6 +24,19 @@
   }
 }
 
+.btn-rounded {
+  @extend .btn-sm;
+  @extend .rounded-circle;
+
+  height: 35px;
+  width: 35px;
+  padding: 6px 0px 0px 0px;
+
+  i {
+    font-size: 14px;
+  }
+}
+
 .btn-sm-rounded {
   @extend .btn-sm;
   @extend .rounded-circle;
