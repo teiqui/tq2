@@ -34,7 +34,7 @@ defmodule Tq2.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, ">= 1.5.7", override: true},
+      {:phoenix, ">= 1.5.8", override: true},
       {:phoenix_ecto, ">= 4.1.0"},
       {:ecto_sql, ">= 3.4.0"},
       {:postgrex, ">= 0.0.0"},
