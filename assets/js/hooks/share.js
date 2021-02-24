@@ -1,25 +1,43 @@
 export const Share = {
   mounted () {
-    const element = this.el
-
     if (navigator.canShare) {
-      element.classList.remove('d-none')
-
-      element.addEventListener('click', event => {
-        event.preventDefault()
-
-        navigator.share({
-          title: element.dataset.title,
-          text:  element.dataset.text,
-          url:   element.dataset.url
-        })
-      })
+      this.hideAlternatives()
+      this.enableDirectSharing()
     }
   },
 
   updated () {
     if (navigator.canShare) {
-      this.el.classList.remove('d-none')
+      this.hideAlternatives()
+      this.showElement()
+    }
+  },
+
+  enableDirectSharing () {
+    const element = this.el
+
+    this.showElement()
+
+    element.addEventListener('click', event => {
+      event.preventDefault()
+
+      navigator.share({
+        title: element.dataset.title,
+        text:  element.dataset.text,
+        url:   element.dataset.url
+      })
+    })
+  },
+
+  showElement () {
+    this.el.classList.remove('d-none')
+  },
+
+  hideAlternatives () {
+    const elements = document.querySelectorAll('[data-hide-when-share]')
+
+    for (const element of elements) {
+      element.classList.add('d-none')
     }
   }
 }

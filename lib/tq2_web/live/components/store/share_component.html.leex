@@ -1,4 +1,14 @@
-<div class="dropdown">
+<a id="<%= @id %>-store-share-in-app"
+   class="d-none <%= @class %>"
+   href="#"
+   data-title="<%= @store.name %>"
+   data-text="<%= dgettext("stores", "Hey, check this out!") %>"
+   data-url="<%= other_app_share_url(@store, @token, assigns[:item]) %>"
+   phx-hook="Share">
+  <%= render_block(@inner_block) %>
+</a>
+
+<div class="dropdown" data-hide-when-share>
   <a href="#" id="<%= @id %>-share" class="<%= @class %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <%= render_block(@inner_block) %>
   </a>
@@ -34,15 +44,6 @@
        data-text="<%= clipboard_share_url(@store, @token, assigns[:item]) %>"
        phx-hook="CopyToClipboard">
       <%= dgettext("stores", "Copy store link") %>
-    </a>
-    <a id="<%= @id %>-store-share-in-app"
-       class="dropdown-item d-none"
-       href="#"
-       data-title="<%= @store.name %>"
-       data-text="<%= dgettext("stores", "Hey, check this out!") %>"
-       data-url="<%= other_app_share_url(@store, @token, assigns[:item]) %>"
-       phx-hook="Share">
-      <%= dgettext("stores", "Share in another app") %>
     </a>
   </div>
 </div>
