@@ -80,7 +80,7 @@ defmodule Tq2Web.Store.ItemLive do
     socket =
       socket
       |> assign(cart: cart)
-      |> show_modal_or_redirect()
+      |> show_modal_or_redirect(quantity)
 
     {:noreply, socket}
   end
@@ -118,12 +118,23 @@ defmodule Tq2Web.Store.ItemLive do
   end
 
   defp show_modal_or_redirect(
-         %{assigns: %{cart: %{price_type: "regular", lines: [%{quantity: 1} | []]}}} = socket
+         %{
+           assigns: %{
+             cart: %{
+               price_type: "regular",
+               lines: [%{quantity: quantity} | []]
+             }
+           }
+         } = socket,
+         quantity
        ) do
     push_event(socket, "showModal", %{})
   end
 
-  defp show_modal_or_redirect(%{assigns: %{store: store, search_params: search_params}} = socket) do
+  defp show_modal_or_redirect(
+         %{assigns: %{store: store, search_params: search_params}} = socket,
+         _quantity
+       ) do
     push_redirect(socket, to: Routes.counter_path(socket, :index, store, search_params))
   end
 
