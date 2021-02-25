@@ -58,15 +58,17 @@
 
       <hr class="my-5">
 
-      <div id="teiqui-price-modal" class="modal" tabindex="-1" phx-hook="Modal">
+      <div id="teiqui-price-modal" class="modal" tabindex="-1" phx-hook="Modal" data-show="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content">
             <div class="modal-body text-center pb-5">
-              <a href="#" class="h3 font-weight-semi-bold float-right mb-0 mt-n2 mr-n1" data-dismiss="modal">
+              <a href="#"
+                 class="h3 font-weight-semi-bold text-decoration-none float-right mb-0 mt-n2 mr-n1"
+                 data-dismiss="modal">
                 &times;
               </a>
 
-              <h1 class="text-primary font-weight-semi-bold mt-4 mb-4">
+              <h1 class="text-primary font-weight-semi-bold my-4">
                 <%= dgettext("stores", "You have chosen Teiqui price") %>
               </h1>
 
@@ -75,7 +77,7 @@
                                                                                         alt: dgettext("stores", "Share"),
                                                                                         class: "img-fluid" %>
 
-              <p class="lead font-weight-semi-bold mt-4 mb-4">
+              <p class="lead font-weight-semi-bold my-4">
                 <%= dgettext("stores", "It only applies if you can get someone else to buy in 24 hours.") %>
               </p>
 

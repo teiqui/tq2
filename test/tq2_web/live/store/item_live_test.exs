@@ -3,6 +3,7 @@ defmodule Tq2Web.Store.ItemLiveTest do
 
   import Phoenix.LiveViewTest
   import Tq2.Fixtures, only: [create_session: 0, default_store: 0]
+  import Tq2Web.ItemView, only: [money: 1]
 
   @create_attrs %{
     sku: "some sku",
@@ -47,7 +48,7 @@ defmodule Tq2Web.Store.ItemLiveTest do
       assert render(item_live) =~ Money.to_string(item.promotional_price)
     end
 
-    test "add event", %{conn: conn, item: item, store: store} do
+    test "add event with promotional price", %{conn: conn, item: item, store: store} do
       path = Routes.item_path(conn, :index, store, item)
       {:ok, item_live, _html} = live(conn, path)
 
@@ -56,6 +57,24 @@ defmodule Tq2Web.Store.ItemLiveTest do
       assert {:error, {:live_redirect, %{kind: :push, to: ^counter_path}}} =
                item_live
                |> element("[phx-click=\"add\"][phx-value-type=\"promotional\"]")
+               |> render_click()
+    end
+
+    test "add event with regular price", %{conn: conn, item: item, store: store} do
+      path = Routes.item_path(conn, :index, store, item)
+      {:ok, item_live, _html} = live(conn, path)
+
+      item_live
+      |> element("[phx-click=\"add\"][phx-value-type=\"regular\"]")
+      |> render_click()
+
+      assert_push_event(item_live, "showModal", %{})
+
+      counter_path = Routes.counter_path(conn, :index, store)
+
+      assert {:error, {:live_redirect, %{kind: :push, to: ^counter_path}}} =
+               item_live
+               |> element("[phx-click=\"add\"][phx-value-type=\"regular\"]")
                |> render_click()
     end
 
@@ -85,6 +104,52 @@ defmodule Tq2Web.Store.ItemLiveTest do
       |> render_click() =~ "data-quantity=\"1\""
 
       assert has_element?(item_live, "[phx-click=\"decrease\"][disabled]")
+    end
+
+    test "change price type event", %{conn: conn, item: item, store: store} do
+      path = Routes.item_path(conn, :index, store, item)
+      {:ok, item_live, _html} = live(conn, path)
+
+      item_live
+      |> element("[phx-click=\"add\"][phx-value-type=\"regular\"]")
+      |> render_click()
+
+      assert has_element?(item_live, ".btn:not([disabled])", money(item.price))
+      assert has_element?(item_live, ".btn[disabled]", money(item.promotional_price))
+
+      item_live
+      |> element("[phx-click=\"change-price-type\"]")
+      |> render_click()
+
+      assert_push_event(item_live, "hideModal", %{})
+
+      assert has_element?(item_live, ".btn[disabled]", money(item.price))
+      assert has_element?(item_live, ".btn:not([disabled])", money(item.promotional_price))
+    end
+
+    test "hide modal event", %{conn: conn, item: item, store: store} do
+      path = Routes.item_path(conn, :index, store, item)
+      {:ok, item_live, _html} = live(conn, path)
+
+      item_live
+      |> element("[phx-click=\"hide-modal\"]")
+      |> render_click()
+
+      assert_push_event(item_live, "hideModal", %{})
+
+      assert has_element?(item_live, ".btn:not([disabled])", money(item.price))
+      assert has_element?(item_live, ".btn:not([disabled])", money(item.promotional_price))
+    end
+
+    test "redirect event", %{conn: conn, item: item, store: store} do
+      path = Routes.item_path(conn, :index, store, item)
+      {:ok, item_live, _html} = live(conn, path)
+
+      counter_path = Routes.counter_path(conn, :index, store)
+
+      assert {:error, {:live_redirect, %{kind: :push, to: ^counter_path}}} =
+               item_live
+               |> render_hook("redirect")
     end
 
     test "back with search params", %{conn: conn, item: item, store: store} do

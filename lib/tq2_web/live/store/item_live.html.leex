@@ -69,3 +69,31 @@
     </div>
   </div>
 </div>
+
+<div id="chose-teiqui-price-modal" class="modal" tabindex="-1" phx-hook="Modal">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-body text-center pb-5">
+        <a href="#" class="h3 font-weight-semi-bold text-decoration-none float-right mb-0 mt-n2 mr-n1" data-dismiss="modal">
+          &times;
+        </a>
+
+        <h1 class="text-primary font-weight-semi-bold my-4">
+          <%= dgettext("stores", "Chose Teiqui price!") %>
+        </h1>
+
+        <p class="lead font-weight-semi-bold my-4">
+          <%= dgettext("stores", "You have chosen regular price. Change to Teiqui price and take advantage of the discount throughout the store.") %>
+        </p>
+
+        <button type="button" class="btn btn-lg btn-primary font-weight-semi-bold py-2 px-5" phx-click="change-price-type">
+          <%= dgettext("stores", "Change to Teiqui price") %>
+        </button>
+
+        <p class="mb-0 mt-4">
+          <%= link dgettext("stores", "No thanks."), to: Routes.counter_path(@socket, :index, @store), phx_click: "hide-modal" %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

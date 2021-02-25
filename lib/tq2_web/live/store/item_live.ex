@@ -66,8 +66,7 @@ defmodule Tq2Web.Store.ItemLive do
             store: store,
             token: token,
             quantity: quantity,
-            visit_id: visit_id,
-            search_params: search_params
+            visit_id: visit_id
           }
         } = socket
       ) do
@@ -81,9 +80,51 @@ defmodule Tq2Web.Store.ItemLive do
     socket =
       socket
       |> assign(cart: cart)
+      |> show_modal_or_redirect()
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("change-price-type", _params, %{assigns: %{cart: cart, store: store}} = socket) do
+    cart = cart(store.account, cart, %{price_type: "promotional"})
+
+    socket =
+      socket
+      |> assign(cart: cart)
+      |> push_event("hideModal", %{})
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("hide-modal", _params, socket) do
+    socket = socket |> push_event("hideModal", %{})
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event(
+        "redirect",
+        _params,
+        %{assigns: %{store: store, search_params: search_params}} = socket
+      ) do
+    socket =
+      socket
       |> push_redirect(to: Routes.counter_path(socket, :index, store, search_params))
 
     {:noreply, socket}
+  end
+
+  defp show_modal_or_redirect(
+         %{assigns: %{cart: %{price_type: "regular", lines: [%{quantity: 1} | []]}}} = socket
+       ) do
+    push_event(socket, "showModal", %{})
+  end
+
+  defp show_modal_or_redirect(%{assigns: %{store: store, search_params: search_params}} = socket) do
+    push_redirect(socket, to: Routes.counter_path(socket, :index, store, search_params))
   end
 
   defp load_cart(%{assigns: %{referred: referred, store: %{account: account}}} = socket, token) do

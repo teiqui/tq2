@@ -51,7 +51,7 @@ msgstr "Editar tienda"
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: lib/tq2_web/live/components/store/share_component.html.leex:19
+#: lib/tq2_web/live/components/store/share_component.html.leex:29
 #: lib/tq2_web/live/shop/store_live.html.leex:103
 msgid "Facebook"
 msgstr "Facebook"
@@ -144,7 +144,7 @@ msgstr "Tienda actualizada correctamente."
 msgid "Update"
 msgstr "Actualizar tienda"
 
-#: lib/tq2_web/live/components/store/share_component.html.leex:14
+#: lib/tq2_web/live/components/store/share_component.html.leex:24
 #: lib/tq2_web/live/shop/store_live.html.leex:79
 msgid "WhatsApp"
 msgstr "WhatsApp"
@@ -159,11 +159,11 @@ msgstr "Tienda"
 msgid "Loading..."
 msgstr "Cargando..."
 
-#: lib/tq2_web/live/components/store/share_component.html.leex:36
+#: lib/tq2_web/live/components/store/share_component.html.leex:46
 msgid "Copy store link"
 msgstr "Copiar enlace de tienda"
 
-#: lib/tq2_web/live/components/store/share_component.html.leex:42
+#: lib/tq2_web/live/components/store/share_component.html.leex:5
 msgid "Hey, check this out!"
 msgstr "¡Hola! Mira esto"
 
@@ -175,7 +175,7 @@ msgstr "¡Hola! Mira esto\n\n%{url}"
 msgid "Share in another app"
 msgstr "Compartir en otra aplicación"
 
-#: lib/tq2_web/live/components/store/share_component.html.leex:8
+#: lib/tq2_web/live/components/store/share_component.html.leex:18
 msgid "Share on:"
 msgstr "Compartir en:"
 
@@ -198,7 +198,7 @@ msgid "Promotion expired!"
 msgstr "¡La promoción ya expiró!"
 
 #: lib/tq2_web/live/store/order_live.html.leex:34
-#: lib/tq2_web/live/store/order_live.html.leex:75 lib/tq2_web/live/store/order_live.html.leex:87
+#: lib/tq2_web/live/store/order_live.html.leex:77 lib/tq2_web/live/store/order_live.html.leex:89
 msgid "Share"
 msgstr "Compartir"
 
@@ -277,7 +277,7 @@ msgid "Saving..."
 msgstr "Guardando..."
 
 #: lib/tq2_web/live/store/checkout_live.html.leex:74
-#: lib/tq2_web/live/store/checkout_live.html.leex:92 lib/tq2_web/live/store/order_live.html.leex:109
+#: lib/tq2_web/live/store/checkout_live.html.leex:92 lib/tq2_web/live/store/order_live.html.leex:111
 #: lib/tq2_web/live/store/team_live.html.leex:91
 msgid "Back to store"
 msgstr "Volver a la tienda"
@@ -425,7 +425,7 @@ msgstr "No soy yo"
 msgid "Enjoy the discount making other people buy in the store or by joining to other customer."
 msgstr "Disfruta del descuento haciendo que otra persona compre en la tienda o uniéndote a otro cliente."
 
-#: lib/tq2_web/live/components/store/share_component.html.leex:24
+#: lib/tq2_web/live/components/store/share_component.html.leex:34
 msgid "Telegram"
 msgstr "Telegram"
 
@@ -449,10 +449,26 @@ msgstr "Paso %{current} de %{total}"
 msgid "Invalid transaction"
 msgstr "Transacción invalida"
 
-#: lib/tq2_web/live/store/order_live.html.leex:79
+#: lib/tq2_web/live/store/order_live.html.leex:81
 msgid "It only applies if you can get someone else to buy in 24 hours."
 msgstr "Sólo aplica si logras que alguien más compre en 24h."
 
-#: lib/tq2_web/live/store/order_live.html.leex:70
+#: lib/tq2_web/live/store/order_live.html.leex:72
 msgid "You have chosen Teiqui price"
 msgstr "Elegiste precio Teiqui"
+
+#: lib/tq2_web/live/store/item_live.html.leex:90
+msgid "Change to Teiqui price"
+msgstr "Cambiar a precio Teiqui"
+
+#: lib/tq2_web/live/store/item_live.html.leex:82
+msgid "Chose Teiqui price!"
+msgstr "¡Elige precio Teiqui!"
+
+#: lib/tq2_web/live/store/item_live.html.leex:94
+msgid "No thanks."
+msgstr "No, gracias."
+
+#: lib/tq2_web/live/store/item_live.html.leex:86
+msgid "You have chosen regular price. Change to Teiqui price and take advantage of the discount throughout the store."
+msgstr "Has elegido precio regular. Cambia a precio Teiqui y aprovecha el descuento en toda la tienda."
