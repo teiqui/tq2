@@ -5,16 +5,35 @@
         <%= image @socket, @store %>
       </div>
 
-      <div>
-        <div class="mt-2 show-on-shrink"></div>
-        <h1 class="h5 font-weight-bold mb-1">
-          <%= live_redirect to: Routes.counter_path(@socket, :index, @store), class: "text-reset text-decoration-none" do %>
-            <%= @store.name %>
-          <% end %>
-        </h1>
+      <div class="d-flex flex-grow-1">
+        <div class="text-truncate flex-grow-1">
+          <div class="mt-2 show-on-shrink"></div>
+          <h1 class="h5 font-weight-bold text-truncate mb-1">
+            <%= live_redirect to: Routes.counter_path(@socket, :index, @store), class: "text-reset text-decoration-none" do %>
+              <%= @store.name %>
+            <% end %>
+          </h1>
 
-        <div class="hide-on-shrink">
-          <%= live_component @socket, InformationComponent, store: @store, class: "h4" %>
+          <div class="hide-on-shrink">
+            <%= live_component @socket, InformationComponent, store: @store, class: "h4" %>
+          </div>
+        </div>
+
+        <div class="show-on-shrink">
+          <div class="row row-cols-2">
+            <div class="col text-nowrap">
+              <%= live_component @socket, InformationComponent, store: @store, class: "h4 mb-0 mt-n1 mt-lg-n2" %>
+            </div>
+            <div class="col text-right">
+              <%= live_component @socket, ShareComponent, id: :header_shrink,
+                                                          store: @store,
+                                                          token: @token,
+                                                          class: share_classes(),
+                                                          align_right: true do %>
+                <i class="bi-share-fill"></i>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -23,18 +42,7 @@
       <%= live_component @socket, ShareComponent, id: :header,
                                                   store: @store,
                                                   token: @token,
-                                                  class: share_classes(),
-                                                  align_right: true do %>
-        <i class="bi-share-fill"></i>
-      <% end %>
-    </div>
-
-    <div class="show-on-shrink justify-content-end mt-n3">
-      <%= live_component @socket, InformationComponent, store: @store, class: "h2 mb-0 mt-n1 mt-lg-n2" %>
-      <%= live_component @socket, ShareComponent, id: :header_shrink,
-                                                  store: @store,
-                                                  token: @token,
-                                                  class: share_classes(),
+                                                  class: "#{share_classes()} mt-n3",
                                                   align_right: true do %>
         <i class="bi-share-fill"></i>
       <% end %>

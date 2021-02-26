@@ -64,7 +64,7 @@ defmodule Tq2Web.Store.HeaderComponent do
       height: "70",
       loading: "lazy",
       alt: store.name,
-      class: "img-fluid rounded-circle"
+      class: "rounded-circle"
     )
   end
 
@@ -82,12 +82,12 @@ defmodule Tq2Web.Store.HeaderComponent do
       height: "70",
       loading: "lazy",
       alt: store.name,
-      class: "img-fluid rounded-circle"
+      class: "rounded-circle"
     )
   end
 
   defp share_classes do
-    "btn btn-light btn-sm-rounded text-primary mt-n1"
+    "btn btn-light btn-sm-rounded text-primary ml-n2"
   end
 
   defp chevron_direction(true), do: icon_tag("chevron-up")
