@@ -247,7 +247,7 @@ msgstr "Nadie tiene compras a las que puedas unirte en este momento."
 msgid "Share my purchase"
 msgstr "Compartir mi compra"
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:72
+#: lib/tq2_web/live/components/store/header_component.html.leex:80
 #: lib/tq2_web/live/store/checkout_live.html.leex:59 lib/tq2_web/live/store/team_live.html.leex:14
 msgid "Teiqui price"
 msgstr "Precio Teiqui"
@@ -421,7 +421,7 @@ msgstr "Cambiar mis datos"
 msgid "It's not me"
 msgstr "No soy yo"
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:87
+#: lib/tq2_web/live/components/store/header_component.html.leex:95
 msgid "Enjoy the discount making other people buy in the store or by joining to other customer."
 msgstr "Disfruta del descuento haciendo que otra persona compre en la tienda o uniéndote a otro cliente."
 

@@ -246,7 +246,7 @@ msgstr ""
 msgid "Share my purchase"
 msgstr ""
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:72
+#: lib/tq2_web/live/components/store/header_component.html.leex:80
 #: lib/tq2_web/live/store/checkout_live.html.leex:59 lib/tq2_web/live/store/team_live.html.leex:14
 msgid "Teiqui price"
 msgstr ""
@@ -420,7 +420,7 @@ msgstr ""
 msgid "It's not me"
 msgstr ""
 
-#: lib/tq2_web/live/components/store/header_component.html.leex:87
+#: lib/tq2_web/live/components/store/header_component.html.leex:95
 msgid "Enjoy the discount making other people buy in the store or by joining to other customer."
 msgstr ""
 

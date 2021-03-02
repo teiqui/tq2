@@ -12,24 +12,23 @@
 
     <div class="card card-body py-2 mb-3 mt-2">
       <%= if Money.zero?(@amount) do %>
-        <div class="d-flex align-items-center">
-          <div class="flex-fill">
-            <p class="h5 text-info mb-0">
-              <%= dgettext("dashboard", "You have no orders yet.") %>
-            </p>
-            <p class="text-info mb-0">
-              <%= dgettext("dashboard", "Share your store.") %>
-            </p>
-          </div>
+        <p class="h5 text-info mt-3 mb-0">
+          <%= dgettext("dashboard", "You have no orders yet.") %>
+        </p>
+        <p class="text-info mb-0">
+          <%= dgettext("dashboard", "Share your store to get some orders.") %>
+        </p>
 
-          <%= live_component @socket, ShareComponent, id: :header,
-                                                      store: @store,
-                                                      token: "dashboard",
-                                                      class: "btn btn-info btn-sm-rounded",
-                                                      align_right: true do %>
+        <%= live_component @socket, ShareComponent, id: :header,
+                                                    store: @store,
+                                                    token: "dashboard",
+                                                    class: "btn btn-lg btn-block btn-info font-weight-semi-bold my-3",
+                                                    align_right: false do %>
+          <span class="float-left mr-n3">
             <i class="bi-share-fill"></i>
-          <% end %>
-        </div>
+          </span>
+          <%= dgettext("dashboard", "Spread my store") %>
+        <% end %>
       <% else %>
         <p class="h3 text-info font-weight-semi-bold py-2 mb-0">
           <%= Money.to_string(@amount, symbol: true) %>
