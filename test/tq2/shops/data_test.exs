@@ -74,5 +74,25 @@ defmodule Tq2.Shops.DataTest do
       assert "is invalid" in errors_on(changeset).phone
       assert "is invalid" in errors_on(changeset).whatsapp
     end
+
+    test "changeset delete domains", %{account: account} do
+      attrs =
+        @valid_attrs
+        |> Map.put(:instagram, "https://instagram.com/mypage")
+        |> Map.put(:facebook, "https://facebook.com/mypage")
+
+      changeset = Data.changeset(%Data{}, attrs, account)
+
+      assert changeset.changes.instagram == "mypage"
+      assert changeset.changes.facebook == "mypage"
+    end
+
+    test "changeset delete spaces for whatsapp", %{account: account} do
+      attrs = @valid_attrs |> Map.put(:whatsapp, "+54 261 4667788")
+
+      changeset = Data.changeset(%Data{}, attrs, account)
+
+      assert changeset.changes.whatsapp == "+542614667788"
+    end
   end
 end

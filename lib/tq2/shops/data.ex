@@ -31,11 +31,26 @@ defmodule Tq2.Shops.Data do
     |> validate_phone_number(:phone, account.country)
     |> validate_phone_number(:whatsapp, account.country)
     |> downcase(:email)
+    |> delete_domain(:facebook)
+    |> delete_domain(:instagram)
+    |> delete_spaces(:whatsapp)
   end
 
   defp downcase(%Ecto.Changeset{} = changeset, field) do
     update_change(changeset, field, fn value ->
       if value, do: String.downcase(value)
+    end)
+  end
+
+  defp delete_domain(%Ecto.Changeset{} = changeset, field) do
+    update_change(changeset, field, fn value ->
+      if value, do: value |> String.replace(~r(.*\.com\/), "")
+    end)
+  end
+
+  defp delete_spaces(%Ecto.Changeset{} = changeset, field) do
+    update_change(changeset, field, fn value ->
+      if value, do: value |> String.replace(~r(\s+), "")
     end)
   end
 end
