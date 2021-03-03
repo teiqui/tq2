@@ -50,7 +50,7 @@ defmodule Tq2Web.PageView do
   end
 
   defp play_store_img_tag do
-    locale
+    locale()
     |> play_store_img_url()
     |> img_tag(
       class: "img-fluid ml-lg-n3",
@@ -65,5 +65,31 @@ defmodule Tq2Web.PageView do
 
   defp play_store_img_url("en") do
     "https://play.google.com/intl/es-419/badges/static/images/badges/en_badge_web_generic.png"
+  end
+
+  defp payment_available?(country) do
+    ~w(ar cl) |> Enum.member?(country)
+  end
+
+  defp payment_img_tag(conn, country) do
+    conn
+    |> payment_img(country)
+    |> img_tag(class: "img-fluid mt-4", alt: payment_img_alt(country), width: "240")
+  end
+
+  defp payment_img(conn, "ar") do
+    Routes.static_path(conn, "/images/page/mercadopago.svg")
+  end
+
+  defp payment_img(conn, "cl") do
+    Routes.static_path(conn, "/images/page/transbank.svg")
+  end
+
+  defp payment_img_alt("ar") do
+    dgettext("payments", "MercadoPago")
+  end
+
+  defp payment_img_alt("cl") do
+    dgettext("payments", "Transbank - Onepay")
   end
 end

@@ -32,7 +32,7 @@ msgid "Pay with a wire transfer."
 msgstr ""
 
 #: lib/tq2_web/live/store/brief_live.ex:138
-#: lib/tq2_web/live/store/payment_live.ex:149 lib/tq2_web/views/order_view.ex:27
+#: lib/tq2_web/live/store/payment_live.ex:149 lib/tq2_web/views/order_view.ex:27 lib/tq2_web/views/page_view.ex:89
 msgid "MercadoPago"
 msgstr ""
 
@@ -73,6 +73,6 @@ msgid "Pay with Onepay app."
 msgstr ""
 
 #: lib/tq2_web/live/store/brief_live.ex:146
-#: lib/tq2_web/live/store/payment_live.ex:157 lib/tq2_web/views/order_view.ex:29
+#: lib/tq2_web/live/store/payment_live.ex:157 lib/tq2_web/views/order_view.ex:29 lib/tq2_web/views/page_view.ex:93
 msgid "Transbank - Onepay"
 msgstr ""
