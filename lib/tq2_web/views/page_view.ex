@@ -62,4 +62,8 @@ defmodule Tq2Web.PageView do
   defp play_store_img_url("es") do
     "https://play.google.com/intl/es-419/badges/static/images/badges/es-419_badge_web_generic.png"
   end
+
+  defp play_store_img_url("en") do
+    "https://play.google.com/intl/es-419/badges/static/images/badges/en_badge_web_generic.png"
+  end
 end
