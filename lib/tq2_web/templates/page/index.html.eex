@@ -113,8 +113,9 @@
           <div class="row">
             <div class="col-md-6">
               <p class="mb-3 mt-4">
-                <%= link dgettext("page", "Free trial"), to: Routes.registration_url(app_uri(), :index),
-                                                         class: "btn btn-primary btn-lg btn-block shadow-sm px-4" %>
+                <%= link dgettext("page", "Download the app"), to: play_store_app_url(),
+                                                               class: "btn btn-primary btn-lg btn-block shadow-sm px-4",
+                                                               target: "_blank" %>
               </p>
 
               <p class="mb-2">
@@ -413,14 +414,22 @@
     </div>
   </div>
 
-  <div class="bg-primary text-white py-5 mb-n5">
-    <div class="container">
+  <div class="bg-primary text-white pt-3 pb-5 mb-n5">
+    <div class="container text-center text-lg-left">
       <div class="row">
         <div class="col-lg-6 mb-3">
-          <%= img_tag Routes.static_path(@conn, "/images/logo_white.svg"), width: "101",
-                                                                           height: "26",
-                                                                           loading: "lazy",
-                                                                           alt: gettext("Teiqui") %>
+          <p class="mb-3">
+            <%= link to: play_store_app_url(), target: "_blank" do %>
+              <%= play_store_img_tag() %>
+            <% end %>
+          </p>
+
+          <p class="my-3">
+            <%= img_tag Routes.static_path(@conn, "/images/logo_white.svg"), width: "101",
+                                                                             height: "26",
+                                                                             loading: "lazy",
+                                                                             alt: gettext("Teiqui") %>
+          </p>
         </div>
         <div class="col-lg-2 offset-lg-4">
           <p class="mb-1">

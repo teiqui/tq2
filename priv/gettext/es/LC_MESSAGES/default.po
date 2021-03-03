@@ -22,7 +22,7 @@ msgstr "¡Hasta pronto!"
 #: lib/tq2_web/templates/item/_tour_new_item.html.eex:12 lib/tq2_web/templates/item/_tour_new_item_promotional_price.html.eex:10
 #: lib/tq2_web/templates/layout/root.html.leex:5 lib/tq2_web/templates/layout/root.html.leex:5
 #: lib/tq2_web/templates/legal/index.html.eex:8 lib/tq2_web/templates/legal/index.html.eex:686
-#: lib/tq2_web/templates/page/index.html.eex:8 lib/tq2_web/templates/page/index.html.eex:423
+#: lib/tq2_web/templates/page/index.html.eex:8 lib/tq2_web/templates/page/index.html.eex:431
 #: lib/tq2_web/templates/password/edit.html.eex:5 lib/tq2_web/templates/password/new.html.eex:5
 #: lib/tq2_web/templates/session/new.html.eex:4 lib/tq2_web/views/layout_view.ex:41 lib/tq2_web/views/layout_view.ex:42
 #: lib/tq2_web/views/layout_view.ex:48 lib/tq2_web/views/layout_view.ex:204 lib/tq2_web/views/layout_view.ex:208
