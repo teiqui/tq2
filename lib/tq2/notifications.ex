@@ -40,5 +40,5 @@ defmodule Tq2.Notifications do
   end
 
   defp deliver_later(nil), do: nil
-  defp deliver_later(email), do: Mailer.deliver_later!(email)
+  defp deliver_later(email), do: Mailer.deliver_later(email)
 end
