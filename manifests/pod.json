@@ -86,33 +86,6 @@
             }
           },
           {
-            "name": "SMTP_ADDRESS",
-            "valueFrom": {
-              "configMapKeyRef": {
-                "key": "smtpAddress",
-                "name": "tq2-app-config"
-              }
-            }
-          },
-          {
-            "name": "SMTP_USER_NAME",
-            "valueFrom": {
-              "secretKeyRef": {
-                "key": "smtpUser",
-                "name": "tq2-app-secrets"
-              }
-            }
-          },
-          {
-            "name": "SMTP_PASSWORD",
-            "valueFrom": {
-              "secretKeyRef": {
-                "key": "smtpPassword",
-                "name": "tq2-app-secrets"
-              }
-            }
-          },
-          {
             "name": "DEFAULT_SHEET_ID",
             "valueFrom": {
               "configMapKeyRef": {
