@@ -7,12 +7,12 @@ defmodule Tq2Web.Registration.NewLive do
   alias Tq2.Accounts.Registration
 
   @impl true
-  def mount(_params, %{"remote_ip" => ip}, socket) do
+  def mount(_params, %{"remote_ip" => ip, "campaign" => campaign}, socket) do
     changeset = %Registration{} |> Accounts.change_registration()
 
     socket =
       socket
-      |> assign(:changeset, changeset)
+      |> assign(changeset: changeset, campaign: campaign)
       |> assign_country(ip)
 
     {:ok, socket, temporary_assigns: [changeset: nil]}
@@ -22,9 +22,12 @@ defmodule Tq2Web.Registration.NewLive do
   def handle_event(
         "save",
         %{"registration" => registration_params},
-        %{assigns: %{country: country}} = socket
+        %{assigns: %{campaign: campaign, country: country}} = socket
       ) do
-    params = registration_params |> Map.put("country", country)
+    params =
+      registration_params
+      |> Map.put("country", country)
+      |> Map.put("campaign", campaign)
 
     case Accounts.create_registration(params) do
       {:ok, %{registration: registration}} ->
@@ -97,4 +100,7 @@ defmodule Tq2Web.Registration.NewLive do
 
     socket |> assign(country: code)
   end
+
+  defp trial_days(%{campaign: "extended_trial"}), do: 30
+  defp trial_days(_assigns), do: 14
 end

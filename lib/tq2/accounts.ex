@@ -562,12 +562,17 @@ defmodule Tq2.Accounts do
 
   defp put_country_data({:error, changeset}, _), do: {:error, changeset}
 
-  defp registration_account_attributes(registration, %{"country" => country, "time_zone" => tz}) do
+  defp registration_account_attributes(registration, %{
+         "campaign" => campaign,
+         "country" => country,
+         "time_zone" => tz
+       }) do
     License.put_create_account_attrs(%{
       name: registration.name,
       status: "green",
       country: country,
-      time_zone: time_zone_or_country_default(tz, country)
+      time_zone: time_zone_or_country_default(tz, country),
+      campaign: campaign
     })
   end
 

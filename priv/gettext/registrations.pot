@@ -14,19 +14,19 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:61
+#: lib/tq2_web/live/registration/new_live.ex:64
 msgid "Butcher shop"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:63
+#: lib/tq2_web/live/registration/new_live.ex:66
 msgid "Green grocery"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:62
+#: lib/tq2_web/live/registration/new_live.ex:65
 msgid "Grocery"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:70
+#: lib/tq2_web/live/registration/new_live.ex:73
 msgid "Other"
 msgstr ""
 
@@ -39,27 +39,27 @@ msgstr ""
 msgid "Store type"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:67
+#: lib/tq2_web/live/registration/new_live.ex:70
 msgid "Bakery"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:68
+#: lib/tq2_web/live/registration/new_live.ex:71
 msgid "Bookshop / Stationery"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:64
+#: lib/tq2_web/live/registration/new_live.ex:67
 msgid "Cleaning"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:65
+#: lib/tq2_web/live/registration/new_live.ex:68
 msgid "Deli"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:66
+#: lib/tq2_web/live/registration/new_live.ex:69
 msgid "Food / Restaurant"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:69
+#: lib/tq2_web/live/registration/new_live.ex:72
 msgid "Technology"
 msgstr ""
 
@@ -107,7 +107,7 @@ msgstr ""
 msgid "Your customers will become your sellers using group shopping, thus bringing new buyers."
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:84
+#: lib/tq2_web/live/registration/new_live.ex:87
 msgid "terms of service"
 msgstr ""
 
@@ -123,7 +123,7 @@ msgstr ""
 msgid "Would you like to take a brief tour to know Teiqui main features?"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:76
+#: lib/tq2_web/live/registration/new_live.ex:79
 msgid "Create store"
 msgstr ""
 
@@ -131,7 +131,7 @@ msgstr ""
 msgid "Create your Teiqui online store"
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.ex:78
+#: lib/tq2_web/live/registration/new_live.ex:81
 msgid "Creating..."
 msgstr ""
 
@@ -174,4 +174,9 @@ msgstr ""
 
 #: lib/tq2_web/live/registration/new_live.html.leex:26
 msgid "Your store"
+msgstr ""
+
+#: lib/tq2_web/live/registration/new_live.html.leex:16
+#: lib/tq2_web/live/registration/new_live.html.leex:62
+msgid "Free %{days} days trial"
 msgstr ""

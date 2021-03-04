@@ -468,7 +468,8 @@ defmodule Tq2.AccountsTest do
       "email" => "some@email.com",
       "password" => "123456",
       "country" => "ar",
-      "time_zone" => "America/Argentina/Buenos_Aires"
+      "time_zone" => "America/Argentina/Buenos_Aires",
+      "campaign" => "Sofi"
     }
     @invalid_attrs %{
       name: nil,
@@ -515,6 +516,8 @@ defmodule Tq2.AccountsTest do
       assert {:ok, %{account: account, store: store, user: user, registration: registration}} =
                Accounts.create_registration(@valid_attrs)
 
+      trial_until = Timex.today() |> Timex.shift(days: 14)
+
       assert %Registration{} = registration
       assert registration.name == @valid_attrs["name"]
       assert registration.type == @valid_attrs["type"]
@@ -524,6 +527,7 @@ defmodule Tq2.AccountsTest do
       assert store.name == @valid_attrs["name"]
       assert store.slug == Tq2.Shops.Store.slugified(@valid_attrs["name"])
       assert user.email == @valid_attrs["email"]
+      assert account.license.paid_until == trial_until
     end
 
     test "create_registration/1 with repeated name creates account, user and store" do
@@ -558,6 +562,16 @@ defmodule Tq2.AccountsTest do
       assert user.email == @valid_attrs["email"]
       assert store.name == @valid_attrs["name"]
       refute store.slug == Tq2.Shops.Store.slugified(@valid_attrs["name"])
+    end
+
+    test "create_registration/1 with extended campaign" do
+      {:ok, %{account: %{license: license}}} =
+        %{@valid_attrs | "campaign" => "extended_trial"}
+        |> Accounts.create_registration()
+
+      trial_until = Timex.today() |> Timex.shift(days: 30)
+
+      assert license.paid_until == trial_until
     end
 
     test "create_registration/1 with invalid data returns error changeset" do

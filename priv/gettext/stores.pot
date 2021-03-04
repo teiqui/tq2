@@ -251,7 +251,7 @@ msgstr ""
 msgid "Teiqui price"
 msgstr ""
 
-#: lib/tq2/accounts.ex:583
+#: lib/tq2/accounts.ex:588
 msgid "No limit"
 msgstr ""
 
@@ -317,12 +317,13 @@ msgstr ""
 msgid "Describe the areas where you can delivery, and the conditions."
 msgstr ""
 
-#: lib/tq2/gateways/mercado_pago.ex:285 lib/tq2/gateways/transbank.ex:147
-#: lib/tq2_web/live/store/checkout_live.html.leex:34 lib/tq2_web/templates/email/expired_promotion.html.eex:29
-#: lib/tq2_web/templates/email/expired_promotion.text.eex:12 lib/tq2_web/templates/email/order_confirmation.html.eex:47
-#: lib/tq2_web/templates/email/order_confirmation.text.eex:13 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:49
-#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:13 lib/tq2_web/templates/email/promotion_confirmation.html.eex:30
-#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:13 lib/tq2_web/templates/order/show.html.eex:71
+#: lib/tq2/gateways/conekta.ex:147 lib/tq2/gateways/mercado_pago.ex:285
+#: lib/tq2/gateways/transbank.ex:147 lib/tq2_web/live/store/checkout_live.html.leex:34
+#: lib/tq2_web/templates/email/expired_promotion.html.eex:29 lib/tq2_web/templates/email/expired_promotion.text.eex:12
+#: lib/tq2_web/templates/email/order_confirmation.html.eex:47 lib/tq2_web/templates/email/order_confirmation.text.eex:13
+#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:49 lib/tq2_web/templates/email/owner_order_confirmation.text.eex:13
+#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:30 lib/tq2_web/templates/email/promotion_confirmation.text.eex:13
+#: lib/tq2_web/templates/order/show.html.eex:71
 msgid "Shipping"
 msgstr ""
 
@@ -444,7 +445,7 @@ msgstr ""
 msgid "Step %{current} of %{total}"
 msgstr ""
 
-#: lib/tq2/gateways/transbank.ex:232
+#: lib/tq2/gateways/conekta.ex:232 lib/tq2/gateways/transbank.ex:232
 msgid "Invalid transaction"
 msgstr ""
 

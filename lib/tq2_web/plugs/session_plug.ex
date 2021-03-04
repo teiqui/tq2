@@ -36,8 +36,8 @@ defmodule Tq2Web.SessionPlug do
     %{"remote_ip" => ip, "store" => store, "hide_price_info" => hide_price_info}
   end
 
-  def session_extras(%{remote_ip: ip}, :registration) do
-    %{"remote_ip" => ip}
+  def session_extras(%{params: params, remote_ip: ip}, :registration) do
+    %{"campaign" => params["utm_campaign"], "remote_ip" => ip}
   end
 
   def session_extras(
