@@ -51,7 +51,7 @@ defmodule Tq2.MixProject do
       {:argon2_elixir, ">= 2.3.0"},
       {:bamboo, ">= 1.6.0"},
       {:bamboo_phoenix, ">= 1.0.0"},
-      {:bamboo_smtp, ">= 3.1.0"},
+      {:bamboo_ses, ">= 0.2.0"},
       # TODO: check if needed when bamboo_smtp is updated
       {:ranch, "~> 1.7.0", override: true},
       {:paper_trail, ">= 0.12.0"},
