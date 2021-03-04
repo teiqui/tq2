@@ -144,6 +144,42 @@ defmodule Tq2Web.Store.CounterLiveTest do
       assert content =~ List.first(items).name
     end
 
+    test "render category with 1 or 4 images", %{conn: conn, items: [item | _], store: store} do
+      category_id = item.category_id
+      path = Routes.counter_path(conn, :index, store)
+      session = create_session()
+
+      attrs = %{
+        name: nil,
+        visibility: "visible",
+        price: Money.new(120, :ARS),
+        promotional_price: Money.new(110, :ARS),
+        cost: Money.new(100, :ARS),
+        category_id: category_id,
+        image: %Plug.Upload{
+          content_type: "image/png",
+          filename: "test.png",
+          path: Path.absname("test/support/fixtures/files/test.png")
+        }
+      }
+
+      {:ok, store_live, _html} = live(conn, path)
+
+      assert images_count(store_live, category_id) == 1
+
+      create_item(session, %{attrs | name: "item2"})
+
+      assert images_count(store_live, category_id) == 1
+
+      create_item(session, %{attrs | name: "item3"})
+
+      assert images_count(store_live, category_id) == 1
+
+      create_item(session, %{attrs | name: "item4"})
+
+      assert images_count(store_live, category_id) == 4
+    end
+
     test "search items", %{conn: conn, store: store} do
       path = Routes.counter_path(conn, :index, store)
       {:ok, store_live, _html} = live(conn, path)
@@ -289,5 +325,27 @@ defmodule Tq2Web.Store.CounterLiveTest do
     {:ok, item} = Tq2.Inventories.create_item(session, attrs)
 
     %{item | category: category}
+  end
+
+  defp images_count(store_live, category_id) do
+    # Open
+    store_live
+    |> element("#toggle-categories")
+    |> render_click()
+
+    count =
+      store_live
+      |> element("#category-#{category_id}")
+      |> render()
+      |> Floki.parse_document!()
+      |> Floki.find("img")
+      |> Enum.count()
+
+    # Close
+    store_live
+    |> element("#toggle-categories")
+    |> render_click()
+
+    count
   end
 end

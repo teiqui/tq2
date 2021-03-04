@@ -5,23 +5,24 @@ defmodule Tq2Web.Store.CategoryComponent do
 
   defp image_for(%Category{} = category) do
     category.items
-    |> List.first()
-    |> image(category)
+    |> Enum.filter(& &1.image)
+    |> Enum.take(4)
+    |> one_or_four_items(category)
   end
 
-  defp image(%Item{image: nil}, category) do
+  defp default_image(category) do
     ~E"""
       <svg class="img-fluid rounded"
-           viewBox="0 0 150 150"
-           width="150"
-           height="150"
+           viewBox="0 0 148 148"
+           width="148"
+           height="148"
            xmlns="http://www.w3.org/2000/svg"
            focusable="false"
            role="img"
            aria-label="<%= category.name %>">
         <g>
           <title><%= category.name %></title>
-          <rect width="150" height="150" x="0" y="0" fill="#c4c4c4"></rect>
+          <rect width="148" height="148" x="0" y="0" fill="#c4c4c4"></rect>
           <text x="50%" y="50%" text-anchor="middle" alignment-baseline="middle" fill="#838383" dy=".3em">
             <%= String.slice(category.name, 0..10) %>
           </text>
@@ -30,7 +31,7 @@ defmodule Tq2Web.Store.CategoryComponent do
     """
   end
 
-  defp image(%Item{image: image} = item, category) do
+  defp image(%Item{image: image} = item, category, size \\ 148, extra_classes \\ nil) do
     url = Tq2.ImageUploader.url({image, item}, :thumb)
 
     set = %{
@@ -40,11 +41,42 @@ defmodule Tq2Web.Store.CategoryComponent do
 
     img_tag(url,
       srcset: set,
-      width: "150",
-      height: "150",
+      width: "#{size}",
+      height: "#{size}",
       loading: "lazy",
       alt: category.name,
-      class: "img-fluid rounded"
+      class: "img-fluid rounded #{extra_classes}"
     )
+  end
+
+  defp one_or_four_items([], category) do
+    default_image(category)
+  end
+
+  defp one_or_four_items([item], category) do
+    item |> image(category)
+  end
+
+  defp one_or_four_items([item | _] = items, category) when length(items) < 4 do
+    one_or_four_items([item], category)
+  end
+
+  defp one_or_four_items([a, b, c, d], category) do
+    content_tag(:div) do
+      [
+        content_tag(:div, class: "row") do
+          [
+            content_tag(:div, image(a, category, 70), class: "col mr-n2"),
+            content_tag(:div, image(b, category, 70), class: "col ml-n2")
+          ]
+        end,
+        content_tag(:div, class: "row mt-2") do
+          [
+            content_tag(:div, image(c, category, 70), class: "col mr-n2"),
+            content_tag(:div, image(d, category, 70), class: "col ml-n2")
+          ]
+        end
+      ]
+    end
   end
 end

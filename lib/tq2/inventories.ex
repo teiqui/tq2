@@ -69,7 +69,7 @@ defmodule Tq2.Inventories do
 
   def categories_with_images(account) do
     account
-    |> preload_one_item_per_category()
+    |> preload_items_per_category()
     |> Repo.all()
   end
 
@@ -378,7 +378,7 @@ defmodule Tq2.Inventories do
     |> preload([i, c], category: c)
   end
 
-  defp preload_one_item_per_category(account) do
+  defp preload_items_per_category(account, count \\ 4) do
     from c in Category,
       as: :category,
       where: [account_id: ^account.id],
@@ -389,7 +389,7 @@ defmodule Tq2.Inventories do
             where:
               item.category_id == parent_as(:category).id and
                 item.visibility == "visible",
-            limit: 1,
+            limit: ^count,
             order_by: [asc: :image],
             select: [:id]
         ),
