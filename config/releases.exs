@@ -70,7 +70,9 @@ config :ex_aws,
   s3: [region: {:system, "AWS_REGION"}]
 
 # Bamboo config
-config :tq2, Tq2.Notifications.Mailer, adapter: Bamboo.SesAdapter
+config :tq2, Tq2.Notifications.Mailer,
+  adapter: Bamboo.SesAdapter,
+  ex_aws: [region: "sa-east-1"]
 
 # Waffle config
 config :waffle,
