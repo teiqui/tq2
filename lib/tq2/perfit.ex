@@ -3,10 +3,13 @@ defmodule Tq2.Perfit do
   alias Tq2.Accounts.Session
 
   def create_contact(%Session{user: user} = session) do
+    lists = Application.get_env(:tq2, :perfit)[:new_contact_lists]
+
     params = %{
       first_name: user.name,
       last_name: user.lastname,
-      email: user.email
+      email: user.email,
+      lists: lists
     }
 
     "contacts"
