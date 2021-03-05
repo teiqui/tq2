@@ -13,7 +13,7 @@
     </h1>
 
     <h2 class="h5 mb-4">
-      <%= dgettext("registrations", "Free 14 days trial") %>
+      <%= dgettext("registrations", "Free %{days} days trial", days: trial_days(assigns)) %>
     </h2>
 
 
@@ -59,7 +59,7 @@
 
     <div class="text-left mx-4 mt-5">
       <h3 class="h6 text-info">
-        <%= dgettext("registrations", "Free 14 days trial") %>
+        <%= dgettext("registrations", "Free %{days} days trial", days: trial_days(assigns)) %>
       </h3>
 
       <p class="mb-3">

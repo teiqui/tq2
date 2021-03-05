@@ -55,7 +55,6 @@ defmodule Tq2.Accounts.License do
     license
     |> cast(attrs, @cast_attrs)
     |> put_status()
-    |> put_paid_until()
     |> put_account(account)
     |> validate()
   end
@@ -91,21 +90,27 @@ defmodule Tq2.Accounts.License do
     changeset |> change(status: "trial")
   end
 
-  defp put_paid_until(%Ecto.Changeset{} = changeset) do
-    trial_until = Timex.today() |> Timex.shift(days: 14)
-
-    changeset |> change(paid_until: trial_until)
-  end
-
   def put_create_account_attrs(%{name: _} = attrs) do
-    Map.put(attrs, :license, %{})
+    Map.put(attrs, :license, attrs_for_campaign(attrs[:campaign]))
   end
 
   def put_create_account_attrs(%{"name" => _} = attrs) do
-    Map.put(attrs, "license", %{})
+    Map.put(attrs, "license", attrs_for_campaign(attrs["campaign"]))
   end
 
   defp put_account(%Ecto.Changeset{} = changeset, %Account{} = account) do
     changeset |> change(account_id: account.id)
+  end
+
+  defp attrs_for_campaign("extended_trial") do
+    trial_until = Timex.today() |> Timex.shift(days: 30)
+
+    %{paid_until: trial_until}
+  end
+
+  defp attrs_for_campaign(_campaign) do
+    trial_until = Timex.today() |> Timex.shift(days: 14)
+
+    %{paid_until: trial_until}
   end
 end
