@@ -110,6 +110,7 @@ config :stripity_stripe,
 config :tq2, :perfit,
   api_key: System.get_env("PERFIT_API_KEY", "sofimutante-somekey"),
   new_contact_lists: [%{id: 10, name: "Contactos nuevos"}],
+  empty_items_lists: [%{id: 17, name: "Contactos sin artículos"}],
   endpoint:
     System.get_env(
       "PERFIT_ENDPOINT",

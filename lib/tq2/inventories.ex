@@ -246,6 +246,22 @@ defmodule Tq2.Inventories do
   end
 
   @doc """
+  Returns the number of items.
+
+  ## Examples
+
+      iex> items_count(%Account{})
+      10
+
+  """
+  def items_count(account) do
+    Item
+    |> where(account_id: ^account.id)
+    |> select([i], count(i.id))
+    |> Repo.one!()
+  end
+
+  @doc """
   Gets a single item.
 
   Raises `Ecto.NoResultsError` if the Item does not exist.

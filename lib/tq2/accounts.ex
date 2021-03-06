@@ -622,7 +622,7 @@ defmodule Tq2.Accounts do
   defp after_create_account_jobs(
          {:ok, %{user: user, account: %{license: license} = account}} = result
        ) do
-    enqueue_perfit_contact_creation(%Session{user: user, account: account})
+    enqueue_perfit_jobs(%Session{user: user, account: account})
     enqueue_license_near_to_expire_notification(license)
     enqueue_lock_license(license)
 
@@ -631,8 +631,11 @@ defmodule Tq2.Accounts do
 
   defp after_create_account_jobs(result), do: result
 
-  defp enqueue_perfit_contact_creation(session) do
-    Exq.enqueue(Exq, "default", Tq2.Workers.PerfitJob, [session])
+  defp enqueue_perfit_jobs(session) do
+    exec_at = Timex.now() |> Timex.shift(days: 1)
+
+    Exq.enqueue(Exq, "default", Tq2.Workers.PerfitJob, ["create_contact", session])
+    Exq.enqueue_at(Exq, "default", exec_at, Tq2.Workers.PerfitJob, ["check_empty_items", session])
   end
 
   defp enqueue_license_near_to_expire_notification(license) do
