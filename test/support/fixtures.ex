@@ -197,4 +197,18 @@ defmodule Tq2.Fixtures do
       app
     end
   end
+
+  def app_wire_transfer_fixture do
+    attrs = %{
+      status: "active",
+      data: %{"description" => "Pay me", "account_number" => "123-123"}
+    }
+
+    {:ok, app} =
+      default_account()
+      |> Tq2.Apps.WireTransfer.changeset(%Tq2.Apps.WireTransfer{}, attrs)
+      |> Tq2.Repo.insert()
+
+    app
+  end
 end

@@ -60,12 +60,13 @@ defmodule Tq2.Notifications.Email do
   def expired_promotion(%Order{customer: customer} = order) do
     subject = dgettext("emails", "Promotional price expired")
     shipping = Cart.shipping(order.cart)
+    order = Tq2.Repo.preload(order, :store)
 
     base_email()
     |> to(customer.email)
     |> subject(subject)
     |> reply_to(order.account_id)
-    |> render(:expired_promotion, order: order, customer: customer, shipping: shipping)
+    |> render(:expired_promotion, customer: customer, order: order, shipping: shipping)
   end
 
   def license_near_to_expire(%User{} = user) do

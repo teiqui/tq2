@@ -3,9 +3,8 @@ defmodule Tq2Web.Store.BriefLive do
 
   import Tq2Web.PaymentLiveUtils,
     only: [
-      create_mp_payment: 3,
-      create_order: 3,
-      create_tbk_payment: 3
+      create_payment_or_go_to_order: 3,
+      maybe_put_phx_hook: 1
     ]
 
   import Tq2Web.Utils, only: [format_money: 1]
@@ -30,22 +29,9 @@ defmodule Tq2Web.Store.BriefLive do
       ) do
     cart = Transactions.get_cart(account, token)
 
-    case cart.data.payment do
-      "mercado_pago" ->
-        socket = socket |> create_mp_payment(store, cart)
+    socket = socket |> create_payment_or_go_to_order(store, cart)
 
-        {:noreply, socket}
-
-      "transbank" ->
-        socket = socket |> create_tbk_payment(store, cart)
-
-        {:noreply, socket}
-
-      _ ->
-        socket = socket |> create_order(store, cart)
-
-        {:noreply, socket}
-    end
+    {:noreply, socket}
   end
 
   defp finish_mount(%{assigns: %{cart: nil, store: store}} = socket) do
@@ -145,7 +131,4 @@ defmodule Tq2Web.Store.BriefLive do
   defp payment("transbank") do
     dgettext("payments", "Transbank - Onepay")
   end
-
-  defp maybe_put_phx_hook("transbank"), do: "phx-hook=TransbankModal"
-  defp maybe_put_phx_hook(_), do: nil
 end

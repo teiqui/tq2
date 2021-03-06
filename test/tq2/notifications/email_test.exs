@@ -83,6 +83,7 @@ defmodule Tq2.Notifications.EmailTest do
     promotional_price = line.promotional_price |> Money.to_string(symbol: true)
 
     email = Email.expired_promotion(order)
+    order_path = Tq2Web.Router.Helpers.order_path(%URI{}, :index, default_store(%{}), order)
 
     assert email.to == order.customer.email
     assert email.headers["Reply-To"] == "some name <store@some_slug.com>"
@@ -91,10 +92,14 @@ defmodule Tq2.Notifications.EmailTest do
     assert email.html_body =~ "##{order.id}"
     assert email.html_body =~ price
     refute email.html_body =~ promotional_price
+    assert email.html_body =~ "You can change the payment method "
+    assert email.html_body =~ order_path
     assert email.text_body =~ order.customer.name
     assert email.text_body =~ "##{order.id}"
     assert email.text_body =~ price
     refute email.text_body =~ promotional_price
+    assert email.text_body =~ "You can change the payment method "
+    assert email.text_body =~ order_path
   end
 
   test "expired promotion returns nil when order has customer without email" do

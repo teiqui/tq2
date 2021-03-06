@@ -1,5 +1,5 @@
 defmodule Tq2.Gateways.Transbank do
-  import Tq2Web.Gettext, only: [dgettext: 2]
+  import Tq2Web.Gettext, only: [dgettext: 2, dgettext: 3]
   import Tq2.Utils.Urls, only: [store_uri: 0]
 
   alias Tq2.Transactions.Cart
@@ -37,26 +37,10 @@ defmodule Tq2.Gateways.Transbank do
   def check_credentials(api_key, shared_secret) do
     app = %{data: %{api_key: api_key, shared_secret: shared_secret}}
 
-    item = %{
-      description: "test",
-      quantity: 1,
-      amount: 100
-    }
-
-    attrs = %{
-      apiKey: app.data.api_key,
-      appKey: app_key(),
-      callbackUrl: callback_url("fake"),
-      channel: "WEB",
-      externalUniqueNumber: "#{__MODULE__.timestamp()}",
-      issuedAt: __MODULE__.timestamp(),
-      items: [item],
-      itemsQuantity: 1,
-      total: 100
-    }
-
-    signature = :create_transaction |> sign(attrs, app)
-    attrs = attrs |> Map.put(:signature, signature)
+    attrs =
+      app
+      |> attrs_for()
+      |> sign(:create_transaction, app)
 
     :create_transaction
     |> request_post(attrs)
@@ -65,24 +49,21 @@ defmodule Tq2.Gateways.Transbank do
   end
 
   def create_cart_preference(app, cart, store, channel \\ "WEB") do
-    total = cart |> Cart.total() |> money_to_integer()
+    attrs =
+      app
+      |> attrs_for(cart, store, channel)
+      |> sign(:create_transaction, app)
 
-    attrs = %{
-      apiKey: app.data.api_key,
-      appKey: app_key(),
-      callbackUrl: callback_url(store),
-      channel: channel,
-      externalUniqueNumber: cart_external_reference(cart),
-      generateOttQrCode: "true",
-      issuedAt: __MODULE__.timestamp(),
-      items: items_for_cart(cart),
-      itemsQuantity: items_quantity(cart),
-      total: total,
-      widthHeight: 200
-    }
+    :create_transaction
+    |> request_post(attrs)
+    |> parse_response()
+  end
 
-    signature = :create_transaction |> sign(attrs, app)
-    attrs = attrs |> Map.put(:signature, signature)
+  def create_partial_preference(app, payment, store, channel \\ "WEB") do
+    attrs =
+      app
+      |> attrs_for(payment, store, channel)
+      |> sign(:create_transaction, app)
 
     :create_transaction
     |> request_post(attrs)
@@ -92,16 +73,18 @@ defmodule Tq2.Gateways.Transbank do
   def confirm_preference(app, %{
         gateway_data: %{"occ" => occ, "externalUniqueNumber" => external_id}
       }) do
-    attrs = %{
-      apiKey: app.data.api_key,
-      appKey: app_key(),
-      externalUniqueNumber: external_id,
-      issuedAt: __MODULE__.timestamp(),
-      occ: occ
-    }
-
-    signature = :confirm_preference |> sign(attrs, app)
-    attrs = Map.put(attrs, :signature, signature)
+    attrs =
+      sign(
+        %{
+          apiKey: app.data.api_key,
+          appKey: app_key(),
+          externalUniqueNumber: external_id,
+          issuedAt: __MODULE__.timestamp(),
+          occ: occ
+        },
+        :confirm_preference,
+        app
+      )
 
     :confirm_preference
     |> request_post(attrs)
@@ -195,7 +178,7 @@ defmodule Tq2.Gateways.Transbank do
     store_uri() |> Tq2Web.Router.Helpers.payment_check_url(:index, store)
   end
 
-  defp sign(action, attrs, %{data: %{shared_secret: key}}) do
+  defp sign(attrs, action, %{data: %{shared_secret: key}}) do
     to_io =
       @signature_params[action]
       |> Enum.map(fn key ->
@@ -206,10 +189,13 @@ defmodule Tq2.Gateways.Transbank do
       end)
       |> Enum.join("")
 
-    :sha256
-    |> :crypto.hmac(key, to_io)
-    |> Base.encode64()
-    |> String.trim()
+    signature =
+      :sha256
+      |> :crypto.hmac(key, to_io)
+      |> Base.encode64()
+      |> String.trim()
+
+    attrs |> Map.put(:signature, signature)
   end
 
   defp request_post(action, attrs) do
@@ -271,4 +257,77 @@ defmodule Tq2.Gateways.Transbank do
   end
 
   defp check_result(%{"description" => msg}), do: {:error, :api_key, msg}
+
+  defp attrs_for(%{data: %{api_key: key}}) do
+    %{
+      apiKey: key,
+      appKey: app_key(),
+      callbackUrl: callback_url("fake"),
+      channel: "WEB",
+      externalUniqueNumber: "#{__MODULE__.timestamp()}",
+      issuedAt: __MODULE__.timestamp(),
+      items: [
+        %{
+          description: "test",
+          quantity: 1,
+          amount: 100
+        }
+      ],
+      itemsQuantity: 1,
+      total: 100
+    }
+  end
+
+  defp attrs_for(app, %Cart{} = cart, store, channel) do
+    total = cart |> Cart.total() |> money_to_integer()
+
+    %{
+      apiKey: app.data.api_key,
+      appKey: app_key(),
+      callbackUrl: callback_url(store),
+      channel: channel,
+      externalUniqueNumber: cart_external_reference(cart),
+      generateOttQrCode: "true",
+      issuedAt: __MODULE__.timestamp(),
+      items: items_for_cart(cart),
+      itemsQuantity: items_quantity(cart),
+      total: total,
+      widthHeight: 200
+    }
+  end
+
+  defp attrs_for(app, payment, store, channel) do
+    total = payment.amount |> money_to_integer()
+
+    %{
+      apiKey: app.data.api_key,
+      appKey: app_key(),
+      callbackUrl: callback_url(store),
+      channel: channel,
+      externalUniqueNumber: cart_external_reference(payment.cart),
+      generateOttQrCode: "true",
+      issuedAt: __MODULE__.timestamp(),
+      items: pending_payment_items(payment),
+      itemsQuantity: 1,
+      total: total,
+      widthHeight: 200
+    }
+  end
+
+  defp pending_payment_items(payment) do
+    title =
+      "payments"
+      |> dgettext("Pending amount of order #%{id}", id: payment.cart.order.id)
+      |> normalize_string()
+
+    [
+      %{
+        description: title,
+        quantity: 1,
+        amount: money_to_integer(payment.amount),
+        additionalData: nil,
+        expire: -1
+      }
+    ]
+  end
 end

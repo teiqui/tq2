@@ -12,8 +12,6 @@ defmodule Tq2.Transactions do
   @doc """
   Gets a single cart.
 
-  Raises `Ecto.NoResultsError` if the Cart does not exist.
-
   ## Examples
 
       iex> get_cart(%Account{}, "token")
@@ -23,7 +21,7 @@ defmodule Tq2.Transactions do
       nil
 
   """
-  def get_cart(account, token) do
+  def get_cart(%Account{} = account, token) do
     Cart
     |> where(account_id: ^account.id, token: ^token)
     |> join(:left, [c], l in assoc(c, :lines))
@@ -32,6 +30,31 @@ defmodule Tq2.Transactions do
     |> where([c, l, o], is_nil(o.id))
     |> preload([c, l, o, customer], customer: customer, lines: l)
     |> Repo.one()
+  end
+
+  @doc """
+  Gets a cart with all its info.
+
+  Raises `Ecto.NoResultsError` if the Cart does not exist.
+
+  ## Examples
+
+      iex> get_cart!(%Account{}, 1)
+      %Cart{}
+
+      iex> get_cart!(%Account{}, 0)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_cart!(%Account{} = account, id) do
+    Cart
+    |> where(account_id: ^account.id, id: ^id)
+    |> join(:left, [c], l in assoc(c, :lines))
+    |> join(:left, [c], o in assoc(c, :order))
+    |> join(:left, [c], customer in assoc(c, :customer))
+    |> join(:left, [c], p in assoc(c, :payments))
+    |> preload([c, l, o, customer, p], customer: customer, lines: l, order: o, payments: p)
+    |> Repo.one!()
   end
 
   @doc """

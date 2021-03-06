@@ -75,7 +75,7 @@ defmodule Tq2Web.OrderView do
   end
 
   defp pending_payment_alert(%Payment{status: "pending"}) do
-    content_tag(:i, nil, class: "bi-exclamation-triangle")
+    content_tag(:i, nil, class: "bi-exclamation-triangle text-danger")
   end
 
   defp pending_payment_alert(_), do: nil

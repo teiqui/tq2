@@ -72,6 +72,7 @@ defmodule Tq2.Transactions.Cart do
     currency = currency(cart)
 
     cart.payments
+    |> Enum.filter(&(&1.status == "paid"))
     |> payments_amount(currency)
     |> Money.multiply(-1)
     |> Money.add(total(cart))
@@ -93,7 +94,6 @@ defmodule Tq2.Transactions.Cart do
 
   def payments_amount(payments, _) do
     payments
-    |> Enum.filter(&(&1.status == "paid"))
     |> Enum.map(& &1.amount)
     |> Enum.reduce(fn amount, total -> Money.add(amount, total) end)
   end

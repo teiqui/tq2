@@ -46,7 +46,12 @@
 </table>
 
 <p>
-  <%= dgettext("emails", "For reference, your order is #%{number}", number: @order.id) %>
+  <%= dgettext("emails", "You can change the payment method and/or pay the pending amount to complete your order on the following link:") %>
+  <%= link(
+    dgettext("orders", "Order #%{number}", number: @order.id),
+    to: Routes.order_url(store_uri(), :index, @order.store, @order),
+    target: "_blank"
+  ) %>
 </p>
 
 <p>

@@ -27,10 +27,6 @@ msgstr "Autorización inválida"
 msgid "Successfully authorized"
 msgstr "Autorizado correctamente"
 
-#: lib/tq2/gateways/mercado_pago.ex:270
-msgid "Pending amount of order #%{id}"
-msgstr "Monto pendiente orden #%{id}"
-
 #: lib/tq2_web/templates/app/_form_mercado_pago.html.eex:11
 msgid "Access Token"
 msgstr "Access Token"
