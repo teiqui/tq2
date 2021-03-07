@@ -11,11 +11,12 @@ msgid ""
 msgstr ""
 
 #: lib/tq2_web/live/components/order/payment_form_component.ex:6
-#: lib/tq2_web/live/store/brief_live.ex:134 lib/tq2_web/live/store/payment_live.ex:92 lib/tq2_web/views/order_view.ex:26
+#: lib/tq2_web/live/payment_live_utils.ex:24 lib/tq2_web/live/payment_live_utils.ex:35
+#: lib/tq2_web/live/store/brief_live.ex:120 lib/tq2_web/views/order_view.ex:26
 msgid "Cash"
 msgstr ""
 
-#: lib/tq2_web/live/store/payment_live.ex:107
+#: lib/tq2_web/live/store/payment_live.ex:77
 msgid "Your order must be paid on delivery."
 msgstr ""
 
@@ -23,7 +24,7 @@ msgstr ""
 msgid "Saving..."
 msgstr ""
 
-#: lib/tq2_web/live/store/payment_live.ex:111
+#: lib/tq2_web/live/store/payment_live.ex:81
 msgid "Pay with MercadoPago."
 msgstr ""
 
@@ -31,14 +32,14 @@ msgstr ""
 msgid "Pay with a wire transfer."
 msgstr ""
 
-#: lib/tq2_web/live/store/brief_live.ex:138
-#: lib/tq2_web/live/store/payment_live.ex:149 lib/tq2_web/views/order_view.ex:27 lib/tq2_web/views/page_view.ex:89
+#: lib/tq2_web/live/payment_live_utils.ex:25
+#: lib/tq2_web/live/store/brief_live.ex:124 lib/tq2_web/views/order_view.ex:27 lib/tq2_web/views/page_view.ex:89
 msgid "MercadoPago"
 msgstr ""
 
 #: lib/tq2_web/live/components/order/payment_form_component.ex:7
-#: lib/tq2_web/live/store/brief_live.ex:142 lib/tq2_web/live/store/order_live.ex:53
-#: lib/tq2_web/live/store/payment_live.ex:153 lib/tq2_web/views/order_view.ex:30
+#: lib/tq2_web/live/payment_live_utils.ex:27 lib/tq2_web/live/store/brief_live.ex:128
+#: lib/tq2_web/live/store/order_live.ex:240 lib/tq2_web/views/order_view.ex:30
 msgid "Wire transfer"
 msgstr ""
 
@@ -68,11 +69,15 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: lib/tq2_web/live/store/payment_live.ex:131
+#: lib/tq2_web/live/store/payment_live.ex:101
 msgid "Pay with Onepay app."
 msgstr ""
 
-#: lib/tq2_web/live/store/brief_live.ex:146
-#: lib/tq2_web/live/store/payment_live.ex:157 lib/tq2_web/views/order_view.ex:29 lib/tq2_web/views/page_view.ex:93
+#: lib/tq2_web/live/payment_live_utils.ex:26
+#: lib/tq2_web/live/store/brief_live.ex:132 lib/tq2_web/views/order_view.ex:29 lib/tq2_web/views/page_view.ex:93
 msgid "Transbank - Onepay"
+msgstr ""
+
+#: lib/tq2/gateways/mercado_pago.ex:272 lib/tq2/gateways/transbank.ex:320
+msgid "Pending amount of order #%{id}"
 msgstr ""

@@ -4,6 +4,7 @@ defmodule Tq2Web.Store.PaymentController do
   alias Tq2.Gateways.Transbank
   alias Tq2.Payments
   alias Tq2.Payments.Payment
+  alias Tq2.Transactions.Cart
 
   @doc """
   Controller without CSRF protection.
@@ -12,15 +13,13 @@ defmodule Tq2Web.Store.PaymentController do
   """
 
   def action(%{assigns: %{store: store}} = conn, _) do
-    token = conn |> get_session(:token)
-
-    session = %{store: store, token: token}
+    session = %{store: store}
 
     apply(__MODULE__, action_name(conn), [conn, conn.params, session])
   end
 
-  def transbank(conn, %{"channel" => channel}, %{store: store, token: token}) do
-    cart = store.account |> Tq2.Transactions.get_cart(token)
+  def transbank(conn, %{"id" => id, "channel" => channel}, %{store: store}) do
+    cart = store.account |> Tq2.Transactions.get_cart!(id)
 
     cart
     |> get_payment()
@@ -31,10 +30,22 @@ defmodule Tq2Web.Store.PaymentController do
   defp create_preference(nil, _cart, _channel, _store), do: nil
 
   defp create_preference(%Payment{} = payment, cart, channel, store) do
+    payment = %{payment | cart: cart}
+
     store.account
     |> Tq2.Apps.get_app("transbank")
-    |> Transbank.create_cart_preference(cart, store, channel)
+    |> create_full_or_partial_preference(payment, cart, store, channel)
     |> maybe_update_payment(cart, payment)
+  end
+
+  defp create_full_or_partial_preference(app, payment, cart, store, channel) do
+    case payment.amount == Cart.total(cart) do
+      true ->
+        Transbank.create_cart_preference(app, cart, store, channel)
+
+      false ->
+        Transbank.create_partial_preference(app, payment, store, channel)
+    end
   end
 
   defp maybe_update_payment(%{"responseCode" => "OK", "result" => result}, cart, payment) do

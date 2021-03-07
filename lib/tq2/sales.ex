@@ -302,7 +302,7 @@ defmodule Tq2.Sales do
     |> join(:left, [o, c, customer, l, p, parents], p_c in assoc(parents, :customer))
     |> join(:left, [o, c, customer, l, p, parents, children], c_c in assoc(children, :customer))
     |> preload([o, c, customer, l, p, parents, children, p_c, c_c],
-      cart: {c, lines: l, payments: p},
+      cart: {c, customer: customer, lines: l, payments: p},
       customer: customer,
       parents: {parents, customer: p_c},
       children: {children, customer: c_c}

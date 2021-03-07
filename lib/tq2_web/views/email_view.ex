@@ -1,7 +1,7 @@
 defmodule Tq2Web.EmailView do
   use Tq2Web, :view
 
-  import Tq2.Utils.Urls, only: [app_uri: 0, web_uri: 0]
+  import Tq2.Utils.Urls, only: [app_uri: 0, store_uri: 0, web_uri: 0]
 
   alias Tq2.Sales.Order
   alias Tq2.Transactions.Cart

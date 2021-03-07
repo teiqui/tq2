@@ -23,6 +23,7 @@ defmodule Tq2.Sales.Order do
     has_one :customer, through: [:cart, :customer]
     has_one :visit, through: [:cart, :visit]
     has_one :referral_customer, through: [:visit, :referral_customer]
+    has_one :store, through: [:account, :store]
 
     has_many :ties, Tie
     has_many :originator_ties, Tie, foreign_key: :originator_id

@@ -11,7 +11,7 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/live/store/order_live.html.leex:103
+#: lib/tq2_web/live/store/order_live.html.leex:106
 msgid "Thank you for your purchase!"
 msgstr "¡Gracias por tu compra!"
 
@@ -124,7 +124,8 @@ msgstr "Total"
 msgid "Here you'll see all orders, at this time there is none. For starters, share the online store link with your customers!"
 msgstr "Aquí verás todos los pedidos, en éste momento no hay ninguno. Para empezar ¡Comparte el vínculo de la tienda en linea con tus clientes!"
 
-#: lib/tq2_web/live/store/order_live.html.leex:107
+#: lib/tq2_web/live/store/order_live.html.leex:113
+#: lib/tq2_web/templates/email/expired_promotion.html.eex:51
 msgid "Order #%{number}"
 msgstr "Pedido #%{number}"
 
@@ -140,7 +141,7 @@ msgstr "Pagos para el pedido #%{id}"
 msgid "Thank you! Your and %{name} made a purchase together and now are saving."
 msgstr "¡Gracias! Tu compra con %{name} hizo que ambos ahorraran."
 
-#: lib/tq2_web/live/store/order_live.ex:35
+#: lib/tq2_web/live/store/order_live.ex:223
 msgid "Don't forget to make the payment!"
 msgstr "¡No olvides realizar el pago!"
 
@@ -187,7 +188,7 @@ msgstr "Este pedido tenía pedido promocional pero el tiempo para que alguien se
 msgid "This order has promotional price, and the customer join another, so both gets the discount!"
 msgstr "Este pedido tiene precio promocional y el cliente se ha unido a otro ¡Felicitaciones! Has vendido doble."
 
-#: lib/tq2/sales/order.ex:130
+#: lib/tq2/sales/order.ex:131
 msgid "To complete an order must be fully paid."
 msgstr "Para completar un pedido debe estar completamente pago."
 
@@ -206,3 +207,31 @@ msgstr "Precio Teiqui (%{price})"
 #: lib/tq2_web/live/store/order_live.html.leex:24
 msgid "Share your discount. You have 24 hours to get another person to buy, if not, you pay the regular price."
 msgstr "Comparte tu descuento. Tienes 24h para conseguir que otra persona compre, sino pagas el precio regular."
+
+#: lib/tq2_web/live/store/order_live.ex:322
+msgid "Change payment method"
+msgstr "Cambiar medio de pago"
+
+#: lib/tq2_web/live/store/order_live.ex:189
+msgid "Complete the payment of the purchase at regular price to receive your order. We kept your original payment method, you can change it."
+msgstr "Completa el pago de la compra a precio regular para recibir tu pedido. Conservamos tu medio de pago original, puedes modificarlo."
+
+#: lib/tq2_web/live/store/order_live.html.leex:108
+msgid "Complete your purchase"
+msgstr "Completa tu compra"
+
+#: lib/tq2_web/live/store/order_live.ex:168
+msgid "Pay with %{kind}"
+msgstr "Pagar con %{kind}"
+
+#: lib/tq2_web/live/store/order_live.ex:201
+msgid "Total pending: %{price}"
+msgstr "Total pendiente: %{price}"
+
+#: lib/tq2_web/live/store/order_live.html.leex:122
+msgid "Your 24 hours period to share the discount has expired."
+msgstr "Tu plazo de 24 horas para compartir el descuento ha finalizado."
+
+#: lib/tq2_web/live/store/order_live.ex:297
+msgid "Change"
+msgstr "Cambiar"

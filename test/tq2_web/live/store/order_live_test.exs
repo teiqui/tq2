@@ -1,14 +1,25 @@
 defmodule Tq2Web.Store.OrderLiveTest do
   use Tq2Web.ConnCase
 
+  import Mock
   import Phoenix.LiveViewTest
-  import Tq2.Fixtures, only: [create_session: 1]
+
+  import Tq2.Fixtures,
+    only: [
+      create_session: 1,
+      default_store: 0,
+      app_mercado_pago_fixture: 0,
+      app_wire_transfer_fixture: 0,
+      transbank_app: 0
+    ]
+
+  alias Tq2.Transactions.Cart
 
   @create_attrs %{
     token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
     price_type: "promotional",
     visit_id: nil,
-    data: %{handing: "pickup"}
+    data: %{handing: "pickup", payment: "cash"}
   }
 
   setup %{conn: conn} do
@@ -31,17 +42,7 @@ defmodule Tq2Web.Store.OrderLiveTest do
         visit_timestamp: System.os_time(:second)
       )
 
-    {:ok, %{conn: conn}}
-  end
-
-  def store_fixture(%{session: session}) do
-    {:ok, store} =
-      Tq2.Shops.create_store(session, %{
-        name: "Test store",
-        slug: "test_store"
-      })
-
-    %{store: %{store | account: session.account}}
+    {:ok, %{conn: conn, store: default_store()}}
   end
 
   def order_fixture(%{conn: conn, store: store}) do
@@ -88,14 +89,17 @@ defmodule Tq2Web.Store.OrderLiveTest do
   end
 
   describe "render" do
-    setup [:create_session, :store_fixture, :order_fixture]
+    setup [:create_session, :order_fixture]
 
     test "disconnected and connected render", %{conn: conn, order: order, store: store} do
       path = Routes.order_path(conn, :index, store, order.id)
       {:ok, order_live, html} = live(conn, path)
+      content = order_live |> render()
 
       assert html =~ "Thank you for your purchase!"
-      assert render(order_live) =~ "Thank you for your purchase!"
+      assert html =~ "id=\"teiqui-price-modal\""
+      assert content =~ "Thank you for your purchase!"
+      assert content =~ "id=\"teiqui-price-modal\""
     end
 
     test "render payment info", %{conn: conn, session: session, order: order, store: store} do
@@ -111,14 +115,230 @@ defmodule Tq2Web.Store.OrderLiveTest do
       path = Routes.order_path(conn, :index, store, order.id)
       {:ok, order_live, html} = live(conn, path)
 
-      assert html =~ "Thank you for your purchase!"
-      assert render(order_live) =~ "Thank you for your purchase!"
+      assert html =~ "Complete your purchase"
+      assert render(order_live) =~ "Complete your purchase"
       assert html =~ "Pay me"
       assert html =~ "123-345-678"
     end
 
-    @tag :skip
-    test "render regular purchase" do
+    test "render regular purchase", %{conn: conn, order: order, store: store} do
+      {:ok, _cart} =
+        Tq2.Transactions.update_cart(store.account, order.cart, %{price_type: "regular"})
+
+      path = Routes.order_path(conn, :index, store, order.id)
+      {:ok, order_live, html} = live(conn, path)
+      content = order_live |> render()
+
+      assert html =~ "Thank you for your purchase!"
+      assert content =~ "Thank you for your purchase!"
+      refute content =~ "id=\"teiqui-price-modal\""
+    end
+
+    test "render regular pending purchase create partial payment", %{
+      conn: conn,
+      order: order,
+      store: store
+    } do
+      app_mercado_pago_fixture()
+
+      cart = order.cart
+
+      {:ok, _payment} =
+        Tq2.Payments.create_payment(
+          cart,
+          %{status: "paid", kind: "mercado_pago", amount: Cart.pending_amount(cart)}
+        )
+
+      data =
+        cart.data
+        |> Tq2.Transactions.Data.from_struct()
+        |> Map.put(:payment, "mercado_pago")
+
+      {:ok, _cart} =
+        Tq2.Transactions.update_cart(store.account, cart, %{price_type: "regular", data: data})
+
+      path = Routes.order_path(conn, :index, store, order.id)
+      {:ok, order_live, html} = live(conn, path)
+      content = order_live |> render()
+
+      assert html =~ "Complete your purchase"
+      assert content =~ "Complete your purchase"
+      assert content =~ "Pay with MercadoPago"
+      assert content =~ "Change payment method"
+      refute content =~ "id=\"teiqui-price-modal\""
+
+      cart = Tq2.Transactions.get_cart!(store.account, cart.id)
+
+      refute Cart.paid?(cart)
+      assert Enum.count(cart.payments) == 1
+
+      attrs = %{
+        "responseCode" => "OK",
+        "result" => %{
+          "externalUniqueNumber" => "123"
+        }
+      }
+
+      mock = [create_partial_cart_preference: fn _, _, _ -> attrs end]
+
+      with_mock Tq2.Gateways.MercadoPago, mock do
+        {:error, {:redirect, %{to: _}}} =
+          order_live
+          |> element("[phx-click=\"pay\"]")
+          |> render_click()
+      end
+
+      cart = Tq2.Transactions.get_cart!(store.account, cart.id)
+
+      refute Cart.paid?(cart)
+      assert Enum.count(cart.payments) == 2
+
+      pending_payment = cart.payments |> Enum.find(&(&1.status == "pending"))
+
+      assert pending_payment.amount == Cart.pending_amount(cart)
+    end
+
+    test "render regular pending purchase change payment method", %{
+      conn: conn,
+      order: order,
+      session: session,
+      store: store
+    } do
+      app_mercado_pago_fixture()
+      app_wire_transfer_fixture()
+
+      cart = order.cart
+
+      data =
+        cart.data
+        |> Tq2.Transactions.Data.from_struct()
+        |> Map.put(:payment, "mercado_pago")
+
+      {:ok, _cart} =
+        Tq2.Transactions.update_cart(store.account, cart, %{price_type: "regular", data: data})
+
+      day_ago = DateTime.utc_now() |> Timex.shift(days: -1, hours: -1)
+
+      {:ok, _order} = Tq2.Sales.update_order(session, order, %{promotion_expires_at: day_ago})
+
+      path = Routes.order_path(conn, :index, store, order.id)
+      {:ok, order_live, html} = live(conn, path)
+      content = order_live |> render()
+
+      assert html =~ "Complete your purchase"
+      assert content =~ "Your 24 hours period to share the discount has expired"
+      assert content =~ "Complete your purchase"
+      assert content =~ "Pay with MercadoPago"
+      assert content =~ "Change payment method"
+      refute content =~ "id=\"teiqui-price-modal\""
+      refute content =~ "id=\"wire_transfer\""
+      refute content =~ "id=\"mercado_pago\""
+
+      content =
+        order_live
+        |> element("[phx-click=\"show-payment-methods\"]")
+        |> render_click()
+
+      assert content =~ "id=\"wire_transfer\""
+      assert content =~ "id=\"mercado_pago\""
+      assert content =~ ">Change<"
+
+      content =
+        order_live
+        |> form("#payment", kind: "wire_transfer")
+        |> render_submit()
+
+      refute content =~ "id=\"wire_transfer\""
+      refute content =~ "id=\"mercado_pago\""
+      refute content =~ ">Change<"
+      # Wire transfer can not be paid with button
+      refute content =~ "Pay with Wire transfer"
+    end
+
+    test "MercadoPago params triggers check payment", %{
+      conn: conn,
+      order: order,
+      store: store
+    } do
+      app_mercado_pago_fixture()
+
+      cart = order.cart
+
+      {:ok, _payment} =
+        Tq2.Payments.create_payment(
+          cart,
+          %{
+            status: "pending",
+            kind: "mercado_pago",
+            amount: Cart.pending_amount(cart),
+            external_id: "123"
+          }
+        )
+
+      mock = [
+        get: fn _url, _headers ->
+          body =
+            Jason.encode!(%{
+              "external_reference" => "123",
+              "date_approved" => DateTime.utc_now(),
+              "status" => "approved",
+              "transaction_amount" => 100,
+              "currency_id" => "ARS"
+            })
+
+          {:ok, %HTTPoison.Response{status_code: 200, body: body}}
+        end
+      ]
+
+      with_mock HTTPoison, mock do
+        path = Routes.order_path(conn, :index, store, order.id, external_reference: "123")
+
+        {:error, {:live_redirect, %{to: to}}} = live(conn, path)
+
+        assert to == Routes.order_path(conn, :index, store, order.id)
+      end
+    end
+
+    test "Transbank params triggers check payment", %{
+      conn: conn,
+      order: order,
+      store: store
+    } do
+      transbank_app()
+
+      cart = order.cart
+
+      {:ok, _payment} =
+        Tq2.Payments.create_payment(
+          cart,
+          %{
+            status: "pending",
+            kind: "transbank",
+            amount: Cart.pending_amount(cart),
+            external_id: "123"
+          }
+        )
+
+      mock = [
+        confirm_preference: fn _app, _payment ->
+          %{
+            "responseCode" => "OK",
+            "result" => %{
+              "occ" => "3333",
+              "externalUniqueNumber" => "123",
+              "issuedAt" => System.os_time(:second)
+            }
+          }
+        end
+      ]
+
+      with_mock Tq2.Gateways.Transbank, [:passthrough], mock do
+        path = Routes.order_path(conn, :index, store, order.id, externalUniqueNumber: "123")
+
+        {:error, {:live_redirect, %{to: to}}} = live(conn, path)
+
+        assert to == Routes.order_path(conn, :index, store, order.id)
+      end
     end
 
     @tag :skip

@@ -155,7 +155,7 @@ msgid "Store"
 msgstr "Tienda"
 
 #: lib/tq2_web/live/store/counter_live.html.leex:29
-#: lib/tq2_web/live/store/team_live.html.leex:74
+#: lib/tq2_web/live/store/order_live.ex:306 lib/tq2_web/live/store/team_live.html.leex:74
 msgid "Loading..."
 msgstr "Cargando..."
 
@@ -198,7 +198,7 @@ msgid "Promotion expired!"
 msgstr "¡La promoción ya expiró!"
 
 #: lib/tq2_web/live/store/order_live.html.leex:34
-#: lib/tq2_web/live/store/order_live.html.leex:77 lib/tq2_web/live/store/order_live.html.leex:89
+#: lib/tq2_web/live/store/order_live.html.leex:79 lib/tq2_web/live/store/order_live.html.leex:91
 msgid "Share"
 msgstr "Compartir"
 
@@ -277,7 +277,7 @@ msgid "Saving..."
 msgstr "Guardando..."
 
 #: lib/tq2_web/live/store/checkout_live.html.leex:74
-#: lib/tq2_web/live/store/checkout_live.html.leex:92 lib/tq2_web/live/store/order_live.html.leex:111
+#: lib/tq2_web/live/store/checkout_live.html.leex:92 lib/tq2_web/live/store/order_live.html.leex:118
 #: lib/tq2_web/live/store/team_live.html.leex:91
 msgid "Back to store"
 msgstr "Volver a la tienda"
@@ -318,13 +318,12 @@ msgstr "Agregue al menos un envío"
 msgid "Describe the areas where you can delivery, and the conditions."
 msgstr "Describe las áreas donde puedes hacer envíos, y las condiciones."
 
-#: lib/tq2/gateways/conekta.ex:147 lib/tq2/gateways/mercado_pago.ex:285
-#: lib/tq2/gateways/transbank.ex:147 lib/tq2_web/live/store/checkout_live.html.leex:34
-#: lib/tq2_web/templates/email/expired_promotion.html.eex:29 lib/tq2_web/templates/email/expired_promotion.text.eex:12
-#: lib/tq2_web/templates/email/order_confirmation.html.eex:47 lib/tq2_web/templates/email/order_confirmation.text.eex:13
-#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:49 lib/tq2_web/templates/email/owner_order_confirmation.text.eex:13
-#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:30 lib/tq2_web/templates/email/promotion_confirmation.text.eex:13
-#: lib/tq2_web/templates/order/show.html.eex:71
+#: lib/tq2/gateways/mercado_pago.ex:287 lib/tq2/gateways/transbank.ex:130
+#: lib/tq2_web/live/store/checkout_live.html.leex:34 lib/tq2_web/templates/email/expired_promotion.html.eex:29
+#: lib/tq2_web/templates/email/expired_promotion.text.eex:12 lib/tq2_web/templates/email/order_confirmation.html.eex:47
+#: lib/tq2_web/templates/email/order_confirmation.text.eex:13 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:49
+#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:13 lib/tq2_web/templates/email/promotion_confirmation.html.eex:30
+#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:13 lib/tq2_web/templates/order/show.html.eex:71
 msgid "Shipping"
 msgstr "Envío"
 
@@ -371,11 +370,11 @@ msgstr "Carrito"
 msgid "Edit"
 msgstr "Editar"
 
-#: lib/tq2_web/live/store/brief_live.ex:130
+#: lib/tq2_web/live/store/brief_live.ex:116
 msgid "You could have saved %{amount}"
 msgstr "Podrías ahorrar %{amount}"
 
-#: lib/tq2_web/live/store/brief_live.ex:122
+#: lib/tq2_web/live/store/brief_live.ex:108
 msgid "You saved %{amount}"
 msgstr "Ahorraste %{amount}"
 
@@ -446,15 +445,15 @@ msgstr "Resumen de compra"
 msgid "Step %{current} of %{total}"
 msgstr "Paso %{current} de %{total}"
 
-#: lib/tq2/gateways/conekta.ex:232 lib/tq2/gateways/transbank.ex:232
+#: lib/tq2/gateways/transbank.ex:218
 msgid "Invalid transaction"
 msgstr "Transacción invalida"
 
-#: lib/tq2_web/live/store/order_live.html.leex:81
+#: lib/tq2_web/live/store/order_live.html.leex:83
 msgid "It only applies if you can get someone else to buy in 24 hours."
 msgstr "Sólo aplica si logras que alguien más compre en 24h."
 
-#: lib/tq2_web/live/store/order_live.html.leex:72
+#: lib/tq2_web/live/store/order_live.html.leex:74
 msgid "You have chosen Teiqui price"
 msgstr "Elegiste precio Teiqui"
 

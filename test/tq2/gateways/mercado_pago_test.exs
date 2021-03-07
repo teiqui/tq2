@@ -2,7 +2,13 @@ defmodule Tq2.Gateways.MercadoPagoTest do
   use Tq2.DataCase
 
   import Mock
-  import Tq2.Fixtures, only: [create_session: 0, app_mercado_pago_fixture: 0]
+
+  import Tq2.Fixtures,
+    only: [
+      app_mercado_pago_fixture: 0,
+      create_session: 0,
+      default_store: 0
+    ]
 
   alias Tq2.Gateways.MercadoPago
   alias Tq2.Gateways.MercadoPago.Credential
@@ -63,13 +69,6 @@ defmodule Tq2.Gateways.MercadoPagoTest do
       cart = session.account |> create_cart_with_line()
       %{app: app} = app_mercado_pago_fixture()
 
-      {:ok, store} =
-        Tq2.Shops.create_store(session, %{
-          name: "Test store",
-          slug: "test_store",
-          configuration: %{pickup: true, pickup_time_limit: "1h"}
-        })
-
       default_preference = %{
         id: 33,
         external_reference: "tq2-mp-cart-#{cart.id}",
@@ -81,7 +80,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
       with_mock HTTPoison, mocked_fn do
         preference =
           %Credential{token: app.data.access_token}
-          |> MercadoPago.create_cart_preference(cart, store)
+          |> MercadoPago.create_cart_preference(cart, default_store())
 
         assert default_preference.id == preference["id"]
         assert default_preference.external_reference == preference["external_reference"]
@@ -106,7 +105,7 @@ defmodule Tq2.Gateways.MercadoPagoTest do
       with_mock HTTPoison, mocked_fn do
         preference =
           %Credential{token: app.data.access_token}
-          |> MercadoPago.create_partial_cart_preference(cart, Money.new(100, "ARS"))
+          |> MercadoPago.create_partial_cart_preference(cart, default_store())
 
         assert default_preference.id == preference["id"]
         assert default_preference.external_reference == preference["external_reference"]

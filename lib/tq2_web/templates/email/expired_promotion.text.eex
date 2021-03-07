@@ -15,5 +15,8 @@
 <%= dgettext("orders", "Total") %>: <%= cart_total @order.cart %>
 
 <%= dgettext("emails", "For reference, your order is #%{number}", number: @order.id) %>
+<%= dgettext("emails", "You can change the payment method and/or pay the pending amount to complete your order on the following link:") %>
+<%= Routes.order_url(store_uri(), :index, @order.store, @order) %>
+
 
 <%= dgettext("emails", "We'll keep you informed about it.") %>

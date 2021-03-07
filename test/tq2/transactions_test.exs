@@ -105,6 +105,21 @@ defmodule Tq2.TransactionsTest do
       assert cart.data.payment == "cash"
       assert cart.data.shipping.id == shipping.id
     end
+
+    test "get_cart!/2 returns valid cart" do
+      account = account()
+      cart = fixture(account, :cart)
+      cart = account |> Transactions.get_cart!(cart.id)
+
+      assert [] = cart.lines
+      assert [] = cart.payments
+      refute cart.customer
+      refute cart.order
+    end
+
+    test "get_cart!/2 raise invalid with cart id" do
+      assert_raise Ecto.NoResultsError, fn -> Transactions.get_cart!(account(), 0) end
+    end
   end
 
   describe "lines" do

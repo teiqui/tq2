@@ -52,9 +52,9 @@ msgstr ""
 msgid "For reference, the order is #%{number}"
 msgstr ""
 
-#: lib/tq2_web/templates/email/expired_promotion.html.eex:49
-#: lib/tq2_web/templates/email/expired_promotion.text.eex:17 lib/tq2_web/templates/email/order_confirmation.text.eex:18
-#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:50 lib/tq2_web/templates/email/promotion_confirmation.text.eex:18
+#: lib/tq2_web/templates/email/expired_promotion.text.eex:17
+#: lib/tq2_web/templates/email/order_confirmation.text.eex:18 lib/tq2_web/templates/email/promotion_confirmation.html.eex:50
+#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:18
 msgid "For reference, your order is #%{number}"
 msgstr ""
 
@@ -85,8 +85,8 @@ msgstr ""
 msgid "We have receive your order"
 msgstr ""
 
-#: lib/tq2_web/templates/email/expired_promotion.html.eex:53
-#: lib/tq2_web/templates/email/expired_promotion.text.eex:19 lib/tq2_web/templates/email/order_confirmation.html.eex:71
+#: lib/tq2_web/templates/email/expired_promotion.html.eex:58
+#: lib/tq2_web/templates/email/expired_promotion.text.eex:22 lib/tq2_web/templates/email/order_confirmation.html.eex:71
 #: lib/tq2_web/templates/email/order_confirmation.text.eex:20 lib/tq2_web/templates/email/promotion_confirmation.html.eex:54
 #: lib/tq2_web/templates/email/promotion_confirmation.text.eex:20
 msgid "We'll keep you informed about it."
@@ -145,11 +145,11 @@ msgstr ""
 msgid "In case you have any trouble, reply to this email."
 msgstr ""
 
-#: lib/tq2/notifications/email.ex:81
+#: lib/tq2/notifications/email.ex:82
 msgid "License expired"
 msgstr ""
 
-#: lib/tq2/notifications/email.ex:72
+#: lib/tq2/notifications/email.ex:73
 msgid "License near to expire"
 msgstr ""
 
@@ -201,4 +201,9 @@ msgstr ""
 
 #: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:75
 msgid "and <strong>it will be picked up from your store</strong>."
+msgstr ""
+
+#: lib/tq2_web/templates/email/expired_promotion.html.eex:49
+#: lib/tq2_web/templates/email/expired_promotion.text.eex:18
+msgid "You can change the payment method and/or pay the pending amount to complete your order on the following link:"
 msgstr ""

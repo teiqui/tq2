@@ -3,13 +3,14 @@ defmodule Tq2Web.Store.PaymentLive do
 
   import Tq2Web.PaymentLiveUtils,
     only: [
+      available_payment_methods_for_store: 1,
+      cart_payment_kind?: 2,
       check_for_paid_cart: 1,
-      create_mp_payment: 3,
-      create_tbk_payment: 3,
-      create_order: 3
+      create_payment_or_go_to_order: 3,
+      maybe_put_phx_hook: 1
     ]
 
-  alias Tq2.{Apps, Transactions}
+  alias Tq2.Transactions
   alias Tq2Web.Store.{ButtonComponent, HeaderComponent, ProgressComponent}
 
   @impl true
@@ -47,23 +48,9 @@ defmodule Tq2Web.Store.PaymentLive do
         %{assigns: %{store: %{account: account} = store, token: token}} = socket
       ) do
     cart = Transactions.get_cart(account, token)
+    socket = socket |> create_payment_or_go_to_order(store, cart)
 
-    case cart.data.payment do
-      "mercado_pago" ->
-        socket = socket |> create_mp_payment(store, cart)
-
-        {:noreply, socket}
-
-      "transbank" ->
-        socket = socket |> create_tbk_payment(store, cart)
-
-        {:noreply, socket}
-
-      _ ->
-        socket = socket |> create_order(store, cart)
-
-        {:noreply, socket}
-    end
+    {:noreply, socket}
   end
 
   defp finish_mount(%{assigns: %{cart: nil, store: store}} = socket) do
@@ -75,7 +62,7 @@ defmodule Tq2Web.Store.PaymentLive do
   end
 
   defp finish_mount(%{assigns: %{store: store}} = socket) do
-    socket = socket |> assign(:payment_methods, available_payment_methods(store))
+    socket = socket |> assign(:payment_methods, available_payment_methods_for_store(store))
 
     {:ok, socket, temporary_assigns: [cart: nil]}
   end
@@ -84,23 +71,6 @@ defmodule Tq2Web.Store.PaymentLive do
     cart = Transactions.get_cart(account, token)
 
     assign(socket, cart: cart)
-  end
-
-  defp available_payment_methods(store) do
-    main_methods =
-      if store.configuration.pickup || store.configuration.pay_on_delivery do
-        [{"cash", dgettext("payments", "Cash"), nil}]
-      else
-        []
-      end
-
-    app_names =
-      store.account
-      |> Apps.payment_apps()
-      |> Enum.map(&{&1.name, &1})
-      |> Enum.map(fn {name, app} -> {name, translate_name(name), app} end)
-
-    main_methods ++ app_names
   end
 
   defp payment_method_description("cash", _) do
@@ -140,23 +110,4 @@ defmodule Tq2Web.Store.PaymentLive do
       class: "img-fluid rounded mr-3"
     )
   end
-
-  defp cart_payment_kind?(cart, kind) do
-    cart.data && cart.data.payment == kind
-  end
-
-  defp translate_name("mercado_pago") do
-    dgettext("payments", "MercadoPago")
-  end
-
-  defp translate_name("wire_transfer") do
-    dgettext("payments", "Wire transfer")
-  end
-
-  defp translate_name("transbank") do
-    dgettext("payments", "Transbank - Onepay")
-  end
-
-  defp maybe_put_phx_hook("transbank"), do: "phx-hook=TransbankModal"
-  defp maybe_put_phx_hook(_), do: nil
 end

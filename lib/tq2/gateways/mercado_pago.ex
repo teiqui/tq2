@@ -1,5 +1,6 @@
 defmodule Tq2.Gateways.MercadoPago do
   import Tq2Web.Gettext
+  import Tq2.Utils.Urls, only: [app_uri: 0, store_uri: 0]
 
   alias Tq2.Gateways.MercadoPago.Credential
   alias Tq2.Transactions.{Cart, Line}
@@ -58,14 +59,22 @@ defmodule Tq2.Gateways.MercadoPago do
   def create_partial_cart_preference(
         %Credential{} = credential,
         %Cart{} = cart,
-        %Money{} = pending_amount
+        store
       ) do
+    order_url = store |> store_order_url(cart.order)
+    pending_amount = Cart.pending_amount(cart)
+
     preference = %{
       external_reference: cart_external_reference(cart),
       items: pending_payment_items(cart.order, pending_amount),
       payer: %{
         name: cart.customer.name,
         email: cart.customer.email
+      },
+      back_urls: %{
+        success: order_url,
+        pending: order_url,
+        failure: order_url
       }
     }
 
@@ -169,24 +178,17 @@ defmodule Tq2.Gateways.MercadoPago do
   end
 
   defp store_payment_url(store) do
-    scheme = if Application.get_env(:tq2, :env) == :prod, do: "https", else: "http"
-    config = Tq2Web.Endpoint.config(:url)
-
-    %URI{
-      scheme: scheme,
-      host: "#{Application.get_env(:tq2, :store_subdomain)}.#{config[:host]}"
-    }
+    store_uri()
     |> Tq2Web.Router.Helpers.payment_url(:index, store)
   end
 
-  defp notification_url do
-    scheme = if Application.get_env(:tq2, :env) == :prod, do: "https", else: "http"
-    url_config = Tq2Web.Endpoint.config(:url)
+  defp store_order_url(store, order) do
+    store_uri()
+    |> Tq2Web.Router.Helpers.order_url(:index, store, order)
+  end
 
-    %URI{
-      scheme: scheme,
-      host: Enum.join([Application.get_env(:tq2, :app_subdomain), url_config[:host]], ".")
-    }
+  defp notification_url do
+    app_uri()
     |> Tq2Web.Router.Helpers.webhook_url(:mercado_pago)
   end
 
@@ -267,7 +269,7 @@ defmodule Tq2.Gateways.MercadoPago do
 
   defp pending_payment_items(order, pending_amount) do
     title =
-      dgettext("mercado_pago", "Pending amount of order #%{id}", id: order.id)
+      dgettext("payments", "Pending amount of order #%{id}", id: order.id)
       |> normalize_string()
 
     [

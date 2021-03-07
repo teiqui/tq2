@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:103
+#: lib/tq2_web/live/store/order_live.html.leex:106
 msgid "Thank you for your purchase!"
 msgstr ""
 
@@ -123,7 +123,8 @@ msgstr ""
 msgid "Here you'll see all orders, at this time there is none. For starters, share the online store link with your customers!"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:107
+#: lib/tq2_web/live/store/order_live.html.leex:113
+#: lib/tq2_web/templates/email/expired_promotion.html.eex:51
 msgid "Order #%{number}"
 msgstr ""
 
@@ -139,7 +140,7 @@ msgstr ""
 msgid "Thank you! Your and %{name} made a purchase together and now are saving."
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.ex:35
+#: lib/tq2_web/live/store/order_live.ex:223
 msgid "Don't forget to make the payment!"
 msgstr ""
 
@@ -186,7 +187,7 @@ msgstr ""
 msgid "This order has promotional price, and the customer join another, so both gets the discount!"
 msgstr ""
 
-#: lib/tq2/sales/order.ex:130
+#: lib/tq2/sales/order.ex:131
 msgid "To complete an order must be fully paid."
 msgstr ""
 
@@ -204,4 +205,32 @@ msgstr ""
 
 #: lib/tq2_web/live/store/order_live.html.leex:24
 msgid "Share your discount. You have 24 hours to get another person to buy, if not, you pay the regular price."
+msgstr ""
+
+#: lib/tq2_web/live/store/order_live.ex:322
+msgid "Change payment method"
+msgstr ""
+
+#: lib/tq2_web/live/store/order_live.ex:189
+msgid "Complete the payment of the purchase at regular price to receive your order. We kept your original payment method, you can change it."
+msgstr ""
+
+#: lib/tq2_web/live/store/order_live.html.leex:108
+msgid "Complete your purchase"
+msgstr ""
+
+#: lib/tq2_web/live/store/order_live.ex:168
+msgid "Pay with %{kind}"
+msgstr ""
+
+#: lib/tq2_web/live/store/order_live.ex:201
+msgid "Total pending: %{price}"
+msgstr ""
+
+#: lib/tq2_web/live/store/order_live.html.leex:122
+msgid "Your 24 hours period to share the discount has expired."
+msgstr ""
+
+#: lib/tq2_web/live/store/order_live.ex:297
+msgid "Change"
 msgstr ""

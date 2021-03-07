@@ -56,8 +56,10 @@
         </div>
       <% end %>
 
-      <hr class="my-5">
+      <hr class="my-4">
+    <% end %>
 
+    <%= if show_share_modal?(@cart) do %>
       <div id="teiqui-price-modal" class="modal" tabindex="-1" phx-hook="Modal" data-show="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content">
@@ -96,22 +98,32 @@
 
     <div class="text-center">
       <div class="display-4 text-primary mt-4 mb-3">
-        <i class="bi-bag-check"></i>
+        <i class="<%= if paid?(@cart), do: "bi-bag-check", else: "bi-bag-plus" %>"></i>
       </div>
 
       <h2 class="h4">
-        <%= dgettext("orders", "Thank you for your purchase!") %>
+        <%= if paid?(@cart) do %>
+          <%= dgettext("orders", "Thank you for your purchase!") %>
+        <% else %>
+          <%= dgettext("orders", "Complete your purchase") %>
+        <% end %>
       </h2>
 
       <h3 class="h4 text-primary">
         <%= dgettext("orders", "Order #%{number}", number: @order.id) %>
       </h3>
 
-      <p class="h6 mt-4 mb-0">
-        <%= live_redirect dgettext("stores", "Back to store"), to: Routes.counter_path(@socket, :index, @store) %>
-      </p>
+      <%= if expired_promo?(@order) do %>
+        <h2 class="h5 text-danger mt-4">
+          <%= dgettext("orders", "Your 24 hours period to share the discount has expired.") %>
+        </h2>
+      <% else %>
+        <p class="h6 mt-4 mb-0">
+          <%= live_redirect dgettext("stores", "Back to store"), to: Routes.counter_path(@socket, :index, @store) %>
+        </p>
+      <% end %>
     </div>
 
-    <%= show_payment_info(@order, @store.account) %>
+    <%= show_payment_info(assigns) %>
   </div>
 </div>

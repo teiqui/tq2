@@ -1,6 +1,7 @@
 defmodule Tq2Web.Store.PaymentCheckLiveTest do
   use Tq2Web.ConnCase
 
+  import Mock
   import Phoenix.LiveViewTest
   import Tq2.Fixtures, only: [app_mercado_pago_fixture: 0, default_store: 0]
 
@@ -117,9 +118,12 @@ defmodule Tq2Web.Store.PaymentCheckLiveTest do
         })
 
       path = Routes.payment_check_path(conn, :index, store)
-      {:ok, _check_live, html} = live(conn, path)
 
-      assert html =~ "spinner-border"
+      with_mock HTTPoison, mock() do
+        {:ok, _check_live, html} = live(conn, path)
+
+        assert html =~ "spinner-border"
+      end
     end
 
     test "check and redirect to order", %{conn: conn, cart: cart, store: store} do
@@ -172,31 +176,34 @@ defmodule Tq2Web.Store.PaymentCheckLiveTest do
         })
 
       path = Routes.payment_check_path(conn, :index, store)
-      {:ok, check_live, html} = live(conn, path)
 
-      assert html =~ "spinner-border"
+      with_mock HTTPoison, mock() do
+        {:ok, check_live, html} = live(conn, path)
 
-      cart |> Payment.changeset(payment, %{status: "paid"}) |> Tq2.Repo.update!()
+        assert html =~ "spinner-border"
 
-      refute Tq2.Repo.preload(cart, :order).order
+        cart |> Payment.changeset(payment, %{status: "paid"}) |> Tq2.Repo.update!()
 
-      # simulate handle_info call
-      send(check_live.pid, {:timer})
+        refute Tq2.Repo.preload(cart, :order).order
 
-      ref = Process.monitor(check_live.pid)
+        # simulate handle_info call
+        send(check_live.pid, {:timer})
 
-      to =
-        receive do
-          {:DOWN, ^ref, _, _, live_response} ->
-            assert {_, {:live_redirect, %{to: to}}} = live_response
+        ref = Process.monitor(check_live.pid)
 
-            to
-        end
+        to =
+          receive do
+            {:DOWN, ^ref, _, _, live_response} ->
+              assert {_, {:live_redirect, %{to: to}}} = live_response
 
-      order = Tq2.Repo.preload(cart, :order, force: true).order
+              to
+          end
 
-      assert Routes.order_path(conn, :index, store, order.id) == to
-      assert order.data.paid
+        order = Tq2.Repo.preload(cart, :order, force: true).order
+
+        assert Routes.order_path(conn, :index, store, order.id) == to
+        assert order.data.paid
+      end
     end
 
     test "check and redirect to payment with cancelled payment", %{
@@ -232,5 +239,16 @@ defmodule Tq2Web.Store.PaymentCheckLiveTest do
 
       assert to == Routes.counter_path(conn, :index, store)
     end
+  end
+
+  defp mock do
+    [
+      get: fn _, _ ->
+        {:ok, %HTTPoison.Response{status_code: 200, body: "{\"message\":\"Mock\"}"}}
+      end,
+      post: fn _, _, _ ->
+        {:ok, %HTTPoison.Response{status_code: 201, body: "{\"message\":\"Mock\"}"}}
+      end
+    ]
   end
 end
