@@ -140,7 +140,7 @@ msgstr ""
 msgid "Thank you! Your and %{name} made a purchase together and now are saving."
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.ex:223
+#: lib/tq2_web/live/store/order_live.ex:227
 msgid "Don't forget to make the payment!"
 msgstr ""
 
@@ -207,11 +207,11 @@ msgstr ""
 msgid "Share your discount. You have 24 hours to get another person to buy, if not, you pay the regular price."
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.ex:322
+#: lib/tq2_web/live/store/order_live.ex:326
 msgid "Change payment method"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.ex:189
+#: lib/tq2_web/live/store/order_live.ex:192
 msgid "Complete the payment of the purchase at regular price to receive your order. We kept your original payment method, you can change it."
 msgstr ""
 
@@ -219,18 +219,18 @@ msgstr ""
 msgid "Complete your purchase"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.ex:168
+#: lib/tq2_web/live/store/order_live.ex:171
 msgid "Pay with %{kind}"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.ex:201
+#: lib/tq2_web/live/store/order_live.ex:204
 msgid "Total pending: %{price}"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:122
+#: lib/tq2_web/live/store/order_live.html.leex:118
 msgid "Your 24 hours period to share the discount has expired."
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.ex:297
+#: lib/tq2_web/live/store/order_live.ex:301
 msgid "Change"
 msgstr ""

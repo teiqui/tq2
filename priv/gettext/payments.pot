@@ -39,7 +39,7 @@ msgstr ""
 
 #: lib/tq2_web/live/components/order/payment_form_component.ex:7
 #: lib/tq2_web/live/payment_live_utils.ex:27 lib/tq2_web/live/store/brief_live.ex:128
-#: lib/tq2_web/live/store/order_live.ex:240 lib/tq2_web/views/order_view.ex:30
+#: lib/tq2_web/live/store/order_live.ex:244 lib/tq2_web/views/order_view.ex:30
 msgid "Wire transfer"
 msgstr ""
 

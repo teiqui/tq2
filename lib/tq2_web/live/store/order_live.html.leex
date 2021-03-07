@@ -117,11 +117,11 @@
         <h2 class="h5 text-danger mt-4">
           <%= dgettext("orders", "Your 24 hours period to share the discount has expired.") %>
         </h2>
-      <% else %>
-        <p class="h6 mt-4 mb-0">
-          <%= live_redirect dgettext("stores", "Back to store"), to: Routes.counter_path(@socket, :index, @store) %>
-        </p>
       <% end %>
+
+      <p class="h6 mt-4 mb-0">
+        <%= live_redirect dgettext("stores", "Back to store"), to: Routes.counter_path(@socket, :index, @store) %>
+      </p>
     </div>
 
     <%= show_payment_info(assigns) %>

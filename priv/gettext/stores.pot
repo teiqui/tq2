@@ -154,7 +154,7 @@ msgid "Store"
 msgstr ""
 
 #: lib/tq2_web/live/store/counter_live.html.leex:29
-#: lib/tq2_web/live/store/order_live.ex:306 lib/tq2_web/live/store/team_live.html.leex:74
+#: lib/tq2_web/live/store/order_live.ex:310 lib/tq2_web/live/store/team_live.html.leex:74
 msgid "Loading..."
 msgstr ""
 
@@ -276,7 +276,7 @@ msgid "Saving..."
 msgstr ""
 
 #: lib/tq2_web/live/store/checkout_live.html.leex:74
-#: lib/tq2_web/live/store/checkout_live.html.leex:92 lib/tq2_web/live/store/order_live.html.leex:118
+#: lib/tq2_web/live/store/checkout_live.html.leex:92 lib/tq2_web/live/store/order_live.html.leex:123
 #: lib/tq2_web/live/store/team_live.html.leex:91
 msgid "Back to store"
 msgstr ""
