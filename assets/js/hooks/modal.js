@@ -20,7 +20,7 @@ export const Modal = {
 
   handleHideModal ($dialog) {
     this.handleEvent('hideModal', () => {
-      $dialog.on('hidden.bs.modal', _event => {
+      $dialog.on('hidden.bs.modal', () => {
         this.pushEvent('redirect')
       })
 
