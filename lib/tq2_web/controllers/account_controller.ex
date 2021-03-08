@@ -17,9 +17,10 @@ defmodule Tq2Web.AccountController do
 
   def show(conn, %{"id" => id}) do
     account = Accounts.get_account!(id)
+    owner = Accounts.get_account_owner!(account)
     stats = Accounts.get_account_stats(account)
 
-    render(conn, "show.html", account: account, stats: stats)
+    render(conn, "show.html", account: account, owner: owner, stats: stats)
   end
 
   defp render_index(conn, _params, %{total_entries: 0}), do: render(conn, "empty.html")

@@ -24,7 +24,7 @@ msgstr "Activa"
 msgid "Argentina"
 msgstr "Argentina"
 
-#: lib/tq2_web/templates/account/show.html.eex:33
+#: lib/tq2_web/templates/account/show.html.eex:49
 msgid "Back"
 msgstr "Listado de cuentas"
 
@@ -88,7 +88,7 @@ msgid_plural "Accounts: <span class=\"badge badge-info\">%{count}</span>"
 msgstr[0] "Cuenta: <span class=\"badge badge-info\">una</span>"
 msgstr[1] "Cuentas: <span class=\"badge badge-info\">%{count}</span>"
 
-#: lib/tq2_web/templates/account/show.html.eex:26
+#: lib/tq2_web/templates/account/show.html.eex:42
 msgid "Carts count"
 msgstr "Cantidad de carritos"
 
@@ -100,11 +100,11 @@ msgstr "Limpiar filtro"
 msgid "Filter"
 msgstr "Filtrar"
 
-#: lib/tq2_web/templates/account/show.html.eex:20
+#: lib/tq2_web/templates/account/show.html.eex:36
 msgid "Orders count"
 msgstr "Cantidad de pedidos"
 
-#: lib/tq2_web/templates/account/show.html.eex:16
+#: lib/tq2_web/templates/account/show.html.eex:32
 msgid "Store"
 msgstr "Tienda"
 
@@ -115,3 +115,19 @@ msgstr "Todavía no se han creado tiendas"
 #: lib/tq2_web/templates/account/index.html.eex:30
 msgid "or"
 msgstr "o"
+
+#: lib/tq2_web/templates/account/show.html.eex:16
+msgid "Registration email"
+msgstr "Correo de registro"
+
+#: lib/tq2_web/templates/account/show.html.eex:28
+msgid "Store WhatsApp"
+msgstr "WhatsApp tienda"
+
+#: lib/tq2_web/templates/account/show.html.eex:20
+msgid "Store email"
+msgstr "Correo tienda"
+
+#: lib/tq2_web/templates/account/show.html.eex:24
+msgid "Store phone"
+msgstr "Teléfono tienda"

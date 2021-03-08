@@ -2,7 +2,7 @@ defmodule Tq2Web.AccountViewTest do
   use Tq2Web.ConnCase, async: true
 
   alias Tq2Web.AccountView
-  alias Tq2.Accounts.Account
+  alias Tq2.Accounts.{Account, User}
 
   import Phoenix.View
   import Phoenix.HTML, only: [safe_to_string: 1]
@@ -53,10 +53,16 @@ defmodule Tq2Web.AccountViewTest do
 
   test "renders show.html", %{conn: conn} do
     account = account()
+    owner = user()
     stats = [orders_count: 0, carts_count: 0]
 
     content =
-      render_to_string(AccountView, "show.html", conn: conn, account: account, stats: stats)
+      render_to_string(AccountView, "show.html",
+        conn: conn,
+        account: account,
+        owner: owner,
+        stats: stats
+      )
 
     assert String.contains?(content, account.name)
   end
@@ -99,5 +105,9 @@ defmodule Tq2Web.AccountViewTest do
         published: true
       }
     }
+  end
+
+  defp user do
+    %User{id: "1", name: "John", lastname: "Doe", email: "j@doe.com", role: "owner"}
   end
 end

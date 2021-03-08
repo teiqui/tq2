@@ -23,7 +23,7 @@ msgstr ""
 msgid "Argentina"
 msgstr ""
 
-#: lib/tq2_web/templates/account/show.html.eex:33
+#: lib/tq2_web/templates/account/show.html.eex:49
 msgid "Back"
 msgstr ""
 
@@ -87,7 +87,7 @@ msgid_plural "Accounts: <span class=\"badge badge-info\">%{count}</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/tq2_web/templates/account/show.html.eex:26
+#: lib/tq2_web/templates/account/show.html.eex:42
 msgid "Carts count"
 msgstr ""
 
@@ -99,11 +99,11 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: lib/tq2_web/templates/account/show.html.eex:20
+#: lib/tq2_web/templates/account/show.html.eex:36
 msgid "Orders count"
 msgstr ""
 
-#: lib/tq2_web/templates/account/show.html.eex:16
+#: lib/tq2_web/templates/account/show.html.eex:32
 msgid "Store"
 msgstr ""
 
@@ -113,4 +113,20 @@ msgstr ""
 
 #: lib/tq2_web/templates/account/index.html.eex:30
 msgid "or"
+msgstr ""
+
+#: lib/tq2_web/templates/account/show.html.eex:16
+msgid "Registration email"
+msgstr ""
+
+#: lib/tq2_web/templates/account/show.html.eex:28
+msgid "Store WhatsApp"
+msgstr ""
+
+#: lib/tq2_web/templates/account/show.html.eex:20
+msgid "Store email"
+msgstr ""
+
+#: lib/tq2_web/templates/account/show.html.eex:24
+msgid "Store phone"
 msgstr ""

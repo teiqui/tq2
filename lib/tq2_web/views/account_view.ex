@@ -57,4 +57,16 @@ defmodule Tq2Web.AccountView do
   defp store_url(%Account{store: store}) do
     store_uri() |> Routes.counter_url(:index, store)
   end
+
+  defp store_email_link(%{data: %{email: email}}) do
+    link(email, to: {:mailto, email})
+  end
+
+  defp store_email_link(_store), do: "-"
+
+  defp store_phone(%{data: %{phone: phone}}), do: phone
+  defp store_phone(_store), do: "-"
+
+  defp store_whatsapp(%{data: %{whatsapp: whatsapp}}), do: whatsapp
+  defp store_whatsapp(_store), do: "-"
 end

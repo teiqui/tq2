@@ -13,6 +13,22 @@
   <%= @account.time_zone %>
 </p>
 <p class="mb-1">
+  <strong><%= dgettext("accounts", "Registration email") %></strong>:
+  <%= link @owner.email, to: {:mailto, @owner.email} %>
+</p>
+<p class="mb-1">
+  <strong><%= dgettext("accounts", "Store email") %></strong>:
+  <%= store_email_link @account.store %>
+</p>
+<p class="mb-1">
+  <strong><%= dgettext("accounts", "Store phone") %></strong>:
+  <%= store_phone @account.store %>
+</p>
+<p class="mb-1">
+  <strong><%= dgettext("accounts", "Store WhatsApp") %></strong>:
+  <%= store_whatsapp @account.store %>
+</p>
+<p class="mb-1">
   <strong><%= dgettext("accounts", "Store") %></strong>:
   <%= link store_url(@account), to: store_url(@account), target: "_blank" %>
 </p>
