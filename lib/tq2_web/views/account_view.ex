@@ -58,15 +58,21 @@ defmodule Tq2Web.AccountView do
     store_uri() |> Routes.counter_url(:index, store)
   end
 
-  defp store_email_link(%{data: %{email: email}}) do
+  defp store_email_link(%{data: %{email: email}}) when is_binary(email) do
     link(email, to: {:mailto, email})
   end
 
   defp store_email_link(_store), do: "-"
 
-  defp store_phone(%{data: %{phone: phone}}), do: phone
+  defp store_phone(%{data: %{phone: phone}}) when is_binary(phone) do
+    phone
+  end
+
   defp store_phone(_store), do: "-"
 
-  defp store_whatsapp(%{data: %{whatsapp: whatsapp}}), do: whatsapp
+  defp store_whatsapp(%{data: %{whatsapp: whatsapp}}) when is_binary(whatsapp) do
+    whatsapp
+  end
+
   defp store_whatsapp(_store), do: "-"
 end
