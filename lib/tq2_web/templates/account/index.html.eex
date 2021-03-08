@@ -9,19 +9,26 @@
   <div class="col">
     <form id="filter-form" class="collapse<%= if filtered?(@params), do: " show" %>">
       <div class="form-row align-items-center">
-        <div class="col-lg-4 mb-2 mb-lg-0">
+        <div class="col-lg-3 mb-2 mb-lg-0">
+          <input type="text"
+                 class="form-control form-control-sm mr-4"
+                 name="name"
+                 placeholder="<%= dgettext("accounts", "Name") %>"
+                 value="<%= @params["name"] %>">
+        </div>
+        <div class="col-lg-3 mb-2 mb-lg-0">
           <input type="date"
                  class="form-control form-control-sm mr-4"
                  name="inserted_from"
                  value="<%= @params["inserted_from"] %>">
         </div>
-        <div class="col-lg-4 mb-2 mb-lg-0">
+        <div class="col-lg-3 mb-2 mb-lg-0">
           <input type="date"
                  class="form-control form-control-sm mr-4"
                  name="inserted_to"
                  value="<%= @params["inserted_to"] %>">
         </div>
-        <div class="col-lg-4 mb-2 mb-lg-0">
+        <div class="col-lg-3 mb-2 mb-lg-0">
           <button type="submit" class="btn btn-sm btn-secondary">
             <%= dgettext("accounts", "Filter") %>
           </button>
@@ -35,7 +42,7 @@
       </div>
     </form>
   </div>
-  <div class="col">
+  <div class="col-auto">
     <p class="mb-2 text-right">
       <%= raw dngettext("accounts", "Account: <span class=\"badge badge-info\">one</span>",
                                     "Accounts: <span class=\"badge badge-info\">%{count}</span>", @page.total_entries) %>

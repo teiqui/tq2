@@ -29,6 +29,14 @@ defmodule Tq2Web.AccountController do
     render(conn, "index.html", accounts: page.entries, page: page, params: params)
   end
 
+  defp parse_params(%{"name" => name} = params) do
+    {_name, params} = Map.pop(params, "name")
+
+    params
+    |> parse_params()
+    |> Map.merge(%{"name" => name})
+  end
+
   defp parse_params(%{"inserted_from" => from, "inserted_to" => to}) do
     %{"inserted_from" => parse_date(from, :beginning), "inserted_to" => parse_date(to, :end)}
     |> Enum.filter(fn {_, v} -> v end)

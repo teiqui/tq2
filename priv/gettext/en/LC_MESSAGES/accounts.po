@@ -36,7 +36,7 @@ msgstr ""
 msgid "Colombia"
 msgstr ""
 
-#: lib/tq2_web/templates/account/index.html.eex:52
+#: lib/tq2_web/templates/account/index.html.eex:59
 #: lib/tq2_web/templates/account/show.html.eex:8
 msgid "Country"
 msgstr ""
@@ -53,7 +53,8 @@ msgstr ""
 msgid "Mexico"
 msgstr ""
 
-#: lib/tq2_web/templates/account/index.html.eex:50
+#: lib/tq2_web/templates/account/index.html.eex:16
+#: lib/tq2_web/templates/account/index.html.eex:57
 msgid "Name"
 msgstr ""
 
@@ -65,7 +66,7 @@ msgstr ""
 msgid "Show"
 msgstr ""
 
-#: lib/tq2_web/templates/account/index.html.eex:51
+#: lib/tq2_web/templates/account/index.html.eex:58
 #: lib/tq2_web/templates/account/show.html.eex:4
 msgid "Status"
 msgstr ""
@@ -78,11 +79,11 @@ msgstr ""
 msgid "Time zone"
 msgstr ""
 
-#: lib/tq2_web/templates/account/index.html.eex:53
+#: lib/tq2_web/templates/account/index.html.eex:60
 msgid "Inserted at"
 msgstr ""
 
-#: lib/tq2_web/templates/account/index.html.eex:40
+#: lib/tq2_web/templates/account/index.html.eex:47
 msgid "Account: <span class=\"badge badge-info\">one</span>"
 msgid_plural "Accounts: <span class=\"badge badge-info\">%{count}</span>"
 msgstr[0] ""
@@ -92,11 +93,11 @@ msgstr[1] ""
 msgid "Carts count"
 msgstr ""
 
-#: lib/tq2_web/templates/account/index.html.eex:33
+#: lib/tq2_web/templates/account/index.html.eex:40
 msgid "Clear"
 msgstr ""
 
-#: lib/tq2_web/templates/account/index.html.eex:26
+#: lib/tq2_web/templates/account/index.html.eex:33
 msgid "Filter"
 msgstr ""
 
@@ -112,7 +113,7 @@ msgstr ""
 msgid "There are no accounts yet"
 msgstr ""
 
-#: lib/tq2_web/templates/account/index.html.eex:30
+#: lib/tq2_web/templates/account/index.html.eex:37
 msgid "or"
 msgstr ""
 

@@ -132,6 +132,13 @@ defmodule Tq2.Accounts do
     Account.changeset(account, attrs)
   end
 
+  defp filter_accounts_by_params(query, %{"name" => _} = params) do
+    {name, params} = Map.pop(params, "name")
+    query = query |> where([a], ilike(a.name, ^"%#{name}%"))
+
+    filter_accounts_by_params(query, params)
+  end
+
   defp filter_accounts_by_params(query, %{"inserted_from" => from, "inserted_to" => to}) do
     query |> where([a], a.inserted_at >= ^from and a.inserted_at <= ^to)
   end

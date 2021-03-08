@@ -40,6 +40,19 @@ defmodule Tq2.AccountsTest do
              ]
     end
 
+    test "list_accounts/1 returns accounts filtered by name" do
+      account = account_fixture()
+      default_account = Tq2.Repo.get_by!(Account, name: "test_account")
+
+      assert Enum.map(Accounts.list_accounts(%{"name" => "test_account"}).entries, & &1.id) == [
+               default_account.id
+             ]
+
+      assert Enum.map(Accounts.list_accounts(%{"name" => "some"}).entries, & &1.id) == [
+               account.id
+             ]
+    end
+
     test "list_accounts/1 returns accounts when they match filters" do
       account = account_fixture()
       default_account = Tq2.Repo.get_by!(Account, name: "test_account")
