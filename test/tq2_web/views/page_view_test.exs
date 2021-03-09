@@ -26,7 +26,7 @@ defmodule Tq2Web.PageViewTest do
 
     assert String.contains?(content, "Teiqui price")
     assert String.contains?(content, "ARS $499.0")
-    assert String.contains?(content, "expand your means of payment")
+    assert String.contains?(content, "Teiqui offers different payment platforms")
     assert String.contains?(content, "mercadopago.svg")
   end
 
@@ -35,6 +35,6 @@ defmodule Tq2Web.PageViewTest do
 
     assert String.contains?(content, "Teiqui price")
     assert String.contains?(content, "COP $13,800.00")
-    refute String.contains?(content, "expand your means of payment")
+    refute String.contains?(content, "Teiqui offers different payment platforms")
   end
 end
