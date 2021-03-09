@@ -74,7 +74,11 @@ defmodule Tq2Web.PageView do
   defp payment_img_tag(conn, country) do
     conn
     |> payment_img(country)
-    |> img_tag(class: "img-fluid mt-4", alt: payment_img_alt(country), width: "240")
+    |> img_tag(
+      class: "img-fluid mt-4 px-4 px-lg-0 ml-n5 ml-lg-0",
+      alt: payment_img_alt(country),
+      width: "240"
+    )
   end
 
   defp payment_img(conn, "ar") do

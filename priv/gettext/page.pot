@@ -60,7 +60,7 @@ msgid "Monthly"
 msgstr ""
 
 #: lib/tq2_web/templates/legal/index.html.eex:690
-#: lib/tq2_web/templates/page/index.html.eex:431
+#: lib/tq2_web/templates/page/index.html.eex:455
 msgid "Need any help?"
 msgstr ""
 
@@ -121,7 +121,7 @@ msgid "Toggle menu"
 msgstr ""
 
 #: lib/tq2_web/templates/legal/index.html.eex:693
-#: lib/tq2_web/templates/page/index.html.eex:434
+#: lib/tq2_web/templates/page/index.html.eex:458
 msgid "Write to"
 msgstr ""
 
@@ -227,5 +227,5 @@ msgid "Get it on Google Play"
 msgstr ""
 
 #: lib/tq2_web/templates/page/index.html.eex:403
-msgid "At Teiqui we work to expand your means of payment. Available platform in your country:"
+msgid "Teiqui offers different payment platforms to add into your store."
 msgstr ""

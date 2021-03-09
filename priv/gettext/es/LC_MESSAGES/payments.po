@@ -13,7 +13,8 @@ msgstr ""
 
 #: lib/tq2_web/live/components/order/payment_form_component.ex:6
 #: lib/tq2_web/live/payment_live_utils.ex:24 lib/tq2_web/live/payment_live_utils.ex:35
-#: lib/tq2_web/live/store/brief_live.ex:120 lib/tq2_web/views/order_view.ex:26
+#: lib/tq2_web/live/store/brief_live.ex:120 lib/tq2_web/templates/page/index.html.eex:413
+#: lib/tq2_web/views/order_view.ex:26
 msgid "Cash"
 msgstr "Efectivo"
 
@@ -34,13 +35,14 @@ msgid "Pay with a wire transfer."
 msgstr "Pagar con transferencia bancaria."
 
 #: lib/tq2_web/live/payment_live_utils.ex:25
-#: lib/tq2_web/live/store/brief_live.ex:124 lib/tq2_web/views/order_view.ex:27 lib/tq2_web/views/page_view.ex:89
+#: lib/tq2_web/live/store/brief_live.ex:124 lib/tq2_web/views/order_view.ex:27 lib/tq2_web/views/page_view.ex:93
 msgid "MercadoPago"
 msgstr "MercadoPago"
 
 #: lib/tq2_web/live/components/order/payment_form_component.ex:7
 #: lib/tq2_web/live/payment_live_utils.ex:27 lib/tq2_web/live/store/brief_live.ex:128
-#: lib/tq2_web/live/store/order_live.ex:244 lib/tq2_web/views/order_view.ex:30
+#: lib/tq2_web/live/store/order_live.ex:244 lib/tq2_web/templates/page/index.html.eex:423
+#: lib/tq2_web/views/order_view.ex:30
 msgid "Wire transfer"
 msgstr "Transferencia bancaria"
 
@@ -75,10 +77,11 @@ msgid "Pay with Onepay app."
 msgstr "Paga con la aplicación de Onepay."
 
 #: lib/tq2_web/live/payment_live_utils.ex:26
-#: lib/tq2_web/live/store/brief_live.ex:132 lib/tq2_web/views/order_view.ex:29 lib/tq2_web/views/page_view.ex:93
+#: lib/tq2_web/live/store/brief_live.ex:132 lib/tq2_web/views/order_view.ex:29 lib/tq2_web/views/page_view.ex:97
 msgid "Transbank - Onepay"
 msgstr "Transbank - Onepay"
 
-#: lib/tq2/gateways/mercado_pago.ex:272 lib/tq2/gateways/transbank.ex:320
+#: lib/tq2/gateways/conekta.ex:93 lib/tq2/gateways/mercado_pago.ex:272
+#: lib/tq2/gateways/transbank.ex:320
 msgid "Pending amount of order #%{id}"
 msgstr "Monto pendiente orden #%{id}"
