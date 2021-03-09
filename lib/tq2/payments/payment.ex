@@ -17,6 +17,7 @@ defmodule Tq2.Payments.Payment do
 
     belongs_to :cart, Cart
     has_one :order, through: [:cart, :order]
+    has_one :account, through: [:cart, :account]
 
     timestamps type: :utc_datetime
   end
@@ -30,7 +31,7 @@ defmodule Tq2.Payments.Payment do
     :lock_version
   ]
   @statuses ~w(cancelled pending paid)
-  @kinds ~w(cash mercado_pago other transbank wire_transfer)
+  @kinds ~w(cash conekta mercado_pago other transbank wire_transfer)
   @money_attrs [:amount, "amount"]
 
   @doc false

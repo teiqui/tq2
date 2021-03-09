@@ -36,6 +36,27 @@ defmodule Tq2.Payments do
   end
 
   @doc """
+  Get a payment by external_id
+
+  ## Examples
+
+      iex> get_payment_by_external_id("123")
+      %Payment{}
+
+      iex> get_payment_by_external_id("321")
+      nil
+
+  """
+  def get_payment_by_external_id(external_id) do
+    Payment
+    |> join(:left, [p], c in assoc(p, :cart))
+    |> join(:left, [p], a in assoc(p, :account))
+    |> join(:left, [p, c, a], o in assoc(c, :order))
+    |> preload([p, c, a, o], account: a, cart: {c, order: o}, order: o)
+    |> Repo.get_by!(external_id: external_id)
+  end
+
+  @doc """
   Get a pending payment by kind and cart token
 
   ## Examples
