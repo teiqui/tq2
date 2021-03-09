@@ -39,6 +39,7 @@ jobs:
         with:
           otp-version: '23.1'
           elixir-version: '1.11.2'
+          experimental-otp: true
 
       - name: Config
         run: |

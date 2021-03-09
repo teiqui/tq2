@@ -215,5 +215,16 @@ defmodule Tq2.PaymentsTest do
       assert payment.status == "pending"
       assert payment.gateway_data == %{"key" => "value"}
     end
+
+    test "get_payment_by_external_id/1 returns payment", %{session: session} do
+      cart = session |> cart_fixture()
+      attrs = @valid_attrs |> Map.put(:external_id, "asd_123")
+
+      {:ok, original_payment} = cart |> Payments.create_payment(attrs)
+
+      payment = Payments.get_payment_by_external_id("asd_123")
+
+      assert payment.id == original_payment.id
+    end
   end
 end
