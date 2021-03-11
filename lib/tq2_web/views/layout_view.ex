@@ -150,8 +150,8 @@ defmodule Tq2Web.LayoutView do
     end
   end
 
-  defp google_analytics_key(%Plug.Conn{host: host}) do
-    subdomain = host |> String.split(".") |> List.first()
+  defp google_analytics_key(%Plug.Conn{} = conn) do
+    subdomain = conn |> subdomain()
 
     keys = %{
       Application.get_env(:tq2, :web_subdomain) => "UA-163313653-1",
@@ -196,6 +196,29 @@ defmodule Tq2Web.LayoutView do
                style="display:none"
                src="https://www.facebook.com/tr?id=229888358772182&ev=PageView&noscript=1">
         </noscript>
+      """
+    end
+  end
+
+  defp pipedrive_chat_script(%Plug.Conn{} = conn) do
+    if pipedrive_enabled?(conn) do
+      ~E"""
+        <script>
+          window.pipedriveLeadboosterConfig = {
+            base: 'leadbooster-chat.pipedrive.com',
+            companyId: 7908910,
+            playbookUuid: 'ee63062e-07b3-4d76-b61b-f9e856004b6b',
+            version: 2
+          }
+
+          window.LeadBooster = {
+            q: [],
+            on: function(n, h) { this.q.push({t: 'o', n: n, h: h}) },
+            trigger: function(n) { this.q.push({ t: 't', n: n }) }
+          }
+        </script>
+
+        <script src="https://leadbooster-chat.pipedrive.com/assets/loader.js" async></script>
       """
     end
   end
@@ -287,5 +310,25 @@ defmodule Tq2Web.LayoutView do
       </div>
     </form>
     """
+  end
+
+  defp subdomain(%Plug.Conn{host: host}) do
+    host |> String.split(".") |> List.first()
+  end
+
+  defp pipedrive_enabled?(%Plug.Conn{params: %{"tour" => _}}), do: false
+
+  defp pipedrive_enabled?(%Plug.Conn{request_path: path}) when path in ["/tour", "/welcome"],
+    do: false
+
+  defp pipedrive_enabled?(%Plug.Conn{} = conn) do
+    subdomain = conn |> subdomain()
+
+    subdomains = [
+      Application.get_env(:tq2, :web_subdomain),
+      Application.get_env(:tq2, :app_subdomain)
+    ]
+
+    Application.get_env(:tq2, :env) == :prod && subdomain in subdomains
   end
 end

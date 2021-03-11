@@ -24,6 +24,7 @@
     <%= hotjar_script() %>
     <%= google_analytics_script(@conn) %>
     <%= facebook_pixel_script() %>
+    <%= pipedrive_chat_script(@conn) %>
   </head>
 
   <body class="<%= body_classes @conn, assigns[:current_session] %>" data-spy="scroll" data-target="#main-menu" data-offset="50">
