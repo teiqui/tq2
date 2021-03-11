@@ -44,6 +44,19 @@
     <%= @stats[:carts_count] %>
   </span>
 </p>
+<p class="mb-1">
+  <strong><%= dgettext("licenses", "Status") %></strong>:
+  <%= status @license %>
+</p>
+
+<p class="mb-1">
+  <strong><%= dgettext("licenses", "Paid until") %></strong>:
+  <%= localize_date @license.paid_until %>
+</p>
+
+<p class="mb-1">
+  <%= link_to_extend_license @conn, @account %>
+</p>
 
 <div class="my-4">
   <%= link dgettext("accounts", "Back"), to: Routes.account_path(@conn, :index) %>

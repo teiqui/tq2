@@ -2,7 +2,7 @@ defmodule Tq2Web.AccountViewTest do
   use Tq2Web.ConnCase, async: true
 
   alias Tq2Web.AccountView
-  alias Tq2.Accounts.{Account, User}
+  alias Tq2.Accounts.{Account, License, User}
 
   import Phoenix.View
   import Phoenix.HTML, only: [safe_to_string: 1]
@@ -53,6 +53,7 @@ defmodule Tq2Web.AccountViewTest do
 
   test "renders show.html", %{conn: conn} do
     account = account()
+    license = license()
     owner = user()
     stats = [orders_count: 0, carts_count: 0]
 
@@ -60,6 +61,7 @@ defmodule Tq2Web.AccountViewTest do
       render_to_string(AccountView, "show.html",
         conn: conn,
         account: account,
+        license: license,
         owner: owner,
         stats: stats
       )
@@ -104,6 +106,15 @@ defmodule Tq2Web.AccountViewTest do
         slug: "other_slug",
         published: true
       }
+    }
+  end
+
+  defp license do
+    %License{
+      account_id: 1,
+      id: 1,
+      paid_until: Timex.today(),
+      status: "trial"
     }
   end
 

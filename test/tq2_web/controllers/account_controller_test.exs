@@ -2,20 +2,9 @@ defmodule Tq2Web.AccountControllerTest do
   use Tq2Web.ConnCase
   use Tq2.Support.LoginHelper
 
+  import Tq2.Fixtures, only: [default_account: 1, user_fixture: 1]
+
   alias Tq2.Accounts
-
-  @create_attrs %{
-    country: "ar",
-    name: "some name",
-    status: "active",
-    time_zone: "America/Argentina/Mendoza"
-  }
-
-  def fixture(:account) do
-    {:ok, account} = Accounts.create_account(@create_attrs)
-
-    account
-  end
 
   describe "unauthorized access" do
     test "requires user authentication on all actions", %{conn: conn} do
@@ -46,7 +35,7 @@ defmodule Tq2Web.AccountControllerTest do
   end
 
   describe "index" do
-    setup [:create_account]
+    setup [:default_account]
 
     @tag login_as: "test@user.com", login_role: "admin"
     test "lists all accounts", %{conn: conn} do
@@ -56,9 +45,44 @@ defmodule Tq2Web.AccountControllerTest do
     end
   end
 
-  defp create_account(_) do
-    account = fixture(:account)
+  describe "show" do
+    setup [:default_account, :create_owner]
 
-    %{account: account}
+    @tag login_as: "test@user.com", login_role: "admin"
+    test "render show", %{conn: conn, account: account} do
+      conn = get(conn, Routes.account_path(conn, :show, account))
+
+      assert html_response(conn, 200) =~ account.name
+    end
+
+    @tag login_as: "test@user.com", login_role: "admin"
+    test "extend license trial period", %{conn: conn, account: account} do
+      today = Timex.today()
+
+      {:ok, _license} =
+        %{account.license | account: account}
+        |> Accounts.update_license(%{status: "locked", paid_until: today})
+
+      {:ok, _accoount} = account |> Accounts.update_account(%{status: "locked"})
+
+      conn = put(conn, Routes.account_path(conn, :update, account, extend_license: true))
+
+      assert html_response(conn, 302)
+      assert redirected_to(conn) == Routes.account_path(conn, :show, account)
+
+      account = Accounts.get_account!(account.id)
+      license = Accounts.get_license!(account)
+      paid_until = today |> Timex.shift(days: 14)
+
+      assert account.status == "active"
+      assert license.status == "trial"
+      assert license.paid_until == paid_until
+    end
+  end
+
+  def create_owner(%{account: account}) do
+    owner = %Tq2.Accounts.Session{account: account} |> user_fixture()
+
+    %{owner: owner}
   end
 end

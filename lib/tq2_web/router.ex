@@ -113,7 +113,7 @@ defmodule Tq2Web.Router do
     live "/welcome", Registration.WelcomeLive, :index
 
     # Accounts
-    resources "/accounts", AccountController, only: [:index, :show]
+    resources "/accounts", AccountController, only: [:index, :show, :update]
     resources "/users", UserController
     resources "/passwords", PasswordController, only: [:new, :create, :edit, :update]
     live "/license", Account.LicenseLive, :index

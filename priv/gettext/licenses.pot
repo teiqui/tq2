@@ -11,26 +11,32 @@ msgid ""
 msgstr ""
 
 #: lib/tq2_web/live/account/license_live.html.leex:8
+#: lib/tq2_web/templates/account/show.html.eex:48
 msgid "Status"
 msgstr ""
 
 #: lib/tq2_web/live/account/license_live.ex:12
+#: lib/tq2_web/views/account_view.ex:22
 msgid "Active"
 msgstr ""
 
 #: lib/tq2_web/live/account/license_live.ex:15
+#: lib/tq2_web/views/account_view.ex:25
 msgid "Canceled"
 msgstr ""
 
 #: lib/tq2_web/live/account/license_live.ex:14
+#: lib/tq2_web/views/account_view.ex:24
 msgid "Locked"
 msgstr ""
 
 #: lib/tq2_web/live/account/license_live.ex:11
+#: lib/tq2_web/views/account_view.ex:21
 msgid "Trial"
 msgstr ""
 
 #: lib/tq2_web/live/account/license_live.ex:13
+#: lib/tq2_web/views/account_view.ex:23
 msgid "Unpaid"
 msgstr ""
 
@@ -41,6 +47,7 @@ msgid "Licenses"
 msgstr ""
 
 #: lib/tq2_web/live/account/license_live.html.leex:12
+#: lib/tq2_web/templates/account/show.html.eex:53
 msgid "Paid until"
 msgstr ""
 
