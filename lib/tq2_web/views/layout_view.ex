@@ -213,9 +213,9 @@ defmodule Tq2Web.LayoutView do
 
           window.LeadBooster = {
             q: [],
-            on: function(n, h) { this.q.push({t: 'o', n: n, h: h}); },
-            trigger: function(n) { this.q.push({ t: 't', n: n }); }
-          };
+            on: function(n, h) { this.q.push({t: 'o', n: n, h: h}) },
+            trigger: function(n) { this.q.push({ t: 't', n: n }) }
+          }
         </script>
 
         <script src="https://leadbooster-chat.pipedrive.com/assets/loader.js" async></script>
