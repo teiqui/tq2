@@ -3,9 +3,9 @@ defmodule Tq2Web.AccountView do
   use Scrivener.HTML
 
   import Tq2.Utils.Urls, only: [store_uri: 0]
-  import Tq2Web.Utils, only: [localize_date: 1]
+  import Tq2Web.Utils, only: [localize_date: 1, invert: 1]
 
-  alias Tq2.Accounts.Account
+  alias Tq2.Accounts.{Account, License}
 
   # Done so we avoid dngettext and we can get "merge" magic
   @countries %{
@@ -15,6 +15,14 @@ defmodule Tq2Web.AccountView do
     dgettext("accounts", "Guatemala") => "gt",
     dgettext("accounts", "Mexico") => "mx",
     dgettext("accounts", "Peru") => "pe"
+  }
+
+  @license_statuses %{
+    dgettext("licenses", "Trial") => "trial",
+    dgettext("licenses", "Active") => "active",
+    dgettext("licenses", "Unpaid") => "unpaid",
+    dgettext("licenses", "Locked") => "locked",
+    dgettext("licenses", "Canceled") => "canceled"
   }
 
   @statuses %{
@@ -32,20 +40,22 @@ defmodule Tq2Web.AccountView do
     )
   end
 
-  def status(account) do
+  def status(%Account{} = account) do
     statuses = invert(@statuses)
 
     statuses[account.status]
   end
 
+  def status(%License{} = license) do
+    statuses = invert(@license_statuses)
+
+    statuses[license.status]
+  end
+
   def country(account) do
     countries = invert(@countries)
 
-    countries[account.country]
-  end
-
-  defp invert(map) when is_map(map) do
-    for {k, v} <- map, into: %{}, do: {v, k}
+    countries[account.country] || account.country
   end
 
   defp filtered?(params) do
@@ -75,4 +85,14 @@ defmodule Tq2Web.AccountView do
   end
 
   defp store_whatsapp(_store), do: "-"
+
+  defp link_to_extend_license(conn, account) do
+    link(
+      dgettext("accounts", "Extend trial period"),
+      to: Routes.account_path(conn, :update, account, extend_license: true),
+      method: :put,
+      data: [confirm: dgettext("accounts", "Are you sure?")],
+      class: "btn btn-sm btn-primary"
+    )
+  end
 end
