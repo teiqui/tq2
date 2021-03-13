@@ -2,10 +2,11 @@ defmodule Tq2Web.AppController do
   use Tq2Web, :controller
 
   alias Tq2.Apps
-  alias Tq2.Apps.{MercadoPago, Transbank, WireTransfer}
+  alias Tq2.Apps.{Conekta, MercadoPago, Transbank, WireTransfer}
 
-  @app_names ~w(mercado_pago transbank wire_transfer)
+  @app_names ~w(conekta mercado_pago transbank wire_transfer)
   @app_structs %{
+    "conekta" => %Conekta{},
     "mercado_pago" => %MercadoPago{},
     "transbank" => %Transbank{},
     "wire_transfer" => %WireTransfer{}
@@ -34,6 +35,10 @@ defmodule Tq2Web.AppController do
     )
   end
 
+  def create(conn, %{"conekta" => app_params}, session) do
+    conn |> create_app("conekta", app_params, session)
+  end
+
   def create(conn, %{"mercado_pago" => app_params}, session) do
     conn |> create_app("mercado_pago", app_params, session)
   end
@@ -59,6 +64,10 @@ defmodule Tq2Web.AppController do
     )
   end
 
+  def update(conn, %{"conekta" => app_params}, session) do
+    conn |> update_app("conekta", app_params, session)
+  end
+
   def update(conn, %{"mercado_pago" => app_params}, session) do
     conn |> update_app("mercado_pago", app_params, session)
   end
@@ -71,7 +80,7 @@ defmodule Tq2Web.AppController do
     conn |> update_app("wire_transfer", app_params, session)
   end
 
-  def delete(conn, %{"name" => app_name}, session) do
+  def delete(conn, %{"name" => app_name}, session) when app_name in @app_names do
     app = Apps.get_app(session.account, app_name)
     {:ok, _app} = Apps.delete_app(session, app)
 

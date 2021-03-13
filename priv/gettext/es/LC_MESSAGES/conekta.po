@@ -1,0 +1,48 @@
+## "msgid"s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove "msgid"s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use "mix gettext.extract --merge" or "mix gettext.merge"
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: es\n"
+"Plural-Forms: nplurals=2\n"
+
+#: lib/tq2/gateways/conekta.ex:249
+msgid "Invalid credentials"
+msgstr "Credenciales invalidas"
+
+#: lib/tq2_web/templates/app/_form_conekta.html.eex:11
+msgid "Production API Key"
+msgstr "API Key de producción"
+
+#: lib/tq2/gateways/conekta.ex:243
+msgid "Test credentials"
+msgstr "Credenciales de prueba"
+
+#: lib/tq2_web/views/app_view.ex:219
+msgid "guide"
+msgstr "guía"
+
+#: lib/tq2_web/views/app_view.ex:202
+msgid "sign up"
+msgstr "registrarte"
+
+#: lib/tq2_web/views/app_view.ex:235
+msgid "Assign the next URL: %{webhook_url} in Settings => Webhooks => Create Webhook."
+msgstr "Asigna la siguiente dirección URL: %{webhook_url} en Configuración => Webhooks => Crear Webhook."
+
+#: lib/tq2_web/views/app_view.ex:224
+msgid "Here is a %{guide} to follow."
+msgstr "Aquí hay una %{guide} para seguir."
+
+#: lib/tq2_web/views/app_view.ex:243
+msgid "Then go to API Keys and copy the Production API Key in the next field."
+msgstr "Luego ve a API Keys y copia el API Key de producción en el siguiente campo."
+
+#: lib/tq2_web/views/app_view.ex:211
+msgid "To link Conekta you should %{sign_up} in the platform."
+msgstr "Para vincularte con Conekta deberás %{sign_up} en su plataforma."

@@ -5,10 +5,18 @@ defmodule Tq2Web.AppViewTest do
   import Phoenix.HTML, only: [safe_to_string: 1]
   import Tq2.Fixtures, only: [default_account: 0, app_mercado_pago_fixture: 0]
 
+  alias Tq2.Apps.Conekta, as: CktApp
   alias Tq2.Apps.MercadoPago, as: MPApp
   alias Tq2.Apps.Transbank, as: TbkApp
   alias Tq2.Apps.WireTransfer, as: WTApp
   alias Tq2Web.AppView
+
+  @structs %{
+    "conekta" => %CktApp{},
+    "mercado_pago" => %MPApp{},
+    "wire_transfer" => %WTApp{},
+    "transbank" => %TbkApp{}
+  }
 
   setup %{conn: conn} do
     conn =
@@ -67,25 +75,26 @@ defmodule Tq2Web.AppViewTest do
   test "app kinds for cards" do
     assert ~w(mercado_pago wire_transfer) == AppView.app_names(%{country: "ar"})
     assert ~w(mercado_pago transbank wire_transfer) == AppView.app_names(%{country: "cl"})
+    assert ~w(conekta mercado_pago wire_transfer) == AppView.app_names(%{country: "mx"})
     assert ~w(wire_transfer) == AppView.app_names(%{country: "unknown"})
   end
 
   test "app from apps by name" do
-    apps = [%MPApp{}, %WTApp{}, %TbkApp{}]
+    apps = @structs |> Map.values()
 
-    assert %MPApp{} = AppView.app_by_name([], "mercado_pago")
-    assert %MPApp{} = AppView.app_by_name(apps, "mercado_pago")
-    assert %TbkApp{} = AppView.app_by_name([], "transbank")
-    assert %TbkApp{} = AppView.app_by_name(apps, "transbank")
-    assert %WTApp{} = AppView.app_by_name([], "wire_transfer")
-    assert %WTApp{} = AppView.app_by_name(apps, "wire_transfer")
+    for {key, struct} <- @structs do
+      assert ^struct = AppView.app_by_name([], key)
+      assert ^struct = AppView.app_by_name(apps, key)
+    end
+
     refute AppView.app_by_name(apps, "unknown")
   end
 
   test "build app" do
-    assert %MPApp{} = AppView.build_app("mercado_pago")
-    assert %TbkApp{} = AppView.build_app("transbank")
-    assert %WTApp{} = AppView.build_app("wire_transfer")
+    for {key, struct} <- @structs do
+      assert ^struct = AppView.build_app(key)
+    end
+
     refute AppView.build_app("unknwon")
   end
 
@@ -128,5 +137,15 @@ defmodule Tq2Web.AppViewTest do
 
     assert content =~ "Install"
     assert content =~ "/apps/new?name=transbank"
+  end
+
+  test "conekta link to install", %{conn: conn} do
+    content =
+      conn
+      |> AppView.link_to_install("conekta")
+      |> safe_to_string()
+
+    assert content =~ "Install"
+    assert content =~ "/apps/new?name=conekta"
   end
 end

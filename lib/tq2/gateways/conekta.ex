@@ -12,14 +12,19 @@ defmodule Tq2.Gateways.Conekta do
   @test_email "juan.perez@conekta.com"
   @test_phone "5266982090"
 
-  def countries, do: ["mx"]
+  def countries do
+    if Application.get_env(:tq2, :env) == :prod, do: [], else: ["mx"]
+  end
 
   def commission_url, do: "https://conekta.com/pricing"
 
   def check_credentials(api_key) do
+    api_key = api_key |> String.trim()
+
     attrs_for()
-    |> request_post(%{api_key: api_key}, :create_preference)
+    |> request_post(%{data: %{api_key: api_key}}, :create_preference)
     |> parse_response()
+    |> parse_credential_response()
   end
 
   def get_order(app, id) do
@@ -133,9 +138,7 @@ defmodule Tq2.Gateways.Conekta do
 
     Sentry.capture_message("Conekta Error", extra: %{body: body, status_code: code})
 
-    %{
-      "description" => dgettext("stores", "Invalid transaction")
-    }
+    body
   end
 
   defp url(path) do
@@ -171,10 +174,11 @@ defmodule Tq2.Gateways.Conekta do
   defp attrs_for do
     cart = %Tq2.Transactions.Cart{
       customer: %{name: "Test"},
+      price_type: "regular",
       lines: [
         %Tq2.Transactions.Line{
           name: "Test item",
-          price: %Money{amount: 1000, currency: "MXN"},
+          price: %Money{amount: 10000, currency: "MXN"},
           quantity: 1
         }
       ]
@@ -231,5 +235,17 @@ defmodule Tq2.Gateways.Conekta do
         }
       }
     }
+  end
+
+  defp parse_credential_response(%{"id" => _, "url" => _, "livemode" => true}), do: :ok
+
+  defp parse_credential_response(%{"livemode" => false}) do
+    {:error, dgettext("conekta", "Test credentials")}
+  end
+
+  defp parse_credential_response(%{"details" => [%{"message" => message}]}), do: {:error, message}
+
+  defp parse_credential_response(_) do
+    {:error, dgettext("conekta", "Invalid credentials")}
   end
 end

@@ -3,14 +3,30 @@ defmodule Tq2Web.AppView do
   use Scrivener.HTML
 
   import Tq2Web.Utils, only: [invert: 1]
+  import Tq2.Utils.Urls, only: [app_uri: 0]
 
+  alias Tq2.Apps.Conekta, as: CktApp
   alias Tq2.Apps.MercadoPago, as: MPApp
   alias Tq2.Apps.Transbank, as: TbkApp
   alias Tq2.Apps.WireTransfer, as: WTApp
 
+  alias Tq2.Gateways.Conekta, as: CktClient
   alias Tq2.Gateways.MercadoPago, as: MPClient
   alias Tq2.Gateways.MercadoPago.Credential, as: MPCredential
   alias Tq2.Gateways.Transbank, as: TbkClient
+
+  @app_names ~w(conekta mercado_pago transbank wire_transfer)
+  @app_modules %{
+    "conekta" => CktApp,
+    "mercado_pago" => MPApp,
+    "transbank" => TbkApp,
+    "wire_transfer" => WTApp
+  }
+  @client_modules %{
+    "conekta" => CktClient,
+    "mercado_pago" => MPClient,
+    "transbank" => TbkClient
+  }
 
   @statuses %{
     dgettext("apps", "Active") => "active",
@@ -53,6 +69,7 @@ defmodule Tq2Web.AppView do
 
   def app_names(%{country: country}) do
     [
+      if(country in CktClient.countries(), do: "conekta"),
       if(country in MPClient.countries(), do: "mercado_pago"),
       if(country in TbkClient.countries(), do: "transbank"),
       "wire_transfer"
@@ -64,17 +81,7 @@ defmodule Tq2Web.AppView do
     Enum.find_value(apps, &if(&1.name == name, do: &1)) || build_app(name)
   end
 
-  def build_app("mercado_pago") do
-    %MPApp{}
-  end
-
-  def build_app("transbank") do
-    %TbkApp{}
-  end
-
-  def build_app("wire_transfer") do
-    %WTApp{}
-  end
+  def build_app(name) when name in @app_names, do: @app_modules[name].__struct__
 
   def build_app(_), do: nil
 
@@ -89,8 +96,8 @@ defmodule Tq2Web.AppView do
     )
   end
 
-  def link_to_commissions(_account, "transbank") do
-    url = TbkClient.commission_url()
+  def link_to_commissions(_account, name) when name in ~w[conekta transbank] do
+    url = @client_modules[name].commission_url()
 
     icon_link(
       "percent",
@@ -138,6 +145,10 @@ defmodule Tq2Web.AppView do
     )
   end
 
+  defp translate_app("conekta") do
+    dgettext("apps", "Conekta")
+  end
+
   defp translate_app("mercado_pago") do
     dgettext("apps", "MercadoPago")
   end
@@ -170,5 +181,64 @@ defmodule Tq2Web.AppView do
     end
   end
 
+  defp instructions(_account, "conekta") do
+    content_tag(:p, class: "lead mt-4 mx-4") do
+      [
+        conekta_sign_up_text(),
+        conekta_webhook_text(),
+        conekta_api_key_text(),
+        conekta_guide_text()
+      ]
+      |> Enum.join("<br>")
+      |> raw()
+    end
+  end
+
   defp instructions(_account, _), do: nil
+
+  defp conekta_sign_up_text do
+    sign_up_link =
+      dgettext("conekta", "sign up")
+      |> link(
+        to: "https://auth.conekta.com/sign_up",
+        target: "_blank",
+        class: "font-weight-semi-bold"
+      )
+      |> safe_to_string()
+
+    "conekta"
+    |> dgettext(
+      "To link Conekta you should %{sign_up} in the platform.",
+      sign_up: sign_up_link
+    )
+  end
+
+  defp conekta_guide_text do
+    guide_link =
+      dgettext("conekta", "guide")
+      |> link(to: "#TBD_YT", target: "_blank")
+      |> safe_to_string()
+
+    "conekta"
+    |> dgettext("Here is a %{guide} to follow.", guide: guide_link)
+  end
+
+  defp conekta_webhook_text do
+    webhook_url = app_uri() |> Routes.webhook_url(:conekta)
+
+    webhook_url =
+      content_tag(:span, webhook_url, class: "font-weight-semi-bold")
+      |> safe_to_string()
+
+    "conekta"
+    |> dgettext(
+      "Assign the next URL: %{webhook_url} in Settings => Webhooks => Create Webhook.",
+      webhook_url: webhook_url
+    )
+  end
+
+  defp conekta_api_key_text do
+    "conekta"
+    |> dgettext("Then go to API Keys and copy the Production API Key in the next field.")
+  end
 end

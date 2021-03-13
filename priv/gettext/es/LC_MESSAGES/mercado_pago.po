@@ -35,10 +35,10 @@ msgstr "Access Token"
 msgid "Invalid credentials: '%{error}'"
 msgstr "Credencial no valida: '%{error}'"
 
-#: lib/tq2_web/views/app_view.ex:164
+#: lib/tq2_web/views/app_view.ex:176
 msgid "To use MercadoPago you have to create an application following the next %{link} and then copy the production Access Token in the field below."
 msgstr "Para utilizar MercadoPago deberás crear una aplicación siguiendo el siguiente %{link} y luego copiar el Access Token de producción en el campo debajo."
 
-#: lib/tq2_web/views/app_view.ex:156
+#: lib/tq2_web/views/app_view.ex:168
 msgid "link"
 msgstr "enlace"

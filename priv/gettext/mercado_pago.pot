@@ -34,10 +34,10 @@ msgstr ""
 msgid "Invalid credentials: '%{error}'"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:164
+#: lib/tq2_web/views/app_view.ex:176
 msgid "To use MercadoPago you have to create an application following the next %{link} and then copy the production Access Token in the field below."
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:156
+#: lib/tq2_web/views/app_view.ex:168
 msgid "link"
 msgstr ""
