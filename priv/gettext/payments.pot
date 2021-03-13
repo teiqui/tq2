@@ -80,7 +80,7 @@ msgstr ""
 msgid "Transbank - Onepay"
 msgstr ""
 
-#: lib/tq2/gateways/conekta.ex:93 lib/tq2/gateways/mercado_pago.ex:272
+#: lib/tq2/gateways/conekta.ex:98 lib/tq2/gateways/mercado_pago.ex:272
 #: lib/tq2/gateways/transbank.ex:320
 msgid "Pending amount of order #%{id}"
 msgstr ""

@@ -8,11 +8,12 @@ defmodule Tq2.Apps do
   alias Tq2.Repo
   alias Tq2.Trail
   alias Tq2.Accounts.{Account, Session}
-  alias Tq2.Apps.{App, MercadoPago, Transbank, WireTransfer}
+  alias Tq2.Apps.{App, Conekta, MercadoPago, Transbank, WireTransfer}
 
-  @payment_names ~w(mercado_pago transbank wire_transfer)
-  @app_names ~w(mercado_pago transbank wire_transfer)
+  @payment_names ~w(conekta mercado_pago transbank wire_transfer)
+  @app_names ~w(conekta mercado_pago transbank wire_transfer)
   @app_modules %{
+    "conekta" => Conekta,
     "mercado_pago" => MercadoPago,
     "transbank" => Transbank,
     "wire_transfer" => WireTransfer
@@ -58,19 +59,9 @@ defmodule Tq2.Apps do
       %MercadoPago{}
 
   """
-  def get_app(account, "mercado_pago") do
-    MercadoPago
-    |> Repo.get_by(account_id: account.id, name: "mercado_pago")
-  end
-
-  def get_app(account, "transbank") do
-    Transbank
-    |> Repo.get_by(account_id: account.id, name: "transbank")
-  end
-
-  def get_app(account, "wire_transfer") do
-    WireTransfer
-    |> Repo.get_by(account_id: account.id, name: "wire_transfer")
+  def get_app(account, name) when name in @app_names do
+    @app_modules[name]
+    |> Repo.get_by(account_id: account.id, name: name)
   end
 
   @doc """
@@ -106,6 +97,12 @@ defmodule Tq2.Apps do
       {:error, %Ecto.Changeset{}}
 
   """
+  def update_app(%Session{account: account, user: user}, %Conekta{} = app, attrs) do
+    account
+    |> Conekta.changeset(app, attrs)
+    |> Trail.update(originator: user, meta: %{account_id: account.id})
+  end
+
   def update_app(%Session{account: account, user: user}, %MercadoPago{} = app, attrs) do
     account
     |> MercadoPago.changeset(app, attrs)
@@ -150,6 +147,10 @@ defmodule Tq2.Apps do
 
   """
   def change_app(account, app, attrs \\ %{})
+
+  def change_app(%Account{} = account, %Conekta{} = app, attrs) do
+    Conekta.changeset(account, app, attrs)
+  end
 
   def change_app(%Account{} = account, %MercadoPago{} = app, attrs) do
     MercadoPago.changeset(account, app, attrs)

@@ -211,4 +211,19 @@ defmodule Tq2.Fixtures do
 
     app
   end
+
+  def conekta_app do
+    mock = [check_credentials: fn _ -> :ok end]
+
+    with_mock Tq2.Gateways.Conekta, mock do
+      {:ok, app} =
+        create_session()
+        |> Tq2.Apps.create_app(%{
+          "name" => "conekta",
+          "data" => %{"api_key" => "key_123"}
+        })
+
+      app
+    end
+  end
 end
