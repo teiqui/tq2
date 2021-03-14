@@ -3,7 +3,6 @@ defmodule Tq2Web.AppView do
   use Scrivener.HTML
 
   import Tq2Web.Utils, only: [invert: 1]
-  import Tq2.Utils.Urls, only: [app_uri: 0]
 
   alias Tq2.Apps.Conekta, as: CktApp
   alias Tq2.Apps.MercadoPago, as: MPApp
@@ -185,9 +184,7 @@ defmodule Tq2Web.AppView do
     content_tag(:p, class: "lead mt-4 mx-4") do
       [
         conekta_sign_up_text(),
-        conekta_webhook_text(),
-        conekta_api_key_text(),
-        conekta_guide_text()
+        conekta_api_key_text()
       ]
       |> Enum.join("<br>")
       |> raw()
@@ -198,7 +195,8 @@ defmodule Tq2Web.AppView do
 
   defp conekta_sign_up_text do
     sign_up_link =
-      dgettext("conekta", "sign up")
+      "conekta"
+      |> dgettext("sign up")
       |> link(
         to: "https://auth.conekta.com/sign_up",
         target: "_blank",
@@ -213,32 +211,10 @@ defmodule Tq2Web.AppView do
     )
   end
 
-  defp conekta_guide_text do
-    guide_link =
-      dgettext("conekta", "guide")
-      |> link(to: "#TBD_YT", target: "_blank")
-      |> safe_to_string()
-
-    "conekta"
-    |> dgettext("Here is a %{guide} to follow.", guide: guide_link)
-  end
-
-  defp conekta_webhook_text do
-    webhook_url = app_uri() |> Routes.webhook_url(:conekta)
-
-    webhook_url =
-      content_tag(:span, webhook_url, class: "font-weight-semi-bold")
-      |> safe_to_string()
-
-    "conekta"
-    |> dgettext(
-      "Assign the next URL: %{webhook_url} in Settings => Webhooks => Create Webhook.",
-      webhook_url: webhook_url
-    )
-  end
-
   defp conekta_api_key_text do
     "conekta"
-    |> dgettext("Then go to API Keys and copy the Production API Key in the next field.")
+    |> dgettext(
+      "Then go to Settings => API Keys and copy the Production API Key in the next field."
+    )
   end
 end

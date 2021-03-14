@@ -171,7 +171,7 @@
         </p>
 
         <p class="mb-0" <%= maybe_put_phx_hook @cart.data.payment %> id="hook-<%= @cart.data.payment %>">
-          <%= payment @cart.data.payment %>
+          <%= translate_kind @cart.data.payment %>
         </p>
       </div>
 

@@ -4,7 +4,8 @@ defmodule Tq2Web.Store.BriefLive do
   import Tq2Web.PaymentLiveUtils,
     only: [
       create_payment_or_go_to_order: 3,
-      maybe_put_phx_hook: 1
+      maybe_put_phx_hook: 1,
+      translate_kind: 1
     ]
 
   import Tq2Web.Utils, only: [format_money: 1]
@@ -114,21 +115,5 @@ defmodule Tq2Web.Store.BriefLive do
     savings = Money.subtract(total, promotional) |> format_money()
 
     dgettext("stores", "You could have saved %{amount}", amount: savings)
-  end
-
-  defp payment("cash") do
-    dgettext("payments", "Cash")
-  end
-
-  defp payment("mercado_pago") do
-    dgettext("payments", "MercadoPago")
-  end
-
-  defp payment("wire_transfer") do
-    dgettext("payments", "Wire transfer")
-  end
-
-  defp payment("transbank") do
-    dgettext("payments", "Transbank - Onepay")
   end
 end

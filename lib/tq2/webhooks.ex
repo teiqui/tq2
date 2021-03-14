@@ -4,7 +4,7 @@ defmodule Tq2.Webhooks do
   """
 
   alias Tq2.Repo
-  alias Tq2.Webhooks.{Conekta, MercadoPago}
+  alias Tq2.Webhooks.MercadoPago
 
   @doc """
   Gets a single webhook.
@@ -18,10 +18,6 @@ defmodule Tq2.Webhooks do
       nil
 
   """
-  def get_webhook("conekta", id) do
-    Conekta |> Repo.get_by(id: id, name: "conekta")
-  end
-
   def get_webhook("mercado_pago", id) do
     MercadoPago |> Repo.get_by(id: id, name: "mercado_pago")
   end
@@ -39,12 +35,6 @@ defmodule Tq2.Webhooks do
       iex> create_webhook(%{field: "bad_value"})
       ** (RuntimeError) Invalid webhook
   """
-  def create_webhook(%{name: "conekta"} = attrs) do
-    %Conekta{}
-    |> Conekta.changeset(attrs)
-    |> Repo.insert()
-  end
-
   def create_webhook(%{name: "mercado_pago"} = attrs) do
     %MercadoPago{}
     |> MercadoPago.changeset(attrs)

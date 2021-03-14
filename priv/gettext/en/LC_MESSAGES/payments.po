@@ -58,3 +58,9 @@ msgstr ""
 
 msgid "Pending amount of order #%{id}"
 msgstr ""
+
+msgid "Conekta"
+msgstr ""
+
+msgid "Pay with Conekta."
+msgstr ""

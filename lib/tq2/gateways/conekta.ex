@@ -1,6 +1,8 @@
 defmodule Tq2.Gateways.Conekta do
   import Tq2Web.Gettext, only: [dgettext: 2, dgettext: 3]
+  import Tq2.Utils.Urls, only: [store_uri: 0]
 
+  alias Tq2.Shops.Store
   alias Tq2.Transactions.Cart
 
   @allowed_payment_methods ~w(cash card bank_transfer)
@@ -12,17 +14,17 @@ defmodule Tq2.Gateways.Conekta do
   @test_email "juan.perez@conekta.com"
   @test_phone "5266982090"
 
-  def countries do
-    if Application.get_env(:tq2, :env) == :prod, do: [], else: ["mx"]
-  end
+  def countries, do: ["mx"]
 
   def commission_url, do: "https://conekta.com/pricing"
 
   def check_credentials(api_key) do
-    api_key = api_key |> String.trim()
+    app = %{data: %{api_key: String.trim(api_key)}}
 
-    attrs_for()
-    |> request_post(%{data: %{api_key: api_key}}, :create_preference)
+    app
+    |> create_customer()
+    |> attrs_for()
+    |> request_post(app, :create_preference)
     |> parse_response()
     |> parse_credential_response()
   end
@@ -34,26 +36,19 @@ defmodule Tq2.Gateways.Conekta do
   end
 
   def create_cart_preference(app, cart, store) do
-    cart
-    |> attrs_for(store)
+    app
+    |> create_customer(cart)
+    |> attrs_for(cart, store)
     |> request_post(app, :create_preference)
     |> parse_response()
   end
 
-  def create_partial_preference(app, payment, store) do
-    payment
-    |> attrs_for(store)
-    |> request_post(app, :create_preference)
-    |> parse_response()
-  end
-
-  def response_to_payment(%{"charges" => %{"data" => charges}}) do
+  def response_to_payment(%{"charges" => %{"data" => charges}, "id" => id}) do
     charge = charges |> Enum.find(&(&1["status"] == "paid"))
-    external_id = charge["channel"]["checkout_request_id"]
     paid_at = charge["paid_at"] |> DateTime.from_unix!()
 
     %{
-      external_id: external_id,
+      external_id: id,
       paid_at: paid_at,
       status: "paid"
     }
@@ -61,7 +56,27 @@ defmodule Tq2.Gateways.Conekta do
 
   def response_to_payment(_), do: %{}
 
-  defp items_for_cart(%{data: %{handing: "delivery", shipping: %{price: price}}} = cart) do
+  defp items_for(%Cart{order: %{id: id}} = cart) when is_integer(id) do
+    name =
+      "payments"
+      |> dgettext("Pending amount of order #%{id}", id: id)
+      |> normalize_string()
+
+    amount =
+      cart
+      |> Cart.pending_amount()
+      |> money_to_integer()
+
+    [
+      %{
+        name: name,
+        quantity: 1,
+        unit_price: amount
+      }
+    ]
+  end
+
+  defp items_for(%Cart{data: %{handing: "delivery", shipping: %{price: price}}} = cart) do
     name = dgettext("stores", "Shipping") |> normalize_string()
 
     delivery = [
@@ -73,11 +88,11 @@ defmodule Tq2.Gateways.Conekta do
     ]
 
     %{cart | data: %{}}
-    |> items_for_cart()
+    |> items_for()
     |> Kernel.++(delivery)
   end
 
-  defp items_for_cart(cart) do
+  defp items_for(%Cart{} = cart) do
     cart.lines |> Enum.map(&to_conekta_item(&1, cart))
   end
 
@@ -88,23 +103,8 @@ defmodule Tq2.Gateways.Conekta do
     %{
       name: name,
       unit_price: price,
-      quantity: 1
+      quantity: line.quantity
     }
-  end
-
-  defp pending_payment_items(%{amount: amount, cart: %{order: %{id: id}}}) do
-    name =
-      "payments"
-      |> dgettext("Pending amount of order #%{id}", id: id)
-      |> normalize_string()
-
-    [
-      %{
-        name: name,
-        quantity: 1,
-        unit_price: money_to_integer(amount)
-      }
-    ]
   end
 
   defp money_to_integer(%Money{amount: amount}), do: amount
@@ -124,7 +124,15 @@ defmodule Tq2.Gateways.Conekta do
   defp request_post(attrs, app, :create_preference) do
     params = Jason.encode!(attrs)
 
-    "/checkouts"
+    "/orders"
+    |> url()
+    |> HTTPoison.post(params, headers(app))
+  end
+
+  defp request_post(attrs, app, :create_customer) do
+    params = Jason.encode!(attrs)
+
+    "/customers"
     |> url()
     |> HTTPoison.post(params, headers(app))
   end
@@ -171,7 +179,7 @@ defmodule Tq2.Gateways.Conekta do
 
   defp phone_for_customer(_customer), do: @test_phone
 
-  defp attrs_for do
+  defp attrs_for(customer_info) do
     cart = %Tq2.Transactions.Cart{
       customer: %{name: "Test"},
       price_type: "regular",
@@ -184,60 +192,80 @@ defmodule Tq2.Gateways.Conekta do
       ]
     }
 
-    cart |> attrs_for(%{name: "Test"})
+    customer_info |> attrs_for(cart, %Store{slug: "fake", name: "Test"})
   end
 
-  defp attrs_for(%Cart{customer: customer} = cart, store) do
-    expired_at =
+  defp attrs_for(customer_info, cart, store) do
+    expires_at =
       DateTime.utc_now()
       |> Timex.shift(weeks: 1)
       |> DateTime.to_unix(:second)
 
+    check_payment_url = cart |> check_payment_url(store)
+    items = cart |> items_for()
+
     %{
-      name: normalize_string(store.name),
-      type: "PaymentLink",
-      recurrent: false,
-      expired_at: expired_at,
-      allowed_payment_methods: @allowed_payment_methods,
-      needs_shipping_contact: false,
-      order_template: %{
-        line_items: items_for_cart(cart),
-        currency: "MXN",
-        customer_info: %{
-          name: customer.name,
-          email: email_for_customer(customer),
-          phone: phone_for_customer(customer)
-        }
+      currency: "MXN",
+      customer_info: customer_info,
+      line_items: items,
+      checkout: %{
+        name: normalize_string(store.name),
+        type: "HostedPayment",
+        allowed_payment_methods: @allowed_payment_methods,
+        expires_at: expires_at,
+        is_redirect_on_failure: true,
+        monthly_installments_enabled: false,
+        monthly_installments_options: [],
+        needs_shipping_contact: false,
+        on_demand_enabled: false,
+        success_url: check_payment_url,
+        failure_url: check_payment_url
       }
     }
   end
 
-  defp attrs_for(%{cart: %{customer: customer}} = payment, store) do
-    expired_at =
-      DateTime.utc_now()
-      |> Timex.shift(weeks: 1)
-      |> DateTime.to_unix(:second)
-
+  defp create_customer(app) do
     %{
-      name: normalize_string(store.name),
-      type: "PaymentLink",
-      recurrent: false,
-      expired_at: expired_at,
-      allowed_payment_methods: @allowed_payment_methods,
-      needs_shipping_contact: false,
-      order_template: %{
-        line_items: pending_payment_items(payment),
-        currency: "MXN",
-        customer_info: %{
-          name: customer.name,
-          email: email_for_customer(customer),
-          phone: phone_for_customer(customer)
-        }
-      }
+      name: "Test",
+      email: email_for_customer(%{}),
+      phone: phone_for_customer(%{})
     }
+    |> request_post(app, :create_customer)
+    |> parse_response()
+    |> build_customer_info()
   end
 
-  defp parse_credential_response(%{"id" => _, "url" => _, "livemode" => true}), do: :ok
+  defp create_customer(app, %{customer: customer}) do
+    %{
+      name: customer.name,
+      email: email_for_customer(customer),
+      phone: phone_for_customer(customer)
+    }
+    |> request_post(app, :create_customer)
+    |> parse_response()
+    |> build_customer_info()
+  end
+
+  defp build_customer_info(%{"id" => id}), do: %{customer_id: id}
+
+  defp build_customer_info(response) do
+    Sentry.capture_message("Conekta Customer Error", extra: %{customer: response})
+
+    response
+  end
+
+  defp check_payment_url(%Cart{order: %{id: _} = order}, store) do
+    # Conekta doesn't support port
+    %{store_uri() | port: nil} |> Tq2Web.Router.Helpers.order_url(:index, store, order)
+  end
+
+  defp check_payment_url(_cart, store) do
+    # Conekta doesn't support port
+    %{store_uri() | port: nil} |> Tq2Web.Router.Helpers.payment_check_url(:index, store)
+  end
+
+  defp parse_credential_response(%{"id" => _, "checkout" => %{"url" => _}, "livemode" => true}),
+    do: :ok
 
   defp parse_credential_response(%{"livemode" => false}) do
     {:error, dgettext("conekta", "Test credentials")}

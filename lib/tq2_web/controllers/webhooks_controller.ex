@@ -20,16 +20,6 @@ defmodule Tq2Web.WebhookController do
     json(conn, %{})
   end
 
-  def conekta(conn, %{"type" => "order.paid"} = params) do
-    %{name: "conekta", payload: params}
-    |> Webhooks.create_webhook()
-    |> enqueue_webhook()
-
-    conn |> json(%{})
-  end
-
-  def conekta(conn, _params), do: conn |> json(%{})
-
   defp enqueue_webhook({:ok, webhook}) do
     Exq.enqueue(Exq, "default", WebhooksJob, [webhook.name, webhook.id])
   end

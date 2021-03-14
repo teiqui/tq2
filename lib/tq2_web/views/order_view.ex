@@ -24,6 +24,7 @@ defmodule Tq2Web.OrderView do
 
   @payment_kinds %{
     "cash" => dgettext("payments", "Cash"),
+    "conekta" => dgettext("payments", "Conekta"),
     "mercado_pago" => dgettext("payments", "MercadoPago"),
     "other" => dgettext("payments", "Other"),
     "transbank" => dgettext("payments", "Transbank - Onepay"),
