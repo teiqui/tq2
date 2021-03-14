@@ -155,7 +155,7 @@ msgid "Store"
 msgstr ""
 
 #: lib/tq2_web/live/store/counter_live.html.leex:29
-#: lib/tq2_web/live/store/order_live.ex:310 lib/tq2_web/live/store/team_live.html.leex:74
+#: lib/tq2_web/live/store/order_live.ex:365 lib/tq2_web/live/store/team_live.html.leex:74
 msgid "Loading..."
 msgstr ""
 
@@ -192,13 +192,13 @@ msgstr ""
 msgid "Show all"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:53
+#: lib/tq2_web/live/store/order_live.html.leex:80
 #: lib/tq2_web/live/store/team_live.html.leex:55
 msgid "Promotion expired!"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:34
-#: lib/tq2_web/live/store/order_live.html.leex:79 lib/tq2_web/live/store/order_live.html.leex:91
+#: lib/tq2_web/live/store/order_live.html.leex:61
+#: lib/tq2_web/live/store/order_live.html.leex:106 lib/tq2_web/live/store/order_live.html.leex:118
 msgid "Share"
 msgstr ""
 
@@ -277,7 +277,7 @@ msgid "Saving..."
 msgstr ""
 
 #: lib/tq2_web/live/store/checkout_live.html.leex:74
-#: lib/tq2_web/live/store/checkout_live.html.leex:92 lib/tq2_web/live/store/order_live.html.leex:123
+#: lib/tq2_web/live/store/checkout_live.html.leex:92 lib/tq2_web/live/store/order_live.html.leex:150
 #: lib/tq2_web/live/store/team_live.html.leex:91
 msgid "Back to store"
 msgstr ""
@@ -450,11 +450,11 @@ msgstr ""
 msgid "Invalid transaction"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:83
+#: lib/tq2_web/live/store/order_live.html.leex:110
 msgid "It only applies if you can get someone else to buy in 24 hours."
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:74
+#: lib/tq2_web/live/store/order_live.html.leex:101
 msgid "You have chosen Teiqui price"
 msgstr ""
 

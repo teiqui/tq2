@@ -1,5 +1,29 @@
 <div id="dashboard" class="row justify-content-center mt-n2 mb-n3" phx-hook="BodyBackground" data-bg-class="bg-primary">
-  <div class="col-md-8">
+  <div id="dashboard-container" class="col-md-8" phx-hook="Notification" data-server-key="<%= vapid_server_key() %>">
+    <%= if @ask_for_notifications do %>
+      <div class="card card-body border border-warning">
+        <div class="d-flex">
+          <div class="lead mr-3">
+            🔔
+          </div>
+
+          <div class="mx-0">
+            <%= dgettext("notifications", "Do you want to receive notifications about orders and other actions?") %>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col">
+            <%= link dgettext("notifications", "Not for now"), to: "#", class: "text-muted", phx_click: "dismiss" %>
+          </div>
+
+          <div class="col text-right">
+            <%= link dgettext("notifications", "Yes"), to: "#", phx_click: "subscribe" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
     <%= unpublished_store_alert @store %>
 
     <p class="small text-light float-right mt-3 mr-3 pt-1">

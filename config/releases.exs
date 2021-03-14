@@ -107,6 +107,11 @@ config :tq2, :perfit,
   api_key: System.get_env("PERFIT_API_KEY"),
   endpoint: System.get_env("PERFIT_ENDPOINT", "https://api.myperfit.com/v2/sofimutante")
 
+config :web_push_encryption, :vapid_details,
+  subject: "mailto:support@teiqui.com",
+  public_key: System.get_env("WEB_PUSH_PUBLIC_KEY"),
+  private_key: System.get_env("WEB_PUSH_PRIVATE_KEY")
+
 # ## Using releases (Elixir v1.9+)
 #
 # If you are doing OTP releases, you need to instruct Phoenix

@@ -3,6 +3,7 @@ defmodule Tq2.Accounts.User do
   import Ecto.Changeset
 
   alias Tq2.Accounts.{Membership, User}
+  alias Tq2.Notifications.SubscriptionUser
   alias Tq2.Repo
   alias Tq2.Utils.TrimmedString
 
@@ -24,6 +25,8 @@ defmodule Tq2.Accounts.User do
     end
 
     has_many :memberships, Membership
+    has_many :subscription_users, SubscriptionUser
+    has_many :subscriptions, through: [:subscription_users, :subscription]
 
     timestamps type: :utc_datetime
   end

@@ -73,7 +73,8 @@ defmodule Tq2.MixProject do
       {:csv, ">= 2.4.1"},
       {:geolix_adapter_mmdb2, ">= 0.6.0"},
       {:stripity_stripe, ">= 2.9.0"},
-      {:ex_phone_number, ">= 0.2.1"}
+      {:ex_phone_number, ">= 0.2.1"},
+      {:web_push_encryption, ">= 0.3.0"}
     ]
   end
 

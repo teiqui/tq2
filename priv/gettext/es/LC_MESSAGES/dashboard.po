@@ -11,70 +11,70 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/live/dashboard/main_live.ex:85
+#: lib/tq2_web/live/dashboard/main_live.ex:132
 msgid "* In relation to the previous day."
 msgstr "* En relación al día anterior"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:50
+#: lib/tq2_web/live/dashboard/main_live.html.leex:74
 msgid "All channels"
 msgstr "Todos los canales"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:45
+#: lib/tq2_web/live/dashboard/main_live.html.leex:69
 #: lib/tq2_web/templates/layout/_menu.html.eex:108
 msgid "Dashboard"
 msgstr "Panel"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:120
+#: lib/tq2_web/live/dashboard/main_live.html.leex:144
 msgid "Finished"
 msgstr "Finalizados"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:103
+#: lib/tq2_web/live/dashboard/main_live.html.leex:127
 msgid "Go to orders"
 msgstr "Ver pedidos"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:112
+#: lib/tq2_web/live/dashboard/main_live.html.leex:136
 msgid "Pending"
 msgstr "Pendientes"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:85
+#: lib/tq2_web/live/dashboard/main_live.html.leex:109
 msgid "Performance"
 msgstr "Rendimiento"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:76
+#: lib/tq2_web/live/dashboard/main_live.html.leex:100
 msgid "Regular"
 msgstr "Normales"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:10
-#: lib/tq2_web/live/dashboard/main_live.html.leex:62
+#: lib/tq2_web/live/dashboard/main_live.html.leex:34
+#: lib/tq2_web/live/dashboard/main_live.html.leex:86
 msgid "Sales"
 msgstr "Ventas"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:25
+#: lib/tq2_web/live/dashboard/main_live.html.leex:49
 msgid "Share your store to get some orders."
 msgstr "Comparte tu tienda para recibir pedidos."
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:54
+#: lib/tq2_web/live/dashboard/main_live.html.leex:78
 msgid "Store visits"
 msgstr "Visitas a la tienda"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:68
+#: lib/tq2_web/live/dashboard/main_live.html.leex:92
 msgid "Teiqui price"
 msgstr "Precio Teiqui"
 
-#: lib/tq2_web/live/dashboard/main_live.ex:47
+#: lib/tq2_web/live/dashboard/main_live.ex:94
 msgid "There are no visits yet."
 msgstr "Aún no hay visitas."
 
-#: lib/tq2_web/live/dashboard/main_live.ex:55
+#: lib/tq2_web/live/dashboard/main_live.ex:102
 msgid "There is not enough data."
 msgstr "No existen suficientes datos."
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:6
-#: lib/tq2_web/live/dashboard/main_live.html.leex:41
+#: lib/tq2_web/live/dashboard/main_live.html.leex:30
+#: lib/tq2_web/live/dashboard/main_live.html.leex:65
 msgid "Today"
 msgstr "Hoy"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:16
+#: lib/tq2_web/live/dashboard/main_live.html.leex:40
 msgid "You have no orders yet."
 msgstr "Aún no tienes ventas."
 
@@ -95,14 +95,14 @@ msgstr "En Más, encontrarás las secciones para configurar tu tienda, ver pedid
 msgid "On the main dashboard you'll find information about your store, performance and orders."
 msgstr "En tu panel principal encontrarás información sobre tu tienda, rendimiento y pedidos."
 
-#: lib/tq2_web/live/dashboard/main_live.ex:109
+#: lib/tq2_web/live/dashboard/main_live.ex:156
 msgid "Activate it"
 msgstr "Activala"
 
-#: lib/tq2_web/live/dashboard/main_live.ex:117
+#: lib/tq2_web/live/dashboard/main_live.ex:164
 msgid "Your store is disabled. %{link} and start receiving orders!"
 msgstr "Tu tienda se encuentra desactivada. ¡%{link} y comienza a recibir pedidos!"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:36
+#: lib/tq2_web/live/dashboard/main_live.html.leex:60
 msgid "Spread my store"
 msgstr "Difundir mi tienda"

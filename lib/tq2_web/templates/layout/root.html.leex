@@ -15,7 +15,7 @@
     <link rel="apple-touch-icon" href="<%= Routes.static_path(@conn, "/images/apple-touch-icon.png") %>" sizes="152x152">
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" phx-track-static>
 
-    <%= if app_subdomain(@conn) do %>
+    <%= if app_subdomain?(@conn) do %>
       <link rel="manifest" href="<%= Routes.pwa_path(@conn, :manifest) %>">
     <% end %>
 

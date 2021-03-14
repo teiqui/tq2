@@ -11,3 +11,4 @@ import 'phoenix_html'
 import 'bootstrap'
 
 import './liveview'
+import './service_worker'

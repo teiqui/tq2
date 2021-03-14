@@ -101,7 +101,7 @@ defmodule Tq2Web.OrderViewTest do
       status: "pending",
       promotion_expires_at: DateTime.utc_now(),
       inserted_at: Timex.now(),
-      customer: %Customer{name: "Sample"},
+      customer: %Customer{name: "Sample", subscriptions: []},
       cart: %Cart{
         id: 1,
         data: %{handing: "pickup"},

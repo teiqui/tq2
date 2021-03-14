@@ -13,7 +13,7 @@ defmodule Tq2Web.LayoutView do
     |> String.replace(~r/_\w+/, "")
   end
 
-  def app_subdomain(%Plug.Conn{host: host}) do
+  def app_subdomain?(%Plug.Conn{host: host}) do
     app_subdomain = Application.get_env(:tq2, :app_subdomain)
 
     String.starts_with?(host, app_subdomain)

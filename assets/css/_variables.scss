@@ -29,9 +29,11 @@ $btn-border-radius-sm: .4rem;
 // Custom color
 
 $info-dark: #1d3557;
+$primary-light: #f9e6e7;
 
 $theme-colors: (
-  "info-dark": $info-dark
+  "info-dark": $info-dark,
+  "primary-light": $primary-light
 );
 
 // Fonts

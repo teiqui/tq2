@@ -5,8 +5,35 @@
                                              referral_customer: @referral_customer %>
 
 <div class="row justify-content-center px-3">
-  <div class="col-sm-10 col-md-8 col-lg-6 col-xl-4">
-    <%= if @cart.price_type == "promotional" do %>
+  <div id="order-container"
+       class="col-sm-10 col-md-8 col-lg-6 col-xl-4"
+       phx-hook="Notification"
+       data-server-key="<%= vapid_server_key() %>">
+    <%= if @ask_for_notifications do %>
+      <div class="card card-body border border-warning mx-n3">
+        <div class="d-flex">
+          <div class="lead mr-3">
+            🔔
+          </div>
+
+          <div class="mx-0">
+            <%= dgettext("notifications", "Do you want to receive notifications about your order and this store?") %>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col">
+            <%= link dgettext("notifications", "Not for now"), to: "#", class: "text-muted", phx_click: "dismiss" %>
+          </div>
+
+          <div class="col text-right">
+            <%= link dgettext("notifications", "Yes"), to: "#", phx_click: "subscribe" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <%= if @cart.price_type == "promotional" && !assigns[:status] do %>
       <h2 class="h5 text-primary mt-4">
         <%= img_tag Routes.static_path(@socket, "/images/favicon.svg"), class: "mt-n1 mr-1",
                                                                         height: 12,
@@ -59,8 +86,8 @@
       <hr class="my-4">
     <% end %>
 
-    <%= if show_share_modal?(@cart) do %>
-      <div id="teiqui-price-modal" class="modal" tabindex="-1" phx-hook="Modal" data-show="true">
+    <%= if show_share_modal?(@cart, assigns) do %>
+      <div id="teiqui-price-modal" class="modal" tabindex="-1" phx-hook="Modal" phx-update="ignore" data-show="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content">
             <div class="modal-body text-center pb-5">
@@ -125,5 +152,31 @@
     </div>
 
     <%= show_payment_info(assigns) %>
+
+    <%= if Enum.any?(@order.comments) do %>
+      <h2 class="h5 text-muted text-center mb-3 mt-5">
+        <%= dgettext("orders", "Messages") %>
+      </h2>
+
+      <div class="card card-body mx-n3">
+        <p class="text-primary font-weight-semi-bold mb-2">
+          <%= @store.account.name %>
+        </p>
+
+        <%= for comment <- sorted_comments(@order) do %>
+          <div id="comment-<%= comment.id %>" class="card card-body bg-secondary mr-5 py-2 mb-2">
+            <p class="mb-1">
+              <%= comment.body %>
+            </p>
+
+            <div class="small">
+              <p class="small text-muted float-right ml-auto mb-0">
+                <%= localize_datetime(comment.inserted_at) %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>

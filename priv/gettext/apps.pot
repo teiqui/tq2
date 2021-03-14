@@ -39,7 +39,7 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:94 lib/tq2_web/views/app_view.ex:105
+#: lib/tq2_web/views/app_view.ex:93 lib/tq2_web/views/app_view.ex:104
 msgid "Commissions"
 msgstr ""
 
@@ -55,7 +55,7 @@ msgstr ""
 msgid "Edit app"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:113
+#: lib/tq2_web/views/app_view.ex:112
 msgid "Install"
 msgstr ""
 
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:134
+#: lib/tq2_web/views/app_view.ex:133
 msgid "Update"
 msgstr ""
 
@@ -88,11 +88,11 @@ msgid "Account number"
 msgstr ""
 
 #: lib/tq2_web/templates/app/_wire_transfer.html.eex:6
-#: lib/tq2_web/views/app_view.ex:162
+#: lib/tq2_web/views/app_view.ex:161
 msgid "Wire transfer"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:127
+#: lib/tq2_web/views/app_view.ex:126
 msgid "Create"
 msgstr ""
 
@@ -101,7 +101,7 @@ msgid "Description"
 msgstr ""
 
 #: lib/tq2_web/templates/app/_mercado_pago.html.eex:6
-#: lib/tq2_web/views/app_view.ex:154
+#: lib/tq2_web/views/app_view.ex:153
 msgid "MercadoPago"
 msgstr ""
 
@@ -109,10 +109,10 @@ msgstr ""
 msgid "App created successfully."
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:158
+#: lib/tq2_web/views/app_view.ex:157
 msgid "Transbank - Onepay"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:150
+#: lib/tq2_web/views/app_view.ex:149
 msgid "Conekta"
 msgstr ""

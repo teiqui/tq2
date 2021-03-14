@@ -9,17 +9,17 @@
     </h3>
 
     <%= if @customer.email do %>
-      <p class="mb-0 small">
+      <p class="mb-0">
         <%= link @customer.email, to: {:mailto, @customer.email}, class: "text-reset" %>
       </p>
     <% end %>
 
     <%= if @customer.address do %>
-      <%= text_to_html @customer.address, attributes: [class: "mb-0 small"] %>
+      <%= text_to_html @customer.address, attributes: [class: "mb-0"] %>
     <% end %>
 
     <%= if @customer.phone do %>
-      <p class="mb-0 small">
+      <p class="mb-0">
         <%= @customer.phone %>
       </p>
     <% end %>

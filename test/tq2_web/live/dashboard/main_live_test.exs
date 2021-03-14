@@ -87,8 +87,67 @@ defmodule Tq2Web.Dashboard.MainLiveTest do
       assert content =~ unpublished_store_warning()
     end
 
+    test "ask for notifications event", %{conn: conn} do
+      path = Routes.dashboard_path(conn, :index)
+      {:ok, main_live, html} = live(conn, path)
+      content = main_live |> render()
+
+      refute html =~ "Do you want to receive notifications"
+      refute content =~ "Do you want to receive notifications"
+
+      assert main_live
+             |> render_hook(:"ask-for-notifications") =~ "Do you want to receive notifications"
+    end
+
+    test "subscribe event", %{conn: conn} do
+      path = Routes.dashboard_path(conn, :index)
+      {:ok, main_live, _html} = live(conn, path)
+
+      render_hook(main_live, :"ask-for-notifications")
+
+      main_live
+      |> element("[phx-click=\"subscribe\"]")
+      |> render_click()
+
+      assert_push_event(main_live, "subscribe", %{})
+    end
+
+    test "dismiss event", %{conn: conn} do
+      path = Routes.dashboard_path(conn, :index)
+      {:ok, main_live, _html} = live(conn, path)
+
+      render_hook(main_live, :"ask-for-notifications")
+
+      assert render(main_live) =~ "Do you want to receive notifications"
+
+      refute main_live
+             |> element("[phx-click=\"dismiss\"]")
+             |> render_click() =~ "Do you want to receive notifications"
+    end
+
+    test "register event", %{conn: conn} do
+      path = Routes.dashboard_path(conn, :index)
+      {:ok, main_live, _html} = live(conn, path)
+
+      render_hook(main_live, :"ask-for-notifications")
+
+      assert render(main_live) =~ "Do you want to receive notifications"
+
+      render_hook(main_live, :register, subscription())
+
+      assert_push_event(main_live, "registered", %{})
+      refute render(main_live) =~ "Do you want to receive notifications"
+    end
+
     defp unpublished_store_warning do
       "Your store is disabled. <u><a class=\"text-reset\" href=\"/store/edit/main\">Activate it</a></u> and start receiving orders!"
     end
+  end
+
+  defp subscription do
+    %{
+      "endpoint" => "https://fcm.googleapis.com/fcm/send/some_random_things",
+      "keys" => %{"p256dh" => "p256dh_key", "auth" => "auth_string"}
+    }
   end
 end

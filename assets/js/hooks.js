@@ -4,6 +4,7 @@ import {Countdown} from './hooks/countdown'
 import {InfiniteScroll} from './hooks/infinite_scroll'
 import {License} from './hooks/license'
 import {Modal} from './hooks/modal'
+import {Notification} from './hooks/notification'
 import {ScrollToTop} from './hooks/scroll_to_top'
 import {Share} from './hooks/share'
 import {ShrinkOnScroll} from './hooks/shrink_on_scroll'
@@ -19,6 +20,7 @@ export const Hooks = {
   InfiniteScroll,
   License,
   Modal,
+  Notification,
   ScrollToTop,
   Share,
   ShrinkOnScroll,

@@ -6,6 +6,7 @@ defmodule Tq2Web.Store.OrderLiveTest do
 
   import Tq2.Fixtures,
     only: [
+      create_customer: 0,
       create_session: 1,
       default_store: 0,
       app_mercado_pago_fixture: 0,
@@ -19,6 +20,7 @@ defmodule Tq2Web.Store.OrderLiveTest do
     token: "VsGF8ahAAkIku_fsKztDskgqV7yfUrcGAQsWmgY4B4c=",
     price_type: "promotional",
     visit_id: nil,
+    customer_id: nil,
     data: %{handing: "pickup", payment: "cash"}
   }
 
@@ -53,7 +55,8 @@ defmodule Tq2Web.Store.OrderLiveTest do
       Tq2.Transactions.create_cart(store.account, %{
         @create_attrs
         | token: token,
-          visit_id: visit_id
+          visit_id: visit_id,
+          customer_id: create_customer().id
       })
 
     line_attrs = %{
@@ -132,6 +135,58 @@ defmodule Tq2Web.Store.OrderLiveTest do
       assert html =~ "Thank you for your purchase!"
       assert content =~ "Thank you for your purchase!"
       refute content =~ "id=\"teiqui-price-modal\""
+    end
+
+    test "ask for notifications event", %{conn: conn, order: order, store: store} do
+      path = Routes.order_path(conn, :index, store, order.id)
+      {:ok, order_live, html} = live(conn, path)
+      content = order_live |> render()
+
+      refute html =~ "Do you want to receive notifications"
+      refute content =~ "Do you want to receive notifications"
+
+      assert order_live
+             |> render_hook(:"ask-for-notifications") =~ "Do you want to receive notifications"
+    end
+
+    test "subscribe event", %{conn: conn, order: order, store: store} do
+      path = Routes.order_path(conn, :index, store, order.id)
+      {:ok, order_live, _html} = live(conn, path)
+
+      render_hook(order_live, :"ask-for-notifications")
+
+      order_live
+      |> element("[phx-click=\"subscribe\"]")
+      |> render_click()
+
+      assert_push_event(order_live, "subscribe", %{})
+    end
+
+    test "dismiss event", %{conn: conn, order: order, store: store} do
+      path = Routes.order_path(conn, :index, store, order.id)
+      {:ok, order_live, _html} = live(conn, path)
+
+      render_hook(order_live, :"ask-for-notifications")
+
+      assert render(order_live) =~ "Do you want to receive notifications"
+
+      refute order_live
+             |> element("[phx-click=\"dismiss\"]")
+             |> render_click() =~ "Do you want to receive notifications"
+    end
+
+    test "register event", %{conn: conn, order: order, store: store} do
+      path = Routes.order_path(conn, :index, store, order.id)
+      {:ok, order_live, _html} = live(conn, path)
+
+      render_hook(order_live, :"ask-for-notifications")
+
+      assert render(order_live) =~ "Do you want to receive notifications"
+
+      render_hook(order_live, :register, subscription())
+
+      assert_push_event(order_live, "registered", %{})
+      refute render(order_live) =~ "Do you want to receive notifications"
     end
 
     test "render regular pending purchase create partial payment", %{
@@ -341,8 +396,26 @@ defmodule Tq2Web.Store.OrderLiveTest do
       end
     end
 
+    test "status param hides modal", %{conn: conn, order: order, store: store} do
+      path = Routes.order_path(conn, :index, store, order.id, status: true)
+      {:ok, order_live, html} = live(conn, path)
+      content = order_live |> render()
+
+      assert html =~ "Thank you for your purchase!"
+      refute html =~ "id=\"teiqui-price-modal\""
+      assert content =~ "Thank you for your purchase!"
+      refute content =~ "id=\"teiqui-price-modal\""
+    end
+
     @tag :skip
     test "render finished promotional purchase" do
     end
+  end
+
+  defp subscription do
+    %{
+      "endpoint" => "https://fcm.googleapis.com/fcm/send/some_random_things",
+      "keys" => %{"p256dh" => "p256dh_key", "auth" => "auth_string"}
+    }
   end
 end

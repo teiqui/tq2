@@ -5,6 +5,7 @@ defmodule Tq2.Sales.Order do
   import Tq2Web.Gettext, only: [dgettext: 2]
 
   alias Tq2.Accounts.Account
+  alias Tq2.Messages.Comment
   alias Tq2.Repo
   alias Tq2.Sales.{Data, Order, Tie}
   alias Tq2.Transactions.Cart
@@ -29,6 +30,7 @@ defmodule Tq2.Sales.Order do
     has_many :originator_ties, Tie, foreign_key: :originator_id
     has_many :children, through: [:originator_ties, :order]
     has_many :parents, through: [:ties, :originator]
+    has_many :comments, Comment
 
     timestamps type: :utc_datetime
   end
@@ -91,6 +93,7 @@ defmodule Tq2.Sales.Order do
 
     Tq2.Notifications.send_new_order(order, order.customer)
     Tq2.Notifications.send_new_order(order, owner)
+    Tq2.Notifications.notify_new_order(order, owner)
 
     {:ok, order}
   end

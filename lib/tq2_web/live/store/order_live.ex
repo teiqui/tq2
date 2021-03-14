@@ -1,7 +1,7 @@
 defmodule Tq2Web.Store.OrderLive do
   use Tq2Web, :live_view
 
-  import Tq2Web.Utils, only: [format_money: 1]
+  import Tq2Web.Utils, only: [format_money: 1, localize_datetime: 1]
 
   import Tq2Web.PaymentLiveUtils,
     only: [
@@ -14,7 +14,7 @@ defmodule Tq2Web.Store.OrderLive do
     ]
 
   alias Tq2.Transactions.Cart
-  alias Tq2.{Analytics, Sales}
+  alias Tq2.{Analytics, Notifications, Sales}
   alias Tq2Web.Store.{HeaderComponent, ShareComponent}
 
   @gateway_kinds ~w[mercado_pago transbank]
@@ -29,7 +29,8 @@ defmodule Tq2Web.Store.OrderLive do
         store: store,
         token: token,
         visit_id: visit_id,
-        referral_customer: visit.referral_customer
+        referral_customer: visit.referral_customer,
+        ask_for_notifications: false
       )
       |> load_order(id)
       |> load_payment_methods()
@@ -49,6 +50,13 @@ defmodule Tq2Web.Store.OrderLive do
   def handle_params(%{"external_reference" => _}, _uri, socket) do
     # MercadoPago
     socket = socket |> check_payments_with_timer()
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_params(%{"status" => _}, _uri, socket) do
+    socket = socket |> assign(:status, true)
 
     {:noreply, socket}
   end
@@ -96,6 +104,52 @@ defmodule Tq2Web.Store.OrderLive do
         )
 
         {:noreply, socket}
+    end
+  end
+
+  @impl true
+  def handle_event("ask-for-notifications", _params, socket) do
+    {:noreply, assign(socket, ask_for_notifications: true)}
+  end
+
+  @impl true
+  def handle_event("subscribe", _params, socket) do
+    {:noreply, push_event(socket, "subscribe", %{})}
+  end
+
+  @impl true
+  def handle_event("dismiss", _params, socket) do
+    {:noreply, assign(socket, ask_for_notifications: false)}
+  end
+
+  @impl true
+  def handle_event("register", params, %{assigns: %{cart: %{customer_id: customer_id}}} = socket) do
+    attrs =
+      %{"data" => params}
+      |> Map.put("customer_subscription", %{"customer_id" => customer_id})
+
+    case save_subscription(attrs) do
+      {:ok, _subscription} ->
+        socket =
+          socket
+          |> push_event("registered", %{})
+          |> assign(ask_for_notifications: false)
+
+        {:noreply, socket}
+
+      {:error, _changeset} ->
+        # TODO: handle this case properly
+        {:noreply, socket}
+    end
+  end
+
+  defp save_subscription(attrs) do
+    case Notifications.get_subscription(attrs) do
+      nil ->
+        Notifications.create_subscription(attrs)
+
+      subscription ->
+        Notifications.update_subscription(subscription, attrs)
     end
   end
 
@@ -174,8 +228,9 @@ defmodule Tq2Web.Store.OrderLive do
 
   defp link_to_pay_in_gateway(_kind), do: nil
 
-  defp show_share_modal?(%{price_type: "promotional", referred: false}), do: true
-  defp show_share_modal?(_cart), do: false
+  defp show_share_modal?(%{price_type: "promotional", referred: false}, %{status: _}), do: false
+  defp show_share_modal?(%{price_type: "promotional", referred: false}, _assigns), do: true
+  defp show_share_modal?(_cart, _assigns), do: false
 
   defp expired_promo?(%{cart: %{price_type: "regular"}, promotion_expires_at: expires_at}) do
     DateTime.compare(expires_at, DateTime.utc_now()) == :lt
@@ -331,4 +386,12 @@ defmodule Tq2Web.Store.OrderLive do
   end
 
   defp render_change_payment_method(_assigns), do: nil
+
+  defp vapid_server_key do
+    Application.get_env(:web_push_encryption, :vapid_details)[:public_key]
+  end
+
+  defp sorted_comments(order) do
+    Enum.sort_by(order.comments, & &1.inserted_at, DateTime)
+  end
 end

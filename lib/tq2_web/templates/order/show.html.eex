@@ -116,6 +116,27 @@
       </table>
     </div>
   <% end %>
+
+  <%= if Enum.any?(@order.customer.subscriptions) do %>
+    <%= link to: Routes.comment_path(@conn, :index, @order), class: "h5" do %>
+      <div class="d-flex">
+        <div class="flex-fill">
+          <%= dgettext("orders", "Messages") %>
+        </div>
+        <div>
+          <i class="bi-chevron-right"></i>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="h5 text-muted mb-0">
+      <%= dgettext("orders", "Messages") %>
+    </p>
+  <% end %>
+
+  <p class="text-muted my-3">
+    <%= dgettext("orders", "If your client has notifications enabled, you can leave them a message.") %>
+  </p>
 </div>
 
 <div>

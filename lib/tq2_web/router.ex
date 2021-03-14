@@ -56,6 +56,14 @@ defmodule Tq2Web.Router do
     get "/:country", PageController, :index
   end
 
+  scope "/", Tq2Web do
+    pipe_through :pwa
+
+    get "/service-worker.js", PwaController, :service_worker
+    get "/manifest.json", PwaController, :manifest
+    get "/offline.html", PwaController, :offline
+  end
+
   scope "/", Tq2Web, host: "#{Application.get_env(:tq2, :store_subdomain)}." do
     pipe_through [:browser, :csrf, :store]
 
@@ -80,14 +88,6 @@ defmodule Tq2Web.Router do
     pipe_through [:browser, :store]
 
     post "/:slug/payment/transbank", Store.PaymentController, :transbank, as: :transbank_payment
-  end
-
-  scope "/", Tq2Web do
-    pipe_through :pwa
-
-    get "/service-worker.js", PwaController, :service_worker
-    get "/manifest.json", PwaController, :manifest
-    get "/offline.html", PwaController, :offline
   end
 
   scope "/", Tq2Web do
@@ -135,6 +135,9 @@ defmodule Tq2Web.Router do
     # Sales
     resources "/orders", OrderController, only: [:index, :show]
     live "/orders/:id/edit", Order.OrderEditLive, :index, session: @session_extras.current_session
+
+    live "/orders/:id/comments", Order.CommentLive, :index,
+      session: @session_extras.current_session
 
     live "/orders/:id/payments", Order.PaymentLive, :index,
       as: :order_payment,

@@ -1,7 +1,7 @@
 defmodule Tq2.PaymentsTest do
   use Tq2.DataCase, async: true
 
-  import Tq2.Fixtures, only: [create_session: 1]
+  import Tq2.Fixtures, only: [create_customer: 0, create_session: 1]
 
   alias Tq2.Payments
 
@@ -22,7 +22,11 @@ defmodule Tq2.PaymentsTest do
     }
     @valid_cart_attrs %{
       token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoM=",
-      visit_id: nil
+      visit_id: nil,
+      customer_id: nil,
+      data: %{
+        handing: "pickup"
+      }
     }
     @mp_attrs %{
       amount: Money.new(2000, "ARS"),
@@ -44,7 +48,12 @@ defmodule Tq2.PaymentsTest do
         })
 
       {:ok, cart} =
-        session.account |> Tq2.Transactions.create_cart(%{@valid_cart_attrs | visit_id: visit.id})
+        session.account
+        |> Tq2.Transactions.create_cart(%{
+          @valid_cart_attrs
+          | visit_id: visit.id,
+            customer_id: create_customer().id
+        })
 
       {:ok, item} =
         Tq2.Inventories.create_item(session, %{

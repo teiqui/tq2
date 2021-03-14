@@ -2,7 +2,7 @@ defmodule Tq2Web.Dashboard.MainLive do
   use Tq2Web, :live_view
   import Tq2.Utils.Urls, only: [app_uri: 0]
 
-  alias Tq2.{Accounts, Analytics, Sales, Shops}
+  alias Tq2.{Accounts, Analytics, Notifications, Sales, Shops}
   alias Tq2Web.Store.ShareComponent
   alias Tq2Web.Dashboard.{ItemsTourComponent, TourComponent}
 
@@ -22,7 +22,8 @@ defmodule Tq2Web.Dashboard.MainLive do
         counts: counts,
         visits: visits,
         account_id: account_id,
-        user_id: user_id
+        user_id: user_id,
+        ask_for_notifications: false
       )
 
     {:ok, socket, temporary_assigns: [store: nil, counts: []]}
@@ -41,6 +42,52 @@ defmodule Tq2Web.Dashboard.MainLive do
   @impl true
   def handle_params(params, _uri, socket) do
     {:noreply, assign(socket, tour: params["tour"])}
+  end
+
+  @impl true
+  def handle_event("ask-for-notifications", _params, socket) do
+    {:noreply, assign(socket, ask_for_notifications: true)}
+  end
+
+  @impl true
+  def handle_event("subscribe", _params, socket) do
+    {:noreply, push_event(socket, "subscribe", %{})}
+  end
+
+  @impl true
+  def handle_event("dismiss", _params, socket) do
+    {:noreply, assign(socket, ask_for_notifications: false)}
+  end
+
+  @impl true
+  def handle_event("register", params, %{assigns: %{user_id: user_id}} = socket) do
+    attrs =
+      %{"data" => params}
+      |> Map.put("subscription_user", %{"user_id" => user_id})
+
+    case save_subscription(attrs) do
+      {:ok, _subscription} ->
+        socket =
+          socket
+          |> push_event("registered", %{})
+          |> assign(ask_for_notifications: false)
+
+        {:noreply, socket}
+
+      {:error, _changeset} ->
+        # TODO: handle this case properly
+        {:noreply, socket}
+    end
+  end
+
+  defp save_subscription(attrs) do
+    case Notifications.get_subscription(attrs) do
+      nil ->
+        Notifications.create_subscription(attrs)
+
+      subscription ->
+        Notifications.update_subscription(subscription, attrs)
+    end
   end
 
   defp current_visits({0, _}) do
@@ -133,4 +180,8 @@ defmodule Tq2Web.Dashboard.MainLive do
   end
 
   defp unpublished_store_alert(_store), do: nil
+
+  defp vapid_server_key do
+    Application.get_env(:web_push_encryption, :vapid_details)[:public_key]
+  end
 end

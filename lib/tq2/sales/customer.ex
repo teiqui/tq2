@@ -4,6 +4,7 @@ defmodule Tq2.Sales.Customer do
   import Ecto.Changeset
   import Tq2.Utils.Schema, only: [validate_phone_number: 3]
 
+  alias Tq2.Notifications.CustomerSubscription
   alias Tq2.Sales.Customer
   alias Tq2.Shares.Token
   alias Tq2.Shops.Store
@@ -17,6 +18,8 @@ defmodule Tq2.Sales.Customer do
     field :lock_version, :integer, default: 0
 
     has_many :tokens, Token
+    has_many :customer_subscriptions, CustomerSubscription
+    has_many :subscriptions, through: [:customer_subscriptions, :subscription]
 
     timestamps type: :utc_datetime
   end

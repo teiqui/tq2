@@ -117,6 +117,11 @@ config :tq2, :perfit,
       "https://private-anon-d532298830-perfitapiv2.apiary-mock.com/v2/sofimutante"
     )
 
+config :web_push_encryption, :vapid_details,
+  subject: "mailto:support@teiqui.com",
+  public_key: "some_public_key",
+  private_key: "some_private_key"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

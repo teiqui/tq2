@@ -135,6 +135,34 @@ defmodule Tq2.Fixtures do
     %{cart | lines: [line]}
   end
 
+  def create_user_subscription(user_id) do
+    attrs = %{
+      "subscription_user" => %{"user_id" => user_id},
+      "data" => %{
+        "endpoint" => "https://fcm.googleapis.com/fcm/send/some_random_things",
+        "keys" => %{"p256dh" => "p256dh_key", "auth" => "auth_string"}
+      }
+    }
+
+    {:ok, subscription} = Tq2.Notifications.create_subscription(attrs)
+
+    subscription
+  end
+
+  def create_customer_subscription(customer_id) do
+    attrs = %{
+      "customer_subscription" => %{"customer_id" => customer_id},
+      "data" => %{
+        "endpoint" => "https://fcm.googleapis.com/fcm/send/some_random_things",
+        "keys" => %{"p256dh" => "p256dh_key", "auth" => "auth_string"}
+      }
+    }
+
+    {:ok, subscription} = Tq2.Notifications.create_subscription(attrs)
+
+    subscription
+  end
+
   def app_mercado_pago_fixture(_ \\ nil) do
     attrs = %{
       "name" => "mercado_pago",

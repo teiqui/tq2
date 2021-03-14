@@ -11,12 +11,12 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/live/store/order_live.html.leex:106
+#: lib/tq2_web/live/store/order_live.html.leex:133
 msgid "Thank you for your purchase!"
 msgstr ""
 
 #: lib/tq2_web/live/order/order_edit_live.html.leex:49
-#: lib/tq2_web/templates/order/show.html.eex:123
+#: lib/tq2_web/templates/order/show.html.eex:144
 msgid "Back"
 msgstr ""
 
@@ -69,7 +69,7 @@ msgstr ""
 msgid "Order updated successfully."
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:98
+#: lib/tq2_web/live/dashboard/main_live.html.leex:122
 #: lib/tq2_web/templates/layout/_menu.html.eex:11 lib/tq2_web/templates/layout/_menu.html.eex:92
 #: lib/tq2_web/templates/order/index.html.eex:2
 msgid "Orders"
@@ -124,12 +124,12 @@ msgstr ""
 msgid "Here you'll see all orders, at this time there is none. For starters, share the online store link with your customers!"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:113
+#: lib/tq2_web/live/store/order_live.html.leex:140
 #: lib/tq2_web/templates/email/expired_promotion.html.eex:51
 msgid "Order #%{number}"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:15
+#: lib/tq2_web/live/store/order_live.html.leex:42
 msgid "You have chosen Teiqui price"
 msgstr ""
 
@@ -137,11 +137,11 @@ msgstr ""
 msgid "Payments for order #%{id}"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:20
+#: lib/tq2_web/live/store/order_live.html.leex:47
 msgid "Thank you! Your and %{name} made a purchase together and now are saving."
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.ex:227
+#: lib/tq2_web/live/store/order_live.ex:282
 msgid "Don't forget to make the payment!"
 msgstr ""
 
@@ -188,7 +188,7 @@ msgstr ""
 msgid "This order has promotional price, and the customer join another, so both gets the discount!"
 msgstr ""
 
-#: lib/tq2/sales/order.ex:131
+#: lib/tq2/sales/order.ex:134
 msgid "To complete an order must be fully paid."
 msgstr ""
 
@@ -204,34 +204,52 @@ msgstr ""
 msgid "Teiqui price (%{price})"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:24
+#: lib/tq2_web/live/store/order_live.html.leex:51
 msgid "Share your discount. You have 24 hours to get another person to buy, if not, you pay the regular price."
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.ex:326
+#: lib/tq2_web/live/store/order_live.ex:381
 msgid "Change payment method"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.ex:192
+#: lib/tq2_web/live/store/order_live.ex:247
 msgid "Complete the payment of the purchase at regular price to receive your order. We kept your original payment method, you can change it."
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:108
+#: lib/tq2_web/live/store/order_live.html.leex:135
 msgid "Complete your purchase"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.ex:171
+#: lib/tq2_web/live/store/order_live.ex:225
 msgid "Pay with %{kind}"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.ex:204
+#: lib/tq2_web/live/store/order_live.ex:259
 msgid "Total pending: %{price}"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:118
+#: lib/tq2_web/live/store/order_live.html.leex:145
 msgid "Your 24 hours period to share the discount has expired."
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.ex:301
+#: lib/tq2_web/live/store/order_live.ex:356
 msgid "Change"
+msgstr ""
+
+#: lib/tq2_web/live/order/comment_live.html.leex:6
+msgid "Go back"
+msgstr ""
+
+#: lib/tq2_web/templates/order/show.html.eex:138
+msgid "If your client has notifications enabled, you can leave them a message."
+msgstr ""
+
+#: lib/tq2_web/live/order/comment_live.html.leex:10
+#: lib/tq2_web/live/store/order_live.html.leex:158 lib/tq2_web/templates/order/show.html.eex:124
+#: lib/tq2_web/templates/order/show.html.eex:133
+msgid "Messages"
+msgstr ""
+
+#: lib/tq2_web/live/order/comment_live.html.leex:40
+msgid "No messages yet"
 msgstr ""

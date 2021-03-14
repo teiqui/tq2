@@ -22,26 +22,26 @@ msgstr ""
 msgid "Test credentials"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:219
+#: lib/tq2_web/views/app_view.ex:218
 msgid "guide"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:202
+#: lib/tq2_web/views/app_view.ex:201
 msgid "sign up"
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:235
+#: lib/tq2_web/views/app_view.ex:234
 msgid "Assign the next URL: %{webhook_url} in Settings => Webhooks => Create Webhook."
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:224
+#: lib/tq2_web/views/app_view.ex:223
 msgid "Here is a %{guide} to follow."
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:243
+#: lib/tq2_web/views/app_view.ex:242
 msgid "Then go to API Keys and copy the Production API Key in the next field."
 msgstr ""
 
-#: lib/tq2_web/views/app_view.ex:211
+#: lib/tq2_web/views/app_view.ex:210
 msgid "To link Conekta you should %{sign_up} in the platform."
 msgstr ""
