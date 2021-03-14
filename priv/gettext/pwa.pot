@@ -10,19 +10,14 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/templates/pwa/offline.html.eex:7
 msgid "No connection"
 msgstr ""
 
-#: lib/tq2_web/templates/pwa/offline.html.eex:14
 msgid "Retry"
 msgstr ""
 
-#: lib/tq2_web/templates/layout/root.html.leex:11
-#: lib/tq2_web/views/pwa_view.ex:10
 msgid "Teiqui, online store that doubles your sales"
 msgstr ""
 
-#: lib/tq2_web/templates/pwa/offline.html.eex:11
 msgid "You must be connected to the Internet to continue"
 msgstr ""

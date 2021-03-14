@@ -11,199 +11,128 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/templates/email/password_reset.html.eex:4
 msgid "Follow this link to reset your password"
 msgstr "Haz clic en el siguiente enlace para hacer el cambio"
 
-#: lib/tq2_web/templates/email/password_reset.text.eex:4
 msgid "Go to this address to reset your password"
 msgstr "Ingresa en esta dirección para hacer el cambio"
 
-#: lib/tq2_web/templates/email/password_reset.html.eex:1
-#: lib/tq2_web/templates/email/password_reset.text.eex:1
 msgid "Hello %{name},"
 msgstr "Hola, %{name}"
 
-#: lib/tq2_web/templates/email/password_reset.html.eex:10
-#: lib/tq2_web/templates/email/password_reset.text.eex:10
 msgid "If you didn't ask for this you can safely disregard this message"
 msgstr "Si no pediste este cambio, puedes ignorar este correo"
 
-#: lib/tq2/notifications/email.ex:12
 msgid "Password reset"
 msgstr "Restablecer contraseña"
 
-#: lib/tq2_web/templates/email/password_reset.html.eex:7
 msgid "Reset password"
 msgstr "Cambiar contraseña"
 
-#: lib/tq2_web/templates/email/password_reset.html.eex:3
-#: lib/tq2_web/templates/email/password_reset.text.eex:3
 msgid "Someone requested a password reset for your user account"
 msgstr "Alguien ha pedido modificar la contraseña de tu cuenta"
 
-#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:4
-#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:3 lib/tq2_web/templates/email/promotion_confirmation.html.eex:4
-#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:3
 msgid "Congratulations!"
 msgstr "¡Felicitaciones!"
 
-#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:19
 msgid "For reference, the order is #%{number}"
 msgstr "Para referencia el pedido es el #%{number}"
 
-#: lib/tq2_web/templates/email/expired_promotion.text.eex:17
-#: lib/tq2_web/templates/email/order_confirmation.text.eex:18 lib/tq2_web/templates/email/promotion_confirmation.html.eex:50
-#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:18
 msgid "For reference, your order is #%{number}"
 msgstr "Para referencia, tu pedido es el #%{number}"
 
-#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:82
 msgid "Go to the app and see more information about this "
 msgstr "Puedes ver más información acerca de este pedido "
 
-#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:26
 msgid "Go to the app and see more information about this, visit the following direction:"
 msgstr "Puedes ver más información acerca de este pedido ingresando a la siguiente dirección:"
 
-#: lib/tq2/notifications/email.ex:23 lib/tq2/notifications/email.ex:34
 msgid "New order"
 msgstr "Nuevo pedido"
 
-#: lib/tq2_web/templates/email/order_confirmation.html.eex:4
-#: lib/tq2_web/templates/email/order_confirmation.text.eex:3
 msgid "Thanks!"
 msgstr "¡Muchas gracias!"
 
-#: lib/tq2_web/templates/email/order_confirmation.html.eex:8
-#: lib/tq2_web/templates/email/order_confirmation.text.eex:6
 msgid "This is what you ask for:"
 msgstr "Esto fue lo que ordenaste:"
 
-#: lib/tq2_web/templates/email/order_confirmation.html.eex:5
-#: lib/tq2_web/templates/email/order_confirmation.text.eex:4
 msgid "We have receive your order"
 msgstr "Hemos recibido tu pedido"
 
-#: lib/tq2_web/templates/email/expired_promotion.html.eex:58
-#: lib/tq2_web/templates/email/expired_promotion.text.eex:22 lib/tq2_web/templates/email/order_confirmation.html.eex:71
-#: lib/tq2_web/templates/email/order_confirmation.text.eex:20 lib/tq2_web/templates/email/promotion_confirmation.html.eex:54
-#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:20
 msgid "We'll keep you informed about it."
 msgstr "Te mantendremos al tanto de su estado."
 
-#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:5
-#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:4
 msgid "You have a new order, this is it:"
 msgstr "Hicieron un nuevo pedido, esto fue lo que ordenaron:"
 
-#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:83
 msgid "here"
 msgstr "aquí"
 
-#: lib/tq2_web/templates/email/expired_promotion.html.eex:1
-#: lib/tq2_web/templates/email/expired_promotion.text.eex:1 lib/tq2_web/templates/email/license_expired.html.eex:1
-#: lib/tq2_web/templates/email/license_expired.text.eex:1 lib/tq2_web/templates/email/license_near_to_expire.html.eex:2
-#: lib/tq2_web/templates/email/license_near_to_expire.text.eex:1 lib/tq2_web/templates/email/order_confirmation.html.eex:1
-#: lib/tq2_web/templates/email/order_confirmation.text.eex:1 lib/tq2_web/templates/email/owner_order_confirmation.html.eex:1
-#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:1 lib/tq2_web/templates/email/promotion_confirmation.html.eex:1
-#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:1
 msgid "Hello %{name}!"
 msgstr "¡Hola, %{name}!"
 
-#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:8
-#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:6
 msgid "Just to recapitulate, this is what you ask for:"
 msgstr "Solo como recordatorio, esto fue lo que pediste:"
 
-#: lib/tq2/notifications/email.ex:48
 msgid "Promotion confirmed"
 msgstr "Promoción confirmada"
 
-#: lib/tq2_web/templates/email/promotion_confirmation.html.eex:5
-#: lib/tq2_web/templates/email/promotion_confirmation.text.eex:4
 msgid "We have received an order from the link you shared, so it's all set for the discounted price"
 msgstr "Recibimos un pedido de un enlace que compartiste, así que está todo listo para que tengas el precio con descuento"
 
-#: lib/tq2/notifications/email.ex:61
 msgid "Promotional price expired"
 msgstr "El precio promocional expiró"
 
-#: lib/tq2_web/templates/email/expired_promotion.html.eex:4
-#: lib/tq2_web/templates/email/expired_promotion.text.eex:3
 msgid "The promotion time has ended, unfortunately no purchase was made using your referral link."
 msgstr "El tiempo de promoción terminó, desafortunadamente nadie con tu enlace realizó una compra."
 
-#: lib/tq2_web/templates/email/expired_promotion.html.eex:7
-#: lib/tq2_web/templates/email/expired_promotion.text.eex:5
 msgid "These are the final order details:"
 msgstr "Estos son los detalles finales de tu pedido"
 
-#: lib/tq2_web/templates/email/license_expired.html.eex:12
-#: lib/tq2_web/templates/email/license_expired.text.eex:7 lib/tq2_web/templates/email/license_near_to_expire.html.eex:14
-#: lib/tq2_web/templates/email/license_near_to_expire.text.eex:7
 msgid "In case you have any trouble, reply to this email."
 msgstr "En caso de tener algún problema, responda a este email."
 
-#: lib/tq2/notifications/email.ex:82
 msgid "License expired"
 msgstr "Licencia expirada"
 
-#: lib/tq2/notifications/email.ex:73
 msgid "License near to expire"
 msgstr "Su licencia está por expirar"
 
-#: lib/tq2_web/templates/email/license_expired.html.eex:4
 msgid "Your license has expired, please go to the next link and complete your subscription:"
 msgstr "Su licencia ha expirado, por favor visite el siguiente enlace y complete su suscripción:"
 
-#: lib/tq2_web/templates/email/license_near_to_expire.html.eex:6
 msgid "Your license is near to expire, please go to the next link and complete your subscription:"
 msgstr "Su licencia está por expirar, por favor visite el siguiente enlace y complete su suscripción:"
 
-#: lib/tq2_web/templates/email/license_expired.text.eex:3
 msgid "Your license has expired, please visit the following URL and complete your subscription:"
 msgstr "Su licencia ha expirado, por favor visite la siguiente dirección y complete su suscripción:"
 
-#: lib/tq2_web/templates/email/license_near_to_expire.text.eex:3
 msgid "Your license is near to expire, please visit the following URL and complete your subscription:"
 msgstr "Su licencia está por expirar, por favor visite la siguiente dirección y complete su suscripción:"
 
-#: lib/tq2_web/templates/email/order_confirmation.html.eex:18
-#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:16
 msgid "<span class=\"font-weight-normal\">Order</span> #%{number}"
 msgstr "<span class=\"font-weight-normal\">Pedido</span> #%{number}"
 
-#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:72
 msgid "For reference, the order is <strong>#%{number}</strong>"
 msgstr "Para referencia el pedido es el <strong>#%{number}</strong>"
 
-#: lib/tq2_web/templates/email/order_confirmation.html.eex:67
 msgid "For reference, your order is <strong>#%{number}</strong>"
 msgstr "Para referencia, tu pedido es el <strong>#%{number}</strong>"
 
-#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:88
-#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:29
 msgid "Teiqui team"
 msgstr "Equipo Teiqui"
 
-#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:77
 msgid "and it should be <strong>delivered</strong>."
 msgstr "y solicitó <strong>envío a domicilio</strong>."
 
-#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:23
 msgid "and it should be delivered."
 msgstr "y solicitó envío a domicilio"
 
-#: lib/tq2_web/templates/email/owner_order_confirmation.text.eex:21
 msgid "and it will be picked up from your store."
 msgstr "y será retirado por tu tienda."
 
-#: lib/tq2_web/templates/email/owner_order_confirmation.html.eex:75
 msgid "and <strong>it will be picked up from your store</strong>."
 msgstr "y <strong>será retirado por tu tienda</strong>."
 
-#: lib/tq2_web/templates/email/expired_promotion.html.eex:49
-#: lib/tq2_web/templates/email/expired_promotion.text.eex:18
 msgid "You can change the payment method and/or pay the pending amount to complete your order on the following link:"
 msgstr "Puede cambiar el método de pago y/o pagar el monto pendiente para completar su pedido con el siguiente enlace:"

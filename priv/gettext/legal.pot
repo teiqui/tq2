@@ -10,528 +10,392 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:629
 msgid "Active bank credit or debit cards"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:510
 msgid "Add-on equipment for streaming devices such as keyboards and remotes"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:304
 msgid "Adult products or services"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:171
 msgid "Anabolic steroids"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:265
 msgid "Animal cages"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:251
 msgid "Animals"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:297
 msgid "Any product or part, including but not limited to leather, skin, hide, fur, wool, or hair from any dogs, cats, and endangered or threatened animals"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:122
 msgid "Apparel featuring a tobacco brand logo"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:547
 msgid "Authentic audio or video CDs, DVDs, and Blu Ray"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:224
 msgid "BB Guns"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:408
 msgid "Bandages and braces for physical injuries"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:355
 msgid "Blood"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:281
 msgid "Boarding services"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:367
 msgid "Body parts"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:341
 msgid "Body parts and fluids"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:142
 msgid "Bongs"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:420
 msgid "Breast pumps"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:574
 msgid "Business models, goods, items, or services that we determine may be or are fraudulent, misleading, offensive, or deceptive, or may be or are exploitative, inappropriate, or exert undue pressure on targeted groups"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:641
 msgid "Checks or checkbooks"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:175
 msgid "Chitosan"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:126
 msgid "Cigarettes, cigars, and chewing tobacco"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:179
 msgid "Comfrey"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:404
 msgid "Contact lenses"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:666
 msgid "Counterfeits, knockoffs, or replicas of branded goods, or posts offering goods that are likely to confuse consumers about the source, sponsorship or affiliation of those goods."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:486
 msgid "Dating services"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:183
 msgid "Dehydroepiandrosterone"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:600
 msgid "Diet, weight loss, or other health related products that imply or attempt to generate negative self-perception"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:559
 msgid "Digital accounts, including games accounts"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:533
 msgid "Digital and subscription services, including links to or processing of any subscription sales, renewals, or upgrades"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:567
 msgid "Digital coupons"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:551
 msgid "Digital devices, including Smartphones, video game consoles, and TVs"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:563
 msgid "Digital subscriptions and internet streaming services, including TV, Mobile, etc."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:555
 msgid "Downloadable content, including PDFs, music, games, movies, etc."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:97
 msgid "Drug paraphernalia, including pipes and bongs"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:93
 msgid "Drugs, including marijuana and marijuana products"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:80
 msgid "Drugs, whether prescription, recreational, or otherwise"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:150
 msgid "Electronic cigarettes (E-cigarettes) or tobacco devices"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:187
 msgid "Ephedra"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:645
 msgid "Equipment to create counterfeit currency or financial instruments"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:63
 msgid "Examples listed below are representative, but not exhaustive."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:88
-#: lib/tq2_web/templates/legal/index.html.eex:117 lib/tq2_web/templates/legal/index.html.eex:166
-#: lib/tq2_web/templates/legal/index.html.eex:207 lib/tq2_web/templates/legal/index.html.eex:260
-#: lib/tq2_web/templates/legal/index.html.eex:313 lib/tq2_web/templates/legal/index.html.eex:350
-#: lib/tq2_web/templates/legal/index.html.eex:456 lib/tq2_web/templates/legal/index.html.eex:505
-#: lib/tq2_web/templates/legal/index.html.eex:542 lib/tq2_web/templates/legal/index.html.eex:583
-#: lib/tq2_web/templates/legal/index.html.eex:616 lib/tq2_web/templates/legal/index.html.eex:661
 msgid "Examples:"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:216
 msgid "Firearms and firearm parts"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:228
 msgid "Fireworks"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:424
 msgid "First-aid kits"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:277
 msgid "Grooming services"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:240
 msgid "Gun ranges"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:244
 msgid "Gun shows"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:359
 msgid "Hair extensions and wigs"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:138
 msgid "Hookahs"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:191
 msgid "Human growth hormones"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:375
 msgid "Human tissue"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:70
 msgid "Illegal products or services"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:461
 msgid "Implied nudity"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:465
 msgid "Implied sexual acts"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:447
 msgid "Items or products with overtly sexualized positioning"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:518
 msgid "Jailbroken or loaded devices"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:522
 msgid "Jamming or descrambling devices"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:46
 msgid "Last Modified: January 11, 2021"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:400
 msgid "Lifestyle and fitness accessories"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:285
 msgid "Live animals"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:289
 msgid "Livestock"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:395
 msgid "Medical Devices - Examples:"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:386
 msgid "Medical and healthcare products"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:588
 msgid "Multilevel marketing"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:440
 msgid "Nicotine gum"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:436
 msgid "Nicotine patches"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:67
 msgid "Offers to sell and sales of the following are prohibited:"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:371
 msgid "Organs"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:220
 msgid "Paintball guns"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:596
 msgid "Payday loans, paycheck advances, P2P lending, debt collection, and bail bonds"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:592
 msgid "Penny auctions"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:232
 msgid "Pepper spray"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:452
 msgid "Policy: Businesses may not position products or services in a sexually suggestive manner."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:391
 msgid "Policy: Businesses may not transact in certain healthcare products, including medical devices, and smoking cessation products containing nicotine."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:579
 msgid "Policy: Businesses may not transact in deceptive, false, misleading, or offensive offers or products."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:481
 msgid "Policy: Businesses may not transact in or facilitate gambling, games of skill, or lotteries, including online casinos, sports books, bingo, or poker if it costs money."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:491
 msgid "Policy: Businesses may not transact in or facilitate online dating services."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:75
 msgid "Policy: Businesses may not transact in the operations or exchange of illegal products or services."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:256
 msgid "Policy: Businesses may not transact in the sale of any animals."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:501
 msgid "Policy: Businesses may not transact in the sale of devices that facilitate or encourage streaming digital content in an unauthorized manner or interfering with the functionality of electronic devices."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:346
 msgid "Policy: Businesses may not transact in the sale of human body parts or fluids."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:85
 msgid "Policy: Businesses may not transact in the sale of illegal, prescription, or recreational drugs."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:612
 msgid "Policy: Businesses may not transact in the sale of real or fake currency."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:113
 msgid "Policy: Businesses may not transact in the sale of tobacco products or tobacco paraphernalia."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:162
 msgid "Policy: Businesses may not transact in the sale of unsafe ingestible supplements, as determined by Teiqui in its sole discretion."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:309
 msgid "Policy: Businesses may not transact in the sale or use of adult products or services."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:203
 msgid "Policy: Businesses may not transact in the sale or use of weapons, ammunition, or explosives. "
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:538
 msgid "Policy: Businesses may not transact in the sale, including renewals and upgrades, etc., of digital content, digital subscriptions, or digital accounts."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:657
 msgid "Policy: Transactions may not contain content that infringes upon or violates the intellectual property rights of any third party, including copyright or trademark. This includes, but is not limited to, the sale of counterfeit products, such as goods that copy the trademark (name or logo) and/or distinctive features of another company’s products to imitate a genuine product."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:637
 msgid "Pre-paid credit or debit cards"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:101
 msgid "Prescription drugs"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:269
 msgid "Products for animals (toys, collars, etc.)"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:496
 msgid "Products or items that facilitate or encourage unauthorized access to digital media"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:318
 msgid "Products promoting family planning and contraception, which focus on the contraceptive features of the product, and not on sexual pleasure or sexual enhancement"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:293
 msgid "Prohibited animal parts, including but not limited to bone, teeth, horn, ivory, taxidermy, organs, external limbs, secretions, or carcasses"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:212
 msgid "Promoting safety training or licenses for legal weapons"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:621
 msgid "Real money (cash or cash equivalent instruments and coins)"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:476
 msgid "Real money gambling services"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:607
 msgid "Real or fake currency"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:625
 msgid "Replica or prop money"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:146
 msgid "Rolling papers"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:514
 msgid "Sale of streaming devices loaded with software that facilitates unauthorized access to content"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:322
 msgid "Sex toys"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:330
 msgid "Sexual enhancement products"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:334
 msgid "Sexually suggestive services"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:24
 msgid "Site"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:431
 msgid "Smoking Cessation Products - Examples:"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:633
 msgid "Store credit cards or coupons"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:236
 msgid "Tasers"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:379
 msgid "Teeth"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:42
 msgid "Teiqui Commerce Policy"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:416
 msgid "Testing kits for medical conditions or diseases"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:412
 msgid "Thermometers"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:652
 msgid "Third-Party Infringement"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:108
 msgid "Tobacco items and related paraphernalia"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:130
 msgid "Tobacco pipes and paraphernalia"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:134
 msgid "Tobacco rolling machines"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:17
 msgid "Toggle menu"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:670
 msgid "Unauthorized or pirated copies of copyrighted works, such as videos, movies, TV shows and broadcasts, video games, CDs or other musical works, books, etc."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:157
 msgid "Unsafe ingestible supplements"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:363
 msgid "Urine"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:273
 msgid "Veterinary services"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:326
 msgid "Videos or live shows for adult entertainment"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:57
 msgid "We are not responsible for processing, paying for, or fulfilling any sales relating to your transactions."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:198
 msgid "Weapons, ammunition, or explosives"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:51
 msgid "When you offer goods or services for sale, we consider all messages and media related to your goods or services, including any descriptions, prices, fees, taxes and/or any required legal disclosures, to constitute transactions. Transactions must comply with the policies listed below, and applicable terms, laws and regulations."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:526
 msgid "Wiretapping devices"
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:60
 msgid "You are solely responsible for determining, collecting, withholding, reporting, and remitting all applicable taxes, duties, fees and additional charges for sales relating to your transactions."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:54
 msgid "You are solely responsible for your transactions and providing any sales terms, privacy terms or other terms applicable to your interactions with users."
 msgstr ""
 
-#: lib/tq2_web/templates/legal/index.html.eex:469
 msgid "Zoomed-in sexual images"
 msgstr ""

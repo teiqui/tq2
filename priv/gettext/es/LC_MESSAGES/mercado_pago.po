@@ -15,30 +15,23 @@ msgstr ""
 msgid "status"
 msgstr "Estado"
 
-#: lib/tq2_web/controllers/apps/mp_marketplace_controller.ex:57
 msgid "Already authorized"
 msgstr "Ya autorizado"
 
-#: lib/tq2_web/controllers/apps/mp_marketplace_controller.ex:51
 msgid "Invalid authorization"
 msgstr "Autorización inválida"
 
-#: lib/tq2_web/controllers/apps/mp_marketplace_controller.ex:33
 msgid "Successfully authorized"
 msgstr "Autorizado correctamente"
 
-#: lib/tq2_web/templates/app/_form_mercado_pago.html.eex:11
 msgid "Access Token"
 msgstr "Access Token"
 
-#: lib/tq2/apps/mercado_pago/data.ex:53
 msgid "Invalid credentials: '%{error}'"
 msgstr "Credencial no valida: '%{error}'"
 
-#: lib/tq2_web/views/app_view.ex:175
 msgid "To use MercadoPago you have to create an application following the next %{link} and then copy the production Access Token in the field below."
 msgstr "Para utilizar MercadoPago deberás crear una aplicación siguiendo el siguiente %{link} y luego copiar el Access Token de producción en el campo debajo."
 
-#: lib/tq2_web/views/app_view.ex:167
 msgid "link"
 msgstr "enlace"

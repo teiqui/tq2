@@ -11,33 +11,23 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:11
 msgid "Do you want to receive notifications about orders and other actions?"
 msgstr ""
 
-#: lib/tq2_web/live/store/order_live.html.leex:20
 msgid "Do you want to receive notifications about your order and this store?"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:17
-#: lib/tq2_web/live/store/order_live.html.leex:26
 msgid "Not for now"
 msgstr ""
 
-#: lib/tq2/workers/notifications_job.ex:46
-#: lib/tq2/workers/notifications_job.ex:58
 msgid "Tap or click to view the details."
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:21
-#: lib/tq2_web/live/store/order_live.html.leex:30
 msgid "Yes"
 msgstr ""
 
-#: lib/tq2/workers/notifications_job.ex:45
 msgid "You have a new comment on your order!"
 msgstr ""
 
-#: lib/tq2/workers/notifications_job.ex:57
 msgid "You have a new order!"
 msgstr ""

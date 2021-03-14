@@ -11,122 +11,83 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/live/account/license_live.html.leex:8
-#: lib/tq2_web/templates/account/show.html.eex:48
 msgid "Status"
 msgstr "Estado"
 
-#: lib/tq2_web/live/account/license_live.ex:12
-#: lib/tq2_web/views/account_view.ex:22
 msgid "Active"
 msgstr "Activo"
 
-#: lib/tq2_web/live/account/license_live.ex:15
-#: lib/tq2_web/views/account_view.ex:25
 msgid "Canceled"
 msgstr "Cancelado"
 
-#: lib/tq2_web/live/account/license_live.ex:14
-#: lib/tq2_web/views/account_view.ex:24
 msgid "Locked"
 msgstr "Bloqueado"
 
-#: lib/tq2_web/live/account/license_live.ex:11
-#: lib/tq2_web/views/account_view.ex:21
 msgid "Trial"
 msgstr "Prueba"
 
-#: lib/tq2_web/live/account/license_live.ex:13
-#: lib/tq2_web/views/account_view.ex:23
 msgid "Unpaid"
 msgstr "Impago"
 
-#: lib/tq2_web/live/account/license_live.html.leex:2
-#: lib/tq2_web/templates/email/license_expired.html.eex:8 lib/tq2_web/templates/email/license_near_to_expire.html.eex:10
-#: lib/tq2_web/templates/layout/_menu.html.eex:152
 msgid "Licenses"
 msgstr "Licencia"
 
-#: lib/tq2_web/live/account/license_live.html.leex:12
-#: lib/tq2_web/templates/account/show.html.eex:53
 msgid "Paid until"
 msgstr "Vigente hasta"
 
-#: lib/tq2_web/controllers/license/check_controller.ex:15
 msgid "License updated"
 msgstr "Licencia actualizada"
 
-#: lib/tq2_web/controllers/license/check_controller.ex:16
 msgid "Nothing to update"
 msgstr "Nada para actualizar"
 
-#: lib/tq2/gateways/mercado_pago.ex:44 lib/tq2/gateways/mercado_pago.ex:45
 msgid "Monthly pay"
 msgstr "Pago mensual"
 
-#: lib/tq2_web/templates/license/show.html.eex:27
 msgid "Amount"
 msgstr "Monto"
 
-#: lib/tq2_web/views/license_view.ex:14
 msgid "Paid"
 msgstr "Pagado"
 
-#: lib/tq2_web/templates/license/show.html.eex:28
 msgid "Paid at"
 msgstr "Fecha de pago"
 
-#: lib/tq2_web/templates/license/show.html.eex:21
 msgid "Payments"
 msgstr "Pagos"
 
-#: lib/tq2_web/views/license_view.ex:15
 msgid "Pending"
 msgstr "Pendiente"
 
-#: lib/tq2_web/live/account/license_live.ex:255
 msgid "Monthly"
 msgstr "Mensual"
 
-#: lib/tq2_web/live/account/license_live.ex:203
 msgid "Monthly pay %{money}"
 msgstr "Pago mensual %{money}"
 
-#: lib/tq2_web/live/account/license_live.html.leex:17
 msgid "Subscription"
 msgstr "Suscripción"
 
-#: lib/tq2_web/live/account/license_live.ex:218
 msgid "Until %{date}"
 msgstr "Hasta %{date}"
 
-#: lib/tq2_web/live/account/license_live.ex:243
 msgid "Until %{date} Save two months!"
 msgstr "Hasta %{date} ¡Ahorra dos meses!"
 
-#: lib/tq2_web/live/account/license_live.ex:256
 msgid "Yearly"
 msgstr "Anual"
 
-#: lib/tq2_web/live/account/license_live.ex:232
 msgid "Yearly pay %{money}"
 msgstr "Pago anual: %{money}"
 
-#: lib/tq2_web/live/account/license_live.ex:102
-#: lib/tq2_web/live/account/license_live.ex:114 lib/tq2_web/live/account/license_live.ex:124
-#: lib/tq2_web/live/account/license_live.ex:136
 msgid "Can't create subscription"
 msgstr "No se pudo crear la suscripción"
 
-#: lib/tq2_web/live/account/license_live.ex:157
-#: lib/tq2_web/live/account/license_live.ex:171
 msgid "Can't get your subscription"
 msgstr "No se pudo obtener la suscripción"
 
-#: lib/tq2_web/live/account/license_live.ex:192
 msgid "Show / modify subscription"
 msgstr "Ver / modificar suscripción"
 
-#: lib/tq2_web/plugs/license_check_plug.ex:19
 msgid "Your license has expired."
 msgstr "Su licencia ha expirado."

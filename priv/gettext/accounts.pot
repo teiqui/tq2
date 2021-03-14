@@ -10,136 +10,100 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/templates/account/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:161
 msgid "Accounts"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:30
 msgid "Active"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:12
 msgid "Argentina"
 msgstr ""
 
-#: lib/tq2_web/templates/account/show.html.eex:62
 msgid "Back"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:13
 msgid "Chile"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:14
 msgid "Colombia"
 msgstr ""
 
-#: lib/tq2_web/templates/account/index.html.eex:59
-#: lib/tq2_web/templates/account/show.html.eex:8
 msgid "Country"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:29
 msgid "Green"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:15
 msgid "Guatemala"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:16
 msgid "Mexico"
 msgstr ""
 
-#: lib/tq2_web/templates/account/index.html.eex:16
-#: lib/tq2_web/templates/account/index.html.eex:57
 msgid "Name"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:17
 msgid "Peru"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:37
 msgid "Show"
 msgstr ""
 
-#: lib/tq2_web/templates/account/index.html.eex:58
-#: lib/tq2_web/templates/account/show.html.eex:4
 msgid "Status"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:31
 msgid "Suspended"
 msgstr ""
 
-#: lib/tq2_web/templates/account/show.html.eex:12
 msgid "Time zone"
 msgstr ""
 
-#: lib/tq2_web/templates/account/index.html.eex:60
 msgid "Inserted at"
 msgstr ""
 
-#: lib/tq2_web/templates/account/index.html.eex:47
 msgid "Account: <span class=\"badge badge-info\">one</span>"
 msgid_plural "Accounts: <span class=\"badge badge-info\">%{count}</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/tq2_web/templates/account/show.html.eex:42
 msgid "Carts count"
 msgstr ""
 
-#: lib/tq2_web/templates/account/index.html.eex:40
 msgid "Clear"
 msgstr ""
 
-#: lib/tq2_web/templates/account/index.html.eex:33
 msgid "Filter"
 msgstr ""
 
-#: lib/tq2_web/templates/account/show.html.eex:36
 msgid "Orders count"
 msgstr ""
 
-#: lib/tq2_web/templates/account/show.html.eex:32
 msgid "Store"
 msgstr ""
 
-#: lib/tq2_web/templates/account/empty.html.eex:3
 msgid "There are no accounts yet"
 msgstr ""
 
-#: lib/tq2_web/templates/account/index.html.eex:37
 msgid "or"
 msgstr ""
 
-#: lib/tq2_web/templates/account/show.html.eex:16
 msgid "Registration email"
 msgstr ""
 
-#: lib/tq2_web/templates/account/show.html.eex:28
 msgid "Store WhatsApp"
 msgstr ""
 
-#: lib/tq2_web/templates/account/show.html.eex:20
 msgid "Store email"
 msgstr ""
 
-#: lib/tq2_web/templates/account/show.html.eex:24
 msgid "Store phone"
 msgstr ""
 
-#: lib/tq2_web/controllers/account_controller.ex:34
 msgid "Account updated successfully."
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:94
 msgid "Are you sure?"
 msgstr ""
 
-#: lib/tq2_web/views/account_view.ex:91
 msgid "Extend trial period"
 msgstr ""

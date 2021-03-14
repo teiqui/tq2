@@ -11,136 +11,100 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/templates/account/index.html.eex:2
-#: lib/tq2_web/templates/layout/_menu.html.eex:161
 msgid "Accounts"
 msgstr "Cuentas"
 
-#: lib/tq2_web/views/account_view.ex:30
 msgid "Active"
 msgstr "Activa"
 
-#: lib/tq2_web/views/account_view.ex:12
 msgid "Argentina"
 msgstr "Argentina"
 
-#: lib/tq2_web/templates/account/show.html.eex:62
 msgid "Back"
 msgstr "Listado de cuentas"
 
-#: lib/tq2_web/views/account_view.ex:13
 msgid "Chile"
 msgstr "Chile"
 
-#: lib/tq2_web/views/account_view.ex:14
 msgid "Colombia"
 msgstr "Colombia"
 
-#: lib/tq2_web/templates/account/index.html.eex:59
-#: lib/tq2_web/templates/account/show.html.eex:8
 msgid "Country"
 msgstr "País"
 
-#: lib/tq2_web/views/account_view.ex:29
 msgid "Green"
 msgstr "Nueva"
 
-#: lib/tq2_web/views/account_view.ex:15
 msgid "Guatemala"
 msgstr "Guatemala"
 
-#: lib/tq2_web/views/account_view.ex:16
 msgid "Mexico"
 msgstr "México"
 
-#: lib/tq2_web/templates/account/index.html.eex:16
-#: lib/tq2_web/templates/account/index.html.eex:57
 msgid "Name"
 msgstr "Nombre"
 
-#: lib/tq2_web/views/account_view.ex:17
 msgid "Peru"
 msgstr "Perú"
 
-#: lib/tq2_web/views/account_view.ex:37
 msgid "Show"
 msgstr "Ver cuenta"
 
-#: lib/tq2_web/templates/account/index.html.eex:58
-#: lib/tq2_web/templates/account/show.html.eex:4
 msgid "Status"
 msgstr "Estado"
 
-#: lib/tq2_web/views/account_view.ex:31
 msgid "Suspended"
 msgstr "Suspendida"
 
-#: lib/tq2_web/templates/account/show.html.eex:12
 msgid "Time zone"
 msgstr "Zona horaria"
 
-#: lib/tq2_web/templates/account/index.html.eex:60
 msgid "Inserted at"
 msgstr "Fecha de creación"
 
-#: lib/tq2_web/templates/account/index.html.eex:47
 msgid "Account: <span class=\"badge badge-info\">one</span>"
 msgid_plural "Accounts: <span class=\"badge badge-info\">%{count}</span>"
 msgstr[0] "Cuenta: <span class=\"badge badge-info\">una</span>"
 msgstr[1] "Cuentas: <span class=\"badge badge-info\">%{count}</span>"
 
-#: lib/tq2_web/templates/account/show.html.eex:42
 msgid "Carts count"
 msgstr "Cantidad de carritos"
 
-#: lib/tq2_web/templates/account/index.html.eex:40
 msgid "Clear"
 msgstr "Limpiar filtro"
 
-#: lib/tq2_web/templates/account/index.html.eex:33
 msgid "Filter"
 msgstr "Filtrar"
 
-#: lib/tq2_web/templates/account/show.html.eex:36
 msgid "Orders count"
 msgstr "Cantidad de pedidos"
 
-#: lib/tq2_web/templates/account/show.html.eex:32
 msgid "Store"
 msgstr "Tienda"
 
-#: lib/tq2_web/templates/account/empty.html.eex:3
 msgid "There are no accounts yet"
 msgstr "Todavía no se han creado tiendas"
 
-#: lib/tq2_web/templates/account/index.html.eex:37
 msgid "or"
 msgstr "o"
 
-#: lib/tq2_web/templates/account/show.html.eex:16
 msgid "Registration email"
 msgstr "Correo de registro"
 
-#: lib/tq2_web/templates/account/show.html.eex:28
 msgid "Store WhatsApp"
 msgstr "WhatsApp tienda"
 
-#: lib/tq2_web/templates/account/show.html.eex:20
 msgid "Store email"
 msgstr "Correo tienda"
 
-#: lib/tq2_web/templates/account/show.html.eex:24
 msgid "Store phone"
 msgstr "Teléfono tienda"
 
-#: lib/tq2_web/controllers/account_controller.ex:34
 msgid "Account updated successfully."
 msgstr "Cuenta actualizada correctamente."
 
-#: lib/tq2_web/views/account_view.ex:94
 msgid "Are you sure?"
 msgstr "¿Estás seguro?"
 
-#: lib/tq2_web/views/account_view.ex:91
 msgid "Extend trial period"
 msgstr "Extender período de prueba"

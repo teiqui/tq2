@@ -10,33 +10,17 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/controllers/session_controller.ex:37
 msgid "See you soon!"
 msgstr ""
 
-#: lib/tq2_web/live/components/dashboard/items_tour_component.html.leex:13
-#: lib/tq2_web/live/components/dashboard/tour_component.html.leex:13 lib/tq2_web/live/registration/new_live.html.leex:4
-#: lib/tq2_web/live/registration/tour_live.html.leex:4 lib/tq2_web/live/registration/welcome_live.html.leex:4
-#: lib/tq2_web/templates/item/_tour_empty.html.eex:12 lib/tq2_web/templates/item/_tour_index.html.eex:12
-#: lib/tq2_web/templates/item/_tour_new_item.html.eex:12 lib/tq2_web/templates/item/_tour_new_item_promotional_price.html.eex:10
-#: lib/tq2_web/templates/layout/root.html.leex:5 lib/tq2_web/templates/layout/root.html.leex:5
-#: lib/tq2_web/templates/legal/index.html.eex:8 lib/tq2_web/templates/legal/index.html.eex:686
-#: lib/tq2_web/templates/page/index.html.eex:8 lib/tq2_web/templates/page/index.html.eex:450
-#: lib/tq2_web/templates/password/edit.html.eex:5 lib/tq2_web/templates/password/new.html.eex:5
-#: lib/tq2_web/templates/session/new.html.eex:4 lib/tq2_web/views/layout_view.ex:41 lib/tq2_web/views/layout_view.ex:42
-#: lib/tq2_web/views/layout_view.ex:48 lib/tq2_web/views/layout_view.ex:227 lib/tq2_web/views/layout_view.ex:231
-#: lib/tq2_web/views/pwa_view.ex:8 lib/tq2_web/views/pwa_view.ex:9
 msgid "Teiqui"
 msgstr ""
 
-#: lib/tq2_web/controllers/session_controller.ex:21
 msgid "Welcome!"
 msgstr ""
 
-#: lib/tq2/notifications/email.ex:92
 msgid "Teiqui 🔔"
 msgstr ""
 
-#: lib/tq2_web/views/layout_view.ex:43
 msgid "Teiqui - Online store"
 msgstr ""

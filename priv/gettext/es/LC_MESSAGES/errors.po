@@ -71,7 +71,6 @@ msgid_plural "should have at most %{count} item(s)"
 msgstr[0] "debería tener como máximo un item"
 msgstr[1] "debería tener como máximo %{count} items"
 
-#: lib/tq2/utils/schema.ex:68
 msgid "must be less than %{number}"
 msgstr "debería ser menor a %{number}"
 
@@ -93,18 +92,14 @@ msgstr "Token de MercadoPago inválido"
 msgid "Can't link with a used MercadoPago account"
 msgstr "Esta cuenta de MercadoPago ya está en uso"
 
-#: lib/tq2/utils/schema.ex:36
 msgid "must have at least one enabled: %{fields}"
 msgstr "Uno de los campos debe estar habilitado: %{fields}"
 
-#: lib/tq2_web/live/shop/store_live.ex:277
 msgid "Too large, maximum is %{size}"
 msgstr "Es demasiado grande, el tamaño máximo permitido es %{size}"
 
-#: lib/tq2_web/live/shop/store_live.ex:285
 msgid "You have selected an unacceptable file type"
 msgstr "El tipo de archivo seleccionado no está permitido"
 
-#: lib/tq2_web/live/shop/store_live.ex:281
 msgid "You have selected too many files, maximum is %{count}"
 msgstr "Has seleccionado demasiados archivos, el máximo es %{count}"

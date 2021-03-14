@@ -11,31 +11,23 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/templates/error/404.html.eex:26
-#: lib/tq2_web/templates/error/500.html.eex:26
 msgid "Go to start"
 msgstr "Volver al inicio"
 
-#: lib/tq2_web/templates/error/500.html.eex:9
 msgid "Internal server error"
 msgstr "Error interno"
 
-#: lib/tq2_web/templates/error/404.html.eex:21
 msgid "Maybe you get the wrong address or the page was moved"
 msgstr "Quizás ha puesto mal la dirección o la página se ha movido"
 
-#: lib/tq2_web/templates/error/404.html.eex:9
 msgid "Page not found"
 msgstr "Página no encontrada"
 
-#: lib/tq2_web/templates/error/500.html.eex:18
 msgid "Sorry, something went wrong"
 msgstr "Lo sentimos, algo salió mal"
 
-#: lib/tq2_web/templates/error/500.html.eex:21
 msgid "The error was logged, we will fix it soon!"
 msgstr "El error se ha registrado y pronto lo solucionaremos"
 
-#: lib/tq2_web/templates/error/404.html.eex:18
 msgid "The page you are looking for does not exists"
 msgstr "La página que está buscando no existe"

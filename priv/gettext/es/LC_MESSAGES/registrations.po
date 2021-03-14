@@ -11,173 +11,128 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/live/registration/tour_live.html.leex:24
 msgid "Continue"
 msgstr "Continuar"
 
-#: lib/tq2_web/live/registration/new_live.ex:64
 msgid "Butcher shop"
 msgstr "Carnicería"
 
-#: lib/tq2_web/live/registration/new_live.ex:66
 msgid "Green grocery"
 msgstr "Verdulería"
 
-#: lib/tq2_web/live/registration/new_live.ex:65
 msgid "Grocery"
 msgstr "Almacén / Abarrotes"
 
-#: lib/tq2_web/live/registration/new_live.ex:73
 msgid "Other"
 msgstr "Otro"
 
-#: lib/tq2_web/live/registration/new_live.html.leex:21
 msgid "Store name"
 msgstr "Nombre de la tienda"
 
-#: lib/tq2_web/live/registration/new_live.html.leex:28
-#: lib/tq2_web/live/registration/new_live.html.leex:30
 msgid "Store type"
 msgstr "Tipo de tienda"
 
-#: lib/tq2_web/live/registration/new_live.ex:70
 msgid "Bakery"
 msgstr "Panadería"
 
-#: lib/tq2_web/live/registration/new_live.ex:71
 msgid "Bookshop / Stationery"
 msgstr "Librería / Papelería"
 
-#: lib/tq2_web/live/registration/new_live.ex:67
 msgid "Cleaning"
 msgstr "Artículos de limpieza"
 
-#: lib/tq2_web/live/registration/new_live.ex:68
 msgid "Deli"
 msgstr "Fiambrería"
 
-#: lib/tq2_web/live/registration/new_live.ex:69
 msgid "Food / Restaurant"
 msgstr "Comida / Restaurante"
 
-#: lib/tq2_web/live/registration/new_live.ex:72
 msgid "Technology"
 msgstr "Tecnología"
 
-#: lib/tq2_web/live/registration/new_live.html.leex:32
 msgid "Email"
 msgstr "Ingresa tu correo"
 
-#: lib/tq2_web/live/registration/new_live.html.leex:35
 msgid "Password"
 msgstr "Ingresa una contraseña"
 
-#: lib/tq2_web/live/registration/welcome_live.html.leex:46
 msgid "Enable discounts in your items with Teiqui price and get more than one order for every customer."
 msgstr "Activa los descuentos en tus artículos con Precio Teiqui y recibe más de una compra por cliente."
 
-#: lib/tq2_web/live/registration/welcome_live.html.leex:30
 msgid "Online store"
 msgstr "Tienda en línea"
 
-#: lib/tq2_web/live/registration/welcome_live.html.leex:68
 msgid "Start using the app"
 msgstr "Comenzar a usar la app"
 
-#: lib/tq2_web/live/registration/welcome_live.html.leex:42
 msgid "Teiqui price"
 msgstr "Precio Teiqui"
 
-#: lib/tq2_web/live/registration/welcome_live.html.leex:54
 msgid "Teiqui sellers"
 msgstr "Vendedores Teiqui"
 
-#: lib/tq2_web/live/registration/welcome_live.html.leex:22
 msgid "Thank you for choosing us. Our team will be happy to help you growth."
 msgstr "Gracias por elegirnos. Nuestro equipo está feliz de ayudarte a crecer."
 
-#: lib/tq2_web/live/registration/welcome_live.html.leex:34
 msgid "Upload your items, choose delivery options, payment methods y get orders online."
 msgstr "Carga tus artículos, elige formas de entrega, modos de pago y recibe pedidos en línea."
 
-#: lib/tq2_web/live/registration/welcome_live.html.leex:18
 msgid "Welcome!"
 msgstr "¡Te damos la bienvenida!"
 
-#: lib/tq2_web/live/registration/welcome_live.html.leex:58
 msgid "Your customers will become your sellers using group shopping, thus bringing new buyers."
 msgstr "Tus clientes se volverán tus vendedores al compartir la compra y traer nuevos compradores."
 
-#: lib/tq2_web/live/registration/new_live.ex:87
 msgid "terms of service"
 msgstr "términos y condiciones"
 
-#: lib/tq2_web/live/registration/tour_live.html.leex:20
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: lib/tq2_web/live/registration/tour_live.html.leex:9
 msgid "Welcome %{name}!"
 msgstr "¡Hola %{name}!"
 
-#: lib/tq2_web/live/registration/tour_live.html.leex:13
 msgid "Would you like to take a brief tour to know Teiqui main features?"
 msgstr "¿Quisieras realizar un breve tour para conocer las funciones principales de Teiqui?"
 
-#: lib/tq2_web/live/registration/new_live.ex:79
 msgid "Create store"
 msgstr "Crear mi tienda"
 
-#: lib/tq2_web/live/registration/new_live.html.leex:12
 msgid "Create your Teiqui online store"
 msgstr "Crea tu tienda Teiqui en línea"
 
-#: lib/tq2_web/live/registration/new_live.ex:81
 msgid "Creating..."
 msgstr "Creando..."
 
-#: lib/tq2_web/live/registration/new_live.html.leex:16
-#: lib/tq2_web/live/registration/new_live.html.leex:62
 msgid "Free 14 days trial"
 msgstr "Prueba gratis por 14 días"
 
-#: lib/tq2_web/live/registration/new_live.html.leex:47
 msgid "In creating my store declare that I accept the %{link} of Teiqui."
 msgstr "Al crear mi tienda declaro que acepto los %{link} de Teiqui."
 
-#: lib/tq2_web/live/registration/new_live.html.leex:93
 msgid "Need help? Write to us"
 msgstr "¿Necesitas ayuda? Escríbenos a"
 
-#: lib/tq2_web/live/registration/new_live.html.leex:88
 msgid "Prices are available by region on our website and in the License section of the app."
 msgstr "Los precios están disponibles por región en nuestra página web y en la sección de Licencia de la app."
 
-#: lib/tq2_web/live/registration/new_live.html.leex:74
 msgid "We will not ask for your card details until the trial period expires."
 msgstr "No pediremos datos de tus tarjetas hasta el momento del vencimiento del período de prueba."
 
-#: lib/tq2_web/live/registration/new_live.html.leex:66
 msgid "When you register, you will start the free trial of Teiqui and you must bear in mind the following:"
 msgstr "Al registrarte iniciarás la prueba gratuita de Teiqui y debes tener en cuenta lo siguiente:"
 
-#: lib/tq2_web/live/registration/new_live.html.leex:81
 msgid "You are not required to continue after the trial period."
 msgstr "No es obligatorio que continúes luego del período de prueba."
 
-#: lib/tq2_web/live/registration/new_live.html.leex:34
 msgid "Your email"
 msgstr "Tu correo"
 
-#: lib/tq2_web/live/registration/new_live.html.leex:37
 msgid "Your password"
 msgstr "Tu contraseña"
 
-#: lib/tq2_web/live/registration/new_live.html.leex:26
 msgid "Your store"
 msgstr "Tu tienda"
 
-#: lib/tq2_web/live/registration/new_live.html.leex:16
-#: lib/tq2_web/live/registration/new_live.html.leex:62
 msgid "Free %{days} days trial"
 msgstr "Prueba gratis por %{days} días"

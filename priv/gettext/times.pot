@@ -10,14 +10,11 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/utils.ex:11 lib/tq2_web/views/email_view.ex:34
 msgid "%m/%d/%y"
 msgstr ""
 
-#: lib/tq2_web/utils.ex:19
 msgid "%m/%d/%y %H:%M:%S"
 msgstr ""
 
-#: lib/tq2_web/views/email_view.ex:40
 msgid "%H:%Mh"
 msgstr ""

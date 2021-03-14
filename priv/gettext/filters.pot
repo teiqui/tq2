@@ -10,6 +10,5 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/views/layout_view.ex:302
 msgid "Search..."
 msgstr ""

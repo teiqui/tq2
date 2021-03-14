@@ -10,10 +10,8 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/templates/app/_form_transbank.html.eex:11
 msgid "Api key"
 msgstr ""
 
-#: lib/tq2_web/templates/app/_form_transbank.html.eex:12
 msgid "Shared secret"
 msgstr ""

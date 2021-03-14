@@ -11,10 +11,8 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/templates/app/_form_transbank.html.eex:11
 msgid "Api key"
 msgstr "Api key"
 
-#: lib/tq2_web/templates/app/_form_transbank.html.eex:12
 msgid "Shared secret"
 msgstr "Shared secret"

@@ -10,23 +10,17 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:48
 msgid "Are you sure?"
 msgstr ""
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:52
 msgid "Hello %{name}"
 msgstr ""
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:35
 msgid "More"
 msgstr ""
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:29
-#: lib/tq2_web/templates/layout/_menu.html.eex:100
 msgid "Payments"
 msgstr ""
 
-#: lib/tq2_web/templates/layout/_menu.html.eex:139
 msgid "Settings"
 msgstr ""

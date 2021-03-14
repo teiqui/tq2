@@ -11,19 +11,14 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/templates/pwa/offline.html.eex:7
 msgid "No connection"
 msgstr "Sin conexión"
 
-#: lib/tq2_web/templates/pwa/offline.html.eex:14
 msgid "Retry"
 msgstr "Reintentar"
 
-#: lib/tq2_web/templates/layout/root.html.leex:11
-#: lib/tq2_web/views/pwa_view.ex:10
 msgid "Teiqui, online store that doubles your sales"
 msgstr "Teiqui, tienda en línea para vender doble"
 
-#: lib/tq2_web/templates/pwa/offline.html.eex:11
 msgid "You must be connected to the Internet to continue"
 msgstr "Debes conectarte a Internet para continuar"

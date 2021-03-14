@@ -81,7 +81,6 @@ msgstr[0] ""
 msgstr[1] ""
 
 ## From Ecto.Changeset.validate_number/3
-#: lib/tq2/utils/schema.ex:68
 msgid "must be less than %{number}"
 msgstr ""
 
@@ -103,18 +102,14 @@ msgstr ""
 msgid "Can't link with a used MercadoPago account"
 msgstr ""
 
-#: lib/tq2/utils/schema.ex:36
 msgid "must have at least one enabled: %{fields}"
 msgstr ""
 
-#: lib/tq2_web/live/shop/store_live.ex:277
 msgid "Too large, maximum is %{size}"
 msgstr ""
 
-#: lib/tq2_web/live/shop/store_live.ex:285
 msgid "You have selected an unacceptable file type"
 msgstr ""
 
-#: lib/tq2_web/live/shop/store_live.ex:281
 msgid "You have selected too many files, maximum is %{count}"
 msgstr ""

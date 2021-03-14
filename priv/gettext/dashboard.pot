@@ -10,98 +10,71 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.ex:132
 msgid "* In relation to the previous day."
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:74
 msgid "All channels"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:69
-#: lib/tq2_web/templates/layout/_menu.html.eex:108
 msgid "Dashboard"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:144
 msgid "Finished"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:127
 msgid "Go to orders"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:136
 msgid "Pending"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:109
 msgid "Performance"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:100
 msgid "Regular"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:34
-#: lib/tq2_web/live/dashboard/main_live.html.leex:86
 msgid "Sales"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:49
 msgid "Share your store to get some orders."
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:78
 msgid "Store visits"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:92
 msgid "Teiqui price"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.ex:94
 msgid "There are no visits yet."
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.ex:102
 msgid "There is not enough data."
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:30
-#: lib/tq2_web/live/dashboard/main_live.html.leex:65
 msgid "Today"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:40
 msgid "You have no orders yet."
 msgstr ""
 
-#: lib/tq2_web/live/components/dashboard/items_tour_component.html.leex:9
-#: lib/tq2_web/live/components/dashboard/tour_component.html.leex:9
 msgid "Cancel"
 msgstr ""
 
-#: lib/tq2_web/live/components/dashboard/tour_component.html.leex:15
 msgid "Continue"
 msgstr ""
 
-#: lib/tq2_web/live/components/dashboard/items_tour_component.html.leex:5
 msgid "Inside More you'll find sections to setup your store, see orders, etc. To continue, click on Items."
 msgstr ""
 
-#: lib/tq2_web/live/components/dashboard/tour_component.html.leex:5
 msgid "On the main dashboard you'll find information about your store, performance and orders."
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.ex:156
 msgid "Activate it"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.ex:164
 msgid "Your store is disabled. %{link} and start receiving orders!"
 msgstr ""
 
-#: lib/tq2_web/live/dashboard/main_live.html.leex:60
 msgid "Spread my store"
 msgstr ""

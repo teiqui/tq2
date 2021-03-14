@@ -11,222 +11,155 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2\n"
 
-#: lib/tq2_web/templates/page/index.html.eex:7
 msgid "Coming soon..."
 msgstr ""
 
-#: lib/tq2_web/templates/page/index.html.eex:374
 msgid "Annually"
 msgstr "Anual"
 
-#: lib/tq2_web/templates/page/index.html.eex:30
-#: lib/tq2_web/views/page_view.ex:17
 msgid "App"
 msgstr "Aplicación"
 
-#: lib/tq2_web/templates/page/index.html.eex:313
 msgid "Choose the plan that feet your needs"
 msgstr "Elige el plan que más te convenga"
 
-#: lib/tq2_web/templates/page/index.html.eex:63
 msgid "Double your sells"
 msgstr "Vende el doble"
 
-#: lib/tq2_web/templates/page/index.html.eex:101
 msgid "Download the app"
 msgstr "Descargar la app"
 
-#: lib/tq2_web/templates/page/index.html.eex:322
 msgid "Free"
 msgstr "Gratis"
 
-#: lib/tq2_web/templates/legal/index.html.eex:34
-#: lib/tq2_web/templates/page/index.html.eex:51 lib/tq2_web/templates/page/index.html.eex:69
-#: lib/tq2_web/templates/page/index.html.eex:341 lib/tq2_web/templates/page/index.html.eex:368
-#: lib/tq2_web/templates/page/index.html.eex:395
 msgid "Free trial"
 msgstr "Prueba gratis"
 
-#: lib/tq2_web/templates/legal/index.html.eex:30
-#: lib/tq2_web/templates/page/index.html.eex:13 lib/tq2_web/templates/page/index.html.eex:47
 msgid "Login"
 msgstr "Ingresar"
 
-#: lib/tq2_web/templates/page/index.html.eex:122
 msgid "Make"
 msgstr "Crea"
 
-#: lib/tq2_web/templates/page/index.html.eex:347
 msgid "Monthly"
 msgstr "Mensual"
 
-#: lib/tq2_web/templates/legal/index.html.eex:690
-#: lib/tq2_web/templates/page/index.html.eex:455
 msgid "Need any help?"
 msgstr "¿Necesitas ayuda?"
 
-#: lib/tq2_web/templates/page/index.html.eex:336
-#: lib/tq2_web/templates/page/index.html.eex:363 lib/tq2_web/templates/page/index.html.eex:390
 msgid "No commision"
 msgstr "Sin comisión por transacción"
 
-#: lib/tq2_web/templates/page/index.html.eex:338
 msgid "No credit card required"
 msgstr "No requiere tarjeta de crédito"
 
-#: lib/tq2_web/templates/page/index.html.eex:337
-#: lib/tq2_web/templates/page/index.html.eex:364 lib/tq2_web/templates/page/index.html.eex:391
 msgid "No order limits"
 msgstr "Sin límite de operaciones"
 
-#: lib/tq2_web/templates/page/index.html.eex:335
-#: lib/tq2_web/templates/page/index.html.eex:362 lib/tq2_web/templates/page/index.html.eex:389
 msgid "Offer many payment methods"
 msgstr "Ofrece más medios de pago"
 
-#: lib/tq2_web/templates/page/index.html.eex:333
-#: lib/tq2_web/templates/page/index.html.eex:360 lib/tq2_web/templates/page/index.html.eex:387
 msgid "Online store"
 msgstr "Tienda en línea"
 
-#: lib/tq2_web/templates/page/index.html.eex:40
 msgid "Pricing"
 msgstr "Abono"
 
-#: lib/tq2_web/templates/page/index.html.eex:150
 msgid "Sell"
 msgstr "Vende"
 
-#: lib/tq2_web/templates/page/index.html.eex:136
 msgid "Share"
 msgstr "Comparte"
 
-#: lib/tq2_web/templates/page/index.html.eex:77
 msgid "Sharing"
 msgstr "Compartiendo"
 
-#: lib/tq2_web/templates/page/index.html.eex:35
-#: lib/tq2_web/templates/page/index.html.eex:263 lib/tq2_web/templates/page/index.html.eex:270
-#: lib/tq2_web/templates/page/index.html.eex:277 lib/tq2_web/templates/page/index.html.eex:284
-#: lib/tq2_web/templates/page/index.html.eex:334 lib/tq2_web/templates/page/index.html.eex:361
-#: lib/tq2_web/templates/page/index.html.eex:388
 msgid "Teiqui price"
 msgstr "Precio Teiqui"
 
-#: lib/tq2_web/templates/page/index.html.eex:326
 msgid "Test it 14 days"
 msgstr "Prueba 14 días"
 
-#: lib/tq2_web/templates/page/index.html.eex:22
 msgid "Toggle menu"
 msgstr "Conmutar menú"
 
-#: lib/tq2_web/templates/legal/index.html.eex:693
-#: lib/tq2_web/templates/page/index.html.eex:458
 msgid "Write to"
 msgstr "Escríbenos a"
 
-#: lib/tq2_web/templates/page/index.html.eex:172
 msgid "double benefit."
 msgstr "doble beneficio."
 
-#: lib/tq2_web/templates/page/index.html.eex:154
 msgid "double with Teiqui price"
 msgstr "el doble con Precio Teiqui"
 
-#: lib/tq2_web/templates/page/index.html.eex:140
 msgid "via WhatsApp"
 msgstr "por WhatsApp"
 
-#: lib/tq2_web/templates/page/index.html.eex:126
 msgid "your store"
 msgstr "tu tienda"
 
-#: lib/tq2_web/views/page_view.ex:43
 msgid "+ applicable taxes"
 msgstr "+ impuestos aplicables"
 
-#: lib/tq2_web/templates/page/index.html.eex:217
 msgid "A tool"
 msgstr "Una herramienta"
 
-#: lib/tq2_web/templates/page/index.html.eex:95
 msgid "A unique discount that your customers can only access if they get you new customers."
 msgstr "Un descuento único al que sólo podrán acceder tus clientes si consiguen nuevos clientes."
 
-#: lib/tq2_web/templates/page/index.html.eex:208
-#: lib/tq2_web/templates/page/index.html.eex:302
 msgid "Free 14 days trial"
 msgstr "Prueba gratis 14 días"
 
-#: lib/tq2_web/templates/page/index.html.eex:164
 msgid "How Teiqui price works?"
 msgstr "¿Cómo funciona Precio Teiqui?"
 
-#: lib/tq2_web/templates/page/index.html.eex:107
 msgid "How it works?"
 msgstr "¿Cómo funciona?"
 
-#: lib/tq2_web/templates/page/index.html.eex:203
 msgid "IMPORTANT: if the 24 hour period expires and there is no other person joining, your customer pays the regular price."
 msgstr "IMPORTANTE: Si se cumplen las 24h y no hay otra persona, tu cliente paga el precio normal."
 
-#: lib/tq2_web/templates/page/index.html.eex:193
 msgid "If <strong class=\"font-weight-bolder\">your customer get someone else to buy</strong> in less than 24 hours, both parties gets the Teiqui price."
 msgstr "Si <strong class=\"font-weight-bolder\">tu cliente consigue que alguien más compre</strong> en menos de 24h, ambas partes pagan Precio Teiqui."
 
-#: lib/tq2_web/templates/page/index.html.eex:250
 msgid "If they don't make it, then pay the regular price."
 msgstr "Si no lo logra, paga el precio normal"
 
-#: lib/tq2_web/templates/page/index.html.eex:240
 msgid "In less than 24 hours they should get you a new order."
 msgstr "En menos de 24 horas debe sumar una nueva compra en tu tienda."
 
-#: lib/tq2_web/templates/page/index.html.eex:66
 msgid "Make your store in just a few clicks and double your sells with Teiqui price"
 msgstr "Crea tu tienda en sólo unos clics y duplica tus ventas con Precio Teiqui"
 
-#: lib/tq2_web/templates/page/index.html.eex:295
 msgid "Next"
 msgstr "Siguiente"
 
-#: lib/tq2_web/templates/page/index.html.eex:183
 msgid "People will <strong class=\"font-weight-bolder\">share your store</strong> to get the Teiqui price."
 msgstr "Las personas <strong class=\"font-weight-bolder\">compartirán tu tienda</strong> para acceder al Precio Teiqui."
 
-#: lib/tq2_web/templates/page/index.html.eex:290
 msgid "Previous"
 msgstr "Anterior"
 
-#: lib/tq2_web/templates/page/index.html.eex:382
 msgid "Save %{amount}"
 msgstr "Ahorra %{amount}"
 
-#: lib/tq2_web/templates/page/index.html.eex:173
 msgid "Setup an <strong class=\"font-weight-bolder\">attractive discount</strong> for your items."
 msgstr "Configura un <strong class=\"font-weight-bolder\">descuento atractivo</strong> para tus artículos."
 
-#: lib/tq2_web/templates/page/index.html.eex:91
 msgid "Teiqui price to sell more"
 msgstr "Precio Teiqui para vender más"
 
-#: lib/tq2_web/templates/page/index.html.eex:230
 msgid "To get the Teiqui price, your customer must share your store."
 msgstr "Para acceder al Precio Teiqui tu cliente deberá compartir tu tienda."
 
-#: lib/tq2_web/templates/page/index.html.eex:69
 msgid "What is it?"
 msgstr "¿De qué se trata?"
 
-#: lib/tq2_web/templates/page/index.html.eex:219
 msgid "to sell double"
 msgstr "para vender el doble"
 
-#: lib/tq2_web/views/page_view.ex:57
 msgid "Get it on Google Play"
 msgstr "Disponible en Google Play"
 
-#: lib/tq2_web/templates/page/index.html.eex:403
 msgid "Teiqui offers different payment platforms to add into your store."
 msgstr "Teiqui te ofrece diferentes plataformas de pago para que incorpores a tu tienda."

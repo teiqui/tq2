@@ -10,55 +10,38 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/templates/session/new.html.eex:36
 msgid "Don't have an account?"
 msgstr ""
 
-#: lib/tq2_web/templates/session/new.html.eex:12
-#: lib/tq2_web/templates/session/new.html.eex:16
 msgid "Email"
 msgstr ""
 
-#: lib/tq2_web/templates/session/new.html.eex:31
 msgid "Forgot password?"
 msgstr ""
 
-#: lib/tq2_web/controllers/session_controller.ex:29
 msgid "Invalid email/password combination"
 msgstr ""
 
-#: lib/tq2_web/templates/session/new.html.eex:26
 msgid "Login"
 msgstr ""
 
-#: lib/tq2_web/templates/session/new.html.eex:8
 msgid "Login to your account!"
 msgstr ""
 
-#: lib/tq2_web/templates/session/new.html.eex:20
-#: lib/tq2_web/templates/session/new.html.eex:22
 msgid "Password"
 msgstr ""
 
-#: lib/tq2_web/templates/session/new.html.eex:38
 msgid "Sign up"
 msgstr ""
 
-#: lib/tq2_web/live/account/license_live.ex:35
-#: lib/tq2_web/live/dashboard/main_live.ex:36 lib/tq2_web/live/inventory/import_live.ex:35
-#: lib/tq2_web/live/order/comment_live.ex:24 lib/tq2_web/live/order/order_edit_live.ex:32
-#: lib/tq2_web/live/registration/tour_live.ex:17 lib/tq2_web/live/shop/store_live.ex:33 lib/tq2_web/plugs/session_plug.ex:28
 msgid "You must be logged in."
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.html.leex:53
 msgid "I already have an account."
 msgstr ""
 
-#: lib/tq2_web/live/registration/new_live.html.leex:55
 msgid "Sign in"
 msgstr ""
 
-#: lib/tq2_web/plugs/authorization_plug.ex:26
 msgid "You are not authorized to see the content."
 msgstr ""

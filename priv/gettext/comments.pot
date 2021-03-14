@@ -10,14 +10,11 @@
 msgid ""
 msgstr ""
 
-#: lib/tq2_web/live/order/comment_live.html.leex:46
 msgid "Body"
 msgstr ""
 
-#: lib/tq2_web/live/order/comment_live.ex:58
 msgid "Send"
 msgstr ""
 
-#: lib/tq2_web/live/order/comment_live.html.leex:51
 msgid "Write a message here"
 msgstr ""
