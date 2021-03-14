@@ -20,9 +20,6 @@ msgstr "Listado de artículos"
 msgid "Category"
 msgstr "Categoría"
 
-msgid "Cost"
-msgstr "Costo"
-
 msgid "Create"
 msgstr "Crear artículo"
 
@@ -76,9 +73,6 @@ msgstr "Precio Teiqui"
 
 msgid "Show"
 msgstr "Ver artículo"
-
-msgid "Sku"
-msgstr "Código de artículo"
 
 msgid "Update"
 msgstr "Actualizar artículo"

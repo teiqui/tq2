@@ -5,13 +5,11 @@ defmodule Tq2.Inventories.ItemTest do
     alias Tq2.Inventories.Item
 
     @valid_attrs %{
-      sku: "some sku",
       name: "some name",
       description: "some description",
       visibility: "visible",
       price: Money.new(100, :ARS),
       promotional_price: Money.new(90, :ARS),
-      cost: Money.new(80, :ARS),
       image: %Plug.Upload{
         content_type: "image/png",
         filename: "test.png",
@@ -20,13 +18,11 @@ defmodule Tq2.Inventories.ItemTest do
       account_id: "1"
     }
     @invalid_attrs %{
-      sku: nil,
       name: nil,
       description: nil,
       visibility: nil,
       price: nil,
       promotional_price: nil,
-      cost: nil,
       image: nil,
       account_id: nil
     }
@@ -46,12 +42,10 @@ defmodule Tq2.Inventories.ItemTest do
     test "changeset does not accept long attributes" do
       attrs =
         @valid_attrs
-        |> Map.put(:sku, String.duplicate("a", 256))
         |> Map.put(:name, String.duplicate("a", 256))
 
       changeset = default_account() |> Item.changeset(%Item{}, attrs)
 
-      assert "should be at most 255 character(s)" in errors_on(changeset).sku
       assert "should be at most 255 character(s)" in errors_on(changeset).name
     end
 
@@ -70,13 +64,11 @@ defmodule Tq2.Inventories.ItemTest do
         @valid_attrs
         |> Map.put(:price, Money.new(-1, :ARS))
         |> Map.put(:promotional_price, Money.new(-1, :ARS))
-        |> Map.put(:cost, Money.new(-1, :ARS))
 
       changeset = default_account() |> Item.changeset(%Item{}, attrs)
 
       assert "must be greater than or equal to 0" in errors_on(changeset).price
       assert "must be greater than or equal to 0" in errors_on(changeset).promotional_price
-      assert "must be greater than or equal to 0" in errors_on(changeset).cost
     end
 
     test "changeset convert strings to money attributes" do
@@ -84,37 +76,23 @@ defmodule Tq2.Inventories.ItemTest do
         @valid_attrs
         |> Map.put(:price, "10")
         |> Map.put(:promotional_price, "20")
-        |> Map.put(:cost, "30")
 
       changeset = default_account() |> Item.changeset(%Item{}, attrs)
 
       assert Money.parse("10", :ARS) == {:ok, changeset.changes.price}
       assert Money.parse("20", :ARS) == {:ok, changeset.changes.promotional_price}
-      assert Money.parse("30", :ARS) == {:ok, changeset.changes.cost}
     end
 
-    test "changeset price should be greater than promotional price and cost" do
+    test "changeset price should be greater than promotional price" do
       attrs =
         @valid_attrs
         |> Map.put(:promotional_price, @valid_attrs.price)
-        |> Map.put(:cost, @valid_attrs.price)
 
       changeset = default_account() |> Item.changeset(%Item{}, attrs)
 
       price = @valid_attrs.price |> Money.to_decimal() |> to_string()
 
       assert "must be less than #{price}" in errors_on(changeset).promotional_price
-      assert "must be less than #{price}" in errors_on(changeset).cost
-    end
-
-    test "changeset promotional price should be greater than cost" do
-      attrs = @valid_attrs |> Map.put(:cost, @valid_attrs.promotional_price)
-
-      changeset = default_account() |> Item.changeset(%Item{}, attrs)
-
-      price = @valid_attrs.promotional_price |> Money.to_decimal() |> to_string()
-
-      assert "must be less than #{price}" in errors_on(changeset).cost
     end
   end
 

@@ -11,7 +11,6 @@ defmodule Tq2.Transactions.Line do
     field :quantity, :integer
     field :price, Money.Ecto.Map.Type
     field :promotional_price, Money.Ecto.Map.Type
-    field :cost, Money.Ecto.Map.Type
 
     belongs_to :item, Item
     belongs_to :cart, Cart
@@ -38,8 +37,7 @@ defmodule Tq2.Transactions.Line do
     change(changeset, %{
       name: item.name,
       price: item.price,
-      promotional_price: item.promotional_price,
-      cost: item.cost
+      promotional_price: item.promotional_price
     })
   end
 

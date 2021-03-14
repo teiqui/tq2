@@ -6,13 +6,11 @@ defmodule Tq2Web.Store.ItemLiveTest do
   import Tq2Web.ItemView, only: [money: 1]
 
   @create_attrs %{
-    sku: "some sku",
     name: "some name",
     description: "some description",
     visibility: "visible",
     price: Money.new(100, :ARS),
     promotional_price: Money.new(90, :ARS),
-    cost: Money.new(80, :ARS),
     image: %Plug.Upload{
       content_type: "image/png",
       filename: "test.png",

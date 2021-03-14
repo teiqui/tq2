@@ -154,7 +154,6 @@ defmodule Tq2Web.Store.CounterLiveTest do
         visibility: "visible",
         price: Money.new(120, :ARS),
         promotional_price: Money.new(110, :ARS),
-        cost: Money.new(100, :ARS),
         category_id: category_id,
         image: %Plug.Upload{
           content_type: "image/png",
@@ -215,7 +214,6 @@ defmodule Tq2Web.Store.CounterLiveTest do
           visibility: "visible",
           price: Money.new(100, :ARS),
           promotional_price: Money.new(90, :ARS),
-          cost: Money.new(80, :ARS),
           category_id: category.id
         },
         category
@@ -228,7 +226,6 @@ defmodule Tq2Web.Store.CounterLiveTest do
           visibility: "visible",
           price: Money.new(100, :ARS),
           promotional_price: Money.new(90, :ARS),
-          cost: Money.new(80, :ARS),
           category_id: nil
         }
       )
@@ -293,13 +290,11 @@ defmodule Tq2Web.Store.CounterLiveTest do
     [
       %{
         id: "1",
-        sku: "123",
         name: "Chocolate",
         description: "Very good",
         visibility: "visible",
         price: Money.new(100, :ARS),
         promotional_price: Money.new(90, :ARS),
-        cost: Money.new(80, :ARS),
         category_id: nil,
         image: %Plug.Upload{
           content_type: "image/png",
@@ -309,13 +304,11 @@ defmodule Tq2Web.Store.CounterLiveTest do
       },
       %{
         id: "2",
-        sku: "234",
         name: "Coke",
         description: "Amazing",
         visibility: "visible",
         price: Money.new(120, :ARS),
         promotional_price: Money.new(110, :ARS),
-        cost: Money.new(100, :ARS),
         category_id: nil
       }
     ]

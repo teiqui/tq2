@@ -128,7 +128,6 @@ defmodule Tq2.Fixtures do
         quantity: 42,
         price: Money.new(100, :ARS),
         promotional_price: Money.new(90, :ARS),
-        cost: Money.new(80, :ARS),
         item: item
       })
 
@@ -197,12 +196,10 @@ defmodule Tq2.Fixtures do
       Map.merge(
         attrs,
         %{
-          sku: "some sku",
           name: "some name",
           visibility: "visible",
           price: Money.new(100, :ARS),
-          promotional_price: Money.new(90, :ARS),
-          cost: Money.new(80, :ARS)
+          promotional_price: Money.new(90, :ARS)
         }
       )
 

@@ -138,7 +138,6 @@ defmodule Tq2Web.ItemView do
       form,
       :promotional_price,
       dgettext("items", "Promotional price"),
-      wrapper_html: [id: "promotional-price", class: "tour-target"],
       input_html: [hint: hint]
     )
   end

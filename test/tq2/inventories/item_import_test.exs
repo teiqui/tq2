@@ -18,7 +18,6 @@ defmodule Tq2.Inventories.ItemImportTest do
           " Waters \n ",
           "100",
           "70",
-          "50",
           "https://supermercadosvea.com.ar/caba/wp-content/uploads/sites/2/2021/02/Secundario_BSAS-NEA-1080x463-1.jpg"
         ]
       ]
@@ -37,7 +36,6 @@ defmodule Tq2.Inventories.ItemImportTest do
       assert item.name == "Water bottle"
       assert item.price == Money.new(10000, "ARS")
       assert item.promotional_price == Money.new(7000, "ARS")
-      assert item.cost == Money.new(5000, "ARS")
       assert item.image.file_name
       assert item.category.name == "Waters"
 
@@ -62,7 +60,6 @@ defmodule Tq2.Inventories.ItemImportTest do
         category: 2,
         price: 5,
         promotional_price: 3,
-        cost: 0,
         url: 4,
         description: 6
       }
@@ -81,7 +78,6 @@ defmodule Tq2.Inventories.ItemImportTest do
       assert item.name == "Water bottle"
       assert item.price == Money.new(10000, "ARS")
       assert item.promotional_price == Money.new(7000, "ARS")
-      assert item.cost == Money.new(5000, "ARS")
       assert item.category.name == "Waters"
       refute item.image
     end

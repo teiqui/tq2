@@ -189,6 +189,7 @@ defmodule Tq2Web.InputHelpersTest do
         assert input =~ "input-group-prepend"
         assert input =~ "input-group-text\">-PREP-"
         assert input =~ "-HINT-</small"
+        refute input =~ "hint="
         ""
       end)
     end

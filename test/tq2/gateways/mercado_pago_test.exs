@@ -168,16 +168,13 @@ defmodule Tq2.Gateways.MercadoPagoTest do
         quantity: 1,
         price: Money.new(100, :ARS),
         promotional_price: Money.new(90, :ARS),
-        cost: Money.new(80, :ARS),
         cart_id: cart.id,
         item: %Tq2.Inventories.Item{
-          sku: "some sku",
           name: "some name",
           description: "some description",
           visibility: "visible",
           price: Money.new(100, :ARS),
           promotional_price: Money.new(90, :ARS),
-          cost: Money.new(80, :ARS),
           account_id: account.id
         }
       }

@@ -132,14 +132,11 @@ defmodule Tq2.TransactionsTest do
       quantity: 42,
       price: Money.new(100, :ARS),
       promotional_price: Money.new(90, :ARS),
-      cost: Money.new(80, :ARS),
       item: %{
-        sku: "some sku",
         name: "some name",
         visibility: "visible",
         price: Money.new(100, :ARS),
-        promotional_price: Money.new(90, :ARS),
-        cost: Money.new(80, :ARS)
+        promotional_price: Money.new(90, :ARS)
       }
     }
     @update_line_attrs %{
@@ -147,16 +144,13 @@ defmodule Tq2.TransactionsTest do
       quantity: 43,
       price: Money.new(110, :ARS),
       promotional_price: Money.new(100, :ARS),
-      cost: Money.new(90, :ARS),
       item: %{
-        sku: "some updated sku",
         name: "some updated name",
         description: "some updated description",
         visibility: "hidden",
         # They are the same as create on purpose
         price: Money.new(100, :ARS),
-        promotional_price: Money.new(90, :ARS),
-        cost: Money.new(80, :ARS)
+        promotional_price: Money.new(90, :ARS)
       }
     }
     @invalid_line_attrs %{
@@ -164,7 +158,6 @@ defmodule Tq2.TransactionsTest do
       quantity: nil,
       price: nil,
       promotional_price: nil,
-      cost: nil,
       item: nil
     }
 
@@ -204,7 +197,6 @@ defmodule Tq2.TransactionsTest do
       assert line.quantity == @valid_line_attrs.quantity
       assert line.price == @valid_line_attrs.price
       assert line.promotional_price == @valid_line_attrs.promotional_price
-      assert line.cost == @valid_line_attrs.cost
     end
 
     test "create_line/2 with invalid data returns error changeset", %{cart: cart} do
@@ -221,7 +213,6 @@ defmodule Tq2.TransactionsTest do
       refute line.name == @update_line_attrs.name
       refute line.price == @update_line_attrs.price
       refute line.promotional_price == @update_line_attrs.promotional_price
-      refute line.cost == @update_line_attrs.cost
     end
 
     test "update_line/3 with invalid data returns error changeset", %{cart: cart} do

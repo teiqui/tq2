@@ -155,14 +155,14 @@ defmodule Tq2Web.InputHelpers do
     {_with_errors, input_opts} = Keyword.pop(input_opts, :with_errors)
     {options, input_opts} = Keyword.pop(input_opts, :collection)
 
-    apply(Phoenix.HTML.Form, type, [form, field, options, input_opts])
+    apply(Phoenix.HTML.Form, type, [form, field, options, Keyword.delete(input_opts, :hint)])
   end
 
   defp input_tag(:checkbox = type, form, field, input_opts) do
     {_with_errors, input_opts} = Keyword.pop(input_opts, :with_errors)
 
     Phoenix.HTML.Form
-    |> apply(type, [form, field, input_opts])
+    |> apply(type, [form, field, Keyword.delete(input_opts, :hint)])
     |> input_with_hint(input_opts)
   end
 
@@ -172,7 +172,7 @@ defmodule Tq2Web.InputHelpers do
         {_with_errors, input_opts} = Keyword.pop(input_opts, :with_errors)
 
         Phoenix.HTML.Form
-        |> apply(type, [form, field, input_opts])
+        |> apply(type, [form, field, Keyword.delete(input_opts, :hint)])
         |> input_with_hint(input_opts)
 
       _prepend ->
@@ -192,7 +192,7 @@ defmodule Tq2Web.InputHelpers do
             content_tag(:span, prepend, class: "input-group-text")
           end
 
-        input = apply(Phoenix.HTML.Form, type, [form, field, input_opts])
+        input = apply(Phoenix.HTML.Form, type, [form, field, Keyword.delete(input_opts, :hint)])
 
         [prepend_group, input]
       end

@@ -3,13 +3,11 @@ defmodule Tq2Web.ItemControllerTest do
   use Tq2.Support.LoginHelper
 
   @create_attrs %{
-    sku: "some sku",
     name: "some name",
     description: "some description",
     visibility: "visible",
     price: "40",
     promotional_price: "30",
-    cost: "20",
     image: %Plug.Upload{
       content_type: "image/png",
       filename: "test.png",
@@ -17,13 +15,11 @@ defmodule Tq2Web.ItemControllerTest do
     }
   }
   @update_attrs %{
-    sku: "some updated sku",
     name: "some updated name",
     description: "some updated description",
     visibility: "hidden",
     price: "50",
     promotional_price: "40",
-    cost: "30",
     image: %Plug.Upload{
       content_type: "image/png",
       filename: "test_updated.png",
@@ -31,13 +27,11 @@ defmodule Tq2Web.ItemControllerTest do
     }
   }
   @invalid_attrs %{
-    sku: nil,
     name: nil,
     description: nil,
     visibility: nil,
     price: nil,
     promotional_price: nil,
-    cost: nil,
     image: nil
   }
 

@@ -2,6 +2,13 @@
 @import "bootstrap/scss/variables";
 @import "variables";
 
+.anchor {
+  display: block;
+  position: relative;
+  top: -350px;
+  visibility: hidden;
+}
+
 .btn-menu {
   height: 48px;
   width: 48px;

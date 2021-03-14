@@ -5,21 +5,23 @@
     </div>
   <% end %>
 
-  <%= input f, :sku, dgettext("items", "Sku"), input_html: [autofocus: true] %>
-  <%= input f, :name, dgettext("items", "Name") %>
-  <%= input f, :description, dgettext("items", "Description") %>
-  <%= input f, :category_id, dgettext("items", "Category"), collection: categories(@current_session.account),
-                                                            input_html: [prompt: dgettext("items", "None")] %>
-  <%= input f, :visibility, dgettext("items", "Visibility"), collection: visibilities() %>
-  <%= input f, :image, dgettext("items", "Image") %>
+  <%= input f, :name, dgettext("items", "Name"), input_html: [autofocus: true] %>
   <%= input f, :price, dgettext("items", "Price") %>
   <%= promotional_price_input(f) %>
 
-  <span class="tour-pointer d-block text-info-dark">
-    <i class="bi-caret-up-fill h1 mb-0"></i>
-  </span>
+  <%= if @conn.params["tour"] do %>
+    <div id="promotional-price" class="anchor tour-target"></div>
 
-  <%= input f, :cost, dgettext("items", "Cost") %>
+    <span class="tour-pointer d-block text-info-dark">
+      <i class="bi-caret-up-fill h1 mb-0"></i>
+    </span>
+  <% end %>
+
+  <%= input f, :visibility, dgettext("items", "Visibility"), collection: visibilities() %>
+  <%= input f, :image, dgettext("items", "Image") %>
+  <%= input f, :category_id, dgettext("items", "Category"), collection: categories(@current_session.account),
+                                                            input_html: [prompt: dgettext("items", "None")] %>
+  <%= input f, :description, dgettext("items", "Description") %>
 
   <%= lock_version_input f, assigns[:item] %>
 

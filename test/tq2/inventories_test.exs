@@ -8,13 +8,11 @@ defmodule Tq2.InventoriesTest do
   @invalid_category_attrs %{name: nil, ordinal: nil}
 
   @valid_item_attrs %{
-    sku: "some sku",
     name: "some name",
     description: "some description",
     visibility: "visible",
     price: Money.new(100, :ARS),
     promotional_price: Money.new(90, :ARS),
-    cost: Money.new(80, :ARS),
     image: %Plug.Upload{
       content_type: "image/png",
       filename: "test.png",
@@ -22,23 +20,19 @@ defmodule Tq2.InventoriesTest do
     }
   }
   @update_item_attrs %{
-    sku: "some updated sku",
     name: "some updated name",
     description: "some updated description",
     visibility: "hidden",
     price: Money.new(110, :ARS),
     promotional_price: Money.new(100, :ARS),
-    cost: Money.new(90, :ARS),
     image: nil
   }
   @invalid_item_attrs %{
-    sku: nil,
     name: nil,
     description: nil,
     visibility: nil,
     price: nil,
     promotional_price: nil,
-    cost: nil,
     image: nil
   }
 
@@ -168,7 +162,7 @@ defmodule Tq2.InventoriesTest do
       fixture(
         session,
         :item,
-        %{category_id: category.id, sku: "Milk", name: "Milk"}
+        %{category_id: category.id, name: "Milk"}
       )
 
       [category] = session.account |> Inventories.categories_with_images()
@@ -191,7 +185,7 @@ defmodule Tq2.InventoriesTest do
     test "list_visible_items/2 returns all visible items", %{session: session} do
       item = fixture(session, :item)
 
-      fixture(session, :item, %{name: "another name", sku: "another sku", visibility: "hidden"})
+      fixture(session, :item, %{name: "another name", visibility: "hidden"})
 
       assert Inventories.list_visible_items(session.account, %{}).entries == [item]
     end
@@ -212,12 +206,10 @@ defmodule Tq2.InventoriesTest do
 
     test "create_item/2 with valid data creates a item", %{session: session} do
       assert {:ok, %Item{} = item} = Inventories.create_item(session, @valid_item_attrs)
-      assert item.sku == @valid_item_attrs.sku
       assert item.name == @valid_item_attrs.name
       assert item.description == @valid_item_attrs.description
       assert item.price == @valid_item_attrs.price
       assert item.promotional_price == @valid_item_attrs.promotional_price
-      assert item.cost == @valid_item_attrs.cost
       assert item.visibility == @valid_item_attrs.visibility
 
       url =
@@ -239,12 +231,10 @@ defmodule Tq2.InventoriesTest do
 
       assert {:ok, item} = Inventories.update_item(session, item, @update_item_attrs)
       assert %Item{} = item
-      assert item.sku == @update_item_attrs.sku
       assert item.name == @update_item_attrs.name
       assert item.description == @update_item_attrs.description
       assert item.price == @update_item_attrs.price
       assert item.promotional_price == @update_item_attrs.promotional_price
-      assert item.cost == @update_item_attrs.cost
       assert item.visibility == @update_item_attrs.visibility
     end
 

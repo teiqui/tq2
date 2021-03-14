@@ -50,12 +50,10 @@ defmodule Tq2.Sales.OrderRepoTest do
 
     {:ok, item} =
       Tq2.Inventories.create_item(session, %{
-        sku: "some sku",
         name: "some name",
         visibility: "visible",
         price: Money.new(100, :ARS),
-        promotional_price: Money.new(90, :ARS),
-        cost: Money.new(80, :ARS)
+        promotional_price: Money.new(90, :ARS)
       })
 
     {:ok, _line} =
@@ -64,7 +62,6 @@ defmodule Tq2.Sales.OrderRepoTest do
         quantity: 42,
         price: Money.new(100, :ARS),
         promotional_price: Money.new(90, :ARS),
-        cost: Money.new(80, :ARS),
         item: item
       })
 

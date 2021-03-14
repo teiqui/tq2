@@ -9,12 +9,11 @@ defmodule Tq2.Inventories.ItemImport do
     category: 1,
     price: 2,
     promotional_price: 3,
-    cost: 4,
-    url: 5,
-    description: 6
+    url: 4,
+    description: 5
   }
 
-  @money_fields [:price, :promotional_price, :cost]
+  @money_fields [:price, :promotional_price]
 
   def start_link([session, rows, headers_with_index]) do
     Task.start_link(__MODULE__, :batch_import, [
@@ -87,7 +86,7 @@ defmodule Tq2.Inventories.ItemImport do
     currency = Tq2.Utils.CountryCurrency.currency(country)
 
     attrs =
-      [:name, :price, :promotional_price, :cost, :description]
+      [:name, :price, :promotional_price, :description]
       |> Enum.map(fn k -> {k, field_value(row, k, headers_with_index, currency)} end)
       |> Map.new()
 

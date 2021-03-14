@@ -87,13 +87,11 @@ defmodule Tq2Web.Store.ShareComponentTest do
   defp item do
     %Tq2.Inventories.Item{
       id: "1",
-      sku: "123",
       name: "Chocolate",
       description: "Very good",
       visibility: "visible",
       price: Money.new(100, :ARS),
       promotional_price: Money.new(90, :ARS),
-      cost: Money.new(80, :ARS),
       image: "test.png",
       account_id: "1",
       category_id: "1",

@@ -32,15 +32,13 @@ defmodule Tq2Web.Store.ButtonComponentTest do
           name: "some name",
           quantity: 1,
           price: Money.new(100, :ARS),
-          promotional_price: Money.new(90, :ARS),
-          cost: Money.new(80, :ARS)
+          promotional_price: Money.new(90, :ARS)
         },
         %Line{
           name: "some name",
           quantity: 2,
           price: Money.new(120, :ARS),
-          promotional_price: Money.new(110, :ARS),
-          cost: Money.new(100, :ARS)
+          promotional_price: Money.new(110, :ARS)
         }
       ]
 
@@ -68,8 +66,7 @@ defmodule Tq2Web.Store.ButtonComponentTest do
           name: "some name",
           quantity: 1,
           price: Money.new(100, :ARS),
-          promotional_price: Money.new(90, :ARS),
-          cost: Money.new(80, :ARS)
+          promotional_price: Money.new(90, :ARS)
         }
       ]
 

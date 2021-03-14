@@ -16,13 +16,11 @@ defmodule Tq2.Inventories.Item do
 
   schema "items" do
     field :uuid, Ecto.UUID, autogenerate: true
-    field :sku, TrimmedString
     field :name, TrimmedString
     field :description, :string
     field :visibility, :string, default: "visible"
     field :price, Money.Ecto.Map.Type
     field :promotional_price, Money.Ecto.Map.Type
-    field :cost, Money.Ecto.Map.Type
     field :image, Tq2.ImageUploader.Type
     field :lock_version, :integer, default: 0
 
@@ -33,19 +31,17 @@ defmodule Tq2.Inventories.Item do
   end
 
   @cast_attrs [
-    :sku,
     :name,
     :description,
     :visibility,
     :price,
     :promotional_price,
-    :cost,
     :category_id,
     :lock_version
   ]
   @visibilities ~w(visible hidden)
 
-  @money_attrs ~w(price promotional_price cost) ++ ~w(price promotional_price cost)a
+  @money_attrs ~w(price promotional_price) ++ ~w(price promotional_price)a
 
   @doc false
   def changeset(%Account{} = account, %Item{} = item, attrs) do
@@ -56,19 +52,14 @@ defmodule Tq2.Inventories.Item do
     |> cast(attrs, @cast_attrs)
     |> cast_attachments(attrs, [:image])
     |> put_account(account)
-    |> validate_required([:uuid, :name, :visibility, :price, :promotional_price, :cost])
-    |> validate_length(:sku, max: 255)
+    |> validate_required([:uuid, :name, :visibility, :price, :promotional_price])
     |> validate_length(:name, max: 255)
     |> validate_inclusion(:visibility, @visibilities)
     |> validate_money(:price)
     |> validate_money(:promotional_price)
-    |> validate_money(:cost)
     |> validate_less_than_money_field(:promotional_price, :price)
-    |> validate_less_than_money_field(:cost, :promotional_price)
-    |> unsafe_validate_unique([:sku, :account_id], Tq2.Repo)
     |> unsafe_validate_unique([:name, :account_id], Tq2.Repo)
     |> unique_constraint(:uuid)
-    |> unique_constraint([:sku, :account_id])
     |> unique_constraint([:name, :account_id])
     |> assoc_constraint(:account)
     |> assoc_constraint(:category)

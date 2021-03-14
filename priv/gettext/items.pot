@@ -19,9 +19,6 @@ msgstr ""
 msgid "Category"
 msgstr ""
 
-msgid "Cost"
-msgstr ""
-
 msgid "Create"
 msgstr ""
 
@@ -74,9 +71,6 @@ msgid "Promotional price"
 msgstr ""
 
 msgid "Show"
-msgstr ""
-
-msgid "Sku"
 msgstr ""
 
 msgid "Update"
