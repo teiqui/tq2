@@ -37,3 +37,7 @@ msgstr ""
 
 msgid "To link Conekta you should %{sign_up} in the platform."
 msgstr ""
+
+#: lib/tq2_web/views/app_view.ex:216
+msgid "Then go to Settings => API Keys and copy the Production API Key in the next field."
+msgstr ""

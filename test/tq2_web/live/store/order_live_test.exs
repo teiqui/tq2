@@ -6,6 +6,7 @@ defmodule Tq2Web.Store.OrderLiveTest do
 
   import Tq2.Fixtures,
     only: [
+      conekta_app: 0,
       create_customer: 0,
       create_session: 1,
       default_store: 0,
@@ -386,6 +387,57 @@ defmodule Tq2Web.Store.OrderLiveTest do
 
       with_mock Tq2.Gateways.Transbank, [:passthrough], mock do
         path = Routes.order_path(conn, :index, store, order.id, externalUniqueNumber: "123")
+
+        {:error, {:live_redirect, %{to: to}}} = live(conn, path)
+
+        assert to == Routes.order_path(conn, :index, store, order.id)
+      end
+    end
+
+    test "Conekta params triggers check payment", %{
+      conn: conn,
+      order: order,
+      store: store
+    } do
+      conekta_app()
+
+      cart = order.cart
+
+      {:ok, _payment} =
+        Tq2.Payments.create_payment(
+          cart,
+          %{
+            status: "pending",
+            kind: "conekta",
+            amount: Cart.pending_amount(cart),
+            external_id: "ord_123"
+          }
+        )
+
+      mock = [
+        get_order: fn _app, _id ->
+          %{
+            "id" => "ord_123",
+            "amount" => 1000,
+            "currency" => "MXN",
+            "payment_status" => "paid",
+            "charges" => %{
+              "data" => [
+                %{
+                  "amount" => 1000,
+                  "currency" => "MXN",
+                  "order_id" => "ord_123",
+                  "status" => "paid",
+                  "paid_at" => System.os_time(:second)
+                }
+              ]
+            }
+          }
+        end
+      ]
+
+      with_mock Tq2.Gateways.Conekta, [:passthrough], mock do
+        path = Routes.order_path(conn, :index, store, order.id, checkout_id: "123")
 
         {:error, {:live_redirect, %{to: to}}} = live(conn, path)
 

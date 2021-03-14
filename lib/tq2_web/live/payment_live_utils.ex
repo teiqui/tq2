@@ -5,7 +5,6 @@ defmodule Tq2Web.PaymentLiveUtils do
       assign: 3,
       push_event: 3,
       push_redirect: 2,
-      put_flash: 3,
       redirect: 2
     ]
 
@@ -13,6 +12,7 @@ defmodule Tq2Web.PaymentLiveUtils do
   import Tq2.Utils.Urls, only: [store_uri: 0]
 
   alias Tq2.{Apps, Payments}
+  alias Tq2.Gateways.Conekta, as: CktClient
   alias Tq2.Gateways.MercadoPago, as: MPClient
   alias Tq2.Gateways.MercadoPago.Credential, as: MPCredential
   alias Tq2.Gateways.Transbank, as: TbkClient
@@ -22,6 +22,7 @@ defmodule Tq2Web.PaymentLiveUtils do
   alias Tq2Web.Router.Helpers, as: Routes
 
   def translate_kind("cash"), do: dgettext("payments", "Cash")
+  def translate_kind("conekta"), do: dgettext("payments", "Conekta")
   def translate_kind("mercado_pago"), do: dgettext("payments", "MercadoPago")
   def translate_kind("transbank"), do: dgettext("payments", "Transbank - Onepay")
   def translate_kind("wire_transfer"), do: dgettext("payments", "Wire transfer")
@@ -70,9 +71,10 @@ defmodule Tq2Web.PaymentLiveUtils do
   end
 
   def create_payment_or_go_to_order(socket, store, cart) do
-    cart = Tq2.Repo.preload(cart, :order)
+    cart = Tq2.Repo.preload(cart, [:payments, :order])
 
     case cart.data.payment do
+      "conekta" -> socket |> create_ckt_payment(store, cart)
       "mercado_pago" -> socket |> create_mp_payment(store, cart)
       "transbank" -> socket |> create_tbk_payment(store, cart)
       _ -> socket |> get_or_create_order(cart)
@@ -137,10 +139,17 @@ defmodule Tq2Web.PaymentLiveUtils do
     }
   end
 
+  def create_ckt_payment(socket, store, cart) do
+    cart
+    |> create_ckt_preference(store)
+    |> handle_ckt_pending_payment(cart)
+    |> response_from_payment(socket)
+  end
+
   def create_mp_payment(socket, store, cart) do
     cart
     |> create_mp_preference(store)
-    |> handle_pending_payment(cart)
+    |> handle_mp_pending_payment(cart)
     |> response_from_payment(socket)
   end
 
@@ -175,8 +184,6 @@ defmodule Tq2Web.PaymentLiveUtils do
   defp mark_order_as_paid(attrs, cart), do: %{attrs | data: %{paid: Cart.paid?(cart)}}
 
   defp create_mp_preference(cart, store) do
-    cart = Tq2.Repo.preload(cart, :payments)
-
     cart.payments
     |> Enum.find(&(&1.status == "pending" && &1.kind == "mercado_pago" && &1.gateway_data))
     |> mp_cart_preference(cart, store)
@@ -200,13 +207,13 @@ defmodule Tq2Web.PaymentLiveUtils do
     end
   end
 
-  defp handle_pending_payment(%{"message" => error}, _), do: error
+  defp handle_mp_pending_payment(%{"message" => error}, _), do: error
 
-  defp handle_pending_payment(%Payment{} = payment, _cart) do
+  defp handle_mp_pending_payment(%Payment{} = payment, _cart) do
     {:ok, payment}
   end
 
-  defp handle_pending_payment(mp_preference, cart) do
+  defp handle_mp_pending_payment(mp_preference, cart) do
     attrs = %{
       status: "pending",
       kind: "mercado_pago",
@@ -218,12 +225,21 @@ defmodule Tq2Web.PaymentLiveUtils do
     cart |> Payments.create_payment(attrs)
   end
 
-  defp response_from_payment({:error, _payment_cs}, socket) do
-    # TODO: handle this case properly
+  defp response_from_payment({:error, %{errors: errors}}, socket) do
+    errors = errors |> join_errors()
+
+    socket |> assign(:error, errors)
+  end
+
+  defp response_from_payment({:ok, %{kind: "conekta"} = payment}, socket) do
+    socket =
+      socket
+      |> redirect(external: payment.gateway_data["checkout"]["url"])
+
     socket
   end
 
-  defp response_from_payment({:ok, payment}, socket) do
+  defp response_from_payment({:ok, %{kind: "mercado_pago"} = payment}, socket) do
     socket =
       socket
       |> redirect(external: payment.gateway_data["init_point"])
@@ -232,7 +248,7 @@ defmodule Tq2Web.PaymentLiveUtils do
   end
 
   defp response_from_payment(error_msg, socket) do
-    socket |> assign(:alert, error_msg)
+    socket |> assign(:error, error_msg)
   end
 
   defp get_tbk_pending_payment(cart) do
@@ -256,7 +272,7 @@ defmodule Tq2Web.PaymentLiveUtils do
   defp maybe_create_tbk_payment(payment, _cart), do: payment
 
   defp open_tbk_modal_event(errors, socket, _store, _order) when is_binary(errors) do
-    socket |> put_flash(:error, errors)
+    socket |> assign(:error, errors)
   end
 
   defp open_tbk_modal_event(_payment, socket, store, %{order: nil} = cart) do
@@ -287,12 +303,57 @@ defmodule Tq2Web.PaymentLiveUtils do
     socket |> push_event("openModal", data)
   end
 
+  defp create_ckt_preference(cart, store) do
+    store.account
+    |> Apps.get_app("conekta")
+    |> CktClient.create_cart_preference(cart, store)
+  end
+
+  defp handle_ckt_pending_payment(%{"details" => [%{"message" => error}]}, _), do: error
+
+  defp handle_ckt_pending_payment(ckt_preference, %{payments: []} = cart) do
+    attrs = %{
+      status: "pending",
+      kind: "conekta",
+      amount: Cart.pending_amount(cart),
+      external_id: ckt_preference["id"],
+      gateway_data: ckt_preference
+    }
+
+    cart |> Payments.create_payment(attrs)
+  end
+
+  defp handle_ckt_pending_payment(ckt_preference, %{payments: payments} = cart) do
+    pending_payment =
+      payments
+      |> Enum.find(&(&1.status == "pending" && &1.kind == "conekta"))
+
+    case pending_payment do
+      nil ->
+        ckt_preference |> handle_ckt_pending_payment(%{cart | payments: []})
+
+      payment ->
+        attrs = %{gateway_data: ckt_preference, external_id: ckt_preference["id"]}
+        payment = %{payment | cart: cart}
+
+        cart |> Payments.update_payment(payment, attrs)
+    end
+  end
+
   defp check_pending_payments(payments, account, socket) do
     payments
     |> Enum.filter(&(&1.status == "pending" && &1.external_id))
     |> Enum.map(&check_payment(&1, account))
+    |> Enum.map(&update_or_return_errors(&1, account))
     |> Enum.find(&is_binary(&1))
-    |> maybe_add_error_flash(socket)
+    |> maybe_add_error(socket)
+  end
+
+  defp check_payment(%Payment{kind: "conekta"} = payment, account) do
+    account
+    |> Apps.get_app("conekta")
+    |> CktClient.get_order(payment.external_id)
+    |> CktClient.response_to_payment()
   end
 
   defp check_payment(%Payment{kind: "mercado_pago"} = payment, account) do
@@ -301,18 +362,16 @@ defmodule Tq2Web.PaymentLiveUtils do
     |> MPCredential.for_app()
     |> MPClient.get_payment(payment.gateway_data["id"])
     |> MPClient.response_to_payment()
-    |> Payments.update_payment_by_external_id(account)
-
-    nil
   end
 
   defp check_payment(%Payment{kind: "transbank"} = payment, account) do
-    response =
-      account
-      |> Apps.get_app("transbank")
-      |> TbkClient.confirm_preference(payment)
-      |> TbkClient.response_to_payment(payment)
+    account
+    |> Apps.get_app("transbank")
+    |> TbkClient.confirm_preference(payment)
+    |> TbkClient.response_to_payment(payment)
+  end
 
+  defp update_or_return_errors(response, account) do
     response
     |> Payments.update_payment_by_external_id(account)
     |> process_payment_update()
@@ -330,16 +389,16 @@ defmodule Tq2Web.PaymentLiveUtils do
   defp process_payment_update({:ok, _}), do: nil
 
   defp process_payment_update({:error, %{errors: errors}}) do
-    errors
-    |> Enum.map(fn {_k, error} -> Tq2Web.ErrorHelpers.translate_error(error) end)
-    |> Enum.join("<br>")
+    errors |> join_errors()
   end
 
-  defp maybe_add_error_flash(error, socket) when is_binary(error) do
-    socket |> put_flash(:error, error)
+  defp process_payment_update(_), do: nil
+
+  defp maybe_add_error(error, socket) when is_binary(error) do
+    socket |> assign(:error, error)
   end
 
-  defp maybe_add_error_flash(_, socket), do: socket
+  defp maybe_add_error(_error, socket), do: socket
 
   defp redirect_path_without_pending_payments(%{assigns: %{order: order, store: store}} = socket) do
     Routes.order_path(socket, :index, store, order)
@@ -355,5 +414,11 @@ defmodule Tq2Web.PaymentLiveUtils do
 
   defp store_image(_socket, store) do
     Tq2.LogoUploader.url({store.logo, store}, :thumb_2x)
+  end
+
+  defp join_errors(errors) do
+    errors
+    |> Enum.map(fn {_k, error} -> Tq2Web.ErrorHelpers.translate_error(error) end)
+    |> Enum.join("<br>")
   end
 end

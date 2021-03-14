@@ -77,6 +77,10 @@ defmodule Tq2Web.Store.PaymentLive do
     dgettext("payments", "Your order must be paid on delivery.")
   end
 
+  defp payment_method_description("conekta", _) do
+    dgettext("payments", "Pay with Conekta.")
+  end
+
   defp payment_method_description("mercado_pago", _) do
     dgettext("payments", "Pay with MercadoPago.")
   end

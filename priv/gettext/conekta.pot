@@ -36,3 +36,6 @@ msgstr ""
 
 msgid "To link Conekta you should %{sign_up} in the platform."
 msgstr ""
+
+msgid "Then go to Settings => API Keys and copy the Production API Key in the next field."
+msgstr ""

@@ -148,7 +148,6 @@ defmodule Tq2Web.Router do
   scope "/api", Tq2Web do
     pipe_through :api
 
-    post "/webhooks/conekta", WebhookController, :conekta
     post "/webhooks/mercado_pago", WebhookController, :mercado_pago
     post "/webhooks/stripe", WebhookController, :stripe
   end

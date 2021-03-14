@@ -58,3 +58,9 @@ msgstr "Transbank - Onepay"
 
 msgid "Pending amount of order #%{id}"
 msgstr "Monto pendiente orden #%{id}"
+
+msgid "Conekta"
+msgstr "Conekta"
+
+msgid "Pay with Conekta."
+msgstr "Paga con Conekta."

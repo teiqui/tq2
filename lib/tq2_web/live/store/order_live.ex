@@ -17,7 +17,7 @@ defmodule Tq2Web.Store.OrderLive do
   alias Tq2.{Analytics, Notifications, Sales}
   alias Tq2Web.Store.{HeaderComponent, ShareComponent}
 
-  @gateway_kinds ~w[mercado_pago transbank]
+  @gateway_kinds ~w[conekta mercado_pago transbank]
 
   @impl true
   def mount(%{"id" => id}, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do
@@ -35,7 +35,7 @@ defmodule Tq2Web.Store.OrderLive do
       |> load_order(id)
       |> load_payment_methods()
 
-    {:ok, socket, temporary_assigns: [referral_customer: nil]}
+    {:ok, socket, temporary_assigns: [error: nil, referral_customer: nil]}
   end
 
   @impl true
@@ -49,6 +49,14 @@ defmodule Tq2Web.Store.OrderLive do
   @impl true
   def handle_params(%{"external_reference" => _}, _uri, socket) do
     # MercadoPago
+    socket = socket |> check_payments_with_timer()
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_params(%{"checkout_id" => _}, _uri, socket) do
+    # Conekta
     socket = socket |> check_payments_with_timer()
 
     {:noreply, socket}
@@ -265,6 +273,7 @@ defmodule Tq2Web.Store.OrderLive do
   defp complete_payment_info(%{cart: cart} = assigns) do
     [
       tag(:hr, class: "my-4"),
+      show_error(assigns),
       complete_payment_description(),
       pending_price(cart),
       pay_button(assigns),
@@ -394,4 +403,10 @@ defmodule Tq2Web.Store.OrderLive do
   defp sorted_comments(order) do
     Enum.sort_by(order.comments, & &1.inserted_at, DateTime)
   end
+
+  defp show_error(%{error: error}) do
+    content_tag(:div, error, class: "alert alert-danger text-center rounded-pill")
+  end
+
+  defp show_error(_assigns), do: nil
 end

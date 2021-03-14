@@ -37,3 +37,6 @@ msgstr "Luego ve a API Keys y copia el API Key de producción en el siguiente ca
 
 msgid "To link Conekta you should %{sign_up} in the platform."
 msgstr "Para vincularte con Conekta deberás %{sign_up} en su plataforma."
+
+msgid "Then go to Settings => API Keys and copy the Production API Key in the next field."
+msgstr "Luego ve a API Keys y copia el API Key de producción en el siguiente campo."

@@ -167,13 +167,7 @@ defmodule Tq2.Gateways.MercadoPago do
   end
 
   defp check_payment_url(store) do
-    scheme = if Application.get_env(:tq2, :env) == :prod, do: "https", else: "http"
-    config = Tq2Web.Endpoint.config(:url)
-
-    %URI{
-      scheme: scheme,
-      host: "#{Application.get_env(:tq2, :store_subdomain)}.#{config[:host]}"
-    }
+    store_uri()
     |> Tq2Web.Router.Helpers.payment_check_url(:index, store)
   end
 
