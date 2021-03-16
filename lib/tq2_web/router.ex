@@ -126,7 +126,9 @@ defmodule Tq2Web.Router do
 
     # Inventories
     resources "/categories", CategoryController
-    resources "/items", ItemController
+    live "/items/new", Inventory.ItemLive, :new, session: @session_extras.current_session
+    live "/items/:id/edit", Inventory.ItemLive, :edit, session: @session_extras.current_session
+    resources "/items", ItemController, only: [:index, :show, :delete]
     live "/import", Inventory.ImportLive, :index
 
     # Shops

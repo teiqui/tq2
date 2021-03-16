@@ -223,6 +223,8 @@ defmodule Tq2.Inventories do
 
   """
   def list_items(account, params) do
+    params = Map.put(params, :visibility, "all")
+
     account
     |> list_items_query()
     |> filter_items_by_params(params)
@@ -354,8 +356,8 @@ defmodule Tq2.Inventories do
       %Ecto.Changeset{source: %Item{}}
 
   """
-  def change_item(%Account{} = account, %Item{} = item) do
-    Item.changeset(account, item, %{})
+  def change_item(%Account{} = account, %Item{} = item, attrs \\ %{}) do
+    Item.changeset(account, item, attrs)
   end
 
   @doc """
@@ -448,6 +450,10 @@ defmodule Tq2.Inventories do
     items_scope
     |> where(category_id: ^id)
     |> filter_items_by_params(Map.delete(params, :category_id))
+  end
+
+  defp filter_items_by_params(items_scope, %{visibility: "all"}) do
+    items_scope
   end
 
   defp filter_items_by_params(items_scope, _params) do

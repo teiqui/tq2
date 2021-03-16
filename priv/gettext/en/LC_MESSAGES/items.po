@@ -115,7 +115,7 @@ msgstr ""
 msgid "Import items"
 msgstr ""
 
-msgid "This price is the secret sauce to attract new customers, it's recommended to be about 40% off the regular price."
+msgid "This price is the main element to attract new customers, we recommend that you have about 40% discount on the normal price."
 msgstr ""
 
 msgid "Add item"
@@ -149,4 +149,19 @@ msgid "We'll add your first item, remember that you can import them from a sprea
 msgstr ""
 
 msgid "There is no match for term <strong>%{term}</strong>"
+msgstr ""
+
+msgid "New image"
+msgstr ""
+
+msgid "New item image"
+msgstr ""
+
+msgid "Optional information"
+msgstr ""
+
+msgid "Saving..."
+msgstr ""
+
+msgid "Show item in store "
 msgstr ""

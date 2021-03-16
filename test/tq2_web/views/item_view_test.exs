@@ -3,7 +3,6 @@ defmodule Tq2Web.ItemViewTest do
   use Tq2.Support.LoginHelper
 
   alias Tq2Web.ItemView
-  alias Tq2.Inventories
   alias Tq2.Inventories.{Category, Item}
 
   import Phoenix.View
@@ -59,37 +58,6 @@ defmodule Tq2Web.ItemViewTest do
     for item <- items do
       assert String.contains?(content, item.name)
     end
-  end
-
-  @tag login_as: "test@user.com"
-  test "renders new.html", %{conn: conn} do
-    changeset = account() |> Inventories.change_item(%Item{})
-
-    content =
-      render_to_string(ItemView, "new.html",
-        conn: conn,
-        changeset: changeset,
-        current_session: conn.assigns.current_session
-      )
-
-    assert String.contains?(content, "New item")
-    assert String.contains?(content, "recommended to be about 40% off")
-  end
-
-  @tag login_as: "test@user.com"
-  test "renders edit.html", %{conn: conn} do
-    item = item()
-    changeset = account() |> Inventories.change_item(item)
-
-    content =
-      render_to_string(ItemView, "edit.html",
-        conn: conn,
-        item: item,
-        changeset: changeset,
-        current_session: conn.assigns.current_session
-      )
-
-    assert String.contains?(content, item.name)
   end
 
   test "renders show.html", %{conn: conn} do
@@ -149,14 +117,6 @@ defmodule Tq2Web.ItemViewTest do
     assert ItemView.category(item.category) =~ "Candy"
   end
 
-  test "visibilities" do
-    assert %{} = ItemView.visibilities()
-  end
-
-  test "categories" do
-    assert [] = account() |> ItemView.categories()
-  end
-
   test "money" do
     money = Money.new(100, :ARS)
 
@@ -183,10 +143,6 @@ defmodule Tq2Web.ItemViewTest do
 
     assert content =~ "<svg"
     refute content =~ "<img"
-  end
-
-  defp account do
-    Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
   end
 
   defp item do

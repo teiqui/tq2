@@ -38,28 +38,6 @@ defmodule Tq2Web.ItemView do
     )
   end
 
-  def lock_version_input(_, nil), do: nil
-
-  def lock_version_input(form, item) do
-    hidden_input(form, :lock_version, value: item.lock_version)
-  end
-
-  def submit_button(item) do
-    item
-    |> submit_label()
-    |> submit(class: "btn btn-primary rounded-pill font-weight-semi-bold")
-  end
-
-  def categories(account) do
-    account
-    |> Tq2.Inventories.list_categories()
-    |> Enum.map(&[key: &1.name, value: &1.id])
-  end
-
-  def visibilities do
-    @visibilities
-  end
-
   def visibility(item) do
     visibilities = invert(@visibilities)
 
@@ -112,34 +90,8 @@ defmodule Tq2Web.ItemView do
     )
   end
 
-  defp new_item_action(%{params: %{"tour" => step}} = conn) do
-    Routes.item_path(conn, :create, tour: step) <> "#promotional-price"
-  end
-
-  defp new_item_action(conn) do
-    Routes.item_path(conn, :create)
-  end
-
-  defp submit_label(nil), do: dgettext("items", "Create")
-  defp submit_label(_), do: dgettext("items", "Update")
-
   defp invert(map) when is_map(map) do
     for {k, v} <- map, into: %{}, do: {v, k}
-  end
-
-  defp promotional_price_input(form) do
-    hint =
-      dgettext(
-        "items",
-        "This price is the secret sauce to attract new customers, it's recommended to be about 40% off the regular price."
-      )
-
-    input(
-      form,
-      :promotional_price,
-      dgettext("items", "Promotional price"),
-      input_html: [hint: hint]
-    )
   end
 
   defp link_to_new_item(conn) do

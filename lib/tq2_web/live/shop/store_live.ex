@@ -13,7 +13,7 @@ defmodule Tq2Web.Shop.StoreLive do
 
     socket =
       socket
-      |> allow_upload(:logo, accept: ~w(.jpg .jpeg .gif .png .webp))
+      |> allow_upload(:logo, accept: ~w(.jpg .jpeg .gif .png .webp), max_entries: 1)
       |> assign(
         changes: %{},
         section: section,

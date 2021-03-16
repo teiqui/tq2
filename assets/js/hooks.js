@@ -12,6 +12,7 @@ import {TimeZone} from './hooks/time_zone'
 import {TourLink} from './hooks/tour_link'
 import {TransbankModal} from './hooks/transbank_modal'
 import {UpdateSession} from './hooks/update_session'
+import {Upload} from './hooks/upload'
 
 export const Hooks = {
   BodyBackground,
@@ -27,5 +28,6 @@ export const Hooks = {
   TimeZone,
   TourLink,
   TransbankModal,
-  UpdateSession
+  UpdateSession,
+  Upload
 }

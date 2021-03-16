@@ -115,8 +115,8 @@ msgstr "Omitir importación"
 msgid "Import items"
 msgstr "Importar artículos"
 
-msgid "This price is the secret sauce to attract new customers, it's recommended to be about 40% off the regular price."
-msgstr "Este precio es la salsa secreta para atraer nuevos clientes, se recomienda cerca del 40% de descuento sobre el precio normal."
+msgid "This price is the main element to attract new customers, we recommend that you have about 40% discount on the normal price."
+msgstr "Este precio es el elemento principal para atraer nuevos clientes, te recomendamos que tenga cerca del 40% de descuento sobre el precio normal."
 
 msgid "Add item"
 msgstr "Agregar artículo"
@@ -150,3 +150,18 @@ msgstr "Vamos a agregar tu primer artículo, recuerda que puedes importar una pl
 
 msgid "There is no match for term <strong>%{term}</strong>"
 msgstr "No se encontraron coincidencias para <strong>%{term}</strong>"
+
+msgid "New image"
+msgstr "Nueva imagen"
+
+msgid "New item image"
+msgstr "Nueva imagen de artículo"
+
+msgid "Optional information"
+msgstr "Información opcional"
+
+msgid "Saving..."
+msgstr "Guardando..."
+
+msgid "Show item in store "
+msgstr "Mostrar artículo en tienda"

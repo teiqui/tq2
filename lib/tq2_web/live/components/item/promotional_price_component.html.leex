@@ -4,10 +4,10 @@
   </p>
 
   <p class="text-nowrap mb-0">
-    <%= link dgettext("items", "Cancel"), to: Routes.item_path(@conn, :new),
+    <%= link dgettext("items", "Cancel"), to: Routes.item_path(@socket, :new),
                                           class: "btn btn-outline-light btn-lg border border-light rounded-pill mr-3 px-4" %>
 
-    <%= img_tag Routes.static_path(@conn, "/images/favicon_white.svg"), width: "25", height: "25", alt: gettext("Teiqui") %>
+    <%= img_tag Routes.static_path(@socket, "/images/favicon_white.svg"), width: "25", height: "25", alt: gettext("Teiqui") %>
 
     <%= submit dgettext("items", "Continue"),
                class: "btn btn-light btn-lg text-primary font-weight-bold rounded-pill ml-3 px-4" %>

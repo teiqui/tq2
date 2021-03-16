@@ -10,6 +10,11 @@ defmodule Tq2.Utils.CountryCurrencyTest do
         assert CountryCurrency.currency(country)
       end)
     end
+
+    test "currency_symbol/1 returns the appropriated symbol" do
+      assert CountryCurrency.currency_symbol("ar") == "$"
+      assert CountryCurrency.currency_symbol("gt") == "Q"
+    end
   end
 
   describe "countries" do

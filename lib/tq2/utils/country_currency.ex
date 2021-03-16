@@ -509,6 +509,10 @@ defmodule Tq2.Utils.CountryCurrency do
     @currencies_by_country[country] || @default_currency
   end
 
+  def currency_symbol(country) when is_binary(country) do
+    country |> currency() |> Money.Currency.symbol!()
+  end
+
   def valid_countries do
     @currencies_by_country |> Map.keys()
   end
