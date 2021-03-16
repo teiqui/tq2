@@ -184,7 +184,8 @@ defmodule Tq2Web.AppView do
     content_tag(:p, class: "lead mt-4 mx-4") do
       [
         conekta_sign_up_text(),
-        conekta_api_key_text()
+        conekta_api_key_text(),
+        conekta_guide_text()
       ]
       |> Enum.join("<br>")
       |> raw()
@@ -214,7 +215,17 @@ defmodule Tq2Web.AppView do
   defp conekta_api_key_text do
     "conekta"
     |> dgettext(
-      "Then go to Settings => API Keys and copy the Production API Key in the next field."
+      "Then go to Setting => API Keys and copy the Production API Key (private key) in the next field."
     )
+  end
+
+  defp conekta_guide_text do
+    tutorial =
+      "conekta"
+      |> dgettext("tutorial")
+      |> link(to: "#", data: [toggle: "modal", target: "#youtube_tutorial"])
+      |> safe_to_string()
+
+    "conekta" |> dgettext("You can also see our %{tutorial}.", tutorial: tutorial)
   end
 end

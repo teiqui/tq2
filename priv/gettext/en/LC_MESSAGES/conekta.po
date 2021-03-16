@@ -20,23 +20,17 @@ msgstr ""
 msgid "Test credentials"
 msgstr ""
 
-msgid "guide"
-msgstr ""
-
 msgid "sign up"
-msgstr ""
-
-msgid "Assign the next URL: %{webhook_url} in Settings => Webhooks => Create Webhook."
-msgstr ""
-
-msgid "Here is a %{guide} to follow."
-msgstr ""
-
-msgid "Then go to API Keys and copy the Production API Key in the next field."
 msgstr ""
 
 msgid "To link Conekta you should %{sign_up} in the platform."
 msgstr ""
 
-msgid "Then go to Settings => API Keys and copy the Production API Key in the next field."
+msgid "Then go to Setting => API Keys and copy the Production API Key (private key) in the next field."
+msgstr ""
+
+msgid "You can also see our %{tutorial}."
+msgstr ""
+
+msgid "tutorial"
 msgstr ""

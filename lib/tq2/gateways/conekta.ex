@@ -2,7 +2,6 @@ defmodule Tq2.Gateways.Conekta do
   import Tq2Web.Gettext, only: [dgettext: 2, dgettext: 3]
   import Tq2.Utils.Urls, only: [store_uri: 0]
 
-  alias Tq2.Shops.Store
   alias Tq2.Transactions.Cart
 
   @allowed_payment_methods ~w(cash card bank_transfer)
@@ -22,11 +21,8 @@ defmodule Tq2.Gateways.Conekta do
     app = %{data: %{api_key: String.trim(api_key)}}
 
     app
-    |> create_customer()
-    |> attrs_for()
-    |> request_post(app, :create_preference)
-    |> parse_response()
-    |> parse_credential_response()
+    |> customer_test()
+    |> parse_customer_response()
   end
 
   def get_order(app, id) do
@@ -170,7 +166,7 @@ defmodule Tq2.Gateways.Conekta do
   defp phone_for_customer(%{phone: phone}) when is_binary(phone) do
     phone = phone |> String.replace(~r(\D), "")
 
-    case length(phone) do
+    case String.length(phone) do
       8 -> "52#{phone}"
       10 -> phone
       _ -> @test_phone
@@ -178,22 +174,6 @@ defmodule Tq2.Gateways.Conekta do
   end
 
   defp phone_for_customer(_customer), do: @test_phone
-
-  defp attrs_for(customer_info) do
-    cart = %Tq2.Transactions.Cart{
-      customer: %{name: "Test"},
-      price_type: "regular",
-      lines: [
-        %Tq2.Transactions.Line{
-          name: "Test item",
-          price: %Money{amount: 10000, currency: "MXN"},
-          quantity: 1
-        }
-      ]
-    }
-
-    customer_info |> attrs_for(cart, %Store{slug: "fake", name: "Test"})
-  end
 
   defp attrs_for(customer_info, cart, store) do
     expires_at =
@@ -224,7 +204,7 @@ defmodule Tq2.Gateways.Conekta do
     }
   end
 
-  defp create_customer(app) do
+  defp customer_test(app) do
     %{
       name: "Test",
       email: email_for_customer(%{}),
@@ -232,7 +212,6 @@ defmodule Tq2.Gateways.Conekta do
     }
     |> request_post(app, :create_customer)
     |> parse_response()
-    |> build_customer_info()
   end
 
   defp create_customer(app, %{customer: customer}) do
@@ -246,7 +225,7 @@ defmodule Tq2.Gateways.Conekta do
     |> build_customer_info()
   end
 
-  defp build_customer_info(%{"id" => id}), do: %{customer_id: id}
+  defp build_customer_info(%{"id" => id, "livemode" => true}), do: %{customer_id: id}
 
   defp build_customer_info(response) do
     Sentry.capture_message("Conekta Customer Error", extra: %{customer: response})
@@ -264,16 +243,17 @@ defmodule Tq2.Gateways.Conekta do
     %{store_uri() | port: nil} |> Tq2Web.Router.Helpers.payment_check_url(:index, store)
   end
 
-  defp parse_credential_response(%{"id" => _, "checkout" => %{"url" => _}, "livemode" => true}),
-    do: :ok
+  defp parse_customer_response(%{"id" => _, "livemode" => true}), do: :ok
 
-  defp parse_credential_response(%{"livemode" => false}) do
+  defp parse_customer_response(%{"livemode" => false}) do
     {:error, dgettext("conekta", "Test credentials")}
   end
 
-  defp parse_credential_response(%{"details" => [%{"message" => message}]}), do: {:error, message}
+  defp parse_customer_response(%{"details" => [%{"message" => message}]}) do
+    {:error, message}
+  end
 
-  defp parse_credential_response(_) do
+  defp parse_customer_response(_) do
     {:error, dgettext("conekta", "Invalid credentials")}
   end
 end

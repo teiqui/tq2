@@ -20,23 +20,17 @@ msgstr "API Key de producción"
 msgid "Test credentials"
 msgstr "Credenciales de prueba"
 
-msgid "guide"
-msgstr "guía"
-
 msgid "sign up"
 msgstr "registrarte"
-
-msgid "Assign the next URL: %{webhook_url} in Settings => Webhooks => Create Webhook."
-msgstr "Asigna la siguiente dirección URL: %{webhook_url} en Configuración => Webhooks => Crear Webhook."
-
-msgid "Here is a %{guide} to follow."
-msgstr "Aquí hay una %{guide} para seguir."
-
-msgid "Then go to API Keys and copy the Production API Key in the next field."
-msgstr "Luego ve a API Keys y copia el API Key de producción en el siguiente campo."
 
 msgid "To link Conekta you should %{sign_up} in the platform."
 msgstr "Para vincularte con Conekta deberás %{sign_up} en su plataforma."
 
-msgid "Then go to Settings => API Keys and copy the Production API Key in the next field."
-msgstr "Luego ve a API Keys y copia el API Key de producción en el siguiente campo."
+msgid "Then go to Setting => API Keys and copy the Production API Key (private key) in the next field."
+msgstr "Luego ve a Configuración => API Keys y copia el API Key de producción (Llave privada) en el siguiente campo."
+
+msgid "You can also see our %{tutorial}."
+msgstr "También puedes ver nuestro %{tutorial}."
+
+msgid "tutorial"
+msgstr "tutorial"
