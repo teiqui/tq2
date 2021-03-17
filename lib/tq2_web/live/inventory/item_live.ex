@@ -12,7 +12,7 @@ defmodule Tq2Web.Inventory.ItemLive do
     socket =
       socket
       |> allow_upload(:image, accept: ~w(.jpg .jpeg .gif .png .webp), max_entries: 1)
-      |> assign(session: session, item: nil, tour: nil)
+      |> assign(session: session, item: nil, tour: nil, show_optional_info: false)
       |> add_changeset(%{})
 
     {:ok, socket}
@@ -114,6 +114,15 @@ defmodule Tq2Web.Inventory.ItemLive do
 
         {:noreply, socket}
     end
+  end
+
+  @impl true
+  def handle_event(
+        "show-optional-info",
+        _params,
+        %{assigns: %{show_optional_info: show_optional_info}} = socket
+      ) do
+    {:noreply, assign(socket, show_optional_info: !show_optional_info)}
   end
 
   defp add_changeset(%{assigns: %{session: %{account: account}, item: nil}} = socket, params) do

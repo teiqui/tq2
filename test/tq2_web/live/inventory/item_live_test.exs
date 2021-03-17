@@ -169,6 +169,17 @@ defmodule Tq2Web.Inventory.ItemLiveTest do
       assert item.price == Money.new(1200, :ARS)
       assert item.promotional_price == Money.new(1100, :ARS)
     end
+
+    test "show optional info event", %{conn: conn} do
+      path = Routes.item_path(conn, :new)
+      {:ok, item_live, _html} = live(conn, path)
+
+      refute render(item_live) =~ "collapse show"
+
+      assert item_live
+             |> element("[phx-click=\"show-optional-info\"]")
+             |> render_click() =~ "collapse show"
+    end
   end
 
   defp image_input(item_live) do

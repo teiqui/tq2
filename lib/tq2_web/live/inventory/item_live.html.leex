@@ -81,23 +81,23 @@
                                                                           phx_debounce: "blur"
                                                                         ] %>
     <div class="my-4">
-      <a class="h6 text-info"
-          data-toggle="collapse"
-          href="#optional"
-          role="button"
-          aria-expanded="false"
-          aria-controls="optional">
+      <a class="h6 text-info text-decoration-none d-block" href="#" phx-click="show-optional-info">
         <%= dgettext("items", "Optional information") %>
+
         <span class="float-right">
-          <i class="bi-chevron-down"></i>
+          <i class="bi-chevron-<%= if @show_optional_info, do: "up", else: "down" %>"></i>
         </span>
       </a>
 
-      <div class="collapse mt-4" id="optional">
+      <div class="collapse<%= if @show_optional_info, do: " show" %> mt-4" id="optional">
         <%= input f, :category_id, dgettext("items", "Category"), collection: categories(@session.account),
                                                                   label_html: [class: "text-info"],
-                                                                  input_html: [prompt: dgettext("items", "None")] %>
-        <%= input f, :description, dgettext("items", "Description"), label_html: [class: "text-info"] %>
+                                                                  input_html: [
+                                                                    prompt: dgettext("items", "None"),
+                                                                    phx_debounce: "blur"
+                                                                  ] %>
+        <%= input f, :description, dgettext("items", "Description"), input_html: [phx_debounce: "blur"],
+                                                                     label_html: [class: "text-info"] %>
       </div>
     </div>
 
