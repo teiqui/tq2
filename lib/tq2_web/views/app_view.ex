@@ -223,7 +223,7 @@ defmodule Tq2Web.AppView do
     tutorial =
       "conekta"
       |> dgettext("tutorial")
-      |> link(to: "#", data: [toggle: "modal", target: "#youtube_tutorial"])
+      |> link(to: "#", data: [toggle: "modal", target: "#youtube-tutorial"])
       |> safe_to_string()
 
     "conekta" |> dgettext("You can also see our %{tutorial}.", tutorial: tutorial)
