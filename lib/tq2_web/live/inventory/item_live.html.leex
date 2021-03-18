@@ -89,7 +89,7 @@
         </span>
       </a>
 
-      <div class="collapse<%= if @show_optional_info, do: " show" %> mt-4" id="optional">
+      <div class="collapse<%= if @show_optional_info, do: " show" %> mt-4">
         <%= input f, :category_id, dgettext("items", "Category"), collection: categories(@session.account),
                                                                   label_html: [class: "text-info"],
                                                                   input_html: [

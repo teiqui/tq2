@@ -64,16 +64,16 @@ defmodule Tq2Web.Store.CategoryComponent do
   defp one_or_four_items([a, b, c, d], category) do
     content_tag(:div) do
       [
-        content_tag(:div, class: "row") do
+        content_tag(:div, class: "row no-gutters text-center") do
           [
-            content_tag(:div, image(a, category, 70), class: "col mr-n2"),
-            content_tag(:div, image(b, category, 70), class: "col ml-n2")
+            content_tag(:div, image(a, category, 70), class: "col p-1"),
+            content_tag(:div, image(b, category, 70), class: "col p-1")
           ]
         end,
-        content_tag(:div, class: "row mt-2") do
+        content_tag(:div, class: "row no-gutters text-center") do
           [
-            content_tag(:div, image(c, category, 70), class: "col mr-n2"),
-            content_tag(:div, image(d, category, 70), class: "col ml-n2")
+            content_tag(:div, image(c, category, 70), class: "col p-1"),
+            content_tag(:div, image(d, category, 70), class: "col p-1")
           ]
         end
       ]
