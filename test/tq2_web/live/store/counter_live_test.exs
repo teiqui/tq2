@@ -134,7 +134,7 @@ defmodule Tq2Web.Store.CounterLiveTest do
       |> element("#toggle-categories")
       |> render_click()
 
-      assert store_live |> has_element?("#category-#{category.id} .bg-success")
+      assert store_live |> has_element?("#category-#{category.id} .bg-secondary")
 
       content =
         store_live
