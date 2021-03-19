@@ -89,7 +89,7 @@ defmodule Tq2.Apps.MercadoPago.Data do
 
   defp valid_token_prefix() do
     case Application.get_env(:tq2, :env) do
-      :prod -> "APP_USER-"
+      :prod -> "APP_USR-"
       _ -> "TEST-"
     end
   end
