@@ -1,7 +1,7 @@
 defmodule Tq2Web.Order.CommentLive do
   use Tq2Web, :live_view
 
-  import Tq2Web.Utils, only: [localize_datetime: 1]
+  import Tq2Web.Utils, only: [localize_datetime: 2]
 
   alias Tq2.Messages
   alias Tq2.Messages.Comment

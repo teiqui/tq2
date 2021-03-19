@@ -1,7 +1,7 @@
 defmodule Tq2Web.Store.OrderLive do
   use Tq2Web, :live_view
 
-  import Tq2Web.Utils, only: [format_money: 1, localize_datetime: 1]
+  import Tq2Web.Utils, only: [format_money: 1, localize_datetime: 2]
 
   import Tq2Web.PaymentLiveUtils,
     only: [

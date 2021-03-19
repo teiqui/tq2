@@ -3,7 +3,7 @@ defmodule Tq2Web.OrderView do
   use Scrivener.HTML
 
   import Tq2Web.LinkHelpers, only: [icon_link: 2]
-  import Tq2Web.Utils, only: [localize_datetime: 1, invert: 1]
+  import Tq2Web.Utils, only: [localize_datetime: 2, invert: 1]
   import Tq2Web.Utils.Cart, only: [line_total: 3, cart_total: 2]
 
   alias Tq2.Payments.Payment
@@ -116,7 +116,7 @@ defmodule Tq2Web.OrderView do
         dgettext(
           "orders",
           "This order has promotional price, but none other has joined yet. Time expires at %{date}",
-          date: localize_datetime(order.promotion_expires_at)
+          date: localize_datetime(order.promotion_expires_at, order.account)
         )
     end
   end

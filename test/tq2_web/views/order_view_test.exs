@@ -4,7 +4,9 @@ defmodule Tq2Web.OrderViewTest do
 
   import Phoenix.HTML, only: [safe_to_string: 1]
   import Phoenix.View
+  import Tq2.Fixtures, only: [create_session: 0]
 
+  alias Tq2.Accounts.Account
   alias Tq2.Payments.Payment
   alias Tq2.Sales.{Customer, Order}
   alias Tq2.Transactions.{Cart, Line}
@@ -24,7 +26,13 @@ defmodule Tq2Web.OrderViewTest do
     orders = [order()]
     page = %Scrivener.Page{total_pages: 1, page_number: 1}
 
-    content = render_to_string(OrderView, "index.html", conn: conn, orders: orders, page: page)
+    content =
+      render_to_string(OrderView, "index.html",
+        conn: conn,
+        orders: orders,
+        page: page,
+        current_session: create_session()
+      )
 
     assert String.contains?(content, "Pending")
     assert String.contains?(content, "Pickup")
@@ -53,7 +61,8 @@ defmodule Tq2Web.OrderViewTest do
         conn: conn,
         order: order,
         payments: order.cart.payments,
-        shipping: shipping
+        shipping: shipping,
+        current_session: create_session()
       )
 
     assert String.contains?(content, "Order #1")
@@ -79,7 +88,8 @@ defmodule Tq2Web.OrderViewTest do
         conn: conn,
         order: order,
         payments: order.cart.payments,
-        shipping: shipping
+        shipping: shipping,
+        current_session: create_session()
       )
 
     refute String.contains?(content, "alert alert-")
@@ -101,6 +111,7 @@ defmodule Tq2Web.OrderViewTest do
       status: "pending",
       promotion_expires_at: DateTime.utc_now(),
       inserted_at: Timex.now(),
+      account: %Account{name: "test"},
       customer: %Customer{name: "Sample", subscriptions: []},
       cart: %Cart{
         id: 1,

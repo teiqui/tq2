@@ -25,7 +25,7 @@
   </p>
   <p class="mb-1">
     <strong><%= dgettext("orders", "Inserted at") %></strong>:
-    <%= localize_datetime(@order.inserted_at) %>
+    <%= localize_datetime(@order.inserted_at, @current_session.account) %>
   </p>
 
   <%= render "_customer.html", conn: @conn, customer: @order.customer %>
@@ -110,7 +110,7 @@
               <%= pending_payment_alert(payment) %>
             </td>
             <td><%= format_money payment.amount %></td>
-            <td><%= localize_datetime payment.inserted_at %></td>
+            <td><%= localize_datetime payment.inserted_at, @current_session.account %></td>
           </tr>
         <% end %>
       </table>
