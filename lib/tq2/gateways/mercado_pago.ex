@@ -81,9 +81,9 @@ defmodule Tq2.Gateways.MercadoPago do
     request_post("/checkout/preferences", preference, credential.token)
   end
 
-  @doc "Returns a list with valid identification types"
+  @doc "Returns a list with valid payment methods"
   def check_credentials(%Credential{token: token}) do
-    request_get("/v1/identification_types", token)
+    request_get("/v1/payment_methods", token)
   end
 
   @doc "Returns a map with the payment attributes given an id."
