@@ -68,32 +68,45 @@ defmodule Tq2Web.PageView do
   end
 
   defp payment_available?(country) do
-    ~w(ar cl) |> Enum.member?(country)
+    ~w(ar br cl co mx pe uy) |> Enum.member?(country)
   end
 
-  defp payment_img_tag(conn, country) do
+  defp payment_cols(country) when country in ~w(cl mx), do: 2
+  defp payment_cols(_), do: 3
+
+  defp payment_img_tags(conn, country) do
+    %{
+      "ar" => ~w(mercadopago),
+      "br" => ~w(mercadopago),
+      "cl" => ~w(mercadopago transbank),
+      "co" => ~w(mercadopago),
+      "mx" => ~w(mercadopago conekta),
+      "pe" => ~w(mercadopago),
+      "uy" => ~w(mercadopago)
+    }
+    |> Map.get(country, [])
+    |> Enum.map(&payment_img_tag(conn, &1))
+  end
+
+  defp payment_img_tag(conn, method) do
     conn
-    |> payment_img(country)
+    |> Routes.static_path("/images/page/#{method}.svg")
     |> img_tag(
       class: "img-fluid mt-4 px-4 px-lg-0 ml-n5 ml-lg-0",
-      alt: payment_img_alt(country),
+      alt: payment_img_alt(method),
       width: "240"
     )
   end
 
-  defp payment_img(conn, "ar") do
-    Routes.static_path(conn, "/images/page/mercadopago.svg")
-  end
-
-  defp payment_img(conn, "cl") do
-    Routes.static_path(conn, "/images/page/transbank.svg")
-  end
-
-  defp payment_img_alt("ar") do
+  defp payment_img_alt("mercadopago") do
     dgettext("payments", "MercadoPago")
   end
 
-  defp payment_img_alt("cl") do
+  defp payment_img_alt("transbank") do
     dgettext("payments", "Transbank - Onepay")
+  end
+
+  defp payment_img_alt("conekta") do
+    dgettext("payments", "Conekta")
   end
 end

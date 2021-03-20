@@ -403,8 +403,14 @@
             <%= dgettext("page", "Teiqui offers different payment platforms to add into your store.") %>
           </p>
 
-          <div class="row">
-            <div class="col-lg-4 my-3 my-lg-0">
+          <div class="row justify-content-center row-cols-1 row-cols-lg-<%= payment_cols(@country) %>">
+            <%= for payment_img_tag <- payment_img_tags(@conn, @country) do %>
+              <div class="col my-3">
+                <%= payment_img_tag %>
+              </div>
+            <% end %>
+
+            <div class="col my-3">
               <div class="d-flex align-items-center justify-content-lg-center ml-5 ml-lg-0">
                 <span class="text-success display-3">
                   <i class="bi-cash-stack"></i>
@@ -414,7 +420,7 @@
                 </span>
               </div>
             </div>
-            <div class="col-lg-4 my-3 my-lg-0">
+            <div class="col my-3">
               <div class="d-flex align-items-center justify-content-lg-center ml-5 ml-lg-0">
                 <span class="text-info display-3">
                   <i class="bi-credit-card-2-front"></i>
@@ -423,9 +429,6 @@
                   <%= dgettext("payments", "Wire transfer") %>
                 </span>
               </div>
-            </div>
-            <div class="col-lg-4">
-              <%= payment_img_tag(@conn, @country) %>
             </div>
           </div>
         </div>

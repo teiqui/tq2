@@ -31,10 +31,10 @@ defmodule Tq2Web.PageViewTest do
   end
 
   test "renders index.html for country without payment option", %{conn: conn} do
-    content = render_to_string(PageView, "index.html", conn: conn, country: "co")
+    content = render_to_string(PageView, "index.html", conn: conn, country: "us")
 
     assert String.contains?(content, "Teiqui price")
-    assert String.contains?(content, "COP $13,800.00")
+    assert String.contains?(content, "USD $3.99")
     refute String.contains?(content, "Teiqui offers different payment platforms")
   end
 end
