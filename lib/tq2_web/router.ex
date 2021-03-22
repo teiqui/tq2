@@ -82,6 +82,7 @@ defmodule Tq2Web.Router do
     live "/:slug/brief", Store.BriefLive, :index, session: @session_extras.store
 
     get "/:slug/tokens/:token", TokenController, :show
+    get "/:slug/cart/:from", CartController, :show
   end
 
   scope "/", Tq2Web, host: "#{Application.get_env(:tq2, :store_subdomain)}." do
