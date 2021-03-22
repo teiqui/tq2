@@ -166,6 +166,19 @@ defmodule Tq2.Notifications.EmailTest do
     assert email.text_body =~ "/license"
   end
 
+  test "cart reminder" do
+    cart = cart()
+    customer = customer()
+    email = cart |> Email.cart_reminder(customer)
+
+    assert email.to == customer.email
+    assert email.subject == "Incomplete cart, take it back!"
+    assert email.html_body =~ customer.name
+    assert email.html_body =~ "#carrito"
+    assert email.text_body =~ customer.name
+    assert email.text_body =~ "#carrito"
+  end
+
   defp user do
     %User{
       name: "John",
@@ -194,25 +207,31 @@ defmodule Tq2.Notifications.EmailTest do
       promotion_expires_at: DateTime.utc_now() |> DateTime.to_iso8601(),
       inserted_at: Timex.now(),
       customer: %Customer{name: "Sample"},
-      cart: %Cart{
-        data: %{handing: "pickup"},
-        lines: [
-          %Line{
-            name: "line1",
-            quantity: 2,
-            price: Money.new(100, "ARS"),
-            promotional_price: Money.new(90, "ARS")
-          }
-        ],
-        payments: [
-          %Payment{
-            kind: "mercado_pago",
-            status: "pending",
-            amount: Money.new(180, "ARS"),
-            inserted_at: Timex.now()
-          }
-        ]
-      }
+      cart: cart()
+    }
+  end
+
+  defp cart do
+    %Cart{
+      id: 1,
+      account_id: default_account().id,
+      data: %{handing: "pickup"},
+      lines: [
+        %Line{
+          name: "line1",
+          quantity: 2,
+          price: Money.new(100, "ARS"),
+          promotional_price: Money.new(90, "ARS")
+        }
+      ],
+      payments: [
+        %Payment{
+          kind: "mercado_pago",
+          status: "pending",
+          amount: Money.new(180, "ARS"),
+          inserted_at: Timex.now()
+        }
+      ]
     }
   end
 

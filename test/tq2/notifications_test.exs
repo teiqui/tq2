@@ -133,6 +133,24 @@ defmodule Tq2.NotificationsTest do
            ]
   end
 
+  test "cart reminder" do
+    cart = cart()
+    customer = customer()
+
+    Notifications.send_cart_reminder(cart, customer)
+
+    assert_delivered_email(Email.cart_reminder(cart, customer))
+  end
+
+  test "no cart reminder" do
+    cart = cart()
+    customer = %{customer() | email: nil}
+
+    Notifications.send_cart_reminder(cart, customer)
+
+    assert_no_emails_delivered()
+  end
+
   describe "subscriptions" do
     alias Tq2.Notifications.Subscription
 
@@ -263,25 +281,31 @@ defmodule Tq2.NotificationsTest do
       promotion_expires_at: DateTime.utc_now() |> DateTime.to_iso8601(),
       inserted_at: Timex.now(),
       customer: %Customer{name: "Sample"},
-      cart: %Cart{
-        data: %{handing: "pickup"},
-        lines: [
-          %Line{
-            name: "line1",
-            quantity: 2,
-            price: Money.new(100, "ARS"),
-            promotional_price: Money.new(90, "ARS")
-          }
-        ],
-        payments: [
-          %Payment{
-            kind: "mercado_pago",
-            status: "pending",
-            amount: Money.new(180, "ARS"),
-            inserted_at: Timex.now()
-          }
-        ]
-      }
+      cart: cart()
+    }
+  end
+
+  defp cart do
+    %Cart{
+      id: 1,
+      account_id: default_account().id,
+      data: %{handing: "pickup"},
+      lines: [
+        %Line{
+          name: "line1",
+          quantity: 2,
+          price: Money.new(100, "ARS"),
+          promotional_price: Money.new(90, "ARS")
+        }
+      ],
+      payments: [
+        %Payment{
+          kind: "mercado_pago",
+          status: "pending",
+          amount: Money.new(180, "ARS"),
+          inserted_at: Timex.now()
+        }
+      ]
     }
   end
 end

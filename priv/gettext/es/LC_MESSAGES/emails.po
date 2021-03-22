@@ -136,3 +136,15 @@ msgstr "y <strong>será retirado por tu tienda</strong>."
 
 msgid "You can change the payment method and/or pay the pending amount to complete your order on the following link:"
 msgstr "Puede cambiar el método de pago y/o pagar el monto pendiente para completar su pedido con el siguiente enlace:"
+
+msgid "Incomplete cart, take it back!"
+msgstr "Carrito incompleto, retomelo!"
+
+msgid "To finish your purchase please visit the next %{link}."
+msgstr "Para terminar tu compra por favor visite el siguiente %{link}"
+
+msgid "You let an incomplete cart in our store."
+msgstr "Dejaste un carrito incompleto en nuestra tienda"
+
+msgid "link"
+msgstr "enlace"
