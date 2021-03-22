@@ -10,6 +10,29 @@ defmodule Tq2.Transactions do
   alias Tq2.Transactions.Cart
 
   @doc """
+  Gets abandoned carts.
+
+  ## Examples
+
+      iex> get_carts(%Account{}, %{})
+      [%Cart{}, ...]
+
+  """
+  def get_carts(%Account{} = account, params) do
+    tolerance = Timex.now() |> Timex.shift(hours: -4)
+
+    Cart
+    |> where(account_id: ^account.id)
+    |> join(:inner, [c], l in assoc(c, :lines))
+    |> join(:left, [c], o in assoc(c, :order))
+    |> join(:left, [c], customer in assoc(c, :customer))
+    |> where([c, l, o], is_nil(o.id) and c.updated_at < ^tolerance)
+    |> order_by([c], desc: c.updated_at)
+    |> preload([c, l, o, customer], customer: customer, lines: l)
+    |> Repo.paginate(params)
+  end
+
+  @doc """
   Gets a single cart.
 
   ## Examples

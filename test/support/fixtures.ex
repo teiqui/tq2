@@ -112,10 +112,12 @@ defmodule Tq2.Fixtures do
   end
 
   def create_cart do
+    customer = create_customer()
+
     {:ok, cart} =
       Tq2.Transactions.create_cart(default_account(), %{
         token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoo=",
-        customer_id: create_customer().id,
+        customer_id: customer.id,
         visit_id: create_visit().id,
         data: %{handing: "pickup"}
       })
@@ -131,7 +133,7 @@ defmodule Tq2.Fixtures do
         item: item
       })
 
-    %{cart | lines: [line]}
+    %{cart | customer: customer, lines: [line]}
   end
 
   def create_user_subscription(user_id) do
