@@ -46,6 +46,14 @@ defmodule Tq2Web.Utils.Cart do
     |> img_tag(height: 11, width: 11, alt: "Teiqui", class: "mt-n1")
   end
 
+  def line_price(%Cart{price_type: "promotional"}, line) do
+    format_money(line.promotional_price)
+  end
+
+  def line_price(_, line) do
+    format_money(line.price)
+  end
+
   defp wrap_line_total(conn, %Cart{price_type: "promotional"}, regular_total, promotional_total) do
     ~E"""
       <del class="d-block">

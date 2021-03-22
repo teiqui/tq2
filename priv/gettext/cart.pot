@@ -10,20 +10,5 @@
 msgid ""
 msgstr ""
 
-msgid "Are you sure?"
-msgstr ""
-
-msgid "Hello %{name}"
-msgstr ""
-
-msgid "More"
-msgstr ""
-
-msgid "Payments"
-msgstr ""
-
-msgid "Settings"
-msgstr ""
-
-msgid "Carts"
+msgid "Show"
 msgstr ""

@@ -11,20 +11,38 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2\n"
 
-msgid "Are you sure?"
+msgid "Abandoned carts"
 msgstr ""
 
-msgid "Hello %{name}"
+msgid "Back"
 msgstr ""
 
-msgid "More"
+msgid "Cart"
 msgstr ""
 
-msgid "Payments"
+msgid "Customer"
 msgstr ""
 
-msgid "Settings"
+msgid "Date"
 msgstr ""
 
-msgid "Carts"
+msgid "Delivery type"
+msgstr ""
+
+msgid "Number"
+msgstr ""
+
+msgid "Price type"
+msgstr ""
+
+msgid "Regular"
+msgstr ""
+
+msgid "Teiqui"
+msgstr ""
+
+msgid "There're no abandoned carts at the moment."
+msgstr ""
+
+msgid "Total"
 msgstr ""
