@@ -90,7 +90,7 @@ defmodule Tq2.Notifications.Email do
   def cart_reminder(%Cart{}, %Customer{email: nil}), do: nil
 
   def cart_reminder(%Cart{} = cart, %Customer{} = customer) do
-    subject = dgettext("emails", "Incomplete cart, take it back!")
+    subject = dgettext("emails", "Finish your purchase!")
     shipping = Cart.shipping(cart)
 
     base_email()

@@ -172,7 +172,7 @@ defmodule Tq2.Notifications.EmailTest do
     email = cart |> Email.cart_reminder(customer)
 
     assert email.to == customer.email
-    assert email.subject == "Incomplete cart, take it back!"
+    assert email.subject == "Finish your purchase!"
     assert email.html_body =~ customer.name
     assert email.html_body =~ "#carrito"
     assert email.text_body =~ customer.name

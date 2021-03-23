@@ -136,13 +136,13 @@ msgstr ""
 msgid "You can change the payment method and/or pay the pending amount to complete your order on the following link:"
 msgstr ""
 
-msgid "Incomplete cart, take it back!"
+msgid "Finish your purchase!"
 msgstr ""
 
 msgid "To finish your purchase please visit the next %{link}."
 msgstr ""
 
-msgid "You let an incomplete cart in our store."
+msgid "You left an incomplete purchase in our store."
 msgstr ""
 
 msgid "link"

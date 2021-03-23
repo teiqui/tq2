@@ -1,7 +1,7 @@
 <h2><%= dgettext("emails", "Hello %{name}!", name: @customer.name) %></h2>
 
 <p>
-  <%= dgettext("emails", "You let an incomplete cart in our store.") %>
+  <%= dgettext("emails", "You left an incomplete purchase in our store.") %>
 </p>
 
 <table>

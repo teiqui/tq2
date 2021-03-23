@@ -1,6 +1,6 @@
 <%= dgettext("emails", "Hello %{name}!", name: @customer.name) %>
 
-<%= dgettext("emails", "You let an incomplete cart in our store.") %>
+<%= dgettext("emails", "You left an incomplete purchase in our store.") %>
 
 <%= for line <- @cart.lines do %>
   *<%= line.quantity %> x <%= line.name %> | <%= line_price @cart, line %> | <%= line_total @cart, line %>
