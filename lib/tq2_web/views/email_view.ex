@@ -39,4 +39,10 @@ defmodule Tq2Web.EmailView do
     |> Timex.to_datetime(time_zone)
     |> Timex.format!(dgettext("times", "%H:%Mh"), :strftime)
   end
+
+  defp string_link(title, attrs) do
+    title
+    |> link(attrs)
+    |> safe_to_string()
+  end
 end

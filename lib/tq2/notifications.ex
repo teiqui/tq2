@@ -5,7 +5,8 @@ defmodule Tq2.Notifications do
   alias Tq2.Messages.Comment
   alias Tq2.Notifications.{Mailer, Email}
   alias Tq2.Repo
-  alias Tq2.Sales.Order
+  alias Tq2.Sales.{Customer, Order}
+  alias Tq2.Transactions.Cart
 
   @doc """
   Schedule send password reset email
@@ -217,6 +218,21 @@ defmodule Tq2.Notifications do
     subscription
     |> Subscription.update_changeset(attrs)
     |> Repo.update()
+  end
+
+  @doc """
+  Schedule send cart reminder
+
+  ## Examples
+
+      iex> send_cart_reminder(%Cart{}, %Customer{})
+      %Bamboo.Email{}
+
+  """
+  def send_cart_reminder(%Cart{} = cart, %Customer{} = customer) do
+    cart
+    |> Email.cart_reminder(customer)
+    |> deliver_later()
   end
 
   defp deliver_later(nil), do: nil

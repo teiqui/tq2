@@ -87,6 +87,19 @@ defmodule Tq2.Notifications.Email do
     |> render(:license_expired, user: user)
   end
 
+  def cart_reminder(%Cart{}, %Customer{email: nil}), do: nil
+
+  def cart_reminder(%Cart{} = cart, %Customer{} = customer) do
+    subject = dgettext("emails", "Finish your purchase!")
+    shipping = Cart.shipping(cart)
+
+    base_email()
+    |> to(customer.email)
+    |> subject(subject)
+    |> reply_to(cart.account_id)
+    |> render(:cart_reminder, cart: cart, customer: customer, shipping: shipping)
+  end
+
   defp base_email() do
     new_email()
     |> from({gettext("Teiqui 🔔"), default_email()})

@@ -1,0 +1,52 @@
+<h2><%= dgettext("emails", "Hello %{name}!", name: @customer.name) %></h2>
+
+<p>
+  <%= dgettext("emails", "You left an incomplete purchase in our store.") %>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= dgettext("lines", "Quantity") %></th>
+      <th><%= dgettext("lines", "Name") %></th>
+      <th><%= dgettext("lines", "Price") %></th>
+      <th><%= dgettext("lines", "Total") %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= for line <- @cart.lines do %>
+      <tr>
+        <td><%= line.quantity %></td>
+        <td><%= line.name %></td>
+        <td class="text-right"><%= line_price @cart, line %></td>
+        <td class="text-right"><%= line_total @cart, line %></td>
+      </tr>
+    <% end %>
+
+    <%= if @shipping do %>
+      <tr>
+        <td></td>
+        <td class="text-right"><%= dgettext("stores", "Shipping") %> - <%= @shipping.name %></td>
+        <td></td>
+        <td class="text-right"><%= format_money @shipping.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <td colspan="3">
+        <strong><%= dgettext("carts", "Total") %></strong>
+      </td>
+      <td class="text-right">
+        <strong><%= cart_total @cart %></strong>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<p>
+  <%= raw dgettext("emails", "To finish your purchase please visit the next %{link}.",
+  link: string_link(dgettext("emails", "link"), to: "#carrito", target: "_blank")) %>
+</p>
