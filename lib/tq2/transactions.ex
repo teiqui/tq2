@@ -5,6 +5,7 @@ defmodule Tq2.Transactions do
 
   import Ecto.Query, warn: false
 
+  alias Ecto.Multi
   alias Tq2.Repo
   alias Tq2.Accounts.Account
   alias Tq2.Transactions.Cart
@@ -76,7 +77,14 @@ defmodule Tq2.Transactions do
     |> join(:left, [c], o in assoc(c, :order))
     |> join(:left, [c], customer in assoc(c, :customer))
     |> join(:left, [c], p in assoc(c, :payments))
-    |> preload([c, l, o, customer, p], customer: customer, lines: l, order: o, payments: p)
+    |> join(:left, [c, l], i in assoc(l, :item))
+    |> preload(
+      [c, l, o, customer, p, i],
+      customer: customer,
+      lines: {l, item: i},
+      order: o,
+      payments: p
+    )
     |> Repo.one!()
   end
 
@@ -267,7 +275,52 @@ defmodule Tq2.Transactions do
       %Ecto.Changeset{source: %Line{}}
 
   """
-  def change_line(%Cart{} = cart, %Line{} = line) do
-    Line.changeset(cart, line, %{})
+  def change_line(%Cart{} = cart, %Line{} = line, attrs \\ %{}) do
+    Line.changeset(cart, line, attrs)
+  end
+
+  @doc """
+  Copy lines from one cart to another.
+
+  ## Examples
+
+      iex> copy_lines(%Cart{} = from, %Cart{} = to)
+      {:ok, %Ecto.Changeset{}}
+
+      iex> copy_lines(%Cart{line: %{item: nil}}, %Cart{})
+      {:error, "add_xx", %Ecto.Changeset{}, changes}
+
+  """
+  def copy_lines(%Cart{} = from_cart, %Cart{} = cart) do
+    Multi.new()
+    |> multi_change_cart(cart)
+    |> multi_remove_lines(cart.lines)
+    |> multi_add_lines(cart, from_cart.lines)
+    |> Repo.transaction()
+  end
+
+  defp multi_change_cart(multi, %{price_type: "promotional"}), do: multi
+
+  defp multi_change_cart(multi, cart) do
+    changeset = cart.account |> change_cart(cart, %{price_type: "promotional"})
+
+    multi |> Multi.update(:cart, changeset)
+  end
+
+  defp multi_remove_lines(multi, lines) do
+    lines
+    |> Enum.reduce(multi, fn line, memo ->
+      memo |> Multi.delete("rm_#{line.id}", line)
+    end)
+  end
+
+  defp multi_add_lines(multi, cart, lines) do
+    lines
+    |> Enum.reduce(multi, fn line, memo ->
+      attrs = %{line | cart_id: nil, cart: cart} |> Map.from_struct()
+      changeset = cart |> change_line(%Line{item: line.item}, attrs)
+
+      memo |> Multi.insert("add_#{line.id}", changeset)
+    end)
   end
 end

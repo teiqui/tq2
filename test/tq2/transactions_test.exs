@@ -291,6 +291,39 @@ defmodule Tq2.TransactionsTest do
 
       assert %Ecto.Changeset{} = Transactions.change_line(cart, line)
     end
+
+    test "copy_lines/2 returs valid copy transaction", %{cart: cart} do
+      account = account()
+
+      new_cart = account |> fixture(:cart)
+
+      cart |> fixture(:line)
+      new_cart |> fixture(:line, %{item: %{name: "other item"}})
+
+      cart = account |> Transactions.get_cart!(cart.id)
+      new_cart = account |> Transactions.get_cart!(new_cart.id)
+
+      assert Enum.count(new_cart.lines) == 1
+      assert Enum.count(cart.lines) == 1
+
+      cart_line = cart.lines |> List.first()
+      before_copy_cart_line = new_cart.lines |> List.first()
+
+      refute cart_line.id == before_copy_cart_line.id
+      refute cart_line.item_id == before_copy_cart_line.item_id
+
+      {:ok, %{}} = cart |> Transactions.copy_lines(new_cart)
+
+      new_cart = account |> Transactions.get_cart!(new_cart.id)
+
+      assert Enum.count(new_cart.lines) == 1
+
+      new_cart_line = new_cart.lines |> List.first()
+
+      refute cart_line.id == new_cart_line.id
+      refute before_copy_cart_line.id == new_cart_line.id
+      assert cart_line.item_id == new_cart_line.item_id
+    end
   end
 
   defp fixture(account, kind, attrs \\ %{})

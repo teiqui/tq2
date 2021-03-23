@@ -111,27 +111,31 @@ defmodule Tq2.Fixtures do
     visit
   end
 
-  def create_cart do
-    customer = create_customer()
+  def create_cart(attrs \\ %{}) do
+    customer = get_in(attrs, [:cart, :customer]) || create_customer()
 
-    {:ok, cart} =
-      Tq2.Transactions.create_cart(default_account(), %{
-        token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoo=",
-        customer_id: customer.id,
-        visit_id: create_visit().id,
-        data: %{handing: "pickup"}
-      })
+    cart_attrs =
+      Enum.into(
+        attrs[:cart] || %{},
+        %{
+          token: "sdWrbLgHMK9TZGIt1DcgUcpjsukMUCs4pTKTCiEgWoo=",
+          customer_id: customer.id,
+          visit_id: create_visit().id,
+          data: %{handing: "pickup"}
+        }
+      )
 
-    item = create_item()
+    {:ok, cart} = Tq2.Transactions.create_cart(default_account(), cart_attrs)
+
+    item = attrs[:item] || create_item()
 
     {:ok, line} =
       Tq2.Transactions.create_line(cart, %{
-        name: "some name",
         quantity: 42,
-        price: Money.new(100, :ARS),
-        promotional_price: Money.new(90, :ARS),
         item: item
       })
+
+    line = %{line | item: item}
 
     %{cart | customer: customer, lines: [line]}
   end
@@ -195,7 +199,7 @@ defmodule Tq2.Fixtures do
 
   def create_item(attrs \\ %{}) do
     attrs =
-      Map.merge(
+      Enum.into(
         attrs,
         %{
           name: "some name",
