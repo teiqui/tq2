@@ -144,6 +144,9 @@ defmodule Tq2Web.Router do
     live "/orders/:id/payments", Order.PaymentLive, :index,
       as: :order_payment,
       session: @session_extras.current_session
+
+    live "/carts", Cart.IndexLive, :index, session: @session_extras.current_session, as: :cart
+    live "/carts/:id", Cart.ShowLive, :show, session: @session_extras.current_session, as: :cart
   end
 
   # Other scopes may use custom stacks.

@@ -1,0 +1,49 @@
+<%= if Enum.any?(@carts) do %>
+  <h1 class="h3">
+    <%= dgettext("carts", "Abandoned carts") %>
+  </h1>
+
+  <div class="card my-3 table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th><%= dgettext("carts", "Number") %></th>
+          <th><%= dgettext("carts", "Customer") %></th>
+          <th class="d-none d-md-table-cell d-print-table-cell">
+            <%= dgettext("carts", "Date") %>
+          </th>
+          <th class="d-none d-md-table-cell d-print-table-cell">
+            <%= dgettext("carts", "Total") %>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for cart <- @carts do %>
+          <tr>
+            <td>#<%= cart.id %></td>
+            <td><%= cart.customer && cart.customer.name %></td>
+            <td class="d-none d-md-table-cell d-print-table-cell">
+              <%= localize_date(cart.inserted_at) %>
+            </td>
+            <td class="d-none d-md-table-cell d-print-table-cell">
+              <%= cart_total(@socket, cart) %>
+            </td>
+
+            <td class="text-right text-nowrap">
+              <span><%= link_to_show @socket, cart %></span>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex justify-content-center justify-content-lg-end mb-n3">
+    <%= pagination_links @socket, @carts, distance: 1 %>
+  </div>
+<% else %>
+  <h1>
+    <%= dgettext("carts", "There're no abandoned carts at the moment.") %>
+  </h1>
+<% end %>

@@ -1,0 +1,60 @@
+<div class="px-3">
+  <h2 class="h5 text-info mb-4">
+    <%= dgettext("carts", "Cart") %> #<%= @cart.id %>
+  </h2>
+
+  <p class="mb-1">
+    <strong><%= dgettext("carts", "Delivery type") %></strong>:
+    <%= cart_handing(@cart) %>
+  </p>
+  <p class="mb-1">
+    <strong><%= dgettext("carts", "Price type") %></strong>:
+    <%= cart_price_type(@cart.price_type) %>
+  </p>
+  <p class="mb-1">
+    <strong><%= dgettext("carts", "Date") %></strong>:
+    <%= localize_date(@cart.updated_at) %>
+  </p>
+
+  <%= if @cart.customer do %>
+    <%= render Tq2Web.OrderView, "_customer.html", customer: @cart.customer %>
+  <% end %>
+
+  <div class="table-responsive">
+    <table class="table table-hover small my-3">
+      <thead>
+        <th><%= dgettext("lines", "Quantity") %></th>
+        <th><%= dgettext("lines", "Name") %></th>
+        <th class="d-none d-md-table-cell d-print-table-cell"><%= dgettext("lines", "Price") %></th>
+        <th><%= dgettext("lines", "Total") %></th>
+      </thead>
+
+      <tbody>
+        <%= for line <- @cart.lines do %>
+          <tr>
+            <td><%= line.quantity %></td>
+            <td><%= line.name %></td>
+            <td class="d-none d-md-table-cell d-print-table-cell text-nowrap"><%= line_price @cart, line %></td>
+            <td><%= line_total @socket, @cart, line %></td>
+          </tr>
+        <% end %>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="2">
+            <strong><%= dgettext("carts", "Total") %></strong>
+          </td>
+          <td class="d-none d-md-table-cell d-print-table-cell text-nowrap"></td>
+          <td>
+            <strong><%= cart_total @socket, @cart %></strong>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+<div>
+  <%= link dgettext("carts", "Back"), to: Routes.cart_path(@socket, :index) %>
+</div>

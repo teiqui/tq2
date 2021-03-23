@@ -120,6 +120,61 @@ defmodule Tq2.TransactionsTest do
     test "get_cart!/2 raise invalid with cart id" do
       assert_raise Ecto.NoResultsError, fn -> Transactions.get_cart!(account(), 0) end
     end
+
+    test "get_carts/2 returns empty entries" do
+      carts = account() |> Transactions.get_carts(%{})
+
+      assert carts.entries == []
+    end
+
+    test "get_carts/2 returns empty entries for old cart without lines" do
+      account = account()
+      cart = fixture(account, :cart)
+
+      one_day_ago =
+        Timex.now()
+        |> Timex.shift(days: -1)
+        |> Timex.shift(minutes: -1)
+
+      cart
+      |> Ecto.Changeset.cast(%{updated_at: one_day_ago}, [:updated_at])
+      |> Tq2.Repo.update!()
+
+      carts = account |> Transactions.get_carts(%{})
+
+      assert carts.entries == []
+    end
+
+    test "get_carts/2 returns empty entries for new cart with lines" do
+      account = account()
+      cart = fixture(account, :cart)
+
+      fixture(cart, :line)
+
+      carts = account |> Transactions.get_carts(%{})
+
+      assert carts.entries == []
+    end
+
+    test "get_carts/2 returns old cart with lines" do
+      account = account()
+      cart = fixture(account, :cart)
+
+      fixture(cart, :line)
+
+      one_day_ago =
+        Timex.now()
+        |> Timex.shift(days: -1)
+        |> Timex.shift(minutes: -1)
+
+      cart
+      |> Ecto.Changeset.cast(%{updated_at: one_day_ago}, [:updated_at])
+      |> Tq2.Repo.update!()
+
+      carts = account |> Transactions.get_carts(%{})
+
+      assert List.first(carts.entries).id == cart.id
+    end
   end
 
   describe "lines" do

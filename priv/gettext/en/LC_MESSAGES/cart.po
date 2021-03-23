@@ -8,23 +8,8 @@
 ## to merge POT files into PO files.
 msgid ""
 msgstr ""
-"Language: es\n"
+"Language: en\n"
 "Plural-Forms: nplurals=2\n"
 
-msgid "Are you sure?"
-msgstr "¿Está seguro?"
-
-msgid "Hello %{name}"
-msgstr "Hola, %{name}"
-
-msgid "More"
-msgstr "Más"
-
-msgid "Payments"
-msgstr "Pagos"
-
-msgid "Settings"
-msgstr "Ajustes"
-
-msgid "Carts"
-msgstr "Carritos"
+msgid "Show"
+msgstr ""
