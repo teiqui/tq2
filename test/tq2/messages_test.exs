@@ -1,16 +1,12 @@
 defmodule Tq2.MessagesTest do
   use Tq2.DataCase
 
-  import Tq2.Fixtures, only: [create_order: 0]
+  import Tq2.Fixtures, only: [create_order: 1]
 
   alias Tq2.Messages
 
-  def order_fixture(_) do
-    create_order()
-  end
-
   describe "comments" do
-    setup [:order_fixture]
+    setup [:create_order]
 
     alias Tq2.Messages.Comment
 
@@ -90,6 +86,14 @@ defmodule Tq2.MessagesTest do
       comment = fixture(:comment, %{order_id: order.id})
 
       assert %Ecto.Changeset{} = Messages.change_comment(comment)
+    end
+
+    test "subscription/1 annotates process for notifications", %{order: order} do
+      Messages.subscribe(order)
+
+      _comment = fixture(:comment, %{order_id: order.id})
+
+      assert_received {:comment_created, _comment}
     end
   end
 end

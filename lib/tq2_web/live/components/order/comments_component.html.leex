@@ -1,0 +1,63 @@
+<%= if Enum.any?(@comments) do %>
+  <h2 class="h5 text-muted text-center mb-3 mt-5">
+    <%= dgettext("orders", "Messages") %>
+  </h2>
+
+  <div class="card card-body mx-n3 pt-0 mb-5">
+    <div id="comments" phx-update="append">
+      <%= for comments <- Enum.chunk_by(@comments, &(&1.originator)) do %>
+        <%= for {comment, i} <- Enum.with_index(comments) do %>
+          <%= if i == 0 && @show_originator do %>
+            <%= originator_name assigns, comment %>
+          <% end %>
+
+          <div id="comment-<%= comment.id %>" class="card card-body py-2 mb-2 <%= comment_class(assigns, comment) %>">
+            <p class="mb-1">
+              <%= comment.body %>
+            </p>
+
+            <div class="small">
+              <p class="small text-muted float-right ml-auto mb-0">
+                <%= localize_datetime comment.inserted_at, @account %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="py-2"></div>
+<% else %>
+  <div class="text-center text-muted my-5">
+    <div class="display-4 <%= @empty_extra_classes %>">
+      <i class="bi-chat-left-text"></i>
+    </div>
+
+    <p class="lead mt-3 mb-0">
+      <%= dgettext("orders", "No messages yet") %>
+    </p>
+  </div>
+<% end %>
+
+<%= if @owner && Enum.any?(@owner.subscriptions) do %>
+  <%= f = form_for @changeset, "#", form_options(@myself) %>
+    <%= input f, :body, dgettext("comments", "Body"), label_html: [class: "sr-only"],
+                                                      input_html: [
+                                                        autofocus: true,
+                                                        autocomplete: "off",
+                                                        class: "bg-white rounded-pill shadow-none py-1 pl-4 pr-5",
+                                                        placeholder: dgettext("comments", "Write a message here"),
+                                                        phx_hook: "ResetCommentBodyInput",
+                                                        data: [random_val: @random]
+                                                      ] %>
+
+    <div class="position-relative float-right mt-n5 mr-2">
+      <%= submit_button() %>
+    </div>
+  </form>
+<% else %>
+  <div class="alert alert-info">
+    <%= dgettext("orders", "The store owner must enable notifications so that you can send them messages.") %>
+  </div>
+<% end %>

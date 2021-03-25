@@ -153,30 +153,9 @@
 
     <%= show_payment_info(assigns) %>
 
-    <%= if Enum.any?(@order.comments) do %>
-      <h2 class="h5 text-muted text-center mb-3 mt-5">
-        <%= dgettext("orders", "Messages") %>
-      </h2>
-
-      <div class="card card-body mx-n3">
-        <p class="text-primary font-weight-semi-bold mb-2">
-          <%= @store.account.name %>
-        </p>
-
-        <%= for comment <- sorted_comments(@order) do %>
-          <div id="comment-<%= comment.id %>" class="card card-body bg-secondary mr-5 py-2 mb-2">
-            <p class="mb-1">
-              <%= comment.body %>
-            </p>
-
-            <div class="small">
-              <p class="small text-muted float-right ml-auto mb-0">
-                <%= localize_datetime(comment.inserted_at, @store.account) %>
-              </p>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+    <%= live_component @socket, CommentsComponent, id: :comments,
+                                                   account: @store.account,
+                                                   order: @order,
+                                                   originator: "customer" %>
   </div>
 </div>

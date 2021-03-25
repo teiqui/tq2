@@ -6,13 +6,15 @@ defmodule Tq2Web.Store.OrderLiveTest do
 
   import Tq2.Fixtures,
     only: [
+      app_mercado_pago_fixture: 0,
+      app_wire_transfer_fixture: 0,
       conekta_app: 0,
       create_customer: 0,
       create_session: 1,
+      create_user_subscription: 1,
       default_store: 0,
-      app_mercado_pago_fixture: 0,
-      app_wire_transfer_fixture: 0,
-      transbank_app: 0
+      transbank_app: 0,
+      user_fixture: 1
     ]
 
   alias Tq2.Transactions.Cart
@@ -185,6 +187,26 @@ defmodule Tq2Web.Store.OrderLiveTest do
 
       assert_push_event(order_live, "registered", %{})
       refute render(order_live) =~ "Do you want to receive notifications"
+    end
+
+    test "save comment event", %{conn: conn, order: order, store: store} do
+      path = Routes.order_path(conn, :index, store, order.id)
+      user = user_fixture(%Tq2.Accounts.Session{account: order.account})
+
+      create_user_subscription(user.id)
+
+      {:ok, order_live, html} = live(conn, path)
+
+      assert html =~ "No messages yet"
+      assert render(order_live) =~ "No messages yet"
+
+      order_live
+      |> form("#comment-form", %{comment: %{body: "Test message"}})
+      |> render_submit()
+
+      # We must test it after, so we get the broadcasted message.
+      assert render(order_live) =~ "Test message"
+      refute render(order_live) =~ "No messages yet"
     end
 
     test "render regular pending purchase create partial payment", %{

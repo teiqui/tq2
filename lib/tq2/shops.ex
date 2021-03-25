@@ -41,12 +41,13 @@ defmodule Tq2.Shops do
     Store
     |> join(:inner, [s], a in assoc(s, :account))
     |> join(:inner, [s, a], l in assoc(a, :license))
+    |> join(:left, [s, a], u in assoc(a, :owner))
     |> where(
       [s, a, l],
       s.slug == ^slug and s.published == true and
         (l.status != "locked" or l.paid_until >= ^two_weeks_ago)
     )
-    |> preload([s, a], account: a)
+    |> preload([s, a, l, o], account: {a, owner: o})
     |> Repo.one!()
   end
 

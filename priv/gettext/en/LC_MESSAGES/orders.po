@@ -177,3 +177,6 @@ msgstr ""
 
 msgid "No messages yet"
 msgstr ""
+
+msgid "The store owner must enable notifications so that you can send them messages."
+msgstr ""

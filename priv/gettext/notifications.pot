@@ -30,3 +30,6 @@ msgstr ""
 
 msgid "You have a new order!"
 msgstr ""
+
+msgid "You have a new comment on order #%{number}!"
+msgstr ""

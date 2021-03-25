@@ -33,7 +33,7 @@ defmodule Tq2.Workers.NotificationsJobTest do
       end
     end
 
-    test "perform/5 should notify comment" do
+    test "perform/5 should notify comment to customer" do
       mock = fn _body, _subscription -> {:ok, %{}} end
       %{order: order} = create_order()
       {:ok, comment} = Messages.create_comment(%{body: "Test comment", order_id: order.id})
@@ -54,6 +54,49 @@ defmodule Tq2.Workers.NotificationsJobTest do
         assert_not_called(WebPushEncryption.send_web_push(:_, :_))
 
         create_customer_subscription(order.cart.customer_id)
+
+        {:ok, _comment} =
+          NotificationsJob.perform(
+            "new_comment",
+            order.account_id,
+            order.id,
+            order.cart.customer_id,
+            comment.id
+          )
+
+        assert_called(WebPushEncryption.send_web_push(:_, :_))
+      end
+    end
+
+    test "perform/5 should notify comment to user" do
+      mock = fn _body, _subscription -> {:ok, %{}} end
+      %{order: order} = create_order()
+
+      {:ok, comment} =
+        Messages.create_comment(%{
+          body: "Test comment",
+          originator: "customer",
+          order_id: order.id
+        })
+
+      user = user_fixture(%Tq2.Accounts.Session{account: order.account})
+
+      assert comment.status == "created"
+
+      with_mock WebPushEncryption, send_web_push: mock do
+        {:ok, comment} =
+          NotificationsJob.perform(
+            "new_comment",
+            order.account_id,
+            order.id,
+            order.cart.customer_id,
+            comment.id
+          )
+
+        assert comment.status == "delivered"
+        assert_not_called(WebPushEncryption.send_web_push(:_, :_))
+
+        create_user_subscription(user.id)
 
         {:ok, _comment} =
           NotificationsJob.perform(

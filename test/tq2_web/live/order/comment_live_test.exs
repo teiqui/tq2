@@ -2,7 +2,7 @@ defmodule Tq2Web.Order.CommentLiveTest do
   use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
-  import Tq2.Fixtures, only: [create_order: 0, init_test_session: 1]
+  import Tq2.Fixtures, only: [create_order: 0, create_user_subscription: 1, init_test_session: 1]
 
   def order_fixture(_) do
     create_order()
@@ -28,22 +28,30 @@ defmodule Tq2Web.Order.CommentLiveTest do
       path = Routes.comment_path(conn, :index, order)
       {:ok, comment_live, html} = live(conn, path)
 
-      assert html =~ "Messages"
-      assert render(comment_live) =~ "Messages"
+      assert html =~ "No messages yet"
+      assert render(comment_live) =~ "No messages yet"
+      assert render(comment_live) =~ "The store owner must enable notifications"
     end
 
     test "save event", %{conn: conn, order: order} do
+      order = Tq2.Repo.preload(order, account: :owner)
+
+      create_user_subscription(order.account.owner.id)
+
       path = Routes.comment_path(conn, :index, order)
       {:ok, comment_live, html} = live(conn, path)
 
       assert html =~ "No messages yet"
       assert render(comment_live) =~ "No messages yet"
 
-      assert comment_live
-             |> form("#comment-form", %{comment: %{body: "Test message"}})
-             |> render_submit() =~ "Test message"
+      comment_live
+      |> form("#comment-form", %{comment: %{body: "Test message"}})
+      |> render_submit()
 
+      # We must test it after, so we get the broadcasted message.
+      assert render(comment_live) =~ "Test message"
       refute render(comment_live) =~ "No messages yet"
+      refute render(comment_live) =~ "The store owner must enable notifications"
     end
   end
 end

@@ -16,11 +16,12 @@ defmodule Tq2.Workers.NotificationsJob do
   def perform("new_comment", account_id, order_id, customer_id, comment_id) do
     account = Accounts.get_account!(account_id)
     order = Sales.get_order!(account, order_id)
-    customer = customer_id |> Sales.get_customer!() |> Repo.preload(:subscriptions)
     comment = Messages.get_comment!(comment_id)
     body = body(account.store, order, comment)
 
-    Enum.each(customer.subscriptions, &send_web_push(body, &1))
+    account
+    |> subscriptions(comment, customer_id)
+    |> Enum.each(&send_web_push(body, &1))
 
     {:ok, _comment} = Messages.update_comment(comment, %{status: "delivered"})
   end
@@ -40,7 +41,7 @@ defmodule Tq2.Workers.NotificationsJob do
     |> handle_response(subscription)
   end
 
-  defp body(%Store{} = store, %Order{} = order, %Comment{} = comment) do
+  defp body(%Store{} = store, %Order{} = order, %Comment{originator: "user"} = comment) do
     Jason.encode!(%{
       title: dgettext("notifications", "You have a new comment on your order!"),
       body: dgettext("notifications", "Tap or click to view the details."),
@@ -48,6 +49,19 @@ defmodule Tq2.Workers.NotificationsJob do
       lang: Gettext.get_locale(Tq2Web.Gettext),
       data: %{
         path: Routes.order_path(store_uri(), :index, store, order, status: true)
+      }
+    })
+  end
+
+  defp body(%Store{}, %Order{} = order, %Comment{originator: "customer"} = comment) do
+    Jason.encode!(%{
+      title:
+        dgettext("notifications", "You have a new comment on order #%{number}!", number: order.id),
+      body: dgettext("notifications", "Tap or click to view the details."),
+      tag: "order-comment-notification-#{comment.id}",
+      lang: Gettext.get_locale(Tq2Web.Gettext),
+      data: %{
+        path: Routes.order_path(app_uri(), :show, order)
       }
     })
   end
@@ -83,5 +97,17 @@ defmodule Tq2.Workers.NotificationsJob do
     )
 
     result
+  end
+
+  defp subscriptions(_account, %Comment{originator: "user"}, customer_id) do
+    customer = customer_id |> Sales.get_customer!() |> Repo.preload(:subscriptions)
+
+    customer.subscriptions
+  end
+
+  defp subscriptions(account, _comment, _customer_id) do
+    account = Repo.preload(account, owner: :subscriptions)
+
+    account.owner.subscriptions
   end
 end

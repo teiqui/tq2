@@ -4,7 +4,7 @@ defmodule Tq2.Accounts.Account do
 
   import Tq2.Utils.CountryCurrency, only: [valid_countries: 0]
 
-  alias Tq2.Accounts.{Account, Membership, License}
+  alias Tq2.Accounts.{Account, License, Membership}
   alias Tq2.Sales.Order
   alias Tq2.Shops.Store
   alias Tq2.Transactions.Cart
@@ -21,6 +21,8 @@ defmodule Tq2.Accounts.Account do
 
     has_one :license, License
     has_one :store, Store
+    has_one :owner_membership, Membership, where: [owner: true]
+    has_one :owner, through: [:owner_membership, :user]
     has_many :memberships, Membership
     has_many :orders, Order
     has_many :carts, Cart

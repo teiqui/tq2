@@ -1,7 +1,7 @@
 defmodule Tq2Web.Store.OrderLive do
   use Tq2Web, :live_view
 
-  import Tq2Web.Utils, only: [format_money: 1, localize_datetime: 2]
+  import Tq2Web.Utils, only: [format_money: 1]
 
   import Tq2Web.PaymentLiveUtils,
     only: [
@@ -13,8 +13,9 @@ defmodule Tq2Web.Store.OrderLive do
       translate_kind: 1
     ]
 
-  alias Tq2.Transactions.Cart
   alias Tq2.{Analytics, Notifications, Sales}
+  alias Tq2.Transactions.Cart
+  alias Tq2Web.Order.CommentsComponent
   alias Tq2Web.Store.{HeaderComponent, ShareComponent}
 
   @gateway_kinds ~w[conekta mercado_pago transbank]
@@ -151,6 +152,20 @@ defmodule Tq2Web.Store.OrderLive do
     end
   end
 
+  @impl true
+  def handle_info({:timer}, socket) do
+    socket = socket |> check_payments_with_timer()
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_info({:comment_created, comment}, socket) do
+    send_update(CommentsComponent, id: :comments, comment: comment)
+
+    {:noreply, socket}
+  end
+
   defp save_subscription(attrs) do
     case Notifications.get_subscription(attrs) do
       nil ->
@@ -159,13 +174,6 @@ defmodule Tq2Web.Store.OrderLive do
       subscription ->
         Notifications.update_subscription(subscription, attrs)
     end
-  end
-
-  @impl true
-  def handle_info({:timer}, socket) do
-    socket = socket |> check_payments_with_timer()
-
-    {:noreply, socket}
   end
 
   defp load_order(%{assigns: %{store: %{account: account}}} = socket, id) do
@@ -398,10 +406,6 @@ defmodule Tq2Web.Store.OrderLive do
 
   defp vapid_server_key do
     Application.get_env(:web_push_encryption, :vapid_details)[:public_key]
-  end
-
-  defp sorted_comments(order) do
-    Enum.sort_by(order.comments, & &1.inserted_at, DateTime)
   end
 
   defp show_error(%{error: error}) do

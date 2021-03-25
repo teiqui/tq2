@@ -177,3 +177,6 @@ msgstr "Mensajes"
 
 msgid "No messages yet"
 msgstr "Aún no hay mensajes"
+
+msgid "The store owner must enable notifications so that you can send them messages."
+msgstr "El dueño de la tienda debe habilitar sus notificaciones para que puedas enviarle mensajes."

@@ -1,4 +1,4 @@
-<%= link to: Routes.order_path(@socket, :show, @order_id), class: "h6 text-decoration-none" do %>
+<%= link to: Routes.order_path(@socket, :show, @order), class: "h6 text-decoration-none" do %>
   <span class="h6 text-primary mr-2 mb-0 mt-n2">
     <i class="bi-chevron-left"></i>
   </span>
@@ -6,52 +6,10 @@
   <%= dgettext("orders", "Go back") %>
 <% end %>
 
-<h2 class="h5 text-muted text-center my-3">
-  <%= dgettext("orders", "Messages") %>
-</h2>
-
-<%= if Enum.any?(@comments) do %>
-  <p class="text-right text-primary font-weight-semi-bold mb-2">
-    <%= @account.name %>
-  </p>
-
-  <div id="comments" class="mb-5 pb-5" phx-update="append">
-    <%= for comment <- @comments do %>
-      <div id="comment-<%= comment.id %>" class="card card-body bg-primary-light ml-5 py-2 mb-2">
-        <p class="mb-1">
-          <%= comment.body %>
-        </p>
-
-        <div class="small">
-          <p class="small text-muted float-right ml-auto mb-0">
-            <%= localize_datetime(comment.inserted_at, @account) %>
-          </p>
-        </div>
-      </div>
-    <% end %>
-  </div>
-<% else %>
-  <div class="text-center text-muted my-5 pt-5">
-    <div class="display-4 pt-5">
-      <i class="bi-chat-left-text"></i>
-    </div>
-
-    <p class="lead mt-3 mb-0">
-      <%= dgettext("orders", "No messages yet") %>
-    </p>
-  </div>
-<% end %>
-
-<%= f = form_for @changeset, "#", [id: "comment-form", class: "fixed-bottom mx-4 pb-1", phx_submit: "save"] %>
-  <%= input f, :body, dgettext("comments", "Body"), label_html: [class: "sr-only"],
-                                                    input_html: [
-                                                      autofocus: true,
-                                                      autocomplete: "off",
-                                                      class: "bg-white rounded-pill shadow-none py-1 pl-4 pr-5",
-                                                      placeholder: dgettext("comments", "Write a message here")
-                                                    ] %>
-
-  <div class="position-relative float-right mt-n5 mr-2">
-    <%= submit_button() %>
-  </div>
-</form>
+<div class="mx-3">
+  <%= live_component @socket, CommentsComponent, id: :comments,
+                                                 account: @account,
+                                                 order: @order,
+                                                 empty_extra_classes: "pt-5 mt-5",
+                                                 originator: "user" %>
+</div>

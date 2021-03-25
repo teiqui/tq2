@@ -112,7 +112,7 @@ defmodule Tq2.Notifications do
 
   ## Examples
 
-      iex> notify_new_comment(%Order{}, %User{})
+      iex> notify_new_order(%Order{}, %User{})
       {:ok, %Order{}}
 
   """

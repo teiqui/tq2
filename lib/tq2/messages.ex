@@ -8,6 +8,7 @@ defmodule Tq2.Messages do
   alias Tq2.Messages.Comment
   alias Tq2.Notifications
   alias Tq2.Repo
+  alias Tq2.Sales.Order
 
   @doc """
   Returns the list of comments.
@@ -93,7 +94,26 @@ defmodule Tq2.Messages do
     Comment.changeset(comment, %{})
   end
 
+  @doc """
+  Subscribe to new comments on the given order
+
+  ## Examples
+
+      iex> subscribe(order)
+      :ok
+
+  """
+  def subscribe(%Order{id: id}) do
+    Phoenix.PubSub.subscribe(Tq2.PubSub, "order:comments:#{id}")
+  end
+
   defp notify({:ok, comment}) do
+    Phoenix.PubSub.broadcast(
+      Tq2.PubSub,
+      "order:comments:#{comment.order_id}",
+      {:comment_created, comment}
+    )
+
     comment
     |> Repo.preload(:order)
     |> Repo.preload(:customer)
