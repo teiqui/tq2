@@ -1,6 +1,8 @@
 defmodule Tq2.TransactionsTest do
   use Tq2.DataCase
 
+  import Tq2.Fixtures, only: [default_store: 0, create_customer: 0]
+
   alias Tq2.Transactions
 
   @valid_cart_attrs %{
@@ -14,8 +16,6 @@ defmodule Tq2.TransactionsTest do
   }
 
   describe "carts" do
-    import Tq2.Fixtures, only: [default_store: 0]
-
     alias Tq2.Transactions.Cart
 
     test "get_cart/2 returns the cart with given token" do
@@ -127,18 +127,22 @@ defmodule Tq2.TransactionsTest do
       assert carts.entries == []
     end
 
+    test "get_carts/2 returns empty entries for cart without customer" do
+      account = account()
+
+      account |> fixture(:cart) |> update_cart_updated_at() |> fixture(:line)
+
+      carts = account |> Transactions.get_carts(%{})
+
+      assert carts.entries == []
+    end
+
     test "get_carts/2 returns empty entries for old cart without lines" do
       account = account()
-      cart = fixture(account, :cart)
 
-      one_day_ago =
-        Timex.now()
-        |> Timex.shift(days: -1)
-        |> Timex.shift(minutes: -1)
-
-      cart
-      |> Ecto.Changeset.cast(%{updated_at: one_day_ago}, [:updated_at])
-      |> Tq2.Repo.update!()
+      account
+      |> cart_with_customer()
+      |> update_cart_updated_at()
 
       carts = account |> Transactions.get_carts(%{})
 
@@ -147,7 +151,7 @@ defmodule Tq2.TransactionsTest do
 
     test "get_carts/2 returns empty entries for new cart with lines" do
       account = account()
-      cart = fixture(account, :cart)
+      cart = account |> cart_with_customer()
 
       fixture(cart, :line)
 
@@ -158,22 +162,85 @@ defmodule Tq2.TransactionsTest do
 
     test "get_carts/2 returns old cart with lines" do
       account = account()
-      cart = fixture(account, :cart)
+
+      cart =
+        account
+        |> cart_with_customer()
+        |> update_cart_updated_at()
 
       fixture(cart, :line)
-
-      one_day_ago =
-        Timex.now()
-        |> Timex.shift(days: -1)
-        |> Timex.shift(minutes: -1)
-
-      cart
-      |> Ecto.Changeset.cast(%{updated_at: one_day_ago}, [:updated_at])
-      |> Tq2.Repo.update!()
 
       carts = account |> Transactions.get_carts(%{})
 
       assert List.first(carts.entries).id == cart.id
+    end
+
+    test "update_cart/3 dispatch notify_abandoned_cart_to_user job" do
+      Exq.Mock.start_link(mode: :fake)
+
+      assert Exq.Mock.jobs() == []
+
+      account = account()
+      cart = fixture(account, :cart)
+
+      assert {:ok, cart} =
+               Transactions.update_cart(
+                 account,
+                 cart,
+                 %{customer_id: create_customer().id}
+               )
+
+      jobs = Exq.Mock.jobs()
+
+      assert Enum.count(jobs) == 1
+
+      account_id = cart.account_id
+      cart_token = cart.token
+
+      assert %{
+               args: ["notify_abandoned_cart_to_user", ^account_id, ^cart_token],
+               class: Tq2.Workers.NotificationsJob
+             } = List.first(jobs)
+    end
+
+    test "update_cart/3 dispatch notify_abandoned_cart_to_customer job" do
+      Exq.Mock.start_link(mode: :fake)
+
+      assert Exq.Mock.jobs() == []
+
+      cart_attrs = %{
+        customer_id: create_customer().id,
+        data: %{
+          handing: "pickup"
+        }
+      }
+
+      account = account()
+      cart = account |> fixture(:cart, cart_attrs)
+
+      data =
+        cart.data
+        |> Tq2.Transactions.Data.from_struct()
+        |> Map.put(:notified_at, Timex.now())
+
+      assert {:ok, cart} =
+               Transactions.update_cart(
+                 account,
+                 cart,
+                 %{data: data}
+               )
+
+      jobs = Exq.Mock.jobs()
+
+      assert Enum.count(jobs) == 1
+
+      account_id = cart.account_id
+      cart_token = cart.token
+
+      assert %{
+               args: ["notify_abandoned_cart_to_customer", ^account_id, ^cart_token],
+               class: Tq2.Workers.NotificationsJob
+             } = List.first(jobs)
     end
   end
 
@@ -374,5 +441,23 @@ defmodule Tq2.TransactionsTest do
 
   defp account do
     Tq2.Repo.get_by!(Tq2.Accounts.Account, name: "test_account")
+  end
+
+  defp cart_with_customer(account) do
+    customer = create_customer()
+
+    account
+    |> fixture(:cart, %{customer_id: customer.id})
+    |> Map.put(:customer, customer)
+  end
+
+  defp update_cart_updated_at(cart) do
+    tolerance = Timex.now() |> Timex.shift(minutes: -16)
+
+    cart
+    |> Ecto.Changeset.cast(%{updated_at: tolerance}, [:updated_at])
+    |> Tq2.Repo.update!()
+
+    %{cart | updated_at: tolerance}
   end
 end

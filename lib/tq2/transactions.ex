@@ -20,13 +20,13 @@ defmodule Tq2.Transactions do
 
   """
   def get_carts(%Account{} = account, params) do
-    tolerance = Timex.now() |> Timex.shift(hours: -4)
+    tolerance = Timex.now() |> Timex.shift(minutes: -15)
 
     Cart
     |> where(account_id: ^account.id)
     |> join(:inner, [c], l in assoc(c, :lines))
     |> join(:left, [c], o in assoc(c, :order))
-    |> join(:left, [c], customer in assoc(c, :customer))
+    |> join(:inner, [c], customer in assoc(c, :customer))
     |> where([c, l, o], is_nil(o.id) and c.updated_at < ^tolerance)
     |> order_by([c], desc: c.updated_at)
     |> preload([c, l, o, customer], customer: customer, lines: l)
@@ -54,6 +54,7 @@ defmodule Tq2.Transactions do
     |> where([c, l, o], is_nil(o.id))
     |> preload([c, l, o, customer], customer: customer, lines: l)
     |> Repo.one()
+    |> maybe_add_account(account)
   end
 
   @doc """
@@ -122,6 +123,7 @@ defmodule Tq2.Transactions do
     cart
     |> Cart.changeset(attrs, account)
     |> Repo.update()
+    |> notify(attrs)
   end
 
   @doc """
@@ -323,4 +325,41 @@ defmodule Tq2.Transactions do
       memo |> Multi.insert("add_#{line.id}", changeset)
     end)
   end
+
+  # Notify owner after updated cart with customer
+  defp notify(
+         {:ok, %{customer_id: customer_id} = cart} = result,
+         %{customer_id: _}
+       )
+       when is_integer(customer_id) do
+    exec_at = Timex.now() |> Timex.shift(minutes: 15)
+
+    Exq.enqueue_at(Exq, "default", exec_at, Tq2.Workers.NotificationsJob, [
+      "notify_abandoned_cart_to_user",
+      cart.account_id,
+      cart.token
+    ])
+
+    result
+  end
+
+  # Notify customer with abandoned cart reminder
+  defp notify(
+         {:ok, %{customer_id: customer_id} = cart} = result,
+         %{data: %{notified_at: %DateTime{}}}
+       )
+       when is_integer(customer_id) do
+    Exq.enqueue(Exq, "default", Tq2.Workers.NotificationsJob, [
+      "notify_abandoned_cart_to_customer",
+      cart.account_id,
+      cart.token
+    ])
+
+    result
+  end
+
+  defp notify(result, _attrs), do: result
+
+  defp maybe_add_account(nil, _account), do: nil
+  defp maybe_add_account(record, account), do: %{record | account: account}
 end

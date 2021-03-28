@@ -125,7 +125,9 @@ defmodule Tq2.Fixtures do
         }
       )
 
-    {:ok, cart} = Tq2.Transactions.create_cart(default_account(), cart_attrs)
+    account = default_account()
+
+    {:ok, cart} = Tq2.Transactions.create_cart(account, cart_attrs)
 
     item = attrs[:item] || create_item()
 
@@ -137,7 +139,7 @@ defmodule Tq2.Fixtures do
 
     line = %{line | item: item}
 
-    %{cart | customer: customer, lines: [line]}
+    %{cart | account: account, customer: customer, lines: [line]}
   end
 
   def create_user_subscription(user_id) do

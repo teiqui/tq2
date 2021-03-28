@@ -47,6 +47,9 @@
 </table>
 
 <p>
-  <%= raw dgettext("emails", "To finish your purchase please visit the next %{link}.",
-  link: string_link(dgettext("emails", "link"), to: "#carrito", target: "_blank")) %>
+  <%= raw dgettext("emails", "To finish your purchase please visit the next %{link}.", link: string_link(
+        dgettext("emails", "link"),
+        to: Routes.cart_url(store_uri(), :show, @store, @cart.id),
+        target: "_blank"
+      )) %>
 </p>

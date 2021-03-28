@@ -46,3 +46,15 @@ msgstr "No hay carritos abandonados en este momento."
 
 msgid "Total"
 msgstr "Total"
+
+msgid "Copy cart link"
+msgstr "Copiar enlace del carrito"
+
+msgid "Send reminder"
+msgstr "Enviar recordatorio"
+
+msgid "Share cart link"
+msgstr "Compartir enlace del carrito"
+
+msgid "Your client will receive a reminder, if the notifications are active or via email."
+msgstr "Su cliente recibirá un recordatorio, si tiene las notificaciones activas o vía correo."

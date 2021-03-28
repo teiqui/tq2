@@ -1,13 +1,13 @@
 export const Share = {
   mounted () {
-    if (navigator.canShare) {
+    if (navigator.share) {
       this.hideAlternatives()
       this.enableDirectSharing()
     }
   },
 
   updated () {
-    if (navigator.canShare) {
+    if (navigator.share) {
       this.hideAlternatives()
       this.showElement()
     }

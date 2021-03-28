@@ -34,3 +34,6 @@ msgstr "¡Tienes un nuevo pedido!"
 
 msgid "You have a new comment on order #%{number}!"
 msgstr "¡Tienes un nuevo comentario en el pedido #%{number}!"
+
+msgid "A customer left an incomplete purchase!"
+msgstr "¡Un cliente dejó una compra incompleta!"

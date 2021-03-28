@@ -45,3 +45,15 @@ msgstr ""
 
 msgid "Total"
 msgstr ""
+
+msgid "Copy cart link"
+msgstr ""
+
+msgid "Send reminder"
+msgstr ""
+
+msgid "Share cart link"
+msgstr ""
+
+msgid "Your client will receive a reminder, if the notifications are active or via email."
+msgstr ""

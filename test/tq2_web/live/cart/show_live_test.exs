@@ -2,7 +2,7 @@ defmodule Tq2Web.Cart.ShowLiveTest do
   use Tq2Web.ConnCase, async: true
 
   import Phoenix.LiveViewTest
-  import Tq2.Fixtures, only: [create_cart: 0, init_test_session: 1]
+  import Tq2.Fixtures, only: [create_cart: 0, default_store: 0, init_test_session: 1]
   import Tq2Web.Utils, only: [format_money: 1]
 
   alias Tq2.Transactions.Cart
@@ -46,6 +46,8 @@ defmodule Tq2Web.Cart.ShowLiveTest do
         |> Cart.total()
         |> format_money()
 
+      path = conn |> Routes.cart_path(:show, default_store(), cart.id)
+
       assert html =~ "Cart ##{cart.id}"
       assert content =~ "Cart ##{cart.id}"
       assert content =~ "Price type</strong>:\n<span class=\"text-primary\">Teiqui"
@@ -53,6 +55,27 @@ defmodule Tq2Web.Cart.ShowLiveTest do
       assert content =~ cart.customer.email
       assert content =~ cart.customer.phone
       assert content =~ total
+      assert content =~ "Send reminder"
+      assert content =~ "Your client will receive a reminder"
+      assert content =~ path
+    end
+
+    test "send the reminder", %{conn: conn, cart: cart} do
+      refute cart.data.notified_at
+
+      path = Routes.cart_path(conn, :show, cart)
+      {:ok, order_live, _html} = live(conn, path)
+
+      path = conn |> Routes.cart_path(:show, default_store(), cart.id)
+
+      content =
+        order_live
+        |> element("[phx-click=\"send-reminder\"]")
+        |> render_click()
+
+      refute content =~ "Send reminder"
+      refute content =~ "Your client will receive a reminder"
+      assert content =~ path
     end
   end
 end

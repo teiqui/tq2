@@ -119,8 +119,13 @@ config :tq2, :perfit,
 
 config :web_push_encryption, :vapid_details,
   subject: "mailto:support@teiqui.com",
-  public_key: "some_public_key",
-  private_key: "some_private_key"
+  public_key:
+    System.get_env(
+      "WEB_PUSH_PUBLIC_KEY",
+      "BJu6L7UKVjtwBI70KI1g9YeZEjA3_JDWa2O2FrtYG_i6fJkGj8tUuYeyYfDb3FrVkkGCghnSZpmKQwtOY5t_3Zg"
+    ),
+  private_key:
+    System.get_env("WEB_PUSH_PRIVATE_KEY", "FDBu0vKDB89ZEVWwqTHkBjL9yqbZxXR4kxgN1isB_-g")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

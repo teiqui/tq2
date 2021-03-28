@@ -34,3 +34,6 @@ msgstr ""
 
 msgid "You have a new comment on order #%{number}!"
 msgstr ""
+
+msgid "A customer left an incomplete purchase!"
+msgstr ""

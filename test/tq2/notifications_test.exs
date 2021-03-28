@@ -286,9 +286,12 @@ defmodule Tq2.NotificationsTest do
   end
 
   defp cart do
+    account = default_account()
+
     %Cart{
       id: 1,
-      account_id: default_account().id,
+      account_id: account.id,
+      account: account,
       data: %{handing: "pickup"},
       lines: [
         %Line{
