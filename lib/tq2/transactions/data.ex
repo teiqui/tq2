@@ -10,6 +10,7 @@ defmodule Tq2.Transactions.Data do
     field :handing, :string
     field :payment, :string
     field :copied, :boolean, default: false
+    field :notified_at, :utc_datetime, default: nil
 
     embeds_one :shipping, Tq2.Shops.Shipping, on_replace: :delete
 
@@ -22,7 +23,7 @@ defmodule Tq2.Transactions.Data do
   @doc false
   def changeset(%Data{} = data, attrs) do
     data
-    |> cast(attrs, [:handing, :payment, :copied])
+    |> cast(attrs, [:handing, :payment, :copied, :notified_at])
     |> cast_embed(:shipping, with: &shipping_changeset/2)
     |> validate_required([:handing])
     |> validate_inclusion(:handing, @handing_types)

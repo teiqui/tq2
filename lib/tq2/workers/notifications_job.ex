@@ -35,6 +35,30 @@ defmodule Tq2.Workers.NotificationsJob do
     Enum.each(user.subscriptions, &send_web_push(body, &1))
   end
 
+  def perform("notify_abandoned_cart_to_user", account_id, cart_token) do
+    account_id
+    |> Accounts.get_account!()
+    |> Tq2.Transactions.get_cart(cart_token)
+    |> notify_abandoned_cart_to_user()
+  end
+
+  def perform("notify_abandoned_cart_to_customer", account_id, cart_token) do
+    account_id
+    |> Accounts.get_account!()
+    |> Tq2.Transactions.get_cart(cart_token)
+    |> notify_abandoned_cart_to_customer()
+  end
+
+  defp notify_abandoned_cart_to_user(nil), do: nil
+
+  defp notify_abandoned_cart_to_user(%{account: account} = cart) do
+    body = cart |> abandoned_cart_body()
+
+    account
+    |> subscriptions()
+    |> Enum.each(&send_web_push(body, &1))
+  end
+
   defp send_web_push(body, subscription) do
     body
     |> WebPushEncryption.send_web_push(subscription.data)
@@ -99,6 +123,20 @@ defmodule Tq2.Workers.NotificationsJob do
     result
   end
 
+  defp abandoned_cart_body(%{id: id}) do
+    Jason.encode!(%{
+      title: dgettext("notifications", "A customer left an incomplete purchase!"),
+      body: dgettext("notifications", "Tap or click to view the details."),
+      tag: "cart-notification-#{id}",
+      lang: Gettext.get_locale(Tq2Web.Gettext),
+      data: %{
+        path: Routes.cart_path(app_uri(), :show, id)
+      }
+    })
+  end
+
+  defp subscriptions(account, comment \\ nil, customer_id \\ nil)
+
   defp subscriptions(_account, %Comment{originator: "user"}, customer_id) do
     customer = customer_id |> Sales.get_customer!() |> Repo.preload(:subscriptions)
 
@@ -109,5 +147,13 @@ defmodule Tq2.Workers.NotificationsJob do
     account = Repo.preload(account, owner: :subscriptions)
 
     account.owner.subscriptions
+  end
+
+  # Customer without email can't be notified at the moment
+  defp notify_abandoned_cart_to_customer(nil), do: nil
+  defp notify_abandoned_cart_to_customer(%{customer: %{email: nil}}), do: nil
+
+  defp notify_abandoned_cart_to_customer(%{customer: customer} = cart) do
+    Tq2.Notifications.send_cart_reminder(cart, customer)
   end
 end

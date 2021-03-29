@@ -13,4 +13,4 @@
 <%= dgettext("carts", "Total") %>: <%= cart_total @cart %>
 
 <%= dgettext("emails", "To finish your purchase please visit the next %{link}.", link: dgettext("emails", "link")) %>
-<%= "#carrito" %>
+<%= Routes.cart_url(store_uri(), :show, @store, @cart.id) %>

@@ -113,6 +113,16 @@
       </div>
     </div>
 
+    <div class="d-flex mt-2">
+      <div class="mr-4">
+        <%= main_item text: dgettext("menu", "Carts"),
+                      to: Routes.cart_path(@conn, :index),
+                      icon: "cart",
+                      icon_class: "btn-menu-lg text-primary border-primary",
+                      text_class: "text-dark mt-2" %>
+      </div>
+    </div>
+
     <h2 class="h3 font-weight-bold mb-4 mt-5">
       <%= dgettext("items", "Items") %>
     </h2>

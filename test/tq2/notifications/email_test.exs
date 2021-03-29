@@ -3,6 +3,7 @@ defmodule Tq2.Notifications.EmailTest do
   use Bamboo.Test
 
   import Tq2.Fixtures, only: [default_store: 1, default_account: 0, user_fixture: 2]
+  import Tq2.Utils.Urls, only: [store_uri: 0]
 
   alias Tq2.Accounts.User
   alias Tq2.Notifications.Email
@@ -170,13 +171,16 @@ defmodule Tq2.Notifications.EmailTest do
     cart = cart()
     customer = customer()
     email = cart |> Email.cart_reminder(customer)
+    store = default_store(%{})
+
+    url = store_uri() |> Tq2Web.Router.Helpers.cart_url(:show, store, cart.id)
 
     assert email.to == customer.email
     assert email.subject == "Finish your purchase!"
     assert email.html_body =~ customer.name
-    assert email.html_body =~ "#carrito"
+    assert email.html_body =~ url
     assert email.text_body =~ customer.name
-    assert email.text_body =~ "#carrito"
+    assert email.text_body =~ url
   end
 
   defp user do
@@ -212,9 +216,12 @@ defmodule Tq2.Notifications.EmailTest do
   end
 
   defp cart do
+    account = default_account()
+
     %Cart{
       id: 1,
-      account_id: default_account().id,
+      account: account,
+      account_id: account.id,
       data: %{handing: "pickup"},
       lines: [
         %Line{

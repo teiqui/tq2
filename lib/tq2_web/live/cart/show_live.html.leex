@@ -16,9 +16,7 @@
     <%= localize_date(@cart.updated_at) %>
   </p>
 
-  <%= if @cart.customer do %>
-    <%= render Tq2Web.OrderView, "_customer.html", customer: @cart.customer %>
-  <% end %>
+  <%= render Tq2Web.OrderView, "_customer.html", customer: @cart.customer %>
 
   <div class="table-responsive">
     <table class="table table-hover small my-3">
@@ -52,6 +50,42 @@
         </tr>
       </tfoot>
     </table>
+  </div>
+
+  <div class="text-center">
+    <%= if can_be_notified? @cart do %>
+      <p>
+        <%= link(
+          dgettext("carts", "Send reminder"),
+          class: "btn btn-primary rounded-pill",
+          to: "#",
+          phx_click: "send-reminder"
+        )
+ %>
+      </p>
+
+      <p class="text-muted my-2">
+        <%= dgettext("carts", "Your client will receive a reminder, if the notifications are active or via email.") %>
+      </p>
+    <% end %>
+
+    <p>
+      <%= link(dgettext("carts", "Copy cart link"),
+        class: "d-none",
+        to: "#",
+        id: "copy-cart-reminder",
+        data: [text: resume_cart_url(@account.store, @cart), hide_when_share: true],
+        phx_hook: "CopyToClipboard"
+      ) %>
+
+      <%= link(dgettext("carts", "Share cart link"),
+        class: "d-none",
+        to: "#",
+        id: "share-cart-reminder",
+        data: [text: "", title: "", url: resume_cart_url(@account.store, @cart)],
+        phx_hook: "Share"
+      ) %>
+    </p>
   </div>
 </div>
 
