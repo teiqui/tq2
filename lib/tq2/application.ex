@@ -17,9 +17,9 @@ defmodule Tq2.Application do
         # Start the Endpoint (http/https)
         Tq2Web.Endpoint,
         # Start Exq workers after Repo
-        exq_spec()
-        # Start a worker by calling: Tq2.Worker.start_link(arg)
-        # {Tq2.Worker, arg}
+        exq_spec(),
+        # Start Goth supervisor
+        goth_spec()
       ]
       |> Enum.filter(& &1)
 
@@ -47,6 +47,26 @@ defmodule Tq2.Application do
           id: Exq,
           start: {Exq, :start_link, []}
         }
+    end
+  end
+
+  # Goth supervisor spec
+  def goth_spec do
+    path = System.get_env("CREDENTIALS_PATH")
+
+    if path do
+      credentials = path |> File.read!() |> Jason.decode!()
+
+      scope =
+        [
+          "https://www.googleapis.com/auth/spreadsheets",
+          "https://www.googleapis.com/auth/drive.file"
+        ]
+        |> Enum.join(" ")
+
+      source = {:service_account, credentials, [scope: scope]}
+
+      {Goth, name: Tq2.Goth, source: source}
     end
   end
 end

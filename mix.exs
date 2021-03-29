@@ -70,7 +70,10 @@ defmodule Tq2.MixProject do
       # Exq has poison as optional, but it's been installed
       {:exq, ">= 0.14.0"},
       {:poison, "~> 3.1"},
-      {:elixir_google_spreadsheets, ">= 0.1.17"},
+      {:hackney, "~> 1.17"},
+      {:goth, "~> 1.3-rc"},
+      {:google_api_sheets, "~> 0.28.1"},
+      {:google_api_drive, "~> 0.21.0"},
       {:csv, ">= 2.4.1"},
       {:geolix_adapter_mmdb2, ">= 0.6.0"},
       {:stripity_stripe, ">= 2.9.0"},
