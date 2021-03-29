@@ -100,7 +100,7 @@ defmodule Tq2Web.Inventory.ImportLive do
 
   defp titles do
     default_sheet_id()
-    |> Tq2.Gdrive.titles()
+    |> Tq2.Gdrive.grid_titles()
     |> Enum.sort()
   end
 

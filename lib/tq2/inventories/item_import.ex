@@ -72,7 +72,6 @@ defmodule Tq2.Inventories.ItemImport do
   defp field_value(row, field, headers_with_index, currency) when field in @money_fields do
     row
     |> Enum.at(headers_with_index[field])
-    |> String.trim()
     |> Money.parse!(currency)
   end
 
