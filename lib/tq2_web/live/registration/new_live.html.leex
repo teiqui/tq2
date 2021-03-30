@@ -32,6 +32,13 @@
       <%= input f, :email, dgettext("registrations", "Email"),
                            wrapper_html: [class: "mb-4"],
                            input_html: [class: "form-control-sm", placeholder: dgettext("registrations", "Your email")] %>
+      <%= input f, :phone, dgettext("registrations", "Phone"),
+                           wrapper_html: [class: "mb-4"],
+                           input_html: [
+                             class: "form-control-sm",
+                             value: input_phone_number(assigns, f, :phone),
+                             placeholder: dgettext("registrations", "Your phone")
+                           ] %>
       <%= input f, :password, dgettext("registrations", "Password"),
                               wrapper_html: [class: "mb-4"],
                               input_html: [class: "form-control-sm", placeholder: dgettext("registrations", "Your password")] %>

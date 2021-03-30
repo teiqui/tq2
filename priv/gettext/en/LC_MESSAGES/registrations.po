@@ -136,3 +136,9 @@ msgstr ""
 
 msgid "Free %{days} days trial"
 msgstr ""
+
+msgid "Phone"
+msgstr ""
+
+msgid "Your phone"
+msgstr ""

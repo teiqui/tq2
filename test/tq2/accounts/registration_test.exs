@@ -8,6 +8,7 @@ defmodule Tq2.Accounts.RegistrationTest do
       name: "some name",
       type: "grocery",
       email: "some@email.com",
+      phone: "+54 555-5555",
       password: "123456"
     }
 
@@ -15,6 +16,7 @@ defmodule Tq2.Accounts.RegistrationTest do
       name: "",
       type: nil,
       email: nil,
+      phone: nil,
       password: nil
     }
 
@@ -36,12 +38,14 @@ defmodule Tq2.Accounts.RegistrationTest do
         |> Map.put(:name, String.duplicate("a", 256))
         |> Map.put(:type, String.duplicate("a", 256))
         |> Map.put(:email, String.duplicate("a", 256))
+        |> Map.put(:phone, String.duplicate("a", 256))
 
       changeset = Registration.changeset(%Registration{}, attrs)
 
       assert "should be at most 255 character(s)" in errors_on(changeset).name
       assert "should be at most 255 character(s)" in errors_on(changeset).type
       assert "should be at most 255 character(s)" in errors_on(changeset).email
+      assert "should be at most 255 character(s)" in errors_on(changeset).phone
     end
 
     test "account changeset requires account id" do

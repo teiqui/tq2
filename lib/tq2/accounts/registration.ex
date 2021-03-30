@@ -2,6 +2,7 @@ defmodule Tq2.Accounts.Registration do
   use Ecto.Schema
 
   import Ecto.Changeset
+  import Tq2.Utils.Schema, only: [validate_phone_number: 3]
 
   alias Tq2.Accounts.{Account, Registration}
   alias Tq2.Repo
@@ -14,8 +15,10 @@ defmodule Tq2.Accounts.Registration do
     field :name, TrimmedString
     field :type, TrimmedString
     field :email, TrimmedString
+    field :phone, TrimmedString
     field :accessed_at, :utc_datetime
     field :password, :string, virtual: true
+    field :country, :string, virtual: true
 
     belongs_to :account, Account
 
@@ -27,16 +30,20 @@ defmodule Tq2.Accounts.Registration do
     attrs = canonize(attrs)
 
     registration
-    |> cast(attrs, [:name, :type, :email, :password])
-    |> validate_required([:name, :type, :email, :password])
+    |> cast(attrs, [:name, :type, :email, :phone, :password])
+    |> validate_required([:name, :type, :email, :phone, :password])
     |> validate_length(:name, max: 255)
     |> validate_length(:type, max: 255)
     |> validate_length(:email, max: 255)
+    |> validate_length(:phone, max: 255)
     |> validate_length(:password, min: 6, max: 100)
     |> validate_format(:email, ~r/.+@.+\..+/)
+    |> validate_phone_number(:phone, registration.country)
     |> unsafe_validate_unique(:email, Repo)
+    |> unsafe_validate_unique(:phone, Repo)
     |> unique_constraint(:uuid)
     |> unique_constraint(:email)
+    |> unique_constraint(:phone)
     |> assoc_constraint(:account)
   end
 

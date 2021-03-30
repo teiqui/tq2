@@ -1,6 +1,7 @@
 defmodule Tq2Web.Registration.NewLive do
   use Tq2Web, :live_view
 
+  import Tq2.Utils.CountryCurrency, only: [phone_prefix_for_ip: 1]
   import Tq2.Utils.Urls, only: [web_uri: 0]
 
   alias Tq2.Accounts
@@ -8,12 +9,11 @@ defmodule Tq2Web.Registration.NewLive do
 
   @impl true
   def mount(_params, %{"remote_ip" => ip, "campaign" => campaign}, socket) do
-    changeset = %Registration{} |> Accounts.change_registration()
+    country_code = country_code(ip)
+    changeset = %Registration{country: country_code} |> Accounts.change_registration()
 
     socket =
-      socket
-      |> assign(changeset: changeset, campaign: campaign)
-      |> assign_country(ip)
+      socket |> assign(changeset: changeset, country: country_code, ip: ip, campaign: campaign)
 
     {:ok, socket, temporary_assigns: [changeset: nil]}
   end
@@ -28,12 +28,11 @@ defmodule Tq2Web.Registration.NewLive do
       registration_params
       |> Map.put("country", country)
       |> Map.put("campaign", campaign)
+      |> clean_phone_prefix(socket)
 
     case Accounts.create_registration(params) do
       {:ok, %{registration: registration}} ->
-        socket =
-          socket
-          |> redirect(to: Routes.registration_path(socket, :show, registration))
+        socket = socket |> redirect(to: Routes.registration_path(socket, :show, registration))
 
         {:noreply, socket}
 
@@ -91,16 +90,26 @@ defmodule Tq2Web.Registration.NewLive do
     )
   end
 
-  defp assign_country(socket, ip) do
-    code =
-      case Geolix.lookup(ip) do
-        %{default: %{country: %{iso_code: code}}} -> String.downcase(code)
-        _ -> "ar"
-      end
-
-    socket |> assign(country: code)
+  defp country_code(ip) do
+    case Geolix.lookup(ip) do
+      %{default: %{country: %{iso_code: code}}} -> String.downcase(code)
+      _ -> "ar"
+    end
   end
 
   defp trial_days(%{campaign: "extended_trial"}), do: 30
   defp trial_days(_assigns), do: 14
+
+  def input_phone_number(%{ip: ip}, form, field) do
+    case input_value(form, field) do
+      v when v in [nil, ""] -> phone_prefix_for_ip(ip)
+      v -> v
+    end
+  end
+
+  defp clean_phone_prefix(%{"phone" => value} = params, %{assigns: %{ip: ip}}) do
+    prefix = phone_prefix_for_ip(ip)
+
+    if value == prefix, do: %{params | "phone" => nil}, else: params
+  end
 end

@@ -479,6 +479,7 @@ defmodule Tq2.AccountsTest do
       "name" => "some name",
       "type" => "grocery",
       "email" => "some@email.com",
+      "phone" => "+54 555-7777",
       "password" => "123456",
       "country" => "ar",
       "time_zone" => "America/Argentina/Buenos_Aires",
@@ -488,6 +489,7 @@ defmodule Tq2.AccountsTest do
       name: nil,
       type: nil,
       email: nil,
+      phone: nil,
       password: nil
     }
 
@@ -535,9 +537,11 @@ defmodule Tq2.AccountsTest do
       assert registration.name == @valid_attrs["name"]
       assert registration.type == @valid_attrs["type"]
       assert registration.email == @valid_attrs["email"]
+      assert registration.phone == @valid_attrs["phone"]
       assert registration.account_id == account.id
       assert account.name == @valid_attrs["name"]
       assert store.name == @valid_attrs["name"]
+      assert store.data.phone == @valid_attrs["phone"]
       assert store.slug == Tq2.Shops.Store.slugified(@valid_attrs["name"])
       assert user.email == @valid_attrs["email"]
       assert account.license.paid_until == trial_until
@@ -570,10 +574,12 @@ defmodule Tq2.AccountsTest do
       assert registration.name == @valid_attrs["name"]
       assert registration.type == @valid_attrs["type"]
       assert registration.email == @valid_attrs["email"]
+      assert registration.phone == @valid_attrs["phone"]
       assert registration.account_id == account.id
       assert account.name == @valid_attrs["name"]
       assert user.email == @valid_attrs["email"]
       assert store.name == @valid_attrs["name"]
+      assert store.data.phone == @valid_attrs["phone"]
       refute store.slug == Tq2.Shops.Store.slugified(@valid_attrs["name"])
     end
 

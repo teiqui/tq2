@@ -23,6 +23,7 @@ defmodule Tq2Web.Registration.NewLiveTest do
             name: "some name",
             type: "grocery",
             email: "some@email.com",
+            phone: "+54 555-7777",
             password: "123456"
           }
         })
@@ -51,6 +52,7 @@ defmodule Tq2Web.Registration.NewLiveTest do
             name: "some name",
             type: "grocery",
             email: "some@email.com",
+            phone: "+54 555-7777",
             password: "123456"
           }
         })
@@ -78,6 +80,7 @@ defmodule Tq2Web.Registration.NewLiveTest do
                  name: "",
                  type: "",
                  email: "",
+                 phone: "",
                  password: ""
                }
              })

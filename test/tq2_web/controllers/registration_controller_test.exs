@@ -7,6 +7,7 @@ defmodule Tq2Web.RegistrationControllerTest do
     "name" => "some updated name",
     "type" => "grocery",
     "email" => "some_updated@email.com",
+    "phone" => "+54 555-7777",
     "password" => "123456",
     "country" => "ar",
     "time_zone" => "America/Argentina/Buenos_Aires",

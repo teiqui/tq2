@@ -136,3 +136,9 @@ msgstr "Tu tienda"
 
 msgid "Free %{days} days trial"
 msgstr "Prueba gratis por %{days} días"
+
+msgid "Phone"
+msgstr "Ingresa tu teléfono"
+
+msgid "Your phone"
+msgstr "Tu teléfono"

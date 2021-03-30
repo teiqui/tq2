@@ -593,6 +593,9 @@ defmodule Tq2.Accounts do
       configuration: %{
         pickup: true,
         pickup_time_limit: dgettext("stores", "No limit")
+      },
+      data: %{
+        phone: registration.phone
       }
     }
 
