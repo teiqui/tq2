@@ -59,23 +59,25 @@
 </nav>
 
 <div class="collapse fixed-top vh-100 bg-light rounded mt-5 py-3" id="menu">
-  <div class="container-fluid px-4">
-    <p class="text-center mb-4">
-      <a href="#menu" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="menu">
-        <svg width="49" height="4" viewBox="0 0 49 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <line x1="47.5001"
-                y1="1.66064"
-                x2="1.50006"
-                y2="1.66064"
-                stroke="#C4C4C4"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"/>
-        </svg>
-      </a>
-    </p>
+  <div class="container-fluid position-relative overflow-auto h-100 px-4">
+    <div class="position-fixed text-center bg-light w-100 ml-n4">
+      <p class="mb-3">
+        <a href="#menu" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="menu">
+          <svg width="49" height="4" viewBox="0 0 49 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="47.5001"
+                  y1="1.66064"
+                  x2="1.50006"
+                  y2="1.66064"
+                  stroke="#C4C4C4"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </p>
+    </div>
 
-    <h2 class="h3 font-weight-bold mb-4">
+    <h2 class="h3 font-weight-bold mb-4 mt-5">
       <%= dgettext("stores", "Store") %>
     </h2>
 
@@ -176,5 +178,7 @@
         </div>
       <% end %>
     </div>
+
+    <div class="py-4 mb-5"></div>
   </div>
 </div>
