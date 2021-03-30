@@ -163,3 +163,15 @@ msgstr "Disponible en Google Play"
 
 msgid "Teiqui offers different payment platforms to add into your store."
 msgstr "Teiqui te ofrece diferentes plataformas de pago para que incorpores a tu tienda."
+
+msgid "If you and your customers have notifications turned on, both of you can send messages and receive order alerts."
+msgstr "Si tus clientes y tú tienen activadas las notificaciones, ambos podrán enviar mensajes y recibir las alertas sobre el pedido."
+
+msgid "News"
+msgstr "Novedades"
+
+msgid "Notifications"
+msgstr "Notificaciones"
+
+msgid "Send and receive messages and notifications"
+msgstr "Envía y recibe mensajes y notificaciones"

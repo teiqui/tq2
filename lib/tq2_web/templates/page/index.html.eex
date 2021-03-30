@@ -298,10 +298,40 @@
         </div>
       </div>
 
-      <p class="mb-0 my-5 ml-lg-5 text-center text-lg-left">
+      <p class="mb-0 my-5 ml-lg-5 mt-lg-n5 text-center text-lg-left">
         <%= link dgettext("page", "Free 14 days trial"), to: Routes.registration_url(app_uri(), :index),
                                                          class: "btn btn-light btn-lg text-primary shadow-sm font-weight-semi-bold px-4" %>
       </p>
+
+      <div class="row pt-4">
+        <div class="col-md-4 col-lg-3 col-xl-2 mb-4 px-4 pt-3 text-center text-md-left">
+          <%= img_tag Routes.static_path(@conn, "/images/page/notifications.svg"), width: "290",
+                                                                                   height: "603",
+                                                                                   loading: "lazy",
+                                                                                   class: "img-fluid",
+                                                                                   alt: dgettext("page", "Notifications") %>
+        </div>
+        <div class="col-md-7 col-lg-8 col-xl-9 px-4">
+          <p class="mt-4 mb-4">
+            <i class="bi-newspaper"></i>
+            <%= dgettext("page", "News") %>
+          </p>
+
+          <h3 class="h1 font-weight-bolder mb-3">
+            <%= dgettext("page", "Send and receive messages and notifications") %>
+          </h3>
+
+          <p class="h4 mb-5">
+            <%= dgettext("page", "If you and your customers have notifications turned on, both of you can send messages and receive order alerts.") %>
+          </p>
+
+          <p class="mb-3 mt-4 text-center text-lg-left">
+            <%= link dgettext("page", "Download the app"), to: play_store_app_url(),
+                                                           target: "_blank",
+                                                           class: "btn btn-light btn-lg text-primary shadow-sm font-weight-semi-bold px-4" %>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 

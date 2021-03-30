@@ -163,3 +163,15 @@ msgstr ""
 
 msgid "Teiqui offers different payment platforms to add into your store."
 msgstr ""
+
+msgid "If you and your customers have notifications turned on, both of you can send messages and receive order alerts."
+msgstr ""
+
+msgid "News"
+msgstr ""
+
+msgid "Notifications"
+msgstr ""
+
+msgid "Send and receive messages and notifications"
+msgstr ""
