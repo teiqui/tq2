@@ -334,3 +334,9 @@ msgstr ""
 
 msgid "You have chosen regular price. Change to Teiqui price and take advantage of the discount throughout the store."
 msgstr ""
+
+msgid "Both have saved on your purchase. You can keep sharing so more people save."
+msgstr ""
+
+msgid "You've joined the discount!"
+msgstr ""

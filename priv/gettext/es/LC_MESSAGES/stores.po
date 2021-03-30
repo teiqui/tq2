@@ -334,3 +334,9 @@ msgstr "No, gracias."
 
 msgid "You have chosen regular price. Change to Teiqui price and take advantage of the discount throughout the store."
 msgstr "Has elegido precio regular. Cambia a precio Teiqui y aprovecha el descuento en toda la tienda."
+
+msgid "Both have saved on your purchase. You can keep sharing so more people save."
+msgstr "Ambos ahorraron en su compra. Puedes seguir compartiendo para que más gente ahorre."
+
+msgid "You've joined the discount!"
+msgstr "¡Te sumaste al descuento!"

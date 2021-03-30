@@ -362,4 +362,23 @@ defmodule Tq2Web.Store.OrderLive do
   end
 
   defp show_error(_assigns), do: nil
+
+  defp teiqui_price_modal_title(nil) do
+    dgettext("stores", "You have chosen Teiqui price")
+  end
+
+  defp teiqui_price_modal_title(_) do
+    dgettext("stores", "You've joined the discount!")
+  end
+
+  defp teiqui_price_modal_text(nil) do
+    dgettext("stores", "It only applies if you can get someone else to buy in 24 hours.")
+  end
+
+  defp teiqui_price_modal_text(_) do
+    dgettext(
+      "stores",
+      "Both have saved on your purchase. You can keep sharing so more people save."
+    )
+  end
 end
