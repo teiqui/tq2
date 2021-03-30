@@ -146,6 +146,7 @@ defmodule Tq2Web.Store.OrderLiveTest do
       refute content =~ "Do you want to receive notifications"
 
       assert order_live
+             |> element("#notification-subscription")
              |> render_hook(:"ask-for-notifications") =~ "Do you want to receive notifications"
     end
 
@@ -153,7 +154,9 @@ defmodule Tq2Web.Store.OrderLiveTest do
       path = Routes.order_path(conn, :index, store, order.id)
       {:ok, order_live, _html} = live(conn, path)
 
-      render_hook(order_live, :"ask-for-notifications")
+      order_live
+      |> element("#notification-subscription")
+      |> render_hook(:"ask-for-notifications")
 
       order_live
       |> element("[phx-click=\"subscribe\"]")
@@ -166,7 +169,9 @@ defmodule Tq2Web.Store.OrderLiveTest do
       path = Routes.order_path(conn, :index, store, order.id)
       {:ok, order_live, _html} = live(conn, path)
 
-      render_hook(order_live, :"ask-for-notifications")
+      order_live
+      |> element("#notification-subscription")
+      |> render_hook(:"ask-for-notifications")
 
       assert render(order_live) =~ "Do you want to receive notifications"
 
@@ -179,11 +184,15 @@ defmodule Tq2Web.Store.OrderLiveTest do
       path = Routes.order_path(conn, :index, store, order.id)
       {:ok, order_live, _html} = live(conn, path)
 
-      render_hook(order_live, :"ask-for-notifications")
+      order_live
+      |> element("#notification-subscription")
+      |> render_hook(:"ask-for-notifications")
 
       assert render(order_live) =~ "Do you want to receive notifications"
 
-      render_hook(order_live, :register, subscription())
+      order_live
+      |> element("#notification-subscription")
+      |> render_hook(:register, subscription())
 
       assert_push_event(order_live, "registered", %{})
       refute render(order_live) =~ "Do you want to receive notifications"

@@ -12,7 +12,7 @@ export const Notification = {
             userVisibleOnly: true,
             applicationServerKey: this.encodeKey(this.el.dataset.serverKey)
           }).then(subscription => {
-            this.pushEvent('register', subscription.toJSON())
+            this.pushEventTo(`#${this.el.id}`, 'register', subscription.toJSON())
           })
         }
       })
@@ -23,9 +23,9 @@ export const Notification = {
     navigator.serviceWorker?.ready.then(registration => {
       registration.pushManager.getSubscription().then(subscription => {
         if (subscription) {
-          this.pushEvent('register', subscription.toJSON())
+          this.pushEventTo(`#${this.el.id}`, 'register', subscription.toJSON())
         } else {
-          this.pushEvent('ask-for-notifications')
+          this.pushEventTo(`#${this.el.id}`, 'ask-for-notifications')
         }
       })
     })

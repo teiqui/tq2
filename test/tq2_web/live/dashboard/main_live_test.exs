@@ -96,6 +96,7 @@ defmodule Tq2Web.Dashboard.MainLiveTest do
       refute content =~ "Do you want to receive notifications"
 
       assert main_live
+             |> element("#notification-subscription")
              |> render_hook(:"ask-for-notifications") =~ "Do you want to receive notifications"
     end
 
@@ -103,7 +104,9 @@ defmodule Tq2Web.Dashboard.MainLiveTest do
       path = Routes.dashboard_path(conn, :index)
       {:ok, main_live, _html} = live(conn, path)
 
-      render_hook(main_live, :"ask-for-notifications")
+      main_live
+      |> element("#notification-subscription")
+      |> render_hook(:"ask-for-notifications")
 
       main_live
       |> element("[phx-click=\"subscribe\"]")
@@ -116,7 +119,9 @@ defmodule Tq2Web.Dashboard.MainLiveTest do
       path = Routes.dashboard_path(conn, :index)
       {:ok, main_live, _html} = live(conn, path)
 
-      render_hook(main_live, :"ask-for-notifications")
+      main_live
+      |> element("#notification-subscription")
+      |> render_hook(:"ask-for-notifications")
 
       assert render(main_live) =~ "Do you want to receive notifications"
 
@@ -129,11 +134,15 @@ defmodule Tq2Web.Dashboard.MainLiveTest do
       path = Routes.dashboard_path(conn, :index)
       {:ok, main_live, _html} = live(conn, path)
 
-      render_hook(main_live, :"ask-for-notifications")
+      main_live
+      |> element("#notification-subscription")
+      |> render_hook(:"ask-for-notifications")
 
       assert render(main_live) =~ "Do you want to receive notifications"
 
-      render_hook(main_live, :register, subscription())
+      main_live
+      |> element("#notification-subscription")
+      |> render_hook(:register, subscription())
 
       assert_push_event(main_live, "registered", %{})
       refute render(main_live) =~ "Do you want to receive notifications"

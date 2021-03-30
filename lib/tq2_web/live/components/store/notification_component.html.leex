@@ -1,0 +1,31 @@
+<div id="notification-subscription"
+     phx-hook="Notification"
+     phx-target="<%= @myself %>"
+     data-server-key="<%= vapid_server_key() %>">
+  <%= if @ask_for_notifications do %>
+    <div class="card card-body border border-warning <%= assigns[:extra_card_class] %>">
+      <div class="d-flex">
+        <div class="lead mr-3">
+          🔔
+        </div>
+
+        <div class="mx-0">
+          <%= render_block @inner_block %>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col">
+          <%= link dgettext("notifications", "Not for now"), to: "#",
+                                                            class: "text-muted",
+                                                            phx_click: "dismiss",
+                                                            phx_target: @myself %>
+        </div>
+
+        <div class="col text-right">
+          <%= link dgettext("notifications", "Yes"), to: "#", phx_click: "subscribe", phx_target: @myself %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
