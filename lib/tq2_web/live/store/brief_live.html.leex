@@ -4,6 +4,12 @@
                                              visit_id: @visit_id %>
 <div class="row justify-content-center pb-5">
   <div class="col-md-8">
+    <%= live_component @socket, NotificationComponent, id: :notification,
+                                                       customer_id: @cart.customer_id,
+                                                       extra_card_class: "mb-3" do %>
+      <%= dgettext("notifications", "Do you want to receive notifications about your order and this store?") %>
+    <% end %>
+
     <p class="text-primary font-weight-bold ml-2">
       <%= dgettext("stores", "Purchase summary") %>
     </p>

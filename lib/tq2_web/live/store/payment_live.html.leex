@@ -1,5 +1,11 @@
 <%= live_component @socket, HeaderComponent, id: :header, store: @store, token: @token, visit_id: @visit_id %>
 
+<%= if @subscribe do %>
+  <%= live_component @socket, NotificationComponent, id: :notification,
+                                                     customer_id: @cart.customer_id,
+                                                     skip_subscription: true %>
+<% end %>
+
 <div class="row justify-content-center">
   <div class="col-md-8">
     <%= live_component @socket, ProgressComponent, step: :payment, id: :progress_component %>

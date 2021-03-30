@@ -124,7 +124,7 @@ defmodule Tq2Web.Store.BriefLiveTest do
       assert render(brief_live) =~ "Anywhere"
     end
 
-    test "save", %{conn: conn, cart: _cart, store: store} do
+    test "save event", %{conn: conn, cart: _cart, store: store} do
       path = Routes.brief_path(conn, :index, store)
       {:ok, brief_live, _html} = live(conn, path)
 
@@ -138,6 +138,67 @@ defmodule Tq2Web.Store.BriefLiveTest do
       order_id = String.replace(to, ~r/\D/, "")
 
       assert Routes.order_path(conn, :index, store, order_id) == to
+    end
+
+    test "ask for notifications event", %{conn: conn, store: store} do
+      path = Routes.brief_path(conn, :index, store)
+      {:ok, brief_live, html} = live(conn, path)
+      content = brief_live |> render()
+
+      refute html =~ "Do you want to receive notifications"
+      refute content =~ "Do you want to receive notifications"
+
+      assert brief_live
+             |> element("#notification-subscription")
+             |> render_hook(:"ask-for-notifications") =~ "Do you want to receive notifications"
+    end
+
+    test "subscribe event", %{conn: conn, store: store} do
+      path = Routes.brief_path(conn, :index, store)
+      {:ok, brief_live, _html} = live(conn, path)
+
+      brief_live
+      |> element("#notification-subscription")
+      |> render_hook(:"ask-for-notifications")
+
+      brief_live
+      |> element("[phx-click=\"subscribe\"]")
+      |> render_click()
+
+      assert_push_event(brief_live, "subscribe", %{})
+    end
+
+    test "dismiss event", %{conn: conn, store: store} do
+      path = Routes.brief_path(conn, :index, store)
+      {:ok, brief_live, _html} = live(conn, path)
+
+      brief_live
+      |> element("#notification-subscription")
+      |> render_hook(:"ask-for-notifications")
+
+      assert render(brief_live) =~ "Do you want to receive notifications"
+
+      refute brief_live
+             |> element("[phx-click=\"dismiss\"]")
+             |> render_click() =~ "Do you want to receive notifications"
+    end
+
+    test "register event", %{conn: conn, store: store} do
+      path = Routes.brief_path(conn, :index, store)
+      {:ok, brief_live, _html} = live(conn, path)
+
+      brief_live
+      |> element("#notification-subscription")
+      |> render_hook(:"ask-for-notifications")
+
+      assert render(brief_live) =~ "Do you want to receive notifications"
+
+      brief_live
+      |> element("#notification-subscription")
+      |> render_hook(:register, subscription())
+
+      assert_push_event(brief_live, "registered", %{})
+      refute render(brief_live) =~ "Do you want to receive notifications"
     end
 
     test "redirect to counter without cart", %{conn: conn, cart: cart, store: store} do
@@ -159,5 +220,12 @@ defmodule Tq2Web.Store.BriefLiveTest do
 
       assert to == Routes.counter_path(conn, :index, store)
     end
+  end
+
+  defp subscription do
+    %{
+      "endpoint" => "https://fcm.googleapis.com/fcm/send/some_random_things",
+      "keys" => %{"p256dh" => "p256dh_key", "auth" => "auth_string"}
+    }
   end
 end

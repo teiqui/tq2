@@ -28,3 +28,6 @@ msgstr "Guardando..."
 
 msgid "Creating..."
 msgstr "Creando..."
+
+msgid "Subscribe"
+msgstr "Recibir notificaciones"

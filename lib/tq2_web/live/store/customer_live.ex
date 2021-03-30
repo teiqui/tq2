@@ -197,11 +197,15 @@ defmodule Tq2Web.Store.CustomerLive do
     if value == prefix, do: %{params | "phone" => nil}, else: params
   end
 
-  defp redirect(%{assigns: %{store: store, old_token: nil}} = socket) do
-    push_redirect(socket, to: Routes.payment_path(socket, :index, store))
+  defp redirect(%{assigns: %{store: store, customer: customer, old_token: nil}} = socket) do
+    push_redirect(socket,
+      to: Routes.payment_path(socket, :index, store, subscribe: customer.subscribe)
+    )
   end
 
-  defp redirect(%{assigns: %{store: store, token: token}} = socket) do
-    redirect(socket, to: Routes.token_path(socket, :show, store, token))
+  defp redirect(%{assigns: %{store: store, customer: customer, token: token}} = socket) do
+    redirect(socket,
+      to: Routes.token_path(socket, :show, store, token, subscribe: customer.subscribe)
+    )
   end
 end

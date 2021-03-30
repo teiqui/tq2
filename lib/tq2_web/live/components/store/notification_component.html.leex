@@ -1,6 +1,7 @@
 <div id="notification-subscription"
      phx-hook="Notification"
      phx-target="<%= @myself %>"
+		 data-skip-subscription="<%= inspect @skip_subscription %>"
      data-server-key="<%= vapid_server_key() %>">
   <%= if @ask_for_notifications do %>
     <div class="card card-body border border-warning <%= assigns[:extra_card_class] %>">

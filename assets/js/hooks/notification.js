@@ -1,7 +1,10 @@
 export const Notification = {
   mounted () {
     this.handleSubscribe()
-    this.getSubscription()
+
+    if (this.el.dataset.skipSubscription === 'false') {
+      this.getSubscription()
+    }
   },
 
   handleSubscribe () {

@@ -148,16 +148,24 @@ defmodule Tq2Web.Store.PaymentLiveTest do
   describe "render" do
     setup [:store_fixture, :cart_fixture]
 
-    test "disconnected and connected render", %{conn: conn, cart: _cart, store: store} do
+    test "disconnected and connected render", %{conn: conn, store: store} do
       path = Routes.payment_path(conn, :index, store)
       {:ok, payment_live, html} = live(conn, path)
 
       assert html =~ "cash"
       assert render(payment_live) =~ "cash"
       assert has_element?(payment_live, ".btn[disabled]")
+      refute has_element?(payment_live, "#notification-subscription")
     end
 
-    test "update event", %{conn: conn, cart: _cart, store: store} do
+    test "disconnected and connected render with subscription", %{conn: conn, store: store} do
+      path = Routes.payment_path(conn, :index, store, subscribe: true)
+      {:ok, payment_live, _html} = live(conn, path)
+
+      assert has_element?(payment_live, "#notification-subscription")
+    end
+
+    test "update event", %{conn: conn, store: store} do
       path = Routes.payment_path(conn, :index, store)
       {:ok, payment_live, _html} = live(conn, path)
 
@@ -167,6 +175,24 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       |> form("form", %{kind: "cash"})
       |> render_change()
 
+      %{proxy: {ref, _topic, _}} = payment_live
+
+      refute_receive {^ref, {:push_event, "subscribe", %{}}}
+      refute has_element?(payment_live, ".btn[disabled]")
+      assert has_element?(payment_live, ".collapse.show", "Your order must be paid")
+    end
+
+    test "update event with subscription", %{conn: conn, store: store} do
+      path = Routes.payment_path(conn, :index, store, subscribe: true)
+      {:ok, payment_live, _html} = live(conn, path)
+
+      assert has_element?(payment_live, ".btn[disabled]")
+
+      payment_live
+      |> form("form", %{kind: "cash"})
+      |> render_change()
+
+      assert_push_event(payment_live, "subscribe", %{})
       refute has_element?(payment_live, ".btn[disabled]")
       assert has_element?(payment_live, ".collapse.show", "Your order must be paid")
     end
@@ -187,7 +213,7 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       assert has_element?(payment_live, ".collapse.show", "Pay with MercadoPago")
     end
 
-    test "save event", %{conn: conn, cart: _cart, store: store} do
+    test "save event", %{conn: conn, store: store} do
       path = Routes.payment_path(conn, :index, store)
       {:ok, payment_live, _html} = live(conn, path)
 
@@ -209,7 +235,7 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       assert Routes.order_path(conn, :index, store, order_id) == to
     end
 
-    test "save event with referral", %{conn: conn, cart: _cart, store: store} do
+    test "save event with referral", %{conn: conn, store: store} do
       %{order: parent_order} = order_fixture(%{conn: conn, store: store})
       path = Routes.payment_path(conn, :index, store)
       {:ok, payment_live, _html} = live(conn, path)
@@ -327,6 +353,17 @@ defmodule Tq2Web.Store.PaymentLiveTest do
       assert "https://mp.com/123" == to
     end
 
+    test "register event", %{conn: conn, store: store} do
+      path = Routes.payment_path(conn, :index, store, subscribe: true)
+      {:ok, payment_live, _html} = live(conn, path)
+
+      payment_live
+      |> element("#notification-subscription")
+      |> render_hook(:register, subscription())
+
+      assert_push_event(payment_live, "registered", %{})
+    end
+
     test "mount with paid cart", %{conn: conn, cart: cart, store: store} do
       {:ok, _payment} =
         Payments.create_payment(cart, %{
@@ -373,6 +410,13 @@ defmodule Tq2Web.Store.PaymentLiveTest do
           {:ok, %HTTPoison.Response{status_code: code, body: json_body}}
         end
       ]
+    end
+
+    defp subscription do
+      %{
+        "endpoint" => "https://fcm.googleapis.com/fcm/send/some_random_things",
+        "keys" => %{"p256dh" => "p256dh_key", "auth" => "auth_string"}
+      }
     end
   end
 end

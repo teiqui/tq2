@@ -4,14 +4,16 @@ defmodule Tq2Web.Store.NotificationComponent do
   alias Tq2.Notifications
 
   @impl true
-  def update(%{inner_block: inner_block} = assigns, socket) do
+  def update(assigns, socket) do
     socket =
       socket
       |> assign(
-        inner_block: inner_block,
+        inner_block: assigns[:inner_block],
         user_id: assigns[:user_id],
         customer_id: assigns[:customer_id],
-        ask_for_notifications: assigns[:ask_for_notifications]
+        skip_subscription: !!assigns[:skip_subscription],
+        ask_for_notifications: assigns[:ask_for_notifications],
+        extra_card_class: assigns[:extra_card_class]
       )
 
     {:ok, socket}

@@ -127,7 +127,8 @@ defmodule Tq2Web.Store.CustomerLiveTest do
              })
              |> render_submit() ==
                {:error,
-                {:live_redirect, %{kind: :push, to: Routes.payment_path(conn, :index, store)}}}
+                {:live_redirect,
+                 %{kind: :push, to: Routes.payment_path(conn, :index, store, subscribe: true)}}}
 
       assert Tq2.Transactions.get_cart(store.account, cart.token).customer_id
     end
@@ -155,7 +156,8 @@ defmodule Tq2Web.Store.CustomerLiveTest do
              })
              |> render_submit() ==
                {:error,
-                {:live_redirect, %{kind: :push, to: Routes.payment_path(conn, :index, store)}}}
+                {:live_redirect,
+                 %{kind: :push, to: Routes.payment_path(conn, :index, store, subscribe: true)}}}
 
       customer = Tq2.Sales.get_customer(email: "some@email.com")
 
@@ -322,7 +324,8 @@ defmodule Tq2Web.Store.CustomerLiveTest do
              })
              |> render_submit() ==
                {:error,
-                {:live_redirect, %{kind: :push, to: Routes.payment_path(conn, :index, store)}}}
+                {:live_redirect,
+                 %{kind: :push, to: Routes.payment_path(conn, :index, store, subscribe: true)}}}
 
       assert Tq2.Sales.get_customer!(customer.id).email == "some_updated@email.com"
     end

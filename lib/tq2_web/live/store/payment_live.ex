@@ -11,12 +11,14 @@ defmodule Tq2Web.Store.PaymentLive do
     ]
 
   alias Tq2.Transactions
-  alias Tq2Web.Store.{ButtonComponent, HeaderComponent, ProgressComponent}
+  alias Tq2Web.Store.{ButtonComponent, HeaderComponent, NotificationComponent, ProgressComponent}
 
   @impl true
-  def mount(_, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do
+  def mount(params, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do
+    subscribe = params["subscribe"] == "true"
+
     socket
-    |> assign(store: store, token: token, visit_id: visit_id)
+    |> assign(store: store, token: token, subscribe: subscribe, visit_id: visit_id)
     |> load_cart()
     |> check_for_paid_cart()
     |> finish_mount()
@@ -33,7 +35,12 @@ defmodule Tq2Web.Store.PaymentLive do
 
     case Transactions.update_cart(account, cart, %{data: %{data | payment: kind}}) do
       {:ok, cart} ->
-        {:noreply, assign(socket, cart: cart)}
+        socket =
+          socket
+          |> maybe_push_subscribe()
+          |> assign(cart: cart)
+
+        {:noreply, socket}
 
       {:error, %Ecto.Changeset{}} ->
         # TODO: handle this case properly
@@ -104,6 +111,14 @@ defmodule Tq2Web.Store.PaymentLive do
   defp payment_method_description("transbank", _) do
     dgettext("payments", "Pay with Onepay app.")
   end
+
+  defp maybe_push_subscribe(%{assigns: %{subscribe: true}} = socket) do
+    socket
+    |> assign(subscribe: false)
+    |> push_event("subscribe", %{})
+  end
+
+  defp maybe_push_subscribe(socket), do: socket
 
   defp static_img(kind, text) do
     img_tag(

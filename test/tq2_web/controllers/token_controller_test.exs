@@ -9,9 +9,11 @@ defmodule Tq2Web.TokenControllerTest do
 
   describe "token" do
     test "redirect and put new token on session", %{conn: conn} do
-      conn = get(conn, Routes.token_path(conn, :show, "some_slug", "test_token"))
+      conn = get(conn, Routes.token_path(conn, :show, "some_slug", "test_token", subscribe: true))
 
-      assert redirected_to(conn) == Routes.payment_path(conn, :index, "some_slug")
+      assert redirected_to(conn) ==
+               Routes.payment_path(conn, :index, "some_slug", subscribe: true)
+
       assert get_session(conn, :token) == "test_token"
     end
   end

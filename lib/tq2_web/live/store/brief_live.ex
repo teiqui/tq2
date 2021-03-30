@@ -12,7 +12,7 @@ defmodule Tq2Web.Store.BriefLive do
 
   alias Tq2.{Sales, Transactions}
   alias Tq2.Transactions.Cart
-  alias Tq2Web.Store.{ButtonComponent, HeaderComponent}
+  alias Tq2Web.Store.{ButtonComponent, HeaderComponent, NotificationComponent}
 
   @impl true
   def mount(_, %{"store" => store, "token" => token, "visit_id" => visit_id}, socket) do

@@ -16,6 +16,7 @@ defmodule Tq2.Sales.Customer do
     field :address, TrimmedString
     field :phone, TrimmedString
     field :lock_version, :integer, default: 0
+    field :subscribe, :boolean, default: true, virtual: true
 
     has_many :tokens, Token
     has_many :customer_subscriptions, CustomerSubscription
@@ -29,7 +30,7 @@ defmodule Tq2.Sales.Customer do
     attrs = canonize(attrs)
 
     customer
-    |> cast(attrs, [:name, :email, :phone, :address, :lock_version])
+    |> cast(attrs, [:name, :email, :phone, :address, :subscribe, :lock_version])
     |> cast_assoc(:tokens)
     |> validate(store)
   end
@@ -39,7 +40,7 @@ defmodule Tq2.Sales.Customer do
     attrs = canonize(attrs)
 
     customer
-    |> cast(attrs, [:name, :email, :phone, :address, :lock_version])
+    |> cast(attrs, [:name, :email, :phone, :address, :subscribe, :lock_version])
     |> validate(store)
   end
 

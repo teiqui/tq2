@@ -47,6 +47,7 @@
           <%= input f, :phone, dgettext("customers", "Phone"),
             input_html: [phx_debounce: "blur", value: input_phone_number(assigns, f, :phone)] %>
           <%= input f, :address, dgettext("customers", "Address"), using: :textarea, input_html: [phx_debounce: "blur"] %>
+          <%= input f, :subscribe, dgettext("customers", "Subscribe"), input_html: [phx_debounce: "blur"] %>
         <% end %>
 
         <%= live_component @socket, ButtonComponent, store: @store,
