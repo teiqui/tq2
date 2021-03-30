@@ -66,7 +66,7 @@ defmodule Tq2Web.Store.ItemLiveTest do
       |> element("[phx-click=\"add\"][phx-value-type=\"regular\"]")
       |> render_click()
 
-      assert_push_event(item_live, "showModal", %{})
+      assert_push_event(item_live, "show-modal", %{})
 
       counter_path = Routes.counter_path(conn, :index, store)
 
@@ -119,7 +119,7 @@ defmodule Tq2Web.Store.ItemLiveTest do
       |> element("[phx-click=\"change-price-type\"]")
       |> render_click()
 
-      assert_push_event(item_live, "hideModal", %{})
+      assert_push_event(item_live, "hide-modal", %{})
 
       assert has_element?(item_live, ".btn[disabled]", money(item.price))
       assert has_element?(item_live, ".btn:not([disabled])", money(item.promotional_price))
@@ -133,7 +133,7 @@ defmodule Tq2Web.Store.ItemLiveTest do
       |> element("[phx-click=\"hide-modal\"]")
       |> render_click()
 
-      assert_push_event(item_live, "hideModal", %{})
+      assert_push_event(item_live, "hide-modal", %{})
 
       assert has_element?(item_live, ".btn:not([disabled])", money(item.price))
       assert has_element?(item_live, ".btn:not([disabled])", money(item.promotional_price))

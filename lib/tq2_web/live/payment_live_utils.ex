@@ -286,7 +286,7 @@ defmodule Tq2Web.PaymentLiveUtils do
       transactionDescription: store.name
     }
 
-    socket |> push_event("openModal", data)
+    socket |> push_event("open-modal", data)
   end
 
   defp open_tbk_modal_event(_payment, socket, store, cart) do
@@ -300,7 +300,7 @@ defmodule Tq2Web.PaymentLiveUtils do
       transactionDescription: store.name
     }
 
-    socket |> push_event("openModal", data)
+    socket |> push_event("open-modal", data)
   end
 
   defp create_ckt_preference(cart, store) do

@@ -92,14 +92,14 @@ defmodule Tq2Web.Store.ItemLive do
     socket =
       socket
       |> assign(cart: cart)
-      |> push_event("hideModal", %{})
+      |> push_event("hide-modal", %{})
 
     {:noreply, socket}
   end
 
   @impl true
   def handle_event("hide-modal", _params, socket) do
-    socket = socket |> push_event("hideModal", %{})
+    socket = socket |> push_event("hide-modal", %{})
 
     {:noreply, socket}
   end
@@ -128,7 +128,7 @@ defmodule Tq2Web.Store.ItemLive do
          } = socket,
          quantity
        ) do
-    push_event(socket, "showModal", %{})
+    push_event(socket, "show-modal", %{})
   end
 
   defp show_modal_or_redirect(

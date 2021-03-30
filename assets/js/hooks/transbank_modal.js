@@ -15,6 +15,6 @@ export const TransbankModal = {
   },
 
   mounted () {
-    this.handleEvent('openModal', data => this.init(data))
+    this.handleEvent('open-modal', data => this.init(data))
   }
 }

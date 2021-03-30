@@ -13,13 +13,13 @@ export const Modal = {
   },
 
   handleShowModal ($dialog) {
-    this.handleEvent('showModal', () => {
+    this.handleEvent('show-modal', () => {
       $dialog.modal('show')
     })
   },
 
   handleHideModal ($dialog) {
-    this.handleEvent('hideModal', () => {
+    this.handleEvent('hide-modal', () => {
       $dialog.on('hidden.bs.modal', () => {
         this.pushEvent('redirect')
       })
