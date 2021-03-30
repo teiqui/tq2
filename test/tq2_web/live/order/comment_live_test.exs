@@ -50,6 +50,7 @@ defmodule Tq2Web.Order.CommentLiveTest do
 
       # We must test it after, so we get the broadcasted message.
       assert render(comment_live) =~ "Test message"
+      assert render(comment_live) =~ "phx-hook=\"ScrollIntoView\""
       refute render(comment_live) =~ "No messages yet"
       refute render(comment_live) =~ "The store owner must enable notifications"
     end

@@ -6,6 +6,7 @@ import {License} from './hooks/license'
 import {Modal} from './hooks/modal'
 import {Notification} from './hooks/notification'
 import {ResetCommentBodyInput} from './hooks/reset_comment_body_input'
+import {ScrollIntoView} from './hooks/scroll_into_view'
 import {ScrollToTop} from './hooks/scroll_to_top'
 import {Share} from './hooks/share'
 import {ShrinkOnScroll} from './hooks/shrink_on_scroll'
@@ -24,6 +25,7 @@ export const Hooks = {
   Modal,
   Notification,
   ResetCommentBodyInput,
+  ScrollIntoView,
   ScrollToTop,
   Share,
   ShrinkOnScroll,

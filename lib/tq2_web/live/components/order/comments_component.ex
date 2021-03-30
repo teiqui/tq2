@@ -121,4 +121,10 @@ defmodule Tq2Web.Order.CommentsComponent do
   defp comment_class(_assigns, _comment) do
     "bg-light mr-5"
   end
+
+  defp maybe_scroll_hook(%{id: id}, %{id: id}) do
+    raw("phx-hook=\"ScrollIntoView\"")
+  end
+
+  defp maybe_scroll_hook(_comment, _last_comment), do: nil
 end

@@ -11,7 +11,9 @@
             <%= originator_name assigns, comment %>
           <% end %>
 
-          <div id="comment-<%= comment.id %>" class="card card-body py-2 mb-2 <%= comment_class(assigns, comment) %>">
+          <div id="comment-<%= comment.id %>"
+               class="card card-body py-2 mb-2 <%= comment_class(assigns, comment) %>"
+               <%= maybe_scroll_hook(comment, @last_comment) %>>
             <p class="mb-1">
               <%= comment.body %>
             </p>

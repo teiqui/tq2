@@ -215,6 +215,7 @@ defmodule Tq2Web.Store.OrderLiveTest do
 
       # We must test it after, so we get the broadcasted message.
       assert render(order_live) =~ "Test message"
+      assert render(order_live) =~ "phx-hook=\"ScrollIntoView\""
       refute render(order_live) =~ "No messages yet"
     end
 
