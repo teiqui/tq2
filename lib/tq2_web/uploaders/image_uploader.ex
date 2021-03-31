@@ -7,6 +7,7 @@ defmodule Tq2.ImageUploader do
   @extension_whitelist ~w(.jpg .jpeg .gif .png .webp)
   @output_extension :png
   @versions [:original, :thumb, :thumb_2x, :preview, :preview_2x, :og]
+  @memory_limit_opts "-limit memory 32MiB -limit map 32MiB"
 
   def validate({file, _}) do
     file_extension = file.file_name |> Path.extname() |> String.downcase()
@@ -15,27 +16,32 @@ defmodule Tq2.ImageUploader do
   end
 
   def transform(:thumb, _) do
-    {:convert, "-thumbnail 150x150^ -gravity center -extent 150x150 -format png",
+    {:convert,
+     "#{@memory_limit_opts} -thumbnail 150x150^ -gravity center -extent 150x150 -format png",
      @output_extension}
   end
 
   def transform(:thumb_2x, _) do
-    {:convert, "-thumbnail 300x300^ -gravity center -extent 300x300 -format png",
+    {:convert,
+     "#{@memory_limit_opts} -thumbnail 300x300^ -gravity center -extent 300x300 -format png",
      @output_extension}
   end
 
   def transform(:preview, _) do
-    {:convert, "-thumbnail 280x280^ -gravity center -extent 280x280 -format png",
+    {:convert,
+     "#{@memory_limit_opts} -thumbnail 280x280^ -gravity center -extent 280x280 -format png",
      @output_extension}
   end
 
   def transform(:preview_2x, _) do
-    {:convert, "-thumbnail 560x560^ -gravity center -extent 560x560 -format png",
+    {:convert,
+     "#{@memory_limit_opts} -thumbnail 560x560^ -gravity center -extent 560x560 -format png",
      @output_extension}
   end
 
   def transform(:og, _) do
-    {:convert, "-thumbnail 480x480^ -gravity center -extent 480x480 -format png",
+    {:convert,
+     "#{@memory_limit_opts} -thumbnail 480x480^ -gravity center -extent 480x480 -format png",
      @output_extension}
   end
 

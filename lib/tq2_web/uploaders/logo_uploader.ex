@@ -7,6 +7,7 @@ defmodule Tq2.LogoUploader do
   @extension_whitelist ~w(.jpg .jpeg .gif .png .webp)
   @output_extension :png
   @versions [:original, :thumb, :thumb_2x, :og]
+  @memory_limit_opts "-limit memory 32MiB -limit map 32MiB"
 
   def validate({file, _}) do
     file_extension = file.file_name |> Path.extname() |> String.downcase()
@@ -15,16 +16,20 @@ defmodule Tq2.LogoUploader do
   end
 
   def transform(:thumb, _) do
-    {:convert, "-thumbnail 70x70^ -gravity center -extent 70x70 -format png", @output_extension}
+    {:convert,
+     "#{@memory_limit_opts} -thumbnail 70x70^ -gravity center -extent 70x70 -format png",
+     @output_extension}
   end
 
   def transform(:thumb_2x, _) do
-    {:convert, "-thumbnail 140x140^ -gravity center -extent 140x140 -format png",
+    {:convert,
+     "#{@memory_limit_opts} -thumbnail 140x140^ -gravity center -extent 140x140 -format png",
      @output_extension}
   end
 
   def transform(:og, _) do
-    {:convert, "-thumbnail 480x480^ -gravity center -extent 480x480 -format png",
+    {:convert,
+     "#{@memory_limit_opts} -thumbnail 480x480^ -gravity center -extent 480x480 -format png",
      @output_extension}
   end
 
