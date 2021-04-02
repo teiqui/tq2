@@ -20,7 +20,9 @@ defmodule Tq2.News do
 
   """
   def list_notes(params) do
-    Note |> Repo.paginate(params)
+    Note
+    |> order_by(desc: :publish_at)
+    |> Repo.paginate(params)
   end
 
   @doc """
