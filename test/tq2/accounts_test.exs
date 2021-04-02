@@ -30,6 +30,18 @@ defmodule Tq2.AccountsTest do
       account
     end
 
+    test "stream_accounts/0 returns stream to all accounts" do
+      account = account_fixture()
+      default_account = Tq2.Repo.get_by!(Account, name: "test_account")
+
+      Tq2.Repo.transaction(fn ->
+        assert Enum.sort(Enum.map(Enum.to_list(Accounts.stream_accounts()), & &1.id)) == [
+                 default_account.id,
+                 account.id
+               ]
+      end)
+    end
+
     test "list_accounts/1 returns all accounts" do
       account = account_fixture()
       default_account = Tq2.Repo.get_by!(Account, name: "test_account")

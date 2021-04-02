@@ -1,0 +1,74 @@
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new translations manually only if they're dynamic
+## translations that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here as no
+## effect: edit them in PO (.po) files instead.
+msgid ""
+msgstr ""
+
+msgid "Are you sure?"
+msgstr ""
+
+msgid "Back"
+msgstr ""
+
+msgid "Body"
+msgstr ""
+
+msgid "Create"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Edit note"
+msgstr ""
+
+msgid "Let's create one..."
+msgstr ""
+
+msgid "Looks like you have no notes."
+msgstr ""
+
+msgid "New note"
+msgstr ""
+
+msgid "Note created successfully."
+msgstr ""
+
+msgid "Note deleted successfully."
+msgstr ""
+
+msgid "Note updated successfully."
+msgstr ""
+
+msgid "Notes"
+msgstr ""
+
+msgid "Oops, something went wrong! Please check the errors below."
+msgstr ""
+
+msgid "Publish at"
+msgstr ""
+
+msgid "Show"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Update"
+msgstr ""
+
+msgid "240 characters are recommended"
+msgstr ""
+
+msgid "65 characters are recommended"
+msgstr ""

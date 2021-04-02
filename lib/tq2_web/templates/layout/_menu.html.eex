@@ -176,6 +176,13 @@
                         icon_class: "btn-menu-lg text-dark border-dark",
                         text_class: "text-dark mt-2" %>
         </div>
+        <div class="mr-4">
+          <%= main_item text: dgettext("notes", "Notes"),
+                        to: Routes.note_path(@conn, :index),
+                        icon: "newspaper",
+                        icon_class: "btn-menu-lg text-dark border-dark",
+                        text_class: "text-dark mt-2" %>
+        </div>
       <% end %>
     </div>
 

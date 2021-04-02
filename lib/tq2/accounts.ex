@@ -12,6 +12,21 @@ defmodule Tq2.Accounts do
   alias Tq2.Accounts.{Account, License}
 
   @doc """
+  Returns the all accounts as a stream.
+
+  ## Examples
+
+      iex> stream_accounts(%{})
+      %Stream{}
+
+  """
+  def stream_accounts() do
+    Account
+    |> order_by(desc: :inserted_at)
+    |> Repo.stream()
+  end
+
+  @doc """
   Returns the list of accounts.
 
   ## Examples

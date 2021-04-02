@@ -1,0 +1,75 @@
+## "msgid"s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove "msgid"s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use "mix gettext.extract --merge" or "mix gettext.merge"
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: es\n"
+"Plural-Forms: nplurals=2\n"
+
+msgid "Are you sure?"
+msgstr "¿Está seguro de eliminar la novedad?"
+
+msgid "Back"
+msgstr "Listado de novedades"
+
+msgid "Body"
+msgstr "Mensaje"
+
+msgid "Create"
+msgstr "Crear novedad"
+
+msgid "Delete"
+msgstr "Eliminar novedad"
+
+msgid "Edit"
+msgstr "Editar novedad"
+
+msgid "Edit note"
+msgstr "Editar novedad"
+
+msgid "Let's create one..."
+msgstr "Vamos, crea una..."
+
+msgid "Looks like you have no notes."
+msgstr "Parece que no hay ninguna novedad."
+
+msgid "New note"
+msgstr "Nueva novedad"
+
+msgid "Note created successfully."
+msgstr "Novedad creada correctamente."
+
+msgid "Note deleted successfully."
+msgstr "Novedad eliminada correctamente."
+
+msgid "Note updated successfully."
+msgstr "Novedad actualizada correctamente."
+
+msgid "Notes"
+msgstr "Novedades"
+
+msgid "Oops, something went wrong! Please check the errors below."
+msgstr "Ups, parece que algo no salió bien. Por favor, revisa los errores."
+
+msgid "Publish at"
+msgstr "Fecha de publicación"
+
+msgid "Show"
+msgstr "Ver novedad"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Update"
+msgstr "Actualizar novedad"
+
+msgid "240 characters are recommended"
+msgstr "Se recomiendan hasta 240 caracteres"
+
+msgid "65 characters are recommended"
+msgstr "Se recomiendan hasta 65 caracteres"

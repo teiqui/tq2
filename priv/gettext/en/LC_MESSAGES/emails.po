@@ -148,3 +148,6 @@ msgstr ""
 
 msgid "link"
 msgstr ""
+
+msgid "We have news for you!"
+msgstr ""

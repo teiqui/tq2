@@ -6,6 +6,7 @@ defmodule Tq2.Notifications.EmailTest do
   import Tq2.Utils.Urls, only: [store_uri: 0]
 
   alias Tq2.Accounts.User
+  alias Tq2.News.Note
   alias Tq2.Notifications.Email
   alias Tq2.Payments.Payment
   alias Tq2.Sales.{Customer, Order}
@@ -183,6 +184,18 @@ defmodule Tq2.Notifications.EmailTest do
     assert email.text_body =~ url
   end
 
+  test "new note user email" do
+    note = note()
+    user = user()
+    email = Email.new_note(note, user)
+
+    assert email.to == user.email
+    assert email.html_body =~ user.name
+    assert email.html_body =~ note.title
+    assert email.text_body =~ user.name
+    assert email.text_body =~ note.title
+  end
+
   defp user do
     %User{
       name: "John",
@@ -239,6 +252,14 @@ defmodule Tq2.Notifications.EmailTest do
           inserted_at: Timex.now()
         }
       ]
+    }
+  end
+
+  defp note do
+    %Note{
+      title: "some title",
+      body: "some body",
+      publish_at: Date.utc_today()
     }
   end
 

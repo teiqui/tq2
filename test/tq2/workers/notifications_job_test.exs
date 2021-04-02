@@ -1,5 +1,6 @@
 defmodule Tq2.Workers.NotificationsJobTest do
   use Tq2.DataCase
+  use Bamboo.Test
 
   import Mock
 
@@ -7,12 +8,15 @@ defmodule Tq2.Workers.NotificationsJobTest do
     only: [
       create_cart: 0,
       create_customer_subscription: 1,
+      create_note: 0,
       create_order: 0,
       create_user_subscription: 1,
+      default_account: 0,
       user_fixture: 1
     ]
 
   alias Tq2.Messages
+  alias Tq2.Notifications.Email
   alias Tq2.Workers.NotificationsJob
 
   describe "notifications" do
@@ -109,6 +113,30 @@ defmodule Tq2.Workers.NotificationsJobTest do
           )
 
         assert_called(WebPushEncryption.send_web_push(:_, :_))
+      end
+    end
+
+    test "perform/2 should notify note" do
+      mock = fn _body, _subscription -> {:ok, %{}} end
+      %{note: note} = create_note()
+
+      account = default_account()
+      user = user_fixture(%Tq2.Accounts.Session{account: account})
+
+      with_mock WebPushEncryption, send_web_push: mock do
+        NotificationsJob.perform("new_note", note.id)
+
+        assert_not_called(WebPushEncryption.send_web_push(:_, :_))
+
+        assert_delivered_email(Email.new_note(note, user))
+
+        create_user_subscription(user.id)
+
+        NotificationsJob.perform("new_note", note.id)
+
+        assert_called(WebPushEncryption.send_web_push(:_, :_))
+
+        assert_delivered_email(Email.new_note(note, user))
       end
     end
 

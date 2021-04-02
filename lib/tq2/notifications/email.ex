@@ -5,6 +5,7 @@ defmodule Tq2.Notifications.Email do
   import Tq2Web.Gettext
 
   alias Tq2.Accounts.User
+  alias Tq2.News.Note
   alias Tq2.Sales.{Customer, Order}
   alias Tq2.Transactions.Cart
 
@@ -104,6 +105,15 @@ defmodule Tq2.Notifications.Email do
       shipping: shipping,
       store: account.store
     )
+  end
+
+  def new_note(%Note{} = note, %User{} = user) do
+    subject = dgettext("emails", "We have news for you!")
+
+    base_email()
+    |> to(user.email)
+    |> subject(subject)
+    |> render(:new_note, note: note, user: user)
   end
 
   defp base_email() do

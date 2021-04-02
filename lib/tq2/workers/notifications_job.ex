@@ -2,13 +2,11 @@ defmodule Tq2.Workers.NotificationsJob do
   import Tq2.Utils.Urls, only: [app_uri: 0, store_uri: 0]
   import Tq2Web.Gettext
 
-  alias Tq2.Accounts
-  alias Tq2.Messages
+  alias Tq2.{Accounts, Messages, News, Notifications, Sales}
   alias Tq2.Messages.Comment
-  alias Tq2.Notifications
-  alias Tq2.Notifications.Subscription
+  alias Tq2.News.Note
+  alias Tq2.Notifications.{Email, Mailer, Subscription}
   alias Tq2.Repo
-  alias Tq2.Sales
   alias Tq2.Sales.Order
   alias Tq2.Shops.Store
   alias Tq2Web.Router.Helpers, as: Routes
@@ -33,6 +31,12 @@ defmodule Tq2.Workers.NotificationsJob do
     body = body(order)
 
     Enum.each(user.subscriptions, &send_web_push(body, &1))
+  end
+
+  def perform("new_note", note_id) do
+    note_id
+    |> News.get_note!()
+    |> notify_new_note()
   end
 
   def perform("notify_abandoned_cart_to_user", account_id, cart_token) do
@@ -102,6 +106,15 @@ defmodule Tq2.Workers.NotificationsJob do
     })
   end
 
+  defp body(%Note{} = note) do
+    Jason.encode!(%{
+      title: note.title,
+      body: note.body,
+      tag: "note-notification-#{note.id}",
+      lang: Gettext.get_locale(Tq2Web.Gettext)
+    })
+  end
+
   defp handle_response({:ok, _response} = result, %Subscription{error_count: 0}) do
     result
   end
@@ -155,5 +168,46 @@ defmodule Tq2.Workers.NotificationsJob do
 
   defp notify_abandoned_cart_to_customer(%{customer: customer} = cart) do
     Tq2.Notifications.send_cart_reminder(cart, customer)
+  end
+
+  defp notify_new_note(%Note{} = note) do
+    Repo.transaction(
+      fn ->
+        Accounts.stream_accounts()
+        |> iterate_stream(note)
+        |> Stream.run()
+      end,
+      timeout: :infinity
+    )
+  end
+
+  defp iterate_stream(stream, note) do
+    # This disgusting piece allow us to test it without too much hack.
+    #
+    # For some explanation see:
+    #
+    # - https://elixirforum.com/t/what-is-a-proper-way-to-test-repo-stream-with-task-async-stream/6955
+    # - https://qertoip.medium.com/making-sense-of-ecto-2-sql-sandbox-and-connection-ownership-modes-b45c5337c6b7
+    # - https://github.com/jjh42/mock/issues/79
+    case Application.get_env(:tq2, :env) do
+      :test ->
+        stream |> Stream.each(&deliver_note(&1, note))
+
+      _ ->
+        stream |> Task.async_stream(&deliver_note(&1, note), max_concurrency: 10)
+    end
+  end
+
+  defp deliver_note(account, note) do
+    # Preload can not be done with streams
+    account = Repo.preload(account, owner: :subscriptions)
+    body = body(note)
+
+    account.owner.subscriptions
+    |> Enum.each(&send_web_push(body, &1))
+
+    note
+    |> Email.new_note(account.owner)
+    |> Mailer.deliver_later!()
   end
 end

@@ -1,0 +1,5 @@
+<%= dgettext("emails", "Hello %{name}!", name: @user.name) %>
+
+<%= @note.title %>
+
+<%= @note.body %>

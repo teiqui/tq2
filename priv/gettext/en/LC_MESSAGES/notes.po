@@ -1,0 +1,75 @@
+## "msgid"s in this file come from POT (.pot) files.
+##
+## Do not add, change, or remove "msgid"s manually here as
+## they're tied to the ones in the corresponding POT file
+## (with the same domain).
+##
+## Use "mix gettext.extract --merge" or "mix gettext.merge"
+## to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: en\n"
+"Plural-Forms: nplurals=2\n"
+
+msgid "Are you sure?"
+msgstr ""
+
+msgid "Back"
+msgstr ""
+
+msgid "Body"
+msgstr ""
+
+msgid "Create"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Edit note"
+msgstr ""
+
+msgid "Let's create one..."
+msgstr ""
+
+msgid "Looks like you have no notes."
+msgstr ""
+
+msgid "New note"
+msgstr ""
+
+msgid "Note created successfully."
+msgstr ""
+
+msgid "Note deleted successfully."
+msgstr ""
+
+msgid "Note updated successfully."
+msgstr ""
+
+msgid "Notes"
+msgstr ""
+
+msgid "Oops, something went wrong! Please check the errors below."
+msgstr ""
+
+msgid "Publish at"
+msgstr ""
+
+msgid "Show"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Update"
+msgstr ""
+
+msgid "240 characters are recommended"
+msgstr ""
+
+msgid "65 characters are recommended"
+msgstr ""

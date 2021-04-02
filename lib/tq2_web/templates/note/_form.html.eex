@@ -1,0 +1,23 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger rounded-pill">
+      <p class="mb-0"><%= dgettext("notes", "Oops, something went wrong! Please check the errors below.") %></p>
+    </div>
+  <% end %>
+
+  <%= input f, :title, dgettext("notes", "Title"), input_html: [
+    hint: dgettext("notes", "65 characters are recommended"),
+    autofocus: true
+  ] %>
+  <%= input f, :body, dgettext("notes", "Body"), using: :textarea, input_html: [
+    hint: dgettext("notes", "240 characters are recommended"),
+    rows: 4
+  ] %>
+  <%= input f, :publish_at, dgettext("notes", "Publish at"), using: :date_input %>
+
+  <%= lock_version_input f, assigns[:note] %>
+
+  <div class="text-right">
+    <%= submit_button assigns[:note] %>
+  </div>
+<% end %>

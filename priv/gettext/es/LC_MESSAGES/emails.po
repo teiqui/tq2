@@ -148,3 +148,6 @@ msgstr "Dejaste una compra incompleta en nuestra tienda"
 
 msgid "link"
 msgstr "enlace"
+
+msgid "We have news for you!"
+msgstr "¡Tenemos novedades para ti!"

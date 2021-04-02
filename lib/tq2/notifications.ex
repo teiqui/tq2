@@ -3,6 +3,7 @@ defmodule Tq2.Notifications do
 
   alias Tq2.Accounts.User
   alias Tq2.Messages.Comment
+  alias Tq2.News.Note
   alias Tq2.Notifications.{Mailer, Email}
   alias Tq2.Repo
   alias Tq2.Sales.{Customer, Order}
@@ -148,6 +149,21 @@ defmodule Tq2.Notifications do
     ])
 
     {:ok, comment}
+  end
+
+  @doc """
+  Schedule job to send a new note web push and email notification
+
+  ## Examples
+
+      iex> notify_new_note(%Note{})
+      {:ok, %Note{}}
+
+  """
+  def notify_new_note(%Note{} = note) do
+    Exq.enqueue(Exq, "default", Tq2.Workers.NotificationsJob, ["new_note", note.id])
+
+    {:ok, note}
   end
 
   alias Tq2.Notifications.Subscription

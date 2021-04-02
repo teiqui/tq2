@@ -216,6 +216,18 @@ defmodule Tq2.Fixtures do
     item
   end
 
+  def create_note do
+    {:ok, note} =
+      create_session()
+      |> Tq2.News.create_note(%{
+        title: "some title",
+        body: "some body",
+        publish_at: Date.utc_today()
+      })
+
+    %{note: note}
+  end
+
   def transbank_app do
     mock = [check_credentials: fn _, _ -> :ok end]
 

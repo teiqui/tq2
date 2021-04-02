@@ -132,6 +132,9 @@ defmodule Tq2Web.Router do
     resources "/items", ItemController, only: [:index, :show, :delete]
     live "/import", Inventory.ImportLive, :index
 
+    # News
+    resources "/notes", NoteController
+
     # Shops
     live "/store/edit/:section", Shop.StoreLive, :index, session: @session_extras.current_session
 

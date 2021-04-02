@@ -1,0 +1,9 @@
+<h2><%= dgettext("emails", "Hello %{name}!", name: @user.name) %></h2>
+
+<h4>
+  <%= @note.title %>
+</h4>
+
+<div>
+  <%= text_to_html @note.body %>
+</div>
