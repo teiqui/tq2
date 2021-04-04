@@ -30,7 +30,7 @@ defmodule Tq2.Sales.Order do
     has_many :originator_ties, Tie, foreign_key: :originator_id
     has_many :children, through: [:originator_ties, :order]
     has_many :parents, through: [:ties, :originator]
-    has_many :comments, Comment
+    has_many :comments, Comment, preload_order: [asc: :inserted_at]
 
     timestamps type: :utc_datetime
   end
