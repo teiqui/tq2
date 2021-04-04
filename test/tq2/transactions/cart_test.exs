@@ -1,7 +1,14 @@
 defmodule Tq2.Transactions.CartTest do
   use Tq2.DataCase, async: true
 
-  import Tq2.Fixtures, only: [default_account: 0, default_store: 0, create_session: 0]
+  import Tq2.Fixtures,
+    only: [
+      app_mercado_pago_fixture: 0,
+      create_customer: 0,
+      create_session: 0,
+      default_account: 0,
+      default_store: 0
+    ]
 
   describe "cart" do
     alias Tq2.Transactions.Cart
@@ -216,7 +223,11 @@ defmodule Tq2.Transactions.CartTest do
     test "can_be_copied?/3 returns true when previous cart has _current_ information" do
       store = default_store()
       cart = %Cart{data: %Tq2.Transactions.Data{}}
-      other = %Cart{data: %Tq2.Transactions.Data{}}
+
+      other = %Cart{
+        customer: create_customer(),
+        data: %Tq2.Transactions.Data{payment: "cash"}
+      }
 
       assert Cart.can_be_copied?(store, cart, other)
 
@@ -230,7 +241,9 @@ defmodule Tq2.Transactions.CartTest do
       cart = %Cart{data: %Tq2.Transactions.Data{}}
 
       other = %Cart{
+        customer: create_customer(),
         data: %Tq2.Transactions.Data{
+          payment: "cash",
           shipping: List.first(store.configuration.shippings)
         }
       }
@@ -240,6 +253,40 @@ defmodule Tq2.Transactions.CartTest do
       other = %{other | data: %Tq2.Transactions.Data{shipping: %Tq2.Shops.Shipping{id: "old"}}}
 
       refute Cart.can_be_copied?(store, cart, other)
+    end
+
+    test "can_be_copied?/3 checks available payment" do
+      store = default_store()
+      cart = %Cart{data: %Tq2.Transactions.Data{}}
+
+      other = %Cart{
+        customer: create_customer(),
+        data: %Tq2.Transactions.Data{payment: "mercado_pago"}
+      }
+
+      refute Cart.can_be_copied?(store, cart, other)
+
+      app_mercado_pago_fixture()
+
+      assert Cart.can_be_copied?(store, cart, other)
+    end
+
+    test "can_be_copied?/3 checks customer" do
+      customer = %{create_customer() | address: nil, phone: nil}
+      store = default_store()
+      cart = %Cart{data: %Tq2.Transactions.Data{}}
+
+      other = %Cart{
+        customer: customer,
+        data: %Tq2.Transactions.Data{payment: "cash"}
+      }
+
+      refute Cart.can_be_copied?(store, cart, other)
+
+      customer = %{customer | address: "Awesome st", phone: "555-5555"}
+      other = %{other | customer: customer}
+
+      assert Cart.can_be_copied?(store, cart, other)
     end
 
     test "extract_data/3 returns data map" do
