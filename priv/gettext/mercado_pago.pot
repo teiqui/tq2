@@ -34,3 +34,9 @@ msgstr ""
 
 msgid "link"
 msgstr ""
+
+msgid "You can also see our %{tutorial}."
+msgstr ""
+
+msgid "tutorial"
+msgstr ""
