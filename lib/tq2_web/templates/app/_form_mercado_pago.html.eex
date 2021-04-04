@@ -17,3 +17,5 @@
     <%= submit_button assigns[:app] %>
   </div>
 <% end %>
+
+<%= render(YoutubeModal, "show.html", title: translate_app(@app_name), url: "https://www.youtube.com/embed/4QdUjnb0V5A") %>

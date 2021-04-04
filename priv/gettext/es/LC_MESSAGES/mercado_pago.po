@@ -35,3 +35,9 @@ msgstr "Para utilizar MercadoPago deberás crear una aplicación siguiendo el si
 
 msgid "link"
 msgstr "enlace"
+
+msgid "You can also see our %{tutorial}."
+msgstr "También puedes ver nuestro %{tutorial}."
+
+msgid "tutorial"
+msgstr "tutorial"

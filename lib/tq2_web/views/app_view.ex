@@ -14,6 +14,8 @@ defmodule Tq2Web.AppView do
   alias Tq2.Gateways.MercadoPago.Credential, as: MPCredential
   alias Tq2.Gateways.Transbank, as: TbkClient
 
+  alias Tq2Web.YoutubeModalView, as: YoutubeModal
+
   @app_names ~w(conekta mercado_pago transbank wire_transfer)
   @app_modules %{
     "conekta" => CktApp,
@@ -161,38 +163,29 @@ defmodule Tq2Web.AppView do
   end
 
   defp instructions(%{country: country}, "mercado_pago") do
-    link =
-      link(
-        dgettext("mercado_pago", "link"),
-        to: MPCredential.credential_url(country),
-        target: "_blank"
-      )
-      |> safe_to_string()
-
-    content_tag(:p, class: "lead") do
-      raw(
-        dgettext(
-          "mercado_pago",
-          "To use MercadoPago you have to create an application following the next %{link} and then copy the production Access Token in the field below.",
-          link: link
-        )
-      )
-    end
+    instructions_to_paragraph([
+      mercado_pago_link_to_credentials(country),
+      mercado_pago_guide_text()
+    ])
   end
 
   defp instructions(_account, "conekta") do
+    instructions_to_paragraph([
+      conekta_sign_up_text(),
+      conekta_api_key_text(),
+      conekta_guide_text()
+    ])
+  end
+
+  defp instructions(_account, _), do: nil
+
+  defp instructions_to_paragraph(instructions) do
     content_tag(:p, class: "lead mt-4 mx-4") do
-      [
-        conekta_sign_up_text(),
-        conekta_api_key_text(),
-        conekta_guide_text()
-      ]
+      instructions
       |> Enum.join("<br>")
       |> raw()
     end
   end
-
-  defp instructions(_account, _), do: nil
 
   defp conekta_sign_up_text do
     sign_up_link =
@@ -223,9 +216,39 @@ defmodule Tq2Web.AppView do
     tutorial =
       "conekta"
       |> dgettext("tutorial")
-      |> link(to: "#", data: [toggle: "modal", target: "#youtube-tutorial"])
+      |> link_to_youtube_modal()
       |> safe_to_string()
 
     "conekta" |> dgettext("You can also see our %{tutorial}.", tutorial: tutorial)
+  end
+
+  defp mercado_pago_link_to_credentials(country) do
+    link =
+      link(
+        dgettext("mercado_pago", "link"),
+        to: MPCredential.credential_url(country),
+        target: "_blank"
+      )
+      |> safe_to_string()
+
+    dgettext(
+      "mercado_pago",
+      "To use MercadoPago you have to create an application following the next %{link} and then copy the production Access Token in the field below.",
+      link: link
+    )
+  end
+
+  defp mercado_pago_guide_text do
+    tutorial =
+      "mercado_pago"
+      |> dgettext("tutorial")
+      |> link_to_youtube_modal()
+      |> safe_to_string()
+
+    "mercado_pago" |> dgettext("You can also see our %{tutorial}.", tutorial: tutorial)
+  end
+
+  defp link_to_youtube_modal(text) do
+    link(text, to: "#", data: [toggle: "modal", target: "#youtube-tutorial"])
   end
 end

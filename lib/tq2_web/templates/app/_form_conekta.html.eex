@@ -18,23 +18,4 @@
   </div>
 <% end %>
 
-<div class="modal fade" id="youtube-tutorial" role="dialog" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog h-100" role="document">
-    <div class="modal-content h-100">
-      <div class="modal-header">
-        <h5 class="modal-title"><%= translate_app(@app_name) %></h5>
-        <a href="#" class="close font-weight-semi-bold text-decoration-none" data-dismiss="modal">
-          &times;
-        </a>
-      </div>
-      <div class="modal-body">
-        <iframe type="text/html"
-                width="100%"
-                class="h-100"
-                allowfullscreen=""
-                src="https://www.youtube.com/embed/H7mH6Sq8y_A"
-                frameborder="0"></iframe>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render(YoutubeModal, "show.html", title: translate_app(@app_name), url: "https://www.youtube.com/embed/H7mH6Sq8y_A") %>
