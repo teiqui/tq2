@@ -59,6 +59,24 @@ defmodule Tq2.Shops.Store do
     |> String.replace(~r/(\s|-)+/, "_")
   end
 
+  def available_payment_methods(%Store{} = store) do
+    main_methods =
+      if store.configuration.pickup || store.configuration.pay_on_delivery do
+        ["cash"]
+      else
+        []
+      end
+
+    store = Tq2.Repo.preload(store, :account)
+
+    app_names =
+      store.account
+      |> Tq2.Apps.payment_apps()
+      |> Enum.map(& &1.name)
+
+    main_methods ++ app_names
+  end
+
   defp put_uuid(%Store{uuid: nil} = store) do
     store |> Map.put(:uuid, Ecto.UUID.generate())
   end

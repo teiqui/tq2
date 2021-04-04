@@ -134,7 +134,19 @@ defmodule Tq2.Transactions.Cart do
   end
 
   def can_be_copied?(store, %Cart{data: %{copied: false}}, other) do
-    case other.data && other.data.shipping do
+    cart_shipping_is_available_in_store?(other, store) &&
+      cart_payment_is_available_in_store?(other, store) &&
+      cart_customer_is_valid?(other, store)
+  end
+
+  def can_be_copied?(_store, _cart, _other), do: false
+
+  defp cart_payment_is_available_in_store?(cart, store) do
+    cart.data.payment in Tq2.Shops.Store.available_payment_methods(store)
+  end
+
+  defp cart_shipping_is_available_in_store?(cart, store) do
+    case cart.data && cart.data.shipping do
       nil ->
         true
 
@@ -143,7 +155,11 @@ defmodule Tq2.Transactions.Cart do
     end
   end
 
-  def can_be_copied?(_store, _cart, _other), do: false
+  defp cart_customer_is_valid?(%{customer: customer}, store) do
+    customer
+    |> Tq2.Sales.change_customer(%{}, store)
+    |> Map.get(:valid?)
+  end
 
   def extract_data(store, %Cart{data: data}, %Cart{data: previous_data}) do
     shipping = extract_shipping(store, previous_data)

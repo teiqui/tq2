@@ -1,6 +1,8 @@
 defmodule Tq2.Shops.StoreTest do
   use Tq2.DataCase, async: true
 
+  import Tq2.Fixtures, only: [app_wire_transfer_fixture: 0]
+
   describe "store" do
     alias Tq2.Shops.Store
 
@@ -108,6 +110,30 @@ defmodule Tq2.Shops.StoreTest do
 
     test "slugified" do
       assert "s_l_ugified" == Store.slugified("S L Ugi%%^fied")
+    end
+
+    test "available_payment_methods/1 returns only cash" do
+      store = %Store{account: default_account()} |> Map.merge(@valid_attrs)
+
+      assert ["cash"] = Store.available_payment_methods(store)
+    end
+
+    test "available_payment_methods/1 returns empty list" do
+      store = %Store{
+        account: default_account(),
+        account_id: 1,
+        configuration: %{pickup: false, pay_on_delivery: false}
+      }
+
+      assert [] = Store.available_payment_methods(store)
+    end
+
+    test "available_payment_methods/1 returns app names" do
+      app_wire_transfer_fixture()
+
+      store = %Store{account: default_account()} |> Map.merge(@valid_attrs)
+
+      assert ["cash", "wire_transfer"] = Store.available_payment_methods(store)
     end
   end
 
