@@ -1,19 +1,27 @@
 <div class="px-3">
-  <%= link to: Routes.item_path(@socket, :index) do %>
-    <h2 class="h5 text-primary mb-5">
-      <span class="mr-3">
-        <i class="bi-chevron-left"></i>
-      </span>
+  <div class="d-flex justify-content-between">
+    <%= link to: Routes.item_path(@socket, :index) do %>
+      <h2 class="h5 text-primary mb-5">
+        <span class="mr-3">
+          <i class="bi-chevron-left"></i>
+        </span>
 
-      <%= if @item do %>
-        <%= dgettext("items", "Edit item") %>
-      <% else %>
-        <%= dgettext("items", "New item") %>
-      <% end %>
-    </h2>
-  <% end %>
+        <%= if @item do %>
+          <%= dgettext("items", "Edit item") %>
+        <% else %>
+          <%= dgettext("items", "New item") %>
+        <% end %>
+      </h2>
+    <% end %>
+
+    <div class=" h1 mb-0 mt-n1">
+      <i class="bi-star<%= if favorite?(@changeset), do: "-fill text-warning" %>" phx-click="toggle-favorite"></i>
+    </div>
+  </div>
 
   <%= f = form_for @changeset, "#", [id: "item-form", phx_change: "validate", phx_submit: "save"] %>
+    <%= hidden_input f, :favorite %>
+
     <div class="text-center" phx-drop-target="<%= @uploads.image.ref %>">
       <%= if Enum.empty?(@uploads.image.entries) do %>
         <div id="image-container" class="my-3" phx-hook="Upload" data-target="#<%= @uploads.image.ref %>">
@@ -90,7 +98,7 @@
       </a>
 
       <div class="collapse<%= if @show_optional_info, do: " show" %> mt-4">
-        <%= input f, :category_id, dgettext("items", "Category"), collection: categories(@session.account),
+        <%= input f, :category_id, dgettext("items", "Category"), collection: @categories,
                                                                   label_html: [class: "text-info"],
                                                                   input_html: [
                                                                     prompt: dgettext("items", "None"),

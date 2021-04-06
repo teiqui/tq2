@@ -22,6 +22,7 @@ defmodule Tq2.Inventories.Item do
     field :price, Money.Ecto.Map.Type
     field :promotional_price, Money.Ecto.Map.Type
     field :image, Tq2.ImageUploader.Type
+    field :favorite, :boolean, default: false
     field :lock_version, :integer, default: 0
 
     belongs_to :account, Account
@@ -37,6 +38,7 @@ defmodule Tq2.Inventories.Item do
     :price,
     :promotional_price,
     :category_id,
+    :favorite,
     :lock_version
   ]
   @visibilities ~w(visible hidden)

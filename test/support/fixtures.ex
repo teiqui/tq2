@@ -211,9 +211,11 @@ defmodule Tq2.Fixtures do
         }
       )
 
-    {:ok, item} = Tq2.Inventories.create_item(create_session(), attrs)
+    session = create_session()
 
-    item
+    {:ok, item} = Tq2.Inventories.create_item(session, attrs)
+
+    %{item | account: session.account}
   end
 
   def create_note do

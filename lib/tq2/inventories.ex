@@ -392,7 +392,7 @@ defmodule Tq2.Inventories do
     Item
     |> where(account_id: ^account.id)
     |> join(:left, [i], c in assoc(i, :category))
-    |> order_by(asc: :name)
+    |> order_by(desc: :favorite, asc: :name)
     |> preload([i, c], category: c)
   end
 

@@ -12,7 +12,8 @@ defmodule Tq2Web.Inventory.ItemLive do
     socket =
       socket
       |> allow_upload(:image, accept: ~w(image/*), max_entries: 1, max_file_size: 20_971_520)
-      |> assign(session: session, item: nil, tour: nil, show_optional_info: false)
+      |> assign(session: session, item: nil, show_optional_info: false, tour: nil)
+      |> load_categories()
       |> add_changeset(%{})
 
     {:ok, socket}
@@ -63,6 +64,14 @@ defmodule Tq2Web.Inventory.ItemLive do
   @impl true
   def handle_event("cancel-entry", %{"ref" => ref}, socket) do
     {:noreply, cancel_upload(socket, :image, ref)}
+  end
+
+  @impl true
+  def handle_event("toggle-favorite", _params, %{assigns: %{changeset: changeset}} = socket) do
+    changeset = changeset |> Ecto.Changeset.change(favorite: !favorite?(changeset))
+    socket = socket |> assign(:changeset, changeset)
+
+    {:noreply, socket}
   end
 
   @impl true
@@ -150,10 +159,13 @@ defmodule Tq2Web.Inventory.ItemLive do
     assign(socket, :changeset, Map.put(changeset, :action, :update))
   end
 
-  defp categories(account) do
-    account
-    |> Tq2.Inventories.list_categories()
-    |> Enum.map(&[key: &1.name, value: &1.id])
+  defp load_categories(%{assigns: %{session: %{account: account}}} = socket) do
+    categories =
+      account
+      |> Inventories.list_categories()
+      |> Enum.map(&[key: &1.name, value: &1.id])
+
+    socket |> assign(:categories, categories)
   end
 
   def lock_version_input(_, nil), do: nil
@@ -333,5 +345,9 @@ defmodule Tq2Web.Inventory.ItemLive do
 
   defp after_create_path(socket, _item) do
     Routes.item_path(socket, :index, tour: "item_created")
+  end
+
+  defp favorite?(changeset) do
+    changeset |> Ecto.Changeset.get_field(:favorite)
   end
 end
