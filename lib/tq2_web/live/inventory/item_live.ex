@@ -11,7 +11,7 @@ defmodule Tq2Web.Inventory.ItemLive do
   def mount(_params, %{"current_session" => %{} = session}, socket) do
     socket =
       socket
-      |> allow_upload(:image, accept: ~w(.jpg .jpeg .gif .png .webp), max_entries: 1)
+      |> allow_upload(:image, accept: ~w(image/*), max_entries: 1, max_file_size: 20_971_520)
       |> assign(session: session, item: nil, tour: nil, show_optional_info: false)
       |> add_changeset(%{})
 
@@ -45,6 +45,11 @@ defmodule Tq2Web.Inventory.ItemLive do
 
   @impl true
   def handle_event("validate", %{"_target" => ["image"]}, socket) do
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("validate", %{"_target" => ["item", "visibility"]}, socket) do
     {:noreply, socket}
   end
 
@@ -185,28 +190,19 @@ defmodule Tq2Web.Inventory.ItemLive do
     )
   end
 
-  defp image(nil) do
-    ~E"""
-      <svg class="rounded mb-1"
-           viewBox="0 0 100 100"
-           width="100"
-           height="100"
-           xmlns="http://www.w3.org/2000/svg"
-           focusable="false"
-           role="img"
-           aria-label="<%= dgettext("items", "New item image") %>">
-        <g>
-          <title><%= dgettext("items", "New image") %></title>
-          <rect width="100" height="100" x="0" y="0" fill="#c4c4c4"></rect>
-          <text x="50%" y="50%" text-anchor="middle" alignment-baseline="middle" fill="#838383" dy=".3em">
-            <%= dgettext("items", "New image") %>
-          </text>
-        </g>
-      </svg>
-    """
+  defp image(socket, nil) do
+    url = Routes.static_path(socket, "/images/cloud-arrow-up.svg")
+
+    img_tag(url,
+      width: "100",
+      height: "100",
+      loading: "lazy",
+      alt: dgettext("items", "Upload image"),
+      class: "rounded mb-1 bg-secondary"
+    )
   end
 
-  defp image(%Item{image: nil} = item) do
+  defp image(_socket, %Item{image: nil} = item) do
     ~E"""
       <svg class="rounded mb-1"
            viewBox="0 0 100 100"
@@ -227,7 +223,7 @@ defmodule Tq2Web.Inventory.ItemLive do
     """
   end
 
-  defp image(%Item{image: image} = item) do
+  defp image(_socket, %Item{image: image} = item) do
     url = Tq2.ImageUploader.url({image, item}, :thumb)
 
     set = %{
@@ -284,7 +280,7 @@ defmodule Tq2Web.Inventory.ItemLive do
 
   defp image_label(upload) do
     case upload.entries |> List.first() do
-      nil -> dgettext("items", "Image")
+      nil -> dgettext("items", "Upload image")
       entry -> entry.client_name
     end
   end

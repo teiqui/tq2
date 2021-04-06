@@ -142,20 +142,11 @@ msgstr "Finalizar"
 msgid "Teiqui price must be lower than regular. To get it, one customer should attract others to also buy using his link."
 msgstr "El Precio Teiqui debe ser menor al precio común. Para obtenerlo, un cliente deberá conseguir que otros compren utilizando su enlace."
 
-msgid "Complete with info about the item you want to add. Later you can edit this if needed."
-msgstr "Completa los datos del artículo que deseas cargar. Luego podrás editarlo de ser necesario."
-
 msgid "We'll add your first item, remember that you can import them from a spreadsheet."
 msgstr "Vamos a agregar tu primer artículo, recuerda que puedes importar una planilla con tus productos."
 
 msgid "There is no match for term <strong>%{term}</strong>"
 msgstr "No se encontraron coincidencias para <strong>%{term}</strong>"
-
-msgid "New image"
-msgstr "Nueva imagen"
-
-msgid "New item image"
-msgstr "Nueva imagen de artículo"
 
 msgid "Optional information"
 msgstr "Información opcional"
@@ -165,3 +156,9 @@ msgstr "Guardando..."
 
 msgid "Show item in store "
 msgstr "Mostrar artículo en tienda"
+
+msgid "Upload image"
+msgstr "Cargar imagen"
+
+msgid "Complete with info about the item you want to add. Later you can edit this if needed. Click 'Continue' to save it."
+msgstr "Completa los datos del artículo que deseas cargar. Luego podrás editarlo de ser necesario. Haz clic en 'Continuar' para guardarlo."

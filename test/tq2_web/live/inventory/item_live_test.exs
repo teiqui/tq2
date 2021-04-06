@@ -65,7 +65,7 @@ defmodule Tq2Web.Inventory.ItemLiveTest do
       {:ok, item_live, _html} = live(conn, path)
       content = render(item_live)
 
-      assert content =~ "New image"
+      assert content =~ "Upload image"
       refute content =~ "test.png"
 
       image = image_input(item_live)
@@ -84,7 +84,7 @@ defmodule Tq2Web.Inventory.ItemLiveTest do
       path = Routes.item_path(conn, :new)
       {:ok, item_live, _html} = live(conn, path)
 
-      assert render(item_live) =~ "New image"
+      assert render(item_live) =~ "Upload image"
 
       image = image_input(item_live)
 

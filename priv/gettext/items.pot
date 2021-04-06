@@ -141,19 +141,10 @@ msgstr ""
 msgid "Teiqui price must be lower than regular. To get it, one customer should attract others to also buy using his link."
 msgstr ""
 
-msgid "Complete with info about the item you want to add. Later you can edit this if needed."
-msgstr ""
-
 msgid "We'll add your first item, remember that you can import them from a spreadsheet."
 msgstr ""
 
 msgid "There is no match for term <strong>%{term}</strong>"
-msgstr ""
-
-msgid "New image"
-msgstr ""
-
-msgid "New item image"
 msgstr ""
 
 msgid "Optional information"
@@ -163,4 +154,10 @@ msgid "Saving..."
 msgstr ""
 
 msgid "Show item in store "
+msgstr ""
+
+msgid "Upload image"
+msgstr ""
+
+msgid "Complete with info about the item you want to add. Later you can edit this if needed. Click 'Continue' to save it."
 msgstr ""

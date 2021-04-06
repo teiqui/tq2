@@ -17,7 +17,7 @@
     <div class="text-center" phx-drop-target="<%= @uploads.image.ref %>">
       <%= if Enum.empty?(@uploads.image.entries) do %>
         <div id="image-container" class="my-3" phx-hook="Upload" data-target="#<%= @uploads.image.ref %>">
-          <%= image @item %>
+          <%= image @socket, @item %>
         </div>
       <% else %>
         <%= for entry <- @uploads.image.entries do %>
