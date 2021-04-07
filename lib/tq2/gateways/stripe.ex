@@ -104,7 +104,7 @@ defmodule Tq2.Gateways.Stripe do
   end
 
   defp update_license_status(%{account: account} = license, %{status: status} = attrs) do
-    account_status = if status == "locked", do: "locked", else: "active"
+    account_status = if status in ["canceled", "locked"], do: "locked", else: "active"
 
     Ecto.Multi.new()
     |> Ecto.Multi.update(:account, Account.changeset(account, %{status: account_status}))
@@ -170,6 +170,13 @@ defmodule Tq2.Gateways.Stripe do
       status: @statuses_for_license[status],
       subscription_id: id,
       paid_until: DateTime.from_unix!(ts)
+    }
+  end
+
+  defp subscription_to_license_attrs(%{status: "canceled"}) do
+    %{
+      status: @statuses_for_license["canceled"],
+      subscription_id: nil
     }
   end
 

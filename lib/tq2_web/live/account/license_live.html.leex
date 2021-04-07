@@ -29,4 +29,6 @@
   <%= subscription_info(assigns) %>
 </div>
 
-<script src="https://js.stripe.com/v3/"></script>
+<%= unless @subscription do %>
+  <script src="https://js.stripe.com/v3/"></script>
+<% end %>
