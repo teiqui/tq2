@@ -1,8 +1,12 @@
 <div class="card my-3">
-  <div class="card-header">
-    <h2 class="h5">
+  <div class="card-header d-flex justify-content-between">
+    <h2 class="h5 align-middle">
       <%= @item.name %>
     </h2>
+
+    <span class="h3 mb-0 mt-n1">
+      <i class="bi-star<%= if @item.favorite, do: "-fill text-warning" %>"></i>
+    </span>
   </div>
 
   <div class="card-body">

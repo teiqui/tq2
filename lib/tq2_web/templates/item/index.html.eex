@@ -2,6 +2,7 @@
   <table class="table table-hover">
     <thead>
       <tr>
+        <th></th>
         <th><%= dgettext("items", "Name") %></th>
         <th class="d-none d-lg-table-cell"><%= dgettext("items", "Category") %></th>
         <th class="d-none d-lg-table-cell"><%= dgettext("items", "Visibility") %></th>
@@ -12,6 +13,9 @@
     <tbody>
       <%= for item <- @items do %>
         <tr>
+          <td>
+            <i class="bi-star<%= if item.favorite, do: "-fill text-warning" %>"></i>
+          </td>
           <td><%= item.name %></td>
           <td class="d-none d-lg-table-cell"><%= category item.category %></td>
           <td class="d-none d-lg-table-cell"><%= visibility item %></td>

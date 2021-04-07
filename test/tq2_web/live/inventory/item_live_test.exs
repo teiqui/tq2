@@ -180,6 +180,38 @@ defmodule Tq2Web.Inventory.ItemLiveTest do
              |> element("[phx-click=\"show-optional-info\"]")
              |> render_click() =~ "collapse show"
     end
+
+    test "toggle favorite", %{conn: conn} do
+      item = create_item()
+
+      refute item.favorite
+
+      path = Routes.item_path(conn, :edit, item)
+      {:ok, item_live, html} = live(conn, path)
+
+      assert html =~ "\"bi-star\""
+      assert render(item_live) =~ "\"bi-star\""
+
+      content =
+        item_live
+        |> element("[phx-click=\"toggle-favorite\"]")
+        |> render_click()
+
+      assert content =~ "bi-star-fill text-warning"
+      assert render(item_live) =~ "bi-star-fill text-warning"
+
+      assert {:error, {:redirect, %{to: _}}} =
+               item_live
+               |> form("form")
+               |> render_submit()
+
+      assert Tq2.Inventories.get_item!(item.account, item.id).favorite
+
+      {:ok, item_live, html} = live(conn, path)
+
+      assert html =~ "bi-star-fill text-warning"
+      assert render(item_live) =~ "bi-star-fill text-warning"
+    end
   end
 
   defp image_input(item_live) do
