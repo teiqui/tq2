@@ -181,7 +181,7 @@ defmodule Tq2Web.Account.LicenseLive do
   defp money(money), do: "#{money.currency} #{Money.to_string(money, symbol: true)}"
 
   defp subscription_info(%{loading: true}) do
-    content_tag(:div, "", class: "spinner-border text-primary")
+    content_tag(:div, nil, class: "spinner-border text-primary")
   end
 
   defp subscription_info(%{license: %{subscription_id: nil} = license}) do
