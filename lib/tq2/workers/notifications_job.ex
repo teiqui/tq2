@@ -2,11 +2,10 @@ defmodule Tq2.Workers.NotificationsJob do
   import Tq2.Utils.Urls, only: [app_uri: 0, store_uri: 0]
   import Tq2Web.Gettext
 
-  alias Tq2.{Accounts, Messages, News, Notifications, Sales}
+  alias Tq2.{Accounts, Messages, News, Notifications, Repo, Sales}
   alias Tq2.Messages.Comment
   alias Tq2.News.Note
-  alias Tq2.Notifications.{Email, Mailer, Subscription}
-  alias Tq2.Repo
+  alias Tq2.Notifications.{Email, Subscription}
   alias Tq2.Sales.Order
   alias Tq2.Shops.Store
   alias Tq2Web.Router.Helpers, as: Routes
@@ -208,6 +207,6 @@ defmodule Tq2.Workers.NotificationsJob do
 
     note
     |> Email.new_note(account.owner)
-    |> Mailer.deliver_later!()
+    |> Notifications.deliver_later()
   end
 end

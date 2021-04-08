@@ -251,8 +251,47 @@ defmodule Tq2.Notifications do
     |> deliver_later()
   end
 
-  defp deliver_later(nil), do: nil
-  defp deliver_later(email), do: Mailer.deliver_later!(email)
+  @doc """
+  Schedule email to be sent
+
+  ## Examples
+
+      iex> deliver_later(%Bamboo.Email{})
+      %Bamboo.Email{}
+
+      iex> deliver_later(nil)
+      nil
+
+  """
+  def deliver_later(nil), do: nil
+
+  def deliver_later(email, count \\ 0) do
+    case Mailer.deliver_later(email) do
+      {:ok, email} ->
+        email
+
+      {:error, error} ->
+        retry_delivery(email, count + 1, error)
+    end
+  end
+
+  # TODO: this should be handled in a more "sophisticated" way, but it should work for now =)
+  defp retry_delivery(email, 20, error) do
+    Sentry.capture_message("Max email delivery retries reached (20)", extra: %{error: error})
+
+    email
+  end
+
+  defp retry_delivery(email, count, _error) do
+    fun = fn ->
+      :timer.sleep(count * 5000)
+      deliver_later(email, count)
+    end
+
+    Supervisor.start_link([{Task, fun}], strategy: :one_for_one)
+
+    email
+  end
 
   defp subscription_query(query, %{"subscription_user" => %{"user_id" => user_id}}) do
     query
