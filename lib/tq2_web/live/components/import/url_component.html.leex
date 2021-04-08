@@ -1,0 +1,12 @@
+<%= form_for :read, "#", [phx_submit: "read", phx_target: @myself], fn f -> %>
+  <%= input f, :url, dgettext("items", "Google spreadsheet"),
+    label_html: [class: "sr-only"],
+    input_html: [
+      autofocus: true,
+      hint: dgettext("items", "For example: https://docs.google.com/spreadsheets/d/UV1T5ExM8rdcH0Zo2n_kj0iucmiD5V4Fh0u7D9DYSo0q/edit")
+    ] %>
+
+  <div class="py-4"></div>
+
+  <%= submit_import() %>
+<% end %>

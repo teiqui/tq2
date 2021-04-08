@@ -10,7 +10,8 @@ config :tq2, Tq2.Repo,
   password: System.get_env("DATABASE_PASSWORD", "tq2"),
   database: System.get_env("DATABASE_NAME", "tq2_test#{System.get_env("MIX_TEST_PARTITION")}"),
   hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
+  pool: Ecto.Adapters.SQL.Sandbox,
+  timeout: 60_000
 
 # Gettext config
 config :tq2, Tq2Web.Gettext, default_locale: "en"

@@ -1,0 +1,13 @@
+<%= if assigns[:uploading] do %>
+  <div class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only"><%= dgettext("stores", "Loading...") %></span>
+    </div>
+  </div>
+<% else %>
+  <%= form_for :read, "#", [phx_change: "validate", phx_target: @myself], fn _ -> %>
+    <%= live_file_input @uploads.file %>
+  <% end %>
+<% end %>
+
+<div class="py-4"></div>

@@ -161,3 +161,33 @@ msgstr ""
 
 msgid "Complete with info about the item you want to add. Later you can edit this if needed. Click 'Continue' to save it."
 msgstr ""
+
+msgid "Predefined"
+msgstr ""
+
+msgid "Google spreadsheet"
+msgstr ""
+
+msgid "Read"
+msgstr ""
+
+msgid "Reading..."
+msgstr ""
+
+msgid "Select column headers"
+msgstr ""
+
+msgid "Upload spreadsheet"
+msgstr ""
+
+msgid "Can't read spreadsheet"
+msgstr ""
+
+msgid "Can't upload file"
+msgstr ""
+
+msgid "Need at least Name, Price and Teiqui price"
+msgstr ""
+
+msgid "For example: https://docs.google.com/spreadsheets/d/UV1T5ExM8rdcH0Zo2n_kj0iucmiD5V4Fh0u7D9DYSo0q/edit"
+msgstr ""

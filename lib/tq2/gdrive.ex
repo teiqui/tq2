@@ -1,16 +1,13 @@
 defmodule Tq2.Gdrive do
   def upload_file(path) do
-    {:ok, gfile} =
-      GoogleApi.Drive.V3.Api.Files.drive_files_create_simple(
-        conn(),
-        "multipart",
-        %GoogleApi.Drive.V3.Model.File{
-          mimeType: "application/vnd.google-apps.spreadsheet"
-        },
-        path
-      )
-
-    gfile.id
+    GoogleApi.Drive.V3.Api.Files.drive_files_create_simple(
+      conn(),
+      "multipart",
+      %GoogleApi.Drive.V3.Model.File{
+        mimeType: "application/vnd.google-apps.spreadsheet"
+      },
+      path
+    )
   end
 
   def grid_titles(id) do
@@ -70,5 +67,5 @@ defmodule Tq2.Gdrive do
   defp formatted_cell(%{effectiveValue: nil}), do: nil
   defp formatted_cell(%{effectiveValue: value}), do: value.stringValue || value.numberValue
 
-  defp empty_row?(row), do: row |> Enum.all?(&is_nil(&1))
+  defp empty_row?(row), do: row |> Enum.all?(&(is_nil(&1) || &1 == 0))
 end

@@ -60,6 +60,7 @@ defmodule Tq2.Inventories.ItemImport do
   defp categories_from_rows(session, rows, headers_with_index) do
     rows
     |> Enum.map(&field_value(&1, :category, headers_with_index))
+    |> Enum.filter(& &1)
     |> Enum.uniq()
     |> Enum.map(&get_or_create_category(&1, session))
     |> Enum.filter(fn {status, _} -> status == :ok end)
@@ -69,16 +70,17 @@ defmodule Tq2.Inventories.ItemImport do
 
   defp field_value(_, _, _, _ \\ nil)
 
-  defp field_value(row, field, headers_with_index, currency) when field in @money_fields do
+  defp field_value(row, field, headers, currency) when field in @money_fields do
     row
-    |> Enum.at(headers_with_index[field])
+    |> Enum.at(headers[field])
     |> Money.parse!(currency)
   end
 
-  defp field_value(row, field, headers_with_index, _) do
-    row
-    |> Enum.at(headers_with_index[field], "")
-    |> String.trim()
+  defp field_value(row, field, headers, _) do
+    case headers[field] && Enum.at(row, headers[field], "") do
+      value when is_binary(value) -> String.trim(value)
+      _ -> nil
+    end
   end
 
   defp row_to_item(row, %Account{country: country}, category_ids, headers_with_index) do
@@ -86,6 +88,7 @@ defmodule Tq2.Inventories.ItemImport do
 
     attrs =
       [:name, :price, :promotional_price, :description]
+      |> Enum.filter(&headers_with_index[&1])
       |> Enum.map(fn k -> {k, field_value(row, k, headers_with_index, currency)} end)
       |> Map.new()
 

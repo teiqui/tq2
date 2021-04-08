@@ -1,0 +1,9 @@
+<%= form_for :import, "#", [phx_submit: "import", phx_target: @myself], fn f -> %>
+  <%= input f, :grid_title, dgettext("items", "Store type"), collection: @grid_titles,
+    label_html: [class: "sr-only"],
+    input_html: [prompt: grid_title_prompt(), autofocus: true] %>
+
+  <div class="py-4"></div>
+
+  <%= submit_import() %>
+<% end %>
