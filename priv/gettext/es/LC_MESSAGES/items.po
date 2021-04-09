@@ -162,3 +162,33 @@ msgstr "Cargar imagen"
 
 msgid "Complete with info about the item you want to add. Later you can edit this if needed. Click 'Continue' to save it."
 msgstr "Completa los datos del artículo que deseas cargar. Luego podrás editarlo de ser necesario. Haz clic en 'Continuar' para guardarlo."
+
+msgid "Predefined"
+msgstr "Predefinidos"
+
+msgid "Google spreadsheet"
+msgstr "Planilla de Google"
+
+msgid "Read"
+msgstr "Leer"
+
+msgid "Reading..."
+msgstr "Leyendo..."
+
+msgid "Select column headers"
+msgstr "Seleccione los encabezados"
+
+msgid "Upload spreadsheet"
+msgstr "Cargar planilla"
+
+msgid "Can't read spreadsheet"
+msgstr "No se pudo leer la planilla"
+
+msgid "Can't upload file"
+msgstr "No se pudo subir el archivo"
+
+msgid "Need at least Name, Price and Teiqui price"
+msgstr "Se necesita al menos Nombre, Precio y Precio Teiqui"
+
+msgid "For example: https://docs.google.com/spreadsheets/d/UV1T5ExM8rdcH0Zo2n_kj0iucmiD5V4Fh0u7D9DYSo0q/edit"
+msgstr "Por ejemplo: https://docs.google.com/spreadsheets/d/UV1T5ExM8rdcH0Zo2n_kj0iucmiD5V4Fh0u7D9DYSo0q/edit"

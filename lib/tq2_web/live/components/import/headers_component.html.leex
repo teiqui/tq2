@@ -1,0 +1,10 @@
+<%= form_for :import, "#", [phx_submit: "import", phx_target: @myself], fn f -> %>
+  <%= input f, :name, dgettext("items", "Name"), collection_options(@column_titles) %>
+  <%= input f, :category, dgettext("items", "Category"), collection_options(@column_titles) %>
+  <%= input f, :price, dgettext("items", "Price"), collection_options(@column_titles) %>
+  <%= input f, :promotional_price, dgettext("items", "Promotional price"), collection_options(@column_titles) %>
+  <%= input f, :url, dgettext("items", "Image"), collection_options(@column_titles) %>
+  <%= input f, :description, dgettext("items", "Description"), collection_options(@column_titles) %>
+
+  <%= submit_import() %>
+<% end %>

@@ -1,7 +1,7 @@
 defmodule Tq2Web.Inventory.ImportLiveTest do
-  use Tq2Web.ConnCase
+  use Tq2Web.ConnCase, async: true
 
-  import Tq2.Fixtures, only: [create_session: 0, user_fixture: 2]
+  import Tq2.Fixtures, only: [init_test_session: 1]
   import Phoenix.LiveViewTest
 
   describe "unauthorized access" do
@@ -17,46 +17,23 @@ defmodule Tq2Web.Inventory.ImportLiveTest do
     end
   end
 
-  describe "render" do
-    setup %{conn: conn} do
-      session = create_session()
-      user = user_fixture(session, %{})
-
-      session = %{session | user: user}
-
-      conn =
-        conn
-        |> Plug.Test.init_test_session(account_id: session.account.id, user_id: session.user.id)
-
-      {:ok, %{conn: conn}}
-    end
-
-    if System.get_env("CREDENTIALS_PATH") == nil, do: @tag(:skip)
+  describe "render section list" do
+    setup [:init_test_session]
 
     test "disconnected and connected render", %{conn: conn} do
       path = Routes.import_path(conn, :index)
       {:ok, import_live, html} = live(conn, path)
 
+      content = import_live |> render()
+
       assert html =~ "Import"
-      assert render(import_live) =~ "Import"
-    end
-
-    if System.get_env("CREDENTIALS_PATH") == nil, do: @tag(:skip)
-
-    test "import event", %{conn: conn} do
-      path = Routes.import_path(conn, :index)
-      {:ok, import_live, _html} = live(conn, path)
-
-      :erlang.trace(import_live.pid, true, [:receive])
-
-      pid = import_live.pid
-
-      assert import_live
-             |> form("form", %{item: %{title: "Quesos y Fiambres"}})
-             |> render_submit() =~ "class=\"progress-bar\""
-
-      assert_receive {:trace, ^pid, :receive, {:batch_import_finished, _result}}, 20_000
-      assert render(import_live) =~ "4 items imported!"
+      assert html =~ "Predefined"
+      assert html =~ "Google spreadsheet"
+      assert html =~ "Upload spreadsheet"
+      assert content =~ "Import"
+      assert content =~ "Predefined"
+      assert content =~ "Google spreadsheet"
+      assert content =~ "Upload spreadsheet"
     end
   end
 end

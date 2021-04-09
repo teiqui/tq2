@@ -51,4 +51,16 @@ defmodule Tq2.GdriveTest do
 
     assert Enum.count(rows) > 4
   end
+
+  unless System.get_env("CREDENTIALS_PATH"), do: @tag(:skip)
+
+  test "upload_file/1 returns a drive file" do
+    file = "test/support/fixtures/files/test.csv"
+
+    {:ok, gdrive_file} = file |> Tq2.Gdrive.upload_file()
+
+    assert gdrive_file.id
+
+    assert [["Name", 100, 90]] = Tq2.Gdrive.rows_for(gdrive_file.id)
+  end
 end
