@@ -1,5 +1,5 @@
 defmodule Tq2Web.Import.UploadComponentTest do
-  use Tq2Web.ConnCase, async: true
+  use Tq2Web.ConnCase
 
   import Phoenix.LiveViewTest
   import Tq2.Fixtures, only: [init_test_session: 1]
