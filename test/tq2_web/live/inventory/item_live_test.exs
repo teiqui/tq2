@@ -88,7 +88,13 @@ defmodule Tq2Web.Inventory.ItemLiveTest do
 
       image = image_input(item_live)
 
-      assert render_upload(image, "test.png") =~ "100%"
+      html =
+        case render_upload(image, "test.png") do
+          {:ok, html} -> html
+          html -> html
+        end
+
+      assert html =~ "100%"
 
       result =
         item_live
