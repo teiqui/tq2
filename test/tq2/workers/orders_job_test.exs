@@ -1,6 +1,5 @@
 defmodule Tq2.Workers.OrdersJobTest do
   use Tq2.DataCase
-  use Bamboo.Test
 
   import Tq2.Fixtures, only: [create_order: 0]
 
@@ -18,7 +17,11 @@ defmodule Tq2.Workers.OrdersJobTest do
       order = Tq2.Repo.preload(order, [cart: :lines], force: true)
 
       assert order.cart.price_type == "regular"
-      assert_delivered_email(Email.expired_promotion(order))
+
+      email = Email.expired_promotion(order)
+      jobs = Exq.Mock.jobs() |> Enum.filter(&(&1.class == Tq2.Workers.MailerJob))
+
+      assert jobs |> Enum.any?(&(List.first(&1.args).private == email.private))
     end
   end
 end

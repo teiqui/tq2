@@ -4,7 +4,7 @@ defmodule Tq2.Notifications do
   alias Tq2.Accounts.User
   alias Tq2.Messages.Comment
   alias Tq2.News.Note
-  alias Tq2.Notifications.{Mailer, Email}
+  alias Tq2.Notifications.Email
   alias Tq2.Repo
   alias Tq2.Sales.{Customer, Order}
   alias Tq2.Transactions.Cart
@@ -21,7 +21,7 @@ defmodule Tq2.Notifications do
   def send_password_reset(%User{} = user) do
     user
     |> Email.password_reset()
-    |> deliver_later()
+    |> deliver()
   end
 
   @doc """
@@ -41,7 +41,7 @@ defmodule Tq2.Notifications do
   def send_new_order(%Order{} = order, recipient) do
     order
     |> Email.new_order(recipient)
-    |> deliver_later()
+    |> deliver()
   end
 
   @doc """
@@ -58,7 +58,7 @@ defmodule Tq2.Notifications do
   def send_promotion_confirmation(%Order{} = order) do
     order
     |> Email.promotion_confirmation()
-    |> deliver_later()
+    |> deliver()
   end
 
   @doc """
@@ -75,7 +75,7 @@ defmodule Tq2.Notifications do
   def send_expired_promotion(%Order{} = order) do
     order
     |> Email.expired_promotion()
-    |> deliver_later()
+    |> deliver()
   end
 
   @doc """
@@ -90,7 +90,7 @@ defmodule Tq2.Notifications do
   def send_license_expired(%User{} = user) do
     user
     |> Email.license_expired()
-    |> deliver_later()
+    |> deliver()
   end
 
   @doc """
@@ -105,7 +105,7 @@ defmodule Tq2.Notifications do
   def send_license_near_to_expire(%User{} = user) do
     user
     |> Email.license_near_to_expire()
-    |> deliver_later()
+    |> deliver()
   end
 
   @doc """
@@ -248,7 +248,7 @@ defmodule Tq2.Notifications do
   def send_cart_reminder(%Cart{} = cart, %Customer{} = customer) do
     cart
     |> Email.cart_reminder(customer)
-    |> deliver_later()
+    |> deliver()
   end
 
   @doc """
@@ -256,39 +256,21 @@ defmodule Tq2.Notifications do
 
   ## Examples
 
-      iex> deliver_later(%Bamboo.Email{})
+      iex> deliver(%Bamboo.Email{})
       %Bamboo.Email{}
 
-      iex> deliver_later(nil)
+      iex> deliver(nil)
       nil
 
   """
-  def deliver_later(nil), do: nil
+  def deliver(nil), do: nil
 
-  def deliver_later(email, count \\ 0) do
-    case Mailer.deliver_later(email) do
-      {:ok, email} ->
-        email
+  def deliver(email) do
+    # Mini spread to avoid some throttle when sending mass notifications
+    spread = :random.uniform(20)
+    exec_at = Timex.now() |> Timex.shift(seconds: spread)
 
-      {:error, error} ->
-        retry_delivery(email, count + 1, error)
-    end
-  end
-
-  # TODO: this should be handled in a more "sophisticated" way, but it should work for now =)
-  defp retry_delivery(email, 20, error) do
-    Sentry.capture_message("Max email delivery retries reached (20)", extra: %{error: error})
-
-    email
-  end
-
-  defp retry_delivery(email, count, _error) do
-    fun = fn ->
-      :timer.sleep(count * 5000)
-      deliver_later(email, count)
-    end
-
-    Supervisor.start_link([{Task, fun}], strategy: :one_for_one)
+    Exq.enqueue_at(Exq, "default", exec_at, Tq2.Workers.MailerJob, [email])
 
     email
   end

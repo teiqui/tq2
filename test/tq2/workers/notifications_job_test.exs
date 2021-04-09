@@ -1,6 +1,5 @@
 defmodule Tq2.Workers.NotificationsJobTest do
   use Tq2.DataCase
-  use Bamboo.Test
 
   import Mock
 
@@ -128,7 +127,13 @@ defmodule Tq2.Workers.NotificationsJobTest do
 
         assert_not_called(WebPushEncryption.send_web_push(:_, :_))
 
-        assert_delivered_email(Email.new_note(note, user))
+        jobs = Exq.Mock.jobs() |> Enum.filter(&(&1.class == Tq2.Workers.MailerJob))
+        email = Email.new_note(note, user)
+        job = jobs |> List.first()
+
+        assert Enum.count(jobs) == 1
+        assert job.class == Tq2.Workers.MailerJob
+        assert List.first(job.args).private == email.private
 
         create_user_subscription(user.id)
 
@@ -136,7 +141,13 @@ defmodule Tq2.Workers.NotificationsJobTest do
 
         assert_called(WebPushEncryption.send_web_push(:_, :_))
 
-        assert_delivered_email(Email.new_note(note, user))
+        jobs = Exq.Mock.jobs() |> Enum.filter(&(&1.class == Tq2.Workers.MailerJob))
+        email = Email.new_note(note, user)
+        job = jobs |> List.last()
+
+        assert Enum.count(jobs) == 2
+        assert job.class == Tq2.Workers.MailerJob
+        assert List.first(job.args).private == email.private
       end
     end
 

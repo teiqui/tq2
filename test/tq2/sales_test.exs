@@ -222,8 +222,6 @@ defmodule Tq2.SalesTest do
   describe "orders" do
     setup [:create_session]
 
-    use Bamboo.Test
-
     alias Tq2.Sales.Order
     alias Tq2.Notifications.Email
 
@@ -350,9 +348,19 @@ defmodule Tq2.SalesTest do
       assert List.first(child_order.parents).id == order_1.id
       assert List.first(order_1.children).id == child_order.id
 
-      assert_delivered_email(Email.new_order(child_order, owner))
-      assert_delivered_email(Email.new_order(child_order, child_order.customer))
-      assert_delivered_email(Email.promotion_confirmation(order_1))
+      email_child_order_owner = Email.new_order(child_order, owner)
+      email_child_order_customer = Email.new_order(child_order, child_order.customer)
+      email_promotion_confirmation = Email.promotion_confirmation(order_1)
+
+      jobs = Exq.Mock.jobs() |> Enum.filter(&(&1.class == Tq2.Workers.MailerJob))
+
+      assert Enum.any?(jobs, &(List.first(&1.args).private == email_child_order_owner.private))
+      assert Enum.any?(jobs, &(List.first(&1.args).private == email_child_order_customer.private))
+
+      assert Enum.any?(
+               jobs,
+               &(List.first(&1.args).private == email_promotion_confirmation.private)
+             )
     end
 
     test "get_not_referred_pending_order/1 returns the order without a referral customer", %{
@@ -462,8 +470,13 @@ defmodule Tq2.SalesTest do
       visit = Tq2.Analytics.get_visit!(cart_id: cart.id)
 
       assert order.id == visit.order_id
-      assert_delivered_email(Email.new_order(order, owner))
-      assert_delivered_email(Email.new_order(order, order.customer))
+      email_owner = Email.new_order(order, owner)
+      email_customer = Email.new_order(order, order.customer)
+
+      jobs = Exq.Mock.jobs() |> Enum.filter(&(&1.class == Tq2.Workers.MailerJob))
+
+      assert Enum.any?(jobs, &(List.first(&1.args).private == email_owner.private))
+      assert Enum.any?(jobs, &(List.first(&1.args).private == email_customer.private))
     end
 
     test "update_order/3 with valid data updates the order", %{session: session} do

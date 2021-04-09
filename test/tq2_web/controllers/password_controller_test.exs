@@ -30,8 +30,6 @@ defmodule Tq2Web.PasswordControllerTest do
   end
 
   describe "create password" do
-    use Bamboo.Test
-
     alias Tq2.Notifications.Email
 
     test "sends instructions when email exist", %{conn: conn} do
@@ -41,8 +39,11 @@ defmodule Tq2Web.PasswordControllerTest do
       assert redirected_to(conn) == Routes.root_path(conn, :index)
 
       user = Repo.get(User, user.id)
+      email = Email.password_reset(user)
+      job = Exq.Mock.jobs() |> List.first()
 
-      assert_delivered_email(Email.password_reset(user))
+      assert job.class == Tq2.Workers.MailerJob
+      assert job.args == [email]
     end
 
     test "renders errors when email does not exist", %{conn: conn} do
