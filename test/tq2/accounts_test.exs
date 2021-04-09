@@ -395,17 +395,15 @@ defmodule Tq2.AccountsTest do
   describe "password" do
     setup [:create_session]
 
+    use Bamboo.Test
+
     alias Tq2.Notifications.Email
 
     test "reset", %{session: session} do
       user = user_fixture(session)
       {:ok, user} = Accounts.password_reset(user)
 
-      email = Email.password_reset(user)
-      job = Exq.Mock.jobs() |> List.first()
-
-      assert job.class == Tq2.Workers.MailerJob
-      assert job.args == [email]
+      assert_delivered_email(Email.password_reset(user))
     end
   end
 

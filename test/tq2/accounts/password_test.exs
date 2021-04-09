@@ -47,6 +47,8 @@ defmodule Tq2.Accounts.PasswordTest do
   end
 
   describe "reset" do
+    use Bamboo.Test
+
     alias Tq2.Notifications.Email
 
     test "reset" do
@@ -56,15 +58,11 @@ defmodule Tq2.Accounts.PasswordTest do
 
       Password.reset(user)
 
-      user = User |> Repo.get!(user.id) |> Repo.preload(:memberships)
+      user = Repo.get!(User, user.id)
 
       assert user.password_reset_token
 
-      email = Email.password_reset(user)
-      job = Exq.Mock.jobs() |> List.first()
-
-      assert job.class == Tq2.Workers.MailerJob
-      assert job.args == [email]
+      assert_delivered_email(Email.password_reset(user))
     end
   end
 

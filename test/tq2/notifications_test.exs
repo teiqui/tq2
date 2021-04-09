@@ -1,54 +1,41 @@
 defmodule Tq2.NotificationsTest do
   use Tq2.DataCase
+  use Bamboo.Test
 
   import Tq2.Fixtures, only: [default_account: 0, user_fixture: 1]
 
   alias Tq2.Accounts.User
   alias Tq2.Messages.Comment
   alias Tq2.Notifications
+  alias Tq2.Notifications.Email
   alias Tq2.Payments.Payment
   alias Tq2.Sales.{Customer, Order}
   alias Tq2.Transactions.{Cart, Line}
 
-  test "deliver" do
-    user = user()
-    email = Tq2.Notifications.Email.password_reset(user)
-
-    Notifications.deliver(email)
-
-    job = Exq.Mock.jobs() |> List.first()
-
-    assert job.class == Tq2.Workers.MailerJob
-    assert job.args == [email]
-  end
-
   test "password reset email" do
     user = user()
-    email = Notifications.send_password_reset(user)
-    job = Exq.Mock.jobs() |> List.first()
 
-    assert job.class == Tq2.Workers.MailerJob
-    assert job.args == [email]
+    Notifications.send_password_reset(user)
+
+    assert_delivered_email(Email.password_reset(user))
   end
 
   test "new order email for user" do
     order = order()
     user = user()
-    email = Notifications.send_new_order(order, user)
-    job = Exq.Mock.jobs() |> List.first()
 
-    assert job.class == Tq2.Workers.MailerJob
-    assert job.args == [email]
+    Notifications.send_new_order(order, user)
+
+    assert_delivered_email(Email.new_order(order, user))
   end
 
   test "new order email for customer" do
     order = order()
     customer = customer()
-    email = Notifications.send_new_order(order, customer)
-    job = Exq.Mock.jobs() |> List.first()
 
-    assert job.class == Tq2.Workers.MailerJob
-    assert job.args == [email]
+    Notifications.send_new_order(order, customer)
+
+    assert_delivered_email(Email.new_order(order, customer))
   end
 
   test "no new order email is sent for customer without email" do
@@ -57,7 +44,7 @@ defmodule Tq2.NotificationsTest do
 
     Notifications.send_new_order(order, customer)
 
-    assert Exq.Mock.jobs() == []
+    assert_no_emails_delivered()
   end
 
   test "no new order email is sent for nil recipient" do
@@ -65,16 +52,15 @@ defmodule Tq2.NotificationsTest do
 
     Notifications.send_new_order(order, nil)
 
-    assert Exq.Mock.jobs() == []
+    assert_no_emails_delivered()
   end
 
   test "promotion confirmation email for customer" do
     order = %{order() | customer: customer()}
-    email = Notifications.send_promotion_confirmation(order)
-    job = Exq.Mock.jobs() |> List.first()
 
-    assert job.class == Tq2.Workers.MailerJob
-    assert job.args == [email]
+    Notifications.send_promotion_confirmation(order)
+
+    assert_delivered_email(Email.promotion_confirmation(order))
   end
 
   test "no promotion confirmation email is sent for customer without email" do
@@ -82,16 +68,15 @@ defmodule Tq2.NotificationsTest do
 
     Notifications.send_promotion_confirmation(order)
 
-    assert Exq.Mock.jobs() == []
+    assert_no_emails_delivered()
   end
 
   test "expired promotion email for customer" do
     order = %{order() | customer: customer()}
-    email = Notifications.send_expired_promotion(order)
-    job = Exq.Mock.jobs() |> List.first()
 
-    assert job.class == Tq2.Workers.MailerJob
-    assert job.args == [email]
+    Notifications.send_expired_promotion(order)
+
+    assert_delivered_email(Email.expired_promotion(order))
   end
 
   test "no expired promotion email is sent for customer without email" do
@@ -99,25 +84,23 @@ defmodule Tq2.NotificationsTest do
 
     Notifications.send_expired_promotion(order)
 
-    assert Exq.Mock.jobs() == []
+    assert_no_emails_delivered()
   end
 
   test "license expired" do
     user = user()
-    email = Notifications.send_license_expired(user)
-    job = Exq.Mock.jobs() |> List.first()
 
-    assert job.class == Tq2.Workers.MailerJob
-    assert job.args == [email]
+    Notifications.send_license_expired(user)
+
+    assert_delivered_email(Email.license_expired(user))
   end
 
   test "license near to expire" do
     user = user()
-    email = Notifications.send_license_near_to_expire(user)
-    job = Exq.Mock.jobs() |> List.first()
 
-    assert job.class == Tq2.Workers.MailerJob
-    assert job.args == [email]
+    Notifications.send_license_near_to_expire(user)
+
+    assert_delivered_email(Email.license_near_to_expire(user))
   end
 
   test "notify new order" do
@@ -153,11 +136,10 @@ defmodule Tq2.NotificationsTest do
   test "cart reminder" do
     cart = cart()
     customer = customer()
-    email = Notifications.send_cart_reminder(cart, customer)
-    job = Exq.Mock.jobs() |> List.first()
 
-    assert job.class == Tq2.Workers.MailerJob
-    assert job.args == [email]
+    Notifications.send_cart_reminder(cart, customer)
+
+    assert_delivered_email(Email.cart_reminder(cart, customer))
   end
 
   test "no cart reminder" do
@@ -166,7 +148,7 @@ defmodule Tq2.NotificationsTest do
 
     Notifications.send_cart_reminder(cart, customer)
 
-    assert Exq.Mock.jobs() == []
+    assert_no_emails_delivered()
   end
 
   describe "subscriptions" do

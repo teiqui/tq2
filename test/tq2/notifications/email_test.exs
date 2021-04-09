@@ -1,5 +1,6 @@
 defmodule Tq2.Notifications.EmailTest do
   use Tq2.DataCase
+  use Bamboo.Test
 
   import Tq2.Fixtures, only: [default_store: 1, default_account: 0, user_fixture: 2]
   import Tq2.Utils.Urls, only: [store_uri: 0]

@@ -210,6 +210,6 @@ defmodule Tq2.Workers.NotificationsJob do
 
     note
     |> Email.new_note(account.owner)
-    |> Notifications.deliver()
+    |> Notifications.deliver_later()
   end
 end

@@ -73,17 +73,15 @@ defmodule Tq2.Sales.OrderRepoTest do
   describe "order" do
     setup [:session_fixture, :user_fixture, :order_fixture]
 
+    use Bamboo.Test
+
     alias Tq2.Notifications.Email
 
     test "notify", %{user: owner, order: order} do
       {:ok, order} = Order.notify({:ok, order})
 
-      email_owner = Email.new_order(order, owner)
-      email_customer = Email.new_order(order, order.customer)
-      jobs = Exq.Mock.jobs() |> Enum.filter(&(&1.class == Tq2.Workers.MailerJob))
-
-      assert Enum.any?(jobs, &(List.first(&1.args).private == email_owner.private))
-      assert Enum.any?(jobs, &(List.first(&1.args).private == email_customer.private))
+      assert_delivered_email(Email.new_order(order, owner))
+      assert_delivered_email(Email.new_order(order, order.customer))
     end
   end
 end

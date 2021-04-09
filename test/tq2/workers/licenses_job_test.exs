@@ -1,5 +1,6 @@
 defmodule Tq2.Workers.LicensesJobTest do
   use Tq2.DataCase
+  use Bamboo.Test
 
   import Mock
   import Tq2.Fixtures, only: [create_session: 0, user_fixture: 1]
@@ -38,11 +39,7 @@ defmodule Tq2.Workers.LicensesJobTest do
       user = create_session() |> user_fixture()
 
       LicensesJob.perform("notify_near_to_expire", license.id)
-      email = Email.license_near_to_expire(user)
-      job = Exq.Mock.jobs() |> List.first()
-
-      assert job.class == Tq2.Workers.MailerJob
-      assert List.first(job.args).private == email.private
+      assert_delivered_email(Email.license_near_to_expire(user))
     end
 
     test "perform lock license" do
@@ -50,12 +47,7 @@ defmodule Tq2.Workers.LicensesJobTest do
       user = create_session() |> user_fixture()
 
       LicensesJob.perform("lock", license.id)
-
-      email = Email.license_expired(user)
-      job = Exq.Mock.jobs() |> List.first()
-
-      assert job.class == Tq2.Workers.MailerJob
-      assert List.first(job.args).private == email.private
+      assert_delivered_email(Email.license_expired(user))
 
       assert Accounts.get_account!(license.account_id).status == "locked"
       assert Accounts.get_license!(license.account).status == "locked"
