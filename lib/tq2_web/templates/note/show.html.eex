@@ -19,9 +19,11 @@
       </div>
     </div>
 
-    <div>
-      <%= link_to_edit @conn, @note %> |
-      <%= link dgettext("notes", "Back"), to: Routes.note_path(@conn, :index) %>
-    </div>
+    <%= if show_admin_options?(@current_session) do %>
+      <div>
+        <%= link_to_edit @conn, @note %> |
+        <%= link dgettext("notes", "Back"), to: Routes.note_path(@conn, :index) %>
+      </div>
+    <% end %>
   </div>
 </div>

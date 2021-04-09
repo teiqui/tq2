@@ -98,7 +98,7 @@ defmodule Tq2Web.NoteControllerTest do
   describe "show" do
     setup [:note_fixture]
 
-    @tag login_as: "test@user.com", login_role: "admin"
+    @tag login_as: "test@user.com"
     test "show note", %{conn: conn, note: note} do
       conn = get(conn, Routes.note_path(conn, :show, note))
       response = html_response(conn, 200)

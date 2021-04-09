@@ -55,7 +55,10 @@ defmodule Tq2Web.NoteViewTest do
 
   test "renders show.html", %{conn: conn} do
     note = note()
-    content = render_to_string(NoteView, "show.html", conn: conn, note: note)
+    session = %Tq2.Accounts.Session{}
+
+    content =
+      render_to_string(NoteView, "show.html", conn: conn, note: note, current_session: session)
 
     assert String.contains?(content, note.title)
   end

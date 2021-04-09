@@ -5,7 +5,7 @@ defmodule Tq2Web.NoteController do
   alias Tq2.News.Note
 
   plug :authenticate
-  plug :authorize, as: :admin
+  plug :authorize, [as: :admin] when action not in [:show]
 
   def action(%{assigns: %{current_session: session}} = conn, _) do
     apply(__MODULE__, action_name(conn), [conn, conn.params, session])

@@ -47,4 +47,7 @@ defmodule Tq2Web.NoteView do
 
   defp submit_label(nil), do: dgettext("notes", "Create")
   defp submit_label(_), do: dgettext("notes", "Update")
+
+  defp show_admin_options?(%{user: %{role: "admin"}}), do: true
+  defp show_admin_options?(_), do: false
 end

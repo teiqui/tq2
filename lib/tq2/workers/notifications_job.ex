@@ -110,7 +110,10 @@ defmodule Tq2.Workers.NotificationsJob do
       title: note.title,
       body: note.body,
       tag: "note-notification-#{note.id}",
-      lang: Gettext.get_locale(Tq2Web.Gettext)
+      lang: Gettext.get_locale(Tq2Web.Gettext),
+      data: %{
+        path: Routes.note_path(app_uri(), :show, note)
+      }
     })
   end
 
