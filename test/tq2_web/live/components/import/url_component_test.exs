@@ -7,6 +7,8 @@ defmodule Tq2Web.Import.UrlComponentTest do
   describe "render" do
     setup [:init_test_session]
 
+    unless System.get_env("CREDENTIALS_PATH"), do: @tag(:skip)
+
     test "import event triggers :read_titles", %{conn: conn} do
       path = Routes.import_path(conn, :show, "url")
       {:ok, import_live, _html} = live(conn, path)
