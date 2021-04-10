@@ -47,7 +47,7 @@ msgstr ""
 msgid "Need any help?"
 msgstr ""
 
-msgid "No commision"
+msgid "No sale commission"
 msgstr ""
 
 msgid "No credit card required"
@@ -174,4 +174,7 @@ msgid "Notifications"
 msgstr ""
 
 msgid "Send and receive messages and notifications"
+msgstr ""
+
+msgid "Our application does not charge commissions."
 msgstr ""

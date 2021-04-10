@@ -50,7 +50,7 @@ defmodule Tq2.MixProject do
       {:jason, ">= 1.0.0"},
       {:plug_cowboy, ">= 2.4.0"},
       {:argon2_elixir, ">= 2.3.0"},
-      {:bamboo, ">= 1.6.0"},
+      {:bamboo, ">= 2.1.0"},
       {:bamboo_phoenix, ">= 1.0.0"},
       {:bamboo_ses, ">= 0.2.0"},
       # TODO: check if needed when bamboo_smtp is updated

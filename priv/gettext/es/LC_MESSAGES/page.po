@@ -47,8 +47,8 @@ msgstr "Mensual"
 msgid "Need any help?"
 msgstr "¿Necesitas ayuda?"
 
-msgid "No commision"
-msgstr "Sin comisión por transacción"
+msgid "No sale commission"
+msgstr "Sin comisión por venta"
 
 msgid "No credit card required"
 msgstr "No requiere tarjeta de crédito"
@@ -128,8 +128,8 @@ msgstr "Si no lo logra, paga el precio normal"
 msgid "In less than 24 hours they should get you a new order."
 msgstr "En menos de 24 horas debe sumar una nueva compra en tu tienda."
 
-msgid "Make your store in just a few clicks and double your sells with Teiqui price"
-msgstr "Crea tu tienda en sólo unos clics y duplica tus ventas con Precio Teiqui"
+msgid "Make your store in just a few clicks and double your sells with Teiqui price."
+msgstr "Crea tu tienda en sólo unos clics y duplica tus ventas con Precio Teiqui."
 
 msgid "Next"
 msgstr "Siguiente"
@@ -175,3 +175,6 @@ msgstr "Notificaciones"
 
 msgid "Send and receive messages and notifications"
 msgstr "Envía y recibe mensajes y notificaciones"
+
+msgid "Our application does not charge commissions."
+msgstr "Nuestra aplicación no cobra comisiones."

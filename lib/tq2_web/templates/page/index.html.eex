@@ -63,7 +63,9 @@
             <%= dgettext("page", "Double your sells") %>
           </h1>
           <h2 class="h5 font-weight-semi-bold mt-3">
-            <%= dgettext("page", "Make your store in just a few clicks and double your sells with Teiqui price") %>
+            <%= dgettext("page", "Make your store in just a few clicks and double your sells with Teiqui price.") %>
+            <br>
+            <%= dgettext("page", "Our application does not charge commissions.") %>
           </h2>
 
           <%= link dgettext("page", "Free trial"), to: Routes.registration_url(app_uri(), :index),
@@ -363,7 +365,7 @@
             <li><%= dgettext("page", "Online store") %></li>
             <li><%= dgettext("page", "Teiqui price") %></li>
             <li><%= dgettext("page", "Offer many payment methods") %></li>
-            <li><%= dgettext("page", "No commision") %></li>
+            <li><%= dgettext("page", "No sale commission") %></li>
             <li><%= dgettext("page", "No order limits") %></li>
             <li><%= dgettext("page", "No credit card required") %></li>
           </ul>
@@ -390,7 +392,7 @@
             <li><%= dgettext("page", "Online store") %></li>
             <li><%= dgettext("page", "Teiqui price") %></li>
             <li><%= dgettext("page", "Offer many payment methods") %></li>
-            <li><%= dgettext("page", "No commision") %></li>
+            <li><%= dgettext("page", "No sale commission") %></li>
             <li><%= dgettext("page", "No order limits") %></li>
             <li class="d-none d-md-table-cell">&nbsp;</li>
           </ul>
@@ -417,7 +419,7 @@
             <li><%= dgettext("page", "Online store") %></li>
             <li><%= dgettext("page", "Teiqui price") %></li>
             <li><%= dgettext("page", "Offer many payment methods") %></li>
-            <li><%= dgettext("page", "No commision") %></li>
+            <li><%= dgettext("page", "No sale commission") %></li>
             <li><%= dgettext("page", "No order limits") %></li>
             <li class="d-none d-md-table-cell">&nbsp;</li>
           </ul>
