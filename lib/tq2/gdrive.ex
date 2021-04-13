@@ -35,6 +35,18 @@ defmodule Tq2.Gdrive do
     end
   end
 
+  def delete_file(id) do
+    case GoogleApi.Drive.V3.Api.Files.drive_files_delete(conn(), id) do
+      {:error, error} = result ->
+        Sentry.capture_message("Gdrive delete file", extra: %{id: id, error: inspect(error)})
+
+        result
+
+      result ->
+        result
+    end
+  end
+
   defp token do
     {:ok, %{token: token}} = Goth.fetch(Tq2.Goth)
 

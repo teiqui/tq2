@@ -91,9 +91,13 @@ defmodule Tq2Web.Inventory.ImportOptionsLive do
     {:noreply, socket}
   end
 
-  defp import_items(%{assigns: %{session: session}} = socket, %{sheet_id: sheet_id} = opts) do
-    [_h | rows] = sheet_id |> Tq2.Gdrive.rows_for(opts[:grid_title])
+  defp import_items(socket, %{sheet_id: sheet_id} = opts) do
+    sheet_id
+    |> Tq2.Gdrive.rows_for(opts[:grid_title])
+    |> process_rows(socket, opts)
+  end
 
+  defp process_rows([_h | rows], %{assigns: %{session: session}} = socket, opts) do
     socket = socket |> assign(total_items: Enum.count(rows))
 
     Supervisor.start_link([{ItemImport, [session, rows, opts[:headers_with_index]]}],
@@ -101,6 +105,10 @@ defmodule Tq2Web.Inventory.ImportOptionsLive do
     )
 
     socket
+  end
+
+  defp process_rows(:error, socket, _opts) do
+    socket |> redirect(to: Routes.import_path(socket, :show, "upload"))
   end
 
   defp put_component_assigns(%{assigns: %{section: section}} = socket) do
@@ -130,7 +138,7 @@ defmodule Tq2Web.Inventory.ImportOptionsLive do
   end
 
   defp process_upload({:ok, %{id: id}}, socket) do
-    id |> read_titles(socket)
+    id |> schedule_destroy() |> read_titles(socket)
   end
 
   defp process_upload(_, socket) do
@@ -156,5 +164,13 @@ defmodule Tq2Web.Inventory.ImportOptionsLive do
     socket
     |> assign(:uploading, false)
     |> put_flash(:error, dgettext("items", "Can't read spreadsheet"))
+  end
+
+  defp schedule_destroy(id) do
+    exec_at = DateTime.utc_now() |> Timex.shift(hours: 1)
+
+    Exq.enqueue_at(Exq, "default", exec_at, Tq2.Workers.FilesJob, ["delete_file", id])
+
+    id
   end
 end

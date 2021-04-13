@@ -63,4 +63,18 @@ defmodule Tq2.GdriveTest do
 
     assert [["Name", 100, 90]] = Tq2.Gdrive.rows_for(gdrive_file.id)
   end
+
+  unless System.get_env("CREDENTIALS_PATH"), do: @tag(:skip)
+
+  test "delete_file/1 deletes the file id" do
+    file = "test/support/fixtures/files/test.csv"
+
+    {:ok, gdrive_file} = file |> Tq2.Gdrive.upload_file()
+
+    assert gdrive_file.id
+
+    assert {:ok, _} = gdrive_file.id |> Tq2.Gdrive.delete_file()
+
+    assert {:error, %{status: 404}} = gdrive_file.id |> Tq2.Gdrive.delete_file()
+  end
 end
