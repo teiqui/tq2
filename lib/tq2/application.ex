@@ -57,14 +57,12 @@ defmodule Tq2.Application do
     if path do
       credentials = path |> File.read!() |> Jason.decode!()
 
-      scope =
-        [
-          "https://www.googleapis.com/auth/spreadsheets",
-          "https://www.googleapis.com/auth/drive.file"
-        ]
-        |> Enum.join(" ")
+      scopes = [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive.file"
+      ]
 
-      source = {:service_account, credentials, [scope: scope]}
+      source = {:service_account, credentials, scopes: scopes}
 
       {Goth, name: Tq2.Goth, source: source}
     end
