@@ -63,7 +63,11 @@ defmodule Tq2Web.Inventory.ItemLive do
 
   @impl true
   def handle_event("cancel-entry", %{"ref" => ref}, socket) do
-    {:noreply, cancel_upload(socket, :image, ref)}
+    try do
+      {:noreply, cancel_upload(socket, :image, ref)}
+    rescue
+      MatchError -> {:noreply, socket}
+    end
   end
 
   @impl true

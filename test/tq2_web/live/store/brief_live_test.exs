@@ -220,6 +220,60 @@ defmodule Tq2Web.Store.BriefLiveTest do
 
       assert to == Routes.counter_path(conn, :index, store)
     end
+
+    test "redirect to handing when previous order is not clonable", %{
+      conn: conn,
+      order: %{cart: cart},
+      store: store
+    } do
+      cart |> Ecto.Changeset.change(%{data: %{payment: "unknown"}}) |> Tq2.Repo.update!()
+
+      path = Routes.brief_path(conn, :index, store)
+      {:error, {:live_redirect, %{to: to}}} = live(conn, path)
+
+      assert to == Routes.handing_path(conn, :index, store)
+    end
+
+    test "redirect to handing when previous order is clonable but not completed", %{
+      conn: conn,
+      order: %{cart: cart},
+      store: store
+    } do
+      cart |> Ecto.Changeset.change(%{data: %{handing: nil}}) |> Tq2.Repo.update!()
+
+      path = Routes.brief_path(conn, :index, store)
+      {:error, {:live_redirect, %{to: to}}} = live(conn, path)
+
+      assert to == Routes.handing_path(conn, :index, store)
+    end
+
+    test "redirect to handing when cart is cloned but old", %{
+      conn: conn,
+      cart: cart,
+      store: store
+    } do
+      # First call to copy order.cart in cart
+      path = Routes.brief_path(conn, :index, store)
+      {:ok, _brief_live, _html} = live(conn, path)
+
+      cart = store.account |> Tq2.Transactions.get_cart!(cart.id)
+
+      # Simulate old shipping
+      shipping =
+        %{cart.data.shipping | id: "123123"}
+        |> Map.from_struct()
+
+      data =
+        cart.data
+        |> Tq2.Transactions.Data.from_struct()
+        |> Map.put(:shipping, shipping)
+
+      store.account |> Tq2.Transactions.update_cart(cart, %{data: data})
+
+      {:error, {:live_redirect, %{to: to}}} = live(conn, path)
+
+      assert to == Routes.handing_path(conn, :index, store)
+    end
   end
 
   defp subscription do

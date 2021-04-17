@@ -78,14 +78,14 @@ defmodule Tq2Web.Store.BriefLive do
       true ->
         case Transactions.fill_cart(store, cart, other) do
           %Cart{data: %{copied: true}} = cart ->
-            assign(socket, cart: cart)
+            socket |> assign(cart: cart) |> maybe_redirect_to_handing()
 
           _ ->
-            push_redirect(socket, to: Routes.handing_path(socket, :index, store))
+            socket |> maybe_redirect_to_handing()
         end
 
       _ ->
-        socket
+        socket |> maybe_redirect_to_handing()
     end
   end
 
@@ -115,5 +115,23 @@ defmodule Tq2Web.Store.BriefLive do
     savings = Money.subtract(total, promotional) |> format_money()
 
     dgettext("stores", "You could have saved %{amount}", amount: savings)
+  end
+
+  defp maybe_redirect_to_handing(%{assigns: %{cart: %{data: nil}, store: store}} = socket) do
+    socket |> push_redirect(to: Routes.handing_path(socket, :index, store))
+  end
+
+  defp maybe_redirect_to_handing(%{assigns: %{cart: cart, store: store}} = socket) do
+    not_copied_cart = %{cart | data: %{cart.data | copied: false}}
+
+    valid? =
+      Cart.changeset(cart, %{}, store.account).valid? &&
+        Transactions.Data.changeset(cart.data, %{}).valid? &&
+        Transactions.can_be_copied?(store, not_copied_cart, not_copied_cart)
+
+    case valid? do
+      true -> socket
+      _ -> socket |> push_redirect(to: Routes.handing_path(socket, :index, store))
+    end
   end
 end
