@@ -45,6 +45,18 @@ defmodule Tq2Web.Store.HandingLive do
     end
   end
 
+  @impl true
+  def handle_event("save", _, %{assigns: %{store: store, token: token}} = socket) do
+    cart = Transactions.get_cart(store.account, token)
+
+    socket =
+      socket
+      |> assign(cart: cart)
+      |> put_changeset()
+
+    {:noreply, socket}
+  end
+
   defp finish_mount(%{assigns: %{cart: nil, store: store}} = socket) do
     socket =
       socket
