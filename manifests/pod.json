@@ -158,24 +158,6 @@
             }
           },
           {
-            "name": "PERFIT_ENDPOINT",
-            "valueFrom": {
-              "configMapKeyRef": {
-                "key": "perfitEndpoint",
-                "name": "tq2-app-config"
-              }
-            }
-          },
-          {
-            "name": "PERFIT_API_KEY",
-            "valueFrom": {
-              "secretKeyRef": {
-                "key": "perfitApiKey",
-                "name": "tq2-app-secrets"
-              }
-            }
-          },
-          {
             "name": "WEB_PUSH_PUBLIC_KEY",
             "valueFrom": {
               "configMapKeyRef": {
