@@ -39,7 +39,7 @@ defmodule Tq2.MixProject do
       {:phoenix_ecto, ">= 4.1.0"},
       {:ecto_sql, ">= 3.6.0"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_live_view, ">= 0.15.0"},
+      {:phoenix_live_view, "0.15.4"},
       {:floki, ">= 0.27.0", only: :test},
       {:phoenix_html, ">= 2.11.0"},
       {:phoenix_live_reload, ">= 1.3.0", only: :dev},
