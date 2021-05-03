@@ -484,9 +484,35 @@
                                                                              loading: "lazy",
                                                                              alt: gettext("Teiqui") %>
           </p>
+
+          <p class="h4 my-3">
+            <%= link to: "https://www.facebook.com/teiqui/",
+                     class: "text-white text-decoration-none mr-2",
+                     target: "_blank" do %>
+              <i class="bi bi-facebook"></i>
+            <% end %>
+
+            <%= link to: "https://www.youtube.com/channel/UCNuJ0LCyeBxncE1D0GcxOKQ",
+                     class: "text-white text-decoration-none mx-2",
+                     target: "_blank" do %>
+              <i class="bi bi-youtube"></i>
+            <% end %>
+
+            <%= link to: "https://www.instagram.com/tiendas.teiqui/",
+                     class: "text-white text-decoration-none mx-2",
+                     target: "_blank" do %>
+              <i class="bi bi-instagram"></i>
+            <% end %>
+
+            <%= link to: "https://wa.me/542612794085",
+                     class: "text-white text-decoration-none ml-2",
+                     target: "_blank" do %>
+              <i class="bi bi-whatsapp"></i>
+            <% end %>
+          </p>
         </div>
         <div class="col-lg-2 offset-lg-4">
-          <p class="mb-1">
+          <p class="mb-1 mt-3">
             <%= dgettext("page", "Need any help?") %>
           </p>
           <p class="mb-1">
